@@ -48,3 +48,7 @@ See [source and licensing policy](docs/LICENSING.md). Repository, dataset and mo
 ## First process comparison
 
 [Ethyl acetate comparison audit](comparisons/ethyl-acetate/README.md): source values, a proposed common basis, discrepancies and execution gates. Two configurations are specified; full-plant simulation remains blocked at the pinned revision.
+
+## Dataset architecture
+
+See [the dataset map and diagrams](docs/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.

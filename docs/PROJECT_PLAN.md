@@ -8,6 +8,10 @@ Build a traceable dataset and an evaluated adaptation of an existing open model 
 
 Start from reactions documented in CHEPTA and papers whose models can actually be supported. Prepare separation-dependent cases while the required units are developed.
 
+## Knowledge-guided dataset design
+
+The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The immediate next deliverable is a sourced operation-decision example; route comparisons remain downstream verification tasks.
+
 ## Refinements
 
 - Keep individual reproducible cases and add comparison records linking alternatives and sources.

@@ -27,3 +27,7 @@ Use `comparison.template.json` for alternatives producing the same product. Popu
 A correct target may be a conditional recommendation, a trade-off or a request for missing information. Do not label the paper author's preferred option as the universal best route. Evaluate changed objectives/constraints and unseen process families as well as numerical reproduction. See the revised project plan for release and training gates.
 
 The ethanol case in `cases/` is an executed draft, not accepted training data. Its two kinetic variants are not two complete process routes.
+
+## Dataset architecture
+
+See [the dataset map and diagrams](../docs/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
