@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "candidates": [
+    {
+      "id": "methanol-co2-loop",
+      "family": "methanol",
+      "title": "CO2 hydrogenation to methanol: synthesis loop, then purification",
+      "priority": 1,
+      "source_ids": [
+        "medrano-garcia-2025"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "test/equilibrium-reactor.test.js",
+        "test/reactors.test.js"
+      ],
+      "existing_units": [
+        "feed",
+        "mixer",
+        "compressor",
+        "heater",
+        "hx",
+        "equilibrium-reactor",
+        "pfr",
+        "flash",
+        "valve",
+        "splitter",
+        "product"
+      ],
+      "required_extensions": [
+        "distillation column for the complete purified-product case"
+      ],
+      "status": "candidate_partial",
+      "scope": "First assess reactor/condensation/recycle/purge; keep purified-product extension separate.",
+      "blockers": [
+        "Paper PFR kinetic model and complete specifications still need extraction and independent checking.",
+        "Audit high-pressure phase behavior, property ranges and binary parameters; unit availability alone is insufficient.",
+        "No Lab flowsheet has been executed yet."
+      ],
+      "next_action": "Retrieve supporting information, create a specifications ledger, then reproduce the documented upstream reactor test.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "ethyl-acetate-conventional",
+      "family": "ethyl-acetate",
+      "title": "Acetic acid + ethanol: conventional ethyl acetate production",
+      "priority": 2,
+      "source_ids": [
+        "sulgan-2020",
+        "piotrowski-kubica-2021",
+        "kirbaslar-2001"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "test/equilibrium-reactor.test.js",
+        "test/kinetic-reactors.test.js"
+      ],
+      "existing_units": [
+        "feed",
+        "mixer",
+        "heater",
+        "hx",
+        "cstr",
+        "equilibrium-reactor",
+        "flash",
+        "splitter",
+        "product"
+      ],
+      "required_extensions": [
+        "rigorous distillation",
+        "validated liquid-liquid separation for this mixture",
+        "vapor-association treatment or an explicitly evaluated method alternative",
+        "multistage extraction for the Piotrowski extension"
+      ],
+      "status": "blocked_units_and_methods",
+      "scope": "Use Sulgan's conventional process first; reactive-distillation variants are deferred.",
+      "blockers": [
+        "CHEPTA's existing equilibrium reaction is not a validated kinetic CSTR matching the paper.",
+        "NRTL-HOC and rate-based columns differ from the planned first CHEPTA column model.",
+        "Need auditable kinetic basis and property parameters; preserve the distinction between internal recycle/product streams."
+      ],
+      "next_action": "Extract the conventional case's specification ledger from Figure 1 and Tables 1–2 and audit its reactor kinetics.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "ethanol-dehydration",
+      "family": "ethanol-dehydration",
+      "title": "Ethanol to ethylene and diethyl ether",
+      "priority": 3,
+      "source_ids": [
+        "aali-hadi-2023",
+        "van-der-borght-2019",
+        "yoo-2021"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "test/kinetic-reactors.test.js",
+        "validation/python/reference_kinetics.py"
+      ],
+      "existing_units": [
+        "feed",
+        "heater",
+        "hx",
+        "compressor",
+        "pfr",
+        "flash",
+        "splitter",
+        "product"
+      ],
+      "required_extensions": [
+        "distillation for full purification",
+        "additional species and transport model audit for the industrial microkinetic case"
+      ],
+      "status": "candidate_partial",
+      "scope": "Start with the existing Aali–Hadi reactor; treat industrial/full-plant extensions as separate cases.",
+      "blockers": [
+        "Aali–Hadi PDF and parameter transcription need fresh verification.",
+        "The existing test includes assumed bed geometry.",
+        "Do not combine kinetics from different catalysts or silently drop side products."
+      ],
+      "next_action": "Obtain the source PDF, audit the rate and catalyst units, and reproduce the existing PFR comparison.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "cumene-hydroperoxide-cleavage",
+      "family": "cumene-cleavage",
+      "title": "Cumene hydroperoxide to phenol and acetone",
+      "priority": 4,
+      "source_ids": [
+        "rawlings-ekerdt"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "test/kinetic-reactors.test.js",
+        "docs/decisions/2026-10-28-03-reactors-finish.md"
+      ],
+      "existing_units": [
+        "feed",
+        "cstr",
+        "heater",
+        "flash",
+        "product"
+      ],
+      "required_extensions": [
+        "distillation for product recovery",
+        "appropriate mixture-property data for a full process"
+      ],
+      "status": "blocked_source_and_data",
+      "scope": "Existing CSTR is a teaching example; no complete open process paper accepted in this audit.",
+      "blockers": [
+        "Book reuse rights need review.",
+        "CHEPTA documents a conversion difference caused by its variable liquid volume; retain this qualification.",
+        "Ideal liquid method and assumed pressure in the upstream example do not establish full-process validity."
+      ],
+      "next_action": "Find an open primary process paper with feed, kinetics, thermodynamics and separation data.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "benzene-pyrolysis",
+      "family": "benzene-pyrolysis",
+      "title": "Benzene pyrolysis involving biphenyl and p-terphenyl",
+      "priority": 5,
+      "source_ids": [
+        "rawlings-ekerdt"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "src/data/components.json"
+      ],
+      "existing_units": [
+        "feed",
+        "pfr",
+        "heater"
+      ],
+      "required_extensions": [
+        "p-terphenyl ideal-gas heat capacity",
+        "downstream unit audit after selecting a process source"
+      ],
+      "status": "blocked_source_and_data",
+      "scope": "Deferred; data-gap case only.",
+      "blockers": [
+        "CHEPTA explicitly lists missing p-terphenyl ideal-gas heat capacity.",
+        "No complete open training source accepted."
+      ],
+      "next_action": "Resolve the property gap and select an openly reusable process reference before building.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "hmf-rehydration",
+      "family": "hmf-rehydration",
+      "title": "HMF rehydration to levulinic and formic acids",
+      "priority": 6,
+      "source_ids": [],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "src/data/components.json"
+      ],
+      "existing_units": [
+        "feed",
+        "cstr",
+        "pfr",
+        "heater"
+      ],
+      "required_extensions": [
+        "levulinic-acid ideal-gas heat capacity",
+        "separation route and unit audit"
+      ],
+      "status": "blocked_source_and_data",
+      "scope": "Deferred research lead; no source-complete flowsheet.",
+      "blockers": [
+        "CHEPTA explicitly lists missing levulinic-acid ideal-gas heat capacity.",
+        "No primary process paper accepted in this initial shortlist."
+      ],
+      "next_action": "Select an open process source and resolve the property gap.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    }
+  ]
+}
