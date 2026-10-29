@@ -36,7 +36,7 @@ New papers first enter the evidence register and retrieval collection. Reproduce
 ## Next work
 
 - Review the ethanol source ledger, adsorption comparison, unit ambiguities and thermodynamic qualifications. Obtain underlying experimental data before claiming physical validation.
-- Prepare the two-route comparison ledger and identify missing unit/method capabilities. Do not transplant kinetics across catalysts or ignore side products.
+- Comparison ledger prepared: see [ethyl acetate audit](../comparisons/ethyl-acetate/README.md). Start with the 2021 S1/S2 pair at matched quality; retain Sulgan as the cross-paper extension. Next extract/balance complete stream tables and resolve energy/impurity inconsistencies before full-process execution.
 - Retrieve and audit the methanol supporting information for a later full-process case.
 - Recheck CHEPTA capabilities when adopting a new engine revision; keep old results tied to their original revision.
 

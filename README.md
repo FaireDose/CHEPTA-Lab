@@ -44,3 +44,7 @@ GitHub is the working record. A checked dataset release can later be published o
 
 See [source and licensing policy](docs/LICENSING.md). Repository, dataset and model licensing are separate decisions; third-party material retains its own terms.
 
+
+## First process comparison
+
+[Ethyl acetate comparison audit](comparisons/ethyl-acetate/README.md): source values, a proposed common basis, discrepancies and execution gates. Two configurations are specified; full-plant simulation remains blocked at the pinned revision.
