@@ -18,3 +18,4 @@ This project prepares evidence-backed process-simulation cases and AI training d
 - Do not commit API keys, credentials, copied paywalled texts or unreviewed model-generated numerical answers.
 - Run python scripts/validate_catalog.py after changing the catalogue.
 - State exactly what was checked, executed or remains unknown.
+

@@ -8,7 +8,7 @@ Audit: 2026-10-29, CHEPTA [c1adf6bab522](https://github.com/FaireDose/CHEPTA/com
 |---|---|---|---|
 | 1 | CO2 to methanol | Reactor, cooling, flash, recycle and purge | Paper kinetics/specifications audit; distillation for purified product |
 | 2 | Ethyl acetate esterification | Existing equilibrium reactor; later conventional kinetic CSTR plant | Columns, mixture phase behavior, vapor association, rate-based versus equilibrium-stage methods |
-| 3 | Ethanol to ethylene/diethyl ether | Existing catalytic PFR example | Fresh PDF/parameter check; downstream columns; industrial network/transport audit |
+| 3 | Ethanol to ethylene/diethyl ether | Existing catalytic PFR example | Source-unit/experimental review; downstream columns; industrial network/transport audit |
 | 4 | Cumene hydroperoxide to phenol/acetone | Existing teaching CSTR | Open process paper, source rights, mixture data and purification |
 | 5 | Benzene pyrolysis | Deferred | p-Terphenyl ideal-gas heat capacity and process source |
 | 6 | HMF to levulinic/formic acids | Deferred | Levulinic-acid ideal-gas heat capacity and process source |
@@ -23,4 +23,4 @@ Audit: 2026-10-29, CHEPTA [c1adf6bab522](https://github.com/FaireDose/CHEPTA/com
 
 See [the machine-readable records](../data/candidates.json) for source IDs, existing unit types, blockers and next actions. CHEPTA provenance: [worked examples](https://github.com/FaireDose/CHEPTA/blob/c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2/docs/models/reactions.md), [column engine](https://github.com/FaireDose/CHEPTA/blob/c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2/src/units/columns/engine.js), [dispatcher](https://github.com/FaireDose/CHEPTA/blob/c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2/src/api/dispatcher.js).
 
-Recommended first work: obtain the Aali–Hadi PDF for the closest existing reactor case while auditing the methanol supplement as the first full-process candidate. Neither is currently labelled executable in this repository.
+First reactor work is executed: [ethanol benchmark](../cases/ethanol-zsm5-573k/README.md), with six runs and numerical checks. The family is only partially reproduced. Next prepare a common-basis process-route comparison and continue the methanol supplement audit.

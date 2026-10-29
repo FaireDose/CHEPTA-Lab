@@ -1,3 +1,5 @@
 # Executable cases
 
-Add one directory per case after completing its source and specification audit. Include the simulator input, actual outputs, reproduction command and engineering review. No executable case has been created or run during the initial catalogue setup.
+[ethanol-zsm5-573k](ethanol-zsm5-573k/README.md): first draft benchmark, two kinetic variants at three catalyst loadings, executed through CHEPTA's JSON dispatcher and checked by an independent numerical implementation. Inputs, outputs, provenance and unresolved limitations are retained. Human review is pending; zero accepted training examples.
+
+Add one directory per case. Separate source facts, assumptions and numerical results. Every case needs a pinned engine, reproduction instructions and a review record.

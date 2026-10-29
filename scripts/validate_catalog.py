@@ -46,8 +46,32 @@ def validate(sources, cases, upstream):
         # This file is a research queue, never an accepted training dataset.
         if case.get("training_eligible") is not False:
             errors.append(f"{key}: research catalogue entries must not be training-eligible")
-        if case.get("simulation_status") != "not_run" or case.get("engineering_review") != "pending":
-            errors.append(f"{key}: execution/review claims require a separate evidenced case record")
+        if case.get("simulation_status") not in {"not_run", "partial_reproduction"} or case.get("engineering_review") != "pending":
+            errors.append(f"{key}: unknown execution/review status")
+        if case.get("simulation_status") == "partial_reproduction":
+            if not case.get("case_records"):
+                errors.append(f"{key}: execution claim requires separate case records")
+            for path in case.get("case_records", []):
+                file = ROOT / path
+                if not file.is_file():
+                    errors.append(f"{key}: missing case record {path}")
+                    continue
+                record = json.loads(file.read_text())
+                if record.get("family") != case.get("family") or record.get("training_eligible") is not False:
+                    errors.append(f"{key}: wrong family or premature training eligibility")
+                sim = record.get("simulation", {})
+                if sim.get("commit") != case.get("upstream_commit") or sim.get("status") != "executed":
+                    errors.append(f"{key}: missing execution provenance")
+                for field in ("input_file", "output_file", "tool_trace_file"):
+                    if not sim.get(field) or not (file.parent / sim[field]).is_file():
+                        errors.append(f"{key}: missing {field}")
+                verification = file.parent / "results/verification.json"
+                if not verification.is_file():
+                    errors.append(f"{key}: missing numerical verification")
+                else:
+                    result = json.loads(verification.read_text())
+                    if result.get("status") != "passed" or not result.get("checks") or not all(c.get("passed") for c in result["checks"]):
+                        errors.append(f"{key}: numerical checks have not passed")
         if not case.get("source_ids") and case.get("status") != "blocked_source_and_data":
             errors.append(f"{key}: a source-free case must be blocked")
     return errors
@@ -60,7 +84,8 @@ def main():
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Catalogue OK: {len(sources)} sources, {len(cases)} candidate families; 0 accepted training examples.")
-    print("Metadata checks only; no simulation or engineering validation performed.")
+    print("Metadata and recorded-evidence checks only; this command does not rerun simulations or perform engineering review.")
 
 if __name__ == "__main__":
     main()
+

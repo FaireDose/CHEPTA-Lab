@@ -10,13 +10,11 @@ Narin A. Aali; Ghassan J. Hadi; 2023. DOI: [10.24237/djes.2023.16203](https://do
 
 [Source / open copy](https://www.djes.info/index.php/djes/article/view/1139)
 
-- Access checked: `publisher_abstract`.
-- License: CC-BY-4.0 reported by CHEPTA; primary license verification pending. Corpus status: `needs_review`.
-- Use: Closest match to CHEPTA's existing ethanol PFR example.
-- Inspect: Equations 4 and 14; Tables 8 and 9 (locators from CHEPTA documentation, not rechecked in PDF).
-- Remaining work: Retrieve the publisher PDF and compare the equations, parameter units, catalyst basis, and temperature range.
-- Limitation: Publisher abstract opened; full text could not be retrieved in this audit (403/timeouts).
-- Limitation: Do not mark the existing constants as independently checked. CHEPTA's bed geometry includes assumptions.
+- Access checked: publisher full PDF; CC BY 4.0 stated on p. 30. Corpus status: `attribution_required`.
+- Equations 4/14 and Tables 8/9/12 have been transcribed and used in a draft benchmark.
+- The upstream simplification omits product adsorption terms available in Table 12. Both versions were executed at three catalyst loadings and independently checked.
+- Pressure-unit conventions and original experimental evidence remain unresolved. Human engineering review is pending.
+- See the [source ledger and values](../cases/ethanol-zsm5-573k/SOURCE_LEDGER.md) and [executed case](../cases/ethanol-zsm5-573k/README.md).
 
 ## medrano-garcia-2025
 
@@ -130,4 +128,5 @@ James B. Rawlings; John G. Ekerdt.
 - Inspect: Turkish Journal of Engineering and Environmental Sciences 25, 569–577; full text not retrieved.
 - Remaining work: Locate an accessible publisher or authorized repository copy and check its reuse terms.
 - Limitation: Direct publisher access failed; no kinetic parameters accepted from search snippets.
+
 

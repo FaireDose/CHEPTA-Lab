@@ -18,3 +18,12 @@ Keep measured data, source-reported simulations, our simulations and assumptions
 Only release examples after all checks are complete. Store related variations under the same family/source group when splitting training and evaluation data. Reserve unseen processes to test transfer.
 
 A future training exporter can convert accepted examples into conversations with tool calls and results. No exporter or training configuration is supplied until the first real case establishes the format.
+
+
+## Comparison examples
+
+Use `comparison.template.json` for alternatives producing the same product. Populate `alternatives` with entries shaped like `alternative_record_contract`, then remove that explanatory contract from the completed record. Declare a common basis and record the evidence for all normalization. Keep objectives, fixed inputs, adjustable variables and their bounds distinct. Uncertain inputs without defensible bounds remain unknown.
+
+A correct target may be a conditional recommendation, a trade-off or a request for missing information. Do not label the paper author's preferred option as the universal best route. Evaluate changed objectives/constraints and unseen process families as well as numerical reproduction. See the revised project plan for release and training gates.
+
+The ethanol case in `cases/` is an executed draft, not accepted training data. Its two kinetic variants are not two complete process routes.

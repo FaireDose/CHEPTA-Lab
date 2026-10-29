@@ -1,0 +1,145 @@
+{
+  "schema_version": 2,
+  "id": "ethanol-zsm5-573k",
+  "family": "ethanol-dehydration",
+  "status": "draft",
+  "training_eligible": false,
+  "source_ids": [
+    "aali-hadi-2023"
+  ],
+  "task": {
+    "request": "Reproduce the upstream ethanol benchmark and quantify inclusion of published product adsorption terms at the same conditions.",
+    "given": [
+      "input.json",
+      "SOURCE_LEDGER.md"
+    ],
+    "required_outputs": [
+      "Component flows",
+      "Conversion",
+      "Independent numerical comparison",
+      "Assumption limitations"
+    ],
+    "missing_information": [
+      "Original experimental dataset",
+      "Resolved pressure-unit convention",
+      "Catalyst characterization"
+    ],
+    "objectives": [
+      "Check numerical implementation and sensitivity to equation simplification"
+    ],
+    "hard_constraints": [
+      "573.15 K",
+      "101.325 kPa",
+      "Pure ethanol",
+      "No full-process ranking"
+    ]
+  },
+  "evidence": [
+    {
+      "source_id": "aali-hadi-2023",
+      "ledger_file": "SOURCE_LEDGER.md",
+      "classification": "fitted_parameters_and_explicit_assumptions"
+    }
+  ],
+  "engineering": {
+    "components": [
+      "ethanol",
+      "ethylene",
+      "water",
+      "diethyl-ether"
+    ],
+    "reactions": [
+      "ethanol -> ethylene + water",
+      "2 ethanol -> diethyl ether + water"
+    ],
+    "property_method": "PR; fixed-T/P rates use partial pressures yP",
+    "decisions": [
+      "Retain upstream simplification as benchmark; add separate Table-12 variant.",
+      "Do not equate solver agreement with experimental validity."
+    ],
+    "assumptions": [
+      "Pure ethanol 1 mol/h normalized basis",
+      "0.01 m tube and 700 kg/m3 assumed bed",
+      "Isothermal, no pressure drop, single vapor phase"
+    ],
+    "limitations": [
+      "Not Figure-8 reproduction",
+      "No experimental validation",
+      "PR missing and out-of-range binary parameters",
+      "Unit convention unresolved"
+    ],
+    "fixed_inputs": [
+      "T_K=573.15",
+      "P_kPa=101.325",
+      "feed_mol_h=1"
+    ],
+    "adjustable_variables_with_bounds_and_sources": [
+      {
+        "name": "W/F",
+        "unit": "g catalyst h/mol",
+        "lower": 0.38,
+        "upper": 1.166,
+        "source": "Section 2, p. 31",
+        "tested": [
+          0.38,
+          0.773,
+          1.166
+        ]
+      }
+    ],
+    "uncertain_parameters_with_evidence": [
+      {
+        "name": "kinetic parameter uncertainty",
+        "bounds": null,
+        "reason": "Not established from source audit"
+      }
+    ],
+    "alternatives": [
+      "upstream_simplified",
+      "table12_adsorption"
+    ],
+    "rejected_alternatives": [],
+    "conditional_recommendation": "Use as a numerical benchmark only pending source/engineering review; do not infer a process-route winner."
+  },
+  "simulation": {
+    "engine": "CHEPTA",
+    "commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2",
+    "input_file": "input.json",
+    "output_file": "results/run-manifest.json",
+    "tool_trace_file": "results/run-manifest.json",
+    "status": "executed",
+    "engine_warnings": [
+      "See stream warnings in actual outputs and results/verification.json; top-level warnings do not include them."
+    ]
+  },
+  "verification": {
+    "balance_checks": [
+      {
+        "file": "results/verification.json",
+        "status": "passed",
+        "scope": "Atom balance; rounded-MW mass; internal energy accounting only"
+      }
+    ],
+    "independent_comparisons": [
+      {
+        "file": "results/verification.json",
+        "method": "Independent species-flow ODE with SciPy DOP853",
+        "status": "passed",
+        "scope": "Numerical implementation only"
+      }
+    ],
+    "human_review": {
+      "status": "pending",
+      "reviewer": null,
+      "date": null
+    },
+    "rights_review": {
+      "status": "pending",
+      "notes": [
+        "Publisher PDF states CC BY 4.0; attribution and modifications recorded. Final release review pending."
+      ]
+    }
+  },
+  "split": null,
+  "split_group": "ethanol-dehydration/aali-hadi-2023"
+}

@@ -13,3 +13,4 @@ The Yoo article states CC BY-NC 3.0. The Rawlings–Ekerdt author site provides 
 The other four priority papers have observed CC BY 4.0 main-article licenses. Attribution and source-specific review remain required. Training on a paper and redistributing a paper are separate uses; this repository currently does neither.
 
 Keep the eventual base model license and any synthetic-data provider terms in the model release record. Do not represent generated explanations as text authored by the cited researchers.
+

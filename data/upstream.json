@@ -2,8 +2,8 @@
   "repository": "https://github.com/FaireDose/CHEPTA",
   "commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2",
   "audit_date": "2026-10-29",
-  "audit_type": "source_and_documentation_only",
-  "runtime_tests_run": false,
+  "audit_type": "source_documentation_and_targeted_runtime",
+  "runtime_tests_run": true,
   "evidence": [
     {
       "path": "docs/models/reactions.md",
@@ -43,5 +43,12 @@
     "columns": "solveCascade throws NOT_AVAILABLE; solve_column capability unsupported",
     "levulinic_acid": "idealGasHeatCapacity marked unavailable",
     "p_terphenyl": "idealGasHeatCapacity marked unavailable"
+  },
+  "runtime_evidence": {
+    "case": "cases/ethanol-zsm5-573k/record.json",
+    "upstream_test": "node --test --test-name-pattern=\"worked example: ethanol\" test/kinetic-reactors.test.js",
+    "upstream_test_result": "1 passed, 0 failed",
+    "scope": "Only ethanol benchmark exercised; no claim that all audited capabilities were run.",
+    "acquisition": "GitHub archive requested by full pinned commit; runtime manifest records key file hashes."
   }
 }
