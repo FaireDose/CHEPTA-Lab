@@ -49,6 +49,6 @@ The pinned CHEPTA revision c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2 returns unsu
 
 Before either plant runs: audit all Table A1/A2 streams and rounding balances; resolve kinetics and energy/quality inconsistencies; verify UNIQUAC binary sets against VLE/LLE data; implement or adopt verified distillation/extraction models and recycle convergence. Sulgan additionally needs an explicit treatment of vapor association and non-equilibrium column differences. Arbitrary component splitters cannot fill these gaps.
 
-Next executable subtask: extract and independently balance the published S1/S2 stream tables, preserving residuals and incomplete boundaries. A full-plant comparison remains blocked; no ranking or accepted training label is generated.
+Stream and equipment audit completed: see [56 streams, 19 blocks and balance results](STREAM_EQUIPMENT_AUDIT.md). Next resolve flagged balances and conflicting equipment specifications. A full-plant comparison remains blocked; no ranking or accepted training label is generated.
 
 Human engineering review and final rights review: pending. Attribution is retained; transcription and proposed comparison choices are our adaptation. No paper PDF is redistributed.
