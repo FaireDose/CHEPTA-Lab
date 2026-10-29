@@ -10,7 +10,7 @@ Start from reactions documented in CHEPTA and papers whose models can actually b
 
 ## Knowledge-guided dataset design
 
-The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The immediate next deliverable is a sourced operation-decision example; route comparisons remain downstream verification tasks.
+The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. Next retrieve independent phase-equilibrium data and verify its applicability; route comparisons remain downstream verification tasks.
 
 ## Refinements
 

@@ -31,3 +31,7 @@ The ethanol case in `cases/` is an executed draft, not accepted training data. I
 ## Dataset architecture
 
 See [the dataset map and diagrams](../docs/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
+
+## First operation-selection draft
+
+[Ethyl acetate extraction and feed conditioning](drafts/ethyl-acetate-extraction/README.md) links physical evidence to a provisional decision, explicit normalization and five evaluation prompts. No new simulation or acceptance is claimed.
