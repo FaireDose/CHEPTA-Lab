@@ -19,3 +19,5 @@ This project prepares evidence-backed process-simulation cases and AI training d
 - Run python scripts/validate_catalog.py after changing the catalogue.
 - State exactly what was checked, executed or remains unknown.
 
+
+- Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.

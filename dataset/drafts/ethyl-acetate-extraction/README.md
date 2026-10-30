@@ -16,7 +16,7 @@ The feed composition comes from S1 stream 9, before it is mixed with recycled st
 - [Decision record](decision.json): task inputs separated from the proposed target and verification requirements. The inherited key `reviewed_target` is a template name only; `target_review_status` explicitly says unreviewed draft.
 - [Basis](basis.json): original state and explicit normalization formula.
 - [Evaluation prompts](evaluation-prompts.json): five unscored variations testing physical reasoning, missing information and capacity handling. These are related examples, not a held-out benchmark.
-- [Research leads](research-leads.json): independent measurement source to retrieve before quantitative validation.
+- [Research leads](research-leads.json): optional measurement lead, deferred unless a concrete CHEPTA data gap requires it.
 
 ## Evidence and attribution
 
@@ -26,6 +26,12 @@ Arce, Alonso and Vidal (1999), [DOI 10.1252/jcej.32.440](https://doi.org/10.1252
 
 ## What acceptance still requires
 
-Obtain independent phase-equilibrium data and an applicable property model; check the actual combined feed after water addition; verify phase fractions, ester recovery and ethanol removal; assess downstream purification and utility implications; complete engineering and rights review. Evidence may change the shortlist. Do not assume that a two-phase mixture exists at every composition or that an enriched organic phase meets final purity.
+Reuse CHEPTA property models and existing validation after checking applicability; check the actual combined feed after water addition; verify phase fractions, ester recovery and ethanol removal; assess downstream purification and utility implications; complete engineering and rights review. Evidence may change the shortlist. Do not assume that a two-phase mixture exists at every composition or that an enriched organic phase meets final purity.
 
 Metadata checks confirm references and normalization, not the engineering decision. No model has been trained on this draft.
+
+## Updated scope
+
+Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
+
+See [operation reasoning](OPERATION_REASONING.md) for the expanded process example.

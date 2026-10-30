@@ -68,6 +68,12 @@ Capacity is not a memorized restriction. It may still affect technology selectio
 
 Use [evidence.template.json](../dataset/evidence.template.json) for individual facts, [decision.template.json](../dataset/decision.template.json) for operation choices, and [example.template.json](../dataset/example.template.json) for linked process cases. These are draft scaffolds, not validated schemas or accepted examples.
 
-First draft prepared: [extraction and feed conditioning](../dataset/drafts/ethyl-acetate-extraction/README.md). Next obtain independent phase-equilibrium tables and check the mixture model before numerical verification. Preserve its published balance discrepancies as qualifications; investigate during reproduction without making them the main learning objective. No new physical claims or accepted targets are created by this design document.
+First draft prepared: [extraction and feed conditioning](../dataset/drafts/ethyl-acetate-extraction/README.md). Next connect operation decisions to CHEPTA calculations and existing validation. Preserve its published balance discrepancies as qualifications; investigate during reproduction without making them the main learning objective. No new physical claims or accepted targets are created by this design document.
 
 Review provenance, applicable conditions, reasoning, actual simulation results and rights before release. Keep paper/process/capacity variants together when splitting data. Evaluate new compositions and specifications, appropriate abstention, and selection rationale—not just agreement with a published equipment list. No training starts with this documentation update.
+
+## Division of responsibility
+
+Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
+
+Literature supplies process reasoning and worked examples. CHEPTA supplies thermodynamic calculations. Reference the engine revision and applicable validation evidence; do not interpret the mere presence of a package as coverage of every mixture.

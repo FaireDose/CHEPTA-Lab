@@ -10,7 +10,7 @@ Start from reactions documented in CHEPTA and papers whose models can actually b
 
 ## Knowledge-guided dataset design
 
-The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. Next retrieve independent phase-equilibrium data and verify its applicability; route comparisons remain downstream verification tasks.
+The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. Next map the engineering decisions to CHEPTA calculations, reusing existing property validation; route comparisons remain downstream verification tasks.
 
 ## Refinements
 
@@ -50,3 +50,7 @@ GitHub holds plans, source metadata, runnable cases, tests and review history. H
 
 No training, rented GPU, paid API call, automatic scraping job or Hugging Face publication is started by this work. The previously discussed approximately USD 100 experiment is a planning allowance, not a purchase or guaranteed total cost.
 
+
+## Property-model reuse
+
+Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
