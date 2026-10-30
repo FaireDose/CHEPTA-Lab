@@ -2,7 +2,7 @@
 
 There are currently **zero accepted training examples**. The catalogue is research metadata, not a dataset of correct engineering answers.
 
-Copy example.template.json to create a draft. Each completed example should record:
+Use [PIPELINE.md](PIPELINE.md) and the canonical records in [records/pilot.json](records/pilot.json) for new training tasks. The legacy example template still describes full simulation cases, which should record:
 
 1. The user's engineering request and which information is missing.
 2. Referenced inputs with original units and a page/table/equation locator.
@@ -15,9 +15,9 @@ Copy example.template.json to create a draft. Each completed example should reco
 
 Keep measured data, source-reported simulations, our simulations and assumptions labelled separately. Do not put invented successful outputs in an example.
 
-Only release examples after all checks are complete. Store related variations under the same family/source group when splitting training and evaluation data. Reserve unseen processes to test transfer.
+Only release tasks after the checks appropriate to their claims are complete. Literature explanation and conditional-selection tasks do not require an artificial simulation; numerical claims require actual runs and comparison. All tasks require source, human engineering, rights and context review. Store related variations under the same family/source group when splitting training and evaluation data. Reserve unseen processes to test transfer.
 
-A future training exporter can convert accepted examples into conversations with tool calls and results. No exporter or training configuration is supplied until the first real case establishes the format.
+The exporter now generates explicitly labeled review previews and gated releases. It uses actual saved request/response artifacts for the ethanol replay. No training configuration or model run has been started.
 
 
 ## Comparison examples

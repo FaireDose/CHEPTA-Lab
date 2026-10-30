@@ -12,7 +12,7 @@ This project prepares evidence-backed process-simulation cases and AI training d
 - Do not replace unsupported separation physics with arbitrary component splits and call it a paper reproduction.
 - Preserve failed runs and disagreements. Convergence and balance closure do not establish physical accuracy.
 - Agent drafting and automated checks are not independent human engineering review.
-- Keep drafts out of training releases. Before eligibility, require runnable inputs, actual outputs, independent comparison, completed engineering review and resolved source rights.
+- Keep drafts out of training releases. Apply dataset/PIPELINE.md task-specific gates: literature explanations and conditional selection tasks require source, human engineering, rights and context review; calculated targets additionally require actual execution and appropriate numerical comparison. Process-performance release gates are not yet implemented and such tasks remain blocked. Reviews must match the current task and dependency digest.
 - Keep variants of a paper, flowsheet and process family together when defining train/development/test splits; document the chosen grouping and any deliberate transfer experiment.
 - Keep sources with unresolved rights or non-commercial restrictions out of the initial commercially reusable release.
 - Do not commit API keys, credentials, copied paywalled texts or unreviewed model-generated numerical answers.
@@ -21,3 +21,6 @@ This project prepares evidence-backed process-simulation cases and AI training d
 
 
 - Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
+
+- Canonical training records live in dataset/records/pilot.json and follow dataset/schemas/corpus.schema.json. Use scripts/dataset_pipeline.py to validate and export; never train from review previews. Keep legacy research notes distinct from accepted task records.
+- After changing dataset records, schemas or the exporter, run the pipeline validator and python -m unittest discover -s tests. Do not approve human reviews on behalf of a person.

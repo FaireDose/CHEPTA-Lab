@@ -1,0 +1,35 @@
+{
+  "type": "function",
+  "function": {
+    "name": "chepta_run",
+    "description": "Execute a CHEPTA JSON dispatcher request using a separately supplied pinned engine checkout.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "capability": {
+          "type": "string",
+          "enum": [
+            "solve_flowsheet"
+          ]
+        },
+        "input": {
+          "type": "object",
+          "properties": {
+            "flowsheet": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "flowsheet"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "capability",
+        "input"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

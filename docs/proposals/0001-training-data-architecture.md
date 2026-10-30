@@ -1,6 +1,6 @@
 # Proposal: evidence records and task-specific training exports
 
-Status: proposed, not implemented. Review date: 2026-10-30.
+Status: initial pilot implemented on 2026-10-30 following owner authorization. See [the implementation guide](../../dataset/PIPELINE.md) for the supported subset and remaining work. The audit below preserves the pre-implementation findings.
 
 ## Decision and scope
 
@@ -86,7 +86,7 @@ Keep short, checkable engineering justifications. Do not manufacture an author's
 4. **Export genuine tool interactions.** Generate model-compatible messages and tool definitions from canonical records, with assistant calls linked to actual tool responses. Tool observations are context, not numbers for the model to invent. Preserve failed runs; train the supported diagnosis, not imitation of a failed action as the preferred action.
 5. **Freeze grouped evaluation before augmentation.** Keep related papers, supplements, flowsheets, process families and capacity variants together under a documented grouping policy. Deduplicate overlapping source material. Assign groups before generating task variants; never randomly split individual questions from the same case.
 
-The acceptance-policy amendment is only proposed here. Existing AGENTS.md rules continue to apply, and no draft becomes training-eligible through this document.
+The task-specific acceptance amendment is now reflected in AGENTS.md and dataset/PIPELINE.md. Existing records remain drafts; implementation does not substitute for review.
 
 ## Evaluation and training boundary
 

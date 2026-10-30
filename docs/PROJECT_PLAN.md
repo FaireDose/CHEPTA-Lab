@@ -10,7 +10,7 @@ Start from reactions documented in CHEPTA and papers whose models can actually b
 
 ## Knowledge-guided dataset design
 
-The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. Next map the engineering decisions to CHEPTA calculations, reusing existing property validation; route comparisons remain downstream verification tasks.
+The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. The first canonical evidence-to-task pilot and exporter are implemented; see [the pipeline guide](../dataset/PIPELINE.md). Next review its source claims and task contexts, then expand independent process coverage. Route comparisons remain downstream verification tasks.
 
 ## Refinements
 
@@ -35,7 +35,7 @@ The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated wo
 
 We choose task inputs and reviewed target actions/answers. Fine-tuning adjusts the model's internal weights to learn those patterns; a pile of papers does not automatically establish engineering truth. Simulator results, sources and review determine acceptable targets. A separate optimizer may vary process settings within justified bounds; that is not model training.
 
-New papers first enter the evidence register and retrieval collection. Reproduce and review their cases before adding a versioned dataset release. Retraining is a deliberate batch experiment after useful examples accumulate, not an automatic action for every paper. Re-run evaluations after changes, maintaining a separate untouched test set.
+New papers first enter the evidence register and retrieval collection. Review literature-grounded explanation/selection tasks before release; reproduce and review executed cases before releasing calculated-result targets. Retraining is a deliberate batch experiment after useful examples accumulate, not an automatic action for every paper. Re-run evaluations after changes, maintaining a separate untouched test set.
 
 ## Next work
 
@@ -54,3 +54,7 @@ No training, rented GPU, paid API call, automatic scraping job or Hugging Face p
 ## Property-model reuse
 
 Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
+
+## Architecture implementation, 2026-10-30
+
+Implemented the proposal with one versioned corpus, a JSON Schema, dependency-bound review records, grouped splits and deterministic preview/release export. The first collection contains 9 evidence claims, 3 decisions and 3 draft tasks; no reviews have been fabricated. Both family splits remain unassigned. The next expansion should add independent source/process coverage, not merely more paraphrases of the same paper.

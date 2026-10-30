@@ -66,14 +66,32 @@ Capacity is not a memorized restriction. It may still affect technology selectio
 
 ## Repository workflow and acceptance
 
-Use [evidence.template.json](../dataset/evidence.template.json) for individual facts, [decision.template.json](../dataset/decision.template.json) for operation choices, and [example.template.json](../dataset/example.template.json) for linked process cases. These are draft scaffolds, not validated schemas or accepted examples.
+Use [the canonical corpus and pipeline](../dataset/PIPELINE.md) for new training tasks. The formal schema links source blocks, evidence, decisions, runs and tasks. Older templates remain research scaffolds; their schema versions are separate from the canonical corpus schema. No record is accepted merely by migration.
 
 First draft prepared: [extraction and feed conditioning](../dataset/drafts/ethyl-acetate-extraction/README.md). Next connect operation decisions to CHEPTA calculations and existing validation. Preserve its published balance discrepancies as qualifications; investigate during reproduction without making them the main learning objective. No new physical claims or accepted targets are created by this design document.
 
-Review provenance, applicable conditions, reasoning, actual simulation results and rights before release. Keep paper/process/capacity variants together when splitting data. Evaluate new compositions and specifications, appropriate abstention, and selection rationale—not just agreement with a published equipment list. No training starts with this documentation update.
+Review provenance, applicable conditions, reasoning and rights before every task release; require actual runs and appropriate comparisons when the target claims calculated results. Explanations and conditional selections can be reviewed without full-process execution. Full process-performance exports remain blocked until their acceptance contract is implemented. Keep paper/process/capacity variants together when splitting data. Evaluate new compositions and specifications, appropriate abstention, and selection rationale—not just agreement with a published equipment list. No training starts with this documentation update.
 
 ## Division of responsibility
 
 Reuse CHEPTA property models, parameter provenance and existing validation. Lab checks applicability to components, conditions and required calculation; it does not routinely remeasure or revalidate phase equilibrium. Investigate underlying data only for a concrete missing parameter, range violation or material disagreement. Process-level balance and performance checks still apply.
 
 Literature supplies process reasoning and worked examples. CHEPTA supplies thermodynamic calculations. Reference the engine revision and applicable validation evidence; do not interpret the mere presence of a package as coverage of every mixture.
+
+## Implemented data path
+
+```mermaid
+flowchart TD
+    S["Versioned source blocks"] --> E["Evidence claims and quantities"]
+    E --> D["Engineering decisions"]
+    E --> T["Tasks with separate inputs and targets"]
+    D --> T
+    R["Actual CHEPTA request and response artifacts"] --> T
+    T --> G{"Task-specific checks and review"}
+    G -->|"Incomplete"| P["Review preview only"]
+    G -->|"Approved"| X["Grouped export"]
+    X --> A["Training messages"]
+    X --> B["Separate evaluation inputs and targets"]
+```
+
+The first implementation covers literature explanation, conditional next-operation selection and numerical-benchmark replay. Retrieval indexing, automatic task generation, full-process performance gates and model training remain future work. Known answer-revealing blocks are excluded from selection inputs; human context review is still needed to catch semantic leakage. Both current family groups are deliberately unassigned until a suitable evaluation corpus exists.

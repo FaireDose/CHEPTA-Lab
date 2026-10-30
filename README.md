@@ -52,3 +52,16 @@ See [source and licensing policy](docs/LICENSING.md). Repository, dataset and mo
 ## Dataset architecture
 
 See [the dataset map and diagrams](docs/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
+
+## Evidence-to-training pilot
+
+The [pipeline guide](dataset/PIPELINE.md) explains schemas, task-specific review and deterministic exports. [Initial collection](dataset/COLLECTION_LOG.md): 7 source blocks, 9 evidence records, 3 decisions, 1 historical execution trace and 3 draft tasks. No accepted training examples.
+
+```bash
+python -m pip install -r requirements-dataset.txt
+python scripts/dataset_pipeline.py validate
+python -m unittest discover -s tests
+python scripts/dataset_pipeline.py preview --out /tmp/chepta-lab-preview-v1
+```
+
+Use a new output directory for each export. Previews are for review only; release currently refuses because all tasks are drafts.
