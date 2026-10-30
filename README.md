@@ -69,3 +69,7 @@ Use a new output directory for each export. Previews are for review only; releas
 ## Delivery milestones
 
 See [the delivery plan](docs/DELIVERY_PLAN.md) for the bounded v1 deliverable, milestone acceptance criteria, engineering/AI responsibilities, token controls and the next five work packets. Current collection and software checks are a pilot; engineering acceptance and model performance remain unproven.
+
+## Current capability audit
+
+[P01 capability matrix, 2026-10-30](docs/CAPABILITY_AUDIT_2026-10-30.md) inspects CHEPTA revision `4a8a9cfb13ea`. Ordinary rigorous and VLL columns now exist; LL extraction and direct column purity specifications remain unsupported. The earlier audit and executed runs above describe their original revision. Initial collection scope: ethanol dehydration, ethyl acetate and CO2-to-methanol. The second numerical case selected for runtime integration is the upstream ChemSep benzene/toluene column. New-revision runtime execution and engineering acceptance remain pending.
