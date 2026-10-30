@@ -95,3 +95,11 @@ flowchart TD
 ```
 
 The first implementation covers literature explanation, conditional next-operation selection and numerical-benchmark replay. Retrieval indexing, automatic task generation, full-process performance gates and model training remain future work. Known answer-revealing blocks are excluded from selection inputs; human context review is still needed to catch semantic leakage. Both current family groups are deliberately unassigned until a suitable evaluation corpus exists.
+
+## Research-informed handoff and evaluation
+
+Apply [the four-paper methods review](RELATED_WORK_METHODS.md) using existing evidence and decision records. Each operation handoff states its required stream change, supporting physics, applicable conditions, known specifications, unresolved inputs and acceptance result. Keep this engineering description separate from simulator syntax.
+
+Preserve source, proposed and executed flowsheets as distinct states. Inferred settings and simplifications remain explicit; convergence of a modified configuration does not verify the original task. Evaluate reproduction, source extraction and new-design selection separately, allowing physically defensible alternatives in the last track. Review consequential conclusions against their evidence even when tool values are correct.
+
+These are methodology requirements; automated handoffs, change tracking and the expanded evaluation remain to be implemented through the delivery plan.

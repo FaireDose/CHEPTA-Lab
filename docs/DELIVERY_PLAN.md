@@ -175,3 +175,9 @@ Primary implementation references checked on 2026-10-30:
 - [Hugging Face TRL SFT trainer](https://huggingface.co/docs/trl/sft_trainer)
 
 Publication value should come from the checked engineering cases, reproducible results and candid error analysis. Training a model is one experiment within that deliverable, not proof of engineering competence.
+
+## 11. Research-informed acceptance refinements
+
+[The four-paper methods review](RELATED_WORK_METHODS.md) adds concrete checks to P01–P05 and M5 without adding milestones. Require an engineering handoff before simulator implementation; preserve original versus modified configurations; evaluate conclusions independently of numerical execution; and distinguish reproduction, extraction and new-design tasks.
+
+These are adopted requirements, not implemented runtime features. Full-process export remains blocked. P01 must establish which capabilities exist before P03 implements engine-dependent initialization or checkpoint behaviour. M3 includes a missing-specification task pair and an unsupported-optimality check. M5 must reject a claimed success obtained only by silently opening a required recycle, relaxing a target or replacing a rigorous separator with a prescribed split.
