@@ -65,3 +65,7 @@ python scripts/dataset_pipeline.py preview --out /tmp/chepta-lab-preview-v1
 ```
 
 Use a new output directory for each export. Previews are for review only; release currently refuses because all tasks are drafts.
+
+## Delivery milestones
+
+See [the delivery plan](docs/DELIVERY_PLAN.md) for the bounded v1 deliverable, milestone acceptance criteria, engineering/AI responsibilities, token controls and the next five work packets. Current collection and software checks are a pilot; engineering acceptance and model performance remain unproven.

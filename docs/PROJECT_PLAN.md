@@ -1,5 +1,7 @@
 # Project plan
 
+The [delivery plan and milestones](DELIVERY_PLAN.md), dated 2026-10-30, control execution order, completion criteria and resource use. The principles and earlier milestones below remain project history and supporting detail.
+
 Revised 2026-10-29 following the owner's clarification of the intended engineering capability.
 
 ## Deliverable
