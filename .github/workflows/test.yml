@@ -1,0 +1,45 @@
+# Checks on every pull request and on every push to main: the catalogue validator, the dataset
+# pipeline's validator, the unit tests and a review-preview export.
+#
+# Security (the same rules as CHEPTA's workflows):
+# - permissions: {} by default; the job only gets a read-only token for the checkout;
+# - the action is pinned to a full commit SHA;
+# - the checkout keeps no credentials, and the job uses no secrets, so running a pull
+#   request's code (also from a fork) cannot reach anything that writes.
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install the dataset requirements in a virtual environment
+        run: |
+          python3 --version
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --disable-pip-version-check -r requirements-dataset.txt
+
+      - name: Catalogue checks
+        run: '"$RUNNER_TEMP/venv/bin/python" scripts/validate_catalog.py'
+
+      - name: Dataset pipeline validation
+        run: '"$RUNNER_TEMP/venv/bin/python" scripts/dataset_pipeline.py validate'
+
+      - name: Unit tests
+        run: '"$RUNNER_TEMP/venv/bin/python" -m unittest discover -s tests'
+
+      - name: Review preview exports (not a release)
+        run: '"$RUNNER_TEMP/venv/bin/python" scripts/dataset_pipeline.py preview --out "$RUNNER_TEMP/preview"'

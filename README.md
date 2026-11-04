@@ -42,7 +42,7 @@ The first ethanol benchmark has been run and numerically checked. Human review, 
 
 GitHub is the working record. A checked dataset release can later be published on Hugging Face, followed by a model adaptation and evaluation. No paid compute or external publication is configured here.
 
-See [source and licensing policy](docs/LICENSING.md). Repository, dataset and model licensing are separate decisions; third-party material retains its own terms.
+See [source and licensing policy](docs/LICENSING.md) and [security and integrity](SECURITY.md). The code is under the MIT License ([LICENSE](LICENSE)); the dataset license is still to be decided. Repository, dataset and model licensing are separate decisions; third-party material retains its own terms.
 
 
 ## First process comparison
