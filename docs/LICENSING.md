@@ -1,6 +1,11 @@
 # Source and release licensing
 
-This private working repository has not selected a blanket code or dataset license. Select those explicitly before an open release.
+This repository is public. Being public lets anyone read it; it does not by itself let them reuse it.
+
+- **Code:** the scripts, tests and case runners (`scripts/`, `tests/`, and the `.py` and `.mjs` files under `cases/` and `comparisons/`) are under the MIT License in [LICENSE](../LICENSE), the same as CHEPTA.
+- **Dataset and documents:** the records, templates, case data and documentation have **no license yet**. The dataset license is decided before any release, together with the rights of every source it draws on; until then they may be read but not reused.
+
+Every source keeps its own terms, whatever this repository's license says.
 
 Every source retains its own terms. An article's open license does not automatically cover externally referenced databases, third-party figures, supplementary files or model outputs produced under another provider's terms.
 
