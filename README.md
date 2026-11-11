@@ -6,6 +6,8 @@ Engineering simulation cases and training data for AI assistants that use CHEPTA
 
 ## Start here
 
+New here, or unsure where this is going? Read [Where we are heading](docs/WHERE_WE_ARE_HEADING.md) (2026-11-11) first. Coordinating sessions start from the [handover](docs/HANDOVER.md).
+
 1. [Candidate processes](docs/CANDIDATE_PROCESSES.md): six reaction families, required units and blockers.
 2. [Initial papers](docs/INITIAL_PAPERS.md): five priority papers, two additional paper leads and one book reference.
 3. [Project plan](docs/PROJECT_PLAN.md): the agreed goal and next tasks.
