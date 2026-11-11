@@ -4,6 +4,7 @@ Numerical implementation check, not experimental or thermodynamic validation.
 """
 import json
 import platform
+import sys
 from pathlib import Path
 import numpy as np
 import scipy
@@ -12,7 +13,9 @@ from scipy.integrate import solve_ivp
 HERE = Path(__file__).resolve().parent
 c = json.loads((HERE / 'input.json').read_text())
 k = c['constants']
-manifest = json.loads((HERE / 'results/run-manifest.json').read_text())
+# Optional argument: another results folder (e.g. results-chepta-0.6.0). Default is unchanged.
+RESULTS = sys.argv[1] if len(sys.argv) > 1 else 'results'
+manifest = json.loads((HERE / RESULTS / 'run-manifest.json').read_text())
 # Columns: ethanol, ethylene, water, diethyl ether. Rows: C, H, O.
 atoms = np.array([[2,2,0,4], [6,4,2,10], [1,0,1,1]], dtype=float)
 feed = np.array([c['feed_mol_h'],0,0,0], dtype=float)
@@ -66,7 +69,7 @@ result={'status':'passed' if all(x['passed'] for x in checks) else 'failed',
   'tolerances':{'component_relative':1e-5,'element_relative':1e-10,'mass_relative':1e-6,'internal_energy_kW':1e-10,'inlet_rate_absolute_mol_gcat_h':1e-12},
   'tolerance_rationale':'Component tolerance matches the upstream benchmark; tighter reference integration isolates solver error. Exact stoichiometry checks elements. Mass tolerance allows rounded databank molecular weights. Energy checks internal closure only.',
   'checks':checks}
-(HERE / 'results/verification.json').write_text(json.dumps(result,indent=2)+'\n')
+(HERE / RESULTS / 'verification.json').write_text(json.dumps(result,indent=2)+'\n')
 for r in checks:
     print(f"{r['id']}: conversion={r['conversion_percent']:.8f}%, max relative error={r['max_component_relative_error']:.3g}, passed={r['passed']}")
 if result['status'] != 'passed':
