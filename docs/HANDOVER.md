@@ -54,29 +54,27 @@ source locator; failed runs are kept; tasks stay `draft` and no human review is 
 checks; open one pull request (do not merge); report once to the coordinator's session id with the link, what to
 check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (or the model used).
 
-## State on 2026-11-11
+## State on 2026-11-11, 18:30 UTC
 
-- `main` at f2df94b. Catalogue check passes (8 sources, 6 families, 0 accepted training examples).
-- Open pull request from `claude/lab-next-steps`: WHERE_WE_ARE_HEADING.md, this handover, rule 7 in AGENTS.md.
-  Documents only.
-- Lab's pin is still an old CHEPTA commit (`data/upstream.json`: c1adf6b, 2026-10-29; the capability audit: 4a8a9cf,
-  2026-10-30). `chepta@0.6.0` is on npm since 2026-11-11 and is not yet pinned.
-- Nothing has been run through the released package, the command line or the MCP server.
 - The maintainer chose (2026-11-11): steps 1 to 4 only; the Atlas and everything about ChemE-as-Code later.
-- Workers started 2026-11-11 (no other worker was running in CHEPTA or Lab): step 1 and step 2, below.
+- Merged: #2 (these documents), #3 (Lab pinned to `chepta@0.6.0`; the six ethanol runs identical to the old commit),
+  #4 (the study record: proposal 0002, schema, `scripts/study_record.py`, the ethanol record with 12 runs).
+- Open, for the maintainer: #5 (step 3: the B2 benzene + toluene column and the methanol separator flash on 0.6.0,
+  each as a study record; all checks pass on top of `main`).
+- Step 4 done: six capability requests sent to CHEPTA's coordinator on 2026-11-11 (table in #5's case READMEs): column
+  purity specifications (M4, in work), a clearer message for `sets: "default"`, MHV1 fit-quality warnings carried
+  into results, the pair named in the MHV1 low-pressure warning, MHV1 source ids to check, SRK + gE (MHV1) for
+  CO2 + water (low priority). Waiting for CHEPTA to place them in releases.
+- No Lab worker running. Steps 1 to 4 are complete once #5 is merged.
 
 ## Queue, in order
 
-1. **Running.** Pin `chepta@0.6.0`; re-run the six ethanol runs through the command line; table of old against new
-   results and warnings. Sonnet. Branch `claude/pin-chepta-0.6.0`.
-2. **Running.** Study record: proposal and JSON schema from CHEPTA ROADMAP rule 5. No ChemE-as-Code mapping (postponed).
-   Opus. Branch `claude/study-record`. Send the draft to CHEPTA's coordinator for its view (G6) once merged.
-3. After 1 and 2 are merged: run the benzene + toluene column (CHEPTA's B2 record, The ChemSep Book) and the methanol
-   separator with PR + gE (MHV1), each as a study record. One worker each.
-4. Capability requests from what steps 1 and 3 refused, sent to CHEPTA's coordinator. Known candidates: acetic acid
-   dimerization in columns, the three-phase flash in columns, purity specifications (in work, M4), costs (v0.7).
-5. Not now (the maintainer, 2026-11-11): review packet, demonstration, held-out cases, baseline; the Atlas and
-   ChemE-as-Code.
+1. When the maintainer has merged #5: report steps 1 to 4 as done and ask which steps to take next (by
+   WHERE_WE_ARE_HEADING.md: 5 review packet, 6 first reaction-separation demonstration after CHEPTA's M4 release,
+   7 held-out cases, 8 baseline).
+2. When CHEPTA releases M4 (column purity specifications): re-run B2 with a purity specification; then the
+   demonstration case (D2 there: CO2 to methanol recommended, its paper supplement still to audit).
+3. Not now (the maintainer, 2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
 
