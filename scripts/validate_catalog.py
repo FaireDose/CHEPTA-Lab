@@ -1,9 +1,30 @@
 #!/usr/bin/env python3
 """Check research metadata. This does not validate simulations or licensing."""
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def validate_pin(upstream, package_json, lock):
+    """The current engine pin must be one exact released npm version, identical in all three files."""
+    errors = []
+    pin = upstream.get("pin")
+    if not isinstance(pin, dict):
+        return ["upstream: missing current 'pin'"]
+    version = pin.get("version")
+    if pin.get("package") != "chepta" or not isinstance(version, str) or not re.fullmatch(r"\d+\.\d+\.\d+", version):
+        errors.append("upstream pin: package must be 'chepta' with an exact version (no ^ or ~)")
+    if not str(pin.get("integrity", "")).startswith("sha512-"):
+        errors.append("upstream pin: integrity must be an sha512 hash")
+    if package_json.get("dependencies", {}).get("chepta") != version:
+        errors.append("package.json: chepta must be pinned to the exact version in data/upstream.json")
+    locked = lock.get("packages", {}).get("node_modules/chepta", {})
+    if locked.get("version") != version or locked.get("integrity") != pin.get("integrity"):
+        errors.append("package-lock.json: chepta version or integrity differs from data/upstream.json")
+    if not pin.get("published") or not isinstance(upstream.get("history"), list) or not upstream["history"]:
+        errors.append("upstream pin: published date and previous pins (history) are required")
+    return errors
 
 def validate(sources, cases, upstream):
     errors = []
@@ -81,6 +102,8 @@ def main():
     cases = json.loads((ROOT / "data/candidates.json").read_text())["candidates"]
     upstream = json.loads((ROOT / "data/upstream.json").read_text())
     errors = validate(sources, cases, upstream)
+    errors += validate_pin(upstream, json.loads((ROOT / "package.json").read_text()),
+                           json.loads((ROOT / "package-lock.json").read_text()))
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Catalogue OK: {len(sources)} sources, {len(cases)} candidate families; 0 accepted training examples.")
