@@ -1,0 +1,73 @@
+{
+  "executed_at": "2026-11-11T13:39:11.777830+00:00",
+  "engine": {
+    "package": "chepta",
+    "version": "0.6.0",
+    "resolved": "https://registry.npmjs.org/chepta/-/chepta-0.6.0.tgz",
+    "integrity": "sha512-i3/U78TPzz93Y0Cp2/WZ+VjhdxSDY6oX5AZdbRDe5kL08P0NVAGKQRGRJyihUJ7SPTgYZzZlz738keuYBpHtFg==",
+    "licence": "MIT"
+  },
+  "node": "v22.23.4",
+  "npm": "10.9.9",
+  "interface": "command line: npx chepta request <file>; exit codes 0 ok, 2 invalid_input, 3 missing_data, 4 unsupported, 5 not_converged, 6 cancelled, 7 out_of_time, 8 error, 1 the command line itself",
+  "input": {
+    "file": "case-input.json",
+    "sha256": "5af5b17575e24f77642aa1cd47d01f56402c09ee3414c47d03619bc89c176aa2"
+  },
+  "runs": [
+    {
+      "id": "pr-mhv1",
+      "thermo": {
+        "model": "PR",
+        "mixing": "MHV1"
+      },
+      "command": "npx chepta request cases/methanol-separator-flash/results-chepta-0.6.0/pr-mhv1.request.json",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "request_file": "results-chepta-0.6.0/pr-mhv1.request.json",
+      "output_file": "results-chepta-0.6.0/pr-mhv1.output.json",
+      "stderr_file": "results-chepta-0.6.0/pr-mhv1.stderr.txt",
+      "request_file_sha256": "bad23a539f3d5b86e64e7c8424f534c4892ec25671d581578ea831fc359a1240",
+      "output_file_sha256": "fd90790742aeec38dd2ff4143b36c595f73e79901add3de8a6f1b24bc6e4e18e"
+    },
+    {
+      "id": "pr-kij",
+      "thermo": {
+        "model": "PR"
+      },
+      "command": "npx chepta request cases/methanol-separator-flash/results-chepta-0.6.0/pr-kij.request.json",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "request_file": "results-chepta-0.6.0/pr-kij.request.json",
+      "output_file": "results-chepta-0.6.0/pr-kij.output.json",
+      "stderr_file": "results-chepta-0.6.0/pr-kij.stderr.txt",
+      "request_file_sha256": "e03d0fa9828396e42f6d2b4d2f63b5fb942bb4dc042975fdf0df58c8d8615fde",
+      "output_file_sha256": "1b62d743fb72fcf8faebf93c8e80eef342e3472e0da9fa9b83c2e7681037a123"
+    },
+    {
+      "id": "srk-mhv1",
+      "thermo": {
+        "model": "SRK",
+        "mixing": "MHV1"
+      },
+      "command": "npx chepta request cases/methanol-separator-flash/results-chepta-0.6.0/srk-mhv1.request.json",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+        "where": []
+      },
+      "request_file": "results-chepta-0.6.0/srk-mhv1.request.json",
+      "output_file": "results-chepta-0.6.0/srk-mhv1.output.json",
+      "stderr_file": "results-chepta-0.6.0/srk-mhv1.stderr.txt",
+      "request_file_sha256": "d9a4cd68503784a587bca773813e153af1f8cf3f6e16f5ef26b85bce467a9f1a",
+      "output_file_sha256": "ab32c3f58f6f2b0458b71b0e135d015afd61413f582b96c01eee4e7fc33d8185"
+    }
+  ]
+}
