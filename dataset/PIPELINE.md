@@ -19,6 +19,10 @@ The source catalogue remains in `data/sources.json`; original process cases and 
 
 Source blocks identify paragraphs, equations, table cells or figure elements through their locators. This pilot annotates seven text blocks from the existing publisher HTML snapshot. It does not yet contain a general PDF parser or image extractor. The original HTML/text extraction software version was not recorded; that limitation is explicit. Document and fragment hashes identify the inspected snapshot, but the current validator cannot re-fetch and confirm the publisher content. Human source review remains required.
 
+## Study records
+
+A study handed to CHEPTA's design-study view is described by a study record (`cases/<case>/study-record.json`, [proposal 0002](../docs/proposals/0002-study-record.md), [schema](schemas/study-record.schema.json)). It points to CHEPTA's request and result files by path and sha256 and never copies their numbers. `python scripts/dataset_pipeline.py validate` also validates every study record; `python scripts/study_record.py` validates them alone. A study record is not a training task and changes no task gate.
+
 ## Task-specific acceptance
 
 Every released task requires an accepted status, no unresolved blockers, assigned split and human approvals for source accuracy, engineering, rights and context. A single engineering review can cover several scopes; each scope is recorded explicitly. Agent checks never impersonate a human reviewer.
