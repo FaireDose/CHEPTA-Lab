@@ -1,0 +1,1117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/FaireDose/CHEPTA-Lab/dataset/schemas/study-record.schema.json",
+  "title": "CHEPTA-Lab study record, format 1",
+  "description": "One study handed from CHEPTA-Lab to CHEPTA (ROADMAP rule 5). Numbers produced by CHEPTA or by Lab's checks are never copied in: they are JSON pointers into files bound by sha256. See docs/proposals/0002-study-record.md.",
+  "type": "object",
+  "properties": {
+    "study_record": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "case_id": {
+      "$ref": "#/$defs/id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "accepted",
+        "withdrawn"
+      ]
+    },
+    "written_on": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "written_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supersedes": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/file_binding"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sources": {
+      "type": "object",
+      "properties": {
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source_ids",
+        "evidence_ids",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "engines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/engine"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variant"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/run"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/value"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "constraint_declaration": {
+      "type": "object",
+      "properties": {
+        "timing": {
+          "enum": [
+            "before_runs",
+            "reconstructed_after_runs"
+          ]
+        },
+        "declared_on": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "timing",
+        "declared_on",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "product_constraints_note": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "constraint_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint_result"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "warning_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/warning_note"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assumption"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "unresolved_inputs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "cost_coverage": {
+      "$ref": "#/$defs/cost_coverage"
+    },
+    "corpus_links": {
+      "type": "object",
+      "properties": {
+        "task_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "run_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "task_ids",
+        "run_ids"
+      ],
+      "additionalProperties": false
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/review"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "study_record",
+    "id",
+    "case_id",
+    "title",
+    "question",
+    "status",
+    "written_on",
+    "written_by",
+    "supersedes",
+    "sources",
+    "files",
+    "engines",
+    "variants",
+    "runs",
+    "values",
+    "constraint_declaration",
+    "constraints",
+    "product_constraints_note",
+    "constraint_results",
+    "checks",
+    "warning_notes",
+    "assumptions",
+    "unresolved_inputs",
+    "cost_coverage",
+    "corpus_links",
+    "reviews",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pointer": {
+      "type": "string",
+      "pattern": "^(/([^~/]|~[01])*)*$"
+    },
+    "ref": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/id"
+        },
+        "pointer": {
+          "$ref": "#/$defs/pointer"
+        }
+      },
+      "required": [
+        "file",
+        "pointer"
+      ],
+      "additionalProperties": false
+    },
+    "file_binding": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "role": {
+          "enum": [
+            "case_record",
+            "source_ledger",
+            "case_input",
+            "runner",
+            "verifier",
+            "execution_manifest",
+            "lab_check",
+            "request",
+            "result",
+            "cost_result",
+            "other"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "path",
+        "sha256",
+        "role"
+      ],
+      "additionalProperties": false
+    },
+    "engine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "package": {
+          "const": "chepta"
+        },
+        "release": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "pin": {
+          "enum": [
+            "release",
+            "commit_between_releases"
+          ]
+        },
+        "commit_observed": {
+          "type": "boolean"
+        },
+        "engine_file_hashes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "request_path": {
+          "const": "CHEPTA.run"
+        },
+        "contracts": {
+          "type": "string",
+          "pattern": "^v\\d+$"
+        },
+        "result_format": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "package",
+        "release",
+        "commit",
+        "pin",
+        "commit_observed",
+        "engine_file_hashes",
+        "request_path",
+        "contracts",
+        "result_format",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "modification": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "simplified_model",
+            "substituted_unit",
+            "opened_recycle",
+            "relaxed_target",
+            "changed_input",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "variant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/modification"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "modifications"
+      ],
+      "additionalProperties": false
+    },
+    "run": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "variant": {
+          "$ref": "#/$defs/id"
+        },
+        "engine": {
+          "$ref": "#/$defs/id"
+        },
+        "interface": {
+          "enum": [
+            "library_dispatcher",
+            "command_line",
+            "mcp_server"
+          ]
+        },
+        "runner": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "request": {
+          "$ref": "#/$defs/id"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "execution_record": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "executed_at": {
+          "$ref": "#/$defs/ref"
+        },
+        "failure_note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "variant",
+        "engine",
+        "interface",
+        "runner",
+        "request",
+        "result",
+        "execution_record",
+        "executed_at",
+        "failure_note"
+      ],
+      "additionalProperties": false
+    },
+    "source_locator": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/id"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source_id",
+        "locator"
+      ],
+      "additionalProperties": false
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "class": {
+          "enum": [
+            "measured",
+            "published",
+            "assumed",
+            "simulated",
+            "derived"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/source_locator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "as_printed": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "conversion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unresolved_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "unit",
+        "class",
+        "ref",
+        "source",
+        "as_printed",
+        "conversion",
+        "rationale",
+        "method",
+        "run_id",
+        "unresolved_ids"
+      ],
+      "additionalProperties": false
+    },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "enum": [
+            "measured",
+            "published",
+            "assumed"
+          ]
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "class",
+        "source_id",
+        "locator",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "constraint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "product",
+            "operating",
+            "model_scope"
+          ]
+        },
+        "quantity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observe": {
+          "type": "object",
+          "properties": {
+            "in": {
+              "enum": [
+                "result",
+                "request",
+                "execution_record"
+              ]
+            },
+            "pointer": {
+              "$ref": "#/$defs/pointer"
+            }
+          },
+          "required": [
+            "in",
+            "pointer"
+          ],
+          "additionalProperties": false
+        },
+        "operator": {
+          "enum": [
+            "equal",
+            "at_most",
+            "at_least",
+            "between"
+          ]
+        },
+        "target": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lower": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "upper": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tolerance": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "class": {
+                  "enum": [
+                    "published",
+                    "assumed"
+                  ]
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "value",
+                "class",
+                "rationale"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "quantity",
+        "unit",
+        "observe",
+        "operator",
+        "target",
+        "lower",
+        "upper",
+        "tolerance",
+        "origin"
+      ],
+      "additionalProperties": false
+    },
+    "constraint_result": {
+      "type": "object",
+      "properties": {
+        "constraint_id": {
+          "$ref": "#/$defs/id"
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "verdict": {
+          "enum": [
+            "met",
+            "not_met",
+            "not_evaluated"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "constraint_id",
+        "run_id",
+        "verdict",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "independent_reference_solution",
+            "balance",
+            "comparison_with_source",
+            "other"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tolerances": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "run_id",
+        "kind",
+        "ref",
+        "method",
+        "scope",
+        "tolerances"
+      ],
+      "additionalProperties": false
+    },
+    "warning_note": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "run_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pointers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pointer"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "run_ids",
+        "pointers",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "assumption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applies_to": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "statement",
+        "applies_to",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "unresolved": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "item": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "next_action": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "item",
+        "consequence",
+        "blocking",
+        "next_action"
+      ],
+      "additionalProperties": false
+    },
+    "cost_coverage": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "not_costed",
+            "complete_within_scope",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "missing_items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "result_files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "status",
+        "scope",
+        "missing_items",
+        "result_files"
+      ],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "enum": [
+            "source_accuracy",
+            "engineering",
+            "rights"
+          ]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_type": {
+          "enum": [
+            "human",
+            "agent"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "approved",
+            "changes_requested"
+          ]
+        },
+        "review_digest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "scope",
+        "reviewer",
+        "reviewer_type",
+        "decision",
+        "review_digest",
+        "date",
+        "notes"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

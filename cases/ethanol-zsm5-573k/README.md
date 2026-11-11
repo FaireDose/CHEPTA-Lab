@@ -25,6 +25,7 @@ At W/F = 1.166 g catalyst h/mol, including product adsorption changes conversion
 - [Run manifest](results/run-manifest.json): six calls, versions, key source hashes and paths to unabridged requests/outputs.
 - [Independent verification](results/verification.json): separate species-flow ODE, component comparisons, atom/mass checks and internal energy closure. Thresholds and their rationale are recorded.
 - [Case record](record.json): draft status, engineering decisions, limitations and pending reviews.
+- [Study record](study-record.json): draft hand-over to CHEPTA ([proposal 0002](../../docs/proposals/0002-study-record.md)); indexes the six requests and results above by path and sha256 without changing them.
 
 The targeted upstream ethanol test also passed (1 test, 0 failures). The independent check here uses SciPy DOP853 in mol/h and grams catalyst; CHEPTA integrates reaction extents along reactor length. Neither comparison uses experimental outlet observations.
 

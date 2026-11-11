@@ -1,0 +1,1454 @@
+{
+  "study_record": 1,
+  "id": "ethanol-zsm5-573k-benchmark",
+  "case_id": "ethanol-zsm5-573k",
+  "title": "Ethanol dehydration over ZSM-5 at 573.15 K: upstream rate simplification versus Table-12 adsorption terms",
+  "question": "Reproduce the upstream ethanol benchmark and quantify inclusion of published product adsorption terms at the same conditions.",
+  "status": "draft",
+  "written_on": "2026-11-11",
+  "written_by": "CHEPTA-Lab agent session (Claude); converted from the existing case files, no new execution",
+  "supersedes": null,
+  "sources": {
+    "source_ids": [
+      "aali-hadi-2023"
+    ],
+    "evidence_ids": [],
+    "note": "No canonical evidence records exist for this source yet; exact locators are in the source ledger and on each published value."
+  },
+  "files": [
+    {
+      "id": "case-record",
+      "path": "cases/ethanol-zsm5-573k/record.json",
+      "sha256": "1386d0e50a80f808cb8d34247b240391fc447d5480c78818cb93373a35332d54",
+      "role": "case_record"
+    },
+    {
+      "id": "source-ledger",
+      "path": "cases/ethanol-zsm5-573k/SOURCE_LEDGER.md",
+      "sha256": "2f5ccb600ac3ddefdb039303d833cbf621354fe7f26e132288185ae7568f4a6f",
+      "role": "source_ledger"
+    },
+    {
+      "id": "case-input",
+      "path": "cases/ethanol-zsm5-573k/input.json",
+      "sha256": "ff2e2d9a08f251395c5fbe7e6e1db51ce6c1ca7710854eaad850b9cf159ffa8a",
+      "role": "case_input"
+    },
+    {
+      "id": "runner",
+      "path": "cases/ethanol-zsm5-573k/run.mjs",
+      "sha256": "4ef43d727dcfe573aece408dcc6ecc2193e6e0754a98de0f9566c3c09e64156c",
+      "role": "runner"
+    },
+    {
+      "id": "verifier",
+      "path": "cases/ethanol-zsm5-573k/verify.py",
+      "sha256": "6ae6e740fd7612cd178a51b7feebff78dce82f80c88182aa70525aa7e6099702",
+      "role": "verifier"
+    },
+    {
+      "id": "run-manifest",
+      "path": "cases/ethanol-zsm5-573k/results/run-manifest.json",
+      "sha256": "6ba44933ebe53859b371117256cf5eaf3de8e490ecb757f872a6ace983c7df7d",
+      "role": "execution_manifest"
+    },
+    {
+      "id": "verification",
+      "path": "cases/ethanol-zsm5-573k/results/verification.json",
+      "sha256": "13592c0b29e0f5d699643893cc2bf285a2fc967c31fbb3010b95b912957991af",
+      "role": "lab_check"
+    },
+    {
+      "id": "request.upstream_simplified-wf0.38",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf0.38.request.json",
+      "sha256": "9b5d6c73cf583ec4b45d10731080953cb07c250c18b5d89036b02f48801cf08f",
+      "role": "request"
+    },
+    {
+      "id": "result.upstream_simplified-wf0.38",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf0.38.output.json",
+      "sha256": "d9b365f4a71c6400d6eac963122d63dbf591d077e2abfac8153522eac45b1972",
+      "role": "result"
+    },
+    {
+      "id": "request.upstream_simplified-wf0.773",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf0.773.request.json",
+      "sha256": "f26dccddff5ad1368a306ca5395aa7fef10af96bea6322575a8ed66e79f340c0",
+      "role": "request"
+    },
+    {
+      "id": "result.upstream_simplified-wf0.773",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf0.773.output.json",
+      "sha256": "0d04ed7c4ee1c0d033e4f486871a9e652fb36a5964a9a6377155e3b7f426a4e1",
+      "role": "result"
+    },
+    {
+      "id": "request.upstream_simplified-wf1.166",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf1.166.request.json",
+      "sha256": "486173924e514310eecc335bc439fad8ee461579c03d156fb0c7e7304ea87d8e",
+      "role": "request"
+    },
+    {
+      "id": "result.upstream_simplified-wf1.166",
+      "path": "cases/ethanol-zsm5-573k/results/upstream_simplified-wf1.166.output.json",
+      "sha256": "5ff01fb9118729a6f0eb387a58e4ef02a3e095c1469116b7cb6b6df0ba791c0c",
+      "role": "result"
+    },
+    {
+      "id": "request.table12_adsorption-wf0.38",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf0.38.request.json",
+      "sha256": "8ac509e8784d64bebaed9538282a6a8d36670b9cdf8543bc30cf09d6e8d016e6",
+      "role": "request"
+    },
+    {
+      "id": "result.table12_adsorption-wf0.38",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf0.38.output.json",
+      "sha256": "eeedbbbc1a0f0390dcb0a63b7fff05d2642184d1e5786ebb24386cb74486015c",
+      "role": "result"
+    },
+    {
+      "id": "request.table12_adsorption-wf0.773",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf0.773.request.json",
+      "sha256": "36381bac4a3a5e8ad2afffc12cf79970e6ad5a4d925c7fe5d2fddb6865e726e1",
+      "role": "request"
+    },
+    {
+      "id": "result.table12_adsorption-wf0.773",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf0.773.output.json",
+      "sha256": "a2beb51f086827d3adc1d4e1ad7a30fff7792d64c65de97086e5326392338e1a",
+      "role": "result"
+    },
+    {
+      "id": "request.table12_adsorption-wf1.166",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf1.166.request.json",
+      "sha256": "dbd88e69027138f67cb4f5c0b88d195da2925ff4bf20f8be1c9a14c25ed0b82b",
+      "role": "request"
+    },
+    {
+      "id": "result.table12_adsorption-wf1.166",
+      "path": "cases/ethanol-zsm5-573k/results/table12_adsorption-wf1.166.output.json",
+      "sha256": "e2663fb6620a6455c4808d10a529c4787c7bbea04f6ab85b0dee0c8419f1f642",
+      "role": "result"
+    }
+  ],
+  "engines": [
+    {
+      "id": "chepta-c1adf6b",
+      "package": "chepta",
+      "release": null,
+      "commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2",
+      "pin": "commit_between_releases",
+      "commit_observed": false,
+      "engine_file_hashes": {
+        "file": "run-manifest",
+        "pointer": "/engine_file_sha256"
+      },
+      "request_path": "CHEPTA.run",
+      "contracts": "v1",
+      "result_format": 1,
+      "note": "Executed from an archive requested by full commit, so Git did not confirm the revision; key engine file hashes are in the manifest. The commit precedes release 0.5.0."
+    }
+  ],
+  "variants": [
+    {
+      "id": "upstream_simplified",
+      "description": "CHEPTA's upstream worked-example rate expressions: each denominator keeps only the ethanol adsorption term.",
+      "modifications": [
+        {
+          "kind": "simplified_model",
+          "description": "Product adsorption terms of Equations 4 and 14 (Table 12) omitted relative to the published rate model."
+        }
+      ]
+    },
+    {
+      "id": "table12_adsorption",
+      "description": "Equations 4 and 14 with the Table-12 adsorption constants; the inert term is zero because the feed has no inert.",
+      "modifications": []
+    }
+  ],
+  "runs": [
+    {
+      "id": "upstream_simplified-wf0.38",
+      "variant": "upstream_simplified",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.upstream_simplified-wf0.38",
+      "result": "result.upstream_simplified-wf0.38",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/0"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "upstream_simplified-wf0.773",
+      "variant": "upstream_simplified",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.upstream_simplified-wf0.773",
+      "result": "result.upstream_simplified-wf0.773",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/1"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "upstream_simplified-wf1.166",
+      "variant": "upstream_simplified",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.upstream_simplified-wf1.166",
+      "result": "result.upstream_simplified-wf1.166",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/2"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "table12_adsorption-wf0.38",
+      "variant": "table12_adsorption",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.table12_adsorption-wf0.38",
+      "result": "result.table12_adsorption-wf0.38",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/3"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "table12_adsorption-wf0.773",
+      "variant": "table12_adsorption",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.table12_adsorption-wf0.773",
+      "result": "result.table12_adsorption-wf0.773",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/4"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "table12_adsorption-wf1.166",
+      "variant": "table12_adsorption",
+      "engine": "chepta-c1adf6b",
+      "interface": "library_dispatcher",
+      "runner": "runner",
+      "request": "request.table12_adsorption-wf1.166",
+      "result": "result.table12_adsorption-wf1.166",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/5"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/executed_at"
+      },
+      "failure_note": null
+    }
+  ],
+  "values": [
+    {
+      "id": "temperature",
+      "name": "Reactor and feed temperature",
+      "unit": "K",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/T_K"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31 (temperature range); selected temperature is tabulated in Tables 8, 9 and 12"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "pressure",
+      "name": "Pressure",
+      "unit": "kPa",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/P_kPa"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31"
+      },
+      "as_printed": "1 atm",
+      "conversion": "1 atm = 101.325 kPa",
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "feed-flow",
+      "name": "Pure ethanol feed flow",
+      "unit": "mol/h",
+      "class": "assumed",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/feed_mol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Normalized benchmark basis matching the upstream fixture; not an experimental run (SOURCE_LEDGER.md, Boundary conditions)",
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "wf-low",
+      "name": "W/F, lower end of reported range",
+      "unit": "g catalyst h/mol",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/W_over_F_gcat_h_mol/0"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "wf-mid",
+      "name": "W/F, interior test point",
+      "unit": "g catalyst h/mol",
+      "class": "assumed",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/W_over_F_gcat_h_mol/1"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Arithmetic midpoint of the reported endpoints; not a measured observation (SOURCE_LEDGER.md)",
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "wf-high",
+      "name": "W/F, upper end of reported range",
+      "unit": "g catalyst h/mol",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/W_over_F_gcat_h_mol/2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "tube-diameter",
+      "name": "Tube diameter",
+      "unit": "m",
+      "class": "assumed",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/D_m"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Upstream geometry; only encodes catalyst mass through L = W/(density x area); not measured",
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "bed-density",
+      "name": "Catalyst bed density",
+      "unit": "kg/m3",
+      "class": "assumed",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/bed_kg_m3"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Upstream geometry; only encodes catalyst mass; not measured",
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-k1",
+      "name": "k1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "mol/(g catalyst h), as printed",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/k1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 9, p. 39"
+      },
+      "as_printed": null,
+      "conversion": "k1, k2 divided by 3.6 in run.mjs (g/h to kg/s basis)",
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": [
+        "pressure-unit-convention"
+      ]
+    },
+    {
+      "id": "const-k2",
+      "name": "k2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "mol/(g catalyst h), as printed",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/k2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 9, p. 39"
+      },
+      "as_printed": null,
+      "conversion": "k1, k2 divided by 3.6 in run.mjs (g/h to kg/s basis)",
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": [
+        "pressure-unit-convention"
+      ]
+    },
+    {
+      "id": "const-ka1",
+      "name": "KA1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KA1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 9, p. 39"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-ka2",
+      "name": "KA2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KA2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 9, p. 39"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-keq1",
+      "name": "Keq1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1 (table header)",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/Keq1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 8, p. 38"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": [
+        "pressure-unit-convention"
+      ]
+    },
+    {
+      "id": "const-keq2",
+      "name": "Keq2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1 (table header)",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/Keq2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 8, p. 38"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": [
+        "pressure-unit-convention"
+      ]
+    },
+    {
+      "id": "const-ke1",
+      "name": "KE1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KE1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-kw1",
+      "name": "KW1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KW1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-ki1",
+      "name": "KI1 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KI1"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-ke2",
+      "name": "KE2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KE2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-kw2",
+      "name": "KW2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KW2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-ko2",
+      "name": "KO2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KO2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "const-ki2",
+      "name": "KI2 at 573.15 K (fitted parameter reported by the authors)",
+      "unit": "atm^-1",
+      "class": "published",
+      "ref": {
+        "file": "case-input",
+        "pointer": "/constants/KI2"
+      },
+      "source": {
+        "source_id": "aali-hadi-2023",
+        "locator": "Table 12, p. 41"
+      },
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.upstream_simplified-wf0.38",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/0/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "upstream_simplified-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.upstream_simplified-wf0.38",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.upstream_simplified-wf0.38",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "upstream_simplified-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.upstream_simplified-wf0.38",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/0/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "upstream_simplified-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.upstream_simplified-wf0.773",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/1/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "upstream_simplified-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.upstream_simplified-wf0.773",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.upstream_simplified-wf0.773",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "upstream_simplified-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.upstream_simplified-wf0.773",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/1/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "upstream_simplified-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.upstream_simplified-wf1.166",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/2/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "upstream_simplified-wf1.166",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.upstream_simplified-wf1.166",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.upstream_simplified-wf1.166",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "upstream_simplified-wf1.166",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.upstream_simplified-wf1.166",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/2/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "upstream_simplified-wf1.166",
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.table12_adsorption-wf0.38",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/3/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "table12_adsorption-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.table12_adsorption-wf0.38",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.table12_adsorption-wf0.38",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "table12_adsorption-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.table12_adsorption-wf0.38",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/3/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "table12_adsorption-wf0.38",
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.table12_adsorption-wf0.773",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/4/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "table12_adsorption-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.table12_adsorption-wf0.773",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.table12_adsorption-wf0.773",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "table12_adsorption-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.table12_adsorption-wf0.773",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/4/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "table12_adsorption-wf0.773",
+      "unresolved_ids": []
+    },
+    {
+      "id": "catalyst-mass.table12_adsorption-wf1.166",
+      "name": "Catalyst mass",
+      "unit": "kg",
+      "class": "derived",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/runs/5/W_kg"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "run.mjs: W = (W/F) x feed flow / 1000",
+      "run_id": "table12_adsorption-wf1.166",
+      "unresolved_ids": []
+    },
+    {
+      "id": "product-flows.table12_adsorption-wf1.166",
+      "name": "Reactor outlet component flows",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.table12_adsorption-wf1.166",
+        "pointer": "/value/streams/product/flow_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "table12_adsorption-wf1.166",
+      "unresolved_ids": []
+    },
+    {
+      "id": "conversion.table12_adsorption-wf1.166",
+      "name": "Ethanol conversion",
+      "unit": "%",
+      "class": "derived",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/5/conversion_percent"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "verify.py: 100 x (1 - ethanol out / ethanol in), from the CHEPTA outlet flows",
+      "run_id": "table12_adsorption-wf1.166",
+      "unresolved_ids": []
+    }
+  ],
+  "constraint_declaration": {
+    "timing": "reconstructed_after_runs",
+    "declared_on": "2026-11-11",
+    "basis": "Taken from task.hard_constraints in the case record (record.json) and the run.mjs scope check; this study record was written after the runs."
+  },
+  "constraints": [
+    {
+      "id": "reactor-temperature",
+      "kind": "operating",
+      "quantity": "Reactor outlet temperature",
+      "unit": "K",
+      "observe": {
+        "in": "result",
+        "pointer": "/value/streams/product/T_K"
+      },
+      "operator": "equal",
+      "target": 573.15,
+      "lower": null,
+      "upper": null,
+      "tolerance": {
+        "value": 0.01,
+        "class": "assumed",
+        "rationale": "Isothermal reactor specification; any larger deviation means the run did not hold the declared temperature."
+      },
+      "origin": {
+        "class": "published",
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31; Tables 8, 9 and 12",
+        "rationale": null
+      }
+    },
+    {
+      "id": "reactor-pressure",
+      "kind": "operating",
+      "quantity": "Reactor outlet pressure",
+      "unit": "kPa",
+      "observe": {
+        "in": "result",
+        "pointer": "/value/streams/product/P_kPa"
+      },
+      "operator": "equal",
+      "target": 101.325,
+      "lower": null,
+      "upper": null,
+      "tolerance": {
+        "value": 0.001,
+        "class": "assumed",
+        "rationale": "No pressure drop is modelled; the outlet must stay at the declared pressure."
+      },
+      "origin": {
+        "class": "published",
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31 (1 atm)",
+        "rationale": null
+      }
+    },
+    {
+      "id": "feed-purity",
+      "kind": "operating",
+      "quantity": "Ethanol mole fraction in the feed",
+      "unit": "mol/mol",
+      "observe": {
+        "in": "result",
+        "pointer": "/value/streams/feed/z/0"
+      },
+      "operator": "equal",
+      "target": 1,
+      "lower": null,
+      "upper": null,
+      "tolerance": {
+        "value": 1e-12,
+        "class": "assumed",
+        "rationale": "Pure ethanol feed by declaration."
+      },
+      "origin": {
+        "class": "assumed",
+        "source_id": null,
+        "locator": null,
+        "rationale": "Pure ethanol basis of the upstream fixture (SOURCE_LEDGER.md, Boundary conditions)."
+      }
+    },
+    {
+      "id": "wf-within-source-range",
+      "kind": "model_scope",
+      "quantity": "W/F of the run",
+      "unit": "g catalyst h/mol",
+      "observe": {
+        "in": "execution_record",
+        "pointer": "/W_over_F_gcat_h_mol"
+      },
+      "operator": "between",
+      "target": null,
+      "lower": 0.38,
+      "upper": 1.166,
+      "tolerance": null,
+      "origin": {
+        "class": "published",
+        "source_id": "aali-hadi-2023",
+        "locator": "Section 2, p. 31",
+        "rationale": null
+      }
+    }
+  ],
+  "product_constraints_note": "None declared: this study checks a reactor kinetics benchmark, not a product specification.",
+  "constraint_results": [
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "upstream_simplified-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "upstream_simplified-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "upstream_simplified-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "table12_adsorption-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "table12_adsorption-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-temperature",
+      "run_id": "table12_adsorption-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "upstream_simplified-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "upstream_simplified-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "upstream_simplified-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "table12_adsorption-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "table12_adsorption-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "reactor-pressure",
+      "run_id": "table12_adsorption-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "upstream_simplified-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "upstream_simplified-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "upstream_simplified-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "table12_adsorption-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "table12_adsorption-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "feed-purity",
+      "run_id": "table12_adsorption-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "upstream_simplified-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "upstream_simplified-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "upstream_simplified-wf1.166",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "table12_adsorption-wf0.38",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "table12_adsorption-wf0.773",
+      "verdict": "met",
+      "note": null
+    },
+    {
+      "constraint_id": "wf-within-source-range",
+      "run_id": "table12_adsorption-wf1.166",
+      "verdict": "met",
+      "note": null
+    }
+  ],
+  "checks": [
+    {
+      "id": "reference-ode.upstream_simplified-wf0.38",
+      "run_id": "upstream_simplified-wf0.38",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/0"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    },
+    {
+      "id": "reference-ode.upstream_simplified-wf0.773",
+      "run_id": "upstream_simplified-wf0.773",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/1"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    },
+    {
+      "id": "reference-ode.upstream_simplified-wf1.166",
+      "run_id": "upstream_simplified-wf1.166",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/2"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    },
+    {
+      "id": "reference-ode.table12_adsorption-wf0.38",
+      "run_id": "table12_adsorption-wf0.38",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/3"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    },
+    {
+      "id": "reference-ode.table12_adsorption-wf0.773",
+      "run_id": "table12_adsorption-wf0.773",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/4"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    },
+    {
+      "id": "reference-ode.table12_adsorption-wf1.166",
+      "run_id": "table12_adsorption-wf1.166",
+      "kind": "independent_reference_solution",
+      "ref": {
+        "file": "verification",
+        "pointer": "/checks/5"
+      },
+      "method": "verify.py: separate species-flow ODE in mol/h and grams catalyst, SciPy DOP853; also atom, mass and internal energy closure",
+      "scope": "Numerical implementation only; no experimental or independent thermodynamic validation",
+      "tolerances": {
+        "file": "verification",
+        "pointer": "/tolerances"
+      }
+    }
+  ],
+  "warning_notes": [
+    {
+      "id": "pr-binary-parameters",
+      "run_ids": [
+        "upstream_simplified-wf0.38",
+        "upstream_simplified-wf0.773",
+        "upstream_simplified-wf1.166",
+        "table12_adsorption-wf0.38",
+        "table12_adsorption-wf0.773",
+        "table12_adsorption-wf1.166"
+      ],
+      "pointers": [
+        "/value/streams/feed/warnings",
+        "/value/streams/product/warnings",
+        "/qualifications/missing_pairs",
+        "/qualifications/warnings"
+      ],
+      "note": "Stream warnings name PR pairs without k_ij, an ethanol/water k_ij used outside its fitted temperature range, and PR as not the recommended method for the polar liquid. The top-level qualifications.warnings list does not carry them, so a reader must open the stream warnings. The fixed-T/P rates use yP, so these warnings do not change the component flows but do qualify enthalpies and duties."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "isothermal-no-dp",
+      "statement": "Isothermal plug flow, no pressure drop, one vapour phase.",
+      "applies_to": [
+        "upstream_simplified",
+        "table12_adsorption"
+      ],
+      "basis": "Model assumption; broadly consistent with paper Section 3 (SOURCE_LEDGER.md)"
+    },
+    {
+      "id": "partial-pressure-rates",
+      "statement": "Rates use partial pressures y P expressed numerically in atm, not fugacities or concentrations.",
+      "applies_to": [
+        "upstream_simplified",
+        "table12_adsorption"
+      ],
+      "basis": "Paper's rate forms; numerical-atm convention kept as printed"
+    },
+    {
+      "id": "pr-method",
+      "statement": "Peng-Robinson is used as in the upstream example; it does not determine the fixed-T/P kinetic flows.",
+      "applies_to": [
+        "upstream_simplified",
+        "table12_adsorption"
+      ],
+      "basis": "Upstream reproduction choice"
+    },
+    {
+      "id": "dynamic-molar-flow",
+      "statement": "Total molar flow changes with reaction; this is not the constant-velocity concentration model of paper Section 4.4, so Figure 8 is not reproduced.",
+      "applies_to": [
+        "upstream_simplified",
+        "table12_adsorption"
+      ],
+      "basis": "CHEPTA and reference balance formulation"
+    }
+  ],
+  "unresolved_inputs": [
+    {
+      "id": "pressure-unit-convention",
+      "item": "Pressure-unit convention of Keq1 and Keq2 (Table 8 header atm^-1 versus different pressure powers in Equations 4 and 14) and the printed k1 unit",
+      "consequence": "Numbers are used as printed with a numerical-atm convention; no thermodynamic standard state is established.",
+      "blocking": true,
+      "next_action": "A person resolves the convention from the paper or its underlying source before any kinetics target is accepted."
+    },
+    {
+      "id": "experimental-data",
+      "item": "Original experimental partial pressures, rates and their uncertainty",
+      "consequence": "Agreement between two numerical solvers is not agreement with experiment.",
+      "blocking": false,
+      "next_action": "Obtain the underlying experimental work."
+    },
+    {
+      "id": "catalyst-characterization",
+      "item": "Catalyst formulation (Si:Al) and characterization",
+      "consequence": "Transfer to another ZSM-5 is not supported.",
+      "blocking": false,
+      "next_action": "Obtain from the original experimental source."
+    },
+    {
+      "id": "parameter-uncertainty",
+      "item": "Bounds on the fitted kinetic parameters",
+      "consequence": "No sensitivity range can be stated; none is invented.",
+      "blocking": false,
+      "next_action": "Look for reported confidence intervals."
+    }
+  ],
+  "cost_coverage": {
+    "status": "not_costed",
+    "scope": null,
+    "missing_items": [],
+    "result_files": []
+  },
+  "corpus_links": {
+    "task_ids": [
+      "interpret-ethanol-benchmark"
+    ],
+    "run_ids": [
+      "ethanol-replay-038"
+    ]
+  },
+  "reviews": [],
+  "limitations": [
+    "Numerical benchmark of two rate-model variants of one reactor; not two process routes and not a route recommendation.",
+    "No experimental validation; Figure 8 of the paper is not reproduced.",
+    "Run on a CHEPTA commit between releases; a re-run on a released version is a separate set of runs.",
+    "Human engineering, source and rights reviews are pending."
+  ]
+}

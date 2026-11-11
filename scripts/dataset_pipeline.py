@@ -5,6 +5,7 @@ No model calls, simulation execution, downloads, or automatic review approvals.
 """
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 
@@ -302,7 +303,15 @@ def main():
         if args.command == "validate":
             report = [{"id": t["id"], "review_digest": review_digest(t, ix, sources),
                        "release_blockers": eligibility(t, ix, sources)} for t in corpus["tasks"]]
-            print(json.dumps({"valid": True, "counts": {k: len(corpus[k]) for k in COLLECTIONS}, "tasks": report}, indent=2))
+            # Study records (docs/proposals/0002-study-record.md) are checked here too, so one command covers both.
+            spec = importlib.util.spec_from_file_location("study_record", ROOT / "scripts/study_record.py")
+            study_record = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(study_record)
+            studies, study_errors = study_record.validate_all()
+            if study_errors:
+                raise ValueError("\n".join(study_errors))
+            print(json.dumps({"valid": True, "counts": {k: len(corpus[k]) for k in COLLECTIONS}, "tasks": report,
+                              "study_records": studies}, indent=2))
             return
         if args.out is None:
             raise ValueError("--out is required; choose a new output directory")
