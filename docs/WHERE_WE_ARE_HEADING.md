@@ -198,7 +198,10 @@ does not hold back the engineering demonstration".
 | D8 | Contact the TU Delft group (A5); offer CHEPTA as a backend (A2) | **Later**, after step 3; A2 also needs CHEPTA's coordinator |
 | D9 | Plant ontologies (B1) | **Not now** |
 
-No worker session starts until the maintainer has read this page and chosen.
+**Chosen by the maintainer, 2026-11-11:** "do only steps 1 to 4; leave for now the Atlas thing, it can be done later;
+also the whole plant as code can be done later". So steps 1 to 4 start now (D1 yes). D5 to D8 (everything about
+ChemE-as-Code, the Atlas included) are postponed: the study record of step 2 carries no mapping to their format and
+borrows nothing from them for now. D2, D3, D4 and D9 wait until they are needed (steps 6 and 7).
 
 ## 7. What was read, and what was not
 

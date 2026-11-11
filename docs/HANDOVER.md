@@ -62,23 +62,21 @@ check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <norepl
 - Lab's pin is still an old CHEPTA commit (`data/upstream.json`: c1adf6b, 2026-10-29; the capability audit: 4a8a9cf,
   2026-10-30). `chepta@0.6.0` is on npm since 2026-11-11 and is not yet pinned.
 - Nothing has been run through the released package, the command line or the MCP server.
-- No worker session has been started. **None starts until the maintainer has read WHERE_WE_ARE_HEADING.md and chosen
-  the next steps** (decisions D1 to D9 there).
+- The maintainer chose (2026-11-11): steps 1 to 4 only; the Atlas and everything about ChemE-as-Code later.
+- Workers started 2026-11-11 (no other worker was running in CHEPTA or Lab): step 1 and step 2, below.
 
-## Queue, in order (after the maintainer's choice)
+## Queue, in order
 
-1. Pin `chepta@0.6.0`; re-run the six ethanol runs through the command line; table of old against new results and
-   warnings. Sonnet.
-2. Study record: proposal and schema from CHEPTA ROADMAP rule 5, with the mapping table to ChemE-as-Code's files and
-   the "sourced, balanced, simulated" ladder if the maintainer accepts D5 and D6. Opus. Send the draft to CHEPTA's
-   coordinator for its view (G6).
-3. Run the benzene + toluene column (CHEPTA's B2 record, The ChemSep Book) and the methanol separator with
-   PR + gE (MHV1). One worker each.
-4. Capability requests from what steps 1 and 3 refused. Known candidates: acetic acid dimerization in columns, the
-   three-phase flash in columns, purity specifications (in work in CHEPTA, M4), costs (v0.7).
-5. Review packet for the 9 evidence claims and 3 draft tasks (Lab P02). Opus.
-6. Later: the first reaction-separation demonstration (needs CHEPTA's M4 released); held-out evaluation cases under
-   rule 7; baseline evaluation.
+1. **Running.** Pin `chepta@0.6.0`; re-run the six ethanol runs through the command line; table of old against new
+   results and warnings. Sonnet. Branch `claude/pin-chepta-0.6.0`.
+2. **Running.** Study record: proposal and JSON schema from CHEPTA ROADMAP rule 5. No ChemE-as-Code mapping (postponed).
+   Opus. Branch `claude/study-record`. Send the draft to CHEPTA's coordinator for its view (G6) once merged.
+3. After 1 and 2 are merged: run the benzene + toluene column (CHEPTA's B2 record, The ChemSep Book) and the methanol
+   separator with PR + gE (MHV1), each as a study record. One worker each.
+4. Capability requests from what steps 1 and 3 refused, sent to CHEPTA's coordinator. Known candidates: acetic acid
+   dimerization in columns, the three-phase flash in columns, purity specifications (in work, M4), costs (v0.7).
+5. Not now (the maintainer, 2026-11-11): review packet, demonstration, held-out cases, baseline; the Atlas and
+   ChemE-as-Code.
 
 ## Open questions for the maintainer
 
