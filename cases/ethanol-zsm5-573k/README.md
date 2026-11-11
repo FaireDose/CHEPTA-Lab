@@ -19,6 +19,10 @@ CHEPTA commit `c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2`, using its `solve_flows
 
 At W/F = 1.166 g catalyst h/mol, including product adsorption changes conversion by -5.078% relative to the simplified result. Both calculations converge and pass atom balances. This establishes sensitivity to an assumption, not which prediction matches experiment.
 
+## Re-run on the released package
+
+On 2026-11-11 the same six requests were re-run on `chepta@0.6.0` with unchanged numbers; see [COMPATIBILITY_0.6.0.md](COMPATIBILITY_0.6.0.md) and `results-chepta-0.6.0/`. The results above and everything below describe the original commit-`c1adf6b` runs.
+
 ## Evidence
 
 - [Input values](input.json) and [source/units/assumptions ledger](SOURCE_LEDGER.md), including the additional constants found in Table 12.

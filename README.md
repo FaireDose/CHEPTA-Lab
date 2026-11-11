@@ -6,6 +6,8 @@ Engineering simulation cases and training data for AI assistants that use CHEPTA
 
 ## Start here
 
+New here, or unsure where this is going? Read [Where we are heading](docs/WHERE_WE_ARE_HEADING.md) (2026-11-11) first. Coordinating sessions start from the [handover](docs/HANDOVER.md).
+
 1. [Candidate processes](docs/CANDIDATE_PROCESSES.md): six reaction families, required units and blockers.
 2. [Initial papers](docs/INITIAL_PAPERS.md): five priority papers, two additional paper leads and one book reference.
 3. [Project plan](docs/PROJECT_PLAN.md): the agreed goal and next tasks.
@@ -16,13 +18,14 @@ Engineering simulation cases and training data for AI assistants that use CHEPTA
 
 [CHEPTA](https://github.com/FaireDose/CHEPTA) owns the simulator. This repository owns literature screening, process cases, training examples and evaluations. We reuse CHEPTA's engine rather than copy it.
 
-The initial audit is pinned to CHEPTA commit [c1adf6bab522](https://github.com/FaireDose/CHEPTA/commit/c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2) on 2026-10-29. Its JSON dispatcher exists; its column engine explicitly reports that it is not built yet. The ethanol reactor benchmark has now been executed through the dispatcher; other capability findings remain a source audit.
+Lab pins released CHEPTA versions: the current pin is the npm package [`chepta@0.6.0`](https://www.npmjs.com/package/chepta/v/0.6.0) (published 2026-11-11, MIT; exact version in `package.json`, integrity hash in `package-lock.json` and `data/upstream.json`; install with `npm ci`). The [compatibility check](cases/ethanol-zsm5-573k/COMPATIBILITY_0.6.0.md) re-ran the six ethanol runs on it with unchanged numbers and one reworded warning. The first audit and the original ethanol runs used CHEPTA commit [c1adf6bab522](https://github.com/FaireDose/CHEPTA/commit/c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2) of 2026-10-29, kept as history in `data/upstream.json`; old results keep that engine version. The source audits (capabilities, columns) were done on earlier revisions and have not been re-run on 0.6.0.
 
 ## Repository contents
 
 - `data/sources.json`: source metadata, exact locators, access checks and rights status.
 - `data/candidates.json`: case readiness, dependencies and outstanding work.
-- `data/upstream.json`: the CHEPTA revision behind the audit.
+- `data/upstream.json`: the current CHEPTA pin (npm package) and the earlier audited commit.
+- `package.json`, `package-lock.json`: exact engine pin; `node_modules/` is not committed.
 - `dataset/example.template.json`: an empty example template, not training data.
 - `cases/`: executable draft cases, source ledgers and numerical verification.
 - `scripts/validate_catalog.py`: consistency checks for the catalogue.
