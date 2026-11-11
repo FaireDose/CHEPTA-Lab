@@ -59,6 +59,11 @@ def is_number(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def execution_id(run):
+    """The id the runner wrote in its manifest and check files; the study's run id when not given."""
+    return run["execution_id"] or run["id"]
+
+
 def verdict(constraint, observed):
     if not is_number(observed):
         return "not_evaluated"
@@ -155,6 +160,15 @@ def validate(record, sources, root=ROOT, corpus=None):
             errors.append(f"engine {eng['id']}: pin between releases needs a full commit")
         if eng["engine_file_hashes"]:
             lookup(eng["engine_file_hashes"], f"engine {eng['id']}")
+        if eng["pin"] == "release" and eng["lock"] is None:
+            errors.append(f"engine {eng['id']}: a release pin names its lock-file entry (version and integrity)")
+        if eng["lock"]:
+            if role(eng["lock"]["file"]) != "engine_lock":
+                errors.append(f"engine {eng['id']}: lock must point into a file with role 'engine_lock'")
+            found, entry = lookup(eng["lock"], f"engine {eng['id']}")
+            if found and not (isinstance(entry, dict) and entry.get("version") == eng["release"]
+                              and str(entry.get("integrity", "")).startswith("sha512-")):
+                errors.append(f"engine {eng['id']}: lock entry does not give release {eng['release']} with a sha512 integrity")
 
     # Runs: CHEPTA's request and result exactly as written to disk, failures included.
     run_dates = {}
@@ -185,13 +199,16 @@ def validate(record, sources, root=ROOT, corpus=None):
                 errors.append(f"{where}: result format differs from engine {eng['id']} (chepta_result)")
             if result.get("capability") != request["capability"]:
                 errors.append(f"{where}: result capability differs from the request")
+            library = (result.get("reproduction") or {}).get("library")
+            if eng is not None and eng["pin"] == "release" and library is not None and library != eng["release"]:
+                errors.append(f"{where}: result reports library {library}, not release {eng['release']}")
             if result.get("outcome") not in OUTCOMES:
                 errors.append(f"{where}: unknown outcome {result.get('outcome')!r}")
             elif result["outcome"] != "ok" and not run["failure_note"]:
                 errors.append(f"{where}: outcome {result['outcome']} needs a failure_note")
         if run["execution_record"]:
             found, entry = lookup(run["execution_record"], where)
-            if found and isinstance(entry, dict) and "id" in entry and entry["id"] != run["id"]:
+            if found and isinstance(entry, dict) and "id" in entry and entry["id"] != execution_id(run):
                 errors.append(f"{where}: execution record is for {entry['id']}")
         found, stamp = lookup(run["executed_at"], where)
         if found:
@@ -284,13 +301,16 @@ def validate(record, sources, root=ROOT, corpus=None):
         where = f"check {chk['id']}"
         if chk["run_id"] not in ix["runs"]:
             errors.append(f"{where}: unknown run")
+            continue
         if role(chk["ref"]["file"]) not in ("lab_check", "verifier"):
             errors.append(f"{where}: must point into a Lab check file, not a CHEPTA result")
         found, entry = lookup(chk["ref"], where)
-        if found and isinstance(entry, dict) and "id" in entry and entry["id"] != chk["run_id"]:
+        if found and isinstance(entry, dict) and "id" in entry and entry["id"] != execution_id(ix["runs"][chk["run_id"]]):
             errors.append(f"{where}: points to the check of {entry['id']}")
         if chk["tolerances"]:
             lookup(chk["tolerances"], where)
+        if chk["verifier"] and role(chk["verifier"]["file"]) != "verifier":
+            errors.append(f"{where}: verifier must be a file with role 'verifier'")
     for note in record["warning_notes"]:
         for key in note["run_ids"]:
             run = ix["runs"].get(key)

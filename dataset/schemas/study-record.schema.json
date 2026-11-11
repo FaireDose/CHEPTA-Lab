@@ -281,7 +281,7 @@
   "$defs": {
     "id": {
       "type": "string",
-      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      "pattern": "^[a-z0-9][a-z0-9._@-]*$"
     },
     "sha256": {
       "type": "string",
@@ -348,6 +348,7 @@
             "lab_check",
             "request",
             "result",
+            "engine_lock",
             "cost_result",
             "other"
           ]
@@ -403,6 +404,16 @@
             }
           ]
         },
+        "lock": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "request_path": {
           "const": "CHEPTA.run"
         },
@@ -430,6 +441,7 @@
         "pin",
         "commit_observed",
         "engine_file_hashes",
+        "lock",
         "request_path",
         "contracts",
         "result_format",
@@ -493,6 +505,17 @@
         "id": {
           "$ref": "#/$defs/id"
         },
+        "execution_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "variant": {
           "$ref": "#/$defs/id"
         },
@@ -552,6 +575,7 @@
       },
       "required": [
         "id",
+        "execution_id",
         "variant",
         "engine",
         "interface",
@@ -887,6 +911,7 @@
             "independent_reference_solution",
             "balance",
             "comparison_with_source",
+            "engine_comparison",
             "other"
           ]
         },
@@ -910,6 +935,16 @@
               "type": "null"
             }
           ]
+        },
+        "verifier": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/verifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -919,7 +954,50 @@
         "ref",
         "method",
         "scope",
-        "tolerances"
+        "tolerances",
+        "verifier"
+      ],
+      "additionalProperties": false
+    },
+    "verifier": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/id"
+        },
+        "earlier_version": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                },
+                "sha256": {
+                  "$ref": "#/$defs/sha256"
+                },
+                "change": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "commit",
+                "sha256",
+                "change"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "file",
+        "earlier_version"
       ],
       "additionalProperties": false
     },

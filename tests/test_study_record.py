@@ -27,7 +27,8 @@ class StudyRecordTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
         self.assertEqual(self.record["status"], "draft")
         self.assertEqual(self.record["reviews"], [])
-        self.assertEqual(len(self.record["runs"]), 6)
+        self.assertEqual(len(self.record["runs"]), 12)
+        self.assertEqual({r["engine"] for r in self.record["runs"]}, {"chepta-c1adf6b", "chepta@0.6.0"})
 
     def test_every_run_file_is_the_existing_file(self):
         manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results/run-manifest.json")
@@ -35,6 +36,31 @@ class StudyRecordTests(unittest.TestCase):
         for run, entry in zip(self.record["runs"], manifest["runs"]):
             self.assertEqual(files[run["request"]]["path"], "cases/ethanol-zsm5-573k/" + entry["request_file"])
             self.assertEqual(files[run["result"]]["path"], "cases/ethanol-zsm5-573k/" + entry["output_file"])
+
+    def test_rerun_files_are_the_0_6_0_files(self):
+        manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results-chepta-0.6.0/run-manifest.json")
+        files = {f["id"]: f for f in self.record["files"]}
+        new = [r for r in self.record["runs"] if r["engine"] == "chepta@0.6.0"]
+        self.assertEqual(len(new), 6)
+        for run, entry in zip(new, manifest["runs"]):
+            self.assertEqual(run["execution_id"], entry["id"])
+            self.assertEqual(files[run["result"]]["sha256"], entry["output_file_sha256"])
+
+    def test_release_pin_must_match_lock_file(self):
+        engine = next(e for e in self.record["engines"] if e["pin"] == "release")
+        engine["release"] = "0.6.1"
+        errors = self.errors()
+        self.assertTrue(any("lock entry does not give release 0.6.1" in e for e in errors))
+        self.assertTrue(any("reports library 0.6.0" in e for e in errors))
+
+    def test_release_pin_needs_lock(self):
+        next(e for e in self.record["engines"] if e["pin"] == "release")["lock"] = None
+        self.assertTrue(any("names its lock-file entry" in e for e in self.errors()))
+
+    def test_earlier_verifier_version_is_recorded(self):
+        old = [c for c in self.record["checks"] if c["kind"] == "independent_reference_solution"
+               and c["run_id"].startswith("upstream") and "chepta-0.6.0" not in c["run_id"]]
+        self.assertTrue(old and all(c["verifier"]["earlier_version"] for c in old))
 
     def test_changed_file_is_detected(self):
         self.record["files"][-1]["sha256"] = "0" * 64
@@ -122,6 +148,7 @@ class StudyRecordTests(unittest.TestCase):
             root = Path(tmp)
             shutil.copytree(ROOT / "data", root / "data")
             shutil.copytree(ROOT / "cases/ethanol-zsm5-573k", root / "cases/ethanol-zsm5-573k")
+            shutil.copy(ROOT / "package-lock.json", root / "package-lock.json")
             failed = {"chepta_result": 1, "capability": "solve_flowsheet", "outcome": "not_converged",
                       "error": {"code": "NOT_CONVERGED", "message": "synthetic test failure", "where": []},
                       "reproduction": {}, "run": {}}

@@ -16,13 +16,13 @@ It is an **index, not a copy**. CHEPTA's request and result files stay exactly a
 | `id`, `case_id`, `title`, `question`, `status` | Study name, the Lab case, the question asked; `draft`, `accepted` or `withdrawn` | One case can hold several studies |
 | `sources` | Source ids from `data/sources.json`; evidence ids from the canonical corpus | Reuses Lab's existing source blocks and evidence ids; no new citation format |
 | `files` | Every file the study relies on: path, sha256, role (request, result, runner, manifest, Lab check, source ledger, case input, cost result) | Binds the record to exact bytes |
-| `engines` | CHEPTA release (or a full commit between releases, saying so), the request path `CHEPTA.run`, contracts version, result format (`chepta_result`) | ROADMAP rules 1 and 6: old runs keep their engine |
+| `engines` | CHEPTA release with a pointer to its `package-lock.json` entry (version and sha512 integrity), or a full commit between releases, saying so; the request path `CHEPTA.run`, contracts version, result format (`chepta_result`) | ROADMAP rules 1 and 6: old runs keep their engine. The validator checks the lock entry and the library version each result reports |
 | `variants` | Model variants, each with its declared modifications: simplified model, substituted unit, opened recycle, relaxed target, changed input | P6 asks that these be recorded |
 | `runs` | One entry per CHEPTA call: variant, engine, interface (library, command line or MCP server), the request file, the result file (or none, with a failure note) | Several runs, failures included |
 | `values` | Inputs and outputs worth naming, each with a class (below), a pointer into a file and its unit | Keeps the five kinds of number apart |
 | `constraint_declaration`, `constraints` | Product and operating limits, where they are read in the result, the limit and tolerance with their origin, and when they were declared | P6: "meets the constraints declared before the run" |
 | `constraint_results` | For each constraint and run: met, not met or not evaluated | The validator recomputes every verdict from the files |
-| `checks` | Lab's own checks (for example an independent ODE solution), pointing into the check file | CHEPTA's own residuals stay in its result's `checks` |
+| `checks` | Lab's own checks (an independent ODE solution, an old-versus-new engine comparison), pointing into the check file, with the checking script and, if that script has changed since, the earlier version (commit and sha256) | CHEPTA's own residuals stay in its result's `checks` |
 | `warning_notes` | Where the warnings sit in each result, and Lab's reading of them | Warnings are not copied; G6 reads them from the result |
 | `assumptions`, `unresolved_inputs` | Model assumptions; missing or ambiguous inputs, each marked blocking or not, with the next action | Missing information stays visible |
 | `cost_coverage` | `not_costed`, `complete_within_scope`, `partial` (with what it excludes) or `unavailable` | ROADMAP cost rules; nothing more about costs |
@@ -60,9 +60,9 @@ One study holds all its runs: variants, operating points, failures. A re-run on 
 
 ## The worked example
 
-[cases/ethanol-zsm5-573k/study-record.json](../../cases/ethanol-zsm5-573k/study-record.json) indexes the existing six runs on CHEPTA commit c1adf6b without changing them: 19 files, 39 values, 4 constraints with 24 verdicts (all `met`, recomputed from the files), 6 independent checks, 4 assumptions and 4 unresolved inputs (the pressure-unit convention blocks acceptance). The validator lists why it is not acceptable: no human reviews, constraints reconstructed after the runs, one blocking unresolved input.
+[cases/ethanol-zsm5-573k/study-record.json](../../cases/ethanol-zsm5-573k/study-record.json) indexes twelve existing runs without changing them: the six on CHEPTA commit c1adf6b (`results/`) and the same six requests on `chepta@0.6.0` (`results-chepta-0.6.0/`, from the pin pull request), as one study with two engines. It binds 38 files and holds 57 values and 4 constraints with 48 verdicts (all `met`, recomputed from the files). There are 18 Lab checks: 12 independent ODE checks and 6 old-versus-new comparisons. It also has 4 assumptions and 4 unresolved inputs; the pressure-unit convention blocks acceptance. The c1adf6b checks were written by `verify.py` at commit 39e4efd. Later, only an optional results-folder argument was added to `verify.py`. The record names that earlier version by commit and sha256. The validator lists why it is not acceptable: no human reviews, constraints reconstructed after the runs, one blocking unresolved input.
 
-Checked: `python scripts/study_record.py`, `python scripts/dataset_pipeline.py validate` (now also checks study records), `python scripts/validate_catalog.py`, `python -m unittest discover -s tests` (39 tests, 19 new). Not checked: that G6 can display it (G6 does not exist yet), and anything on chepta@0.6.0.
+Checked: `python scripts/study_record.py`, `python scripts/dataset_pipeline.py validate` (now also checks study records), `python scripts/validate_catalog.py`, `python -m unittest discover -s tests` (48 tests, 23 in `tests/test_study_record.py`). Not checked: that G6 can display it (G6 does not exist yet). The 0.6.0 runs were indexed, not re-run here.
 
 Found while converting: the manifest's `request_sha256` is the hash of a compact re-serialization, not of the request file on disk. The study record uses the file's own hash; the manifest is unchanged.
 
@@ -71,7 +71,7 @@ Found while converting: the manifest's `request_sha256` is the hash of a compact
 | # | Question | Recommendation |
 |---|---|---|
 | 1 | Where do the records live: next to each case (`cases/<case>/study-record.json`) or in one folder? | Next to the case, as here; the validator finds them all |
-| 2 | The chepta@0.6.0 re-run of ethanol (separate pull request): new runs in this same record, or a new record that supersedes it? | Same study, new runs with a second engine entry, written to a new results folder (for example `results-0.6.0/`) so the old files and their hashes stay. If that pull request rewrites `results/`, this record's hash check fails, which is the intended alarm; whichever merges second updates the record |
+| 2 | A re-run on a new release: new runs in the same record, or a new record that supersedes it? | Same study, new runs with a new engine entry, in a new results folder so the old files and hashes stay. Done this way for `chepta@0.6.0` here |
 | 3 | Which reviews must a study have before `accepted`? | Human engineering, source accuracy and rights, each on the current digest, as now; a review by another model is recorded as `agent` and never counts (rule 7) |
 | 4 | Should CHEPTA own a copy of this schema for G6? | No copy: CHEPTA reads the schema from a pinned Lab commit and refuses unknown format numbers; agree a change policy like the project format's |
 | 5 | Do tolerances on equality constraints need a source? | Allow `assumed` with a stated reason (as in the example), but a person checks them at engineering review |
