@@ -91,10 +91,9 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    `data/ISSUES_AND_ROUTES.md` row (queue row D), automatic checkers for the "run CHEPTA" ones (row A); then the AI full
    check by a separate session, which picks 2 or 3 items for the maintainer.
 2. When CHEPTA releases VLLE with acetic acid: close the ethyl acetate plant (recycles), then S1 against S2.
-   The reactor-evaporator will not be built in CHEPTA (the maintainer, 2026-11-12: other simulators have no such
-   unit; Aspen Plus and DWSIM put a separator after the reactor). Model it as two units: a conversion reactor, then a
-   heater to vaporization (or a flash drum); say so in the case README and in the register row
-   rxn-esterification-equilibrium-limited.
+   The reactor-evaporator is one CHEPTA block: the conversion reactor with outlet vapour fraction `VF: 1` (the outlet
+   leaves as all vapour, the duty is computed; CHEPTA's coordinator, 2026-11-12). The case already uses it (run
+   u-krea4-conversion); the conversion is still imposed from the paper. The equilibrium reactor does not take `VF`.
 3. The next complete case: a paper whose downstream mixture overlaps a register row (row E).
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
