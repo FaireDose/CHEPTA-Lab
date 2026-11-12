@@ -60,16 +60,19 @@ source locator; failed runs are kept; tasks stay `draft` and no human review is 
 checks; open one pull request (do not merge); report once to the coordinator's session id with the link, what to
 check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (or the model used).
 
-## State on 2026-11-12, 13:45 UTC
+## State on 2026-11-12 (after the move to 0.6.1)
 
 - Steps 1 to 4 are done and merged: #2 documents, #3 pin `chepta@0.6.0`, #4 study record, #5 the B2 benzene + toluene
-  column and the methanol separator flash, #6 handover, #7 reorganization (README, docs/HOW_IT_WORKS.md, cases/), #8 review rule (AI full check + the maintainer's spot check).
-- Capability requests from #5, in CHEPTA: request 1 (column purity and recovery specifications) merged as
-  FaireDose/CHEPTA#227; acetic acid with dimers in the rigorous column open as #228 (two liquids on the stages with
-  acetic acid is CHEPTA's next step); requests 2 to 5 open as #229 (the MHV1 source ids were a naming artefact, the
-  data are right); request 6 (SRK + gE (MHV1)) queued, low priority. All for CHEPTA's next release (0.6.1 or 0.7).
-- CHEPTA release 0.6.1 being prepared (purity and recovery specifications #227, acetic acid dimers in columns #228,
-  Lab requests 2 to 5 #229, measured VLE #230). Phase: CHEPTA (two CHEPTA workers). No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
+  column and the methanol separator flash, #6 handover, #7 reorganization, #8 review rule (AI full check + the maintainer's spot check).
+- Lab's pin moved to `chepta@0.6.1` (pull request from branch `claude/lab-pin-0.6.1`, not merged by the worker). All three cases were
+  re-run; 0.6.0 results are kept beside the 0.6.1 ones; each case has `COMPATIBILITY_0.6.1.md` and its study record has the new runs.
+  - Ethanol reactor: identical to the last digit, warnings identical.
+  - Methanol flash: same numbers; the MHV1 run now carries the fit-quality warnings (request 1) and names the pair in the databank warning (request 2);
+    the source ids are unchanged (request 4, not verified by Lab); SRK + gE (MHV1) still refused, as expected.
+  - B2 column: the base run is identical; the record's `sets: "default"` is now accepted; purity, bottoms-purity and recovery specifications
+    now run and meet what is asked, but those columns are outside the unchanged limits (1 K, 0.02) of the book's profile (2.82 K and 0.073 for the
+    distillate purity). Not a reproduction of the book; no limit loosened. Acetic acid in a column (#228) and measured VLE points (#230) were not run.
+- Next for Lab: the ethyl acetate plant (needs acetic acid in a column and a decision on the purity limits). Phase: Lab again, after the maintainer merges.
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 

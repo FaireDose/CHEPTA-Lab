@@ -27,8 +27,8 @@ class StudyRecordTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
         self.assertEqual(self.record["status"], "draft")
         self.assertEqual(self.record["reviews"], [])
-        self.assertEqual(len(self.record["runs"]), 12)
-        self.assertEqual({r["engine"] for r in self.record["runs"]}, {"chepta-c1adf6b", "chepta@0.6.0"})
+        self.assertEqual(len(self.record["runs"]), 18)
+        self.assertEqual({r["engine"] for r in self.record["runs"]}, {"chepta-c1adf6b", "chepta@0.6.0", "chepta@0.6.1"})
 
     def test_every_run_file_is_the_existing_file(self):
         manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results/run-manifest.json")
@@ -41,6 +41,15 @@ class StudyRecordTests(unittest.TestCase):
         manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results-chepta-0.6.0/run-manifest.json")
         files = {f["id"]: f for f in self.record["files"]}
         new = [r for r in self.record["runs"] if r["engine"] == "chepta@0.6.0"]
+        self.assertEqual(len(new), 6)
+        for run, entry in zip(new, manifest["runs"]):
+            self.assertEqual(run["execution_id"], entry["id"])
+            self.assertEqual(files[run["result"]]["sha256"], entry["output_file_sha256"])
+
+    def test_rerun_files_are_the_0_6_1_files(self):
+        manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results-chepta-0.6.1/run-manifest.json")
+        files = {f["id"]: f for f in self.record["files"]}
+        new = [r for r in self.record["runs"] if r["engine"] == "chepta@0.6.1"]
         self.assertEqual(len(new), 6)
         for run, entry in zip(new, manifest["runs"]):
             self.assertEqual(run["execution_id"], entry["id"])
@@ -59,7 +68,7 @@ class StudyRecordTests(unittest.TestCase):
 
     def test_earlier_verifier_version_is_recorded(self):
         old = [c for c in self.record["checks"] if c["kind"] == "independent_reference_solution"
-               and c["run_id"].startswith("upstream") and "chepta-0.6.0" not in c["run_id"]]
+               and c["run_id"].startswith("upstream") and "chepta-0.6." not in c["run_id"]]
         self.assertTrue(old and all(c["verifier"]["earlier_version"] for c in old))
 
     def test_changed_file_is_detected(self):

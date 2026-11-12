@@ -64,3 +64,7 @@ No engine build or npm installation was needed for these source-module calls. Re
 The PDF's pressure-unit conventions need resolution. The paper's Figure 8 uses another model, so it is not reproduced here. Original experimental data and catalyst details are still needed. PR stream warnings include missing pairs and an ethanol/water parameter outside its fit range. The fixed-T/P rate expressions use yP; numerical agreement does not validate duties or phase equilibrium. These qualifications remain in the saved outputs even where top-level warnings are empty.
 
 The eventual example should teach: inspect all relevant source tables; distinguish a simplification from the published rate model; quantify its effect; preserve warnings; and stop short of an unsupported engineering recommendation. Human engineering and final release rights reviews remain pending. No model was trained and no paid compute was used.
+
+## Update 2026-11-12: chepta@0.6.1
+
+The six runs were repeated on 0.6.1: identical numbers and warnings ([COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md), [results-chepta-0.6.1/](results-chepta-0.6.1/)).

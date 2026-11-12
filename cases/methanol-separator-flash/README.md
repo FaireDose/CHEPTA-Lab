@@ -75,3 +75,9 @@ ids). These may be correct article ids; for CHEPTA to confirm.
 Reproduce (repository root, after `npm ci`): `python3 cases/methanol-separator-flash/run_chepta_0.6.0.py`, then
 `python3 cases/methanol-separator-flash/check_flash.py`. Re-running changes the result files and the hashes in the
 study record; keep the committed results.
+
+## Update 2026-11-12: chepta@0.6.1
+
+Re-run on 0.6.1 ([COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md), [results-chepta-0.6.1/](results-chepta-0.6.1/)). Same flash numbers
+and same regression result. The MHV1 run now carries the four fit-quality warnings and names the pair in the databank warning; the source ids
+are unchanged; SRK + gE (MHV1) is still refused (`NOT_AVAILABLE`).
