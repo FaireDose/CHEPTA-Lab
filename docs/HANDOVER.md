@@ -32,8 +32,8 @@ current: replace "State" and "Queue" at each handover, never append a diary.
    changes, documentation, small fixes. `claude-opus-5-5`: reading and reconciling papers, engineering judgement on a
    case, the study record's design, evaluation design.
 5. **At about 150,000 tokens of context, the coordinator tells the maintainer, who compacts the session** (the
-   maintainer, 2026-11-12, agreed with CHEPTA's coordinator; replaces "write a new handover and stop"). Before saying
-   so, the coordinator brings this file's State and Queue up to date, so nothing is lost in the compaction.
+   maintainer, 2026-11-12). No handover documents and no state diaries: the queue below is changed only when a
+   decision changes it, inside the pull request that carries that decision.
 6. **Few relays.** A worker reports once, when its pull request is open (one short `send_message` to the coordinator),
    and once more only if blocked. No polling, no scheduled check-ins.
 7. **Cheap checks.** Read files in parts; run `python scripts/validate_catalog.py`,
@@ -60,22 +60,15 @@ source locator; failed runs are kept; tasks stay `draft` and no human review is 
 checks; open one pull request (do not merge); report once to the coordinator's session id with the link, what to
 check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (or the model used).
 
-## State on 2026-11-12, 21:00 UTC
+## Where things stand
 
-- Merged: #2 to #8 (documents, pin 0.6.0, study record, B2 column and methanol flash, handover, reorganization, review
-  rule), #9 and #10 (dataset target, queue rows A to E), #11 (pipeline: AI full check + person's spot check), #12
-  (the full recheck after a failed spot check is a new AI review; a person's full review is optional).
-- Lab's phase of 2026-11-12 (15:12 to 21:00 UTC) produced #13 (pin `chepta@0.6.1`, three cases re-run: identical;
-  B2 purity specification now runs but is outside 1 K / 0.02, kept as a feature test, limits unchanged) and #14 (the
-  complete ethyl acetate plant S2 in 0.6.1: 19 units, 28 streams, **once through, not closed**; cut at stream 9 because
-  CHEPTA refuses two liquids with acetic acid; reactor conversion imposed from the paper, 0.7703; 2-stage extractor
-  calibrated on stream 11 and labelled; first `data/ISSUES_AND_ROUTES.md`, 5 rows). The maintainer agreed to both,
-  after their 3 spot checks of #14 (Table 1 duties of HTXR 18/19, the conversion, column 11 settings).
-- Sent to CHEPTA's coordinator (2026-11-12, 21:00): Lab's phase ended; 7 capability requests from #14, first priority
-  VLLE with acetic acid's chemical theory (flash, heater, column stages), then VLL in the absorber-type column, acetic
-  acid liquid below 289.81 K, adiabatic extraction and a slightly vapour feed, a warning for boiling extraction
-  outlets, a reactor-evaporator, a splitter by flow or a design specification.
-- Phase: CHEPTA. No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
+The results are in README.md ("Where things stand") and cases/README.md; the decisions are in the merged pull
+requests. This file keeps only the rules and the queue (the maintainer, 2026-11-12: no more handovers; at about
+150,000 tokens the coordinator says so and the maintainer compacts).
+
+Open with CHEPTA (2026-11-12): 7 capability requests from the ethyl acetate case; CHEPTA works on request 1 (VLLE with
+acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3 to 7 wait for the
+maintainer's order. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
