@@ -72,6 +72,66 @@ def review_digest(task, ix, sources):
                    "sources": [sources[key] for key in sorted(task["source_ids"])]})
 
 
+def current(task, stamp, scope, reviewer_type):
+    return [r for r in task["reviews"] if r["scope"] == scope and r["reviewer_type"] == reviewer_type
+            and r["review_digest"] == stamp]
+
+
+def full_human_path(task, stamp):
+    # Original path: a person approves every scope.
+    return [f"current human {scope} review missing" for scope in sorted(SCOPES)
+            if not any(r["decision"] == "approved" for r in current(task, stamp, scope, "human"))]
+
+
+def ai_spot_check_path(task, stamp):
+    # AI full check by a separate session + a person's spot check of the 2-3 items the AI selected.
+    ai = [r for r in current(task, stamp, "full_check", "ai_model") if r["decision"] == "approved"]
+    valid = []
+    for r in ai:
+        items = r.get("selected_items", [])
+        ids = [i["id"] for i in items]
+        if (r.get("model") and r.get("model_family") and r.get("review_session")
+                and r.get("case_built_in_session") and r["review_session"] != r["case_built_in_session"]
+                and 2 <= len(items) <= 3 and len(set(ids)) == len(ids)):
+            valid.append(r)
+    if not valid:
+        return ["current AI full check missing (needs model, family, a review session different from the "
+                "building session, and 2 or 3 selected items with reasons)"]
+    reasons = []
+    ai_review = valid[0]
+    ids = {i["id"] for i in ai_review["selected_items"]}
+    spots = current(task, stamp, "spot_check", "human")
+    if not spots:
+        return ["current person spot check missing"]
+    if any(d["decision"] == "rejected" for r in spots for d in r.get("item_decisions", [])):
+        return ["a spot-checked item was rejected; the whole case needs a full recheck"]
+    if not any(r["decision"] == "approved" and {d["item_id"] for d in r.get("item_decisions", [])} == ids
+               and all(d["decision"] == "approved" for d in r["item_decisions"]) for r in spots):
+        reasons.append("person spot check must approve exactly the items the AI selected")
+    return reasons
+
+
+def held_out_reasons(task, stamp):
+    # Test split: a person or an AI model of another family than Claude must have checked the cases.
+    ok = any(r["decision"] == "approved" and (
+        r["reviewer_type"] == "human" or
+        (r["reviewer_type"] == "ai_model" and r.get("model_family", "claude").strip().lower() not in {"claude", "anthropic"}))
+        for r in task["reviews"] if r["scope"] == "independent_evaluation" and r["review_digest"] == stamp)
+    return [] if ok else ["held-out task needs a current independent evaluation review by a person "
+                          "or an AI model of another family than Claude"]
+
+
+def review_reasons(task, stamp, split):
+    path_a = full_human_path(task, stamp)
+    if not path_a:
+        return []  # full human review: a person checked every scope, held-out cases included
+    path_b = ai_spot_check_path(task, stamp)
+    if path_b:
+        used_b = any(r["scope"] in {"full_check", "spot_check"} for r in task["reviews"])
+        return path_b if used_b else path_a
+    return held_out_reasons(task, stamp) if split == "test" else []
+
+
 def eligibility(task, ix, sources):
     reasons = list(task["blockers"])
     if task["status"] != "accepted":
@@ -79,11 +139,7 @@ def eligibility(task, ix, sources):
     if ix["groups"][task["split_group"]]["split"] == "unassigned":
         reasons.append("split is unassigned")
     stamp = review_digest(task, ix, sources)
-    for scope in sorted(SCOPES):
-        if not any(r["scope"] == scope and r["reviewer_type"] == "human"
-                   and r["decision"] == "approved" and r["review_digest"] == stamp
-                   for r in task["reviews"]):
-            reasons.append(f"current human {scope} review missing")
+    reasons.extend(review_reasons(task, stamp, ix["groups"][task["split_group"]]["split"]))
     for key in task["source_ids"]:
         if sources[key]["rights_status"] != "attribution_required":
             reasons.append(f"source {key} is not eligible for the initial reusable release")

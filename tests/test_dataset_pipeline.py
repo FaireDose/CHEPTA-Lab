@@ -29,6 +29,77 @@ class PipelineTests(unittest.TestCase):
                             "date": "2026-10-30", "notes": "Not an actual review"} for scope in p.SCOPES]
         return task
 
+    def ai_spot_setup(self, split="train", family="Claude", spot="approved"):
+        task = self.approve_for_test(split=split)
+        stamp = p.review_digest(task, p.indexes(self.corpus), self.sources)
+        items = [{"id": "i1", "what": "x", "why": "largest_effect"},
+                 {"id": "i2", "what": "y", "why": "least_certain"},
+                 {"id": "i3", "what": "z", "why": "random"}]
+        base = {"review_digest": stamp, "date": "2026-11-12", "notes": "SYNTHETIC UNIT TEST ONLY"}
+        task["reviews"] = [
+            dict(base, scope="full_check", reviewer="test-model", reviewer_type="ai_model",
+                 decision="approved", model="test-model", model_family=family,
+                 review_session="rev-1", case_built_in_session="build-1", selected_items=items),
+            dict(base, scope="spot_check", reviewer="SYNTHETIC PERSON", reviewer_type="human",
+                 decision="approved" if spot == "approved" else "changes_requested",
+                 item_decisions=[{"item_id": i["id"], "decision": "approved"} for i in items[:2]]
+                 + [{"item_id": "i3", "decision": spot}])]
+        return task
+
+    def blockers(self, task):
+        ix = p.indexes(self.corpus)
+        return p.eligibility(task, ix, self.sources)
+
+    def test_ai_full_check_plus_spot_check_accepted(self):
+        task = self.ai_spot_setup()
+        self.assertEqual(self.blockers(task), [])
+        self.assertEqual(p.validate(self.corpus, self.sources), [])
+
+    def test_missing_spot_check_refused(self):
+        task = self.ai_spot_setup()
+        task["reviews"] = task["reviews"][:1]
+        self.assertTrue(any("spot check" in r for r in self.blockers(task)))
+
+    def test_rejected_spot_item_refused(self):
+        task = self.ai_spot_setup(spot="rejected")
+        self.assertTrue(any("rejected" in r for r in self.blockers(task)))
+
+    def test_ai_check_labelled_human_refused(self):
+        task = self.ai_spot_setup()
+        task["reviews"][0]["reviewer_type"] = "human"
+        self.assertTrue(self.blockers(task))
+
+    def test_spot_check_labelled_ai_refused(self):
+        task = self.ai_spot_setup()
+        task["reviews"][1]["reviewer_type"] = "ai_model"
+        self.assertTrue(self.blockers(task))
+
+    def test_ai_check_from_building_session_refused(self):
+        task = self.ai_spot_setup()
+        task["reviews"][0]["review_session"] = "build-1"
+        self.assertTrue(self.blockers(task))
+
+    def test_held_out_needs_independent_review(self):
+        task = self.ai_spot_setup(split="test")
+        self.assertTrue(any("held-out" in r for r in self.blockers(task)))
+        stamp = task["reviews"][0]["review_digest"]
+        extra = {"scope": "independent_evaluation", "reviewer": "claude-x", "reviewer_type": "ai_model",
+                 "model": "claude-x", "model_family": "Claude", "decision": "approved",
+                 "review_digest": stamp, "date": "2026-11-12", "notes": "SYNTHETIC"}
+        task["reviews"].append(extra)
+        self.assertTrue(any("held-out" in r for r in self.blockers(task)))
+        task["reviews"][-1] = dict(extra, model="other-x", model_family="Other")
+        self.assertEqual(self.blockers(task), [])
+
+    def test_old_full_human_review_still_accepted(self):
+        task = self.approve_for_test()
+        self.assertEqual(self.blockers(task), [])
+
+    def test_stale_digest_refused_for_ai_path(self):
+        task = self.ai_spot_setup()
+        task["revision"] = task["revision"] + 1
+        self.assertTrue(self.blockers(task))
+
     def test_real_pilot_valid_but_no_release(self):
         self.assertEqual(p.validate(self.corpus, self.sources), [])
         with self.assertRaisesRegex(ValueError, "No eligible tasks"):
