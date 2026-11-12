@@ -23,9 +23,10 @@ current: replace "State" and "Queue" at each handover, never append a diary.
    task; start a fresh session from `main`.
 2. **At most two worker sessions at a time, counted across CHEPTA and CHEPTA-Lab together.** Ask CHEPTA's coordinator
    how many it has running before starting one.
-3. **CHEPTA and CHEPTA-Lab never work at the same time** (the maintainer, 2026-11-12). No Lab worker while a CHEPTA
-   worker runs, and the other way round. Start a Lab worker only after CHEPTA's coordinator says CHEPTA is idle, and
-   tell it when Lab's workers have finished.
+3. **CHEPTA and CHEPTA-Lab work in phases** (the maintainer, 2026-11-12). CHEPTA finishes a few packages with both
+   worker slots, then Lab works for a while with both slots, then back to CHEPTA. Never a CHEPTA worker and a Lab
+   worker at the same time. Lab's phase starts when CHEPTA's coordinator says no CHEPTA worker runs; Lab's
+   coordinator tells it when Lab's phase ends (all Lab workers have opened their PRs).
 4. **No Fable** (the maintainer, 2026-11-12): Opus and Sonnet only, for coordinators and workers. **Sonnet for routine
    work, Opus for judgement.** `claude-sonnet-5-5`: re-running cases, pins, schema and exporter
    changes, documentation, small fixes. `claude-opus-5-5`: reading and reconciling papers, engineering judgement on a
@@ -57,29 +58,23 @@ source locator; failed runs are kept; tasks stay `draft` and no human review is 
 checks; open one pull request (do not merge); report once to the coordinator's session id with the link, what to
 check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (or the model used).
 
-## State on 2026-11-11, 18:30 UTC
+## State on 2026-11-12, 13:45 UTC
 
-- The maintainer chose (2026-11-11): steps 1 to 4 only; the Atlas and everything about ChemE-as-Code later.
-- Merged: #2 (these documents), #3 (Lab pinned to `chepta@0.6.0`; the six ethanol runs identical to the old commit),
-  #4 (the study record: proposal 0002, schema, `scripts/study_record.py`, the ethanol record with 12 runs).
-- Open, for the maintainer: #5 (step 3: the B2 benzene + toluene column and the methanol separator flash on 0.6.0,
-  each as a study record; all checks pass on top of `main`).
-- Step 4 done: six capability requests sent to CHEPTA's coordinator on 2026-11-11 (table in #5's case READMEs): column
-  purity specifications (M4, in work), a clearer message for `sets: "default"`, MHV1 fit-quality warnings carried
-  into results, the pair named in the MHV1 low-pressure warning, MHV1 source ids to check, SRK + gE (MHV1) for
-  CO2 + water (low priority). Waiting for CHEPTA to place them in releases.
-- No Lab worker running. Steps 1 to 4 are complete once #5 is merged.
-- 2026-11-12: two CHEPTA workers running (two-liquid data; Lab requests 2 to 5). No Lab worker may start until
-  CHEPTA's coordinator says CHEPTA is idle (rule 3).
+- Steps 1 to 4 are done and merged: #2 documents, #3 pin `chepta@0.6.0`, #4 study record, #5 the B2 benzene + toluene
+  column and the methanol separator flash, #6 handover.
+- Capability requests from #5, in CHEPTA: request 1 (column purity and recovery specifications) merged as
+  FaireDose/CHEPTA#227; acetic acid with dimers in the rigorous column open as #228 (two liquids on the stages with
+  acetic acid is CHEPTA's next step); requests 2 to 5 open as #229 (the MHV1 source ids were a naming artefact, the
+  data are right); request 6 (SRK + gE (MHV1)) queued, low priority. All for CHEPTA's next release (0.6.1 or 0.7).
+- Phase: CHEPTA (two CHEPTA workers). No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
 
-## Queue, in order
+## Queue for Lab's next phase (the maintainer chooses)
 
-1. When the maintainer has merged #5: report steps 1 to 4 as done and ask which steps to take next (by
-   WHERE_WE_ARE_HEADING.md: 5 review packet, 6 first reaction-separation demonstration after CHEPTA's M4 release,
-   7 held-out cases, 8 baseline).
-2. When CHEPTA releases M4 (column purity specifications): re-run B2 with a purity specification; then the
-   demonstration case (D2 there: CO2 to methanol recommended, its paper supplement still to audit).
-3. Not now (the maintainer, 2026-11-11): the Atlas and ChemE-as-Code.
+1. Step 5, review packet for the 9 evidence claims and 3 draft tasks (Opus). Recommended: it waits for nothing.
+2. When CHEPTA releases #227 and #228 on npm: move the pin (compatibility suite: ethanol, B2, separator); re-run B2
+   with a distillate purity specification; try the ethyl acetate column with acetic acid dimers (Sonnet).
+3. Step 6, the first reaction-separation demonstration: first audit the CO2-to-methanol paper's supplement (Opus).
+4. Not now (the maintainer, 2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
 
