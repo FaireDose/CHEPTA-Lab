@@ -103,6 +103,13 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    the workbench can open a `chepta request` flowsheet and whether it ships in the npm package; what is missing becomes
    capability requests, smallest first. First task of Lab's next phase (Sonnet), starting with the ethyl acetate plant;
    the sheet is what the maintainer looks at first in a spot check.
+   CHEPTA's answer (2026-11-12): wrap the case's `input.flowsheet` (+ `user_data`) in a `.chepta.json` project
+   (keys in CHEPTA src/ui/project.js; check with `CHEPTA.checkProject`), load `node_modules/chepta/dist/chepta.js` in a
+   3-line page, `CHEPTA.app("#app", ...)`, open the project with Playwright through `[data-fk="proj-file"]`, wait for
+   "Ready", screenshot the drawing and results, catch the Excel download (sheet "Energy and balances"). Today the drawing
+   shows stream names only (values on hover and in the table); there is no per-block balance table. Requests to CHEPTA,
+   if the maintainer agrees: stream values on the drawing (a toggle), a per-block balance table, PNG/SVG export of the
+   drawing; opening a project at start is not needed (Playwright uses the file input).
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
