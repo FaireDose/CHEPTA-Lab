@@ -231,7 +231,7 @@ record = {
     "unresolved_inputs": [
         {"id": "kinetics", "item": "Catalyst concentration and concentration units of the paper's rate law (Eqs. 1-3, after Atalay).", "consequence": "The reactor cannot be predicted; its conversion is taken from the paper.", "blocking": False, "next_action": "Read Atalay (ref. 36) for the catalyst basis; needs a reactor-evaporator in CHEPTA as well."},
         {"id": "extractor-design", "item": "Number of stages, contactor type and energy balance of EXTR 8.", "consequence": "The stage count is calibrated; the extract leaves at 27 C instead of 41 C, so HTXR 19 duty is not comparable.", "blocking": False, "next_action": "None in the paper; an adiabatic extraction block in CHEPTA would remove one assumption."},
-        {"id": "paper-heater-duties", "item": "Table 1's duties of HTXR 18 and HTXR 19 look exchanged: HTXR 18 (stream 26, 60,000 kg/h, 27 to 70 C) prints 4332.9 kW and HTXR 19 (stream 20, 139,203 kg/h, 41 to 70 C) 1541.1 kW, while CHEPTA gives 1580 and 5681 kW for them (unit runs); S1 shows the same pattern. HTXR 10 heats stream 11's composition with 26 W per kg/h, HTXR 18 with 72 W per kg/h as printed.", "consequence": "HTXR 18 and 19 are not compared as printed; the totals of Table 2 are unaffected by a label swap.", "blocking": False, "next_action": "The maintainer checks Table 1 against Table A2 (spot-check item); if confirmed, ask the authors."},
+        {"id": "paper-heater-duties", "item": "Table 1's duties of HTXR 18 and HTXR 19 look exchanged: HTXR 18 (stream 26, 60,000 kg/h, 27 to 70 C) prints 4332.9 kW and HTXR 19 (stream 20, 139,203 kg/h, 41 to 70 C) 1541.1 kW, while CHEPTA gives 1580 and 5681 kW for them (unit runs); S1 shows the same pattern. HTXR 10 heats stream 11's composition with 26 W per kg/h, HTXR 18 with 72 W per kg/h as printed.", "consequence": "HTXR 18 and 19 are not compared as printed; the totals of Table 2 are unaffected by a label swap.", "blocking": False, "next_action": "Confirmed by the maintainer's spot check (2026-11-12): the two duties are exchanged in Table 1. Ask the authors."},
     ],
     "cost_coverage": {"status": "not_costed", "scope": None, "missing_items": [], "result_files": []},
     "corpus_links": {"task_ids": [], "run_ids": []},
@@ -241,7 +241,7 @@ record = {
         "The reactor's conversion is imposed from the paper; reactor outlet composition is not predicted.",
         "The whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
         "The extractor is isothermal at 27 C with a calibrated stage count; the paper's extractor is adiabatic at an unknown stage count.",
-        "No review by a person or by a separate AI session; draft only.",
+        "No separate AI review session yet; draft only. The maintainer spot-checked and confirmed 3 items chosen by the building session (2026-11-12: HTXR 18/19 duties exchanged in Table 1, reactor conversion 0.7703, column 11 settings); this is not recorded as a review.",
     ],
 }
 (H / "study-record.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n")

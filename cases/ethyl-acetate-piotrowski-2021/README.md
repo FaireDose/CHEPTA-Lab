@@ -6,7 +6,7 @@
 | Simulated | **all 19 units and 28 streams of S2** in `chepta@0.6.1` through its command line: each unit alone with the paper's inlets, the two halves of the plant with their recycles, and the plant once through |
 | Complete flowsheet | **once through, not closed.** Acetic acid forces a cut at stream 9 (CHEPTA cannot hold two liquids with acetic acid); Lab's script joins the halves, and the second pass stops in column 5 (a second liquid would form on stage 7) |
 | Agrees with the paper | azeotrope stream 9 within 0.01 % in flow and 0.01 mass % points; product 12,467 vs 12,434 kg/h; 7 of 11 duties within 7 % (reactor +6.9 %, its conversion taken from the paper; HTXR 2, 6, 17; column 15 condenser and reboiler; column 11 condenser) |
-| Differs | product column reboiler −12 to −19 % (CHEPTA boils 45 % of the feed in the heater before it); wastewater-column bottoms 0.15 mass % ethanol vs 0.02 %; water back to the reactor 8.2 vs 5.2 mass %; HTXR 18 and 19 duties look exchanged in the paper |
+| Differs | product column reboiler −12 to −19 % (CHEPTA boils 45 % of the feed in the heater before it); wastewater-column bottoms 0.15 mass % ethanol vs 0.02 %; water back to the reactor 8.2 vs 5.2 mass %; HTXR 18 and 19 duties exchanged in the paper (confirmed by the maintainer's spot check) |
 | CHEPTA could not | two liquids with acetic acid; two liquids in an absorber-type column; acetic acid below 16.66 C; an adiabatic extractor; a reactor-evaporator (7 capability requests below) |
 | Reviewed by a person | no; draft, written by an AI session on 2026-11-12 |
 
@@ -100,7 +100,7 @@ needs capability requests 1 and 2.
 
 ### The paper's own discrepancies (kept, not resolved)
 
-- Table 1 (p.11) heater duties HTXR 18 and HTXR 19 look exchanged: HTXR 18 heats stream 26 (60,000 kg/h, 27 to 70 C,
+- Table 1 (p.11) heater duties HTXR 18 and HTXR 19 are exchanged (confirmed by the maintainer's spot check, 2026-11-12): HTXR 18 heats stream 26 (60,000 kg/h, 27 to 70 C,
   sensible heat only) yet prints 4332.9 kW, and HTXR 19 heats stream 20 (139,203 kg/h of mostly water, 41 to 70 C)
   yet prints 1541.1 kW. CHEPTA gives 1580 and 5681 kW. S1 shows the same pattern (6088 / 1595 kW). Lab's inference,
   to be checked.
@@ -133,6 +133,11 @@ Minor: column 11 with a mass purity specification and two liquids took 610 s (12
 2. **Least certain:** the reactor's acetic acid conversion 0.7703 = 1 − 4.74/20.64 (Table A2 streams 5 and 6, same
    53,292 kg/h). The whole of section A rests on it.
 3. **At random:** Table 1, S2 column 11: 35 stages, feed stage 15, R/D 3, condenser −9180.3 kW, reboiler 9219.2 kW.
+
+**Person spot check, 2026-11-12:** the maintainer checked items 1, 2 and 3 above and confirmed all three (HTXR 18 and
+19 duties exchanged in Table 1; conversion 0.7703 from streams 5 and 6; column 11 settings as listed). These items were
+chosen by the session that built the case, not by a separate AI review session; the AI full check required by AGENTS.md
+has not been done, so the case stays a draft and no review is recorded in study-record.json.
 
 ## Reproduce
 
