@@ -96,6 +96,13 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    u-krea4-conversion); the conversion is still imposed from the paper. The equilibrium reactor does not take `VF`. The case README (bound by sha256 in its study
    record) still says "CHEPTA has no reactor-evaporator": reword it, and re-bind the record, in the next case task.
 3. The next complete case: a paper whose downstream mixture overlaps a register row (row E).
+0. **Case sheet from CHEPTA itself** (the maintainer, 2026-11-12: "no invented picture by hand, I want a real proof from
+   the CHEPTA simulator"). For every complete case: CHEPTA's own flowsheet drawing with stream values, its stream table,
+   and the mass and heat balance per unit and overall, produced by CHEPTA's workbench from the same request the case
+   ran (exported PNG/SVG and Excel), never drawn by Lab or by an AI. Lab asked CHEPTA's coordinator (2026-11-12) whether
+   the workbench can open a `chepta request` flowsheet and whether it ships in the npm package; what is missing becomes
+   capability requests, smallest first. First task of Lab's next phase (Sonnet), starting with the ethyl acetate plant;
+   the sheet is what the maintainer looks at first in a spot check.
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
