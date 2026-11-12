@@ -73,6 +73,10 @@ check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <norepl
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
+New review model (AGENTS.md, "Review by AI with a person's spot check"): needs a change to dataset/PIPELINE.md, the
+schemas and `scripts/dataset_pipeline.py` so that a review records an AI full check plus a person's spot check of
+named items (Sonnet or Opus worker, early in Lab's phase, before any item is accepted).
+
 The maintainer chose: first reorganize the repository so it is clear (README, docs/HOW_IT_WORKS.md, the cases
 index; PR from `claude/lab-next-steps`), then **one complete flowsheet from one paper**, compared stream by stream,
 before more pieces.
