@@ -67,8 +67,8 @@ requests. This file keeps only the rules and the queue (the maintainer, 2026-11-
 150,000 tokens the coordinator says so and the maintainer compacts).
 
 Open with CHEPTA (2026-11-12): 7 capability requests from the ethyl acetate case; CHEPTA works on request 1 (VLLE with
-acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3 to 7 wait for the
-maintainer's order. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
+acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3, 4, 5 and 7 are queued in
+CHEPTA (the design specification through a proposal first); request 6 (reactor-evaporator) declined. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
@@ -91,6 +91,10 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    `data/ISSUES_AND_ROUTES.md` row (queue row D), automatic checkers for the "run CHEPTA" ones (row A); then the AI full
    check by a separate session, which picks 2 or 3 items for the maintainer.
 2. When CHEPTA releases VLLE with acetic acid: close the ethyl acetate plant (recycles), then S1 against S2.
+   The reactor-evaporator will not be built in CHEPTA (the maintainer, 2026-11-12: other simulators have no such
+   unit; Aspen Plus and DWSIM put a separator after the reactor). Model it as two units: a conversion reactor, then a
+   heater to vaporization (or a flash drum); say so in the case README and in the register row
+   rxn-esterification-equilibrium-limited.
 3. The next complete case: a paper whose downstream mixture overlaps a register row (row E).
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
