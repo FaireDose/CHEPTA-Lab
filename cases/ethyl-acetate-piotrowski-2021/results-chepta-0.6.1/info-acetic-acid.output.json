@@ -1,0 +1,271 @@
+{
+  "chepta_result": 1,
+  "capability": "component_info",
+  "outcome": "ok",
+  "value": {
+    "id": "acetic-acid",
+    "name": "Acetic acid",
+    "formula": "C2H4O2",
+    "cas": "64-19-7",
+    "class": "volatile",
+    "MW": 60.05196,
+    "Tc_K": 590.7,
+    "Pc_Pa": 5780000,
+    "omega": 0.46,
+    "Tb_K": 391.05,
+    "properties": [
+      {
+        "key": "liquidDensity",
+        "tier": "databank",
+        "Tmin_K": 289.81,
+        "Tmax_K": 594.45,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "ChemSep equation 105 coefficients taken over unchanged except: Tmax limited to the ChemSep critical temperature 594.45 K (ChemSep: 594.75 K). Tmin raised to the triple point 289.81 K (ChemSep: 273.15 K). A converted from kmol/m3 to kg/m3 with the ChemSep molar mass 60.0520 kg/kmol.; reproduces ChemSep within 0.0001 % at 200 points 289.81-594.45 K",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      },
+      {
+        "key": "idealGasHeatCapacity",
+        "tier": "fitted",
+        "Tmin_K": 50,
+        "Tmax_K": 1500,
+        "source": {
+          "name": "NIST Chemistry WebBook",
+          "reference": "Chao J., Thermodynamic properties of key organic oxygen compounds in the carbon range C1 to C4. Part 2. Ideal gas properties, J. Phys. Chem. Ref. Data 15 (1986) 1369-1436, as tabulated in the NIST Chemistry WebBook (SRD 69), gas phase thermochemistry data, Cp,gas",
+          "url": "https://webbook.nist.gov/cgi/inchi?ID=C64197&Mask=1",
+          "access": "free to read (NIST SRD 69)",
+          "fit": "19 tabulated points, 50.00-1500.00 K, max deviation 0.89 %",
+          "notes": "Monomer (ideal gas of single CH3COOH molecules): the real vapour is largely dimerized (see the association record). Statistically calculated; the WebBook notes that values differ from other statistical calculations by 3.1-5.4 J/mol/K.",
+          "chain": "CoolProp 8.0.0: fluid not included"
+        }
+      },
+      {
+        "key": "liquidHeatCapacity",
+        "tier": "fitted",
+        "Tmin_K": 289.81,
+        "Tmax_K": 400,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "refitted in the DIPPR100 form to ChemSep equation 16 (Y = A + exp(B/T + C + D T + E T^2), J/kmol/K, converted to the mol basis): 200 points 289.81-400.00 K (ChemSep range, Tmin raised to the triple point), max deviation 0.21 %",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: measured values at single temperatures only, not a correlation over the liquid range; where available they are compared with this record in `measured`",
+          "measured": "+0.7 % vs the mean (123.10 J/mol/K) of 1 measured value at 298.15 K, 1970 or later, range 123.10-123.10 (NIST WebBook, https://webbook.nist.gov/cgi/cbook.cgi?ID=C64197&Mask=2)"
+        }
+      },
+      {
+        "key": "heatOfVaporization",
+        "tier": "databank",
+        "Tmin_K": 289.81,
+        "Tmax_K": 591.95,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "ChemSep equation 106 coefficients taken over unchanged except: A converted from J/kmol to J/mol.; reproduces ChemSep within 0.0001 % at 200 points 289.81-591.95 K",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: measured values at single temperatures only, not a correlation over the liquid range; where available they are compared with this record in `measured`",
+          "measured": "-1.0 % vs 23.70 kJ/mol at 391.1 K (Majer and Svoboda 1985, via the NIST WebBook, https://webbook.nist.gov/cgi/cbook.cgi?ID=C64197&Mask=4)",
+          "notes": "Enthalpy of vaporization to the real, largely dimerized vapour (as measured), not to the ideal-gas monomer of the idealGasHeatCapacity record: h(liquid) = h°(T) - dHvap(T) is not consistent for acetic acid until the vapour association is included in the enthalpy."
+        }
+      },
+      {
+        "key": "liquidViscosity",
+        "tier": "databank",
+        "Tmin_K": 289.81,
+        "Tmax_K": 474,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "ChemSep equation 101 coefficients taken over unchanged except: Tmin raised to the triple point 289.81 K (ChemSep: 288.15 K).; reproduces ChemSep within 0.0001 % at 200 points 289.81-474.00 K",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      },
+      {
+        "key": "vapourViscosity",
+        "tier": "databank",
+        "Tmin_K": 289.81,
+        "Tmax_K": 1000,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "ChemSep equation 102 coefficients taken over unchanged; reproduces ChemSep within 0.0001 % at 200 points 289.81-1000.00 K",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      },
+      {
+        "key": "liquidThermalConductivity",
+        "tier": "fitted",
+        "Tmin_K": 289.81,
+        "Tmax_K": 391.05,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "refitted in the DIPPR100 form to ChemSep equation 16 (Y = A + exp(B/T + C + D T + E T^2), W/m/K, converted to the mol basis): 200 points 289.81-391.05 K (ChemSep range, Tmin raised to the triple point), max deviation 0.11 %",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      },
+      {
+        "key": "vapourThermalConductivity",
+        "tier": "databank",
+        "Tmin_K": 289.81,
+        "Tmax_K": 468.55,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "ChemSep equation 102 coefficients taken over unchanged; reproduces ChemSep within 0.0001 % at 200 points 289.81-468.55 K",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      },
+      {
+        "key": "surfaceTension",
+        "tier": "fitted",
+        "Tmin_K": 289.81,
+        "Tmax_K": 564.72,
+        "source": {
+          "name": "ChemSep v8.3 pure-component database",
+          "reference": "Kooijman and Taylor, ChemSep v8.3, chemsep1.xml (2021), via https://github.com/DanWBR/dwsim (DWSIM.Thermodynamics/Assets/Databases)",
+          "access": "Artistic License 2.0",
+          "fit": "refitted in the DIPPR106 form to ChemSep equation 16 (Y = A + exp(B/T + C + D T + E T^2), N/m, converted to the mol basis): 200 points 289.81-564.72 K (ChemSep range, Tmin raised to the triple point, limited to 0.95 Tc), max deviation 0.19 %",
+          "chain": "CoolProp 8.0.0: fluid not included; NIST WebBook: no data"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "key": "omega_source",
+        "label": "acentric factor",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "vapourPressure",
+        "label": "vapour pressure",
+        "source_ids": [
+          "thermo-library"
+        ]
+      },
+      {
+        "key": "uniquac",
+        "label": "UNIQUAC r and q",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "modUnifac",
+        "label": "Mod. UNIFAC 2.0 groups",
+        "source_ids": [
+          "hayer2025-mod-unifac-2",
+          "thermo-library"
+        ]
+      },
+      {
+        "key": "association",
+        "label": "vapour association",
+        "source_ids": [
+          "schmid2007-acetic-acid-ethylene-glycol"
+        ]
+      },
+      {
+        "key": "fusion",
+        "label": "melting temperature and enthalpy of fusion",
+        "source_ids": [
+          "nist-webbook"
+        ]
+      },
+      {
+        "key": "solidDensity",
+        "label": "solid density",
+        "source_ids": [
+          "chemsep-8.32"
+        ]
+      },
+      {
+        "key": "liquidDensity",
+        "label": "liquid density",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "idealGasHeatCapacity",
+        "label": "ideal gas heat capacity",
+        "source_ids": [
+          "nist-webbook"
+        ]
+      },
+      {
+        "key": "liquidHeatCapacity",
+        "label": "liquid heat capacity",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "heatOfVaporization",
+        "label": "heat of vaporization",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "liquidViscosity",
+        "label": "liquid viscosity",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "vapourViscosity",
+        "label": "vapour viscosity",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "liquidThermalConductivity",
+        "label": "liquid thermal conductivity",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "vapourThermalConductivity",
+        "label": "vapour thermal conductivity",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      },
+      {
+        "key": "surfaceTension",
+        "label": "surface tension",
+        "source_ids": [
+          "chemsep-8.3"
+        ]
+      }
+    ]
+  },
+  "reproduction": {
+    "library": "0.6.1",
+    "input_hash": "d591ae110d7a4281",
+    "databank_hash": "bd61f68e9fb43fe1",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwdq0z3i-1",
+    "input_hash": "d591ae110d7a4281",
+    "limits": {
+      "time_ms": 900000
+    },
+    "status": "done",
+    "elapsed_ms": 2.55056399999998
+  }
+}

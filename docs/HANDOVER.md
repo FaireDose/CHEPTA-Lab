@@ -32,8 +32,8 @@ current: replace "State" and "Queue" at each handover, never append a diary.
    changes, documentation, small fixes. `claude-opus-5-5`: reading and reconciling papers, engineering judgement on a
    case, the study record's design, evaluation design.
 5. **At about 150,000 tokens of context, the coordinator tells the maintainer, who compacts the session** (the
-   maintainer, 2026-11-12, agreed with CHEPTA's coordinator; replaces "write a new handover and stop"). Before saying
-   so, the coordinator brings this file's State and Queue up to date, so nothing is lost in the compaction.
+   maintainer, 2026-11-12). No handover documents and no state diaries: the queue below is changed only when a
+   decision changes it, inside the pull request that carries that decision.
 6. **Few relays.** A worker reports once, when its pull request is open (one short `send_message` to the coordinator),
    and once more only if blocked. No polling, no scheduled check-ins.
 7. **Cheap checks.** Read files in parts; run `python scripts/validate_catalog.py`,
@@ -60,19 +60,15 @@ source locator; failed runs are kept; tasks stay `draft` and no human review is 
 checks; open one pull request (do not merge); report once to the coordinator's session id with the link, what to
 check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (or the model used).
 
-## State on 2026-11-12 (after the move to 0.6.1)
+## Where things stand
 
-- Steps 1 to 4 are done and merged: #2 documents, #3 pin `chepta@0.6.0`, #4 study record, #5 the B2 benzene + toluene
-  column and the methanol separator flash, #6 handover, #7 reorganization, #8 review rule (AI full check + the maintainer's spot check).
-- Lab's pin moved to `chepta@0.6.1` (pull request from branch `claude/lab-pin-0.6.1`, not merged by the worker). All three cases were
-  re-run; 0.6.0 results are kept beside the 0.6.1 ones; each case has `COMPATIBILITY_0.6.1.md` and its study record has the new runs.
-  - Ethanol reactor: identical to the last digit, warnings identical.
-  - Methanol flash: same numbers; the MHV1 run now carries the fit-quality warnings (request 1) and names the pair in the databank warning (request 2);
-    the source ids are unchanged (request 4, not verified by Lab); SRK + gE (MHV1) still refused, as expected.
-  - B2 column: the base run is identical; the record's `sets: "default"` is now accepted; purity, bottoms-purity and recovery specifications
-    now run and meet what is asked, but those columns are outside the unchanged limits (1 K, 0.02) of the book's profile (2.82 K and 0.073 for the
-    distillate purity). Not a reproduction of the book; no limit loosened. Acetic acid in a column (#228) and measured VLE points (#230) were not run.
-- Next for Lab: the ethyl acetate plant (needs acetic acid in a column and a decision on the purity limits). Phase: Lab again, after the maintainer merges.
+The results are in README.md ("Where things stand") and cases/README.md; the decisions are in the merged pull
+requests. This file keeps only the rules and the queue (the maintainer, 2026-11-12: no more handovers; at about
+150,000 tokens the coordinator says so and the maintainer compacts).
+
+Open with CHEPTA (2026-11-12): 7 capability requests from the ethyl acetate case; CHEPTA works on request 1 (VLLE with
+acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3 to 7 wait for the
+maintainer's order. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
@@ -91,21 +87,11 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
 | D | **Consistency scoring** (CheckList, Ribeiro et al. 2020; contrast sets, Gardner et al. 2020) | Each question carries the register entry it tests. Groups are found from these labels, not by eye. A group counts as understood only if all its questions are right and the explanations agree; reported only with questions from 3 or more papers. Explanations are scored apart from answers (Turpin et al. 2023) |
 | E | **Paper choice after ethyl acetate** | Prefer papers whose downstream mixtures overlap entries already in the register, including different reactions with similar products; keep some unrelated processes so the test does not become narrow |
 
-New review model (AGENTS.md, "Review by AI with a person's spot check"): needs a change to dataset/PIPELINE.md, the
-schemas and `scripts/dataset_pipeline.py` so that a review records an AI full check plus a person's spot check of
-named items (Sonnet or Opus worker, early in Lab's phase, before any item is accepted).
-
-The maintainer chose: first reorganize the repository so it is clear (README, docs/HOW_IT_WORKS.md, the cases
-index; PR from `claude/lab-next-steps`), then **one complete flowsheet from one paper**, compared stream by stream,
-before more pieces.
-
-1. When CHEPTA's coordinator opens Lab's phase and 0.6.1 is on npm: move the pin to 0.6.1 and re-run the three run
-   cases (Sonnet).
-2. The complete ethyl acetate plant, Piotrowski & Kubica 2021, classic design S2 first (Opus):
-   `cases/ethyl-acetate-piotrowski-2021/` already holds its 56 streams and 19 units. Every unit CHEPTA cannot do is
-   marked, never replaced by a split. Fallback if the decanter's two liquids with acetic acid block it: CO2 to
-   methanol (supplement still to audit).
-3. Then: questions with checked answers from that case; step 5 review packet.
+1. Questions with checked answers from the ethyl acetate case (Opus): about 10 to 15, labelled with their
+   `data/ISSUES_AND_ROUTES.md` row (queue row D), automatic checkers for the "run CHEPTA" ones (row A); then the AI full
+   check by a separate session, which picks 2 or 3 items for the maintainer.
+2. When CHEPTA releases VLLE with acetic acid: close the ethyl acetate plant (recycles), then S1 against S2.
+3. The next complete case: a paper whose downstream mixture overlaps a register row (row E).
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
@@ -114,5 +100,3 @@ before more pieces.
 - The LinkedIn post by Scott Duncan could not be read from a session; if its content matters, paste the text.
 - The human reviewer for engineering and source checks is still unassigned in the delivery plan (it reads as the
   maintainer; to confirm).
-- README.md and PROJECT_PLAN.md still describe the state of 2026-10-30; they are updated when the pin moves (queue
-  item 1), not before.
