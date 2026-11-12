@@ -63,7 +63,7 @@ check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <norepl
 ## State on 2026-11-12, 13:45 UTC
 
 - Steps 1 to 4 are done and merged: #2 documents, #3 pin `chepta@0.6.0`, #4 study record, #5 the B2 benzene + toluene
-  column and the methanol separator flash, #6 handover.
+  column and the methanol separator flash, #6 handover, #7 reorganization (README, docs/HOW_IT_WORKS.md, cases/), #8 review rule (AI full check + the maintainer's spot check).
 - Capability requests from #5, in CHEPTA: request 1 (column purity and recovery specifications) merged as
   FaireDose/CHEPTA#227; acetic acid with dimers in the rigorous column open as #228 (two liquids on the stages with
   acetic acid is CHEPTA's next step); requests 2 to 5 open as #229 (the MHV1 source ids were a naming artefact, the
@@ -72,6 +72,11 @@ check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <norepl
   Lab requests 2 to 5 #229, measured VLE #230). Phase: CHEPTA (two CHEPTA workers). No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
+
+Target (the maintainer, 2026-11-12, after #8): first a **test set of about 50 checked questions from 4 to 6 complete
+cases** (about 10 to 15 per case), used to score assistants on CHEPTA. Training data (several hundred items from 15 to
+20 papers) is a later decision, only if the tests show a gap that examples could fix. Count independent papers, not
+rows.
 
 New review model (AGENTS.md, "Review by AI with a person's spot check"): needs a change to dataset/PIPELINE.md, the
 schemas and `scripts/dataset_pipeline.py` so that a review records an AI full check plus a person's spot check of
