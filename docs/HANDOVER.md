@@ -67,8 +67,8 @@ requests. This file keeps only the rules and the queue (the maintainer, 2026-11-
 150,000 tokens the coordinator says so and the maintainer compacts).
 
 Open with CHEPTA (2026-11-12): 7 capability requests from the ethyl acetate case; CHEPTA works on request 1 (VLLE with
-acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3 to 7 wait for the
-maintainer's order. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
+acetic acid's chemical theory) and request 2 (two liquids in the absorber-type column); requests 3, 4, 5 and 7 are queued in
+CHEPTA (the design specification through a proposal first); request 6 (reactor-evaporator) declined. Phase: CHEPTA. Lab's next phase starts when CHEPTA's coordinator says so.
 
 ## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
@@ -91,7 +91,25 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    `data/ISSUES_AND_ROUTES.md` row (queue row D), automatic checkers for the "run CHEPTA" ones (row A); then the AI full
    check by a separate session, which picks 2 or 3 items for the maintainer.
 2. When CHEPTA releases VLLE with acetic acid: close the ethyl acetate plant (recycles), then S1 against S2.
+   The reactor-evaporator is one CHEPTA block: the conversion reactor with outlet vapour fraction `VF: 1` (the outlet
+   leaves as all vapour, the duty is computed; CHEPTA's coordinator, 2026-11-12). The case already uses it (run
+   u-krea4-conversion); the conversion is still imposed from the paper. The equilibrium reactor does not take `VF`. The case README (bound by sha256 in its study
+   record) still says "CHEPTA has no reactor-evaporator": reword it, and re-bind the record, in the next case task.
 3. The next complete case: a paper whose downstream mixture overlaps a register row (row E).
+0. **Case sheet from CHEPTA itself** (the maintainer, 2026-11-12: "no invented picture by hand, I want a real proof from
+   the CHEPTA simulator"). For every complete case: CHEPTA's own flowsheet drawing with stream values, its stream table,
+   and the mass and heat balance per unit and overall, produced by CHEPTA's workbench from the same request the case
+   ran (exported PNG/SVG and Excel), never drawn by Lab or by an AI. Lab asked CHEPTA's coordinator (2026-11-12) whether
+   the workbench can open a `chepta request` flowsheet and whether it ships in the npm package; what is missing becomes
+   capability requests, smallest first. First task of Lab's next phase (Sonnet), starting with the ethyl acetate plant;
+   the sheet is what the maintainer looks at first in a spot check.
+   CHEPTA's answer (2026-11-12): wrap the case's `input.flowsheet` (+ `user_data`) in a `.chepta.json` project
+   (keys in CHEPTA src/ui/project.js; check with `CHEPTA.checkProject`), load `node_modules/chepta/dist/chepta.js` in a
+   3-line page, `CHEPTA.app("#app", ...)`, open the project with Playwright through `[data-fk="proj-file"]`, wait for
+   "Ready", screenshot the drawing and results, catch the Excel download (sheet "Energy and balances"). Today the drawing
+   shows stream names only (values on hover and in the table); there is no per-block balance table. Requests to CHEPTA,
+   if the maintainer agrees: stream values on the drawing (a toggle), a per-block balance table, PNG/SVG export of the
+   drawing; opening a project at start is not needed (Playwright uses the file input).
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
