@@ -25,7 +25,17 @@ A study handed to CHEPTA's design-study view is described by a study record (`ca
 
 ## Task-specific acceptance
 
-Every released task requires an accepted status, no unresolved blockers, assigned split and human approvals for source accuracy, engineering, rights and context. A single engineering review can cover several scopes; each scope is recorded explicitly. Agent checks never impersonate a human reviewer.
+Every released task requires an accepted status, no unresolved blockers, an assigned split and **one of two review paths**, both bound to the task's current `review_digest`. Agent checks never impersonate a human reviewer.
+
+**Path 1, full human review (original).** A person approves each scope: source accuracy, engineering, rights and context, each recorded explicitly.
+
+**Path 2, AI full check plus a person's spot check (chosen by the maintainer, 2026-11-12).**
+1. *AI full check* (`scope: full_check`, `reviewer_type: ai_model`). An AI session, separate from the session that built the case, checks everything: every number against its source, every unit and method choice, every decision's reason. The record names the model (`model`, `model_family`), the date, both session IDs (`review_session` must differ from `case_built_in_session`) and a short review note. It lists 2 or 3 `selected_items` for the person, each tagged `largest_effect`, `least_certain` or `random`.
+2. *Person spot check* (`scope: spot_check`, `reviewer_type: human`). The person records an `item_decisions` entry (`approved` or `rejected`) for each selected item. If any item is rejected, the task cannot be accepted and the whole case goes back for a full recheck.
+
+An AI check is never counted as the person's check: `reviewer_type` is checked, so a full check labelled `human` or a spot check labelled `ai_model` is ignored. Schema or validator checks do not prove who actually reviewed.
+
+**Held-out (test split) tasks.** Path 2 alone is not enough. The test split also needs a current `independent_evaluation` review by a person, or by an AI model of another family than Claude (a Claude check never satisfies this). A full human review (Path 1) already is a person's check. Report every score with who reviewed its cases, and do not share held-out cases with CHEPTA's sessions.
 
 | Claim/task | Additional requirement |
 |---|---|
@@ -44,7 +54,7 @@ The validator prints a `review_digest` for each task. It covers the task content
 
 1. Resolve substantive blockers, revise the task and inspect its rendered preview.
 2. Check sources, conditions, units, alternatives and context exposure; review the execution artifacts where required.
-3. Record the actual reviewer, date, scope, decision, notes and current digest in `reviews`.
+3. Record the actual reviewer, date, scope, decision, notes and current digest in `reviews`, following Path 1 or Path 2 above.
 4. Set `status` to `accepted` only after all required checks and split assignment are complete.
 
 Changing the target or a linked claim invalidates earlier approvals. Approval records are an audit trail, not cryptographic identity verification. These checks do not automatically establish that a person's scientific judgment is correct.
