@@ -1,0 +1,298 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "ethanol",
+        "water",
+        "ethyl acetate"
+      ],
+      "thermo": {
+        "model": "UNIQUAC",
+        "vapour": "ideal"
+      },
+      "blocks": [
+        {
+          "id": "F9",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "ethanol": 8391.813999999998,
+              "water": 6571.784000000001,
+              "ethyl acetate": 83406.564
+            },
+            "P_kPa": 100.0,
+            "VF": 0
+          }
+        },
+        {
+          "id": "F17",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "water": 17478.0
+            },
+            "P_kPa": 100.0,
+            "T_K": 293.15
+          }
+        },
+        {
+          "id": "MIX7",
+          "type": "heater",
+          "spec": {
+            "VF": 0,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "EXTR8",
+          "type": "extraction",
+          "spec": {
+            "stages": 4,
+            "T_K": 300.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "SPLIT9",
+          "type": "splitter",
+          "spec": {
+            "fractions": [
+              0.31282497652152,
+              0.6871750234784799
+            ]
+          }
+        },
+        {
+          "id": "HTXR10",
+          "type": "heater",
+          "spec": {
+            "T_K": 344.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "SCDS11",
+          "type": "column",
+          "spec": {
+            "mode": "rigorous",
+            "stages": 35,
+            "feed_stage": 15,
+            "condenser": "total",
+            "P_kPa": 100.0,
+            "reflux_ratio": 3,
+            "bottoms_kmol_h": 141.5,
+            "phases": "VLL"
+          }
+        },
+        {
+          "id": "HTXR12",
+          "type": "heater",
+          "spec": {
+            "duty_kW": 0,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "MIX13",
+          "type": "mixer"
+        },
+        {
+          "id": "PUMP14",
+          "type": "pump",
+          "spec": {
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "SCDS15",
+          "type": "column",
+          "spec": {
+            "mode": "rigorous",
+            "stages": 18,
+            "feed_stage": 9,
+            "condenser": "total",
+            "P_kPa": 100.0,
+            "reflux_ratio": 2,
+            "distillate_kmol_h": 394.6
+          }
+        },
+        {
+          "id": "SPLIT16",
+          "type": "splitter",
+          "spec": {
+            "fractions": [
+              0.8272839538157293,
+              0.17271604618427075
+            ]
+          }
+        },
+        {
+          "id": "HTXR17",
+          "type": "heater",
+          "spec": {
+            "T_K": 293.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "HTXR18",
+          "type": "heater",
+          "spec": {
+            "T_K": 343.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "HTXR19",
+          "type": "heater",
+          "spec": {
+            "T_K": 343.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "P16",
+          "type": "product"
+        },
+        {
+          "id": "P25",
+          "type": "product"
+        },
+        {
+          "id": "P27",
+          "type": "product"
+        },
+        {
+          "id": "P21",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "S9",
+          "from": "F9.out",
+          "to": "MIX7.in"
+        },
+        {
+          "id": "S15",
+          "from": "HTXR12.out",
+          "to": "MIX7.in",
+          "tear": true,
+          "guess": {
+            "flow_kmol_h": {
+              "ethanol": 10.981788187284291,
+              "water": 70.78634471273939,
+              "ethyl acetate": 148.6716455178989
+            },
+            "T_K": 343.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "S10",
+          "from": "MIX7.out",
+          "to": "EXTR8.feed"
+        },
+        {
+          "id": "S19",
+          "from": "PUMP14.out",
+          "to": "EXTR8.solvent"
+        },
+        {
+          "id": "S11",
+          "from": "EXTR8.raffinate",
+          "to": "SPLIT9.in"
+        },
+        {
+          "id": "S20",
+          "from": "EXTR8.extract",
+          "to": "HTXR19.in"
+        },
+        {
+          "id": "S12",
+          "from": "SPLIT9.out",
+          "to": "HTXR10.in"
+        },
+        {
+          "id": "S26",
+          "from": "SPLIT9.out",
+          "to": "HTXR18.in"
+        },
+        {
+          "id": "S27",
+          "from": "HTXR18.out",
+          "to": "P27.in"
+        },
+        {
+          "id": "S13",
+          "from": "HTXR10.out",
+          "to": "SCDS11.in"
+        },
+        {
+          "id": "S14",
+          "from": "SCDS11.distillate",
+          "to": "HTXR12.in"
+        },
+        {
+          "id": "S16",
+          "from": "SCDS11.bottoms",
+          "to": "P16.in"
+        },
+        {
+          "id": "S17",
+          "from": "F17.out",
+          "to": "MIX13.in"
+        },
+        {
+          "id": "S24",
+          "from": "HTXR17.out",
+          "to": "MIX13.in",
+          "tear": true,
+          "guess": {
+            "flow_kmol_h": {
+              "ethanol": 0.41588486834964944,
+              "water": 5316.028914793227,
+              "ethyl acetate": 0.0
+            },
+            "T_K": 293.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "S18",
+          "from": "MIX13.out",
+          "to": "PUMP14.in"
+        },
+        {
+          "id": "S28",
+          "from": "HTXR19.out",
+          "to": "SCDS15.in"
+        },
+        {
+          "id": "S21",
+          "from": "SCDS15.distillate",
+          "to": "P21.in"
+        },
+        {
+          "id": "S22",
+          "from": "SCDS15.bottoms",
+          "to": "SPLIT16.in"
+        },
+        {
+          "id": "S23",
+          "from": "SPLIT16.out",
+          "to": "HTXR17.in"
+        },
+        {
+          "id": "S25",
+          "from": "SPLIT16.out",
+          "to": "P25.in"
+        }
+      ],
+      "solver": {
+        "maxIterations": 200
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ comparison with the source, and a study record (`study-record.json`, the case's 
 | [ethanol-zsm5-573k](ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | reactor only | no | matches an independent calculation | no |
 | [benzene-toluene-chemsep-b2](benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one column | no | within 0.80 K, 0.018 (book's specifications); purity-specified runs on 0.6.1 outside those limits | no |
 | [methanol-separator-flash](methanol-separator-flash/README.md) | CHEPTA's own notes | one flash drum | no | same as CHEPTA's earlier result (0.6.0 and 0.6.1) | no |
-| [ethyl-acetate-piotrowski-2021](ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | nothing yet | next | – | no |
+| [ethyl-acetate-piotrowski-2021](ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | classic plant S2: all 19 units and 28 streams (chepta 0.6.1) | once through, not closed: cut at stream 9 (acetic acid with two liquids) | azeotrope stream within 0.01 %, product +0.3 %, 7 of 11 duties within 7 %; reactor conversion taken from the paper | no |
 
 ## A new case
 
