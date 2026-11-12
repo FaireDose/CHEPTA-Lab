@@ -20,7 +20,7 @@ The feed composition comes from S1 stream 9, before it is mixed with recycled st
 
 ## Evidence and attribution
 
-Piotrowski and Kubica (2021), [DOI 10.3390/pr9081425](https://doi.org/10.3390/pr9081425), Sections 1.2, 2 and 3.3; Figure 4; Table A1. CC BY 4.0. Statements are paraphrased and assembled into a new draft task; the paper's simulation trends are not relabelled as our measurements. Published inconsistencies remain in the [stream/equipment audit](../../../comparisons/ethyl-acetate/STREAM_EQUIPMENT_AUDIT.md).
+Piotrowski and Kubica (2021), [DOI 10.3390/pr9081425](https://doi.org/10.3390/pr9081425), Sections 1.2, 2 and 3.3; Figure 4; Table A1. CC BY 4.0. Statements are paraphrased and assembled into a new draft task; the paper's simulation trends are not relabelled as our measurements. Published inconsistencies remain in the [stream/equipment audit](../../../cases/ethyl-acetate-piotrowski-2021/STREAM_EQUIPMENT_AUDIT.md).
 
 Arce, Alonso and Vidal (1999), [DOI 10.1252/jcej.32.440](https://doi.org/10.1252/jcej.32.440), is an experimental-data lead. Only the publisher abstract was checked. Numerical tables and redistribution rights have not been reviewed. It is not an accepted evidence record and does not establish the cooling benefit quantitatively.
 

@@ -14,7 +14,7 @@ Narin A. Aali; Ghassan J. Hadi; 2023. DOI: [10.24237/djes.2023.16203](https://do
 - Equations 4/14 and Tables 8/9/12 have been transcribed and used in a draft benchmark.
 - The upstream simplification omits product adsorption terms available in Table 12. Both versions were executed at three catalyst loadings and independently checked.
 - Pressure-unit conventions and original experimental evidence remain unresolved. Human engineering review is pending.
-- See the [source ledger and values](../cases/ethanol-zsm5-573k/SOURCE_LEDGER.md) and [executed case](../cases/ethanol-zsm5-573k/README.md).
+- See the [source ledger and values](../../cases/ethanol-zsm5-573k/SOURCE_LEDGER.md) and [executed case](../../cases/ethanol-zsm5-573k/README.md).
 
 ## medrano-garcia-2025
 

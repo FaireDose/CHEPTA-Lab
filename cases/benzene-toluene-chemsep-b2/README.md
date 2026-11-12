@@ -1,5 +1,15 @@
 # Benzene + toluene column (The ChemSep Book, CHEPTA's B2 record) on chepta@0.6.0
 
+| In one look | |
+|---|---|
+| Source | The ChemSep Book (Kooijman & Taylor, 2nd ed.), as transcribed in CHEPTA's validation record B2 |
+| Simulated | one 10-stage distillation column, benzene + toluene |
+| Complete flowsheet | no: a column example, not a plant |
+| CHEPTA version | `chepta@0.6.0` |
+| Agreement | within 0.80 K and 0.018 mole fraction of the book's profile (limits 1 K, 0.02) |
+| Refused | a distillate purity specification (comes in CHEPTA 0.6.1) |
+| Reviewed by a person | no; the book itself not yet opened by Lab |
+
 Draft, 2026-11-11. Not reviewed by a person. Study record: [study-record.json](study-record.json).
 
 ## What was run

@@ -12,7 +12,7 @@ Start from reactions documented in CHEPTA and papers whose models can actually b
 
 ## Knowledge-guided dataset design
 
-The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. The first canonical evidence-to-task pilot and exporter are implemented; see [the pipeline guide](../dataset/PIPELINE.md). Next review its source claims and task contexts, then expand independent process coverage. Route comparisons remain downstream verification tasks.
+The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. The first canonical evidence-to-task pilot and exporter are implemented; see [the pipeline guide](../../dataset/PIPELINE.md). Next review its source claims and task contexts, then expand independent process coverage. Route comparisons remain downstream verification tasks.
 
 ## Refinements
 
@@ -42,7 +42,7 @@ New papers first enter the evidence register and retrieval collection. Review li
 ## Next work
 
 - Review the ethanol source ledger, adsorption comparison, unit ambiguities and thermodynamic qualifications. Obtain underlying experimental data before claiming physical validation.
-- Comparison ledger prepared: see [ethyl acetate audit](../comparisons/ethyl-acetate/README.md). Start with the 2021 S1/S2 pair at matched quality; retain Sulgan as the cross-paper extension. All 56 S1/S2 streams and 19 blocks are now extracted and balance-audited. Resolve flagged balances and energy/impurity/equipment inconsistencies before full-process execution.
+- Comparison ledger prepared: see [ethyl acetate audit](../../cases/ethyl-acetate-piotrowski-2021/README.md). Start with the 2021 S1/S2 pair at matched quality; retain Sulgan as the cross-paper extension. All 56 S1/S2 streams and 19 blocks are now extracted and balance-audited. Resolve flagged balances and energy/impurity/equipment inconsistencies before full-process execution.
 - Retrieve and audit the methanol supporting information for a later full-process case.
 - Recheck CHEPTA capabilities when adopting a new engine revision; keep old results tied to their original revision.
 

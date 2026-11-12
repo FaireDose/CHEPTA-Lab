@@ -1,5 +1,15 @@
 # Ethyl acetate: comparison specification and source audit
 
+| In one look | |
+|---|---|
+| Paper | Piotrowski & Kubica 2021, Processes 9, 1425 (CC BY 4.0): ethyl acetate plant, an improved design (S1) and the classic one (S2) |
+| Simulated | **nothing yet** |
+| Done | the paper's 56 streams and 19 units copied ([streams.json](streams.json), [equipment.json](equipment.json)); their mass balances checked, inconsistencies listed ([STREAM_EQUIPMENT_AUDIT.md](STREAM_EQUIPMENT_AUDIT.md)) |
+| Complete flowsheet | the next case to build, once CHEPTA 0.6.1 (acetic acid in columns, purity targets) is on npm |
+| Reviewed by a person | no |
+
+(This folder was `comparisons/ethyl-acetate/` until 2026-11-12.)
+
 Status: draft specification; no full-process simulation; not training eligible. Checked 2026-10-29.
 
 ## Selection

@@ -4,7 +4,7 @@ Status: initial pilot implemented on 2026-10-30 following owner authorization. S
 
 ## Decision and scope
 
-Keep the engineering workflow in [DATASET_DESIGN.md](../DATASET_DESIGN.md). Add a reproducible layer that turns reviewed evidence and executable cases into separate training tasks. Our diagrams describe how an engineer works; the missing part is how that work becomes model inputs, targets and fair tests.
+Keep the engineering workflow in [DATASET_DESIGN.md](../reference/DATASET_DESIGN.md). Add a reproducible layer that turns reviewed evidence and executable cases into separate training tasks. Our diagrams describe how an engineer works; the missing part is how that work becomes model inputs, targets and fair tests.
 
 The intended capability remains: identify a physical obstacle, justify a small set of operations, connect a general process sequence, and use CHEPTA to check it. This proposal concerns data architecture, not a new neural-network architecture. Repository inspection does not establish that fine-tuning will outperform an existing model with retrieval and tools.
 
