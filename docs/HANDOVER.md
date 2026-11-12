@@ -31,7 +31,9 @@ current: replace "State" and "Queue" at each handover, never append a diary.
    work, Opus for judgement.** `claude-sonnet-5-5`: re-running cases, pins, schema and exporter
    changes, documentation, small fixes. `claude-opus-5-5`: reading and reconciling papers, engineering judgement on a
    case, the study record's design, evaluation design.
-5. **A coordinator that passes about 150,000 tokens of context writes a new handover and stops.**
+5. **At about 150,000 tokens of context, the coordinator tells the maintainer, who compacts the session** (the
+   maintainer, 2026-11-12, agreed with CHEPTA's coordinator; replaces "write a new handover and stop"). Before saying
+   so, the coordinator brings this file's State and Queue up to date, so nothing is lost in the compaction.
 6. **Few relays.** A worker reports once, when its pull request is open (one short `send_message` to the coordinator),
    and once more only if blocked. No polling, no scheduled check-ins.
 7. **Cheap checks.** Read files in parts; run `python scripts/validate_catalog.py`,
