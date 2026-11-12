@@ -11,14 +11,14 @@ later to teach, an AI assistant that uses CHEPTA.
 
 | Case | Paper | What was simulated in CHEPTA | Complete flowsheet? | Agrees with the paper? | Reviewed by a person? |
 |---|---|---|---|---|---|
-| [Ethanol to ethylene](cases/ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | the reactor only (6 variants) | no | not compared with experiment; matches an independent calculation | no |
-| [Benzene + toluene column](cases/benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one distillation column | no (a column example, not a plant) | yes, within 0.80 K and 0.018 mole fraction | no |
-| [Methanol separator](cases/methanol-separator-flash/README.md) | none: an example state from CHEPTA's notes | one flash drum | no | not a paper case | no |
+| [Ethanol to ethylene](cases/ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | the reactor only (6 variants); same numbers on CHEPTA 0.6.1 | no | not compared with experiment; matches an independent calculation | no |
+| [Benzene + toluene column](cases/benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one distillation column | no (a column example, not a plant) | yes with the book's own specifications, within 0.80 K and 0.018 mole fraction. With purity or recovery specifications (new in 0.6.1) the column is **not** within those limits | no |
+| [Methanol separator](cases/methanol-separator-flash/README.md) | none: an example state from CHEPTA's notes | one flash drum; same numbers on CHEPTA 0.6.1, now with fit-quality warnings | no | not a paper case | no |
 | [Ethyl acetate plant](cases/ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | **nothing run yet**; 56 streams and 19 units copied from the paper and their balances checked | not yet | – | no |
 
-**No complete flowsheet from a paper has been simulated yet.** CHEPTA lacked what the plants need (columns with
-purity targets, acetic acid in a column) until its release 0.6.1. **Next:** the complete ethyl acetate plant,
-stream by stream against the paper.
+**No complete flowsheet from a paper has been simulated yet.** CHEPTA 0.6.1 (the version Lab now uses) adds columns with
+purity and recovery targets and acetic acid in a column; Lab has run the purity targets on the benzene + toluene column
+only, not yet acetic acid. **Next:** the complete ethyl acetate plant, stream by stream against the paper.
 
 **Dataset:** 3 draft questions with answers, **0 accepted** (accepted means reviewed by you). See
 [dataset/](dataset/README.md).
@@ -36,8 +36,9 @@ stream by stream against the paper.
 
 ## The CHEPTA version Lab uses
 
-`chepta@0.6.0` from npm, fixed in [package.json](package.json); details in [data/upstream.json](data/upstream.json).
-Older runs keep the version they were made with.
+`chepta@0.6.1` from npm (since 2026-11-12), fixed in [package.json](package.json); details in [data/upstream.json](data/upstream.json).
+All three cases were re-run on it; each case has a `COMPATIBILITY_0.6.1.md` saying what is identical, changed, newly
+refused or newly accepted. Older runs keep the version they were made with (0.6.0 results sit beside the 0.6.1 ones).
 
 ## Checks
 

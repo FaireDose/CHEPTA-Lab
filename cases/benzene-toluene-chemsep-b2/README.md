@@ -7,7 +7,7 @@
 | Complete flowsheet | no: a column example, not a plant |
 | CHEPTA version | `chepta@0.6.0` |
 | Agreement | within 0.80 K and 0.018 mole fraction of the book's profile (limits 1 K, 0.02) |
-| Refused | a distillate purity specification (comes in CHEPTA 0.6.1) |
+| Refused on 0.6.0 | a distillate purity specification; **runs on 0.6.1** (see [COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md)) |
 | Reviewed by a person | no; the book itself not yet opened by Lab |
 
 Draft, 2026-11-11. Not reviewed by a person. Study record: [study-record.json](study-record.json).
@@ -79,3 +79,10 @@ confirm". The Lab result (0.80 K, 0.018) is the same as CHEPTA's own record stat
 Reproduce (repository root, after `npm ci`): `python3 cases/benzene-toluene-chemsep-b2/run_chepta_0.6.0.py`, then
 `python3 cases/benzene-toluene-chemsep-b2/check_b2.py`. Re-running writes new files and changes the hashes in the
 study record (run ids and times differ); keep the committed results.
+
+## Update 2026-11-12: chepta@0.6.1
+
+Re-run on 0.6.1 ([COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md), [results-chepta-0.6.1/](results-chepta-0.6.1/), `run_chepta_0.6.1.py`,
+`check_b2_0.6.1.py`). The base column is identical. The record's `sets: "default"` and the old `distillate_purity` request are now
+accepted. New runs with a purity, bottoms purity and a recovery specification meet what they are asked, but are **outside the unchanged
+limits** (distillate purity: 2.82 K, 0.073; the other two: within 1 K, 0.024 to 0.026 against 0.02). Not a reproduction of the book; no limit changed.
