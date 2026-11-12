@@ -1,5 +1,11 @@
 # Where we are heading
 
+> **Update 2026-11-12.** Steps 1 to 4 below are done (Lab runs `chepta@0.6.0`; the study record exists; the column
+> and separator cases ran; six requests went to CHEPTA, most delivered in 0.6.1). The plain explanation of the work is
+> now [HOW_IT_WORKS.md](HOW_IT_WORKS.md). The maintainer decided on 2026-11-12 that the next case is a **complete
+> flowsheet** from one paper (ethyl acetate, Piotrowski & Kubica 2021), before more pieces. The current state is in the
+> [README](../README.md).
+
 Written 2026-11-11 by CHEPTA-Lab's coordinating session, for the maintainer, who asked: "I do not have yet a clear
 vision of where this is heading, maybe the roadmap is not clear for me. Explain me the next steps, including how to
 integrate these new concepts if needed."
@@ -32,7 +38,7 @@ gaps release by release.
 
 **A warning about names.** The two repositories reuse the same labels for different things:
 
-| Label | In CHEPTA | In CHEPTA-Lab ([DELIVERY_PLAN.md](DELIVERY_PLAN.md)) |
+| Label | In CHEPTA | In CHEPTA-Lab ([DELIVERY_PLAN.md](reference/DELIVERY_PLAN.md)) |
 |---|---|---|
 | M4 | column purity and recovery specifications, side draws (proposal 0015) | "targeted corpus expansion" (100 to 200 reviewed tasks) |
 | P5 / P05 | phase P5: costs, release v0.7 | work packet P05: a small development evaluation |

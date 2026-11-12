@@ -2,7 +2,7 @@
 
 This repository is public. Being public lets anyone read it; it does not by itself let them reuse it.
 
-- **Code:** the scripts, tests and case runners (`scripts/`, `tests/`, and the `.py` and `.mjs` files under `cases/` and `comparisons/`) are under the MIT License in [LICENSE](../LICENSE), the same as CHEPTA.
+- **Code:** the scripts, tests and case runners (`scripts/`, `tests/`, and the `.py` and `.mjs` files under `cases/`) are under the MIT License in [LICENSE](../LICENSE), the same as CHEPTA.
 - **Dataset and documents:** the records, templates, case data and documentation have **no license yet**. The dataset license is decided before any release, together with the rights of every source it draws on; until then they may be read but not reused.
 
 Every source keeps its own terms, whatever this repository's license says.

@@ -1,9 +1,18 @@
-# Executable cases
+# Cases
 
-[ethanol-zsm5-573k](ethanol-zsm5-573k/README.md): first draft benchmark, two kinetic variants at three catalyst loadings, executed through CHEPTA's JSON dispatcher and checked by an independent numerical implementation. Inputs, outputs, provenance and unresolved limitations are retained. Human review is pending; zero accepted training examples.
+One folder per process or unit studied. Each holds the inputs with their sources, CHEPTA's outputs as returned, the
+comparison with the source, and a study record (`study-record.json`, the case's lab notebook page; see
+[docs/HOW_IT_WORKS.md](../docs/HOW_IT_WORKS.md)). Each README starts with an "In one look" table.
 
-[benzene-toluene-chemsep-b2](benzene-toluene-chemsep-b2/README.md): CHEPTA's B2 column (The ChemSep Book, as transcribed by CHEPTA) on chepta@0.6.0 through the command line: one converged run within the record's agreement limits, one refused purity specification, one refused literal copy of the record's thermo block. Study record; draft; book not yet checked directly by Lab.
+| Case | Source | Simulated | Complete flowsheet? | Agreement | Reviewed? |
+|---|---|---|---|---|---|
+| [ethanol-zsm5-573k](ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | reactor only | no | matches an independent calculation | no |
+| [benzene-toluene-chemsep-b2](benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one column | no | within 0.80 K, 0.018 | no |
+| [methanol-separator-flash](methanol-separator-flash/README.md) | CHEPTA's own notes | one flash drum | no | same as CHEPTA's earlier result | no |
+| [ethyl-acetate-piotrowski-2021](ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | nothing yet | next | – | no |
 
-[methanol-separator-flash](methanol-separator-flash/README.md): an illustrative methanol-loop separator flash (state from CHEPTA's decision file, not the paper) with PR + gE (MHV1) and PR with k_ij, and the refused SRK + gE (MHV1); a regression check against CHEPTA's earlier result. Study record; draft.
+## A new case
 
-Add one directory per case. Separate source facts, assumptions and numerical results. Every case needs a pinned engine, reproduction instructions and a review record.
+A complete flowsheet from one paper: the paper's streams and units with page and table, run through the released
+CHEPTA's command line, compared stream by stream, every refusal and warning kept, then a study record. Results are
+never edited by hand, and older runs keep their CHEPTA version.

@@ -1,5 +1,15 @@
 # Methanol-loop separator flash: PR + gE (MHV1) against PR with k_ij, on chepta@0.6.0
 
+| In one look | |
+|---|---|
+| Source | none: an example state from CHEPTA's own decision file, not a paper |
+| Simulated | one high-pressure flash drum (CO2, H2, CO, methanol, water at 313 K, 5 MPa) with two methods |
+| Complete flowsheet | no |
+| CHEPTA version | `chepta@0.6.0` |
+| Agreement | same numbers as CHEPTA's earlier result (a check that nothing changed, not a validation) |
+| Refused | SRK + gE (MHV1) |
+| Reviewed by a person | no |
+
 Draft, 2026-11-11. Not reviewed by a person. Study record: [study-record.json](study-record.json).
 
 ## What was run

@@ -1,5 +1,15 @@
 # Ethanol / ZSM-5: first executed draft benchmark
 
+| In one look | |
+|---|---|
+| Paper | Aali & Hadi 2023 (ethanol dehydration over ZSM-5, 573 K) |
+| Simulated | the catalytic plug-flow reactor only, two kinetic variants at three catalyst loadings (6 runs) |
+| Complete flowsheet | no: no separation section |
+| CHEPTA version | commit c1adf6b (2026-10-29), re-run on `chepta@0.6.0` with identical numbers ([COMPATIBILITY_0.6.0.md](COMPATIBILITY_0.6.0.md)) |
+| Agreement | matches an independent Python calculation; not compared with the paper's experiments |
+| Open | the paper's pressure units; ethanol + water parameters used outside their temperature range |
+| Reviewed by a person | no |
+
 **Status: numerical checks passed; human review pending; not eligible for training.**
 
 The first step now has runnable inputs, actual CHEPTA outputs, an independent calculation and a source audit. It compares an existing implementation with a more complete adsorption expression. These are two model variants of one reactor, not two competing complete process routes.

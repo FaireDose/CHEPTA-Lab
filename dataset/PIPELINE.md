@@ -99,6 +99,6 @@ The implemented subset is schemas, canonical records, task gates, review binding
 
 ## Additional review criteria from related work
 
-Use [the methods review](../docs/RELATED_WORK_METHODS.md) for the concrete checklist and delivery hooks. During review, distinguish reported, computed, assumed and hypothetical claims; check every requested specification and qualify any optimality assertion. Track changes between the source/proposed design and executed configuration, including simplified units and open recycles.
+Use [the methods review](../docs/reference/RELATED_WORK_METHODS.md) for the concrete checklist and delivery hooks. During review, distinguish reported, computed, assumed and hypothetical claims; check every requested specification and qualify any optimality assertion. Track changes between the source/proposed design and executed configuration, including simplified units and open recycles.
 
 These requirements are not new schema fields or validator guarantees in the current pilot. Attach them to review preparation until versioned support is implemented. Do not use convergence of a relaxed or simplified case to approve performance of the original process. Paired missing-information evaluation tasks must share their parent's family split. No task status, approval, export gate or training readiness changes with this documentation update.

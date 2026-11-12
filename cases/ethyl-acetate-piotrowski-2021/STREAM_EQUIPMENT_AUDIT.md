@@ -2,7 +2,7 @@
 
 Piotrowski and Kubica (2021), DOI 10.3390/pr9081425, CC BY 4.0. Tables A1/A2 (pp.13–14), Table 1 (p.11), Figure 1 (p.4). Source values are reported simulations, not measurements or CHEPTA results. All 28 streams per strategy are in [streams.json](streams.json). All 19 blocks and available settings are in [equipment.json](equipment.json).
 
-Run `python comparisons/ethyl-acetate/audit_balances.py` from the repository root. No third-party Python packages required. Raw numbers are preserved; no balancing corrections or composition normalization are applied.
+Run `python cases/ethyl-acetate-piotrowski-2021/audit_balances.py` from the repository root. No third-party Python packages required. Raw numbers are preserved; no balancing corrections or composition normalization are applied.
 
 ## Balance results
 

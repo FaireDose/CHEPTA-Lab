@@ -1,4 +1,20 @@
-# Dataset preparation
+# Dataset
+
+**In one look.** A dataset item is a question with a checked answer, built from a case (see
+[docs/HOW_IT_WORKS.md](../docs/HOW_IT_WORKS.md), section 3). Today: **3 draft items, 0 accepted.** An item is
+accepted only after a person has reviewed its sources, its engineering and its licence.
+
+| File or folder | What it is |
+|---|---|
+| [records/pilot.json](records/pilot.json) | All items, with the evidence (paper passages) and decisions they rest on. The one true list |
+| [schemas/](schemas/) | The required structure of items and of study records |
+| [PIPELINE.md](PIPELINE.md) | How items are checked and exported, and what each kind needs before acceptance |
+| [drafts/](drafts/) | Working notes for future items (ethyl acetate extraction) |
+| `*.template.json`, [contracts/](contracts/), [COLLECTION_LOG.md](COLLECTION_LOG.md) | Older templates and the collection log, kept for the record |
+
+---
+
+## Earlier notes
 
 There are currently **zero accepted training examples**. The catalogue is research metadata, not a dataset of correct engineering answers.
 
@@ -30,7 +46,7 @@ The ethanol case in `cases/` is an executed draft, not accepted training data. I
 
 ## Dataset architecture
 
-See [the dataset map and diagrams](../docs/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
+See [the dataset map and diagrams](../docs/reference/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
 
 ## First operation-selection draft
 

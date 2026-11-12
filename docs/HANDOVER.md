@@ -14,7 +14,7 @@ current: replace "State" and "Queue" at each handover, never append a diary.
 - Decisions come from the maintainer to the coordinator, which passes them on. A worker that gets one directly tells
   the coordinator in one line.
 - The rules are [AGENTS.md](../AGENTS.md). The plan in plain words is [WHERE_WE_ARE_HEADING.md](WHERE_WE_ARE_HEADING.md);
-  the detailed milestones are [DELIVERY_PLAN.md](DELIVERY_PLAN.md). CHEPTA's side is its ROADMAP.md, section "CHEPTA
+  the detailed milestones are [DELIVERY_PLAN.md](reference/DELIVERY_PLAN.md). CHEPTA's side is its ROADMAP.md, section "CHEPTA
   and CHEPTA-Lab", rules 1 to 7.
 
 ## The usage rules (the maintainer, 2026-11-10 to 2026-11-12; the same as CHEPTA's)
@@ -66,15 +66,23 @@ check, what to decide; commit trailer `Co-Authored-By: Claude Sonnet 5.5 <norepl
   FaireDose/CHEPTA#227; acetic acid with dimers in the rigorous column open as #228 (two liquids on the stages with
   acetic acid is CHEPTA's next step); requests 2 to 5 open as #229 (the MHV1 source ids were a naming artefact, the
   data are right); request 6 (SRK + gE (MHV1)) queued, low priority. All for CHEPTA's next release (0.6.1 or 0.7).
-- Phase: CHEPTA (two CHEPTA workers). No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
+- CHEPTA release 0.6.1 being prepared (purity and recovery specifications #227, acetic acid dimers in columns #228,
+  Lab requests 2 to 5 #229, measured VLE #230). Phase: CHEPTA (two CHEPTA workers). No Lab worker until CHEPTA's coordinator opens Lab's phase (rule 3).
 
-## Queue for Lab's next phase (the maintainer chooses)
+## Queue for Lab's next phase (the maintainer, 2026-11-12)
 
-1. Step 5, review packet for the 9 evidence claims and 3 draft tasks (Opus). Recommended: it waits for nothing.
-2. When CHEPTA releases #227 and #228 on npm: move the pin (compatibility suite: ethanol, B2, separator); re-run B2
-   with a distillate purity specification; try the ethyl acetate column with acetic acid dimers (Sonnet).
-3. Step 6, the first reaction-separation demonstration: first audit the CO2-to-methanol paper's supplement (Opus).
-4. Not now (the maintainer, 2026-11-11): the Atlas and ChemE-as-Code.
+The maintainer chose: first reorganize the repository so it is clear (README, docs/HOW_IT_WORKS.md, the cases
+index; PR from `claude/lab-next-steps`), then **one complete flowsheet from one paper**, compared stream by stream,
+before more pieces.
+
+1. When CHEPTA's coordinator opens Lab's phase and 0.6.1 is on npm: move the pin to 0.6.1 and re-run the three run
+   cases (Sonnet).
+2. The complete ethyl acetate plant, Piotrowski & Kubica 2021, classic design S2 first (Opus):
+   `cases/ethyl-acetate-piotrowski-2021/` already holds its 56 streams and 19 units. Every unit CHEPTA cannot do is
+   marked, never replaced by a split. Fallback if the decanter's two liquids with acetic acid block it: CO2 to
+   methanol (supplement still to audit).
+3. Then: questions with checked answers from that case; step 5 review packet.
+4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
 
