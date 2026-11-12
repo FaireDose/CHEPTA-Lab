@@ -1,0 +1,79 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "ethanol",
+        "water",
+        "ethyl acetate",
+        "acetic acid"
+      ],
+      "thermo": {
+        "model": "UNIQUAC",
+        "vapour": "ideal"
+      },
+      "blocks": [
+        {
+          "id": "KREA4",
+          "type": "equilibrium-reactor",
+          "spec": {
+            "reactions": [
+              {
+                "reaction": "R1"
+              }
+            ],
+            "phases": 2,
+            "T_K": 363.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F5",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "ethanol": 14649.9708,
+              "water": 12182.551199999998,
+              "ethyl acetate": 15465.3384,
+              "acetic acid": 10999.4688
+            },
+            "P_kPa": 100.0,
+            "T_K": 350.15
+          }
+        },
+        {
+          "id": "P6",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "S5",
+          "from": "F5.out",
+          "to": "KREA4.in"
+        },
+        {
+          "id": "S6",
+          "from": "KREA4.out",
+          "to": "P6.in"
+        }
+      ],
+      "solver": {
+        "maxIterations": 200
+      },
+      "reactions": [
+        {
+          "id": "R1",
+          "name": "esterification",
+          "phase": "liquid",
+          "stoichiometry": {
+            "ethanol": -1,
+            "acetic-acid": -1,
+            "ethyl-acetate": 1,
+            "water": 1
+          }
+        }
+      ]
+    }
+  }
+}

@@ -59,8 +59,9 @@ def variant_of(rid):
 
 
 runs = []
+LID = lambda rid: rid.lower()  # noqa: E731  (study-record ids are lower case; execution_id keeps the runner's id)
 for i, r in enumerate(MAN["runs"]):
-    rid = r["id"]
+    rid = LID(r["id"])
     add_file(f"request.{rid}", r["request_file"], "request")
     out = H / r["output_file"]
     has_result = out.read_bytes().strip() != b""
@@ -72,14 +73,14 @@ for i, r in enumerate(MAN["runs"]):
         e = r["error"] or {}
         note = (f"{r['exit_meaning']} (exit {r['exit_code']}): {e.get('code')}: {e.get('message')}" if e else
                 f"{r['exit_meaning']} (exit {r['exit_code']}); no result written; see the stderr file")
-    runs.append({"id": rid, "execution_id": None, "variant": variant_of(rid), "engine": "chepta@0.6.1",
+    runs.append({"id": rid, "execution_id": r["id"] if r["id"] != rid else None, "variant": variant_of(r["id"]), "engine": "chepta@0.6.1",
                  "interface": "command_line", "runner": "runner", "request": f"request.{rid}",
                  "result": f"result.{rid}" if has_result else None,
                  "execution_record": {"file": "run-manifest", "pointer": f"/runs/{i}"},
                  "executed_at": {"file": "run-manifest", "pointer": f"/runs/{i}/started_at"}, "failure_note": note})
 
 coup = MAN.get("plant_coupling") or {}
-FA, FB = (coup.get("final") or {}).get("A"), (coup.get("final") or {}).get("B")
+FA, FB = (CMP["runs"]["plant-final"]["made_of"][k].lower() for k in "AB")  # once-through, round 1
 values = []
 
 
@@ -120,20 +121,20 @@ pub("paper-scds11-reboiler", "Product column SCDS 11 reboiler duty (paper, S2)",
 pub("paper-scds15-reboiler", "Wastewater column SCDS 15 reboiler duty (paper, S2)", "kW", "equipment", f"/equipment/{EIDX[15]}/S2/condenser_reboiler_duty_kW/1", "Table 1, p.11", "16,136.6")
 pub("paper-htxr10-duty", "Heater HTXR 10 duty (paper, S2)", "kW", "equipment", f"/equipment/{EIDX[10]}/S2/duty_kW", "Table 1, p.11", "713.5")
 pub("paper-htxr18-duty", "Heater HTXR 18 duty (paper, S2)", "kW", "equipment", f"/equipment/{EIDX[18]}/S2/duty_kW", "Table 1, p.11", "4332.9")
-der("acid-triple-point-K", "Lowest temperature of CHEPTA's acetic acid liquid heat-capacity record (its triple point)", "K",
+der("acid-triple-point-k", "Lowest temperature of CHEPTA's acetic acid liquid heat-capacity record (its triple point)", "K",
     "/acid_record_Tmin_K", "CHEPTA run info-acetic-acid, properties[liquidHeatCapacity].Tmin_K, copied by compare_s2.py", "info-acetic-acid")
 if FA and FB:
-    sim("chepta-product-kmol-h", "Product stream 16, molar flow (CHEPTA, coupled plant)", "kmol/h", FB, "/value/streams/S16/F_kmol_h")
-    sim("chepta-azeotrope-kg-h", "Azeotrope stream 9, mass flow (CHEPTA, coupled plant)", "kg/h", FA, "/value/streams/S9/mass_kg_h")
-    sim("chepta-raffinate-kg-h", "Raffinate stream 11, mass flow (CHEPTA, coupled plant)", "kg/h", FB, "/value/streams/S11/mass_kg_h")
-    sim("chepta-wastewater-kg-h", "Wastewater stream 25, mass flow (CHEPTA, coupled plant)", "kg/h", FB, "/value/streams/S25/mass_kg_h")
-    sim("chepta-krea4-duty", "Reactor KREA 4 duty (CHEPTA, coupled plant; conversion imposed from the paper)", "kW", FA, "/value/blocks/KREA4/duty_kW")
-    sim("chepta-htxr6-duty", "Condenser HTXR 6 duty (CHEPTA, coupled plant)", "kW", FA, "/value/blocks/HTXR6/duty_kW")
-    sim("chepta-scds11-reboiler", "Product column reboiler duty (CHEPTA, coupled plant)", "kW", FB, "/value/blocks/SCDS11/state/reboiler_kW")
-    sim("chepta-scds15-reboiler", "Wastewater column reboiler duty (CHEPTA, coupled plant)", "kW", FB, "/value/blocks/SCDS15/state/reboiler_kW")
-    der("chepta-product-ea", "Product stream 16, ethyl acetate (CHEPTA, coupled plant)", "mass %", "/product_checks_plant_final/EA_mass_pct",
+    sim("chepta-product-kmol-h", "Product stream 16, molar flow (CHEPTA, plant once through)", "kmol/h", FB, "/value/streams/S16/F_kmol_h")
+    sim("chepta-azeotrope-kg-h", "Azeotrope stream 9, mass flow (CHEPTA, plant once through)", "kg/h", FA, "/value/streams/S9/mass_kg_h")
+    sim("chepta-raffinate-kg-h", "Raffinate stream 11, mass flow (CHEPTA, plant once through)", "kg/h", FB, "/value/streams/S11/mass_kg_h")
+    sim("chepta-wastewater-kg-h", "Wastewater stream 25, mass flow (CHEPTA, plant once through)", "kg/h", FB, "/value/streams/S25/mass_kg_h")
+    sim("chepta-krea4-duty", "Reactor KREA 4 duty (CHEPTA, plant once through; conversion imposed from the paper)", "kW", FA, "/value/blocks/KREA4/duty_kW")
+    sim("chepta-htxr6-duty", "Condenser HTXR 6 duty (CHEPTA, plant once through)", "kW", FA, "/value/blocks/HTXR6/duty_kW")
+    sim("chepta-scds11-reboiler", "Product column reboiler duty (CHEPTA, plant once through)", "kW", FB, "/value/blocks/SCDS11/state/reboiler_kW")
+    sim("chepta-scds15-reboiler", "Wastewater column reboiler duty (CHEPTA, plant once through)", "kW", FB, "/value/blocks/SCDS15/state/reboiler_kW")
+    der("chepta-product-ea", "Product stream 16, ethyl acetate (CHEPTA, plant once through)", "mass %", "/product_checks_plant_final/EA_mass_pct",
         "compare_s2.py: CHEPTA's component flows x CHEPTA's molar masses (runs info-*)", FB)
-    der("chepta-product-water", "Product stream 16, water (CHEPTA, coupled plant)", "mass %", "/product_checks_plant_final/water_mass_pct",
+    der("chepta-product-water", "Product stream 16, water (CHEPTA, plant once through)", "mass %", "/product_checks_plant_final/water_mass_pct",
         "compare_s2.py: CHEPTA's component flows x CHEPTA's molar masses (runs info-*)", FB)
     ass("plant-extractor-stages", "Equilibrium stages of EXTR 8 in the coupled plant", "-", f"request.{FB}",
         "/input/flowsheet/blocks/3/spec/stages",
@@ -167,7 +168,7 @@ constraints = [
 constraint_results = []
 if FB:
     for c in constraints:
-        res = json.loads((H / f"results-chepta-0.6.1/{FB}.output.json").read_text())
+        res = json.loads((H / f"results-chepta-0.6.1/{CMP['runs']['plant-final']['made_of']['B']}.output.json").read_text())
         obs = res["value"]["blocks"][c["observe"]["pointer"].split("/")[3]]["state"]["reflux_ratio"]
         ok = abs(obs - c["target"]) <= c["tolerance"]["value"]
         constraint_results.append({"constraint_id": c["id"], "run_id": FB, "verdict": "met" if ok else "not_met", "note": None})
@@ -176,7 +177,7 @@ checks = []
 for rid in CMP["runs"]:
     if rid == "plant-final":
         continue
-    checks.append({"id": f"compare.{rid}", "run_id": rid, "kind": "comparison_with_source",
+    checks.append({"id": f"compare.{LID(rid)}", "run_id": LID(rid), "kind": "comparison_with_source",
                    "ref": {"file": "comparison", "pointer": f"/runs/{rid}"},
                    "method": "compare_s2.py: every CHEPTA stream against Table A2 (T, mass flow, mass %), duties against Table 1",
                    "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.1: agreement between two models, not with measurements.",
@@ -230,7 +231,7 @@ record = {
     "unresolved_inputs": [
         {"id": "kinetics", "item": "Catalyst concentration and concentration units of the paper's rate law (Eqs. 1-3, after Atalay).", "consequence": "The reactor cannot be predicted; its conversion is taken from the paper.", "blocking": False, "next_action": "Read Atalay (ref. 36) for the catalyst basis; needs a reactor-evaporator in CHEPTA as well."},
         {"id": "extractor-design", "item": "Number of stages, contactor type and energy balance of EXTR 8.", "consequence": "The stage count is calibrated; the extract leaves at 27 C instead of 41 C, so HTXR 19 duty is not comparable.", "blocking": False, "next_action": "None in the paper; an adiabatic extraction block in CHEPTA would remove one assumption."},
-        {"id": "paper-heater-duties", "item": "HTXR 10 and HTXR 18 heat the same composition (stream 11) over nearly the same range, but the paper's duties per kg differ by a factor of about 2.8 (Table 1, Table A2).", "consequence": "At most one of the two can be compared as sensible heating.", "blocking": False, "next_action": "Ask the authors or check the Chemcad files."},
+        {"id": "paper-heater-duties", "item": "Table 1's duties of HTXR 18 and HTXR 19 look exchanged: HTXR 18 (stream 26, 60,000 kg/h, 27 to 70 C) prints 4332.9 kW and HTXR 19 (stream 20, 139,203 kg/h, 41 to 70 C) 1541.1 kW, while CHEPTA gives 1580 and 5681 kW for them (unit runs); S1 shows the same pattern. HTXR 10 heats stream 11's composition with 26 W per kg/h, HTXR 18 with 72 W per kg/h as printed.", "consequence": "HTXR 18 and 19 are not compared as printed; the totals of Table 2 are unaffected by a label swap.", "blocking": False, "next_action": "The maintainer checks Table 1 against Table A2 (spot-check item); if confirmed, ask the authors."},
     ],
     "cost_coverage": {"status": "not_costed", "scope": None, "missing_items": [], "result_files": []},
     "corpus_links": {"task_ids": [], "run_ids": []},

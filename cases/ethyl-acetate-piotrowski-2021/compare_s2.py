@@ -98,16 +98,20 @@ def main():
             continue
         out["runs"][run["id"]] = {"streams": compare_streams(res, MW), "duties": compare_duties(res)}
     coup = man.get("plant_coupling") or {}
-    if coup.get("converged"):
-        a = json.loads((R / f"{coup['final']['A']}.output.json").read_text())
-        b = json.loads((R / f"{coup['final']['B']}.output.json").read_text())
+    # The coupled plant did not converge (round 2 of every attempt stops in column 5). What is compared is round 1 of
+    # attempt a2: section A with the paper's streams 21 and 27, then section B fed with CHEPTA's own stream 9, a
+    # once-through pass of the whole plant.
+    final = coup.get("final") if coup.get("converged") else {"A": f"plant-{coup['attempt']}-r01-A", "B": f"plant-{coup['attempt']}-r01-B"}
+    if final:
+        a = json.loads((R / f"{final['A']}.output.json").read_text())
+        b = json.loads((R / f"{final['B']}.output.json").read_text())
         sa, sb = compare_streams(a, MW), compare_streams(b, MW)
         # streams 1-8 from section A; 9-28 from section B (21 and 27 enter section A as its feeds, equal to B's outlets
         # of the round before, within the coupling tolerance)
         streams = [r for r in sa if r["stream"] <= 8] + [r for r in sb if r["stream"] >= 9]
-        out["runs"]["plant-final"] = {"made_of": coup["final"], "streams": sorted(streams, key=lambda r: r["stream"]),
+        out["runs"]["plant-final"] = {"made_of": final, "converged_coupling": bool(coup.get("converged")), "streams": sorted(streams, key=lambda r: r["stream"]),
                                       "duties": compare_duties(a) + compare_duties(b),
-                                      "acetic_acid_in_S9_dropped_kmol_h": coup["history"][-1]["acetic_acid_dropped_at_cut_kmol_h"]}
+                                      "acetic_acid_in_S9_dropped_kmol_h": coup["history"][0]["acetic_acid_dropped_at_cut_kmol_h"]}
         t = {r["stream"]: r for r in streams}
         p16 = t[16]["chepta"]["mass_pct"]
         out["product_checks_plant_final"] = {

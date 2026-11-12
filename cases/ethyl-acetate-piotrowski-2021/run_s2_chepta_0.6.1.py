@@ -6,6 +6,7 @@ Groups (S2_GROUPS, comma-separated; default all):
   info      component_info of the 4 components (CHEPTA's molar masses, used by compare_s2.py)
   units     every unit alone with the paper's inlet streams (u-*, u3-*), refusals included
   sections  section A and section B alone, fed at the cut with the paper's streams 9, 21, 27 (secA-*, secB-*)
+  diag      column 5 alone with the inlets of round 2 of the coupling (diag-*)
   plant     the whole plant: sections A and B coupled across the cut by this script (successive substitution of
             streams 9, 21 and 27, at most PLANT_MAX_ITER rounds), every round's requests and results kept (plant-*)
 Every output is kept, refusals and failures included. The run manifest is merged when only some groups are run.
@@ -36,6 +37,8 @@ TIME_MS = "900000"
 WALL_S = 1200  # Lab's own wall-time stop, in case CHEPTA does not stop at TIME_MS
 PLANT_STAGES = int(os.environ.get("S2_PLANT_STAGES", "2"))
 PLANT_MAX_ITER = 30
+ATTEMPT = os.environ.get("S2_PLANT_ATTEMPT", "a2")
+WARM = ATTEMPT != "a1"  # attempt a1 restarted every tear stream from the paper's values; later attempts warm-start
 PLANT_TOL = 1e-4  # largest relative change of a cut stream's component flow (of its total flow) between rounds
 
 
@@ -88,9 +91,11 @@ def change(a, b):
 def plant(R):
     """Successive substitution across the cut: A(27, 21) -> 9 -> B(9) -> 27, 21 -> A ... Returns the coupling record."""
     s27 = s21 = None  # first round: the paper's streams 27 and 21
+    ga = gb = None  # tear-stream guesses: the paper's in round 1, then the previous round's converged streams
     prev, history = None, []
+    tag = f"plant-{ATTEMPT}"
     for it in range(1, PLANT_MAX_ITER + 1):
-        a = R.run(f"plant-r{it:02d}-A", fs(M.section_a(s27, s21)))
+        a = R.run(f"{tag}-r{it:02d}-A", fs(M.section_a(s27, s21, guesses=ga)))
         if a.get("outcome") != "ok":
             return {"converged": False, "rounds": it, "history": history, "stopped": f"section A refused in round {it}"}
         s9 = a["value"]["streams"]["S9"]
@@ -98,10 +103,13 @@ def plant(R):
         f9 = M.as_feed(s9, M.COMPONENTS_B)
         f9.pop("T_K")
         f9["VF"] = 0  # the saturated liquid of HTXR 6 (the dropped trace acid moves its bubble point negligibly)
-        b = R.run(f"plant-r{it:02d}-B", fs(M.section_b(PLANT_STAGES, f9)))
+        b = R.run(f"{tag}-r{it:02d}-B", fs(M.section_b(PLANT_STAGES, f9, guesses=gb)))
         if b.get("outcome") != "ok":
             return {"converged": False, "rounds": it, "history": history, "stopped": f"section B refused in round {it}"}
         bs = b["value"]["streams"]
+        if WARM:
+            ga = {7: M.as_guess(a["value"]["streams"]["S7"])}
+            gb = {15: M.as_guess(bs["S15"]), 24: M.as_guess(bs["S24"])}
         s27 = M.as_feed(bs["S27"], M.COMPONENTS_B)
         s21 = M.as_feed(bs["S21"], M.COMPONENTS_B)
         s21.pop("T_K")
@@ -113,7 +121,7 @@ def plant(R):
         prev = cur
         if d and max(d.values()) < PLANT_TOL:
             return {"converged": True, "rounds": it, "history": history, "tolerance": PLANT_TOL,
-                    "final": {"A": f"plant-r{it:02d}-A", "B": f"plant-r{it:02d}-B"}}
+                    "final": {"A": f"{tag}-r{it:02d}-A", "B": f"{tag}-r{it:02d}-B"}}
     return {"converged": False, "rounds": PLANT_MAX_ITER, "history": history, "stopped": "round limit"}
 
 
@@ -140,11 +148,26 @@ def main():
             R.run(f"secB-paper-inlets-extr{n}", fs(M.section_b(n)))
     if "plant" in groups:
         coupling = plant(R)
+    if "diag" in groups:  # column 5 alone with the inlets it met in round 2 of attempt a2 (why the coupling stops)
+        ra = json.loads((OUT / "plant-a2-r01-A.output.json").read_text())["value"]["streams"]
+        rb = json.loads((OUT / "plant-a2-r01-B.output.json").read_text())["value"]["streams"]
+        f27 = M.as_feed(rb["S27"], M.COMPONENTS)
+        f6 = M.as_feed(ra["S6"], M.COMPONENTS)
+        f6.pop("T_K")
+        f6["VF"] = 1
+        blocks = [{"id": "SCDS5", "type": "column", "spec": M.column5_spec()}, {"id": "F27", "type": "feed", "spec": f27},
+                  {"id": "F6", "type": "feed", "spec": f6}, {"id": "P8", "type": "product"}, {"id": "P7", "type": "product"}]
+        streams = [{"id": "S27", "from": "F27.out", "to": "SCDS5.in"}, {"id": "S6", "from": "F6.out", "to": "SCDS5.in"},
+                   {"id": "S8", "from": "SCDS5.distillate", "to": "P8.in"}, {"id": "S7", "from": "SCDS5.bottoms", "to": "P7.in"}]
+        R.run("diag-scds5-round2-inlets", fs(M.doc(blocks, streams)))
+        vll = dict(M.column5_spec(), phases="VLL")
+        blocks[0] = {"id": "SCDS5", "type": "column", "spec": vll}
+        R.run("diag-scds5-round2-inlets-VLL", fs(M.doc(blocks, streams)))
     man_path = OUT / "run-manifest.json"
     old = json.loads(man_path.read_text()) if man_path.exists() else {"runs": []}
     new_ids = {r["id"] for r in R.runs}
-    if "plant" in groups:  # a new plant run replaces every earlier round
-        old["runs"] = [r for r in old["runs"] if not r["id"].startswith("plant-")]
+    if "plant" in groups:  # a new run of an attempt replaces that attempt's rounds; other attempts are kept
+        old["runs"] = [r for r in old["runs"] if not r["id"].startswith(f"plant-{ATTEMPT}-")]
     pkg = Path(cmd[-1]).resolve().parents[1] / "package.json" if os.environ.get("CHEPTA_BIN") else None
     manifest = {
         "executed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -162,7 +185,8 @@ def main():
                                       "s2_model.py": sha((H / "s2_model.py").read_bytes())}},
         "settings": M.SETTINGS,
         "plant_extractor_stages": PLANT_STAGES,
-        "plant_coupling": coupling if coupling is not None else old.get("plant_coupling"),
+        "plant_couplings": {**old.get("plant_couplings", {}), **({ATTEMPT: {**coupling, "warm_start": WARM}} if coupling else {})},
+        "plant_coupling": ({**coupling, "attempt": ATTEMPT} if coupling else old.get("plant_coupling")),
         "runs": [r for r in old["runs"] if r["id"] not in new_ids] + R.runs,
     }
     man_path.write_text(json.dumps(manifest, indent=2) + "\n")

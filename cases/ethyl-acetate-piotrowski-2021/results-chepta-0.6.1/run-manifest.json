@@ -1,0 +1,1405 @@
+{
+  "executed_at": "2026-11-12T16:04:24.975244+00:00",
+  "engine": {
+    "package": "chepta",
+    "version": "0.6.1",
+    "resolved": "https://registry.npmjs.org/chepta/-/chepta-0.6.1.tgz",
+    "integrity": "sha512-hB6c1spJtKTqa0wJFGiQGm1cWRTrPZhWCbw+rB3lV7FYLvTNNfRRE91nOTZ2ZGvqt3t13w15vvKQe1wIlWcaMw==",
+    "lock_file": "chepta-0.6.1.npm-lock.json",
+    "installed_with": "npm install chepta@0.6.1 in a separate folder; Lab's package.json and package-lock.json not changed",
+    "package_json_sha256": "642e391ee5af76c97bce7a295f800365e70007e72d3d1f86f1694d7548f6f471"
+  },
+  "node": "v22.23.4",
+  "interface": "command line: chepta request <file>; exit codes 0 ok, 2 invalid_input, 3 missing_data, 4 unsupported, 5 not_converged, 6 cancelled, 7 out_of_time, 8 error, 1 the command line itself",
+  "source": {
+    "paper": "Piotrowski & Kubica 2021, Processes 9, 1425, doi 10.3390/pr9081425, CC BY 4.0",
+    "transcriptions": {
+      "streams.json": "986a0da6086efe2cf38cddfd2fad145ffca6f1bf110c12d598190a86aef92626",
+      "equipment.json": "a3b5b8d8b66b3062307ff8359708f8703cde199f9c154bd92ee0dac0c13a47e6",
+      "s2_model.py": "63b7e67b302bc8a28dd1f84b41ecdd0f2c779e1810986a5fa0bb9c29fcfa3359"
+    }
+  },
+  "settings": [
+    {
+      "what": "property method",
+      "value": "UNIQUAC liquid, ideal-gas vapour; CHEPTA applies its chemical theory (dimers) to acetic acid in the vapour; CHEPTA's default UNIQUAC pair sets",
+      "kind": "paper + assumed",
+      "locator": "Section 2.1, p.5 (UNIQUAC for VLE and LLE)",
+      "reason": "The paper names UNIQUAC but prints neither its parameters (Chemcad 7's) nor the vapour model. CHEPTA's own UNIQUAC sets are reused (AGENTS.md)."
+    },
+    {
+      "what": "pressure",
+      "value": "100 kPa everywhere, no pressure drop",
+      "kind": "paper",
+      "locator": "Table A2, column 'Pres. Bar' = 1 for every stream, pp.13-14",
+      "reason": "Section 2 (p.4) says 'atmospheric pressure' (101.325 kPa, 1.3 % higher); the printed 1 bar is used."
+    },
+    {
+      "what": "feeds 1, 2 and 17",
+      "value": "Table A2 mass flows and compositions; 17 is at 20 C",
+      "kind": "paper",
+      "locator": "Table A2 streams 1, 2, 17, pp.13-14"
+    },
+    {
+      "what": "feeds 1 (ethanol) and 2 (acetic acid) temperature",
+      "value": "18.0 C instead of the printed 15 C",
+      "kind": "assumed",
+      "locator": "Table A2 streams 1-3 (15 C); CHEPTA runs u-htxr2-15C and secA-feeds-15C-17C (refused)",
+      "reason": "Pure acetic acid at 15 C is below its triple point (289.81 K = 16.66 C in CHEPTA's ChemSep-based record), and CHEPTA refuses a liquid with acetic acid below that temperature even mixed with ethanol (OUT_OF_RANGE). The two feeds cool by about 1 K on mixing, so 18 C, the lowest whole degree for which CHEPTA's MIX 1 outlet (about 17.0 C) stays above it, is used for both (17 C was refused, run secA-feeds-17C). Effect: HTXR 2 heats from about 17 C instead of 15 C."
+    },
+    {
+      "what": "HTXR 2 outlet",
+      "value": "70 C",
+      "kind": "paper",
+      "locator": "Table A2 stream 4"
+    },
+    {
+      "what": "KREA 4 reaction",
+      "value": "ethanol + acetic acid -> ethyl acetate + water (liquid), acetic acid conversion per pass 0.7703",
+      "kind": "derived",
+      "locator": "Table A2 streams 5 and 6",
+      "reason": "1 - (53292 x 4.74 %)/(53292 x 20.64 %) = 0.7703. The paper's kinetics (Eqs. 1-3, pp.5-6, after Atalay) cannot be used: the catalyst concentration and the units of C are not given; CHEPTA has no reactor-evaporator (a boiling, reacting liquid whose only outlet is its vapour). The reactor's conversion is therefore IMPOSED from the paper, not predicted; its outlet temperature and duty are results."
+    },
+    {
+      "what": "KREA 4 outlet",
+      "value": "saturated vapour (VF = 1) at 100 kPa",
+      "kind": "paper",
+      "locator": "Section 2, p.4 ('The vapors from the reactor (Stream 6)'); Table A2 streams 5 and 6 both 53,292 kg/h",
+      "reason": "Everything that enters leaves as vapour; the printed 90 C is compared, not imposed."
+    },
+    {
+      "what": "SCDS 5 azeotropic column",
+      "value": "absorber-type column, no condenser or reboiler, 8 equilibrium stages, reflux 27 on stage 1, reactor vapour 6 on stage 8, adiabatic",
+      "kind": "paper + assumed",
+      "locator": "Table 1 p.11 (8 stages, feed stage 8, R/V 0.61); Section 3.2 p.6 ('reactor vapors are fed to the last stage ... reflux (Stream 27) ... onto the first stage'); Figure 1 p.4 (no condenser or reboiler drawn)",
+      "reason": "Stage efficiency not given: equilibrium stages assumed. R/V = 0.61 is not a setting here: it equals stream 27 over stream 8 on mass (60000/98380 = 0.610, derived). Section 3.2 asks for at least 14 stages; Table 1 says 8 (paper's discrepancy kept)."
+    },
+    {
+      "what": "HTXR 6 outlet",
+      "value": "saturated liquid (VF = 0) at 100 kPa",
+      "kind": "assumed",
+      "locator": "Table A2 streams 8, 9 (both printed 70 C); CHEPTA run u-htxr6-70C",
+      "reason": "At the printed 70 C and 100 kPa CHEPTA finds stream 8's composition 72 % vapour (just above its bubble point); the stream goes to an extractor, so total condensation is taken. Its temperature is compared with 70 C."
+    },
+    {
+      "what": "cut between sections A and B",
+      "value": "acetic acid removed from stream 9 and not a component of section B",
+      "kind": "assumed",
+      "locator": "Table A2: acetic acid 0.01 mass % in streams 9-13, 16, 18-20, 22-28, 0.00 % in 14, 15, 21; CHEPTA runs u-htxr10, u-htxr12, u-htxr18, u-htxr19, u-scds11-* (refused)",
+      "reason": "With acetic acid present CHEPTA refuses every stream that holds two liquids (the three-phase flash with the acid chemical theory is not built). The acid dropped is reported in every run; it is not replaced by a split."
+    },
+    {
+      "what": "MIX 7",
+      "value": "a mixer whose outlet is brought to saturated liquid (VF = 0): CHEPTA's heater block with two inlets; its duty is reported",
+      "kind": "assumed",
+      "locator": "Figure 1 p.4 (MIX 7, no duty); Table A2 stream 10 (70 C, the extractor's feed); CHEPTA run secB-mix7-adiabatic (refused)",
+      "reason": "Adiabatic mixing of the saturated azeotrope 9 and the product column distillate 15 leaves a few % vapour in CHEPTA, and CHEPTA's Extraction block refuses a feed with any vapour (BAD_INPUT), although its stages are at 27 C. The small condensing duty this adds is not in the paper and is reported."
+    },
+    {
+      "what": "EXTR 8 extractor",
+      "value": "countercurrent equilibrium stages, isothermal at 27 C; organic 10 the feed, water 19 the solvent",
+      "kind": "paper + assumed",
+      "locator": "Table 1 p.11 (70 C, W/A = 1); Table A2 streams 11 (27 C) and 20 (41 C); CHEPTA run u-extr8-*-70C (refused)",
+      "reason": "Table 1's 70 C is not usable as the stage temperature: the paper's feed at 70 C and 100 kPa is 77 % vapour in CHEPTA (refused, run u3-extr8-1stage-70C-feed70C), and with a saturated-liquid feed the 70 C extractor runs (u3-extr8-1stage-70C) but its outlets are partly vapour (raffinate VF 0.05), which CHEPTA returns as ok without a warning. The paper's own outlets (27 C organic, 41 C aqueous) imply an adiabatic extractor, which CHEPTA's isothermal block cannot do; 27 C, where the raffinate leaves, is taken, with a 41 C variant. W/A = 1 is not a setting: stream 19 / stream 10 = 113276/113256 = 1.000 (derived)"
+    },
+    {
+      "what": "EXTR 8 number of stages",
+      "value": "not given in the paper; 1 to 8 stages run, plant run with the number stated in the run manifest",
+      "kind": "assumed",
+      "reason": "The paper gives no stage count, efficiency or contactor type for EXTR 8."
+    },
+    {
+      "what": "splitter 9",
+      "value": "fraction to stream 26 = 60000/87314 = 0.68718",
+      "kind": "derived",
+      "locator": "Table A2 streams 11, 26",
+      "reason": "The round 60,000 kg/h suggests a flow specification in Chemcad; CHEPTA's splitter takes fractions only."
+    },
+    {
+      "what": "HTXR 18 outlet",
+      "value": "70 C",
+      "kind": "paper",
+      "locator": "Table A2 stream 27"
+    },
+    {
+      "what": "HTXR 10 outlet",
+      "value": "71 C",
+      "kind": "paper",
+      "locator": "Table A2 stream 13"
+    },
+    {
+      "what": "SCDS 11 product column",
+      "value": "35 stages (1 the condenser, 35 the reboiler), feed stage 15, total condenser, R/D = 3, bottoms 141.5 kmol/h (Table A2 stream 16); two liquids allowed on the stages (VLL)",
+      "kind": "paper + assumed",
+      "locator": "Table 1 p.11 (35 stages, feed 15, R/D 3); Section 3.4 p.8 ('purity greater than 99.9 %', 'EA content in the product (99.9 wt%)'); Table A2 stream 16",
+      "reason": "Chemcad's stage count assumed to include condenser and reboiler, as CHEPTA's does. Total condenser assumed (stream 14 all recycled). Section 3.4 places the best feed between stages 4 and 6, Table 1 says 15 (paper's discrepancy kept). The product purity is then a result, compared with 99.90 mass %. Variant (unit run u3-scds11-purity): the purity 99.90 mass % (Section 3.4) in place of the bottoms flow."
+    },
+    {
+      "what": "HTXR 12",
+      "value": "duty 0 kW",
+      "kind": "paper",
+      "locator": "Table 1 p.11 (S2: 0)"
+    },
+    {
+      "what": "block 14",
+      "value": "pump to 100 kPa (no pressure rise)",
+      "kind": "assumed",
+      "locator": "Figure 1 p.4 (grey round symbol between MIX 13 and EXTR 8); streams 18 and 19 identical in Table A2",
+      "reason": "The paper does not name block 14; its symbol looks like Chemcad's pump. It changes nothing in Table A2."
+    },
+    {
+      "what": "HTXR 19 outlet",
+      "value": "70 C",
+      "kind": "paper",
+      "locator": "Table A2 stream 28"
+    },
+    {
+      "what": "SCDS 15 wastewater column",
+      "value": "18 stages, feed stage 9, total condenser, R/D = 2, distillate 394.6 kmol/h",
+      "kind": "paper + assumed",
+      "locator": "Table 1 p.11 (18 stages, feed 9, R/D 2); Table A2 stream 21",
+      "reason": "The paper does not say which second specification Chemcad used; stream 21's molar flow is taken. Section 3.5 (p.10) asks < 0.01 wt% organics in the bottoms, but stream 22 prints 0.03 wt% (paper's discrepancy kept)."
+    },
+    {
+      "what": "splitter 16",
+      "value": "fraction to wastewater 25 = 20000/115797 = 0.17272",
+      "kind": "derived",
+      "locator": "Table A2 streams 22, 25",
+      "reason": "A fixed wastewater flow with a fixed fresh water feed has no steady state unless they match exactly; with a fraction the water loop settles. Stream 25's flow is compared with 20,000 kg/h."
+    },
+    {
+      "what": "HTXR 17 outlet",
+      "value": "20 C",
+      "kind": "paper",
+      "locator": "Table A2 stream 24"
+    },
+    {
+      "what": "streams 8 (VF = 1), 9, 10, 14, 15, 21, 23 (VF = 0) as feeds of unit runs",
+      "value": "saturated (VF given) where the printed temperature lies at or above CHEPTA's bubble point; stream 3 at 18 C (see feeds 1 and 2)",
+      "kind": "assumed",
+      "reason": "Condensates printed at 70-71 C; see HTXR 6."
+    },
+    {
+      "what": "tear streams and the coupling across the cut",
+      "value": "starting guesses from Table A2; successive substitution of streams 9, 21, 27 by Lab's script",
+      "kind": "assumed",
+      "reason": "Starting points only; a converged answer does not depend on them."
+    }
+  ],
+  "plant_extractor_stages": 2,
+  "plant_couplings": {
+    "a1": {
+      "converged": false,
+      "rounds": 2,
+      "history": [
+        {
+          "round": 1,
+          "acetic_acid_dropped_at_cut_kmol_h": 0.006960749078063127,
+          "max_relative_change": null
+        }
+      ],
+      "stopped": "section A refused in round 2",
+      "attempt": "a1",
+      "note": "Attempt a1: section A of round 2 started its recycle 7 from the paper's stream 7 and did not converge; kept as a failed run.",
+      "warm_start": false
+    },
+    "a2": {
+      "converged": false,
+      "rounds": 2,
+      "history": [
+        {
+          "round": 1,
+          "acetic_acid_dropped_at_cut_kmol_h": 0.006960749078063127,
+          "max_relative_change": null
+        }
+      ],
+      "stopped": "section A refused in round 2",
+      "warm_start": true
+    }
+  },
+  "plant_coupling": {
+    "converged": false,
+    "rounds": 2,
+    "history": [
+      {
+        "round": 1,
+        "acetic_acid_dropped_at_cut_kmol_h": 0.006960749078063127,
+        "max_relative_change": null
+      }
+    ],
+    "stopped": "section A refused in round 2",
+    "attempt": "a2"
+  },
+  "runs": [
+    {
+      "id": "info-ethanol",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/info-ethanol.request.json",
+      "started_at": "2026-11-12T15:46:59.851285+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq0ymk-1",
+      "elapsed_ms": 2.277118999999999,
+      "request_file": "results-chepta-0.6.1/info-ethanol.request.json",
+      "output_file": "results-chepta-0.6.1/info-ethanol.output.json",
+      "stderr_file": "results-chepta-0.6.1/info-ethanol.stderr.txt",
+      "request_file_sha256": "df028e0eebc1628fbf7d1a4bea4381cc14b305af2175c9bf95dc12bf88a9be14",
+      "output_file_sha256": "1f8035c2574ae6580c2f718a6793c1fa4eb44ff808b4c841b52eabfd801278e1"
+    },
+    {
+      "id": "info-water",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/info-water.request.json",
+      "started_at": "2026-11-12T15:47:00.059869+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq0yrv-1",
+      "elapsed_ms": 2.1612889999999823,
+      "request_file": "results-chepta-0.6.1/info-water.request.json",
+      "output_file": "results-chepta-0.6.1/info-water.output.json",
+      "stderr_file": "results-chepta-0.6.1/info-water.stderr.txt",
+      "request_file_sha256": "4bb2694a02756d5b716ebefe4f42978d3bfff1a329e9d9a9a6e7c1f330bb5d8c",
+      "output_file_sha256": "4b96febb5256e7776111620f962c92b6a1b3aed8379b022d681f6c307b670d25"
+    },
+    {
+      "id": "info-ethyl-acetate",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/info-ethyl-acetate.request.json",
+      "started_at": "2026-11-12T15:47:00.251764+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq0yxe-1",
+      "elapsed_ms": 2.605370999999991,
+      "request_file": "results-chepta-0.6.1/info-ethyl-acetate.request.json",
+      "output_file": "results-chepta-0.6.1/info-ethyl-acetate.output.json",
+      "stderr_file": "results-chepta-0.6.1/info-ethyl-acetate.stderr.txt",
+      "request_file_sha256": "3a2359e63e0a6a28b954362eb638a3abbe6f21ad04cd02f76189ab56775a975e",
+      "output_file_sha256": "4f86d6508a413af27308c753d1328fbc1d5d6bc6216d774818c0e15f3b6994de"
+    },
+    {
+      "id": "info-acetic-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/info-acetic-acid.request.json",
+      "started_at": "2026-11-12T15:47:00.449640+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq0z3i-1",
+      "elapsed_ms": 2.55056399999998,
+      "request_file": "results-chepta-0.6.1/info-acetic-acid.request.json",
+      "output_file": "results-chepta-0.6.1/info-acetic-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/info-acetic-acid.stderr.txt",
+      "request_file_sha256": "570eba878342cd516439317f4caa49b9744272bd5aa42734098ac6907a992b7f",
+      "output_file_sha256": "1ff7e9c6e4d0bf8e5447f3b7d2470d68427008b08671f421d123f068a788cb46"
+    },
+    {
+      "id": "u-htxr2-15C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr2-15C.request.json",
+      "started_at": "2026-11-12T15:47:00.670606+00:00",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "OUT_OF_RANGE",
+        "message": "Feed F3: Acetic acid: its liquid heat-capacity record starts at 289.81 K, so its liquid enthalpy at 288.1 K cannot be calculated.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdq0z8k-1",
+      "elapsed_ms": 17.10387,
+      "request_file": "results-chepta-0.6.1/u-htxr2-15C.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr2-15C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr2-15C.stderr.txt",
+      "request_file_sha256": "942e42f608aa730993ca7aee22659c02a2983b62de7de50ba2b1ef03318d08cc",
+      "output_file_sha256": "b14136b225e02235ae70972c42cb4b19fb6008533a622d0609b7af2fecb5a2fe"
+    },
+    {
+      "id": "u-htxr6-70C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr6-70C.request.json",
+      "started_at": "2026-11-12T15:47:00.867028+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq0zfn-1",
+      "elapsed_ms": 45.54630700000001,
+      "request_file": "results-chepta-0.6.1/u-htxr6-70C.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr6-70C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr6-70C.stderr.txt",
+      "request_file_sha256": "dc6ceb380fe7d675fe43169ebea4a32c96f1dfb84169b02acd5ba910a11f39af",
+      "output_file_sha256": "b6881c07dfe8ba6889e82fd82468444d99d265617e9b26245800dfadbe6c3763"
+    },
+    {
+      "id": "u-extr8-1stage-70C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-extr8-1stage-70C.request.json",
+      "started_at": "2026-11-12T15:47:01.155149+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F10: UNIQUAC flash at 100.000 kPa, VF = 0: the liquid would split into two liquids (tangent-plane distance -0.011, second liquid about [0.0380, 0.946, 0.0155, 0.0000384]); two liquids need an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.11205581430320984,
+            0.2526431771162867,
+            0.6351916411095723,
+            0.00010936747093129659
+          ],
+          "T": 342.87931382660474,
+          "trial": [
+            0.03804683265519333,
+            0.9464523123453064,
+            0.015462472024446141,
+            3.838297505416225e-05
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq0zmo-1",
+      "elapsed_ms": 65.435386,
+      "request_file": "results-chepta-0.6.1/u-extr8-1stage-70C.request.json",
+      "output_file": "results-chepta-0.6.1/u-extr8-1stage-70C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-extr8-1stage-70C.stderr.txt",
+      "request_file_sha256": "348435908c5f3271e8b01e202a2dd72be3efa9485736c811b38281b7df8b9a69",
+      "output_file_sha256": "b262fd5f71c5e003dcf79e6c6950c6fe0159b2adb97281868143d311518e9390"
+    },
+    {
+      "id": "u-extr8-1stage-27C-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-extr8-1stage-27C-acid.request.json",
+      "started_at": "2026-11-12T15:47:01.437344+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F10: UNIQUAC flash at 100.000 kPa, VF = 0: the liquid would split into two liquids (tangent-plane distance -0.011, second liquid about [0.0380, 0.946, 0.0155, 0.0000384]); two liquids need an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.11205581430320984,
+            0.2526431771162867,
+            0.6351916411095723,
+            0.00010936747093129659
+          ],
+          "T": 342.87931382660474,
+          "trial": [
+            0.03804683265519333,
+            0.9464523123453064,
+            0.015462472024446141,
+            3.838297505416225e-05
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq0zv5-1",
+      "elapsed_ms": 64.00838300000001,
+      "request_file": "results-chepta-0.6.1/u-extr8-1stage-27C-acid.request.json",
+      "output_file": "results-chepta-0.6.1/u-extr8-1stage-27C-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-extr8-1stage-27C-acid.stderr.txt",
+      "request_file_sha256": "084afb195da396db5e271adc42a796251035ab305fc618fbfb9b65290bc62729",
+      "output_file_sha256": "cb9c1b43b52648454e60ca3fac381095b1107055a43c6fa9f009020da969fff8"
+    },
+    {
+      "id": "u-htxr10-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr10-acid.request.json",
+      "started_at": "2026-11-12T15:47:01.742571+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F12: UNIQUAC flash at 300.15 K and 100.000 kPa: the feed liquid would split into two liquids (tangent-plane distance -0.008, second liquid about [0.00971, 0.972, 0.0187, 0.0000550]); the three-phase flash needs an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.02964655296428605,
+            0.1915674014180209,
+            0.7786637706434443,
+            0.00012227497424882684
+          ],
+          "T": 300.15,
+          "trial": [
+            0.009710258644328831,
+            0.9715656986641841,
+            0.018669033911367122,
+            5.500878011998454e-05
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq1031-1",
+      "elapsed_ms": 20.78289699999999,
+      "request_file": "results-chepta-0.6.1/u-htxr10-acid.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr10-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr10-acid.stderr.txt",
+      "request_file_sha256": "8c7d2c2443e326ef339aaaebde030cf1e171cc2e479bdc0aa2d114e06044b925",
+      "output_file_sha256": "df0e3996c5fb0a3c1a48e1f5a8702df264b3d46c36d0f578196e20e52ba2f1f7"
+    },
+    {
+      "id": "u-scds11-acid-VL",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-scds11-acid-VL.request.json",
+      "started_at": "2026-11-12T15:47:01.966083+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Column SCDS11: a second liquid would form on stages 1, 2 (stage 1 at 342.8 K: its liquid Ethanol 0.04785, Water 0.3092, Ethyl acetate 0.643, Acetic acid 9.084e-17 splits off a liquid Ethanol 0.01177, Water 0.9788, Ethyl acetate 0.009476, Acetic acid 2.384e-17). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum).",
+        "where": [],
+        "details": {
+          "stages": [
+            {
+              "stage": 1,
+              "T_K": 342.77832310302966,
+              "x": [
+                0.04784754073705299,
+                0.30917713659231916,
+                0.6429753226706277,
+                9.083507236583898e-17
+              ],
+              "trial": [
+                0.01176704003922118,
+                0.978756923645836,
+                0.009476036314942936,
+                2.3844006814193772e-17
+              ]
+            },
+            {
+              "stage": 2,
+              "T_K": 343.1586227066169,
+              "x": [
+                0.04087184734033091,
+                0.21639592476564723,
+                0.7427322278940218,
+                5.3338448352813166e-17
+              ],
+              "trial": [
+                0.013214251330483122,
+                0.974500052686923,
+                0.012285695982594096,
+                2.0634260075894874e-17
+              ]
+            }
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq108w-1",
+      "elapsed_ms": 404.13182100000006,
+      "request_file": "results-chepta-0.6.1/u-scds11-acid-VL.request.json",
+      "output_file": "results-chepta-0.6.1/u-scds11-acid-VL.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-scds11-acid-VL.stderr.txt",
+      "request_file_sha256": "da77d3068481337f9f02efc6352b5795d7216d8abb737469ea0b3600b6705797",
+      "output_file_sha256": "355ef94de804be0157f877a31d4e43c6490c3814db68fcb45a3113648c32b2e3"
+    },
+    {
+      "id": "u-scds11-acid-VLL",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-scds11-acid-VLL.request.json",
+      "started_at": "2026-11-12T15:47:02.581815+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "Column SCDS11: two liquids on the stages (phases \"VLL\") need an activity model (NRTL, UNIQUAC, Modified UNIFAC 2.0) without the dimerizing acids' chemical theory, as the flash drum does; this system's vapour follows the chemical theory (dimerization) for Acetic acid (the three-phase flash with it is not built). Choose such a method for the column (its own property method), or phases \"VL\".",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdq10px-1",
+      "elapsed_ms": 27.483936999999997,
+      "request_file": "results-chepta-0.6.1/u-scds11-acid-VLL.request.json",
+      "output_file": "results-chepta-0.6.1/u-scds11-acid-VLL.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-scds11-acid-VLL.stderr.txt",
+      "request_file_sha256": "0baf86df1b27a1f9f8e100022bcf9497b352923787118172df668dc8d8513af6",
+      "output_file_sha256": "ce922dc316a2e42638cfbeab9ec49ddcd869fe4cacb7c3508bc013ec2e8650e3"
+    },
+    {
+      "id": "u-htxr12-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr12-acid.request.json",
+      "started_at": "2026-11-12T15:47:02.796233+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F14: UNIQUAC flash at 100.000 kPa, VF = 0: the liquid would split into two liquids (tangent-plane distance -0.155, second liquid about [0.0118, 0.979, 0.00951, 0.00]); two liquids need an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.0476562556066675,
+            0.30717389948628004,
+            0.6451698449070525,
+            0
+          ],
+          "T": 342.7813012494427,
+          "trial": [
+            0.011766827986303808,
+            0.9787262125790669,
+            0.009506959434629259,
+            0
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq10vs-1",
+      "elapsed_ms": 90.45970099999997,
+      "request_file": "results-chepta-0.6.1/u-htxr12-acid.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr12-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr12-acid.stderr.txt",
+      "request_file_sha256": "d5f78a425c740f91d1059f4ca45d8521794f56eff8d77d7cdd5da77437d81b70",
+      "output_file_sha256": "78d44e3b6914bdcd54616732b994d221c4e968f24f81036293d002344efbc71b"
+    },
+    {
+      "id": "u-htxr18-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr18-acid.request.json",
+      "started_at": "2026-11-12T15:47:03.073586+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F26: UNIQUAC flash at 300.15 K and 100.000 kPa: the feed liquid would split into two liquids (tangent-plane distance -0.008, second liquid about [0.00971, 0.972, 0.0187, 0.0000550]); the three-phase flash needs an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.029646552964286043,
+            0.19156740141802084,
+            0.7786637706434443,
+            0.00012227497424882686
+          ],
+          "T": 300.15,
+          "trial": [
+            0.009710258644328843,
+            0.971565698664184,
+            0.018669033911367195,
+            5.500878011998456e-05
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq113f-1",
+      "elapsed_ms": 19.58596800000001,
+      "request_file": "results-chepta-0.6.1/u-htxr18-acid.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr18-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr18-acid.stderr.txt",
+      "request_file_sha256": "a73a0144c19f3f397836a641d9947731f78c16398b96325fbb4de90e98d14e01",
+      "output_file_sha256": "916275021bc714ce211fdbb28d8ee80883f07bbf6a915ddf373adf0c170118cb"
+    },
+    {
+      "id": "u-htxr19-acid",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr19-acid.request.json",
+      "started_at": "2026-11-12T15:47:03.273490+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Feed F20: UNIQUAC flash at 314.15 K and 100.000 kPa: the feed liquid would split into two liquids (tangent-plane distance -0.162, second liquid about [0.0502, 0.152, 0.798, 0.0000543]); the three-phase flash needs an activity model without the acid chemical theory.",
+        "where": [],
+        "details": {
+          "x": [
+            0.02321059741845758,
+            0.9519268251287472,
+            0.024828596828662935,
+            3.398062413243922e-05
+          ],
+          "T": 314.15,
+          "trial": [
+            0.050202668039828854,
+            0.15163738675311916,
+            0.7981056359651811,
+            5.430924187076701e-05
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdq1195-1",
+      "elapsed_ms": 20.72367700000001,
+      "request_file": "results-chepta-0.6.1/u-htxr19-acid.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr19-acid.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr19-acid.stderr.txt",
+      "request_file_sha256": "c413b8e408d9c5e89b365f2aa9feb3f89fc46d0690361d4890b421b02b87604d",
+      "output_file_sha256": "97ce349241d1c8cf748c9f4d273ae5721b94decb269d12f1a131523f1d8565ae"
+    },
+    {
+      "id": "u-htxr2",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr2.request.json",
+      "started_at": "2026-11-12T15:47:03.480829+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq11fc-1",
+      "elapsed_ms": 34.811599,
+      "request_file": "results-chepta-0.6.1/u-htxr2.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr2.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr2.stderr.txt",
+      "request_file_sha256": "fea9c1cac6930019fbf76435c6570fdaf70d16e010595cc27f418fe0aa3af2f3",
+      "output_file_sha256": "59e4de8519a5637c120ec82ddbe2ff5dce68ee3d311670d1c5fe29aab01e8bfc"
+    },
+    {
+      "id": "u-krea4-conversion",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-krea4-conversion.request.json",
+      "started_at": "2026-11-12T15:47:03.720457+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq11lm-1",
+      "elapsed_ms": 95.62327300000001,
+      "request_file": "results-chepta-0.6.1/u-krea4-conversion.request.json",
+      "output_file": "results-chepta-0.6.1/u-krea4-conversion.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-krea4-conversion.stderr.txt",
+      "request_file_sha256": "5a61d0900a99d04e5e62367a3d20aa24ee01fb2d8571205af64b8b032250cb3b",
+      "output_file_sha256": "1ca116c7aefc590751f560d64b95aa8ff007b05fdcd29052615a39a74cb11f5e"
+    },
+    {
+      "id": "u-krea4-equilibrium-90C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-krea4-equilibrium-90C.request.json",
+      "started_at": "2026-11-12T15:47:04.007792+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq11tc-1",
+      "elapsed_ms": 69.320817,
+      "request_file": "results-chepta-0.6.1/u-krea4-equilibrium-90C.request.json",
+      "output_file": "results-chepta-0.6.1/u-krea4-equilibrium-90C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-krea4-equilibrium-90C.stderr.txt",
+      "request_file_sha256": "79b55a691332f1a921cc05a38c5ee3a639a6b116492440d8498aa633a4f7b0ec",
+      "output_file_sha256": "5b91f7757ea1d76385963cb3d07f22f09534b9c7a514c87c6056ec17d156bf1b"
+    },
+    {
+      "id": "u-scds5",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-scds5.request.json",
+      "started_at": "2026-11-12T15:47:04.258100+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq120k-1",
+      "elapsed_ms": 442.415307,
+      "request_file": "results-chepta-0.6.1/u-scds5.request.json",
+      "output_file": "results-chepta-0.6.1/u-scds5.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-scds5.stderr.txt",
+      "request_file_sha256": "3840c150da3ce11d97a7152880dc6be5c60877afe89007887ba7e0a6196f882b",
+      "output_file_sha256": "23f6544766100304f02137d2e32d57ed7714ea8701dc54be9d488aa0fe5f4b34"
+    },
+    {
+      "id": "u-htxr6",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr6.request.json",
+      "started_at": "2026-11-12T15:47:04.896948+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq12kg-1",
+      "elapsed_ms": 114.09683500000003,
+      "request_file": "results-chepta-0.6.1/u-htxr6.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr6.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr6.stderr.txt",
+      "request_file_sha256": "f778fca8313616966bdd32895ddcd70503d5927fb34752e20ae1bdccf6e33754",
+      "output_file_sha256": "869ab55ea2684126ae565a46fd666acc8f1771b3b2f820529352bc5c3be5e693"
+    },
+    {
+      "id": "u-pump14",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-pump14.request.json",
+      "started_at": "2026-11-12T15:47:05.281003+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq12sx-1",
+      "elapsed_ms": 43.177538,
+      "request_file": "results-chepta-0.6.1/u-pump14.request.json",
+      "output_file": "results-chepta-0.6.1/u-pump14.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-pump14.stderr.txt",
+      "request_file_sha256": "944d7b1b028d68ef3d187bebeec71821c6302e0de050026893e335479140f678",
+      "output_file_sha256": "f9c712dc8599e58c57eed34e5fcca9daf47975dce86e0cc7e6e4fd61b5478194"
+    },
+    {
+      "id": "u3-extr8-1stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-1stage.request.json",
+      "started_at": "2026-11-12T15:47:05.724060+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq135b-1",
+      "elapsed_ms": 64.093209,
+      "request_file": "results-chepta-0.6.1/u3-extr8-1stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-1stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-1stage.stderr.txt",
+      "request_file_sha256": "ac48bf6ceef70a5644a36deebe22753b93ece983610a99de6a06185e4f926ba1",
+      "output_file_sha256": "8e0e7195f7cbfa5718700d34b73614b09edd6061a8dae7cfa757a2a63eae1791"
+    },
+    {
+      "id": "u3-extr8-2stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-2stage.request.json",
+      "started_at": "2026-11-12T15:47:05.984537+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq13d4-1",
+      "elapsed_ms": 58.89618300000001,
+      "request_file": "results-chepta-0.6.1/u3-extr8-2stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-2stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-2stage.stderr.txt",
+      "request_file_sha256": "598fc2536a5f255aa66a5e3b8d6c06ea329a8a009c5bdc69111976c9269c4e4b",
+      "output_file_sha256": "7431d8ccbb5f3978c4226e6a8def5d04a8e8ebcf4999110c79e7a04ea945d53b"
+    },
+    {
+      "id": "u3-extr8-3stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-3stage.request.json",
+      "started_at": "2026-11-12T15:47:06.257764+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq13jz-1",
+      "elapsed_ms": 56.53755699999999,
+      "request_file": "results-chepta-0.6.1/u3-extr8-3stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-3stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-3stage.stderr.txt",
+      "request_file_sha256": "35e6754aacf349c447dc3f70762c8f549b744152d9a608162d45f56317c524f4",
+      "output_file_sha256": "3cf8b477e23e42066b1f4c7f53f772e33b7fd02d4506eb22bd7e43f28d44ceda"
+    },
+    {
+      "id": "u3-extr8-4stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-4stage.request.json",
+      "started_at": "2026-11-12T15:47:06.508340+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq13qs-1",
+      "elapsed_ms": 56.92881399999999,
+      "request_file": "results-chepta-0.6.1/u3-extr8-4stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-4stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-4stage.stderr.txt",
+      "request_file_sha256": "a15a9c0af27b07ab9c1aa5d062c4eb51d5cda6e633e8af9302f2684f5f875ded",
+      "output_file_sha256": "a981784d56fe159051606949f48bfe2a4cecc0d4d2b8a0ff24e479f9e5beb020"
+    },
+    {
+      "id": "u3-extr8-5stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-5stage.request.json",
+      "started_at": "2026-11-12T15:47:06.746219+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq13xt-1",
+      "elapsed_ms": 71.760185,
+      "request_file": "results-chepta-0.6.1/u3-extr8-5stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-5stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-5stage.stderr.txt",
+      "request_file_sha256": "de372bc8f086aabbd85c9a6d04181cb765c4a5beada58558f53c61d80c8621f4",
+      "output_file_sha256": "a3619e83680b08e4918f60666541dcecd6fec6e668a749e53c0091535ab8c088"
+    },
+    {
+      "id": "u3-extr8-8stage",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-8stage.request.json",
+      "started_at": "2026-11-12T15:47:07.016020+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq146c-1",
+      "elapsed_ms": 97.10407199999997,
+      "request_file": "results-chepta-0.6.1/u3-extr8-8stage.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-8stage.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-8stage.stderr.txt",
+      "request_file_sha256": "490627b7fa45a66e06ac812b474f467bfa69f0ed8845349dc93b4c2ef4d46c67",
+      "output_file_sha256": "62dafc318237fe180a414bde0826601a0e07d0312378854186aa92f050f282f8"
+    },
+    {
+      "id": "u3-extr8-1stage-41C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-1stage-41C.request.json",
+      "started_at": "2026-11-12T15:47:07.352696+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq14f5-1",
+      "elapsed_ms": 65.85005200000003,
+      "request_file": "results-chepta-0.6.1/u3-extr8-1stage-41C.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-1stage-41C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-1stage-41C.stderr.txt",
+      "request_file_sha256": "cda445fd482171a196018651dddf0ea9bd7d48b0cc7b4eb3629c1d3190100103",
+      "output_file_sha256": "efb3aa1ebc9bcaa04b51bffa1255c57767ecd027c583a3d6906937653b6d547a"
+    },
+    {
+      "id": "u3-htxr10",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-htxr10.request.json",
+      "started_at": "2026-11-12T15:47:07.635012+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq14n8-1",
+      "elapsed_ms": 34.85879699999998,
+      "request_file": "results-chepta-0.6.1/u3-htxr10.request.json",
+      "output_file": "results-chepta-0.6.1/u3-htxr10.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-htxr10.stderr.txt",
+      "request_file_sha256": "870c8823a90b71c3cbf685fd53a39f4fe6502776cdcc531e4caa0de3fa728bbc",
+      "output_file_sha256": "754986d05c00a43654bd1079e82b240b5a7177d0536fcc9e1134d61e454cb390"
+    },
+    {
+      "id": "u3-scds11-purity",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-scds11-purity.request.json",
+      "started_at": "2026-11-12T15:47:07.895574+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdq14ur-1",
+      "elapsed_ms": 609810.961575,
+      "request_file": "results-chepta-0.6.1/u3-scds11-purity.request.json",
+      "output_file": "results-chepta-0.6.1/u3-scds11-purity.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-scds11-purity.stderr.txt",
+      "request_file_sha256": "77cf65ebf2f6b9f3313286353526b82ac8dc942f9c3c32acceb59a197ecca9ab",
+      "output_file_sha256": "6ce4ca6164a9e5f6acb0a96295a2575dfa5c5e747f5fae366e849afcfcbc340b"
+    },
+    {
+      "id": "u3-scds11-bottomsflow",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-scds11-bottomsflow.request.json",
+      "started_at": "2026-11-12T15:57:17.964568+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqe7k0-1",
+      "elapsed_ms": 12462.134535,
+      "request_file": "results-chepta-0.6.1/u3-scds11-bottomsflow.request.json",
+      "output_file": "results-chepta-0.6.1/u3-scds11-bottomsflow.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-scds11-bottomsflow.stderr.txt",
+      "request_file_sha256": "a0fe115fa313868d30b8cd6e9445346f246dc1045b6aa28fe168ae6dace408e7",
+      "output_file_sha256": "113e0f9d04b95c043a24aad61792e2efcda529a860d93527c06a37c53a18a1d7"
+    },
+    {
+      "id": "u3-scds11-bottomsflow-VL",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-scds11-bottomsflow-VL.request.json",
+      "started_at": "2026-11-12T15:57:30.626575+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Column SCDS11: a second liquid would form on stages 1, 2 (stage 1 at 342.8 K: its liquid Ethanol 0.04786, Water 0.3092, Ethyl acetate 0.6429 splits off a liquid Ethanol 0.01177, Water 0.9788, Ethyl acetate 0.009475). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum).",
+        "where": [],
+        "details": {
+          "stages": [
+            {
+              "stage": 1,
+              "T_K": 342.77823297773216,
+              "x": [
+                0.04785698502969118,
+                0.309238162806159,
+                0.6429048521641498
+              ],
+              "trial": [
+                0.011768027026173888,
+                0.9787567328303728,
+                0.009475240143453275
+              ]
+            },
+            {
+              "stage": 2,
+              "T_K": 343.1577756690661,
+              "x": [
+                0.0408870691113047,
+                0.2165042511458818,
+                0.7426086797428134
+              ],
+              "trial": [
+                0.013213492896260254,
+                0.9745060179733972,
+                0.01228048913034266
+              ]
+            }
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdqehbt-1",
+      "elapsed_ms": 377.57406000000003,
+      "request_file": "results-chepta-0.6.1/u3-scds11-bottomsflow-VL.request.json",
+      "output_file": "results-chepta-0.6.1/u3-scds11-bottomsflow-VL.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-scds11-bottomsflow-VL.stderr.txt",
+      "request_file_sha256": "07bdb7398e4b3bab5d029b2d2d0769a7726d60362265c5cf25b6ad3762a63f72",
+      "output_file_sha256": "70d2efdff6f974ed5d5c71092a599e4499eb881e35975699990f8228561e35e0"
+    },
+    {
+      "id": "u3-htxr12",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-htxr12.request.json",
+      "started_at": "2026-11-12T15:57:31.201394+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqehs7-1",
+      "elapsed_ms": 57.714406999999994,
+      "request_file": "results-chepta-0.6.1/u3-htxr12.request.json",
+      "output_file": "results-chepta-0.6.1/u3-htxr12.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-htxr12.stderr.txt",
+      "request_file_sha256": "bfa6e6d001294212055df07a01b73c4bfa8f045683dc0491d801c13e5bd12052",
+      "output_file_sha256": "5cea65cc6c2acfe55ba25f3519c554e34cc0e28e90f0422375c6863402e3ee98"
+    },
+    {
+      "id": "u3-htxr18",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-htxr18.request.json",
+      "started_at": "2026-11-12T15:57:31.480028+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqei0t-1",
+      "elapsed_ms": 29.73235199999999,
+      "request_file": "results-chepta-0.6.1/u3-htxr18.request.json",
+      "output_file": "results-chepta-0.6.1/u3-htxr18.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-htxr18.stderr.txt",
+      "request_file_sha256": "f4aaedb9b5c171dd676ea075801d1a3b1bcd9e7f3544716f32a8dbcd31eabb7a",
+      "output_file_sha256": "f1aeb2b32995e08b01a29fd5022bf359b7dd1cb344c79d42eed9ae49aa2101cd"
+    },
+    {
+      "id": "u3-htxr19",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-htxr19.request.json",
+      "started_at": "2026-11-12T15:57:31.752786+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqei7v-1",
+      "elapsed_ms": 31.949806999999993,
+      "request_file": "results-chepta-0.6.1/u3-htxr19.request.json",
+      "output_file": "results-chepta-0.6.1/u3-htxr19.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-htxr19.stderr.txt",
+      "request_file_sha256": "decdb400c63f21e033070003f9824785badb8ad6a9c31aa25283d62d8c85a9be",
+      "output_file_sha256": "136df368c949d7452bbcf0b82b56c27088ac46820adcb44d4dc0e055a2bde570"
+    },
+    {
+      "id": "u3-scds15",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-scds15.request.json",
+      "started_at": "2026-11-12T15:57:32.009427+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqeify-1",
+      "elapsed_ms": 499.904453,
+      "request_file": "results-chepta-0.6.1/u3-scds15.request.json",
+      "output_file": "results-chepta-0.6.1/u3-scds15.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-scds15.stderr.txt",
+      "request_file_sha256": "41949abfd8b9fd7861e5546b091d1ef471b0b3919a3ef0f9086b7d4eaf8f8492",
+      "output_file_sha256": "e6ce3fa97b0ec62c502775134a6c09946d82a65bd3a17d431403a6bfc16a0196"
+    },
+    {
+      "id": "u3-scds15-VLL",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-scds15-VLL.request.json",
+      "started_at": "2026-11-12T15:57:32.781045+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqeize-1",
+      "elapsed_ms": 2920.018445,
+      "request_file": "results-chepta-0.6.1/u3-scds15-VLL.request.json",
+      "output_file": "results-chepta-0.6.1/u3-scds15-VLL.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-scds15-VLL.stderr.txt",
+      "request_file_sha256": "00909229ae7877b434fbd6592d1db49f38b9e7b500c66d36b582bf3eda50c928",
+      "output_file_sha256": "f2cf259a46bd83d86ff4c9504ee76e0a2796f1edd9b7d24d23ba1b597f1aec04"
+    },
+    {
+      "id": "secA-feeds-17C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secA-feeds-17C.request.json",
+      "started_at": "2026-11-12T15:57:35.895299+00:00",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "OUT_OF_RANGE",
+        "message": "Mixer MIX1: Acetic acid: its liquid heat-capacity record starts at 289.81 K, so its liquid enthalpy below it cannot be calculated.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdqeleq-1",
+      "elapsed_ms": 70.71014200000002,
+      "request_file": "results-chepta-0.6.1/secA-feeds-17C.request.json",
+      "output_file": "results-chepta-0.6.1/secA-feeds-17C.output.json",
+      "stderr_file": "results-chepta-0.6.1/secA-feeds-17C.stderr.txt",
+      "request_file_sha256": "319062563650c9ba73a2639883d520c744cac951a203c627286f5cd39357b985",
+      "output_file_sha256": "b122481f9c4ba3b61e14d6de1866e79cda9aac6a401e01e3d17868ea80e82d24"
+    },
+    {
+      "id": "secA-paper-inlets",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secA-paper-inlets.request.json",
+      "started_at": "2026-11-12T15:57:36.185377+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqelmy-1",
+      "elapsed_ms": 1925.3021800000001,
+      "request_file": "results-chepta-0.6.1/secA-paper-inlets.request.json",
+      "output_file": "results-chepta-0.6.1/secA-paper-inlets.output.json",
+      "stderr_file": "results-chepta-0.6.1/secA-paper-inlets.stderr.txt",
+      "request_file_sha256": "aa01072a633a7650edad49783529d3d2f6c35e86559357e78cefc0c1d5a5e870",
+      "output_file_sha256": "575228d378dc1c69c29681fc779c8ff668e8658b571f1f010214025ad38f24d9"
+    },
+    {
+      "id": "secB-mix7-adiabatic",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-mix7-adiabatic.request.json",
+      "started_at": "2026-11-12T15:57:38.351821+00:00",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "BAD_INPUT",
+        "message": "Extraction EXTR8: the feed is partly vapour (vapour fraction 0.03713 at 342.9 K and 100 kPa); the stages hold two liquids and no vapour. Cool it or raise its pressure.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdqenb5-1",
+      "elapsed_ms": 183.712066,
+      "request_file": "results-chepta-0.6.1/secB-mix7-adiabatic.request.json",
+      "output_file": "results-chepta-0.6.1/secB-mix7-adiabatic.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-mix7-adiabatic.stderr.txt",
+      "request_file_sha256": "2acb0cdceb123dab5408c3302babfbe8a573e5114cabc75e2be682427a7668fe",
+      "output_file_sha256": "8310f6fb0348eb13396945800024365bbe12813c31562264e161ebbeaf0fc843"
+    },
+    {
+      "id": "secB-paper-inlets-extr1",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr1.request.json",
+      "started_at": "2026-11-12T15:57:38.768891+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqenmf-1",
+      "elapsed_ms": 105596.68274199999,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr1.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr1.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr1.stderr.txt",
+      "request_file_sha256": "e04ab656b7223075d5dc59fcf2bb2181f4d4ec8742b5afecda2260f903a815fe",
+      "output_file_sha256": "0ec90a0f310641df77241d9ca4f9d60c75341190fd262c7e2a1f4a57f5d56c6b"
+    },
+    {
+      "id": "secB-paper-inlets-extr2",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr2.request.json",
+      "started_at": "2026-11-12T15:59:24.599881+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqgxag-1",
+      "elapsed_ms": 15997.147735,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr2.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr2.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr2.stderr.txt",
+      "request_file_sha256": "38404639ba5b91b446139eb22ac98b3b29e311f2a79f7a833199064bb0b9a038",
+      "output_file_sha256": "d4c568b013fbf37406ea77f68b16f11cb8eadffd667a7cbaa8f895ea96045353"
+    },
+    {
+      "id": "secB-paper-inlets-extr3",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr3.request.json",
+      "started_at": "2026-11-12T15:59:40.838193+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqh9ss-1",
+      "elapsed_ms": 16965.640229,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr3.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr3.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr3.stderr.txt",
+      "request_file_sha256": "7a4247b4683c98c52b08ca1f3a7b86b0ae4d43ab1d080b8e7746355ce765fad9",
+      "output_file_sha256": "7f4597357e85d58d171563361bfda7a26ecc2030394a4fdc2d55e38ee38d2111"
+    },
+    {
+      "id": "secB-paper-inlets-extr4",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr4.request.json",
+      "started_at": "2026-11-12T15:59:58.008822+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqhn1o-1",
+      "elapsed_ms": 26037.476196,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr4.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr4.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr4.stderr.txt",
+      "request_file_sha256": "ebaed9c600e66bbd84237242aa6f8d2c303fc8fe77221c2c98c43d2b9bdba40e",
+      "output_file_sha256": "b4c6cbd2551570cee618e3d9d9b1970945d1df236b193aacd58af666c5516e4a"
+    },
+    {
+      "id": "secB-paper-inlets-extr5",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr5.request.json",
+      "started_at": "2026-11-12T16:00:24.251415+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqi7at-1",
+      "elapsed_ms": 20897.807393,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr5.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr5.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr5.stderr.txt",
+      "request_file_sha256": "0cf3d016d2d7f5c35dddaf7eb7b080b57defedb15e9b8e2ce8d838950982d616",
+      "output_file_sha256": "598b705d4e425c352d1f3c77c33479cacfcb1e9bd52c9327d2dfafd41e128382"
+    },
+    {
+      "id": "secB-paper-inlets-extr8",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/secB-paper-inlets-extr8.request.json",
+      "started_at": "2026-11-12T16:00:45.382651+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqinls-1",
+      "elapsed_ms": 22778.337309000002,
+      "request_file": "results-chepta-0.6.1/secB-paper-inlets-extr8.request.json",
+      "output_file": "results-chepta-0.6.1/secB-paper-inlets-extr8.output.json",
+      "stderr_file": "results-chepta-0.6.1/secB-paper-inlets-extr8.stderr.txt",
+      "request_file_sha256": "80f2088fef51ee7aae441a51c17c04eeb101f32f3b7a1a49eff260afe9fe7f4d",
+      "output_file_sha256": "77f19ebaec9d561b385773a5adddeb64e8f8731fc203a3fdbb2790a1a8c8bea8"
+    },
+    {
+      "id": "u3-extr8-1stage-70C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-1stage-70C.request.json",
+      "started_at": "2026-11-12T16:01:14.642959+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqja6a-1",
+      "elapsed_ms": 60.549012000000005,
+      "request_file": "results-chepta-0.6.1/u3-extr8-1stage-70C.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-1stage-70C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-1stage-70C.stderr.txt",
+      "request_file_sha256": "2d7cb6886df238b9f444849d6828e20d7b3f29290410d35e9f1d212bded171b2",
+      "output_file_sha256": "806dd527dcc3a2828b0117bffc2ba25bebad52d9ed90fd103fb626aea08980a9"
+    },
+    {
+      "id": "plant-a1-r01-A",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a1-r01-A.request.json",
+      "started_at": "2026-11-12T16:01:33.223563+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqjojf-1",
+      "elapsed_ms": 1826.57755,
+      "request_file": "results-chepta-0.6.1/plant-a1-r01-A.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a1-r01-A.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a1-r01-A.stderr.txt",
+      "request_file_sha256": "aa01072a633a7650edad49783529d3d2f6c35e86559357e78cefc0c1d5a5e870",
+      "output_file_sha256": "1b18b52910dfd38c05a8d0d30227b791833b99ead0bc09895f28906e90419e63"
+    },
+    {
+      "id": "plant-a1-r01-B",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a1-r01-B.request.json",
+      "started_at": "2026-11-12T16:01:35.294209+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqjq49-1",
+      "elapsed_ms": 16165.797687,
+      "request_file": "results-chepta-0.6.1/plant-a1-r01-B.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a1-r01-B.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a1-r01-B.stderr.txt",
+      "request_file_sha256": "eb5cdee5ff5fb2b8a6b270c28d43076f7b7cafc4d6753c059d56af581ce5ff7a",
+      "output_file_sha256": "07f8a3eb6fc209e7844c3d3d4e387fd067d96fc876d5819d1e098e505dc2d67f"
+    },
+    {
+      "id": "plant-a1-r02-A",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a1-r02-A.request.json",
+      "started_at": "2026-11-12T16:01:51.669942+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX3, KREA4, SCDS5 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 366 ms: the residual fell only from 1.024 to 0.3839 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1175 ms: the residual fell only from 1.91 to 0.3632 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 1661 ms). Last residuals: material 31.96 mol/s, equilibrium 0.0712, energy 1603000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear stream (S7) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S7"
+          ],
+          "history": [
+            0.029497980182551512
+          ],
+          "cause": "Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 366 ms: the residual fell only from 1.024 to 0.3839 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1175 ms: the residual fell only from 1.91 to 0.3632 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 1661 ms). Last residuals: material 31.96 mol/s, equilibrium 0.0712, energy 1603000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption."
+        }
+      },
+      "chepta_run_id": "run-mwdqk2sl-1",
+      "elapsed_ms": 11361.461749,
+      "request_file": "results-chepta-0.6.1/plant-a1-r02-A.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a1-r02-A.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a1-r02-A.stderr.txt",
+      "request_file_sha256": "54dcdbe6f0c4e02dc410650ccf69ce2c880c523d2c9330f10991e15195cdcb44",
+      "output_file_sha256": "979947e017adb1ac5697b8f2b27313473a0ee4772896ef7f58d7b4206f46a3d2"
+    },
+    {
+      "id": "plant-a2-r01-A",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a2-r01-A.request.json",
+      "started_at": "2026-11-12T16:02:39.054722+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdql3c1-1",
+      "elapsed_ms": 1855.220409,
+      "request_file": "results-chepta-0.6.1/plant-a2-r01-A.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a2-r01-A.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a2-r01-A.stderr.txt",
+      "request_file_sha256": "aa01072a633a7650edad49783529d3d2f6c35e86559357e78cefc0c1d5a5e870",
+      "output_file_sha256": "29ee58bfd6ac7fe22a9e36a31cadfb691e87277511d80a4f493f455d91a16f65"
+    },
+    {
+      "id": "plant-a2-r01-B",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a2-r01-B.request.json",
+      "started_at": "2026-11-12T16:02:41.154664+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdql4yq-1",
+      "elapsed_ms": 16800.821557,
+      "request_file": "results-chepta-0.6.1/plant-a2-r01-B.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a2-r01-B.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a2-r01-B.stderr.txt",
+      "request_file_sha256": "eb5cdee5ff5fb2b8a6b270c28d43076f7b7cafc4d6753c059d56af581ce5ff7a",
+      "output_file_sha256": "b737eeb3dfb1c2f594f329819f92129fe1b3111b99d35b731fcacf51a50dc2e3"
+    },
+    {
+      "id": "plant-a2-r02-A",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/plant-a2-r02-A.request.json",
+      "started_at": "2026-11-12T16:02:58.207330+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX3, KREA4, SCDS5 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 325 ms: the residual fell only from 1.008 to 0.264 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1382 ms: the residual fell only from 175.7 to 124.1 in 12 iterations); continuation in the relative volatilities (stopped at 99.32 % of the way, after 15 steps, 18719 ms). Last residuals: material 20150 mol/s, equilibrium 1.931, energy 552100000 W, specifications 0. On the last iterate the liquid of stage 3 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear stream (S7) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S7"
+          ],
+          "history": [
+            0.053844615756413285
+          ],
+          "cause": "Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 325 ms: the residual fell only from 1.008 to 0.264 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1382 ms: the residual fell only from 175.7 to 124.1 in 12 iterations); continuation in the relative volatilities (stopped at 99.32 % of the way, after 15 steps, 18719 ms). Last residuals: material 20150 mol/s, equilibrium 1.931, energy 552100000 W, specifications 0. On the last iterate the liquid of stage 3 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption."
+        }
+      },
+      "chepta_run_id": "run-mwdqli4c-1",
+      "elapsed_ms": 20805.740374,
+      "request_file": "results-chepta-0.6.1/plant-a2-r02-A.request.json",
+      "output_file": "results-chepta-0.6.1/plant-a2-r02-A.output.json",
+      "stderr_file": "results-chepta-0.6.1/plant-a2-r02-A.stderr.txt",
+      "request_file_sha256": "f97b84407dee9e0232d063989aa0b9d52e5632aba7bec56c2f047ca4112959e9",
+      "output_file_sha256": "5f57fed94172c337c22605d154d344b5e822a43ca615c8f6f61994f5b1647461"
+    },
+    {
+      "id": "diag-scds5-round2-inlets",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/diag-scds5-round2-inlets.request.json",
+      "started_at": "2026-11-12T16:03:57.722773+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "PHASE_SPLIT",
+        "message": "Column SCDS5: a second liquid would form on stage 7 (stage 7 at 343.8 K: its liquid Ethanol 0.2413, Water 0.4675, Ethyl acetate 0.2746, Acetic acid 0.01661 splits off a liquid Ethanol 0.09742, Water 0.8707, Ethyl acetate 0.02539, Acetic acid 0.006486). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum).",
+        "where": [],
+        "details": {
+          "stages": [
+            {
+              "stage": 7,
+              "T_K": 343.8308051546848,
+              "x": [
+                0.24127710706827651,
+                0.4674909966478315,
+                0.27461811468291314,
+                0.0166137816009788
+              ],
+              "trial": [
+                0.09741980165911798,
+                0.8707030525697934,
+                0.02539097473712173,
+                0.0064861710339668656
+              ]
+            }
+          ]
+        }
+      },
+      "chepta_run_id": "run-mwdqms0k-1",
+      "elapsed_ms": 266.340749,
+      "request_file": "results-chepta-0.6.1/diag-scds5-round2-inlets.request.json",
+      "output_file": "results-chepta-0.6.1/diag-scds5-round2-inlets.output.json",
+      "stderr_file": "results-chepta-0.6.1/diag-scds5-round2-inlets.stderr.txt",
+      "request_file_sha256": "7acd96bb387ca555f913465351e0b00e947db1c8eb5fa9b5755d57b83b2862bf",
+      "output_file_sha256": "c63b310ecce8f17657791c73d584d5f28cbe5338b05a5d925b126750801d2216"
+    },
+    {
+      "id": "diag-scds5-round2-inlets-VLL",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/diag-scds5-round2-inlets-VLL.request.json",
+      "started_at": "2026-11-12T16:03:58.211499+00:00",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "Column SCDS5: an absorber holds a vapour and one liquid (phases \"VL\"); two liquids on its stages (phases \"VLL\") are not built yet.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdqmse0-1",
+      "elapsed_ms": 90.36281199999999,
+      "request_file": "results-chepta-0.6.1/diag-scds5-round2-inlets-VLL.request.json",
+      "output_file": "results-chepta-0.6.1/diag-scds5-round2-inlets-VLL.output.json",
+      "stderr_file": "results-chepta-0.6.1/diag-scds5-round2-inlets-VLL.stderr.txt",
+      "request_file_sha256": "57b1f956c95604bf7de8cb04d4c55e6f04d17fac2035d911adae50baa29ab9be",
+      "output_file_sha256": "78ad7506702eeeb3efcdd42256190add2e339917fc52eb8a616b974694e7df22"
+    },
+    {
+      "id": "u3-extr8-1stage-70C-feed70C",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u3-extr8-1stage-70C-feed70C.request.json",
+      "started_at": "2026-11-12T16:03:58.599977+00:00",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "BAD_INPUT",
+        "message": "Extraction EXTR8: the feed is partly vapour (vapour fraction 0.7811 at 343.1 K and 100 kPa); the stages hold two liquids and no vapour. Cool it or raise its pressure.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwdqmspw-1",
+      "elapsed_ms": 27.763104,
+      "request_file": "results-chepta-0.6.1/u3-extr8-1stage-70C-feed70C.request.json",
+      "output_file": "results-chepta-0.6.1/u3-extr8-1stage-70C-feed70C.output.json",
+      "stderr_file": "results-chepta-0.6.1/u3-extr8-1stage-70C-feed70C.stderr.txt",
+      "request_file_sha256": "05edceba9ea56faa3a62159cdfc890dfe1e7dcec6448381ecf694dc8b277d0fc",
+      "output_file_sha256": "f88b19b8591a9da43945ed4029022e0a2d078193473e958cab1cc24a2f31c914"
+    },
+    {
+      "id": "u-htxr17",
+      "command": "chepta request --time-ms 900000 results-chepta-0.6.1/u-htxr17.request.json",
+      "started_at": "2026-11-12T16:04:24.745947+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwdqncv0-1",
+      "elapsed_ms": 36.91261699999998,
+      "request_file": "results-chepta-0.6.1/u-htxr17.request.json",
+      "output_file": "results-chepta-0.6.1/u-htxr17.output.json",
+      "stderr_file": "results-chepta-0.6.1/u-htxr17.stderr.txt",
+      "request_file_sha256": "1c9520768694ce5f6ca70d58978e2f729058ecddd98c2f9bab2e94c7f87dc550",
+      "output_file_sha256": "f8c24f75b4f337f1f1699d16566464a74969a03a0fd27a60c253121213a17722"
+    }
+  ]
+}

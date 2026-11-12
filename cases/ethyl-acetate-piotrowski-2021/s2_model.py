@@ -71,7 +71,7 @@ SETTINGS = [
      "reason": "Adiabatic mixing of the saturated azeotrope 9 and the product column distillate 15 leaves a few % vapour in CHEPTA, and CHEPTA's Extraction block refuses a feed with any vapour (BAD_INPUT), although its stages are at 27 C. The small condensing duty this adds is not in the paper and is reported."},
     {"what": "EXTR 8 extractor", "value": f"countercurrent equilibrium stages, isothermal at {T_EXTR_C:g} C; organic 10 the feed, water 19 the solvent",
      "kind": "paper + assumed", "locator": "Table 1 p.11 (70 C, W/A = 1); Table A2 streams 11 (27 C) and 20 (41 C); CHEPTA run u-extr8-*-70C (refused)",
-     "reason": "Table 1's 70 C is refused: the organic feed boils at 70 C and 100 kPa. The paper's own outlets (27 C organic, 41 C aqueous) imply an adiabatic extractor, which CHEPTA's isothermal block cannot do; 27 C, where the raffinate leaves, is taken, with a 41 C variant. W/A = 1 is not a setting: stream 19 / stream 10 = 113276/113256 = 1.000 (derived)."},
+     "reason": "Table 1's 70 C is not usable as the stage temperature: the paper's feed at 70 C and 100 kPa is 77 % vapour in CHEPTA (refused, run u3-extr8-1stage-70C-feed70C), and with a saturated-liquid feed the 70 C extractor runs (u3-extr8-1stage-70C) but its outlets are partly vapour (raffinate VF 0.05), which CHEPTA returns as ok without a warning. The paper's own outlets (27 C organic, 41 C aqueous) imply an adiabatic extractor, which CHEPTA's isothermal block cannot do; 27 C, where the raffinate leaves, is taken, with a 41 C variant. W/A = 1 is not a setting: stream 19 / stream 10 = 113276/113256 = 1.000 (derived)"},
     {"what": "EXTR 8 number of stages", "value": "not given in the paper; 1 to 8 stages run, plant run with the number stated in the run manifest", "kind": "assumed",
      "reason": "The paper gives no stage count, efficiency or contactor type for EXTR 8."},
     {"what": "splitter 9", "value": "fraction to stream 26 = 60000/87314 = 0.68718", "kind": "derived",
@@ -93,7 +93,7 @@ SETTINGS = [
      "locator": "Table A2 streams 22, 25",
      "reason": "A fixed wastewater flow with a fixed fresh water feed has no steady state unless they match exactly; with a fraction the water loop settles. Stream 25's flow is compared with 20,000 kg/h."},
     {"what": "HTXR 17 outlet", "value": "20 C", "kind": "paper", "locator": "Table A2 stream 24"},
-    {"what": "streams 8 (VF = 1), 9, 10, 14, 15, 21 (VF = 0) as feeds of unit runs", "value": "saturated (VF given) where the printed temperature lies at or above CHEPTA's bubble point; stream 3 at 18 C (see feeds 1 and 2)", "kind": "assumed",
+    {"what": "streams 8 (VF = 1), 9, 10, 14, 15, 21, 23 (VF = 0) as feeds of unit runs", "value": "saturated (VF given) where the printed temperature lies at or above CHEPTA's bubble point; stream 3 at 18 C (see feeds 1 and 2)", "kind": "assumed",
      "reason": "Condensates printed at 70-71 C; see HTXR 6."},
     {"what": "tear streams and the coupling across the cut", "value": "starting guesses from Table A2; successive substitution of streams 9, 21, 27 by Lab's script",
      "kind": "assumed", "reason": "Starting points only; a converged answer does not depend on them."},
@@ -116,7 +116,7 @@ def feed_spec(n, comps=COMPONENTS, T_C=None, VF=None):
 
 
 # how each paper stream is given as a feed of a unit run: saturated where the printed T is at its bubble/dew point
-FEED_OVERRIDE = {2: {"T_C": T_ACID_FEED_C}, 3: {"T_C": T_ACID_FEED_C}, 8: {"VF": 1}, 9: {"VF": 0}, 10: {"VF": 0}, 14: {"VF": 0}, 15: {"VF": 0}, 21: {"VF": 0}}
+FEED_OVERRIDE = {2: {"T_C": T_ACID_FEED_C}, 3: {"T_C": T_ACID_FEED_C}, 8: {"VF": 1}, 9: {"VF": 0}, 10: {"VF": 0}, 14: {"VF": 0}, 15: {"VF": 0}, 21: {"VF": 0}, 23: {"VF": 0}}
 
 
 def guess(n, comps=COMPONENTS):
@@ -236,6 +236,8 @@ def unit_requests():
                                        [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)], B)
     U["u3-extr8-1stage-70C"] = unit({"id": "EXTR8", "type": "extraction", "spec": extractor_spec(1, 70)},
                                     [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)], B)
+    U["u3-extr8-1stage-70C-feed70C"] = unit({"id": "EXTR8", "type": "extraction", "spec": extractor_spec(1, 70)},
+                                            [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)], B, literal=True)
     U["u3-extr8-1stage-41C"] = unit({"id": "EXTR8", "type": "extraction", "spec": extractor_spec(1, STREAMS[20]["T_C"])},
                                     [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)], B)
     U["u3-htxr10"] = unit({"id": "HTXR10", "type": "heater", "spec": heater(13)}, [("in", 12)], [("out", 13)], B)
@@ -250,7 +252,7 @@ def unit_requests():
     return U
 
 
-def _streams(S, tears, comps, order_first=()):
+def _streams(S, tears, comps, order_first=(), guesses=None):
     S = sorted(S, key=lambda s: order_first.index(s[0]) if s[0] in order_first else len(order_first))
     out = []
     for sid, a, b in S:
@@ -258,12 +260,12 @@ def _streams(S, tears, comps, order_first=()):
         n = int(sid[1:])
         if n in tears:
             st["tear"] = True
-            st["guess"] = guess(n, comps)
+            st["guess"] = (guesses or {}).get(n) or guess(n, comps)
         out.append(st)
     return out
 
 
-def section_a(s27=None, s21=None, T_feeds_C=T_ACID_FEED_C):
+def section_a(s27=None, s21=None, T_feeds_C=T_ACID_FEED_C, guesses=None):
     """Reaction and azeotropic column. s27, s21: feeds {flow_kmol_h by CHEPTA id, T_K, P_kPa} from section B, else the paper's."""
     f27 = s27 or feed_spec(27)
     f21 = s21 or feed_spec(21, VF=0)
@@ -285,10 +287,10 @@ def section_a(s27=None, s21=None, T_feeds_C=T_ACID_FEED_C):
          ("S5", "MIX3.out", "KREA4.in"), ("S27", "F27.out", "SCDS5.in"), ("S6", "KREA4.out", "SCDS5.in"),
          ("S8", "SCDS5.distillate", "HTXR6.in"), ("S9", "HTXR6.out", "P9.in")]
     # SCDS5's inlets in this order: reflux 27 (stage 1), then the vapour 6 (stage 8)
-    return doc(B, _streams(S, (7,), COMPONENTS, ("S27", "S6")), COMPONENTS, reactions=True)
+    return doc(B, _streams(S, (7,), COMPONENTS, ("S27", "S6"), guesses), COMPONENTS, reactions=True)
 
 
-def section_b(extractor_stages, s9=None, phases11="VLL", phases15=None, spec11="flow", mix7_adiabatic=False):
+def section_b(extractor_stages, s9=None, phases11="VLL", phases15=None, spec11="flow", mix7_adiabatic=False, guesses=None):
     """Extraction, product and wastewater columns, water loop; 3 components. s9: feed from section A, else the paper's."""
     comps = COMPONENTS_B
     f9 = s9 or feed_spec(9, comps, VF=0)
@@ -319,7 +321,7 @@ def section_b(extractor_stages, s9=None, phases11="VLL", phases15=None, spec11="
          ("S17", "F17.out", "MIX13.in"), ("S24", "HTXR17.out", "MIX13.in"), ("S18", "MIX13.out", "PUMP14.in"),
          ("S28", "HTXR19.out", "SCDS15.in"), ("S21", "SCDS15.distillate", "P21.in"), ("S22", "SCDS15.bottoms", "SPLIT16.in"),
          ("S23", "SPLIT16.out", "HTXR17.in"), ("S25", "SPLIT16.out", "P25.in")]
-    return doc(B, _streams(S, (15, 24), comps), comps)
+    return doc(B, _streams(S, (15, 24), comps, (), guesses), comps)
 
 
 def as_feed(stream, comps):
@@ -327,3 +329,8 @@ def as_feed(stream, comps):
     ids = [IDS[COMPONENTS.index(c)] for c in comps]
     fl = {i: stream["flow_kmol_h"].get(i, 0.0) for i in ids}
     return {"flow_kmol_h": {i: v for i, v in fl.items() if v > 0}, "T_K": stream["T_K"], "P_kPa": stream["P_kPa"]}
+
+
+def as_guess(stream):
+    """A converged CHEPTA stream as the starting guess of the same tear stream in the next round (warm start)."""
+    return {"flow_kmol_h": {k: v for k, v in stream["flow_kmol_h"].items() if v > 0}, "T_K": stream["T_K"], "P_kPa": stream["P_kPa"]}
