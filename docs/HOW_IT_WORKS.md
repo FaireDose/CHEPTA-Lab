@@ -96,11 +96,14 @@ methanol.
 
 ## 7. What "accepted" requires
 
-| For | You check |
+Since 2026-11-12 (AGENTS.md, "Review by AI with a person's spot check"):
+
+| Who | Checks |
 |---|---|
-| every number | it matches its source (an AI check never counts for this) |
-| every case | the engineering is sensible: the method fits, the assumptions are stated |
-| every source | it may be reused (licence) |
+| A separate AI review session (not the one that built the case) | everything: every number against its source, every unit and method choice, every decision's reason, the licence. It writes a short review note and picks 2 or 3 items for you |
+| You | only those 2 or 3 items: the ones that most affect the results, the one it was least sure of, one picked at random |
+
+Both checks are recorded with names and dates. If one of your items is wrong, the whole case is checked again.
 
 The held-out test questions (used to score an assistant) are also reviewed by you or by an AI of another company, so
 that Claude does not grade itself (AGENTS.md, rule on the independent check).
