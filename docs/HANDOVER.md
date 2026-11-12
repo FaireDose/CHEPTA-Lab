@@ -78,6 +78,16 @@ cases** (about 10 to 15 per case), used to score assistants on CHEPTA. Training 
 20 papers) is a later decision, only if the tests show a gap that examples could fix. Count independent papers, not
 rows.
 
+Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
+
+| # | What | How |
+|---|---|---|
+| A | **Automatic checkers** for "run CHEPTA" tasks | Added to the item, not replacing it: a small program reads the assistant's final CHEPTA run and checks targets (purity, recovery), reported warnings, numbers traced to a run or source, stated limits. "Why" and "what is missing" questions keep the marking scheme only. Start with the ethyl acetate case |
+| B | **Issues and routes register** (`data/`, a table first) | One entry per problem: the problem, where seen (papers, the simulator each used, CHEPTA), the usual route with its count, other routes with their papers and why used less, whether CHEPTA can do it, evidence locators. "Seen many times" counts different papers, not runs. A less-used route counts as usable only when a paper or a CHEPTA run shows it working; an AI suggestion is a lead only |
+| C | **Key each entry by the problem, at the level where it occurs** (the maintainer: "a separation solution might come when he look at 10 different reactions but have similar downstream products at least partially"; level choice left to the coordinator, 2026-11-12) | A `level` column: **separation** entries keyed by the mixture and its behaviour (ester + alcohol + water with an azeotrope, acetic acid + water, two liquid phases), so different reactions with overlapping products meet; **reaction** entries keyed by the reaction's behaviour (equilibrium-limited, strongly exothermic, side products that build up); **plant** entries for whole-flowsheet problems (recycle build-up and purge, heat integration). The complete flowsheet is not a key: each plant is unique, so it would never repeat. It stays the case, the unit compared stream by stream, and the train/test split group, and it links to all its entries. Expect most entries at the separation level |
+| D | **Consistency scoring** (CheckList, Ribeiro et al. 2020; contrast sets, Gardner et al. 2020) | Each question carries the register entry it tests. Groups are found from these labels, not by eye. A group counts as understood only if all its questions are right and the explanations agree; reported only with questions from 3 or more papers. Explanations are scored apart from answers (Turpin et al. 2023) |
+| E | **Paper choice after ethyl acetate** | Prefer papers whose downstream mixtures overlap entries already in the register, including different reactions with similar products; keep some unrelated processes so the test does not become narrow |
+
 New review model (AGENTS.md, "Review by AI with a person's spot check"): needs a change to dataset/PIPELINE.md, the
 schemas and `scripts/dataset_pipeline.py` so that a review records an AI full check plus a person's spot check of
 named items (Sonnet or Opus worker, early in Lab's phase, before any item is accepted).
