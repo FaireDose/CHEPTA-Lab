@@ -1,0 +1,654 @@
+{
+  "checked_by": "check_b2.py (Lab); reads files only",
+  "tolerances": {
+    "numerical": {
+      "flows_relative": 1e-06,
+      "mole_fractions_absolute": 1e-07,
+      "T_K_absolute": 1e-05,
+      "duties_relative": 1e-06,
+      "why": "Proposal 0015, Engineering basis: flows within 1e-6 relative of the independent MESH solution. Both solve the same equations to residuals of 1e-8 or less, so the difference is the solvers' convergence only."
+    },
+    "agreement_with_published_example": {
+      "T_K_absolute": 1.0,
+      "mole_fractions_absolute": 0.02,
+      "applies_to": "T and the benzene mole fraction x of each of the ten stages, and x_D and x_B",
+      "why": "The published numbers come from another property method (UNIFAC and ChemSep's Antoine equations, constant molar overflow) solved to a norm of 1e-3, so they are not a numerical reference. CHEPTA's method (Peng-Robinson with the k_ij fitted to Li et al. 2014, since 2026-10-29) gives, in reference_mesh.py, at most 0.80 K and 0.018 from them (0.66 K and 0.013 with constant molar overflow; fixture checks.published); with k_ij = 0, before, 0.85 K and 0.018 (0.73 K and 0.013); NRTL with the ChemSep set gave 0.37 K and 0.0059. The tolerances, chosen by W7 after that comparison for the maintainer to confirm, are a little above the Peng-Robinson differences, so a change in CHEPTA's records or in the engine that moves the column more is seen. They state agreement between two property methods, not the accuracy of either against measured data."
+    }
+  },
+  "checks": [
+    {
+      "id": "b2-pr",
+      "kind": "same_equation",
+      "result": {
+        "T_K": {
+          "max_abs_difference": 1.1937117960769683e-12,
+          "at": "stage 10",
+          "rows": [
+            {
+              "where": "stage 1",
+              "observed": 357.9258736332737,
+              "reference": 357.9258736332728,
+              "difference": 9.094947017729282e-13
+            },
+            {
+              "where": "stage 2",
+              "observed": 360.2484834922944,
+              "reference": 360.24848349229353,
+              "difference": 8.526512829121202e-13
+            },
+            {
+              "where": "stage 3",
+              "observed": 363.17007572264123,
+              "reference": 363.17007572264106,
+              "difference": 1.7053025658242404e-13
+            },
+            {
+              "where": "stage 4",
+              "observed": 366.2281918322301,
+              "reference": 366.2281918322307,
+              "difference": -6.252776074688882e-13
+            },
+            {
+              "where": "stage 5",
+              "observed": 368.89269433695245,
+              "reference": 368.8926943369531,
+              "difference": -6.821210263296962e-13
+            },
+            {
+              "where": "stage 6",
+              "observed": 371.1031909542116,
+              "reference": 371.1031909542126,
+              "difference": -1.0231815394945443e-12
+            },
+            {
+              "where": "stage 7",
+              "observed": 374.0536983123343,
+              "reference": 374.0536983123348,
+              "difference": -5.115907697472721e-13
+            },
+            {
+              "where": "stage 8",
+              "observed": 377.4396435525108,
+              "reference": 377.4396435525114,
+              "difference": -6.252776074688882e-13
+            },
+            {
+              "where": "stage 9",
+              "observed": 380.729985185904,
+              "reference": 380.72998518590475,
+              "difference": -7.389644451905042e-13
+            },
+            {
+              "where": "stage 10",
+              "observed": 383.46070486417386,
+              "reference": 383.46070486417506,
+              "difference": -1.1937117960769683e-12
+            }
+          ],
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        "L_relative": {
+          "max_abs_difference": 5.773159728050814e-15,
+          "at": "stage 3",
+          "rows": [
+            {
+              "where": "stage 1",
+              "observed": 1.0000000000000007,
+              "reference": 1.0,
+              "difference": 6.661338147750939e-16
+            },
+            {
+              "where": "stage 2",
+              "observed": 1.0000000000000042,
+              "reference": 1.0,
+              "difference": 4.218847493575595e-15
+            },
+            {
+              "where": "stage 3",
+              "observed": 1.0000000000000058,
+              "reference": 1.0,
+              "difference": 5.773159728050814e-15
+            },
+            {
+              "where": "stage 4",
+              "observed": 1.0000000000000042,
+              "reference": 1.0,
+              "difference": 4.218847493575595e-15
+            },
+            {
+              "where": "stage 5",
+              "observed": 1.0000000000000022,
+              "reference": 1.0,
+              "difference": 2.220446049250313e-15
+            },
+            {
+              "where": "stage 6",
+              "observed": 1.0000000000000004,
+              "reference": 1.0,
+              "difference": 4.440892098500626e-16
+            },
+            {
+              "where": "stage 7",
+              "observed": 1.0000000000000024,
+              "reference": 1.0,
+              "difference": 2.4424906541753444e-15
+            },
+            {
+              "where": "stage 8",
+              "observed": 1.0000000000000022,
+              "reference": 1.0,
+              "difference": 2.220446049250313e-15
+            },
+            {
+              "where": "stage 9",
+              "observed": 1.0000000000000042,
+              "reference": 1.0,
+              "difference": 4.218847493575595e-15
+            },
+            {
+              "where": "stage 10",
+              "observed": 1.0,
+              "reference": 1.0,
+              "difference": 0.0
+            }
+          ],
+          "tolerance": 1e-06,
+          "passed": true
+        },
+        "x": {
+          "max_abs_difference": 1.0658141036401503e-14,
+          "at": "stage 3 benzene",
+          "rows": [
+            {
+              "where": "stage 1 benzene",
+              "observed": 0.9150332015634034,
+              "reference": 0.9150332015634076,
+              "difference": -4.218847493575595e-15
+            },
+            {
+              "where": "stage 1 toluene",
+              "observed": 0.08496679843659653,
+              "reference": 0.08496679843659224,
+              "difference": 4.288236432614667e-15
+            },
+            {
+              "where": "stage 2 benzene",
+              "observed": 0.8136046944002028,
+              "reference": 0.8136046944002098,
+              "difference": -6.994405055138486e-15
+            },
+            {
+              "where": "stage 2 toluene",
+              "observed": 0.18639530559979733,
+              "reference": 0.18639530559979017,
+              "difference": 7.16093850883226e-15
+            },
+            {
+              "where": "stage 3 benzene",
+              "observed": 0.6953593556799155,
+              "reference": 0.6953593556799261,
+              "difference": -1.0658141036401503e-14
+            },
+            {
+              "where": "stage 3 toluene",
+              "observed": 0.30464064432008453,
+              "reference": 0.30464064432007393,
+              "difference": 1.0602629885170245e-14
+            },
+            {
+              "where": "stage 4 benzene",
+              "observed": 0.5816146827952327,
+              "reference": 0.5816146827952342,
+              "difference": -1.5543122344752192e-15
+            },
+            {
+              "where": "stage 4 toluene",
+              "observed": 0.41838531720476746,
+              "reference": 0.41838531720476574,
+              "difference": 1.7208456881689926e-15
+            },
+            {
+              "where": "stage 5 benzene",
+              "observed": 0.489989583728322,
+              "reference": 0.4899895837283207,
+              "difference": 1.3322676295501878e-15
+            },
+            {
+              "where": "stage 5 toluene",
+              "observed": 0.510010416271678,
+              "reference": 0.5100104162716792,
+              "difference": -1.2212453270876722e-15
+            },
+            {
+              "where": "stage 6 benzene",
+              "observed": 0.41874942351292077,
+              "reference": 0.4187494235129158,
+              "difference": 4.9960036108132044e-15
+            },
+            {
+              "where": "stage 6 toluene",
+              "observed": 0.5812505764870791,
+              "reference": 0.5812505764870842,
+              "difference": -5.10702591327572e-15
+            },
+            {
+              "where": "stage 7 benzene",
+              "observed": 0.3297649095953522,
+              "reference": 0.3297649095953464,
+              "difference": 5.828670879282072e-15
+            },
+            {
+              "where": "stage 7 toluene",
+              "observed": 0.6702350904046477,
+              "reference": 0.6702350904046536,
+              "difference": -5.88418203051333e-15
+            },
+            {
+              "where": "stage 8 benzene",
+              "observed": 0.23537272166427556,
+              "reference": 0.23537272166427065,
+              "difference": 4.912736883966318e-15
+            },
+            {
+              "where": "stage 8 toluene",
+              "observed": 0.7646272783357244,
+              "reference": 0.7646272783357294,
+              "difference": -4.9960036108132044e-15
+            },
+            {
+              "where": "stage 9 benzene",
+              "observed": 0.15066041775248443,
+              "reference": 0.15066041775247996,
+              "difference": 4.468647674116255e-15
+            },
+            {
+              "where": "stage 9 toluene",
+              "observed": 0.8493395822475156,
+              "reference": 0.84933958224752,
+              "difference": -4.440892098500626e-15
+            },
+            {
+              "where": "stage 10 benzene",
+              "observed": 0.08503038881477286,
+              "reference": 0.0850303888147668,
+              "difference": 6.0645932720149176e-15
+            },
+            {
+              "where": "stage 10 toluene",
+              "observed": 0.9149696111852271,
+              "reference": 0.914969611185233,
+              "difference": -5.88418203051333e-15
+            }
+          ],
+          "tolerance": 1e-07,
+          "passed": true
+        },
+        "duties_relative": {
+          "max_abs_difference": 1.9984014443252818e-15,
+          "at": "reboiler",
+          "rows": [
+            {
+              "where": "condenser",
+              "observed": 1.000000000000001,
+              "reference": 1.0,
+              "difference": 1.1102230246251565e-15
+            },
+            {
+              "where": "reboiler",
+              "observed": 1.000000000000002,
+              "reference": 1.0,
+              "difference": 1.9984014443252818e-15
+            }
+          ],
+          "tolerance": 1e-06,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "b2-pr",
+      "kind": "published",
+      "result": {
+        "T_K": {
+          "max_abs_difference": 0.80235644748916,
+          "at": "stage 8",
+          "rows": [
+            {
+              "where": "stage 1",
+              "observed": 357.9258736332737,
+              "reference": 358.1313,
+              "difference": -0.20542636672632852
+            },
+            {
+              "where": "stage 2",
+              "observed": 360.2484834922944,
+              "reference": 360.361,
+              "difference": -0.11251650770560673
+            },
+            {
+              "where": "stage 3",
+              "observed": 363.17007572264123,
+              "reference": 363.2829,
+              "difference": -0.11282427735875444
+            },
+            {
+              "where": "stage 4",
+              "observed": 366.2281918322301,
+              "reference": 366.4468,
+              "difference": -0.21860816776990077
+            },
+            {
+              "where": "stage 5",
+              "observed": 368.89269433695245,
+              "reference": 369.2818,
+              "difference": -0.38910566304753047
+            },
+            {
+              "where": "stage 6",
+              "observed": 371.1031909542116,
+              "reference": 371.6914,
+              "difference": -0.5882090457884033
+            },
+            {
+              "where": "stage 7",
+              "observed": 374.0536983123343,
+              "reference": 374.81899999999996,
+              "difference": -0.7653016876656693
+            },
+            {
+              "where": "stage 8",
+              "observed": 377.4396435525108,
+              "reference": 378.24199999999996,
+              "difference": -0.80235644748916
+            },
+            {
+              "where": "stage 9",
+              "observed": 380.729985185904,
+              "reference": 381.38,
+              "difference": -0.6500148140959823
+            },
+            {
+              "where": "stage 10",
+              "observed": 383.46070486417386,
+              "reference": 383.83799999999997,
+              "difference": -0.3772951358261025
+            }
+          ],
+          "tolerance": 1.0,
+          "passed": true
+        },
+        "x_benzene": {
+          "max_abs_difference": 0.01800072166427555,
+          "at": "stage 8",
+          "rows": [
+            {
+              "where": "stage 1",
+              "observed": 0.9150332015634034,
+              "reference": 0.925473,
+              "difference": -0.010439798436596592
+            },
+            {
+              "where": "stage 2",
+              "observed": 0.8136046944002028,
+              "reference": 0.826416,
+              "difference": -0.012811305599797262
+            },
+            {
+              "where": "stage 3",
+              "observed": 0.6953593556799155,
+              "reference": 0.706363,
+              "difference": -0.011003644320084494
+            },
+            {
+              "where": "stage 4",
+              "observed": 0.5816146827952327,
+              "reference": 0.586978,
+              "difference": -0.005363317204767348
+            },
+            {
+              "where": "stage 5",
+              "observed": 0.489989583728322,
+              "reference": 0.488109,
+              "difference": 0.001880583728322005
+            },
+            {
+              "where": "stage 6",
+              "observed": 0.41874942351292077,
+              "reference": 0.409455,
+              "difference": 0.009294423512920758
+            },
+            {
+              "where": "stage 7",
+              "observed": 0.3297649095953522,
+              "reference": 0.314039,
+              "difference": 0.015725909595352194
+            },
+            {
+              "where": "stage 8",
+              "observed": 0.23537272166427556,
+              "reference": 0.217372,
+              "difference": 0.01800072166427555
+            },
+            {
+              "where": "stage 9",
+              "observed": 0.15066041775248443,
+              "reference": 0.135155,
+              "difference": 0.01550541775248443
+            },
+            {
+              "where": "stage 10",
+              "observed": 0.08503038881477286,
+              "reference": 0.074592,
+              "difference": 0.010438388814772853
+            },
+            {
+              "where": "distillate x_D",
+              "observed": 0.9150332015634035,
+              "reference": 0.925473,
+              "difference": -0.010439798436596481
+            },
+            {
+              "where": "bottoms x_B",
+              "observed": 0.08503038881477286,
+              "reference": 0.074592,
+              "difference": 0.010438388814772853
+            }
+          ],
+          "tolerance": 0.02,
+          "passed": true
+        },
+        "not_compared_shown_only": {
+          "D_mol_s": {
+            "observed": 5.873100000000011,
+            "published": 5.8731,
+            "difference": 1.0658141036401503e-14
+          },
+          "B_mol_s": {
+            "observed": 5.874,
+            "published": 5.874,
+            "difference": 0.0
+          },
+          "reflux_ratio": {
+            "observed": 2,
+            "published": 2,
+            "difference": 0
+          },
+          "boilup_ratio": {
+            "observed": 2.804204908620736,
+            "published": 2.99954,
+            "difference": -0.1953350913792642
+          },
+          "feed_T_K": {
+            "observed": 368.5921409590983,
+            "published": 368.92999999999995,
+            "difference": -0.3378590409016624
+          }
+        },
+        "note": "Tolerances from CHEPTA's record (agreement_with_published_example). The boil-up ratio and the flows inside the column are not compared: the source assumed constant molar overflow, CHEPTA solves energy balances. The published K column is not compared (the record's notes)."
+      },
+      "passed": true
+    },
+    {
+      "id": "b2-pr",
+      "kind": "balances",
+      "result": {
+        "overall_component_kmol_h": {
+          "benzene": -3.597122599785507e-14,
+          "toluene": 0.0
+        },
+        "overall_max_abs_kmol_h": 3.597122599785507e-14,
+        "stage_component_max_abs_kmol_h": 2.842170943040401e-14,
+        "stage_residuals": [
+          {
+            "stage": 1,
+            "component": "benzene",
+            "residual_kmol_h": 7.105427357601002e-15
+          },
+          {
+            "stage": 1,
+            "component": "toluene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 2,
+            "component": "benzene",
+            "residual_kmol_h": -2.842170943040401e-14
+          },
+          {
+            "stage": 2,
+            "component": "toluene",
+            "residual_kmol_h": -1.7763568394002505e-15
+          },
+          {
+            "stage": 3,
+            "component": "benzene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 3,
+            "component": "toluene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 4,
+            "component": "benzene",
+            "residual_kmol_h": -1.4210854715202004e-14
+          },
+          {
+            "stage": 4,
+            "component": "toluene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 5,
+            "component": "benzene",
+            "residual_kmol_h": -1.4210854715202004e-14
+          },
+          {
+            "stage": 5,
+            "component": "toluene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 6,
+            "component": "benzene",
+            "residual_kmol_h": -1.4210854715202004e-14
+          },
+          {
+            "stage": 6,
+            "component": "toluene",
+            "residual_kmol_h": 1.4210854715202004e-14
+          },
+          {
+            "stage": 7,
+            "component": "benzene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 7,
+            "component": "toluene",
+            "residual_kmol_h": 1.4210854715202004e-14
+          },
+          {
+            "stage": 8,
+            "component": "benzene",
+            "residual_kmol_h": 1.4210854715202004e-14
+          },
+          {
+            "stage": 8,
+            "component": "toluene",
+            "residual_kmol_h": 1.4210854715202004e-14
+          },
+          {
+            "stage": 9,
+            "component": "benzene",
+            "residual_kmol_h": -7.105427357601002e-15
+          },
+          {
+            "stage": 9,
+            "component": "toluene",
+            "residual_kmol_h": -2.842170943040401e-14
+          },
+          {
+            "stage": 10,
+            "component": "benzene",
+            "residual_kmol_h": 0.0
+          },
+          {
+            "stage": 10,
+            "component": "toluene",
+            "residual_kmol_h": 0.0
+          }
+        ],
+        "energy_kW": 3.979039320256561e-13,
+        "tolerances": {
+          "material_kmol_h": 4.2289560000000004e-07,
+          "energy_kW": 1.1747100000000002e-06,
+          "basis": "the record's balances_on_every_stage: 1e-8 of the feed; energy 1e-8 x F x 10 kJ/mol"
+        },
+        "chepta_reported": {
+          "material_kmol_h": 3.552713678800501e-14,
+          "energy_kW": 3.979039320256561e-13
+        },
+        "passed": true
+      },
+      "passed": true
+    },
+    {
+      "id": "b2-pr",
+      "kind": "warnings",
+      "column_warnings": [],
+      "qualification_warnings": [],
+      "expected_by_record": [],
+      "passed": true
+    },
+    {
+      "id": "b2-record-thermo-literal",
+      "kind": "outcome",
+      "expected": "invalid_input",
+      "why": "found on the first attempt: the record's thermo block carries sets: \"default\", which the request path does not take",
+      "observed": "invalid_input",
+      "error": {
+        "code": "BAD_INPUT",
+        "message": "sets: \"0\" is not a pair; write it as \"component+component\", e.g. \"acetone+chloroform\".",
+        "where": []
+      },
+      "passed": true
+    },
+    {
+      "id": "b2-distillate-purity",
+      "kind": "outcome",
+      "expected": "unsupported",
+      "why": "CHEPTA docs/models/columns.md at v0.6.0: purity specifications are not built yet (milestone M4)",
+      "observed": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "Column C1: purity specifications come with milestone M4 of proposal 0015; give flows, ratios or duties instead.",
+        "where": []
+      },
+      "passed": true
+    }
+  ]
+}

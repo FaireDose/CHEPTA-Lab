@@ -1,0 +1,1035 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "ok",
+  "value": {
+    "components": [
+      "carbon-dioxide",
+      "hydrogen",
+      "carbon-monoxide",
+      "methanol",
+      "water"
+    ],
+    "streams": {
+      "S1": {
+        "id": "S1",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 20,
+          "hydrogen": 50,
+          "carbon-monoxide": 5,
+          "methanol": 15,
+          "water": 10
+        },
+        "flows": [
+          20,
+          50,
+          5,
+          15,
+          10
+        ],
+        "F_kmol_h": 100,
+        "mass_kg_h": 1781.8211999999999,
+        "z": [
+          0.2,
+          0.5,
+          0.05,
+          0.15,
+          0.1
+        ],
+        "T_K": 313,
+        "P_kPa": 5000,
+        "VF": 0.7495133008558236,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 0.7495133008558236,
+            "composition": [
+              0.2585753074192402,
+              0.6658693522753457,
+              0.06652159046144442,
+              0.00777860256299157,
+              0.0012551472809780111
+            ],
+            "h_J_mol": 52.3420986914406,
+            "F_kmol_h": 74.95133008558236,
+            "flow_kmol_h": {
+              "carbon-dioxide": 19.380563218360404,
+              "hydrogen": 49.90779361626235,
+              "carbon-monoxide": 4.9858816844936475,
+              "methanol": 0.5830166083033381,
+              "water": 0.0940749581626041
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.25048669914417643,
+            "composition": [
+              0.024729328293916913,
+              0.0036810890180066155,
+              0.0005636353369096964,
+              0.5755588396890672,
+              0.39546710766209964
+            ],
+            "h_J_mol": -39784.37331026932,
+            "F_kmol_h": 25.048669914417644,
+            "flow_kmol_h": {
+              "carbon-dioxide": 0.6194367816395936,
+              "hydrogen": 0.0922063837376355,
+              "carbon-monoxide": 0.014118315506352563,
+              "methanol": 14.416983391696665,
+              "water": 9.9059250418374
+            }
+          }
+        ],
+        "h_J_mol": -9926.225248845092,
+        "H_kW": -275.7284791345859,
+        "MW": 17.818212,
+        "warnings": [
+          "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "an NRTL set of the databank (fitted at low pressure), used inside the MHV1 rule",
+          "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Hydrogen"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 5.6 % in P (max 29.7 %), gas solubility at the measured T and P AAD 10.2 % (max 360.6 %), 0.0271 in y (max 0.0813, 4 points)",
+            "source_ids": [
+              "braga2017-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "naidoo2008-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 11.4 % in P (max 60.6 %), gas solubility at the measured T and P AAD 7.9 % (max 73.5 %), 0.0085 in y (max 0.0365, 25 points)",
+            "source_ids": [
+              "ahmadi2018-carbon-dioxide-water",
+              "bermejo2005-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "qin2008-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "serpa2013-carbon-dioxide-water",
+              "tong2013-carbon-dioxide-water",
+              "wang2019-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 49 bubble pressures of 2 articles of the NIST TRC ThermoML Archive (each article the same total weight), 248.41-374.85 K, 236.8-3427 kPa: AAD 5.7 % in P (max 13.6 %), gas solubility at the measured T and P AAD 5.6 % (max 12.3 %)",
+            "source_ids": [
+              "descamps2005-hydrogen-methanol",
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 4.4 % in H (max 10 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 2.6 % in P (max 7.5 %), gas solubility at the measured T and P AAD 2.8 % (max 8.1 %)",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 7.1 % in H (max 16.4 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "fitted-zhang2019-etal",
+            "tier": "fitted",
+            "source": "Fitted to 10 T-x-y points at 101.3 kPa from Zhang et al., J. Chem. Thermodyn. 136 (2019) 132-140 (data public in the NIST TRC ThermoML Archive; validation/data/vle/methanol_water_10-1016-j-jct-2019-05-005_101.3kPa.json); checked against Yang et al., J. Chem. Eng. Data 64 (2019) 4256-4263 at 101.3 kPa, Yang et al., J. Chem. Eng. Data 56 (2011) 3747-3751 at 101.32 kPa. AAD 0.30 K in T, 0.0040 in y (max 0.53 K, 0.0133). Check against vle/methanol_water_10-1021-acs-jced-9b00306_101.3kPa.json: AAD 0.81 K in T, 0.0169 in y (max 1.79 K, 0.0538). Check against vle/methanol_water_10-1021-je200341c_101.32kPa.json: AAD 0.68 K in T, 0.0139 in y (max 1.79 K, 0.0330). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "zhang2019-2-propanol-isopropyl-acetate",
+              "zhang2019-2-propanol-n-butyl-acetate",
+              "zhang2019-methanol-water",
+              "nist-thermoml-archive",
+              "yang2019-methanol-water",
+              "yang2011-methanol-water"
+            ]
+          }
+        ]
+      },
+      "S2": {
+        "id": "S2",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 19.380563218360404,
+          "hydrogen": 49.90779361626235,
+          "carbon-monoxide": 4.9858816844936475,
+          "methanol": 0.5830166083033381,
+          "water": 0.0940749581626041
+        },
+        "flows": [
+          19.380563218360404,
+          49.90779361626235,
+          4.9858816844936475,
+          0.5830166083033381,
+          0.0940749581626041
+        ],
+        "F_kmol_h": 74.95133008558236,
+        "mass_kg_h": 1113.5736019466021,
+        "T_K": 313,
+        "P_kPa": 5000,
+        "z": [
+          0.2585753074192402,
+          0.6658693522753457,
+          0.06652159046144442,
+          0.007778602562991571,
+          0.0012551472809780111
+        ],
+        "VF": 1,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 1,
+            "composition": [
+              0.2585753074192402,
+              0.6658693522753457,
+              0.06652159046144442,
+              0.00777860256299157,
+              0.0012551472809780111
+            ],
+            "h_J_mol": 52.3420986914406,
+            "F_kmol_h": 74.95133008558236,
+            "flow_kmol_h": {
+              "carbon-dioxide": 19.380563218360404,
+              "hydrogen": 49.90779361626235,
+              "carbon-monoxide": 4.9858816844936475,
+              "methanol": 0.5830166083033381,
+              "water": 0.0940749581626041
+            }
+          }
+        ],
+        "h_J_mol": 52.3420986914406,
+        "H_kW": 1.0897527545539702,
+        "MW": 14.85728939933528,
+        "warnings": [
+          "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "an NRTL set of the databank (fitted at low pressure), used inside the MHV1 rule",
+          "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Hydrogen"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 5.6 % in P (max 29.7 %), gas solubility at the measured T and P AAD 10.2 % (max 360.6 %), 0.0271 in y (max 0.0813, 4 points)",
+            "source_ids": [
+              "braga2017-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "naidoo2008-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 11.4 % in P (max 60.6 %), gas solubility at the measured T and P AAD 7.9 % (max 73.5 %), 0.0085 in y (max 0.0365, 25 points)",
+            "source_ids": [
+              "ahmadi2018-carbon-dioxide-water",
+              "bermejo2005-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "qin2008-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "serpa2013-carbon-dioxide-water",
+              "tong2013-carbon-dioxide-water",
+              "wang2019-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 49 bubble pressures of 2 articles of the NIST TRC ThermoML Archive (each article the same total weight), 248.41-374.85 K, 236.8-3427 kPa: AAD 5.7 % in P (max 13.6 %), gas solubility at the measured T and P AAD 5.6 % (max 12.3 %)",
+            "source_ids": [
+              "descamps2005-hydrogen-methanol",
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 4.4 % in H (max 10 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 2.6 % in P (max 7.5 %), gas solubility at the measured T and P AAD 2.8 % (max 8.1 %)",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 7.1 % in H (max 16.4 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "fitted-zhang2019-etal",
+            "tier": "fitted",
+            "source": "Fitted to 10 T-x-y points at 101.3 kPa from Zhang et al., J. Chem. Thermodyn. 136 (2019) 132-140 (data public in the NIST TRC ThermoML Archive; validation/data/vle/methanol_water_10-1016-j-jct-2019-05-005_101.3kPa.json); checked against Yang et al., J. Chem. Eng. Data 64 (2019) 4256-4263 at 101.3 kPa, Yang et al., J. Chem. Eng. Data 56 (2011) 3747-3751 at 101.32 kPa. AAD 0.30 K in T, 0.0040 in y (max 0.53 K, 0.0133). Check against vle/methanol_water_10-1021-acs-jced-9b00306_101.3kPa.json: AAD 0.81 K in T, 0.0169 in y (max 1.79 K, 0.0538). Check against vle/methanol_water_10-1021-je200341c_101.32kPa.json: AAD 0.68 K in T, 0.0139 in y (max 1.79 K, 0.0330). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "zhang2019-2-propanol-isopropyl-acetate",
+              "zhang2019-2-propanol-n-butyl-acetate",
+              "zhang2019-methanol-water",
+              "nist-thermoml-archive",
+              "yang2019-methanol-water",
+              "yang2011-methanol-water"
+            ]
+          }
+        ]
+      },
+      "S3": {
+        "id": "S3",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 0.6194367816395936,
+          "hydrogen": 0.0922063837376355,
+          "carbon-monoxide": 0.014118315506352563,
+          "methanol": 14.416983391696665,
+          "water": 9.9059250418374
+        },
+        "flows": [
+          0.6194367816395936,
+          0.0922063837376355,
+          0.014118315506352563,
+          14.416983391696665,
+          9.9059250418374
+        ],
+        "F_kmol_h": 25.048669914417644,
+        "mass_kg_h": 668.2475980533978,
+        "T_K": 313,
+        "P_kPa": 5000,
+        "z": [
+          0.024729328293916913,
+          0.0036810890180066155,
+          0.0005636353369096964,
+          0.5755588396890672,
+          0.39546710766209964
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.024729328293916913,
+              0.0036810890180066155,
+              0.0005636353369096964,
+              0.5755588396890672,
+              0.39546710766209964
+            ],
+            "h_J_mol": -39784.37331026932,
+            "F_kmol_h": 25.048669914417644,
+            "flow_kmol_h": {
+              "carbon-dioxide": 0.6194367816395936,
+              "hydrogen": 0.0922063837376355,
+              "carbon-monoxide": 0.014118315506352563,
+              "methanol": 14.416983391696665,
+              "water": 9.9059250418374
+            }
+          }
+        ],
+        "h_J_mol": -39784.37331026932,
+        "H_kW": -276.81823188913984,
+        "MW": 26.677967346632023,
+        "warnings": [
+          "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "an NRTL set of the databank (fitted at low pressure), used inside the MHV1 rule",
+          "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Hydrogen"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 5.6 % in P (max 29.7 %), gas solubility at the measured T and P AAD 10.2 % (max 360.6 %), 0.0271 in y (max 0.0813, 4 points)",
+            "source_ids": [
+              "braga2017-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "naidoo2008-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 11.4 % in P (max 60.6 %), gas solubility at the measured T and P AAD 7.9 % (max 73.5 %), 0.0085 in y (max 0.0365, 25 points)",
+            "source_ids": [
+              "ahmadi2018-carbon-dioxide-water",
+              "bermejo2005-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "qin2008-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "serpa2013-carbon-dioxide-water",
+              "tong2013-carbon-dioxide-water",
+              "wang2019-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Carbon monoxide"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no NRTL parameters for MHV1 or in the databank; g^E = 0 for this pair (ideal solution in the rule)",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 49 bubble pressures of 2 articles of the NIST TRC ThermoML Archive (each article the same total weight), 248.41-374.85 K, 236.8-3427 kPa: AAD 5.7 % in P (max 13.6 %), gas solubility at the measured T and P AAD 5.6 % (max 12.3 %)",
+            "source_ids": [
+              "descamps2005-hydrogen-methanol",
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Hydrogen",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 4.4 % in H (max 10 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 2.6 % in P (max 7.5 %), gas solubility at the measured T and P AAD 2.8 % (max 8.1 %)",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": "mhv1-fitted",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_mhv1_high_pressure.mjs inside the MHV1 rule of PR to the Henry's law constants of IAPWS G7-04 (src/data/henry.json; no ThermoML liquid + gas set exists for this pair) at 13 temperatures, 278.15-398.15 K: AAD 7.1 % in H (max 16.4 %); tau_12 = 0",
+            "source_ids": [
+              "iapws-g7-04"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "fitted-zhang2019-etal",
+            "tier": "fitted",
+            "source": "Fitted to 10 T-x-y points at 101.3 kPa from Zhang et al., J. Chem. Thermodyn. 136 (2019) 132-140 (data public in the NIST TRC ThermoML Archive; validation/data/vle/methanol_water_10-1016-j-jct-2019-05-005_101.3kPa.json); checked against Yang et al., J. Chem. Eng. Data 64 (2019) 4256-4263 at 101.3 kPa, Yang et al., J. Chem. Eng. Data 56 (2011) 3747-3751 at 101.32 kPa. AAD 0.30 K in T, 0.0040 in y (max 0.53 K, 0.0133). Check against vle/methanol_water_10-1021-acs-jced-9b00306_101.3kPa.json: AAD 0.81 K in T, 0.0169 in y (max 1.79 K, 0.0538). Check against vle/methanol_water_10-1021-je200341c_101.32kPa.json: AAD 0.68 K in T, 0.0139 in y (max 1.79 K, 0.0330). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "zhang2019-2-propanol-isopropyl-acetate",
+              "zhang2019-2-propanol-n-butyl-acetate",
+              "zhang2019-methanol-water",
+              "nist-thermoml-archive",
+              "yang2019-methanol-water",
+              "yang2011-methanol-water"
+            ]
+          }
+        ]
+      }
+    },
+    "energy": {
+      "Q-V1": {
+        "id": "Q-V1",
+        "block": "V1",
+        "kind": "heat",
+        "duty_kW": 0
+      }
+    },
+    "blocks": {
+      "F1": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "V1": {
+        "type": "flash",
+        "duty_kW": 0,
+        "balance": {
+          "material": 1.4210854715202004e-16,
+          "energy_kW": 0
+        },
+        "notes": [],
+        "state": {
+          "T_K": 313,
+          "P_kPa": 5000,
+          "VF": 0.7495133008558236
+        }
+      },
+      "P2": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P1": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      }
+    },
+    "order": [
+      "F1",
+      "V1",
+      "P2",
+      "P1"
+    ],
+    "loops": [],
+    "balance": {
+      "material_kmol_h": {
+        "carbon-dioxide": 3.552713678800501e-15,
+        "hydrogen": 1.4210854715202004e-14,
+        "carbon-monoxide": 0,
+        "methanol": -3.552713678800501e-15,
+        "water": -3.552713678800501e-15
+      },
+      "energy_kW": 0
+    }
+  },
+  "checks": {
+    "material_kmol_h": 1.4210854715202004e-14,
+    "energy_kW": 0,
+    "blocks": {
+      "F1": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "V1": {
+        "material": 1.4210854715202004e-16,
+        "energy_kW": 0
+      },
+      "P2": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P1": {
+        "material": 0,
+        "energy_kW": 0
+      }
+    },
+    "loops": []
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "fitted-zhang2019-etal",
+        "tier": "fitted"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon dioxide",
+        "Hydrogen"
+      ],
+      [
+        "Carbon dioxide",
+        "Carbon monoxide"
+      ],
+      [
+        "Hydrogen",
+        "Carbon monoxide"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "reproduction": {
+    "library": "0.6.0",
+    "input_hash": "bfd83b354bb4d273",
+    "method": {
+      "model": "PR",
+      "vapour": null,
+      "mixing": "MHV1",
+      "name": "PR + gE (MHV1)"
+    },
+    "parameter_sets": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "fitted-zhang2019-etal",
+        "tier": "fitted"
+      }
+    ],
+    "databank_hash": "cc2386f26b9cdea3",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwc60qjr-1",
+    "input_hash": "bfd83b354bb4d273",
+    "limits": {
+      "time_ms": 60000
+    },
+    "status": "done",
+    "elapsed_ms": 42.51027499999998
+  }
+}

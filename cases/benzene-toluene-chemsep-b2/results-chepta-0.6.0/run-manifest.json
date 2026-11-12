@@ -1,0 +1,68 @@
+{
+  "executed_at": "2026-11-11T13:37:55.380306+00:00",
+  "engine": {
+    "package": "chepta",
+    "version": "0.6.0",
+    "resolved": "https://registry.npmjs.org/chepta/-/chepta-0.6.0.tgz",
+    "integrity": "sha512-i3/U78TPzz93Y0Cp2/WZ+VjhdxSDY6oX5AZdbRDe5kL08P0NVAGKQRGRJyihUJ7SPTgYZzZlz738keuYBpHtFg==",
+    "licence": "MIT"
+  },
+  "node": "v22.23.4",
+  "npm": "10.9.9",
+  "interface": "command line: npx chepta request <file>; exit codes 0 ok, 2 invalid_input, 3 missing_data, 4 unsupported, 5 not_converged, 6 cancelled, 7 out_of_time, 8 error, 1 the command line itself",
+  "input": {
+    "file": "upstream/B2-chemsep-benzene-toluene.json",
+    "sha256": "494b35c6bad029f19349634e7d17a686a1df28c1e07416a5f5080de544c8442d",
+    "copied_from": "https://github.com/FaireDose/CHEPTA, tag v0.6.0 (commit 5112c71f3f251100fe7d9d676412f48c543bc739), validation/data/columns/B2-chemsep-benzene-toluene.json, byte-identical"
+  },
+  "unit_conversion": "flows in mol/s (CHEPTA's record, from The ChemSep Book) x 3.6 = kmol/h (CHEPTA's request unit)",
+  "runs": [
+    {
+      "id": "b2-pr",
+      "command": "npx chepta request cases/benzene-toluene-chemsep-b2/results-chepta-0.6.0/b2-pr.request.json",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "request_file": "results-chepta-0.6.0/b2-pr.request.json",
+      "output_file": "results-chepta-0.6.0/b2-pr.output.json",
+      "stderr_file": "results-chepta-0.6.0/b2-pr.stderr.txt",
+      "request_file_sha256": "33df570b0b62dcc963b7e18933271140c7df5b699cef854c1e63036a8daeb468",
+      "output_file_sha256": "cfe9a4bbab36d3a9d141adff7a36064fea979a65011593f2a34504d74e414f1b"
+    },
+    {
+      "id": "b2-record-thermo-literal",
+      "command": "npx chepta request cases/benzene-toluene-chemsep-b2/results-chepta-0.6.0/b2-record-thermo-literal.request.json",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "BAD_INPUT",
+        "message": "sets: \"0\" is not a pair; write it as \"component+component\", e.g. \"acetone+chloroform\".",
+        "where": []
+      },
+      "request_file": "results-chepta-0.6.0/b2-record-thermo-literal.request.json",
+      "output_file": "results-chepta-0.6.0/b2-record-thermo-literal.output.json",
+      "stderr_file": "results-chepta-0.6.0/b2-record-thermo-literal.stderr.txt",
+      "request_file_sha256": "c3412a42db7dae919793a64747cabcb2dccc1fdcb280d88444ea8cf80968f43a",
+      "output_file_sha256": "8823267874580b04a3a66b131d5b8bcf0ff16629c0ba66b700b5c043ca3bcc8c"
+    },
+    {
+      "id": "b2-distillate-purity",
+      "command": "npx chepta request cases/benzene-toluene-chemsep-b2/results-chepta-0.6.0/b2-distillate-purity.request.json",
+      "exit_code": 4,
+      "exit_meaning": "unsupported",
+      "outcome": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "Column C1: purity specifications come with milestone M4 of proposal 0015; give flows, ratios or duties instead.",
+        "where": []
+      },
+      "request_file": "results-chepta-0.6.0/b2-distillate-purity.request.json",
+      "output_file": "results-chepta-0.6.0/b2-distillate-purity.output.json",
+      "stderr_file": "results-chepta-0.6.0/b2-distillate-purity.stderr.txt",
+      "request_file_sha256": "bcf761f8f74075dcc508c4069b26714eb4830aaff29826b845583efd167ff17e",
+      "output_file_sha256": "d324ac53354d73183345f8eb9621ddc84002a2bb61e16dab59f2d919ca47a685"
+    }
+  ]
+}
