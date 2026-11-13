@@ -44,7 +44,7 @@ def splitter_by_flow(first_kg_h=None, second_kg_h=None):
 
 
 def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phases15="VLL", extractor_stages=2,
-          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None):
+          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None):
     """open_recycles: None for the closed plant; else {27: feed spec, 21: feed spec}: streams 27 and 21 enter as feeds
     (given) and leave as products, the outer recycles opened (used to find starting guesses, never compared as the plant).
     guesses: {stream number: {flow_kmol_h, T_K, P_kPa}} starting guesses of the tear streams (else Table A2)."""
@@ -57,6 +57,9 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     else:
         s16 = {"fractions": M.split16()}
     c5 = M.column5_spec()
+    if col5_stages:  # Section 3.2 p.7: "a minimum number of 14 theoretical stages"; vapour 6 on the last stage
+        c5["stages"] = col5_stages
+        c5["feed_stage"] = [1, col5_stages]
     if phases5:
         c5["phases"] = phases5
     if col5_max_iter:
@@ -65,6 +68,12 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     if spec11 == "distillate":
         c11.pop("bottoms_purity", None)
         c11["distillate_kmol_h"] = M.STREAMS[14]["molar_kmol_h"]
+    c15 = M.column15_spec(phases15)
+    if spec15 == "purity":  # Section 3.5 p.10: bottoms "less than 0.01% of its weight in organic compounds"
+        c15.pop("distillate_kmol_h")
+        c15["bottoms_purity"] = {"component": "water", "value": 0.9999, "basis": "mass"}
+    elif isinstance(spec15, (int, float)):  # a distillate flow other than the paper's (column 15 isolated runs)
+        c15["distillate_kmol_h"] = spec15
     B = [
         {"id": "F1", "type": "feed", "spec": M.feed_spec(1, C, T_C=T_feed_C)},
         {"id": "F2", "type": "feed", "spec": M.feed_spec(2, C, T_C=T_feed_C)},
@@ -83,7 +92,7 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
         {"id": "HTXR12", "type": "heater", "spec": {"duty_kW": M.EQUIP[12]["S2"]["duty_kW"], "P_kPa": M.P_KPA}},
         {"id": "MIX13", "type": "mixer"},
         {"id": "PUMP14", "type": "pump", "spec": {"P_kPa": M.P_KPA}},
-        {"id": "SCDS15", "type": "column", "spec": M.column15_spec(phases15)},
+        {"id": "SCDS15", "type": "column", "spec": c15},
         {"id": "SPLIT16", "type": "splitter", "spec": s16},
         {"id": "HTXR17", "type": "heater", "spec": M.heater(24)},
         {"id": "HTXR18", "type": "heater", "spec": M.heater(27)},
@@ -114,6 +123,8 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     d["solver"] = {"maxIterations": max_iter}
     if method:
         d["solver"]["method"] = method
+    if tolerance:
+        d["solver"]["tolerance"] = tolerance
     if thermo_extra:
         d["thermo"].update(thermo_extra)
     return d
@@ -137,3 +148,48 @@ def with_options(req, **opts):
     r = copy.deepcopy(req)
     r["options"] = opts
     return r
+
+
+def section_b4(s9, s25_kg_h=None, s23_kg_h=None, spec11="distillate", spec15="distillate", phases11="VLL", phases15="VLL",
+               extractor_stages=2):
+    """The downstream half (MIX 7 to the water loop) with all four components, fed with CHEPTA's own stream 9 (a feed
+    {flow_kmol_h, T_K or VF, P_kPa}); streams 21 and 27 leave as products (the outer recycles open). Used to see how the
+    wastewater flow 25 moves the column purities when the closed plant does not converge; never compared as the plant."""
+    C = M.COMPONENTS
+    s16 = splitter_by_flow(s23_kg_h, None) if s23_kg_h else splitter_by_flow(None, s25_kg_h)
+    c11 = M.column11_spec("flow" if spec11 == "bottoms" else "purity", phases11)
+    if spec11 == "distillate":
+        c11.pop("bottoms_purity", None)
+        c11["distillate_kmol_h"] = M.STREAMS[14]["molar_kmol_h"]
+    c15 = M.column15_spec(phases15)
+    if spec15 == "purity":
+        c15.pop("distillate_kmol_h")
+        c15["bottoms_purity"] = {"component": "water", "value": 0.9999, "basis": "mass"}
+    B = [
+        {"id": "F9", "type": "feed", "spec": s9},
+        {"id": "F17", "type": "feed", "spec": M.feed_spec(17, C)},
+        {"id": "MIX7", "type": "heater", "spec": {"VF": 0, "P_kPa": M.P_KPA}},
+        {"id": "EXTR8", "type": "extraction", "spec": M.extractor_spec(extractor_stages)},
+        {"id": "SPLIT9", "type": "splitter", "spec": splitter_by_flow(None, M.STREAMS[26]["mass_kg_h"])},
+        {"id": "HTXR10", "type": "heater", "spec": M.heater(13)},
+        {"id": "SCDS11", "type": "column", "spec": c11},
+        {"id": "HTXR12", "type": "heater", "spec": {"duty_kW": M.EQUIP[12]["S2"]["duty_kW"], "P_kPa": M.P_KPA}},
+        {"id": "MIX13", "type": "mixer"},
+        {"id": "PUMP14", "type": "pump", "spec": {"P_kPa": M.P_KPA}},
+        {"id": "SCDS15", "type": "column", "spec": c15},
+        {"id": "SPLIT16", "type": "splitter", "spec": s16},
+        {"id": "HTXR17", "type": "heater", "spec": M.heater(24)},
+        {"id": "HTXR18", "type": "heater", "spec": M.heater(27)},
+        {"id": "HTXR19", "type": "heater", "spec": M.heater(28)},
+        {"id": "P16", "type": "product"}, {"id": "P25", "type": "product"}, {"id": "P27", "type": "product"}, {"id": "P21", "type": "product"},
+    ]
+    S = [("S9", "F9.out", "MIX7.in"), ("S15", "HTXR12.out", "MIX7.in"),
+         ("S10", "MIX7.out", "EXTR8.feed"), ("S19", "PUMP14.out", "EXTR8.solvent"),
+         ("S11", "EXTR8.raffinate", "SPLIT9.in"), ("S20", "EXTR8.extract", "HTXR19.in"),
+         ("S12", "SPLIT9.out", "HTXR10.in"), ("S26", "SPLIT9.out", "HTXR18.in"), ("S27", "HTXR18.out", "P27.in"),
+         ("S13", "HTXR10.out", "SCDS11.in"), ("S14", "SCDS11.distillate", "HTXR12.in"), ("S16", "SCDS11.bottoms", "P16.in"),
+         ("S17", "F17.out", "MIX13.in"), ("S24", "HTXR17.out", "MIX13.in"), ("S18", "MIX13.out", "PUMP14.in"),
+         ("S28", "HTXR19.out", "SCDS15.in"), ("S21", "SCDS15.distillate", "P21.in"), ("S22", "SCDS15.bottoms", "SPLIT16.in"),
+         ("S23", "SPLIT16.out", "HTXR17.in"), ("S25", "SPLIT16.out", "P25.in")]
+    d = M.doc(B, _streams(S, (15, 24), C), C)
+    return d

@@ -36,6 +36,15 @@ EXIT = {-9: "stopped by Lab (wall time)", 0: "ok", 2: "invalid_input", 3: "missi
         6: "cancelled", 7: "out_of_time", 8: "error", 1: "command line error"}
 TIME_MS = os.environ.get("S2_TIME_MS", "3000000")
 WALL_S = int(TIME_MS) // 1000 + 300
+EXIT_OF = {"ok": 0, "invalid_input": 2, "missing_data": 3, "unsupported": 4, "not_converged": 5, "cancelled": 6, "out_of_time": 7, "error": 8}
+# round 2 (after the maintainer's advice, 2026-11-13): long plant runs executed once from the scratch folder (name there,
+# --time-ms used); with S2_IMPORT_DIR set their outputs are copied instead of running them again
+IMPORTS = {"plant62-R-dist-col15purity": ("rd", 3400000), "plant62-W-dist-col15purity": ("wd", 3400000),
+           "plant62-R-dist-col15purity-direct": ("rdd", 3400000), "plant62-W-dist-col15purity-direct": ("wdd", 3400000),
+           "plant62-R-bottoms-col15purity": ("p15R", 1600000), "plant62-R-purity-col15purity-warm": ("p15Rp", 1600000),
+           "plant62-R-bottoms-col5-14stages": ("k14R", 1600000),
+           "plant62-R-dist-col15purity-direct-tol1e-5": ("rddt", 7000000), "plant62-W-dist-col15purity-direct-tol1e-5": ("wddt", 7000000),
+           "plant62-R-dist-col15d405-direct-tol1e-5": ("r405t", 7000000)}
 RERUN = ["u-htxr2-15C", "u-extr8-1stage-70C", "u-extr8-1stage-27C-acid", "u-htxr10-acid", "u-scds11-acid-VL",
          "u-scds11-acid-VLL", "u-htxr12-acid", "u-htxr18-acid", "u-htxr19-acid", "u3-scds11-bottomsflow-VL",
          "secA-feeds-17C", "secB-mix7-adiabatic", "plant-a2-r02-A", "diag-scds5-round2-inlets",
@@ -68,9 +77,22 @@ class Runner:
         f = OUT / f"{run_id}.request.json"
         f.write_text(json.dumps(req, indent=2) + "\n")
         t0 = datetime.datetime.now(datetime.timezone.utc)
-        try:
+        imp = IMPORTS.get(run_id)
+        idir = os.environ.get("S2_IMPORT_DIR")
+        if imp and idir and (Path(idir) / f"{imp[0]}.out.json").exists():
+            # a long run already executed by this session with the same chepta 0.6.2 command line: its request must be
+            # the same document (compared parsed); its output is copied unchanged and the manifest says so
+            src_req = json.loads((Path(idir) / f"{imp[0]}.json").read_text())
+            if src_req != req:
+                sys.exit(f"{run_id}: the scratch request {imp[0]}.json differs from the request built here")
+            out = (Path(idir) / f"{imp[0]}.out.json").read_text()
+            p = subprocess.CompletedProcess([], returncode=EXIT_OF.get(json.loads(out).get("outcome"), 8), stdout=out, stderr="")
+            note = (note + "; " if note else "") + (f"executed 2026-11-13 by this session as chepta request --time-ms {imp[1]} <file> "
+                                                     "(the same request document); output copied unchanged into this folder")
+        else:
+          try:
             p = subprocess.run(self.cmd + ["request", "--time-ms", TIME_MS, str(f)], capture_output=True, text=True, timeout=WALL_S)
-        except subprocess.TimeoutExpired as e:
+          except subprocess.TimeoutExpired as e:
             p = subprocess.CompletedProcess(e.cmd, returncode=-9, stdout="",
                                             stderr=f"Stopped by Lab's runner after {WALL_S} s of wall time (CHEPTA's limit --time-ms {TIME_MS} had not stopped it).\n")
         (OUT / f"{run_id}.output.json").write_text(p.stdout)
@@ -141,6 +163,74 @@ PLANTS = {
 }
 
 
+PLANTS2 = {
+    "plant62-R-bottoms-col5-14stages": ({"split16": "R", "spec11": "bottoms", "col5_stages": 14}, "column 5 with 14 stages (Section 3.2: 'a minimum number of 14 theoretical stages')"),
+    "plant62-R-bottoms-col15purity": ({"split16": "R", "spec11": "bottoms", "spec15": "purity"}, "column 15 on its bottoms purity (99.99 mass % water, Section 3.5) instead of the distillate flow; column 11 bottoms 141.5 kmol/h"),
+    "plant62-R-purity-col15purity-warm": ({"split16": "R", "spec11": "purity", "spec15": "purity", "guesses": "061"}, "both product columns on their purities (99.90 % ester, 99.99 % water)"),
+    "plant62-R-dist-col15purity": ({"split16": "R", "spec11": "distillate", "spec15": "purity"}, "column 11 R/D 3 and distillate 230.4 kmol/h (product purity a result), column 15 on 99.99 % water; Broyden"),
+    "plant62-W-dist-col15purity": ({"split16": "W", "spec11": "distillate", "spec15": "purity"}, "as plant62-R-dist-col15purity with 25 = 20,000 kg/h"),
+    "plant62-R-dist-col15purity-direct": ({"split16": "R", "spec11": "distillate", "spec15": "purity", "method": "direct"}, "as plant62-R-dist-col15purity, direct substitution"),
+    "plant62-W-dist-col15purity-direct": ({"split16": "W", "spec11": "distillate", "spec15": "purity", "method": "direct"}, "as plant62-W-dist-col15purity, direct substitution"),
+    "plant62-R-dist-col15purity-direct-tol1e-5": ({"split16": "R", "spec11": "distillate", "spec15": "purity", "method": "direct", "tolerance": 1e-5}, "as -direct, tear tolerance 1e-5"),
+    "plant62-W-dist-col15purity-direct-tol1e-5": ({"split16": "W", "spec11": "distillate", "spec15": "purity", "method": "direct", "tolerance": 1e-5}, "as -direct, tear tolerance 1e-5"),
+    "plant62-R-dist-col15d405-direct-tol1e-5": ({"split16": "R", "spec11": "distillate", "spec15": 405, "method": "direct", "tolerance": 1e-5}, "column 15 distillate 405 kmol/h (from the column 15 isolated runs), direct, tolerance 1e-5"),
+}
+
+
+def isolate_requests():
+    """Each separation block alone in CHEPTA, its inlet and outlet specifications varied (the maintainer, 2026-11-13)."""
+    import copy
+    J = {}
+    c5 = dict(M.column5_spec(), phases="VLL")
+    base = M.unit({"id": "SCDS5", "type": "column", "spec": c5}, [("in", 27), ("in", 6)], [("distillate", 8), ("bottoms", 7)])
+    r2 = json.loads((OLD / "diag-scds5-round2-inlets-VLL.request.json").read_text())["input"]["flowsheet"]
+    r2["blocks"][0]["spec"] = c5
+    mw = {"ethanol": 46.069, "water": 18.015, "ethyl-acetate": 88.106, "acetic-acid": 60.052}  # scaling only
+    for tag, d0 in (("paper", base), ("r2", r2)):
+        for kg in (45000, 50000, 55000, 60000, 65000, 70000):
+            d = copy.deepcopy(d0)
+            for b in d["blocks"]:
+                if b["id"] == "F27":
+                    sp = b["spec"]
+                    key = "flow_kg_h" if "flow_kg_h" in sp else "flow_kmol_h"
+                    tot = sum(sp[key].values()) if key == "flow_kg_h" else sum(v * mw[k] for k, v in sp[key].items())
+                    sp[key] = {k: v * kg / tot for k, v in sp[key].items()}
+            J[f"iso-scds5-{tag}-reflux{kg}"] = d
+
+    def col11(acid_pct, bottoms):
+        f = M.feed_spec(13)
+        fl = f["flow_kg_h"]
+        tot = sum(fl.values())
+        fl["acetic acid"] = tot * acid_pct / 100
+        if acid_pct == 0:
+            fl.pop("acetic acid")
+        sp = M.column11_spec("flow", "VLL")
+        sp["bottoms_kmol_h"] = bottoms
+        blocks = [{"id": "SCDS11", "type": "column", "spec": sp}, {"id": "F13", "type": "feed", "spec": f},
+                  {"id": "P14", "type": "product"}, {"id": "P16", "type": "product"}]
+        streams = [{"id": "S13", "from": "F13.out", "to": "SCDS11.in"}, {"id": "S14", "from": "SCDS11.distillate", "to": "P14.in"},
+                   {"id": "S16", "from": "SCDS11.bottoms", "to": "P16.in"}]
+        return M.doc(blocks, streams, M.COMPONENTS if acid_pct > 0 else M.COMPONENTS_B)
+    for a in (0, 0.001, 0.005, 0.01):
+        J[f"iso-scds11-acid{a}-bottoms141.5"] = col11(a, 141.5)
+    for b in (139, 140, 141):
+        J[f"iso-scds11-acid0.01-bottoms{b}"] = col11(0.01, b)
+        J[f"iso-scds11-acid0-bottoms{b}"] = col11(0, b)
+
+    def col15(dist=None, purity=None):
+        sp = M.column15_spec("VLL")
+        if dist:
+            sp["distillate_kmol_h"] = dist
+        if purity:
+            sp.pop("distillate_kmol_h")
+            sp["bottoms_purity"] = {"component": "water", "value": purity, "basis": "mass"}
+        return M.unit({"id": "SCDS15", "type": "column", "spec": sp}, [("in", 28)], [("distillate", 21), ("bottoms", 22)])
+    for d in (380, 390, 394.6, 400, 410, 420):
+        J[f"iso-scds15-distillate{d}"] = col15(dist=d)
+    J["iso-scds15-purity0.9999"] = col15(purity=0.9999)
+    return J
+
+
 def build_plant(kw):
     kw = dict(kw)
     if kw.get("open_recycles") == OPEN:
@@ -174,6 +264,10 @@ def main():
         run_parallel(R, [(k, fs(v)) for k, v in unit_requests().items()])
     if "plant" in groups:
         run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS.items()])
+    if "isolate" in groups:
+        run_parallel(R, [(k, fs(v)) for k, v in isolate_requests().items()])
+    if "plant2" in groups:
+        run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS2.items()])
     if "policy" in groups:
         base = os.environ.get("S2_POLICY_BASE", "plant62-W-dist")
         kw = PLANTS[base][0]
@@ -213,7 +307,7 @@ def main():
                    "transcriptions": {n: sha((H / n).read_bytes()) for n in ("streams.json", "equipment.json", "s2_model.py", "s2_model_062.py")}},
         "settings": M.SETTINGS,
         "settings_062": P.SETTINGS_062,
-        "plants": {k: {"kwargs": kw, "what": what} for k, (kw, what) in PLANTS.items()},
+        "plants": {k: {"kwargs": kw, "what": what} for k, (kw, what) in {**PLANTS, **PLANTS2}.items()},
         "plants_note": "open_recycles \"open\": streams 27 and 21 fed with Table A2 (27 as printed, 21 saturated liquid); guesses \"061\": tear guesses from 0.6.1 runs plant-a2-r01-A/B",
         "runs": [r for r in old["runs"] if r["id"] not in new_ids] + R.runs,
     }

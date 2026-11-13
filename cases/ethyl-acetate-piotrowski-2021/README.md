@@ -111,6 +111,74 @@ liquids on stage 7. **Lab did not close the loop by any other means** (no compon
 | 11 | `missingPairs` cannot be given in a flowsheet | `invalid_input` `BAD_INPUT` "flowsheet.thermo: unknown key "missingPairs"" | plant62-W-dist-refusePairs |
 | 12 | A column's `max_iterations` does not raise the 12 Newton iterations reported | column 5 still "12 iterations" | plant62-R-bottoms-warm-col5iter100 |
 
+### Round 2 (the maintainer's advice, 2026-11-13): each separation block alone, then the plant again
+
+The maintainer: the plant must converge even with small deviations from the tables, and the purities at the ends of
+the distillation columns matter more than the flows; where the plant blocks, isolate the block in CHEPTA and vary its
+inlet and outlet specifications to tell a CHEPTA problem from one inherent to the paper. Runs `iso-*` (each block
+alone, the paper's inlets, two liquids allowed) and `plant62-*-col15*` (the plant again).
+
+**Is 20,000 kg/h a specification?** The paper does not say so (searched: Sections 2, 3.3, 3.5, Tables 1, 2, A1-A3).
+Tables A1-A3 show it behaves like one: wastewater 25 is round in all three plants (S1 20,000; S2 20,000; S3 30,000
+kg/h) while the fresh water 17 is not (17,464; 17,478; 27,618 kg/h), and stream 26 is round too (60,000 in S1 and
+S2). Lab's reading: 25 (and 26) were set, and 17 is the make-up that closes the water balance. Table 2's "Wastewater
+1.61 t/t product" is 20,000 / 12,434 = 1.608. CHEPTA has no make-up controller (a design specification on a feed), so
+variant W fixes 25 with 17 fixed, and the product flow then follows from the balance.
+
+**Column 5 alone** (`iso-scds5-*`, reflux 27 varied, vapour 6 the paper's or CHEPTA's own of round 2):
+
+| Reflux 27 | Paper's vapour 6: acid in 8 (limit 0.005 %, p.6) | CHEPTA's round-2 vapour 6 |
+|---|---|---|
+| 45,000 kg/h | `NO_CONVERGENCE` | `NO_CONVERGENCE` |
+| 50,000 | 0.055 % (misses the limit) | 0.035 % |
+| 55,000 | 0.0036 % | `NO_CONVERGENCE` |
+| 60,000 (paper) | 0.0004 % | 0.0000 % |
+| 65,000 | 0.0004 % | 0.0000 % |
+| 70,000 | `NO_CONVERGENCE` (three-phase flash, K-values) | 0.0000 % |
+
+The paper's column balances (Table A2, 27 + 6 = 8 + 7 within 3 kg/h per component) and its 60,000 kg/h meets the acid
+limit with margin; with 8 stages about 55,000 kg/h (R/V 0.58) is the least that does (the paper's R/V > 0.5 is for 14
+stages). **CHEPTA's problem, not the paper's:** the column converges and fails irregularly on neighbouring inputs
+(55,000 with the round-2 vapour), which is what stops the closed plant (request 8).
+
+**Column 11 alone** (`iso-scds11-*`, the paper's feed 13, R/D 3, product flow given):
+
+| Product 16 | Without acetic acid | With the paper's 0.01 % acid (also 0.001 and 0.005 % at 141.5) |
+|---|---|---|
+| 139 kmol/h | 99.998 mass % ester | 99.978 % ester, **0.022 % acid** |
+| 140 | 99.942 % | `NO_CONVERGENCE` |
+| 141 | 99.892 % | `NO_CONVERGENCE` |
+| 141.5 (paper) | 99.868 % (water 0.113 %) | `NO_CONVERGENCE` |
+
+**Inherent to the paper:** acetic acid is the heaviest component; all of feed 13's acid (0.01 % of 27,314 = 2.7 kg/h)
+leaves in the product, 0.022 mass %, not the 0.01 % printed for stream 16 (stream 14 prints 0.00 %). The maintainer
+(spot check, 2026-11-13): "something is wrong in the table: either stream 16 is higher than 0.01 or a part is also in
+14"; CHEPTA puts it all in 16. CHEPTA reaches 99.9 % ester at about 140.5 kmol/h, not the paper's 141.5.
+**CHEPTA's problem:** a trace of acid (even 0.001 %) stops the column near the paper's product flow (request 9).
+
+**Column 15 alone** (`iso-scds15-*`, the paper's feed 28, R/D 2, distillate varied):
+
+| Distillate 21 | Ethanol in bottoms 22 | Acid in 22 | Reboiler |
+|---|---|---|---|
+| 380 kmol/h | 0.650 % | 0.012 % | 14,369 kW |
+| 394.6 (paper) | 0.151 % | 0.012 % | 14,920 kW |
+| 400 | 0.014 % | 0.012 % | 15,120 kW |
+| 410 | 0.003 % | 0.012 % | 15,467 kW |
+| water 99.99 % given | `OUT_OF_RANGE` (correct: the acid alone is 0.012 %) | | |
+
+**Inherent to the paper:** the acid of feed 28 leaves in the bottoms, so "less than 0.01 % organics" (Section 3.5)
+cannot hold with 0.01 % acid in the feed; the paper's own stream 22 prints 0.03 %. For ethanol CHEPTA needs a
+distillate of about 400-410 kmol/h (paper 394.6) and a reboiler of 15,100-15,500 kW (paper 16,136.6).
+
+**The plant again with the purity specifications** (column 15 on 99.99 % water in its bottoms, column 11 on R/D 3 and
+its distillate so the product purity is a result):
+
+Pending (2026-11-13): the runs with direct substitution and a tear tolerance of 1e-5 are still running; the earlier
+ones of this round are in the scratch log and will be recorded with them (plant62-*-col15purity*). With column 15 on
+its purity, Broyden brought the recycle change down to 0.02 % per iteration before a jump made column 5 fail
+(iteration 10); with the product flow fixed at 141.5 kmol/h the loop slowly ran out of ethanol (more product than the
+ester formed, 141.07 kmol/h).
+
 ## On chepta 0.6.1 (2026-11-12): what was run
 
 [s2_model.py](s2_model.py) builds every request from the transcriptions [streams.json](streams.json) (Table A2) and

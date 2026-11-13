@@ -1,0 +1,50 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "invalid_input",
+  "error": {
+    "code": "OUT_OF_RANGE",
+    "message": "Column SCDS15: the mass fraction of Water in the bottoms cannot be 0.9999 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (18.95 to 1876 mol/s, 23 columns solved) it stays between 0.864412 (at 18.95) and 0.999875 (at 161.9). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 18 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 145 mol/s (4 iterations: no step lowered the specifications' residual)",
+        "a scan of the distillate flow from 18.95 to 1876 (23 columns solved): no value meets the specification"
+      ],
+      "specifications": [
+        {
+          "label": "the mass fraction of Water in the bottoms",
+          "asked": 0.9999,
+          "reached": 0.9998750337736644
+        }
+      ],
+      "at": {
+        "distillate_rate": 159.80524942906476
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.8644121999944252,
+          "at": 18.9490549909935
+        },
+        "highest": {
+          "value": 0.9998750269086063,
+          "at": 161.9276788819597
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "6f93faf9ec14f3b1"
+  },
+  "run": {
+    "id": "run-mwfj0ojl-1",
+    "input_hash": "6f93faf9ec14f3b1",
+    "limits": {
+      "time_ms": 1100000
+    },
+    "status": "failed",
+    "elapsed_ms": 79233.294007
+  }
+}
