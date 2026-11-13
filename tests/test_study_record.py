@@ -28,7 +28,7 @@ class StudyRecordTests(unittest.TestCase):
         self.assertEqual(self.record["status"], "draft")
         self.assertEqual(self.record["reviews"], [])
         self.assertEqual(len(self.record["runs"]), 24)
-        self.assertEqual({r["engine"] for r in self.record["runs"]}, {"chepta-c1adf6b", "chepta@0.6.0", "chepta@0.6.1"})
+        self.assertEqual({r["engine"] for r in self.record["runs"]}, {"chepta-c1adf6b", "chepta@0.6.0", "chepta@0.6.1", "chepta@0.6.2"})
 
     def test_every_run_file_is_the_existing_file(self):
         manifest = s.read_json(ROOT / "cases/ethanol-zsm5-573k/results/run-manifest.json")
