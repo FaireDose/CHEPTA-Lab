@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Write study-record.json for the S2 runs on chepta 0.6.1, binding every file by sha256.
+"""Write study-record.json for the S2 runs on chepta 0.6.1 and 0.6.2, binding every file by sha256.
 
-Reads the run manifest and comparison-s2.json written by run_s2_chepta_0.6.1.py and compare_s2.py. Run after them:
+Reads the run manifests and comparison-s2.json files written by run_s2_chepta_0.6.1.py / compare_s2.py and
+run_s2_chepta_0.6.2.py / compare_s2_062.py. Run after them:
   python3 cases/ethyl-acetate-piotrowski-2021/build_study_record.py
 Then python scripts/dataset_pipeline.py validate. No CHEPTA call; no number typed here except pointers.
 """
@@ -15,6 +16,9 @@ REL = H.relative_to(ROOT).as_posix()
 R = H / "results-chepta-0.6.1"
 MAN = json.loads((R / "run-manifest.json").read_text())
 CMP = json.loads((R / "comparison-s2.json").read_text())
+R2 = H / "results-chepta-0.6.2"
+MAN2 = json.loads((R2 / "run-manifest.json").read_text())
+CMP2 = json.loads((R2 / "comparison-s2.json").read_text())
 SRC = "piotrowski-kubica-2021"
 S2 = json.loads((H / "streams.json").read_text())["strategies"]["S2"]
 SIDX = {int(r["stream"]): i for i, r in enumerate(S2)}
@@ -42,6 +46,12 @@ add_file("run-manifest", "results-chepta-0.6.1/run-manifest.json", "execution_ma
 add_file("comparison", "results-chepta-0.6.1/comparison-s2.json", "lab_check")
 add_file("engine-lock", "chepta-0.6.1.npm-lock.json", "engine_lock")
 add_file("case-readme", "README.md", "other")
+add_file("model-062", "s2_model_062.py", "case_input")
+add_file("runner-062", "run_s2_chepta_0.6.2.py", "runner")
+add_file("verifier-062", "compare_s2_062.py", "verifier")
+add_file("run-manifest-062", "results-chepta-0.6.2/run-manifest.json", "execution_manifest")
+add_file("comparison-062", "results-chepta-0.6.2/comparison-s2.json", "lab_check")
+add_file("engine-lock-062", "chepta-0.6.2.npm-lock.json", "engine_lock")
 
 
 def variant_of(rid):
@@ -78,6 +88,41 @@ for i, r in enumerate(MAN["runs"]):
                  "result": f"result.{rid}" if has_result else None,
                  "execution_record": {"file": "run-manifest", "pointer": f"/runs/{i}"},
                  "executed_at": {"file": "run-manifest", "pointer": f"/runs/{i}/started_at"}, "failure_note": note})
+
+
+
+def variant_062(rid):
+    if rid.startswith("info-"):
+        return "component-data-062"
+    if rid.startswith("rerun-"):
+        return "rerun-061-requests-062"
+    if rid.endswith(("-strictRanges", "-refusePairs", "-solverStrict")):
+        return "policy-062"
+    if rid.startswith("plant62") and rid.endswith("-open"):
+        return "plant-open-recycles-062"
+    if rid.startswith("plant62"):
+        return "plant-closed-062"
+    return "units-062"
+
+
+for i, r in enumerate(MAN2["runs"]):
+    rid = "v062." + r["id"].lower()
+    add_file(f"request.{rid}", r["request_file"], "request")
+    out = H / r["output_file"]
+    has_result = out.read_bytes().strip() != b""
+    if has_result:
+        add_file(f"result.{rid}", r["output_file"], "result")
+    add_file(f"stderr.{rid}", r["stderr_file"], "other")
+    note = None
+    if r["outcome"] != "ok":
+        e = r["error"] or {}
+        note = (f"{r['exit_meaning']} (exit {r['exit_code']}): {e.get('code')}: {e.get('message')}" if e else
+                f"{r['exit_meaning']} (exit {r['exit_code']}); no result written; see the stderr file")
+    runs.append({"id": rid, "execution_id": r["id"], "variant": variant_062(r["id"]), "engine": "chepta@0.6.2",
+                 "interface": "command_line", "runner": "runner-062", "request": f"request.{rid}",
+                 "result": f"result.{rid}" if has_result else None,
+                 "execution_record": {"file": "run-manifest-062", "pointer": f"/runs/{i}"},
+                 "executed_at": {"file": "run-manifest-062", "pointer": f"/runs/{i}/started_at"}, "failure_note": note})
 
 coup = MAN.get("plant_coupling") or {}
 FA, FB = (CMP["runs"]["plant-final"]["made_of"][k].lower() for k in "AB")  # once-through, round 1
@@ -142,6 +187,15 @@ if FA and FB:
     ass("feed-temperature", "Ethanol and acetic acid feed temperature", "K", f"request.{FA}", "/input/flowsheet/blocks/1/spec/T_K",
         "The paper's 15 C is below acetic acid's triple point in CHEPTA's record (refused, OUT_OF_RANGE); 18 C keeps the mixed feed above it.", FA)
 
+# chepta 0.6.2 (2026-11-13): unit runs that 0.6.1 refused; the closed plant did not converge (no plant value)
+V2 = lambda rid: "v062." + rid.lower()  # noqa: E731
+sim("chepta062-htxr2-duty-15c", "HTXR 2 duty from the printed 15 C feed (CHEPTA 0.6.2; acetic acid's liquid enthalpy extrapolated below 16.66 C)", "kW", V2("rerun-u-htxr2-15C"), "/value/blocks/HTXR2/duty_kW")
+sim("chepta062-htxr10-duty-acid", "HTXR 10 duty with acetic acid (CHEPTA 0.6.2, paper's stream 12)", "kW", V2("rerun-u-htxr10-acid"), "/value/blocks/HTXR10/duty_kW")
+sim("chepta062-raffinate-kg-h-acid", "Raffinate stream 11 mass flow, 2-stage extractor with acetic acid (CHEPTA 0.6.2, paper's inlets)", "kg/h", V2("u62-extr8-2stage-acid"), "/value/streams/S11/mass_kg_h")
+sim("chepta062-scds15-reboiler-acid", "Wastewater column reboiler duty with acetic acid, two liquids allowed (CHEPTA 0.6.2, paper's stream 28)", "kW", V2("u62-scds15-acid-VLL"), "/value/blocks/SCDS15/state/reboiler_kW")
+sim("chepta062-scds11-purity-product-kmol-h", "Product stream 16 molar flow, column 11 with acetic acid and the 99.90 mass % purity given (CHEPTA 0.6.2): a 31 kmol/h answer", "kmol/h", V2("u62-scds11-acid-purity"), "/value/streams/S16/F_kmol_h")
+sim("chepta062-scds5-vll-overhead-kg-h", "Column 5 overhead stream 8 mass flow, two liquids allowed (CHEPTA 0.6.2, paper's inlets)", "kg/h", V2("u62-scds5-VLL"), "/value/streams/S8/mass_kg_h")
+
 variants = [
     {"id": "component-data", "description": "CHEPTA's component records of the four components (molar masses, property ranges).", "modifications": []},
     {"id": "as-printed-or-with-acid", "description": "The paper's values as printed (15 C acid feed, 70 C condensate and extractor, adiabatic MIX 7) or downstream units with acetic acid as a component: kept to record CHEPTA's refusals.", "modifications": []},
@@ -153,6 +207,13 @@ variants = [
      "modifications": [{"kind": "other", "description": "Three components; extractor isothermal at 27 C; MIX 7 outlet saturated liquid."}]},
     {"id": "plant-coupled", "description": "The whole plant: sections A and B coupled across streams 9, 21 and 27 by Lab's runner (successive substitution).",
      "modifications": [{"kind": "other", "description": "The coupling across the cut is Lab's script, not a CHEPTA flowsheet; acetic acid leaving section A in stream 9 is dropped and reported."}]},
+    {"id": "component-data-062", "description": "CHEPTA 0.6.2's component records of the four components.", "modifications": []},
+    {"id": "rerun-061-requests-062", "description": "Every request that 0.6.1 refused or failed, sent unchanged to chepta 0.6.2.", "modifications": []},
+    {"id": "units-062", "description": "Units and section A with acetic acid as a component where 0.6.1 refused it (extractor, columns 5, 11 and 15 with two liquids; feeds at 15 C), the paper's inlets.", "modifications": []},
+    {"id": "plant-closed-062", "description": "The whole plant as ONE CHEPTA flowsheet, all four components, all five recycles (7, 15, 21, 24, 27) closed by CHEPTA's own tear streams; splitters by flow (26 = 60,000 kg/h; 25 = 20,000 kg/h or 23 = 95,797 kg/h).",
+     "modifications": [{"kind": "other", "description": "Variants of the column 11 specification, convergence method (Broyden, direct, Wegstein), tear guesses (Table A2 or CHEPTA's own 0.6.1 once-through streams) and column 5 phases; see the run manifest's plants."}]},
+    {"id": "plant-open-recycles-062", "description": "The plant with streams 27 and 21 fed from Table A2 (outer recycles open), to look for starting guesses.", "modifications": []},
+    {"id": "policy-062", "description": "The closed plant and two unit runs again with strictRanges true (request.options and the flowsheet's solver) and with thermo.missingPairs refuse.", "modifications": []},
 ]
 
 constraints = [
@@ -189,16 +250,23 @@ if FB:
                    "scope": "The coupled plant (Lab's coupling across the cut at stream 9).", "tolerances": None,
                    "verifier": {"file": "verifier", "earlier_version": None}})
 
+for rid in CMP2["runs"]:
+    checks.append({"id": f"compare062.{rid.lower()}", "run_id": "v062." + rid.lower(), "kind": "comparison_with_source",
+                   "ref": {"file": "comparison-062", "pointer": f"/runs/{rid}"},
+                   "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+                   "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+                   "tolerances": None, "verifier": {"file": "verifier-062", "earlier_version": None}})
+
 warn_runs = [r["id"] for r in runs if r["result"] and r["id"] in ("u-krea4-conversion", "u-scds5")]
 record = {
     "study_record": 1,
-    "id": "ethyl-acetate-piotrowski-2021-s2-chepta-0.6.1",
+    "id": "ethyl-acetate-piotrowski-2021-s2-chepta-0.6.1-0.6.2",
     "case_id": "ethyl-acetate-piotrowski-2021",
-    "title": "Classic ethyl acetate plant S2 of Piotrowski & Kubica 2021 on chepta@0.6.1, stream by stream",
-    "question": "Build every unit and stream of the paper's classic plant S2 in the released chepta 0.6.1 through its command line, compare CHEPTA's streams and duties with the paper's Appendix Table A2 and Table 1, and record what CHEPTA refuses.",
+    "title": "Classic ethyl acetate plant S2 of Piotrowski & Kubica 2021 on chepta@0.6.1 and 0.6.2, stream by stream; closing the plant on 0.6.2",
+    "question": "Build every unit and stream of the paper's classic plant S2 in the released chepta 0.6.1 through its command line, compare CHEPTA's streams and duties with the paper's Appendix Table A2 and Table 1, and record what CHEPTA refuses; then on chepta 0.6.2 re-run every refusal and try to close the whole plant (all recycles) as one CHEPTA flowsheet.",
     "status": "draft",
-    "written_on": "2026-11-12",
-    "written_by": "CHEPTA-Lab worker session (Claude); runs executed by this session on chepta@0.6.1",
+    "written_on": "2026-11-13",
+    "written_by": "CHEPTA-Lab worker sessions (Claude); runs on chepta@0.6.1 (2026-11-12) and chepta@0.6.2 (2026-11-13), each executed by the session that wrote that part",
     "supersedes": None,
     "sources": {"source_ids": [SRC], "evidence_ids": [],
                 "note": "Every paper number comes from streams.json (Table A2) and equipment.json (Table 1, Figure 1), transcribed 2026-10-29 and audited (STREAM_EQUIPMENT_AUDIT.md); the PDF (sha256 0057df76..., the same as recorded in streams.json) was re-read for this study and is not redistributed."},
@@ -207,7 +275,12 @@ record = {
                  "commit_observed": False, "engine_file_hashes": None,
                  "lock": {"file": "engine-lock", "pointer": "/packages/node_modules~1chepta"},
                  "request_path": "CHEPTA.run", "contracts": "v1", "result_format": 1,
-                 "note": "Released npm package installed with npm in a separate folder (its lock file copied as chepta-0.6.1.npm-lock.json); Lab's package.json pin was not changed by this study. Called through its command line, chepta request <file>."}],
+                 "note": "Released npm package installed with npm in a separate folder (its lock file copied as chepta-0.6.1.npm-lock.json); Lab's package.json pin was not changed by this study. Called through its command line, chepta request <file>."},
+                {"id": "chepta@0.6.2", "package": "chepta", "release": "0.6.2", "commit": None, "pin": "release",
+                 "commit_observed": False, "engine_file_hashes": None,
+                 "lock": {"file": "engine-lock-062", "pointer": "/packages/node_modules~1chepta"},
+                 "request_path": "CHEPTA.run", "contracts": "v1", "result_format": 1,
+                 "note": "Released npm package installed with npm in a separate folder (lock file chepta-0.6.2.npm-lock.json); Lab's package.json and data/upstream.json not changed. Called through its command line, chepta request <file>."}],
     "variants": variants,
     "runs": runs,
     "values": values,
@@ -222,14 +295,18 @@ record = {
                        "note": "CHEPTA warns that its UNIQUAC water + ethyl acetate set comes from data at 273.35-343.55 K and is used above it (the reactor vapour, column 5's lower stages, the bottoms of column 15). Results there rest on extrapolated parameters."}],
     "assumptions": [
         {"id": "conversion-imposed", "statement": "The reactor's acetic acid conversion per pass (0.7703) is imposed from the paper's streams 5 and 6; the reactor outlet composition is therefore not a prediction.",
-         "applies_to": ["section-a-paper-inlets", "plant-coupled", "units-paper-inlets"], "basis": "Paper Eqs. 1-3 lack the catalyst concentration and units; CHEPTA has no reactor-evaporator."},
+         "applies_to": ["section-a-paper-inlets", "plant-coupled", "units-paper-inlets"], "basis": "Paper Eqs. 1-3 lack the catalyst concentration and units. The reactor-evaporator is CHEPTA's conversion reactor with an all-vapour outlet (VF 1), which needs the conversion given; there is no kinetic version of it."},
         {"id": "cut-at-stream-9", "statement": "Section B is run without acetic acid; the two sections are coupled by Lab's script.",
-         "applies_to": ["section-b-paper-inlets", "plant-coupled"], "basis": "CHEPTA 0.6.1 refuses two liquids with acetic acid present (runs *-acid)."},
+         "applies_to": ["section-b-paper-inlets", "plant-coupled"], "basis": "CHEPTA 0.6.1 refuses two liquids with acetic acid present (runs *-acid). Not used on 0.6.2: the 0.6.2 plant carries the acid everywhere."},
+        {"id": "conversion-imposed-062", "statement": "On 0.6.2 too the reactor-evaporator is CHEPTA's conversion reactor with an all-vapour outlet (VF 1), its acetic acid conversion per pass (0.7703) imposed from the paper's streams 5 and 6.",
+         "applies_to": ["units-062", "plant-closed-062", "plant-open-recycles-062", "policy-062"], "basis": "The paper's rate law lacks the catalyst concentration and units; a kinetic reactor-evaporator is not available."},
+        {"id": "splitters-by-flow-062", "statement": "Splitter 9 gives stream 26 = 60,000 kg/h; splitter 16 gives stream 25 = 20,000 kg/h (variant W) or stream 23 = 95,797 kg/h (variant R). The paper's plant balance is 27 kg/h short, so W fixes the product flow by the balance and column 11 takes its distillate flow (230.4 kmol/h) as second specification.",
+         "applies_to": ["plant-closed-062", "plant-open-recycles-062", "policy-062"], "basis": "Table A2 streams 23, 25, 26; STREAM_EQUIPMENT_AUDIT.md (S2 plant -27 kg/h)."},
         {"id": "extractor-isothermal", "statement": "EXTR 8 is isothermal at 27 C with 2 equilibrium stages (stage count chosen to match the paper's stream 11 ethanol).",
-         "applies_to": ["plant-coupled"], "basis": "Table 1's 70 C is refused (the feed boils); the paper's outlets at 27 and 41 C imply an adiabatic extractor, which CHEPTA does not have."},
+         "applies_to": ["plant-coupled", "plant-closed-062"], "basis": "Table 1's 70 C is refused (the feed boils); the paper's outlets at 27 and 41 C imply an adiabatic extractor, which CHEPTA does not have."},
     ],
     "unresolved_inputs": [
-        {"id": "kinetics", "item": "Catalyst concentration and concentration units of the paper's rate law (Eqs. 1-3, after Atalay).", "consequence": "The reactor cannot be predicted; its conversion is taken from the paper.", "blocking": False, "next_action": "Read Atalay (ref. 36) for the catalyst basis; needs a reactor-evaporator in CHEPTA as well."},
+        {"id": "kinetics", "item": "Catalyst concentration and concentration units of the paper's rate law (Eqs. 1-3, after Atalay).", "consequence": "The reactor cannot be predicted; its conversion is taken from the paper.", "blocking": False, "next_action": "Read Atalay (ref. 36) for the catalyst basis; a kinetic reaction in CHEPTA's all-vapour-outlet reactor would then be needed."},
         {"id": "extractor-design", "item": "Number of stages, contactor type and energy balance of EXTR 8.", "consequence": "The stage count is calibrated; the extract leaves at 27 C instead of 41 C, so HTXR 19 duty is not comparable.", "blocking": False, "next_action": "None in the paper; an adiabatic extraction block in CHEPTA would remove one assumption."},
         {"id": "paper-heater-duties", "item": "Table 1's duties of HTXR 18 and HTXR 19 look exchanged: HTXR 18 (stream 26, 60,000 kg/h, 27 to 70 C) prints 4332.9 kW and HTXR 19 (stream 20, 139,203 kg/h, 41 to 70 C) 1541.1 kW, while CHEPTA gives 1580 and 5681 kW for them (unit runs); S1 shows the same pattern. HTXR 10 heats stream 11's composition with 26 W per kg/h, HTXR 18 with 72 W per kg/h as printed.", "consequence": "HTXR 18 and 19 are not compared as printed; the totals of Table 2 are unaffected by a label swap.", "blocking": False, "next_action": "Confirmed by the maintainer's spot check (2026-11-12): the two duties are exchanged in Table 1. Ask the authors."},
     ],
@@ -239,7 +316,10 @@ record = {
     "limitations": [
         "Agreement with the paper is agreement between two simulators (Chemcad 7 and CHEPTA 0.6.1, both UNIQUAC with different parameters), not with measurements.",
         "The reactor's conversion is imposed from the paper; reactor outlet composition is not predicted.",
-        "The whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
+        "On 0.6.1 the whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
+        "On 0.6.2 the whole plant is one CHEPTA flowsheet with acetic acid everywhere, but it does not converge: column 5 (absorber, two liquids allowed) stops with NO_CONVERGENCE inside the closed loop at iterations 2 to 5 in all ten closed variants (tear streams then change by 0.15-0.4 % per iteration). No closed-plant number exists; the plant comparison remains the 0.6.1 once-through pass.",
+        "On 0.6.2 no pair was estimated (all six UNIQUAC pairs fitted; qualifications.estimated_pairs empty in every run). Extrapolations CHEPTA listed (result.value.extrapolations) are kept per run in the 0.6.2 run manifest and attached to each compared number in comparison-062.",
+        "On 0.6.2 strictRanges true (request.options or the flowsheet's solver.strictRanges) did not refuse the 15 C acid feed that 0.6.1 refused; thermo.missingPairs is refused as an unknown key of a flowsheet (BAD_INPUT). Both are reported to CHEPTA.",
         "The extractor is isothermal at 27 C with a calibrated stage count; the paper's extractor is adiabatic at an unknown stage count.",
         "No separate AI review session yet; draft only. The maintainer spot-checked and confirmed 3 items chosen by the building session (2026-11-12: HTXR 18/19 duties exchanged in Table 1, reactor conversion 0.7703, column 11 settings); this is not recorded as a review.",
     ],

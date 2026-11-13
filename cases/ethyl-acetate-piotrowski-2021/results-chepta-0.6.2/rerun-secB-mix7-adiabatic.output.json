@@ -1,0 +1,3882 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "ok",
+  "value": {
+    "components": [
+      "ethanol",
+      "water",
+      "ethyl-acetate"
+    ],
+    "extrapolations": [
+      {
+        "component": "Ethyl acetate",
+        "property": "Ideal-gas heat capacity",
+        "unit": "K",
+        "range": [
+          298.15,
+          1000
+        ],
+        "at": 293.15,
+        "side": "below",
+        "distance": 5,
+        "how": "the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity)",
+        "kind": "idealGasHeatCapacity",
+        "message": "Ethyl acetate: ideal-gas heat capacity at 293.15 K is 5 K below its range (298.15-1000 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data. Where: F17, MIX13, PUMP14, HTXR17.",
+        "where": [
+          "F17",
+          "MIX13",
+          "PUMP14",
+          "HTXR17"
+        ],
+        "short": "Ethyl acetate: ideal-gas heat capacity extrapolated 5 K below its range"
+      },
+      {
+        "component": "Water + Ethyl acetate",
+        "property": "UNIQUAC set",
+        "kind": "pairSet",
+        "range": [
+          273.35,
+          343.55
+        ],
+        "at": 372.7547204684657,
+        "side": "above",
+        "distance": 29.204720468465666,
+        "how": "the set's temperature dependence is used as it is (fitted to data at 273.35-343.55 K)",
+        "message": "Water + Ethyl acetate: UNIQUAC set at 372.75 K is 29.2 K above its range (273.35-343.55 K): the set's temperature dependence is used as it is (fitted to data at 273.35-343.55 K). This is an extrapolation, not data. Where: HTXR10, SCDS15, SCDS11, SPLIT16.",
+        "where": [
+          "HTXR10",
+          "SCDS15",
+          "SCDS11",
+          "SPLIT16"
+        ],
+        "short": "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      }
+    ],
+    "streams": {
+      "S9": {
+        "id": "S9",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 182.15971715126446,
+          "water": 364.7894454041236,
+          "ethyl-acetate": 946.67102207
+        },
+        "flows": [
+          182.15971715126446,
+          364.7894454041236,
+          946.67102207
+        ],
+        "F_kmol_h": 1493.620184625388,
+        "mass_kg_h": 98370.162,
+        "z": [
+          0.1219585266899373,
+          0.244231732510776,
+          0.6338097407992868
+        ],
+        "T_K": 342.90050500385604,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.1219585266899373,
+              0.244231732510776,
+              0.6338097407992868
+            ],
+            "h_J_mol": -31363.14610146037,
+            "F_kmol_h": 1493.620184625388,
+            "flow_kmol_h": {
+              "ethanol": 182.15971715126446,
+              "water": 364.7894454041236,
+              "ethyl-acetate": 946.67102207
+            }
+          }
+        ],
+        "h_J_mol": -31363.14610146037,
+        "H_kW": -13012.39668624896,
+        "MW": 65.86022538566056,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S15": {
+        "id": "S15",
+        "name": null,
+        "spec": "PH",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 11.98504791353627,
+          "water": 73.13476378407695,
+          "ethyl-acetate": 160.59453487461388
+        },
+        "flows": [
+          11.98504791353627,
+          73.13476378407695,
+          160.59453487461388
+        ],
+        "F_kmol_h": 245.7143465722271,
+        "mass_kg_h": 16018.876474477918,
+        "z": [
+          0.04877634570683603,
+          0.2976414067974626,
+          0.6535822474957014
+        ],
+        "T_K": 343.1241600244807,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 0.8918418851611678,
+            "composition": [
+              0.052564656652892304,
+              0.21617828603407993,
+              0.7312570573130277
+            ],
+            "h_J_mol": -30358.195740788095,
+            "F_kmol_h": 219.13834605811954,
+            "flow_kmol_h": {
+              "ethanol": 11.518931920027748,
+              "water": 47.372952055187355,
+              "ethyl-acetate": 160.24646208290443
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.10815811483883217,
+            "composition": [
+              0.017538981957088983,
+              0.969363757921898,
+              0.0130972601210129
+            ],
+            "h_J_mol": -40394.572385788495,
+            "F_kmol_h": 26.576000514107548,
+            "flow_kmol_h": {
+              "ethanol": 0.46611599350851984,
+              "water": 25.761811728889587,
+              "ethyl-acetate": 0.3480727917094391
+            }
+          }
+        ],
+        "h_J_mol": -31443.71131852382,
+        "H_kW": -2146.1586056768947,
+        "MW": 65.19308578414329,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S10": {
+        "id": "S10",
+        "name": null,
+        "spec": "PH",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 194.14476505948176,
+          "water": 437.9242096585649,
+          "ethyl-acetate": 1107.2655592151877
+        },
+        "flows": [
+          194.14476505948176,
+          437.9242096585649,
+          1107.2655592151877
+        ],
+        "F_kmol_h": 1739.3345339332345,
+        "mass_kg_h": 114389.03868275581,
+        "z": [
+          0.1116201405030771,
+          0.25177687277229377,
+          0.636602986724629
+        ],
+        "T_K": 342.8818620508161,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 0.9915775034269498,
+            "composition": [
+              0.11223516826132196,
+              0.24589059322792856,
+              0.6418742385107495
+            ],
+            "h_J_mol": -31299.070210329584,
+            "F_kmol_h": 1724.684994781794,
+            "flow_kmol_h": {
+              "ethanol": 193.57031058711186,
+              "water": 424.0838164982022,
+              "ethyl-acetate": 1107.03086769648
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.008422496573050182,
+            "composition": [
+              0.039213142914018735,
+              0.9447664542404297,
+              0.016020402845551455
+            ],
+            "h_J_mol": -40258.084819351556,
+            "F_kmol_h": 14.649539151440504,
+            "flow_kmol_h": {
+              "ethanol": 0.5744544723699492,
+              "water": 13.840393160362797,
+              "ethyl-acetate": 0.2346915187077549
+            }
+          }
+        ],
+        "h_J_mol": -31374.52748017198,
+        "H_kW": -15158.55531447233,
+        "MW": 65.76597914380667,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S19": {
+        "id": "S19",
+        "name": null,
+        "spec": "PH",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.05011787109849123,
+          "water": 6129.33251486461,
+          "ethyl-acetate": 2.0915997931248287e-14
+        },
+        "flows": [
+          0.05011787109849123,
+          6129.33251486461,
+          2.0915997931248287e-14
+        ],
+        "F_kmol_h": 6129.382632735708,
+        "mass_kg_h": 110423.95032052774,
+        "z": [
+          0.000008176658907019854,
+          0.999991823341093,
+          3.4124151133167086e-18
+        ],
+        "T_K": 293.1499999988463,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000008176658907019854,
+              0.999991823341093,
+              3.4124151133167086e-18
+            ],
+            "h_J_mol": -44364.81887598508,
+            "F_kmol_h": 6129.382632735708,
+            "flow_kmol_h": {
+              "ethanol": 0.05011787109849123,
+              "water": 6129.33251486461,
+              "ethyl-acetate": 2.0915997931248287e-14
+            }
+          }
+        ],
+        "h_J_mol": -44364.81887598508,
+        "H_kW": -75535.81953414675,
+        "MW": 18.015509381120587,
+        "warnings": [
+          "Ethyl acetate: ideal-gas heat capacity at 293.15 K is 5 K below its range (298.15-1000 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S11": {
+        "id": "S11",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 38.31233452905265,
+          "water": 233.78812205263304,
+          "ethyl-acetate": 965.6982348076162
+        },
+        "flows": [
+          38.31233452905265,
+          233.78812205263304,
+          965.6982348076162
+        ],
+        "F_kmol_h": 1237.798691389302,
+        "mass_kg_h": 91059.70682547716,
+        "z": [
+          0.03095199146320876,
+          0.18887410665318274,
+          0.7801739018836086
+        ],
+        "T_K": 300.15,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.03095199146320876,
+              0.18887410665318274,
+              0.7801739018836086
+            ],
+            "h_J_mol": -36804.31617950351,
+            "F_kmol_h": 1237.798691389302,
+            "flow_kmol_h": {
+              "ethanol": 38.31233452905265,
+              "water": 233.78812205263304,
+              "ethyl-acetate": 965.6982348076164
+            }
+          }
+        ],
+        "h_J_mol": -36804.31617950351,
+        "H_kW": -12654.537334574323,
+        "MW": 73.56584512403386,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S20": {
+        "id": "S20",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 155.8825484015461,
+          "water": 6333.468602470566,
+          "ethyl-acetate": 141.56732440758853
+        },
+        "flows": [
+          155.8825484015461,
+          6333.468602470566,
+          141.56732440758853
+        ],
+        "F_kmol_h": 6630.918475279701,
+        "mass_kg_h": 133753.2821778092,
+        "z": [
+          0.02350843989149946,
+          0.9551419801166251,
+          0.021349579991875412
+        ],
+        "T_K": 300.15,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.023508439891499464,
+              0.9551419801166252,
+              0.021349579991875416
+            ],
+            "h_J_mol": -43703.130864034,
+            "F_kmol_h": 6630.918475279701,
+            "flow_kmol_h": {
+              "ethanol": 155.88254840154613,
+              "water": 6333.468602470567,
+              "ethyl-acetate": 141.56732440758853
+            }
+          }
+        ],
+        "h_J_mol": -43703.130864034,
+        "H_kW": -80497.74940941377,
+        "MW": 20.171154671324363,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S12": {
+        "id": "S12",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 11.985055149535516,
+          "water": 73.13476379212518,
+          "ethyl-acetate": 302.0945276305659
+        },
+        "flows": [
+          11.985055149535516,
+          73.13476379212518,
+          302.0945276305659
+        ],
+        "F_kmol_h": 387.2143465722266,
+        "mass_kg_h": 28485.75064973639,
+        "T_K": 300.15,
+        "P_kPa": 100,
+        "z": [
+          0.03095199146320876,
+          0.18887410665318272,
+          0.7801739018836085
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.03095199146320876,
+              0.18887410665318274,
+              0.7801739018836086
+            ],
+            "h_J_mol": -36804.31617950351,
+            "F_kmol_h": 387.2143465722266,
+            "flow_kmol_h": {
+              "ethanol": 11.985055149535516,
+              "water": 73.13476379212518,
+              "ethyl-acetate": 302.0945276305659
+            }
+          }
+        ],
+        "h_J_mol": -36804.31617950351,
+        "H_kW": -3958.655344578911,
+        "MW": 73.56584512403384,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S26": {
+        "id": "S26",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 26.32727937951713,
+          "water": 160.65335826050784,
+          "ethyl-acetate": 663.6037071770503
+        },
+        "flows": [
+          26.32727937951713,
+          160.65335826050784,
+          663.6037071770503
+        ],
+        "F_kmol_h": 850.5843448170752,
+        "mass_kg_h": 62573.956175740765,
+        "T_K": 300.15,
+        "P_kPa": 100,
+        "z": [
+          0.03095199146320876,
+          0.18887410665318274,
+          0.7801739018836085
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.03095199146320876,
+              0.18887410665318274,
+              0.7801739018836086
+            ],
+            "h_J_mol": -36804.31617950351,
+            "F_kmol_h": 850.5843448170752,
+            "flow_kmol_h": {
+              "ethanol": 26.32727937951713,
+              "water": 160.65335826050784,
+              "ethyl-acetate": 663.6037071770503
+            }
+          }
+        ],
+        "h_J_mol": -36804.31617950351,
+        "H_kW": -8695.88198999541,
+        "MW": 73.56584512403384,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S27": {
+        "id": "S27",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 26.32727937951713,
+          "water": 160.65335826050784,
+          "ethyl-acetate": 663.6037071770503
+        },
+        "flows": [
+          26.32727937951713,
+          160.65335826050784,
+          663.6037071770503
+        ],
+        "F_kmol_h": 850.5843448170752,
+        "mass_kg_h": 62573.956175740765,
+        "z": [
+          0.03095199146320876,
+          0.18887410665318274,
+          0.7801739018836085
+        ],
+        "T_K": 343.15,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.03095199146320876,
+              0.18887410665318274,
+              0.7801739018836085
+            ],
+            "h_J_mol": -29840.468831776634,
+            "F_kmol_h": 850.5843448170752,
+            "flow_kmol_h": {
+              "ethanol": 26.32727937951713,
+              "water": 160.65335826050784,
+              "ethyl-acetate": 663.6037071770503
+            }
+          }
+        ],
+        "h_J_mol": -29840.468831776634,
+        "H_kW": -7050.509897308634,
+        "MW": 73.56584512403384,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S13": {
+        "id": "S13",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 11.985055149535516,
+          "water": 73.13476379212518,
+          "ethyl-acetate": 302.0945276305659
+        },
+        "flows": [
+          11.985055149535516,
+          73.13476379212518,
+          302.0945276305659
+        ],
+        "F_kmol_h": 387.2143465722266,
+        "mass_kg_h": 28485.75064973639,
+        "z": [
+          0.03095199146320876,
+          0.18887410665318272,
+          0.7801739018836085
+        ],
+        "T_K": 344.15,
+        "P_kPa": 100,
+        "VF": 0.43320255516059863,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 0.43320255516059863,
+            "composition": [
+              0.03642695367924073,
+              0.2528557158564184,
+              0.7107173304643409
+            ],
+            "h_J_mol": 4370.023883301676,
+            "F_kmol_h": 167.74224432993014,
+            "flow_kmol_h": {
+              "ethanol": 6.110338964258246,
+              "water": 42.41458526940673,
+              "ethyl-acetate": 119.21732009626518
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.5667974448394013,
+            "composition": [
+              0.026767484911552016,
+              0.13997304536138033,
+              0.8332594697270677
+            ],
+            "h_J_mol": -29073.786874312722,
+            "F_kmol_h": 219.47210224229642,
+            "flow_kmol_h": {
+              "ethanol": 5.87471618527727,
+              "water": 30.72017852271846,
+              "ethyl-acetate": 182.87720753430068
+            }
+          }
+        ],
+        "h_J_mol": -14585.842599806647,
+        "H_kW": -1568.8465309692992,
+        "MW": 73.56584512403384,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S14": {
+        "id": "S14",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 11.98504791353627,
+          "water": 73.13476378407695,
+          "ethyl-acetate": 160.59453487461388
+        },
+        "flows": [
+          11.98504791353627,
+          73.13476378407695,
+          160.59453487461388
+        ],
+        "F_kmol_h": 245.7143465722271,
+        "mass_kg_h": 16018.876474477918,
+        "z": [
+          0.04877634570683603,
+          0.2976414067974626,
+          0.6535822474957014
+        ],
+        "T_K": 343.1241600244807,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 0.8918418851611678,
+            "composition": [
+              0.052564656652892304,
+              0.21617828603407993,
+              0.7312570573130277
+            ],
+            "h_J_mol": -30358.195740788095,
+            "F_kmol_h": 219.13834605811954,
+            "flow_kmol_h": {
+              "ethanol": 11.518931920027748,
+              "water": 47.372952055187355,
+              "ethyl-acetate": 160.24646208290443
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.10815811483883217,
+            "composition": [
+              0.017538981957088983,
+              0.969363757921898,
+              0.0130972601210129
+            ],
+            "h_J_mol": -40394.572385788495,
+            "F_kmol_h": 26.576000514107548,
+            "flow_kmol_h": {
+              "ethanol": 0.46611599350851984,
+              "water": 25.761811728889587,
+              "ethyl-acetate": 0.3480727917094391
+            }
+          }
+        ],
+        "h_J_mol": -31443.71131852382,
+        "H_kW": -2146.1586056768947,
+        "MW": 65.19308578414329,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S16": {
+        "id": "S16",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.000007235999231383429,
+          "water": 8.048286775840588e-9,
+          "ethyl-acetate": 141.4999927559525
+        },
+        "flows": [
+          0.000007235999231383429,
+          8.048286775840588e-9,
+          141.4999927559525
+        ],
+        "F_kmol_h": 141.5,
+        "mass_kg_h": 12466.874175258514,
+        "z": [
+          5.1137803755359926e-8,
+          5.6878351772725005e-11,
+          0.999999948805318
+        ],
+        "T_K": 349.81988843699304,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              5.1137803755359926e-8,
+              5.6878351772725005e-11,
+              0.999999948805318
+            ],
+            "h_J_mol": -26394.206086457947,
+            "F_kmol_h": 141.5,
+            "flow_kmol_h": {
+              "ethanol": 0.00000723599923138343,
+              "water": 8.048286775840588e-9,
+              "ethyl-acetate": 141.4999927559525
+            }
+          }
+        ],
+        "h_J_mol": -26394.206086457947,
+        "H_kW": -1037.4389336760555,
+        "MW": 88.10511784634991,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S17": {
+        "id": "S17",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0,
+          "water": 970.1764280100003,
+          "ethyl-acetate": 0
+        },
+        "flows": [
+          0,
+          970.1764280100003,
+          0
+        ],
+        "F_kmol_h": 970.1764280100003,
+        "mass_kg_h": 17478,
+        "z": [
+          0,
+          1,
+          0
+        ],
+        "T_K": 293.15,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0,
+              1,
+              0
+            ],
+            "h_J_mol": -44364.84985830529,
+            "F_kmol_h": 970.1764280100003,
+            "flow_kmol_h": {
+              "ethanol": 0,
+              "water": 970.1764280100003,
+              "ethyl-acetate": 0
+            }
+          }
+        ],
+        "h_J_mol": -44364.84985830529,
+        "H_kW": -11956.0365457585,
+        "MW": 18.01528,
+        "warnings": [
+          "Ethyl acetate: ideal-gas heat capacity at 293.15 K is 5 K below its range (298.15-1000 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S24": {
+        "id": "S24",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.05011787270452076,
+          "water": 5159.156087610767,
+          "ethyl-acetate": 2.0915998546490424e-14
+        },
+        "flows": [
+          0.05011787270452076,
+          5159.156087610767,
+          2.0915998546490424e-14
+        ],
+        "F_kmol_h": 5159.206205483471,
+        "mass_kg_h": 92945.95033422412,
+        "z": [
+          0.000009714260432400025,
+          0.9999902857395676,
+          4.05411175933612e-18
+        ],
+        "T_K": 293.15,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009714260432400025,
+              0.9999902857395676,
+              4.05411175933612e-18
+            ],
+            "h_J_mol": -44364.81304980596,
+            "F_kmol_h": 5159.206205483471,
+            "flow_kmol_h": {
+              "ethanol": 0.050117872704520755,
+              "water": 5159.156087610767,
+              "ethyl-acetate": 2.0915998546490424e-14
+            }
+          }
+        ],
+        "h_J_mol": -44364.81304980596,
+        "H_kW": -63579.78299768695,
+        "MW": 18.015552515702193,
+        "warnings": [
+          "Ethyl acetate: ideal-gas heat capacity at 293.15 K is 5 K below its range (298.15-1000 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S18": {
+        "id": "S18",
+        "name": null,
+        "spec": "PH",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.05011787109849123,
+          "water": 6129.33251486461,
+          "ethyl-acetate": 2.0915997931248287e-14
+        },
+        "flows": [
+          0.05011787109849123,
+          6129.33251486461,
+          2.0915997931248287e-14
+        ],
+        "F_kmol_h": 6129.382632735708,
+        "mass_kg_h": 110423.95032052774,
+        "z": [
+          0.000008176658907019854,
+          0.999991823341093,
+          3.4124151133167086e-18
+        ],
+        "T_K": 293.1499999989941,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000008176658907019854,
+              0.999991823341093,
+              3.4124151133167086e-18
+            ],
+            "h_J_mol": -44364.818875973935,
+            "F_kmol_h": 6129.382632735708,
+            "flow_kmol_h": {
+              "ethanol": 0.05011787109849123,
+              "water": 6129.33251486461,
+              "ethyl-acetate": 2.0915997931248287e-14
+            }
+          }
+        ],
+        "h_J_mol": -44364.818875973935,
+        "H_kW": -75535.81953412776,
+        "MW": 18.015509381120587,
+        "warnings": [
+          "Ethyl acetate: ideal-gas heat capacity at 293.15 K is 5 K below its range (298.15-1000 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S28": {
+        "id": "S28",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 155.8825484015461,
+          "water": 6333.468602470566,
+          "ethyl-acetate": 141.56732440758853
+        },
+        "flows": [
+          155.8825484015461,
+          6333.468602470566,
+          141.56732440758853
+        ],
+        "F_kmol_h": 6630.918475279701,
+        "mass_kg_h": 133753.2821778092,
+        "z": [
+          0.02350843989149946,
+          0.9551419801166251,
+          0.021349579991875412
+        ],
+        "T_K": 343.15,
+        "P_kPa": 100,
+        "VF": 0.012698182729676127,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 0.012698182729676127,
+            "composition": [
+              0.0760551888600676,
+              0.30270661985124653,
+              0.621238191288686
+            ],
+            "h_J_mol": 3994.107861494508,
+            "F_kmol_h": 84.20061446468706,
+            "flow_kmol_h": {
+              "ethanol": 6.403893635245514,
+              "water": 25.488083394003397,
+              "ethyl-acetate": 52.30863743543816
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.9873018172703238,
+            "composition": [
+              0.022832609857986415,
+              0.9635332777715382,
+              0.013634112370475425
+            ],
+            "h_J_mol": -40355.72183331433,
+            "F_kmol_h": 6546.717860815013,
+            "flow_kmol_h": {
+              "ethanol": 149.47865476630062,
+              "water": 6307.980519076563,
+              "ethyl-acetate": 89.25868697215039
+            }
+          }
+        ],
+        "h_J_mol": -39792.559591819634,
+        "H_kW": -73294.78293779591,
+        "MW": 20.171154671324363,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S21": {
+        "id": "S21",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 155.82196717973787,
+          "water": 97.2107084126745,
+          "ethyl-acetate": 141.5673244075885
+        },
+        "flows": [
+          155.82196717973787,
+          97.2107084126745,
+          141.5673244075885
+        ],
+        "F_kmol_h": 394.6000000000009,
+        "mass_kg_h": 21402.55918176392,
+        "z": [
+          0.39488587729279656,
+          0.24635253018924047,
+          0.35876159251796297
+        ],
+        "T_K": 343.7174659288914,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.39488587729279656,
+              0.24635253018924047,
+              0.35876159251796297
+            ],
+            "h_J_mol": -33890.32292718007,
+            "F_kmol_h": 394.6000000000009,
+            "flow_kmol_h": {
+              "ethanol": 155.82196717973787,
+              "water": 97.2107084126745,
+              "ethyl-acetate": 141.5673244075885
+            }
+          }
+        ],
+        "h_J_mol": -33890.32292718007,
+        "H_kW": -3714.755951962579,
+        "MW": 54.238619315164414,
+        "warnings": [],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S22": {
+        "id": "S22",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.060581221808254856,
+          "water": 6236.257894057893,
+          "ethyl-acetate": 2.528273206559654e-14
+        },
+        "flows": [
+          0.060581221808254856,
+          6236.257894057893,
+          2.528273206559654e-14
+        ],
+        "F_kmol_h": 6236.3184752797015,
+        "mass_kg_h": 112350.7229960453,
+        "z": [
+          0.000009714260432400025,
+          0.9999902857395676,
+          4.05411175933612e-18
+        ],
+        "T_K": 372.7547204684657,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009714260432400025,
+              0.9999902857395676,
+              4.05411175933612e-18
+            ],
+            "h_J_mol": -38357.880711048376,
+            "F_kmol_h": 6236.3184752797015,
+            "flow_kmol_h": {
+              "ethanol": 0.060581221808254856,
+              "water": 6236.257894057893,
+              "ethyl-acetate": 2.528273206559654e-14
+            }
+          }
+        ],
+        "h_J_mol": -38357.880711048376,
+        "H_kW": -66447.76670857941,
+        "MW": 18.015552515702193,
+        "warnings": [
+          "UNIQUAC parameters of Water + Ethyl acetate come from data at 273.35-343.55 K; 372.75 K is outside that range."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S23": {
+        "id": "S23",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.05011787270452076,
+          "water": 5159.156087610767,
+          "ethyl-acetate": 2.0915998546490424e-14
+        },
+        "flows": [
+          0.05011787270452076,
+          5159.156087610767,
+          2.0915998546490424e-14
+        ],
+        "F_kmol_h": 5159.206205483471,
+        "mass_kg_h": 92945.95033422412,
+        "T_K": 372.7547204684657,
+        "P_kPa": 100,
+        "z": [
+          0.000009714260432400025,
+          0.9999902857395676,
+          4.05411175933612e-18
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009714260432400025,
+              0.9999902857395676,
+              4.05411175933612e-18
+            ],
+            "h_J_mol": -38357.880711048376,
+            "F_kmol_h": 5159.206205483471,
+            "flow_kmol_h": {
+              "ethanol": 0.050117872704520755,
+              "water": 5159.156087610767,
+              "ethyl-acetate": 2.0915998546490424e-14
+            }
+          }
+        ],
+        "h_J_mol": -38357.880711048376,
+        "H_kW": -54971.171164898755,
+        "MW": 18.015552515702193,
+        "warnings": [
+          "UNIQUAC parameters of Water + Ethyl acetate come from data at 273.35-343.55 K; 372.75 K is outside that range."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      },
+      "S25": {
+        "id": "S25",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "ethanol",
+          "water",
+          "ethyl-acetate"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.010463349103734096,
+          "water": 1077.1018064471261,
+          "ethyl-acetate": 4.366733519106115e-15
+        },
+        "flows": [
+          0.010463349103734096,
+          1077.1018064471261,
+          4.366733519106115e-15
+        ],
+        "F_kmol_h": 1077.1122697962298,
+        "mass_kg_h": 19404.772661821167,
+        "T_K": 372.7547204684657,
+        "P_kPa": 100,
+        "z": [
+          0.000009714260432400025,
+          0.9999902857395676,
+          4.05411175933612e-18
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009714260432400025,
+              0.9999902857395676,
+              4.05411175933612e-18
+            ],
+            "h_J_mol": -38357.880711048376,
+            "F_kmol_h": 1077.1122697962298,
+            "flow_kmol_h": {
+              "ethanol": 0.010463349103734096,
+              "water": 1077.1018064471261,
+              "ethyl-acetate": 4.366733519106115e-15
+            }
+          }
+        ],
+        "h_J_mol": -38357.880711048376,
+        "H_kW": -11476.59554368065,
+        "MW": 18.015552515702193,
+        "warnings": [
+          "UNIQUAC parameters of Water + Ethyl acetate come from data at 273.35-343.55 K; 372.75 K is outside that range."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted to 21 T-x-y points at 101.3 kPa from Kamihama, Matsuda, Kurihara, Tochigi, Oba, J. Chem. Eng. Data 57 (2012) 339 (data public in the NIST TRC ThermoML Archive; validation/data/ethanol_water_101kPa.json). AAD 0.09 K in T, 0.0033 in y (max 0.26 K, 0.0084). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.003 (passes, < 0.01).",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-calvar2005",
+            "tier": "fitted",
+            "source": "Fitted to 24 T-x-y points at 101.3 kPa from Calvar, Dominguez, Tojo, Fluid Phase Equilib. 235 (2005) 215 (data public in the NIST TRC ThermoML Archive; validation/data/ethyl-acetate_ethanol_101kPa.json); checked against Zhang et al., Fluid Phase Equilib. 454 (2017) 91. AAD 0.08 K in T, 0.0031 in y (max 0.30 K, 0.0084). Check against ethyl-acetate_ethanol_101kPa_zhang2017.json: AAD 0.12 K in T, 0.0014 in y (max 0.26 K, 0.0031). Data consistency point test (Redlich-Kister fit to T-x): mean |dy| 0.005 (passes, < 0.01).",
+            "source_ids": [
+              "calvar2005-ethyl-acetate-ethanol",
+              "zhang2017-ethyl-acetate-ethanol"
+            ]
+          },
+          {
+            "pair": [
+              "Water",
+              "Ethyl acetate"
+            ],
+            "set": "fitted-grande2005-etal",
+            "tier": "fitted",
+            "source": "Fitted to mutual solubilities at 298-333 K (Grande, Marschoff, J. Chem. Eng. Data 50 (2005) 1324; Cehreli, Ozmen, Dramur, Fluid Phase Equilib. 239 (2006) 156), activity coefficients of ethyl acetate at infinite dilution in water at 273-343 K (Fenclova et al., Fluid Phase Equilib. 375 (2014) 347; Atik et al., J. Chem. Eng. Data 49 (2004) 1429), both data public in the NIST TRC ThermoML Archive, and the heterogeneous azeotrope at 101.325 kPa, 70.4 degC and 91.9 wt % ethyl acetate (handbook value, Wikipedia 'Azeotrope tables', from Lange's 10th ed. and CRC 44th ed.); files validation/data/water_ethyl-acetate_*.json. No open finite-concentration VLE data was found for this pair. liquid-liquid: AAD 0.0007 in x of water in the water-rich liquid, 0.0321 in the ethyl-acetate-rich liquid; gamma at infinite dilution: AARD 4.3 % (max 13.5 %); heterogeneous azeotrope at 101.325 kPa: 70.76 degC, vapour x of water 0.315, liquids 0.989 / 0.195 (target 70.40 degC, 0.301). Check against water_ethyl-acetate_lle_xu2017.json: liquid-liquid: AAD 0.0031 in x of water in the water-rich liquid. Temperature range of the data: 273.35-343.55 K; outside it the parameters are extrapolated.",
+            "source_ids": [
+              "grande2005-water-ethyl-acetate",
+              "cehreli2006-water-ethyl-acetate",
+              "fenclova2014-water-ethyl-acetate",
+              "atik2004-water-ethyl-acetate",
+              "wikipedia-azeotrope-tables",
+              "xu2017-water-ethyl-acetate"
+            ]
+          }
+        ]
+      }
+    },
+    "energy": {
+      "Q-EXTR8": {
+        "id": "Q-EXTR8",
+        "block": "EXTR8",
+        "kind": "heat",
+        "duty_kW": -2457.911895369005
+      },
+      "Q-HTXR10": {
+        "id": "Q-HTXR10",
+        "block": "HTXR10",
+        "kind": "heat",
+        "duty_kW": 2389.8088136096117
+      },
+      "Q-SCDS11": {
+        "id": "Q-SCDS11",
+        "block": "SCDS11",
+        "kind": "heat",
+        "duty_kW": -1614.7510083798652
+      },
+      "Q-HTXR12": {
+        "id": "Q-HTXR12",
+        "block": "HTXR12",
+        "kind": "heat",
+        "duty_kW": 0
+      },
+      "W-PUMP14": {
+        "id": "W-PUMP14",
+        "block": "PUMP14",
+        "kind": "work",
+        "duty_kW": 0
+      },
+      "Q-SCDS15": {
+        "id": "Q-SCDS15",
+        "block": "SCDS15",
+        "kind": "heat",
+        "duty_kW": 3132.2602799739507
+      },
+      "Q-HTXR17": {
+        "id": "Q-HTXR17",
+        "block": "HTXR17",
+        "kind": "heat",
+        "duty_kW": -8608.611832788192
+      },
+      "Q-HTXR18": {
+        "id": "Q-HTXR18",
+        "block": "HTXR18",
+        "kind": "heat",
+        "duty_kW": 1645.3720926867763
+      },
+      "Q-HTXR19": {
+        "id": "Q-HTXR19",
+        "block": "HTXR19",
+        "kind": "heat",
+        "duty_kW": 7202.966471617852
+      }
+    },
+    "blocks": {
+      "F17": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "F9": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "MIX13": {
+        "type": "mixer",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 1.8975697457790375e-8
+        },
+        "notes": []
+      },
+      "MIX7": {
+        "type": "mixer",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 9.91713022813201e-9
+        },
+        "notes": []
+      },
+      "PUMP14": {
+        "type": "pump",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 1.899024937301874e-8
+        },
+        "notes": [
+          "Efficiency 75 % (a typical value; give the pump's own). Volume flow 110.63 m³/h from the liquid densities."
+        ],
+        "state": {
+          "power_kW": 0,
+          "efficiency": 0.75,
+          "volume_m3_h": 110.62801781052572,
+          "dP_kPa": 0
+        }
+      },
+      "EXTR8": {
+        "type": "extraction",
+        "duty_kW": -2457.911895369005,
+        "balance": {
+          "material": 3.1207573518955802e-15,
+          "energy_kW": 1.4551915228366852e-11
+        },
+        "notes": [
+          "Countercurrent liquid-liquid extraction: 2 equilibrium stages at 300.1 K; the feed enters stage 1 and the solvent stage 2; the raffinate leaves stage 2 and the extract stage 1. MESH without a vapour (equal activities in the two liquids on every stage), solved by Newton's method from a sum-rates start.",
+          "Liquid method: UNIQUAC with the default sets. The vapour model does not enter.",
+          "Isothermal: every stage and both outlets at the block's temperature; the duty is the heat that keeps them there."
+        ],
+        "state": {
+          "stages": 2,
+          "T_K": 300.15,
+          "adiabatic": false,
+          "P_kPa": 100,
+          "solvent_to_feed": 3.5239814498911044,
+          "solvent_to_feed_mass": 0.9653368154161627,
+          "recoveries": {
+            "ethanol": 0.8027119255107776,
+            "water": 0.9644009467180403,
+            "ethyl-acetate": 0.12785309109400025
+          },
+          "model": "UNIQUAC",
+          "sets": null,
+          "iterations": 1,
+          "residuals": {
+            "material": 2.3945311097982125e-14,
+            "equilibrium": 1.8237494847639368e-13
+          }
+        },
+        "profile": [
+          {
+            "stage": 1,
+            "T_K": 300.15,
+            "raffinate_kmol_h": [
+              104.23501691832841,
+              316.4287723658707,
+              1087.5408916774147
+            ],
+            "extract_kmol_h": [
+              155.8825484015461,
+              6333.468602470566,
+              141.56732440758853
+            ],
+            "x_raffinate": [
+              0.06911198342911214,
+              0.2098049265860383,
+              0.7210830899848495
+            ],
+            "x_extract": [
+              0.02350843989149946,
+              0.9551419801166251,
+              0.021349579991875412
+            ],
+            "K": [
+              0.34014998159634596,
+              4.552524078718112,
+              0.029607655883767823
+            ]
+          },
+          {
+            "stage": 2,
+            "T_K": 300.15,
+            "raffinate_kmol_h": [
+              38.31233452905265,
+              233.78812205263304,
+              965.6982348076162
+            ],
+            "extract_kmol_h": [
+              65.972800260375,
+              6211.973165177684,
+              121.84265686979892
+            ],
+            "x_raffinate": [
+              0.030951991463208758,
+              0.18887410665318274,
+              0.7801739018836086
+            ],
+            "x_extract": [
+              0.010308590510382238,
+              0.9706528655531681,
+              0.01903854393644968
+            ],
+            "K": [
+              0.33305096128097594,
+              5.13915264910036,
+              0.024402948996991664
+            ]
+          }
+        ]
+      },
+      "SPLIT9": {
+        "type": "splitter",
+        "duty_kW": 0,
+        "balance": {
+          "material": 2.2961495781275675e-17,
+          "energy_kW": -1.8189894035458565e-12
+        },
+        "notes": []
+      },
+      "HTXR19": {
+        "type": "heater",
+        "duty_kW": 7202.966471617852,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "HTXR10": {
+        "type": "heater",
+        "duty_kW": 2389.8088136096117,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "SCDS15": {
+        "type": "column",
+        "duty_kW": 3132.2602799739507,
+        "balance": {
+          "material": 2.7431937375298964e-16,
+          "energy_kW": 0.0000027200294425711036
+        },
+        "notes": [
+          "Rigorous column: 18 stages (1 the total condenser, 18 the reboiler), feed on stage 9, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the bubble-point method (Wang-Henke), in 2 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters.",
+          "UNIQUAC parameters of Water + Ethyl acetate come from data at 273.35-343.55 K; the stages' 361.59-372.75 K are outside that range."
+        ],
+        "state": {
+          "mode": "rigorous",
+          "P_kPa": 100,
+          "condenser": "total",
+          "phases": "VL",
+          "stages": 18,
+          "feed_stages": [
+            9
+          ],
+          "specifications": {
+            "reflux_ratio": 2,
+            "distillate_kmol_h": 394.6
+          },
+          "reflux_ratio": 2,
+          "boilup_ratio": 0.218592024791229,
+          "D_kmol_h": 394.60000000000093,
+          "B_kmol_h": 6236.318475279701,
+          "condenser_kW": 12348.274739407892,
+          "reboiler_kW": 15480.535019381843,
+          "T_distillate_K": 343.71746592897426,
+          "T_bottoms_K": 372.7547204889283,
+          "converged": true,
+          "iterations": 2,
+          "residuals": {
+            "material": 5.684341886080801e-13,
+            "equilibrium": 1.0658141036401503e-14,
+            "summation": 3.774758283725532e-15,
+            "energy": 0.00010435283184051514,
+            "specifications": 0
+          },
+          "tolerances": {
+            "material": 1.841921798688806e-7,
+            "energy": 0.001841921798688806,
+            "equilibrium": 1e-10,
+            "summation": 1e-10,
+            "specifications": 1e-10,
+            "units": {
+              "material": "mol/s",
+              "energy": "W",
+              "equilibrium": "mole fraction",
+              "summation": "mole fraction",
+              "specifications": "relative"
+            }
+          },
+          "solver": {
+            "method": "Naphtali-Sandholm (Newton on all MESH equations)",
+            "start": "bubble-point method (Wang-Henke)",
+            "tried": [
+              "Newton from the bubble-point start, steps of at most 20 K (2 iterations, 349 ms)"
+            ]
+          }
+        },
+        "profile": [
+          {
+            "stage": 1,
+            "name": "condenser",
+            "T_K": 343.71746592897426,
+            "P_kPa": 100,
+            "L_kmol_h": 789.2000000000019,
+            "V_kmol_h": 0,
+            "duty_kW": -12348.274739407892,
+            "x": {
+              "ethanol": 0.39488587729279656,
+              "water": 0.24635253018924044,
+              "ethyl-acetate": 0.3587615925179629
+            },
+            "y": null
+          },
+          {
+            "stage": 2,
+            "name": "stage",
+            "T_K": 345.14426739918736,
+            "P_kPa": 100,
+            "L_kmol_h": 755.1729602364603,
+            "V_kmol_h": 1183.8000000000025,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.4728672838227166,
+              "water": 0.3431610639473959,
+              "ethyl-acetate": 0.18397165222988757
+            },
+            "y": {
+              "ethanol": 0.39488587729279656,
+              "water": 0.24635253018924047,
+              "ethyl-acetate": 0.35876159251796297
+            }
+          },
+          {
+            "stage": 3,
+            "name": "stage",
+            "T_K": 347.95599229285125,
+            "P_kPa": 100,
+            "L_kmol_h": 726.509629911938,
+            "V_kmol_h": 1149.7729602364611,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.4091250843567826,
+              "water": 0.5332137281598758,
+              "ethyl-acetate": 0.05766118748334183
+            },
+            "y": {
+              "ethanol": 0.4461042061709529,
+              "water": 0.3099365502894021,
+              "ethyl-acetate": 0.2439592435396449
+            }
+          },
+          {
+            "stage": 4,
+            "name": "stage",
+            "T_K": 353.1849309899724,
+            "P_kPa": 100,
+            "L_kmol_h": 701.8413345085223,
+            "V_kmol_h": 1121.1096299119383,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.1308638246223259,
+              "water": 0.8636792281133164,
+              "ethyl-acetate": 0.005456947264357747
+            },
+            "y": {
+              "ethanol": 0.40411327199023434,
+              "water": 0.43224641354667065,
+              "ethyl-acetate": 0.1636403144630951
+            }
+          },
+          {
+            "stage": 5,
+            "name": "stage",
+            "T_K": 361.58538193396834,
+            "P_kPa": 100,
+            "L_kmol_h": 703.2467654268436,
+            "V_kmol_h": 1096.4413345085238,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0319046960783578,
+              "water": 0.9668543325554737,
+              "ethyl-acetate": 0.0012409713661683543
+            },
+            "y": {
+              "ethanol": 0.22588313728848725,
+              "water": 0.6415085498161204,
+              "ethyl-acetate": 0.13260831289539235
+            }
+          },
+          {
+            "stage": 6,
+            "name": "stage",
+            "T_K": 363.8896339162318,
+            "P_kPa": 100,
+            "L_kmol_h": 704.9126774227356,
+            "V_kmol_h": 1097.846765426844,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.01959967888172207,
+              "water": 0.9794284643261552,
+              "ethyl-acetate": 0.0009718567921226727
+            },
+            "y": {
+              "ethanol": 0.16237133187659564,
+              "water": 0.7078837547233517,
+              "ethyl-acetate": 0.12974491340005256
+            }
+          },
+          {
+            "stage": 7,
+            "name": "stage",
+            "T_K": 364.17252892643006,
+            "P_kPa": 100,
+            "L_kmol_h": 705.1351685049515,
+            "V_kmol_h": 1099.5126774227363,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.018289232035372652,
+              "water": 0.9807658921083936,
+              "ethyl-acetate": 0.0009448758562336652
+            },
+            "y": {
+              "ethanol": 0.1542847415770692,
+              "water": 0.7163375791091865,
+              "ethyl-acetate": 0.1293776793137443
+            }
+          },
+          {
+            "stage": 8,
+            "name": "stage",
+            "T_K": 364.20288005370224,
+            "P_kPa": 100,
+            "L_kmol_h": 705.1592966905141,
+            "V_kmol_h": 1099.7351685049523,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.018151386836749325,
+              "water": 0.9809065890985853,
+              "ethyl-acetate": 0.0009420240646653456
+            },
+            "y": {
+              "ethanol": 0.15341725237558107,
+              "water": 0.7172483463275583,
+              "ethyl-acetate": 0.1293344012968606
+            }
+          },
+          {
+            "stage": 9,
+            "name": "feed",
+            "T_K": 364.2060777818115,
+            "P_kPa": 100,
+            "L_kmol_h": 7499.882230219855,
+            "V_kmol_h": 1099.759296690515,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.018136900209392293,
+              "water": 0.9809213759565077,
+              "ethyl-acetate": 0.0009417238340999964
+            },
+            "y": {
+              "ethanol": 0.15332590218871275,
+              "water": 0.7173443418705934,
+              "ethyl-acetate": 0.12932975594069387
+            }
+          },
+          {
+            "stage": 10,
+            "name": "stage",
+            "T_K": 369.7004126449035,
+            "P_kPa": 100,
+            "L_kmol_h": 7567.464265254981,
+            "V_kmol_h": 1263.5637549401551,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.009947295880119696,
+              "water": 0.990022667343476,
+              "ethyl-acetate": 0.000030036776404317247
+            },
+            "y": {
+              "ethanol": 0.10760362018798436,
+              "water": 0.8868067783205771,
+              "ethyl-acetate": 0.0055896014914384425
+            }
+          },
+          {
+            "stage": 11,
+            "name": "stage",
+            "T_K": 371.26638255198793,
+            "P_kPa": 100,
+            "L_kmol_h": 7583.909367761243,
+            "V_kmol_h": 1331.1457899752813,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.004798363256871529,
+              "water": 0.9952008186915128,
+              "ethyl-acetate": 8.180516158177806e-7
+            },
+            "y": {
+              "ethanol": 0.05650412257872397,
+              "water": 0.9433251205937409,
+              "ethyl-acetate": 0.0001707568275352622
+            }
+          },
+          {
+            "stage": 12,
+            "name": "stage",
+            "T_K": 372.05637767548427,
+            "P_kPa": 100,
+            "L_kmol_h": 7592.177878939998,
+            "V_kmol_h": 1347.590892481543,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0021936804731629554,
+              "water": 0.9978062987141445,
+              "ethyl-acetate": 2.0812692636883534e-8
+            },
+            "y": {
+              "ethanol": 0.02695905043184215,
+              "water": 0.9730363457753102,
+              "ethyl-acetate": 0.000004603792847740976
+            }
+          },
+          {
+            "stage": 13,
+            "name": "stage",
+            "T_K": 372.44122325594225,
+            "P_kPa": 100,
+            "L_kmol_h": 7596.254172373544,
+            "V_kmol_h": 1355.8594036602994,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0009757203673492625,
+              "water": 0.9990242791201872,
+              "ethyl-acetate": 5.124634765728142e-10
+            },
+            "y": {
+              "ethanol": 0.01223890256998927,
+              "water": 0.987760980888676,
+              "ethyl-acetate": 1.1654133473357608e-7
+            }
+          },
+          {
+            "stage": 14,
+            "name": "stage",
+            "T_K": 372.61839332471146,
+            "P_kPa": 100,
+            "L_kmol_h": 7598.142257709313,
+            "V_kmol_h": 1359.9356970938431,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0004269420700005426,
+              "water": 0.9995730579175703,
+              "ethyl-acetate": 1.2429287064292227e-11
+            },
+            "y": {
+              "ethanol": 0.0054055781500903935,
+              "water": 0.9945944189874193,
+              "ethyl-acetate": 2.8624903406399325e-9
+            }
+          },
+          {
+            "stage": 15,
+            "name": "stage",
+            "T_K": 372.6976464175975,
+            "P_kPa": 100,
+            "L_kmol_h": 7598.989173079435,
+            "V_kmol_h": 1361.8237824296134,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00018386019412046535,
+              "water": 0.99981613980558,
+              "ethyl-acetate": 2.994295777337694e-13
+            },
+            "y": {
+              "ethanol": 0.0023375897843238686,
+              "water": 0.9976624101463284,
+              "ethyl-acetate": 6.93477872924044e-11
+            }
+          },
+          {
+            "stage": 16,
+            "name": "stage",
+            "T_K": 372.7326370772031,
+            "P_kPa": 100,
+            "L_kmol_h": 7599.36354333854,
+            "V_kmol_h": 1362.670697799735,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00007700585276795328,
+              "water": 0.999922994147225,
+              "ethyl-acetate": 7.1918697718708e-15
+            },
+            "y": {
+              "ethanol": 0.000980846219729804,
+              "water": 0.9990191537786005,
+              "ethyl-acetate": 1.6697627976007058e-12
+            }
+          },
+          {
+            "stage": 17,
+            "name": "stage",
+            "T_K": 372.74799601315823,
+            "P_kPa": 100,
+            "L_kmol_h": 7599.52795803404,
+            "V_kmol_h": 1363.0450680588401,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.000030192792234866107,
+              "water": 0.9999698072077651,
+              "ethyl-acetate": 1.7243421727094603e-16
+            },
+            "y": {
+              "ethanol": 0.0003848840076046391,
+              "water": 0.9996151159923552,
+              "ethyl-acetate": 4.00781687274112e-14
+            }
+          },
+          {
+            "stage": 18,
+            "name": "reboiler",
+            "T_K": 372.7547204889283,
+            "P_kPa": 100,
+            "L_kmol_h": 6236.318475279701,
+            "V_kmol_h": 1363.20948275434,
+            "duty_kW": 15480.535019381843,
+            "x": {
+              "ethanol": 0.000009714260432400025,
+              "water": 0.9999902857395676,
+              "ethyl-acetate": 4.05411175933612e-18
+            },
+            "y": {
+              "ethanol": 0.0001238765934715514,
+              "water": 0.9998761234065277,
+              "ethyl-acetate": 9.427281274555694e-16
+            }
+          }
+        ]
+      },
+      "SCDS11": {
+        "type": "column",
+        "duty_kW": -1614.7510083798652,
+        "balance": {
+          "material": 1.3212081997376246e-15,
+          "energy_kW": 3.785771696129814e-9
+        },
+        "notes": [
+          "Rigorous column: 35 stages (1 the total condenser, 35 the reboiler), feed on stage 15, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the bubble-point method (Wang-Henke), in 1 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters.",
+          "Two liquids on stage 1 (looked for on every stage: the tangent-plane test of each stage's liquid, then the liquid-liquid split at its temperature); both liquids of a stage leave it together. They are named light and heavy by density."
+        ],
+        "state": {
+          "mode": "rigorous",
+          "P_kPa": 100,
+          "condenser": "total",
+          "phases": "VLL",
+          "stages": 35,
+          "feed_stages": [
+            15
+          ],
+          "specifications": {
+            "reflux_ratio": 3,
+            "bottoms_kmol_h": 141.5
+          },
+          "reflux_ratio": 3,
+          "boilup_ratio": 6.323744210093743,
+          "D_kmol_h": 245.7143465722271,
+          "B_kmol_h": 141.5,
+          "condenser_kW": 9700.802379521141,
+          "reboiler_kW": 8086.051371141276,
+          "T_distillate_K": 343.12416002447844,
+          "T_bottoms_K": 349.8198884370037,
+          "two_liquid_stages": [
+            1
+          ],
+          "converged": true,
+          "iterations": 1,
+          "residuals": {
+            "material": 2.6358293325756676e-10,
+            "equilibrium": 1.142058669856283e-12,
+            "summation": 2.000621890374532e-13,
+            "energy": 0.000018238089978694916,
+            "specifications": 1.3880366283968455e-16
+          },
+          "tolerances": {
+            "material": 1.075595407145074e-8,
+            "energy": 0.0001075595407145074,
+            "equilibrium": 1e-10,
+            "summation": 1e-10,
+            "specifications": 1e-10,
+            "units": {
+              "material": "mol/s",
+              "energy": "W",
+              "equilibrium": "mole fraction",
+              "summation": "mole fraction",
+              "specifications": "relative"
+            }
+          },
+          "solver": {
+            "method": "Naphtali-Sandholm (Newton on all MESH equations)",
+            "start": "bubble-point method (Wang-Henke)",
+            "tried": [
+              "Newton from the bubble-point start, steps of at most 20 K (1 iterations, 1825 ms)"
+            ]
+          }
+        },
+        "profile": [
+          {
+            "stage": 1,
+            "name": "condenser",
+            "T_K": 343.12416002447844,
+            "P_kPa": 100,
+            "L_kmol_h": 737.1430397166814,
+            "V_kmol_h": 0,
+            "duty_kW": -9700.802379521141,
+            "x": {
+              "ethanol": 0.048776345706836026,
+              "water": 0.29764140679746254,
+              "ethyl-acetate": 0.6535822474957014
+            },
+            "y": null,
+            "liquids": {
+              "light": {
+                "x": {
+                  "ethanol": 0.052564656652893435,
+                  "water": 0.21617828603402373,
+                  "ethyl-acetate": 0.7312570573130828
+                },
+                "L_kmol_h": 657.4150381743067,
+                "rho_kg_m3": 841.5705496576649
+              },
+              "heavy": {
+                "x": {
+                  "ethanol": 0.017538981957102455,
+                  "water": 0.9693637579218695,
+                  "ethyl-acetate": 0.013097260121028124
+                },
+                "L_kmol_h": 79.72800154237468,
+                "rho_kg_m3": 955.8432251122824
+              },
+              "named_by": "density"
+            }
+          },
+          {
+            "stage": 2,
+            "name": "stage",
+            "T_K": 343.3027488960458,
+            "P_kPa": 100,
+            "L_kmol_h": 755.3832207290426,
+            "V_kmol_h": 982.8573862893409,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.040596592845134234,
+              "water": 0.19891208119065612,
+              "ethyl-acetate": 0.7604913259642095
+            },
+            "y": {
+              "ethanol": 0.0487763457068252,
+              "water": 0.2976414067976121,
+              "ethyl-acetate": 0.6535822474955626
+            },
+            "liquids": null
+          },
+          {
+            "stage": 3,
+            "name": "stage",
+            "T_K": 344.6077677949282,
+            "P_kPa": 100,
+            "L_kmol_h": 771.5584531941023,
+            "V_kmol_h": 1001.0975673024452,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.029903649125958318,
+              "water": 0.11510464604094449,
+              "ethyl-acetate": 0.8549917048330972
+            },
+            "y": {
+              "ethanol": 0.042604271911772906,
+              "water": 0.22314469599450254,
+              "ethyl-acetate": 0.7342510320937246
+            },
+            "liquids": null
+          },
+          {
+            "stage": 4,
+            "name": "stage",
+            "T_K": 345.9685787512685,
+            "P_kPa": 100,
+            "L_kmol_h": 782.4363703048643,
+            "V_kmol_h": 1017.2727997661788,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.021286720320585917,
+              "water": 0.0692592100976432,
+              "ethyl-acetate": 0.9094540695817709
+            },
+            "y": {
+              "ethanol": 0.03446220245550655,
+              "water": 0.1591949833672006,
+              "ethyl-acetate": 0.8063428141772928
+            },
+            "liquids": null
+          },
+          {
+            "stage": 5,
+            "name": "stage",
+            "T_K": 346.79103340578456,
+            "P_kPa": 100,
+            "L_kmol_h": 788.1002072666731,
+            "V_kmol_h": 1028.1507168764927,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.016088438873361015,
+              "water": 0.04953090502510423,
+              "ethyl-acetate": 0.9343806561015348
+            },
+            "y": {
+              "ethanol": 0.02785637516630524,
+              "water": 0.12383951754602043,
+              "ethyl-acetate": 0.8483041072876744
+            },
+            "liquids": null
+          },
+          {
+            "stage": 6,
+            "name": "stage",
+            "T_K": 347.17061910875816,
+            "P_kPa": 100,
+            "L_kmol_h": 790.5986505433284,
+            "V_kmol_h": 1033.8145538386577,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.013377982734903461,
+              "water": 0.04186775500616452,
+              "ethyl-acetate": 0.944754262258932
+            },
+            "y": {
+              "ethanol": 0.023857615306934015,
+              "water": 0.10850116191903715,
+              "ethyl-acetate": 0.8676412227740289
+            },
+            "liquids": null
+          },
+          {
+            "stage": 7,
+            "name": "stage",
+            "T_K": 347.32773828288117,
+            "P_kPa": 100,
+            "L_kmol_h": 791.621863828485,
+            "V_kmol_h": 1036.3129971155165,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.012061034403414474,
+              "water": 0.03899012086331543,
+              "ethyl-acetate": 0.94894884473327
+            },
+            "y": {
+              "ethanol": 0.021771089500499035,
+              "water": 0.10251280712382892,
+              "ethyl-acetate": 0.8757161033756721
+            },
+            "liquids": null
+          },
+          {
+            "stage": 8,
+            "name": "stage",
+            "T_K": 347.3905966433744,
+            "P_kPa": 100,
+            "L_kmol_h": 792.0317968406443,
+            "V_kmol_h": 1037.3362104007158,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.011443753721386653,
+              "water": 0.03791414342093827,
+              "ethyl-acetate": 0.950642102857675
+            },
+            "y": {
+              "ethanol": 0.02075780854053889,
+              "water": 0.10025698022498533,
+              "ethyl-acetate": 0.8789852112344758
+            },
+            "liquids": null
+          },
+          {
+            "stage": 9,
+            "name": "stage",
+            "T_K": 347.41566029700425,
+            "P_kPa": 100,
+            "L_kmol_h": 792.1961789664198,
+            "V_kmol_h": 1037.7461434128754,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.011160150900980536,
+              "water": 0.03750854164868606,
+              "ethyl-acetate": 0.9513313074503335
+            },
+            "y": {
+              "ethanol": 0.020283250262790355,
+              "water": 0.09941156763461002,
+              "ethyl-acetate": 0.8803051821025997
+            },
+            "liquids": null
+          },
+          {
+            "stage": 10,
+            "name": "stage",
+            "T_K": 347.4257368465956,
+            "P_kPa": 100,
+            "L_kmol_h": 792.2627261088415,
+            "V_kmol_h": 1037.910525538647,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.011031431471295004,
+              "water": 0.03735357700873847,
+              "ethyl-acetate": 0.9516149915199664
+            },
+            "y": {
+              "ethanol": 0.020065387431324112,
+              "water": 0.0990922479598098,
+              "ethyl-acetate": 0.880842364608866
+            },
+            "liquids": null
+          },
+          {
+            "stage": 11,
+            "name": "stage",
+            "T_K": 347.42983692276204,
+            "P_kPa": 100,
+            "L_kmol_h": 792.2899920562162,
+            "V_kmol_h": 1037.9770726810666,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.010973475543043688,
+              "water": 0.03729343822791108,
+              "ethyl-acetate": 0.9517330862290453
+            },
+            "y": {
+              "ethanol": 0.01996656807682246,
+              "water": 0.09897001893268445,
+              "ethyl-acetate": 0.8810634129904931
+            },
+            "liquids": null
+          },
+          {
+            "stage": 12,
+            "name": "stage",
+            "T_K": 347.43152620826817,
+            "P_kPa": 100,
+            "L_kmol_h": 792.3012980921152,
+            "V_kmol_h": 1038.004338628441,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.010947525604024915,
+              "water": 0.03726971730360993,
+              "ethyl-acetate": 0.9517827570923652
+            },
+            "y": {
+              "ethanol": 0.019922096656828737,
+              "water": 0.09892249756595019,
+              "ethyl-acetate": 0.881155405777221
+            },
+            "liquids": null
+          },
+          {
+            "stage": 13,
+            "name": "stage",
+            "T_K": 347.4322303813783,
+            "P_kPa": 100,
+            "L_kmol_h": 792.3060376318988,
+            "V_kmol_h": 1038.01564466434,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.010935952861221104,
+              "water": 0.037260210908392814,
+              "ethyl-acetate": 0.9518038362303861
+            },
+            "y": {
+              "ethanol": 0.019902192001337488,
+              "water": 0.09890372048915616,
+              "ethyl-acetate": 0.8811940875095062
+            },
+            "liquids": null
+          },
+          {
+            "stage": 14,
+            "name": "stage",
+            "T_K": 347.4325269518842,
+            "P_kPa": 100,
+            "L_kmol_h": 792.3080433913813,
+            "V_kmol_h": 1038.020384204124,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.010930807033070086,
+              "water": 0.03725634380190972,
+              "ethyl-acetate": 0.9518128491650202
+            },
+            "y": {
+              "ethanol": 0.01989331780663648,
+              "water": 0.09889618297712281,
+              "ethyl-acetate": 0.8812104992162408
+            },
+            "liquids": null
+          },
+          {
+            "stage": 15,
+            "name": "feed",
+            "T_K": 347.4326529588321,
+            "P_kPa": 100,
+            "L_kmol_h": 1018.212038186507,
+            "V_kmol_h": 1038.0223899636064,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.010928523978810825,
+              "water": 0.037254749228046544,
+              "ethyl-acetate": 0.9518167267931427
+            },
+            "y": {
+              "ethanol": 0.019889372759407047,
+              "water": 0.09889311217004058,
+              "ethyl-acetate": 0.8812175150705525
+            },
+            "liquids": null
+          },
+          {
+            "stage": 16,
+            "name": "stage",
+            "T_K": 348.71050520736446,
+            "P_kPa": 100,
+            "L_kmol_h": 1028.0057048882109,
+            "V_kmol_h": 876.7120381865091,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.006386520038565331,
+              "water": 0.014662728642851414,
+              "ethyl-acetate": 0.9789507513185832
+            },
+            "y": {
+              "ethanol": 0.012692363004223522,
+              "water": 0.043267609526650944,
+              "ethyl-acetate": 0.9440400274691255
+            },
+            "liquids": null
+          },
+          {
+            "stage": 17,
+            "name": "stage",
+            "T_K": 349.3452537311567,
+            "P_kPa": 100,
+            "L_kmol_h": 1032.7459903774984,
+            "V_kmol_h": 886.5057048882126,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0035748706898653167,
+              "water": 0.0054899247318317985,
+              "ethyl-acetate": 0.9909352045783028
+            },
+            "y": {
+              "ethanol": 0.007405899095546927,
+              "water": 0.01700312654832997,
+              "ethyl-acetate": 0.9755909743561231
+            },
+            "liquids": null
+          },
+          {
+            "stage": 18,
+            "name": "stage",
+            "T_K": 349.6202540450558,
+            "P_kPa": 100,
+            "L_kmol_h": 1034.795867517898,
+            "V_kmol_h": 891.2459903775001,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0019641937422437477,
+              "water": 0.002012612346306857,
+              "ethyl-acetate": 0.9960231939114494
+            },
+            "y": {
+              "ethanol": 0.004142432252080537,
+              "water": 0.006361540817506269,
+              "ethyl-acetate": 0.9894960269304133
+            },
+            "liquids": null
+          },
+          {
+            "stage": 19,
+            "name": "stage",
+            "T_K": 349.7345190410242,
+            "P_kPa": 100,
+            "L_kmol_h": 1035.6537413627184,
+            "V_kmol_h": 893.2958675178996,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.001070791716988456,
+              "water": 0.0007314170275842607,
+              "ethyl-acetate": 0.9981977912554273
+            },
+            "y": {
+              "ethanol": 0.0022753181844741783,
+              "water": 0.0023314144916088716,
+              "ethyl-acetate": 0.995393267323917
+            },
+            "liquids": null
+          },
+          {
+            "stage": 20,
+            "name": "stage",
+            "T_K": 349.7821981856971,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.0158997699887,
+            "V_kmol_h": 894.15374136272,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0005817953650039883,
+              "water": 0.00026483872218511405,
+              "ethyl-acetate": 0.9991533659128108
+            },
+            "y": {
+              "ethanol": 0.001240236617731954,
+              "water": 0.0008471639026095269,
+              "ethyl-acetate": 0.9979125994796586
+            },
+            "liquids": null
+          },
+          {
+            "stage": 21,
+            "name": "stage",
+            "T_K": 349.8026160131677,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.1731807258632,
+            "V_kmol_h": 894.5158997699903,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0003156402092682161,
+              "water": 0.00009574400403129807,
+              "ethyl-acetate": 0.9995886157867006
+            },
+            "y": {
+              "ethanol": 0.0006738192274864757,
+              "water": 0.0003067325232349808,
+              "ethyl-acetate": 0.9990194482492786
+            },
+            "liquids": null
+          },
+          {
+            "stage": 22,
+            "name": "stage",
+            "T_K": 349.81167728906365,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.244023242288,
+            "V_kmol_h": 894.673180725865,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00017112638663090385,
+              "water": 0.00003458867313009113,
+              "ethyl-acetate": 0.999794284940239
+            },
+            "y": {
+              "ethanol": 0.00036555324407718464,
+              "water": 0.00011088670509130992,
+              "ethyl-acetate": 0.9995235600508315
+            },
+            "liquids": null
+          },
+          {
+            "stage": 23,
+            "name": "stage",
+            "T_K": 349.81585618853956,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.277161827663,
+            "V_kmol_h": 894.7440232422897,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00009274585765464776,
+              "water": 0.000012491446816513492,
+              "ethyl-acetate": 0.9998947626955288
+            },
+            "y": {
+              "ethanol": 0.00019818121692898353,
+              "water": 0.00004005871715663359,
+              "ethyl-acetate": 0.9997617600659144
+            },
+            "liquids": null
+          },
+          {
+            "stage": 24,
+            "name": "stage",
+            "T_K": 349.8178551076109,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.2932129702,
+            "V_kmol_h": 894.7771618276643,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00005025611831663024,
+              "water": 0.0000045104738718739746,
+              "ethyl-acetate": 0.9999452334078115
+            },
+            "y": {
+              "ethanol": 0.00010740459439767093,
+              "water": 0.000014466834378528958,
+              "ethyl-acetate": 0.9998781285712238
+            },
+            "liquids": null
+          },
+          {
+            "stage": 25,
+            "name": "stage",
+            "T_K": 349.81884208839875,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3012203531398,
+            "V_kmol_h": 894.7932129702016,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.00002722835400215306,
+              "water": 0.0000016285333961265973,
+              "ethyl-acetate": 0.9999711431126017
+            },
+            "y": {
+              "ethanol": 0.00005819538812735051,
+              "water": 0.000005223738115871587,
+              "ethyl-acetate": 0.9999365808737567
+            },
+            "liquids": null
+          },
+          {
+            "stage": 26,
+            "name": "stage",
+            "T_K": 349.81934210670033,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3053095710393,
+            "V_kmol_h": 894.8012203531414,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.000014749766119252096,
+              "water": 5.879660954507714e-7,
+              "ethyl-acetate": 0.9999846622677853
+            },
+            "y": {
+              "ethanol": 0.00003152604158303895,
+              "water": 0.0000018860536386383297,
+              "ethyl-acetate": 0.9999665879047783
+            },
+            "liquids": null
+          },
+          {
+            "stage": 27,
+            "name": "stage",
+            "T_K": 349.81960046773673,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3074350733682,
+            "V_kmol_h": 894.8053095710411,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.000007988134963999194,
+              "water": 2.1227317644886268e-7,
+              "ethyl-acetate": 0.9999917995918596
+            },
+            "y": {
+              "ethanol": 0.00001707413308980552,
+              "water": 6.80935094773526e-7,
+              "ethyl-acetate": 0.9999822449318154
+            },
+            "liquids": null
+          },
+          {
+            "stage": 28,
+            "name": "stage",
+            "T_K": 349.8197359154823,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3085541534542,
+            "V_kmol_h": 894.8074350733699,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.000004324407705122208,
+              "water": 7.663426690975581e-8,
+              "ethyl-acetate": 0.999995598958028
+            },
+            "y": {
+              "ethanol": 0.000009243248694790223,
+              "water": 2.458319121094304e-7,
+              "ethyl-acetate": 0.9999905109193931
+            },
+            "liquids": null
+          },
+          {
+            "stage": 29,
+            "name": "stage",
+            "T_K": 349.81980766481644,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.309148733711,
+            "V_kmol_h": 894.808554153456,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.0000023392856173892608,
+              "water": 2.766433440025256e-8,
+              "ethyl-acetate": 0.9999976330500482
+            },
+            "y": {
+              "ethanol": 0.000005000158610985479,
+              "water": 8.874378511972164e-8,
+              "ethyl-acetate": 0.9999949110976039
+            },
+            "liquids": null
+          },
+          {
+            "stage": 30,
+            "name": "stage",
+            "T_K": 349.8198459481197,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3094666419702,
+            "V_kmol_h": 894.8091487337128,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 0.000001263694314579704,
+              "water": 9.984772189292299e-9,
+              "ethyl-acetate": 0.9999987263209132
+            },
+            "y": {
+              "ethanol": 0.0000027011202232237895,
+              "water": 3.203001957053507e-8,
+              "ethyl-acetate": 0.9999972668497572
+            },
+            "liquids": null
+          },
+          {
+            "stage": 31,
+            "name": "stage",
+            "T_K": 349.8198664770251,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3096373573323,
+            "V_kmol_h": 894.8094666419718,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 6.809135766159818e-7,
+              "water": 3.6019640300280962e-9,
+              "ethyl-acetate": 0.9999993154844594
+            },
+            "y": {
+              "ethanol": 0.0000014554409966141863,
+              "water": 1.155471197019438e-8,
+              "ethyl-acetate": 0.9999985330042914
+            },
+            "liquids": null
+          },
+          {
+            "stage": 32,
+            "name": "stage",
+            "T_K": 349.8198775228121,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3097293004814,
+            "V_kmol_h": 894.8096373573339,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 3.651500674723122e-7,
+              "water": 1.2975996383123613e-9,
+              "ethyl-acetate": 0.999999633552333
+            },
+            "y": {
+              "ethanol": 7.805026603041701e-7,
+              "water": 4.162563293302258e-9,
+              "ethyl-acetate": 0.9999992153347764
+            },
+            "liquids": null
+          },
+          {
+            "stage": 33,
+            "name": "stage",
+            "T_K": 349.81988347977205,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.309778917159,
+            "V_kmol_h": 894.8097293004831,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 1.9406265122194798e-7,
+              "water": 4.656634348569906e-10,
+              "ethyl-acetate": 0.9999998054716854
+            },
+            "y": {
+              "ethanol": 4.1480613832290904e-7,
+              "water": 1.493800077686901e-9,
+              "ethyl-acetate": 0.9999995837000616
+            },
+            "liquids": null
+          },
+          {
+            "stage": 34,
+            "name": "stage",
+            "T_K": 349.8198866973097,
+            "P_kPa": 100,
+            "L_kmol_h": 1036.3098057282634,
+            "V_kmol_h": 894.8097789171605,
+            "duty_kW": 0,
+            "x": {
+              "ethanol": 1.0136390518617618e-7,
+              "water": 1.6531275148846666e-10,
+              "ethyl-acetate": 0.9999998984707821
+            },
+            "y": {
+              "ethanol": 2.1666395307740558e-7,
+              "water": 5.30306323903667e-10,
+              "ethyl-acetate": 0.9999997828057406
+            },
+            "liquids": null
+          },
+          {
+            "stage": 35,
+            "name": "reboiler",
+            "T_K": 349.8198884370037,
+            "P_kPa": 100,
+            "L_kmol_h": 141.5,
+            "V_kmol_h": 894.8098057282647,
+            "duty_kW": 8086.051371141276,
+            "x": {
+              "ethanol": 5.1137803755359926e-8,
+              "water": 5.6878351772725e-11,
+              "ethyl-acetate": 0.999999948805318
+            },
+            "y": {
+              "ethanol": 1.093063677150442e-7,
+              "water": 1.8245993456754522e-10,
+              "ethyl-acetate": 0.9999998905111723
+            },
+            "liquids": null
+          }
+        ]
+      },
+      "SPLIT16": {
+        "type": "splitter",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "HTXR12": {
+        "type": "heater",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "HTXR17": {
+        "type": "heater",
+        "duty_kW": -8608.611832788192,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P25": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P21": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "HTXR18": {
+        "type": "heater",
+        "duty_kW": 1645.3720926867763,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P27": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P16": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      }
+    },
+    "order": [
+      "F17",
+      "F9",
+      [
+        "PUMP14",
+        "MIX13",
+        "HTXR17",
+        "SPLIT16",
+        "SCDS15",
+        "HTXR19",
+        "HTXR12",
+        "SCDS11",
+        "HTXR10",
+        "SPLIT9",
+        "EXTR8",
+        "MIX7"
+      ],
+      "P25",
+      "P21",
+      "HTXR18",
+      "P27",
+      "P16"
+    ],
+    "loops": [
+      {
+        "blocks": [
+          "MIX13",
+          "MIX7",
+          "PUMP14",
+          "EXTR8",
+          "SPLIT9",
+          "HTXR19",
+          "HTXR10",
+          "SCDS15",
+          "SCDS11",
+          "SPLIT16",
+          "HTXR12",
+          "HTXR17"
+        ],
+        "tears": [
+          "S15",
+          "S24"
+        ],
+        "iterations": 8,
+        "residual": 9.240705230752928e-9,
+        "tolerance": 1e-8
+      }
+    ],
+    "balance": {
+      "material_kmol_h": {
+        "ethanol": 6.906503813297604e-9,
+        "water": 2.857671006495366e-7,
+        "ethyl-acetate": -0.000002270591153319401
+      },
+      "energy_kW": 0.000015971585526131094
+    }
+  },
+  "checks": {
+    "material_kmol_h": 0.000002270591153319401,
+    "energy_kW": 0.000015971585526131094,
+    "blocks": {
+      "F17": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "F9": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "MIX13": {
+        "material": 0,
+        "energy_kW": 1.8975697457790375e-8
+      },
+      "MIX7": {
+        "material": 0,
+        "energy_kW": 9.91713022813201e-9
+      },
+      "PUMP14": {
+        "material": 0,
+        "energy_kW": 1.899024937301874e-8
+      },
+      "EXTR8": {
+        "material": 3.1207573518955802e-15,
+        "energy_kW": 1.4551915228366852e-11
+      },
+      "SPLIT9": {
+        "material": 2.2961495781275675e-17,
+        "energy_kW": -1.8189894035458565e-12
+      },
+      "HTXR19": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "HTXR10": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "SCDS15": {
+        "material": 2.7431937375298964e-16,
+        "energy_kW": 0.0000027200294425711036
+      },
+      "SCDS11": {
+        "material": 1.3212081997376246e-15,
+        "energy_kW": 3.785771696129814e-9
+      },
+      "SPLIT16": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "HTXR12": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "HTXR17": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P25": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P21": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "HTXR18": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P27": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P16": {
+        "material": 0,
+        "energy_kW": 0
+      }
+    },
+    "loops": [
+      {
+        "tears": [
+          "S15",
+          "S24"
+        ],
+        "iterations": 8,
+        "residual": 9.240705230752928e-9,
+        "tolerance": 1e-8
+      }
+    ],
+    "columns": {
+      "EXTR8": {
+        "residuals": {
+          "material": 2.3945311097982125e-14,
+          "equilibrium": 1.8237494847639368e-13
+        },
+        "iterations": 1
+      },
+      "SCDS15": {
+        "residuals": {
+          "material": 5.684341886080801e-13,
+          "equilibrium": 1.0658141036401503e-14,
+          "summation": 3.774758283725532e-15,
+          "energy": 0.00010435283184051514,
+          "specifications": 0
+        },
+        "tolerances": {
+          "material": 1.841921798688806e-7,
+          "energy": 0.001841921798688806,
+          "equilibrium": 1e-10,
+          "summation": 1e-10,
+          "specifications": 1e-10,
+          "units": {
+            "material": "mol/s",
+            "energy": "W",
+            "equilibrium": "mole fraction",
+            "summation": "mole fraction",
+            "specifications": "relative"
+          }
+        },
+        "iterations": 2,
+        "converged": true
+      },
+      "SCDS11": {
+        "residuals": {
+          "material": 2.6358293325756676e-10,
+          "equilibrium": 1.142058669856283e-12,
+          "summation": 2.000621890374532e-13,
+          "energy": 0.000018238089978694916,
+          "specifications": 1.3880366283968455e-16
+        },
+        "tolerances": {
+          "material": 1.075595407145074e-8,
+          "energy": 0.0001075595407145074,
+          "equilibrium": 1e-10,
+          "summation": 1e-10,
+          "specifications": 1e-10,
+          "units": {
+            "material": "mol/s",
+            "energy": "W",
+            "equilibrium": "mole fraction",
+            "summation": "mole fraction",
+            "specifications": "relative"
+          }
+        },
+        "iterations": 1,
+        "converged": true
+      }
+    }
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Ethanol",
+          "Water"
+        ],
+        "set": "fitted-kamihama2012",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Ethyl acetate"
+        ],
+        "set": "fitted-calvar2005",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Water",
+          "Ethyl acetate"
+        ],
+        "set": "fitted-grande2005-etal",
+        "tier": "fitted"
+      }
+    ],
+    "missing_pairs": [],
+    "notes": [
+      {
+        "block": "PUMP14",
+        "note": "Efficiency 75 % (a typical value; give the pump's own). Volume flow 110.63 m³/h from the liquid densities."
+      },
+      {
+        "block": "EXTR8",
+        "note": "Countercurrent liquid-liquid extraction: 2 equilibrium stages at 300.1 K; the feed enters stage 1 and the solvent stage 2; the raffinate leaves stage 2 and the extract stage 1. MESH without a vapour (equal activities in the two liquids on every stage), solved by Newton's method from a sum-rates start."
+      },
+      {
+        "block": "EXTR8",
+        "note": "Liquid method: UNIQUAC with the default sets. The vapour model does not enter."
+      },
+      {
+        "block": "EXTR8",
+        "note": "Isothermal: every stage and both outlets at the block's temperature; the duty is the heat that keeps them there."
+      },
+      {
+        "block": "SCDS15",
+        "note": "Rigorous column: 18 stages (1 the total condenser, 18 the reboiler), feed on stage 9, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the bubble-point method (Wang-Henke), in 2 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters."
+      },
+      {
+        "block": "SCDS15",
+        "note": "UNIQUAC parameters of Water + Ethyl acetate come from data at 273.35-343.55 K; the stages' 361.59-372.75 K are outside that range."
+      },
+      {
+        "block": "SCDS11",
+        "note": "Rigorous column: 35 stages (1 the total condenser, 35 the reboiler), feed on stage 15, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the bubble-point method (Wang-Henke), in 1 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters."
+      },
+      {
+        "block": "SCDS11",
+        "note": "Two liquids on stage 1 (looked for on every stage: the tangent-plane test of each stage's liquid, then the liquid-liquid split at its temperature); both liquids of a stage leave it together. They are named light and heavy by density."
+      }
+    ],
+    "warnings": []
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "5f4a6108da6d3966",
+    "method": {
+      "model": "UNIQUAC",
+      "vapour": "ideal"
+    },
+    "parameter_sets": [
+      {
+        "pair": [
+          "Ethanol",
+          "Water"
+        ],
+        "set": "fitted-kamihama2012",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Ethyl acetate"
+        ],
+        "set": "fitted-calvar2005",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Water",
+          "Ethyl acetate"
+        ],
+        "set": "fitted-grande2005-etal",
+        "tier": "fitted"
+      }
+    ],
+    "databank_hash": "08bae4b3bf609612",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwfen8ng-1",
+    "input_hash": "5f4a6108da6d3966",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "done",
+    "elapsed_ms": 18584.205445
+  }
+}

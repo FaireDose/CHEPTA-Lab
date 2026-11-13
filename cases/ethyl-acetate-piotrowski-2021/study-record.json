@@ -1,12 +1,12 @@
 {
   "study_record": 1,
-  "id": "ethyl-acetate-piotrowski-2021-s2-chepta-0.6.1",
+  "id": "ethyl-acetate-piotrowski-2021-s2-chepta-0.6.1-0.6.2",
   "case_id": "ethyl-acetate-piotrowski-2021",
-  "title": "Classic ethyl acetate plant S2 of Piotrowski & Kubica 2021 on chepta@0.6.1, stream by stream",
-  "question": "Build every unit and stream of the paper's classic plant S2 in the released chepta 0.6.1 through its command line, compare CHEPTA's streams and duties with the paper's Appendix Table A2 and Table 1, and record what CHEPTA refuses.",
+  "title": "Classic ethyl acetate plant S2 of Piotrowski & Kubica 2021 on chepta@0.6.1 and 0.6.2, stream by stream; closing the plant on 0.6.2",
+  "question": "Build every unit and stream of the paper's classic plant S2 in the released chepta 0.6.1 through its command line, compare CHEPTA's streams and duties with the paper's Appendix Table A2 and Table 1, and record what CHEPTA refuses; then on chepta 0.6.2 re-run every refusal and try to close the whole plant (all recycles) as one CHEPTA flowsheet.",
   "status": "draft",
-  "written_on": "2026-11-12",
-  "written_by": "CHEPTA-Lab worker session (Claude); runs executed by this session on chepta@0.6.1",
+  "written_on": "2026-11-13",
+  "written_by": "CHEPTA-Lab worker sessions (Claude); runs on chepta@0.6.1 (2026-11-12) and chepta@0.6.2 (2026-11-13), each executed by the session that wrote that part",
   "supersedes": null,
   "sources": {
     "source_ids": [
@@ -67,8 +67,44 @@
     {
       "id": "case-readme",
       "path": "cases/ethyl-acetate-piotrowski-2021/README.md",
-      "sha256": "224045326b6403b1512aa71fcee38780fec720f489e4fd59cc054258bb7489e8",
+      "sha256": "c695ef547ded2e5aa8e901dd94e11fdf71025e2e4281d3dc13fe7a768516272d",
       "role": "other"
+    },
+    {
+      "id": "model-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/s2_model_062.py",
+      "sha256": "7829586ef3058edb0ffb9332c352ae44cc1d764d6c34cc6e03fe4895df64d952",
+      "role": "case_input"
+    },
+    {
+      "id": "runner-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/run_s2_chepta_0.6.2.py",
+      "sha256": "1bc7b8953bdeb7b8d21265ce24d880038b6ae791d7a5b7ce7d1c3381e2918bb2",
+      "role": "runner"
+    },
+    {
+      "id": "verifier-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/compare_s2_062.py",
+      "sha256": "be374d05cfede6a3aa472711f60ded9a73dc132e60c697fb9b59329d0c8e81c6",
+      "role": "verifier"
+    },
+    {
+      "id": "run-manifest-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/run-manifest.json",
+      "sha256": "ba5d820a915da23bfc85d1fe9435edfe068913ca849adb7d02b826d9668d5492",
+      "role": "execution_manifest"
+    },
+    {
+      "id": "comparison-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/comparison-s2.json",
+      "sha256": "0175626f8a269b8e593c31f198ede3899590fce79ff210aa08ef2229b9bbaa4c",
+      "role": "lab_check"
+    },
+    {
+      "id": "engine-lock-062",
+      "path": "cases/ethyl-acetate-piotrowski-2021/chepta-0.6.2.npm-lock.json",
+      "sha256": "0d6350341a0d3bf666fd2ec730a38ff61a41bc4f7ebfd42fd8bd649f6cbb9fd5",
+      "role": "engine_lock"
     },
     {
       "id": "request.info-ethanol",
@@ -1077,6 +1113,834 @@
       "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.1/u-htxr17.stderr.txt",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "role": "other"
+    },
+    {
+      "id": "request.v062.info-ethanol",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethanol.request.json",
+      "sha256": "df028e0eebc1628fbf7d1a4bea4381cc14b305af2175c9bf95dc12bf88a9be14",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.info-ethanol",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethanol.output.json",
+      "sha256": "22c24b50781406fe3f16ff1dd4bf31b21dfb6d5aad06255f98e2103227381036",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.info-ethanol",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethanol.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.info-water",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-water.request.json",
+      "sha256": "4bb2694a02756d5b716ebefe4f42978d3bfff1a329e9d9a9a6e7c1f330bb5d8c",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.info-water",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-water.output.json",
+      "sha256": "a7474447484361dc65cc199bdc13bba0ced59618c196e391a1a1355ab43f1be8",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.info-water",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-water.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.info-ethyl-acetate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethyl-acetate.request.json",
+      "sha256": "3a2359e63e0a6a28b954362eb638a3abbe6f21ad04cd02f76189ab56775a975e",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.info-ethyl-acetate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethyl-acetate.output.json",
+      "sha256": "db8106918d5bbbeba36d9c77d7f3be9d35aa441a3d087eafc5bd76ce9a39a683",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.info-ethyl-acetate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-ethyl-acetate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.info-acetic-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-acetic-acid.request.json",
+      "sha256": "570eba878342cd516439317f4caa49b9744272bd5aa42734098ac6907a992b7f",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.info-acetic-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-acetic-acid.output.json",
+      "sha256": "2325dddc0eb50516c23b75ea32c1e9707e8453c75b786bfd90ab56fbf3830a25",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.info-acetic-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/info-acetic-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-htxr2-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr2-15C.request.json",
+      "sha256": "942e42f608aa730993ca7aee22659c02a2983b62de7de50ba2b1ef03318d08cc",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-htxr2-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr2-15C.output.json",
+      "sha256": "233d8c5f6b91aed0736b2dc8acf9983c57e1f5fb2cfeca1029165749ef57d6f3",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-htxr2-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr2-15C.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-htxr10-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr10-acid.request.json",
+      "sha256": "8c7d2c2443e326ef339aaaebde030cf1e171cc2e479bdc0aa2d114e06044b925",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-htxr10-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr10-acid.output.json",
+      "sha256": "996bfdaae0fed13be6bd8ac370e789ca58daf0296c8be21579f5fe7427b5fda6",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-htxr10-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr10-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-extr8-1stage-27c-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-27C-acid.request.json",
+      "sha256": "084afb195da396db5e271adc42a796251035ab305fc618fbfb9b65290bc62729",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-extr8-1stage-27c-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-27C-acid.output.json",
+      "sha256": "6d42e5274e2bec37bd9bcebfad6497789c6cd12b8fd83c3eb1bc1ac71a151c68",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-extr8-1stage-27c-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-27C-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-extr8-1stage-70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-70C.request.json",
+      "sha256": "348435908c5f3271e8b01e202a2dd72be3efa9485736c811b38281b7df8b9a69",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-extr8-1stage-70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-70C.output.json",
+      "sha256": "08c31a7a66f687f9cb7f5b244eef7f64178fa1d5a3cf564bdc0c6564b8d8fc6f",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-extr8-1stage-70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-70C.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-htxr18-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr18-acid.request.json",
+      "sha256": "a73a0144c19f3f397836a641d9947731f78c16398b96325fbb4de90e98d14e01",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-htxr18-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr18-acid.output.json",
+      "sha256": "67c58fee3a79e10682d93da47de64d96cc125c6636c2af9dab77db35329e7af4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-htxr18-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr18-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-htxr12-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr12-acid.request.json",
+      "sha256": "d5f78a425c740f91d1059f4ca45d8521794f56eff8d77d7cdd5da77437d81b70",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-htxr12-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr12-acid.output.json",
+      "sha256": "c7daf82e016bd3479a2323d2c95720a737024091ce231fc6b2dba2bdfb7b4b41",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-htxr12-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr12-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-htxr19-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr19-acid.request.json",
+      "sha256": "c413b8e408d9c5e89b365f2aa9feb3f89fc46d0690361d4890b421b02b87604d",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-htxr19-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr19-acid.output.json",
+      "sha256": "dc9fdb385d0b4b98b1332328457de1e32d8fa36d4774ab0ddf78b2e949f96974",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-htxr19-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr19-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-scds11-acid-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VL.request.json",
+      "sha256": "da77d3068481337f9f02efc6352b5795d7216d8abb737469ea0b3600b6705797",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-scds11-acid-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VL.output.json",
+      "sha256": "2dfb08110cee6a37126dce22e242234bce338dc6f8df1a3fe9ca171621832b47",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-scds11-acid-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u3-scds11-bottomsflow-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-scds11-bottomsflow-VL.request.json",
+      "sha256": "07bdb7398e4b3bab5d029b2d2d0769a7726d60362265c5cf25b6ad3762a63f72",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u3-scds11-bottomsflow-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-scds11-bottomsflow-VL.output.json",
+      "sha256": "44877118f0142c29e25f4311771a5e5731964662ce0cd6c208d000334b3f0de4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u3-scds11-bottomsflow-vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-scds11-bottomsflow-VL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-seca-feeds-17c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secA-feeds-17C.request.json",
+      "sha256": "319062563650c9ba73a2639883d520c744cac951a203c627286f5cd39357b985",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-seca-feeds-17c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secA-feeds-17C.output.json",
+      "sha256": "b045a24bdf8cafdc1ea9ecd1937b0b894b6ffc736c8daf94a8210e863cb8778a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-seca-feeds-17c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secA-feeds-17C.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-diag-scds5-round2-inlets",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets.request.json",
+      "sha256": "7acd96bb387ca555f913465351e0b00e947db1c8eb5fa9b5755d57b83b2862bf",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-diag-scds5-round2-inlets",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets.output.json",
+      "sha256": "451d3ab3dc7d4a0d3a4b9c6b7e2b020fc2f63afcc64427665d4023d460d01c20",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-diag-scds5-round2-inlets",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-diag-scds5-round2-inlets-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets-VLL.request.json",
+      "sha256": "57b1f956c95604bf7de8cb04d4c55e6f04d17fac2035d911adae50baa29ab9be",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-diag-scds5-round2-inlets-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets-VLL.output.json",
+      "sha256": "9b86b1c019432d26b2e789e424d3b05a58fb2978d8b78aaab7c0fee506bdaf34",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-diag-scds5-round2-inlets-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets-VLL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-extr8-1stage-70C-feed70C.request.json",
+      "sha256": "05edceba9ea56faa3a62159cdfc890dfe1e7dcec6448381ecf694dc8b277d0fc",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-extr8-1stage-70C-feed70C.output.json",
+      "sha256": "70eadc1fdc09b7517d7a715bdca2c2412eed59e0f21f126b916f6487bd776a7d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u3-extr8-1stage-70C-feed70C.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-secb-mix7-adiabatic",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secB-mix7-adiabatic.request.json",
+      "sha256": "2acb0cdceb123dab5408c3302babfbe8a573e5114cabc75e2be682427a7668fe",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-secb-mix7-adiabatic",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secB-mix7-adiabatic.output.json",
+      "sha256": "e10195391b1e81d28415f714e54f27871531fcd9b92871f93d98c46ba09663eb",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-secb-mix7-adiabatic",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secB-mix7-adiabatic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-plant-a2-r02-a",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-plant-a2-r02-A.request.json",
+      "sha256": "f97b84407dee9e0232d063989aa0b9d52e5632aba7bec56c2f047ca4112959e9",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-plant-a2-r02-a",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-plant-a2-r02-A.output.json",
+      "sha256": "7e3e4cce479472eaac375ad38d598b96cf4f65e89d035d4c0a5071e6b2bc8faa",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-plant-a2-r02-a",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-plant-a2-r02-A.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.rerun-u-scds11-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VLL.request.json",
+      "sha256": "0baf86df1b27a1f9f8e100022bcf9497b352923787118172df668dc8d8513af6",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.rerun-u-scds11-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VLL.output.json",
+      "sha256": "9bcb7b05b789239b02eaadede5f0ff470185fdf104b510fdf3f3ba1f0e1d808d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.rerun-u-scds11-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-scds11-acid-VLL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-extr8-2stage-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid.request.json",
+      "sha256": "4f3d45dba444c3b5838b17acdaf4bfc13cc63d600e398fc002b369e38eff6546",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-extr8-2stage-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid.output.json",
+      "sha256": "74b3edd530eadb74ca813c63631cf4f16a4c90dbb225db306724bd303bd09905",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-extr8-2stage-acid",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-scds15-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds15-acid-VLL.request.json",
+      "sha256": "2c7a737c4dd7e9fd1612c3385c813156124a01b644e245be537873ad2a6cad84",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-scds15-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds15-acid-VLL.output.json",
+      "sha256": "2ad9d00cf0d17f8d4300e7411667d576d3f34c7a86b12ac34618da8e174e0778",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-scds15-acid-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds15-acid-VLL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-scds5-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds5-VLL.request.json",
+      "sha256": "34fa594bcd03c4d8ebf4a7d9406df56af9ed616401be11e059944a0de0804a1a",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-scds5-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds5-VLL.output.json",
+      "sha256": "48736ec0be83a67a94fb0c1c8aa9470e40edcf71f1376ad110aa5c662b2f24a9",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-scds5-vll",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds5-VLL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.seca62-paper-inlets-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/secA62-paper-inlets-15C.request.json",
+      "sha256": "2185662b7b686795fefbb782d264eeb1040d78eca9b9ed89693502904b48d5ec",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.seca62-paper-inlets-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/secA62-paper-inlets-15C.output.json",
+      "sha256": "24e553a226423c18eb7b797fc6160a1ee2083062a9c41720f6a0768197572353",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.seca62-paper-inlets-15c",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/secA62-paper-inlets-15C.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-scds11-noacid-bottomsflow",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-noacid-bottomsflow.request.json",
+      "sha256": "a0fe115fa313868d30b8cd6e9445346f246dc1045b6aa28fe168ae6dace408e7",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-scds11-noacid-bottomsflow",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-noacid-bottomsflow.output.json",
+      "sha256": "896c0acdad54944c6a93335bb084ef68775dbed4e57807817501ef88a925bd83",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-scds11-noacid-bottomsflow",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-noacid-bottomsflow.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-scds11-acid-purity",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-purity.request.json",
+      "sha256": "989c9b9e43bbe5dde8d26c5ce1f015b410d1df5aea1994caf95d154aff0f9ff3",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-scds11-acid-purity",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-purity.output.json",
+      "sha256": "c9f8bd1fadcd835900fed656f2a572b2c04bb2593860d42f131a5c09fc33ecef",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-scds11-acid-purity",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-purity.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-scds11-acid-distillate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-distillate.request.json",
+      "sha256": "9e552922aa6f0b4e987d9f55703dd6f9de8d2322f09312f19c97643096fe0922",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-scds11-acid-distillate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-distillate.output.json",
+      "sha256": "8d68824c4872b8c509b312b757349d427cff7047a1541b5e8fc6a70816df968e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-scds11-acid-distillate",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-scds11-acid-distillate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms.request.json",
+      "sha256": "4bfb3a5e9c0afedfa7831686703d16a8ca9bc9a652e1b73440a287ee90f64c38",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms.output.json",
+      "sha256": "9a12b77332a76ed950671027e9b0cb06247954c8466a08ac185ab35e7bb0a6f1",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-col5vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-col5VL.request.json",
+      "sha256": "621a68aae1c7f3d77bd2a758b714126989bf1ffa4b12b3819f92bab407012d1b",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-col5vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-col5VL.output.json",
+      "sha256": "ed0c519fea1fe9bf2a46f7c0d7818865a801e04969a697c14df06d68f9b8242b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-col5vl",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-col5VL.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-wegstein",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-wegstein.request.json",
+      "sha256": "59d13952549f84de43027d9bdb2c9891a1c8f716534397acffe8e753a3e0babf",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-wegstein",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-wegstein.output.json",
+      "sha256": "d756bb7b801dcb6332c86e5bf2c49ad3e28cac9d3b8be385c5cae527e2bc8264",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-wegstein",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-wegstein.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-w-dist",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist.request.json",
+      "sha256": "a7d20b2f13a43a090004addee0b4a2faebc904fc21925606ce8bed8964a925b4",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-w-dist",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist.output.json",
+      "sha256": "ad624e5973c1e15d4af5fe75ac3e1c0809e874200fa5111103d292ad87b8ee66",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-w-dist",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-direct.request.json",
+      "sha256": "bac944d81db4064cb0e00446f306956c6a867240438d0e09f832a230de6ec209",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-direct.output.json",
+      "sha256": "e5113e7e19b6ec985d5717fc23ba7ae6e4dffdd142e2564d5f70a000663779da",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-direct.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-warm-col5iter100",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm-col5iter100.request.json",
+      "sha256": "3a834c1486312f909a0c679d92ac6eea0ad67f5662a15ee441dde5fb241f3180",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-warm-col5iter100",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm-col5iter100.output.json",
+      "sha256": "06feaee3a4c3bd4ebcc79a3cf5eb5b36e0fd036d87c82753468894eafbc6af59",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-warm-col5iter100",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm-col5iter100.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm.request.json",
+      "sha256": "166549ce09b76565c922de376f23c19dd426d294423e636d69cac53938572a31",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm.output.json",
+      "sha256": "7b1db7e683e2bc40eff847b82ae88a477b6b47f8695e8a0ee2adca79b6d83976",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-warm.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-purity-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-purity-direct.request.json",
+      "sha256": "41f7949e50e2218fa343efac8f28ea0def0d96502bb5d0798a489d65427a575c",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-purity-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-purity-direct.output.json",
+      "sha256": "ff121eb0593027803901646d2f544662773c7abbcaafc0d66ea99eb54b33c9cd",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-purity-direct",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-purity-direct.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-mix7adiabatic-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-mix7adiabatic-open.request.json",
+      "sha256": "340f3c9f221db9fe986deb4ef0bdc28a5db3207fd4740e0c049c4121d2e506d1",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-mix7adiabatic-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-mix7adiabatic-open.output.json",
+      "sha256": "8ea5634604415ef05a13624ee8308deb64dc7247fa937b83748b373a1c657777",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-mix7adiabatic-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-mix7adiabatic-open.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-w-dist-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-warm.request.json",
+      "sha256": "e49d4c5e9e6bd2647978af052dc622d187de528f91dc57ff5908b8b45e4634e1",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-w-dist-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-warm.output.json",
+      "sha256": "4f3fd4bc7dc4d39a99a6b867aa9f79d4a0d2c62ff6ef30595ebc06e4c7bc345f",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-w-dist-warm",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-warm.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-frac-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-frac-bottoms-open.request.json",
+      "sha256": "050849cbb95374067f49c97a68a520240376d02361b70b5c3fafe830fde90fca",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-frac-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-frac-bottoms-open.output.json",
+      "sha256": "eff7d9ed537933e61cb50ad9bdb5ead2c3f00391d9906d70e3f9dfc09766bd64",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-frac-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-frac-bottoms-open.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-r-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-open.request.json",
+      "sha256": "9003f1ffebdd7c95b8923c7c356af1e9c358cacb3a786bc16763fb55a8d801c3",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-r-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-open.output.json",
+      "sha256": "1300e4b02fd724bf5fabf629a9d444a1b65f782960cfda21cde0cef20292e54e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-r-bottoms-open",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-R-bottoms-open.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-w-dist-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-refusePairs.request.json",
+      "sha256": "f0d91358c4465f7e15174fb873a384eefca73de7d02f17c7e0b128e299d5f722",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-w-dist-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-refusePairs.output.json",
+      "sha256": "19ff7a12618e6591b2a2e189b98aa358af5b5f468d6439fb4fbdc026222775a4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-w-dist-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-refusePairs.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u-htxr2-15c-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-refusePairs.request.json",
+      "sha256": "759590b4e964a86f67137e0c9d01f695e3a9c44569421b3f78d877dc328b2fc9",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u-htxr2-15c-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-refusePairs.output.json",
+      "sha256": "db7e3a17f80109dbbc7011a77002116ff5c7af31818aa863e3baf469bf8090c4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u-htxr2-15c-refusepairs",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-refusePairs.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u-htxr2-15c-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-strictRanges.request.json",
+      "sha256": "007c3551f6b41f2f7e41b88595f26e4e1c5fb7c7b9908a541e57cb067fdb69de",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u-htxr2-15c-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-strictRanges.output.json",
+      "sha256": "cef6fd219ebefb045f8c3bad2e3b8a23b92ad42775807d0aa8476ac31a8687a6",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u-htxr2-15c-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-strictRanges.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u62-extr8-2stage-acid-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid-strictRanges.request.json",
+      "sha256": "7f1d40dc7546873bcb3f015fcf272756a6704cf41381214f9d8f83ae878db509",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u62-extr8-2stage-acid-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid-strictRanges.output.json",
+      "sha256": "80816c6bfe686312abe44b5eafeca9bf1409d8b76a8fb1544b024ad157588737",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u62-extr8-2stage-acid-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid-strictRanges.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-w-dist-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-strictRanges.request.json",
+      "sha256": "cf9f136587af9d89103f427e07d5cdd198beefdf9f8efb9127fc9079b0b6e149",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-w-dist-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-strictRanges.output.json",
+      "sha256": "e5df5d2632260e3046ec3ca165d7fb3b8532cf7d7e273beec97a55387ec8a4fa",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-w-dist-strictranges",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-strictRanges.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.u-htxr2-15c-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-solverStrict.request.json",
+      "sha256": "8787a58ebe7d44b6b0a258f2a5e7c8541426757375ef1123c8ffbf00e8d5c468",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.u-htxr2-15c-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-solverStrict.output.json",
+      "sha256": "b407a5de0be06f7c05d5efcad436e30e37d61f3a6c079ecffe626d271830a23a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.u-htxr2-15c-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u-htxr2-15C-solverStrict.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.v062.plant62-w-dist-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-solverStrict.request.json",
+      "sha256": "1028a95ddd548418d7bebf108fadf7a4a3f95d99d9ee052b83fae6532cd0ac5a",
+      "role": "request"
+    },
+    {
+      "id": "result.v062.plant62-w-dist-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-solverStrict.output.json",
+      "sha256": "37c75fcc4a6780d0da41662094f3c0be8713a2a7e8b6e243606814f640f5e9a7",
+      "role": "result"
+    },
+    {
+      "id": "stderr.v062.plant62-w-dist-solverstrict",
+      "path": "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-solverStrict.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
     }
   ],
   "engines": [
@@ -1096,6 +1960,23 @@
       "contracts": "v1",
       "result_format": 1,
       "note": "Released npm package installed with npm in a separate folder (its lock file copied as chepta-0.6.1.npm-lock.json); Lab's package.json pin was not changed by this study. Called through its command line, chepta request <file>."
+    },
+    {
+      "id": "chepta@0.6.2",
+      "package": "chepta",
+      "release": "0.6.2",
+      "commit": null,
+      "pin": "release",
+      "commit_observed": false,
+      "engine_file_hashes": null,
+      "lock": {
+        "file": "engine-lock-062",
+        "pointer": "/packages/node_modules~1chepta"
+      },
+      "request_path": "CHEPTA.run",
+      "contracts": "v1",
+      "result_format": 1,
+      "note": "Released npm package installed with npm in a separate folder (lock file chepta-0.6.2.npm-lock.json); Lab's package.json and data/upstream.json not changed. Called through its command line, chepta request <file>."
     }
   ],
   "variants": [
@@ -1148,6 +2029,41 @@
           "description": "The coupling across the cut is Lab's script, not a CHEPTA flowsheet; acetic acid leaving section A in stream 9 is dropped and reported."
         }
       ]
+    },
+    {
+      "id": "component-data-062",
+      "description": "CHEPTA 0.6.2's component records of the four components.",
+      "modifications": []
+    },
+    {
+      "id": "rerun-061-requests-062",
+      "description": "Every request that 0.6.1 refused or failed, sent unchanged to chepta 0.6.2.",
+      "modifications": []
+    },
+    {
+      "id": "units-062",
+      "description": "Units and section A with acetic acid as a component where 0.6.1 refused it (extractor, columns 5, 11 and 15 with two liquids; feeds at 15 C), the paper's inlets.",
+      "modifications": []
+    },
+    {
+      "id": "plant-closed-062",
+      "description": "The whole plant as ONE CHEPTA flowsheet, all four components, all five recycles (7, 15, 21, 24, 27) closed by CHEPTA's own tear streams; splitters by flow (26 = 60,000 kg/h; 25 = 20,000 kg/h or 23 = 95,797 kg/h).",
+      "modifications": [
+        {
+          "kind": "other",
+          "description": "Variants of the column 11 specification, convergence method (Broyden, direct, Wegstein), tear guesses (Table A2 or CHEPTA's own 0.6.1 once-through streams) and column 5 phases; see the run manifest's plants."
+        }
+      ]
+    },
+    {
+      "id": "plant-open-recycles-062",
+      "description": "The plant with streams 27 and 21 fed from Table A2 (outer recycles open), to look for starting guesses.",
+      "modifications": []
+    },
+    {
+      "id": "policy-062",
+      "description": "The closed plant and two unit runs again with strictRanges true (request.options and the flowsheet's solver) and with thermo.missingPairs refuse.",
+      "modifications": []
     }
   ],
   "runs": [
@@ -2214,6 +3130,880 @@
         "pointer": "/runs/55/started_at"
       },
       "failure_note": null
+    },
+    {
+      "id": "v062.info-ethanol",
+      "execution_id": "info-ethanol",
+      "variant": "component-data-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.info-ethanol",
+      "result": "result.v062.info-ethanol",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/0"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/0/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.info-water",
+      "execution_id": "info-water",
+      "variant": "component-data-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.info-water",
+      "result": "result.v062.info-water",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/1"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/1/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.info-ethyl-acetate",
+      "execution_id": "info-ethyl-acetate",
+      "variant": "component-data-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.info-ethyl-acetate",
+      "result": "result.v062.info-ethyl-acetate",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/2"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/2/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.info-acetic-acid",
+      "execution_id": "info-acetic-acid",
+      "variant": "component-data-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.info-acetic-acid",
+      "result": "result.v062.info-acetic-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/3"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/3/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-htxr2-15c",
+      "execution_id": "rerun-u-htxr2-15C",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-htxr2-15c",
+      "result": "result.v062.rerun-u-htxr2-15c",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/4"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/4/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-htxr10-acid",
+      "execution_id": "rerun-u-htxr10-acid",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-htxr10-acid",
+      "result": "result.v062.rerun-u-htxr10-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/5"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/5/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-extr8-1stage-27c-acid",
+      "execution_id": "rerun-u-extr8-1stage-27C-acid",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-extr8-1stage-27c-acid",
+      "result": "result.v062.rerun-u-extr8-1stage-27c-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/6"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/6/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-extr8-1stage-70c",
+      "execution_id": "rerun-u-extr8-1stage-70C",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-extr8-1stage-70c",
+      "result": "result.v062.rerun-u-extr8-1stage-70c",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/7"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/7/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-htxr18-acid",
+      "execution_id": "rerun-u-htxr18-acid",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-htxr18-acid",
+      "result": "result.v062.rerun-u-htxr18-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/8"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/8/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-htxr12-acid",
+      "execution_id": "rerun-u-htxr12-acid",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-htxr12-acid",
+      "result": "result.v062.rerun-u-htxr12-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/9"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/9/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-htxr19-acid",
+      "execution_id": "rerun-u-htxr19-acid",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-htxr19-acid",
+      "result": "result.v062.rerun-u-htxr19-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/10"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/10/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u-scds11-acid-vl",
+      "execution_id": "rerun-u-scds11-acid-VL",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-scds11-acid-vl",
+      "result": "result.v062.rerun-u-scds11-acid-vl",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/11"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/11/started_at"
+      },
+      "failure_note": "unsupported (exit 4): PHASE_SPLIT: Column SCDS11: a second liquid would form on stages 1, 2 (stage 1 at 342.8 K: its liquid Ethanol 0.04785, Water 0.3092, Ethyl acetate 0.643, Acetic acid 9.084e-17 splits off a liquid Ethanol 0.01177, Water 0.9788, Ethyl acetate 0.009476, Acetic acid 2.384e-17). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum)."
+    },
+    {
+      "id": "v062.rerun-u3-scds11-bottomsflow-vl",
+      "execution_id": "rerun-u3-scds11-bottomsflow-VL",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u3-scds11-bottomsflow-vl",
+      "result": "result.v062.rerun-u3-scds11-bottomsflow-vl",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/12"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/12/started_at"
+      },
+      "failure_note": "unsupported (exit 4): PHASE_SPLIT: Column SCDS11: a second liquid would form on stages 1, 2 (stage 1 at 342.8 K: its liquid Ethanol 0.04786, Water 0.3092, Ethyl acetate 0.6429 splits off a liquid Ethanol 0.01177, Water 0.9788, Ethyl acetate 0.009475). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum)."
+    },
+    {
+      "id": "v062.rerun-seca-feeds-17c",
+      "execution_id": "rerun-secA-feeds-17C",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-seca-feeds-17c",
+      "result": "result.v062.rerun-seca-feeds-17c",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/13"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/13/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-diag-scds5-round2-inlets",
+      "execution_id": "rerun-diag-scds5-round2-inlets",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-diag-scds5-round2-inlets",
+      "result": "result.v062.rerun-diag-scds5-round2-inlets",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/14"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/14/started_at"
+      },
+      "failure_note": "unsupported (exit 4): PHASE_SPLIT: Column SCDS5: a second liquid would form on stage 7 (stage 7 at 343.8 K: its liquid Ethanol 0.2413, Water 0.4675, Ethyl acetate 0.2746, Acetic acid 0.01661 splits off a liquid Ethanol 0.09742, Water 0.8707, Ethyl acetate 0.02539, Acetic acid 0.006486). With phases \"VL\" the column holds one liquid on each stage, so it does not return this answer. Turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models only), or change the feed or the specifications, or separate the liquids first (a decanter: the flash drum)."
+    },
+    {
+      "id": "v062.rerun-diag-scds5-round2-inlets-vll",
+      "execution_id": "rerun-diag-scds5-round2-inlets-VLL",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-diag-scds5-round2-inlets-vll",
+      "result": "result.v062.rerun-diag-scds5-round2-inlets-vll",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/15"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/15/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "execution_id": "rerun-u3-extr8-1stage-70C-feed70C",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "result": "result.v062.rerun-u3-extr8-1stage-70c-feed70c",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/16"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/16/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: Extraction EXTR8: the feed is partly vapour (78.11 % vapour; vapour fraction 0.7811 at 343.1 K and 100 kPa); the stages hold two liquids and no vapour, and the block takes at most 0.1 (a little vapour, condensed). Cool it, raise its pressure, or flash it first."
+    },
+    {
+      "id": "v062.rerun-secb-mix7-adiabatic",
+      "execution_id": "rerun-secB-mix7-adiabatic",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-secb-mix7-adiabatic",
+      "result": "result.v062.rerun-secb-mix7-adiabatic",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/17"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/17/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.rerun-plant-a2-r02-a",
+      "execution_id": "rerun-plant-a2-r02-A",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-plant-a2-r02-a",
+      "result": "result.v062.rerun-plant-a2-r02-a",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/18"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/18/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX3, KREA4, SCDS5 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 528 ms: the residual fell only from 1.008 to 0.264 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1540 ms: the residual fell only from 12.4 to 0.1731 in 12 iterations); continuation in the relative volatilities (stopped at 99.32 % of the way, after 15 steps, 20054 ms). Last residuals: material 7.026 mol/s, equilibrium 0.1061, energy 664000 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear stream (S7) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.rerun-u-scds11-acid-vll",
+      "execution_id": "rerun-u-scds11-acid-VLL",
+      "variant": "rerun-061-requests-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.rerun-u-scds11-acid-vll",
+      "result": "result.v062.rerun-u-scds11-acid-vll",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/19"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/19/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 14930 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 90.92 % of the way, after 16 steps, 104389 ms). Last residuals: material 0.8549 mol/s, equilibrium 0.000003402, energy 144200 W, specifications 1.48e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    },
+    {
+      "id": "v062.u62-extr8-2stage-acid",
+      "execution_id": "u62-extr8-2stage-acid",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-extr8-2stage-acid",
+      "result": "result.v062.u62-extr8-2stage-acid",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/20"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/20/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-scds15-acid-vll",
+      "execution_id": "u62-scds15-acid-VLL",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-scds15-acid-vll",
+      "result": "result.v062.u62-scds15-acid-vll",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/21"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/21/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-scds5-vll",
+      "execution_id": "u62-scds5-VLL",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-scds5-vll",
+      "result": "result.v062.u62-scds5-vll",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/22"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/22/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.seca62-paper-inlets-15c",
+      "execution_id": "secA62-paper-inlets-15C",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.seca62-paper-inlets-15c",
+      "result": "result.v062.seca62-paper-inlets-15c",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/23"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/23/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-scds11-noacid-bottomsflow",
+      "execution_id": "u62-scds11-noacid-bottomsflow",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-scds11-noacid-bottomsflow",
+      "result": "result.v062.u62-scds11-noacid-bottomsflow",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/24"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/24/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-scds11-acid-purity",
+      "execution_id": "u62-scds11-acid-purity",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-scds11-acid-purity",
+      "result": "result.v062.u62-scds11-acid-purity",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/25"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/25/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-scds11-acid-distillate",
+      "execution_id": "u62-scds11-acid-distillate",
+      "variant": "units-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-scds11-acid-distillate",
+      "result": "result.v062.u62-scds11-acid-distillate",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/26"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/26/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 14696 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 90.59 % of the way, after 17 steps, 112111 ms). Last residuals: material 0.882 mol/s, equilibrium 0.000003427, energy 152000 W, specifications 1.11e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    },
+    {
+      "id": "v062.plant62-r-bottoms",
+      "execution_id": "plant62-R-bottoms",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms",
+      "result": "result.v062.plant62-r-bottoms",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/27"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/27/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3883 ms: the residual fell only from 1.043 to 0.1882 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 3822 ms: the residual fell only from 10.42 to 0.1986 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 7202 ms). Last residuals: material 8.545 mol/s, equilibrium 0.2121, energy 687900 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-col5vl",
+      "execution_id": "plant62-R-bottoms-col5VL",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-col5vl",
+      "result": "result.v062.plant62-r-bottoms-col5vl",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/28"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/28/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 408 ms: the residual fell only from 1.002 to 0.07671 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 1404 ms: the residual fell only from 18.63 to 14.57 in 12 iterations); continuation in the relative volatilities (stopped at 94.92 % of the way, after 14 steps, 16597 ms). Last residuals: material 90.48 mol/s, equilibrium 28.92, energy 38140000 W, specifications 0. On the last iterate the liquid of stages 3, 5, 6, 7, 8 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-wegstein",
+      "execution_id": "plant62-R-bottoms-wegstein",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-wegstein",
+      "result": "result.v062.plant62-r-bottoms-wegstein",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/29"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/29/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 4, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3692 ms: the residual fell only from 1.042 to 0.1608 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 4710 ms: the residual fell only from 1367 to 1.434 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6869 ms). Last residuals: material 447.1 mol/s, equilibrium 0.2872, energy 4598000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-w-dist",
+      "execution_id": "plant62-W-dist",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-w-dist",
+      "result": "result.v062.plant62-w-dist",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/30"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/30/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3748 ms: the residual fell only from 1.04 to 0.1536 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 6153 ms: the residual fell only from 5.738 to 0.1841 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6852 ms). Last residuals: material 6.004 mol/s, equilibrium 0.2176, energy 613600 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-direct",
+      "execution_id": "plant62-R-bottoms-direct",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-direct",
+      "result": "result.v062.plant62-r-bottoms-direct",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/31"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/31/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 5, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3952 ms: the residual fell only from 1.042 to 0.1911 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 4739 ms: the residual fell only from 2.961 to 0.1263 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6666 ms). Last residuals: material 6 mol/s, equilibrium 0.1242, energy 425600 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-warm-col5iter100",
+      "execution_id": "plant62-R-bottoms-warm-col5iter100",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-warm-col5iter100",
+      "result": "result.v062.plant62-r-bottoms-warm-col5iter100",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/32"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/32/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 4079 ms: the residual fell only from 1.028 to 0.2476 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 4216 ms: the residual fell only from 98.67 to 1.479 in 12 iterations). Last residuals: material 34.04 mol/s, equilibrium 0.8756, energy 5113000 W, specifications 0. On the last iterate the liquid of stages 3, 4 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: raise the iteration limit, or try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-warm",
+      "execution_id": "plant62-R-bottoms-warm",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-warm",
+      "result": "result.v062.plant62-r-bottoms-warm",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/33"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/33/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 4, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3576 ms: the residual fell only from 1.026 to 0.05601 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 3820 ms: the residual fell only from 16.1 to 2.787 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6684 ms). Last residuals: material 65.05 mol/s, equilibrium 11.98, energy 10020000 W, specifications 0. On the last iterate the liquid of stages 3, 4, 5, 6, 8 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-purity-direct",
+      "execution_id": "plant62-R-purity-direct",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-purity-direct",
+      "result": "result.v062.plant62-r-purity-direct",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/34"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/34/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 2899 ms: the residual fell only from 1.058 to 0.03772 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 5208 ms: the residual fell only from 215.1 to 45.8 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6931 ms). Last residuals: material 92.48 mol/s, equilibrium 6.415, energy 185800000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-mix7adiabatic-open",
+      "execution_id": "plant62-R-bottoms-mix7adiabatic-open",
+      "variant": "plant-open-recycles-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-mix7adiabatic-open",
+      "result": "result.v062.plant62-r-bottoms-mix7adiabatic-open",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/35"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/35/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX7, PUMP14, EXTR8, SPLIT9, HTXR19, HTXR10, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 10, Extraction EXTR8: the feed is partly vapour (16.78 % vapour; vapour fraction 0.1678 at 343.2 K and 100 kPa); the stages hold two liquids and no vapour, and the block takes at most 0.1 (a little vapour, condensed). Cool it, raise its pressure, or flash it first.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-w-dist-warm",
+      "execution_id": "plant62-W-dist-warm",
+      "variant": "plant-closed-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-w-dist-warm",
+      "result": "result.v062.plant62-w-dist-warm",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/36"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/36/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 4, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3687 ms: the residual fell only from 1.025 to 0.1455 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 4270 ms: the residual fell only from 1290 to 1.85 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 6822 ms). Last residuals: material 237.4 mol/s, equilibrium 0.5939, energy 5693000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-frac-bottoms-open",
+      "execution_id": "plant62-frac-bottoms-open",
+      "variant": "plant-open-recycles-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-frac-bottoms-open",
+      "result": "result.v062.plant62-frac-bottoms-open",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/37"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/37/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 15799 ms: the residual fell only from 2.781 to 2.771 in 12 iterations); continuation in the relative volatilities (stopped at 87.9 % of the way, after 17 steps, 145468 ms). Last residuals: material 76.3 mol/s, equilibrium 0.003941, energy 2526000 W, specifications 0.000003372. On the last iterate the liquid of stage 24 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    },
+    {
+      "id": "v062.plant62-r-bottoms-open",
+      "execution_id": "plant62-R-bottoms-open",
+      "variant": "plant-open-recycles-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-r-bottoms-open",
+      "result": "result.v062.plant62-r-bottoms-open",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/38"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/38/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX7, PUMP14, EXTR8, SPLIT9, HTXR19, HTXR10, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 50, Extraction EXTR8: the feeds mixed together make one liquid at 300.1 K (no liquid-liquid split), so they cannot be extracted as given. Use less solvent, another solvent, or another temperature.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.plant62-w-dist-refusepairs",
+      "execution_id": "plant62-W-dist-refusePairs",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-w-dist-refusepairs",
+      "result": "result.v062.plant62-w-dist-refusepairs",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/39"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/39/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: flowsheet.thermo: unknown key \"missingPairs\". Known: model, vapour, sets, prefer, solids, mixing."
+    },
+    {
+      "id": "v062.u-htxr2-15c-refusepairs",
+      "execution_id": "u-htxr2-15C-refusePairs",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u-htxr2-15c-refusepairs",
+      "result": "result.v062.u-htxr2-15c-refusepairs",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/40"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/40/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: flowsheet.thermo: unknown key \"missingPairs\". Known: model, vapour, sets, prefer, solids, mixing."
+    },
+    {
+      "id": "v062.u-htxr2-15c-strictranges",
+      "execution_id": "u-htxr2-15C-strictRanges",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u-htxr2-15c-strictranges",
+      "result": "result.v062.u-htxr2-15c-strictranges",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/41"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/41/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.u62-extr8-2stage-acid-strictranges",
+      "execution_id": "u62-extr8-2stage-acid-strictRanges",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u62-extr8-2stage-acid-strictranges",
+      "result": "result.v062.u62-extr8-2stage-acid-strictranges",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/42"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/42/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.plant62-w-dist-strictranges",
+      "execution_id": "plant62-W-dist-strictRanges",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-w-dist-strictranges",
+      "result": "result.v062.plant62-w-dist-strictranges",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/43"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/43/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3399 ms: the residual fell only from 1.04 to 0.1536 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 5684 ms: the residual fell only from 10.9 to 0.4126 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 3337 ms). Last residuals: material 19.75 mol/s, equilibrium 0.4005, energy 1098000 W, specifications 0. On the last iterate the liquid of stages 2, 3, 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "v062.u-htxr2-15c-solverstrict",
+      "execution_id": "u-htxr2-15C-solverStrict",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.u-htxr2-15c-solverstrict",
+      "result": "result.v062.u-htxr2-15c-solverstrict",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/44"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/44/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "v062.plant62-w-dist-solverstrict",
+      "execution_id": "plant62-W-dist-solverStrict",
+      "variant": "policy-062",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner-062",
+      "request": "request.v062.plant62-w-dist-solverstrict",
+      "result": "result.v062.plant62-w-dist-solverstrict",
+      "execution_record": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/45"
+      },
+      "executed_at": {
+        "file": "run-manifest-062",
+        "pointer": "/runs/45/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 3562 ms: the residual fell only from 1.04 to 0.1536 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 5498 ms: the residual fell only from 10.9 to 0.4126 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 3511 ms). Last residuals: material 19.75 mol/s, equilibrium 0.4005, energy 1098000 W, specifications 0. On the last iterate the liquid of stages 2, 3, 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations."
     }
   ],
   "values": [
@@ -2676,6 +4466,108 @@
       "rationale": "The paper's 15 C is below acetic acid's triple point in CHEPTA's record (refused, OUT_OF_RANGE); 18 C keeps the mixed feed above it.",
       "method": null,
       "run_id": "plant-a2-r01-a",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-htxr2-duty-15c",
+      "name": "HTXR 2 duty from the printed 15 C feed (CHEPTA 0.6.2; acetic acid's liquid enthalpy extrapolated below 16.66 C)",
+      "unit": "kW",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.rerun-u-htxr2-15c",
+        "pointer": "/value/blocks/HTXR2/duty_kW"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.rerun-u-htxr2-15c",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-htxr10-duty-acid",
+      "name": "HTXR 10 duty with acetic acid (CHEPTA 0.6.2, paper's stream 12)",
+      "unit": "kW",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.rerun-u-htxr10-acid",
+        "pointer": "/value/blocks/HTXR10/duty_kW"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.rerun-u-htxr10-acid",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-raffinate-kg-h-acid",
+      "name": "Raffinate stream 11 mass flow, 2-stage extractor with acetic acid (CHEPTA 0.6.2, paper's inlets)",
+      "unit": "kg/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.u62-extr8-2stage-acid",
+        "pointer": "/value/streams/S11/mass_kg_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.u62-extr8-2stage-acid",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-scds15-reboiler-acid",
+      "name": "Wastewater column reboiler duty with acetic acid, two liquids allowed (CHEPTA 0.6.2, paper's stream 28)",
+      "unit": "kW",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.u62-scds15-acid-vll",
+        "pointer": "/value/blocks/SCDS15/state/reboiler_kW"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.u62-scds15-acid-vll",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-scds11-purity-product-kmol-h",
+      "name": "Product stream 16 molar flow, column 11 with acetic acid and the 99.90 mass % purity given (CHEPTA 0.6.2): a 31 kmol/h answer",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.u62-scds11-acid-purity",
+        "pointer": "/value/streams/S16/F_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.u62-scds11-acid-purity",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta062-scds5-vll-overhead-kg-h",
+      "name": "Column 5 overhead stream 8 mass flow, two liquids allowed (CHEPTA 0.6.2, paper's inlets)",
+      "unit": "kg/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.v062.u62-scds5-vll",
+        "pointer": "/value/streams/S8/mass_kg_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "v062.u62-scds5-vll",
       "unresolved_ids": []
     }
   ],
@@ -3327,6 +5219,310 @@
         "file": "verifier",
         "earlier_version": null
       }
+    },
+    {
+      "id": "compare062.rerun-u-htxr2-15c",
+      "run_id": "v062.rerun-u-htxr2-15c",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-htxr2-15C"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-htxr10-acid",
+      "run_id": "v062.rerun-u-htxr10-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-htxr10-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-extr8-1stage-27c-acid",
+      "run_id": "v062.rerun-u-extr8-1stage-27c-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-extr8-1stage-27C-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-extr8-1stage-70c",
+      "run_id": "v062.rerun-u-extr8-1stage-70c",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-extr8-1stage-70C"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-htxr18-acid",
+      "run_id": "v062.rerun-u-htxr18-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-htxr18-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-htxr12-acid",
+      "run_id": "v062.rerun-u-htxr12-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-htxr12-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-u-htxr19-acid",
+      "run_id": "v062.rerun-u-htxr19-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-u-htxr19-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-seca-feeds-17c",
+      "run_id": "v062.rerun-seca-feeds-17c",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-secA-feeds-17C"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-diag-scds5-round2-inlets-vll",
+      "run_id": "v062.rerun-diag-scds5-round2-inlets-vll",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-diag-scds5-round2-inlets-VLL"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.rerun-secb-mix7-adiabatic",
+      "run_id": "v062.rerun-secb-mix7-adiabatic",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/rerun-secB-mix7-adiabatic"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-extr8-2stage-acid",
+      "run_id": "v062.u62-extr8-2stage-acid",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-extr8-2stage-acid"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-scds15-acid-vll",
+      "run_id": "v062.u62-scds15-acid-vll",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-scds15-acid-VLL"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-scds5-vll",
+      "run_id": "v062.u62-scds5-vll",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-scds5-VLL"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.seca62-paper-inlets-15c",
+      "run_id": "v062.seca62-paper-inlets-15c",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/secA62-paper-inlets-15C"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-scds11-noacid-bottomsflow",
+      "run_id": "v062.u62-scds11-noacid-bottomsflow",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-scds11-noacid-bottomsflow"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-scds11-acid-purity",
+      "run_id": "v062.u62-scds11-acid-purity",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-scds11-acid-purity"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u-htxr2-15c-strictranges",
+      "run_id": "v062.u-htxr2-15c-strictranges",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u-htxr2-15C-strictRanges"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u62-extr8-2stage-acid-strictranges",
+      "run_id": "v062.u62-extr8-2stage-acid-strictranges",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u62-extr8-2stage-acid-strictRanges"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare062.u-htxr2-15c-solverstrict",
+      "run_id": "v062.u-htxr2-15c-solverstrict",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison-062",
+        "pointer": "/runs/u-htxr2-15C-solverStrict"
+      },
+      "method": "compare_s2_062.py: every CHEPTA 0.6.2 stream against Table A2 (T, mass flow, mass %), duties against Table 1, each number with the extrapolations CHEPTA listed for its block",
+      "scope": "Published simulation (Chemcad 7, UNIQUAC) against CHEPTA 0.6.2: agreement between two models, not with measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier-062",
+        "earlier_version": null
+      }
     }
   ],
   "warning_notes": [
@@ -3351,7 +5547,7 @@
         "plant-coupled",
         "units-paper-inlets"
       ],
-      "basis": "Paper Eqs. 1-3 lack the catalyst concentration and units; CHEPTA has no reactor-evaporator."
+      "basis": "Paper Eqs. 1-3 lack the catalyst concentration and units. The reactor-evaporator is CHEPTA's conversion reactor with an all-vapour outlet (VF 1), which needs the conversion given; there is no kinetic version of it."
     },
     {
       "id": "cut-at-stream-9",
@@ -3360,13 +5556,35 @@
         "section-b-paper-inlets",
         "plant-coupled"
       ],
-      "basis": "CHEPTA 0.6.1 refuses two liquids with acetic acid present (runs *-acid)."
+      "basis": "CHEPTA 0.6.1 refuses two liquids with acetic acid present (runs *-acid). Not used on 0.6.2: the 0.6.2 plant carries the acid everywhere."
+    },
+    {
+      "id": "conversion-imposed-062",
+      "statement": "On 0.6.2 too the reactor-evaporator is CHEPTA's conversion reactor with an all-vapour outlet (VF 1), its acetic acid conversion per pass (0.7703) imposed from the paper's streams 5 and 6.",
+      "applies_to": [
+        "units-062",
+        "plant-closed-062",
+        "plant-open-recycles-062",
+        "policy-062"
+      ],
+      "basis": "The paper's rate law lacks the catalyst concentration and units; a kinetic reactor-evaporator is not available."
+    },
+    {
+      "id": "splitters-by-flow-062",
+      "statement": "Splitter 9 gives stream 26 = 60,000 kg/h; splitter 16 gives stream 25 = 20,000 kg/h (variant W) or stream 23 = 95,797 kg/h (variant R). The paper's plant balance is 27 kg/h short, so W fixes the product flow by the balance and column 11 takes its distillate flow (230.4 kmol/h) as second specification.",
+      "applies_to": [
+        "plant-closed-062",
+        "plant-open-recycles-062",
+        "policy-062"
+      ],
+      "basis": "Table A2 streams 23, 25, 26; STREAM_EQUIPMENT_AUDIT.md (S2 plant -27 kg/h)."
     },
     {
       "id": "extractor-isothermal",
       "statement": "EXTR 8 is isothermal at 27 C with 2 equilibrium stages (stage count chosen to match the paper's stream 11 ethanol).",
       "applies_to": [
-        "plant-coupled"
+        "plant-coupled",
+        "plant-closed-062"
       ],
       "basis": "Table 1's 70 C is refused (the feed boils); the paper's outlets at 27 and 41 C imply an adiabatic extractor, which CHEPTA does not have."
     }
@@ -3377,7 +5595,7 @@
       "item": "Catalyst concentration and concentration units of the paper's rate law (Eqs. 1-3, after Atalay).",
       "consequence": "The reactor cannot be predicted; its conversion is taken from the paper.",
       "blocking": false,
-      "next_action": "Read Atalay (ref. 36) for the catalyst basis; needs a reactor-evaporator in CHEPTA as well."
+      "next_action": "Read Atalay (ref. 36) for the catalyst basis; a kinetic reaction in CHEPTA's all-vapour-outlet reactor would then be needed."
     },
     {
       "id": "extractor-design",
@@ -3408,7 +5626,10 @@
   "limitations": [
     "Agreement with the paper is agreement between two simulators (Chemcad 7 and CHEPTA 0.6.1, both UNIQUAC with different parameters), not with measurements.",
     "The reactor's conversion is imposed from the paper; reactor outlet composition is not predicted.",
-    "The whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
+    "On 0.6.1 the whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
+    "On 0.6.2 the whole plant is one CHEPTA flowsheet with acetic acid everywhere, but it does not converge: column 5 (absorber, two liquids allowed) stops with NO_CONVERGENCE inside the closed loop at iterations 2 to 5 in all ten closed variants (tear streams then change by 0.15-0.4 % per iteration). No closed-plant number exists; the plant comparison remains the 0.6.1 once-through pass.",
+    "On 0.6.2 no pair was estimated (all six UNIQUAC pairs fitted; qualifications.estimated_pairs empty in every run). Extrapolations CHEPTA listed (result.value.extrapolations) are kept per run in the 0.6.2 run manifest and attached to each compared number in comparison-062.",
+    "On 0.6.2 strictRanges true (request.options or the flowsheet's solver.strictRanges) did not refuse the 15 C acid feed that 0.6.1 refused; thermo.missingPairs is refused as an unknown key of a flowsheet (BAD_INPUT). Both are reported to CHEPTA.",
     "The extractor is isothermal at 27 C with a calibrated stage count; the paper's extractor is adiabatic at an unknown stage count.",
     "No separate AI review session yet; draft only. The maintainer spot-checked and confirmed 3 items chosen by the building session (2026-11-12: HTXR 18/19 duties exchanged in Table 1, reactor conversion 0.7703, column 11 settings); this is not recorded as a review."
   ]
