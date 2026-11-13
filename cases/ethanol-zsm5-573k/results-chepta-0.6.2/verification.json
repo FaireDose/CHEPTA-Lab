@@ -1,0 +1,228 @@
+{
+  "status": "passed",
+  "scope": "Independent numerical implementation; no experimental or independent thermodynamic validation.",
+  "python": "3.13.18",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "reference_method": "DOP853; mol/h species balances versus grams catalyst",
+  "tolerances": {
+    "component_relative": 1e-05,
+    "element_relative": 1e-10,
+    "mass_relative": 1e-06,
+    "internal_energy_kW": 1e-10,
+    "inlet_rate_absolute_mol_gcat_h": 1e-12
+  },
+  "tolerance_rationale": "Component tolerance matches the upstream benchmark; tighter reference integration isolates solver error. Exact stoichiometry checks elements. Mass tolerance allows rounded databank molecular weights. Energy checks internal closure only.",
+  "checks": [
+    {
+      "id": "upstream_simplified-wf0.38",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.9966289778566494,
+        "ethylene": 0.0015496318952372913,
+        "water": 0.0024603270192938894,
+        "diethyl-ether": 0.000910695124056598
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.9966289781736437,
+        "ethylene": 0.0015496317432677812,
+        "water": 0.0024603267848120327,
+        "diethyl-ether": 0.0009106950415442516
+      },
+      "conversion_percent": 0.33710221433506105,
+      "ethylene_yield_mol_per_mol_feed": 0.0015496318952372913,
+      "ethylene_selectivity_ethanol_equivalent": 0.45969199528812427,
+      "max_component_relative_error": 9.806814475108738e-08,
+      "max_element_relative_residual": 1.231653667943533e-16,
+      "mass_relative_residual": 2.0182561843995472e-08,
+      "internal_energy_residual_kW": 3.1848438816761693e-19,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    },
+    {
+      "id": "upstream_simplified-wf0.773",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.9931486414041326,
+        "ethylene": 0.0031484964362615813,
+        "water": 0.004999927516064486,
+        "diethyl-ether": 0.0018514310798029051
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.9931486430488792,
+        "ethylene": 0.003148495648826215,
+        "water": 0.004999926299973539,
+        "diethyl-ether": 0.0018514306511473247
+      },
+      "conversion_percent": 0.6851358595867385,
+      "ethylene_yield_mol_per_mol_feed": 0.0031484964362615813,
+      "ethylene_selectivity_ethanol_equivalent": 0.4595433726327939,
+      "max_component_relative_error": 2.5009892161393446e-07,
+      "max_element_relative_residual": 6.938893903907228e-18,
+      "mass_relative_residual": 4.100633455017544e-08,
+      "internal_energy_residual_kW": 2.371692252312041e-19,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    },
+    {
+      "id": "upstream_simplified-wf1.166",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.9896744257687841,
+        "ethylene": 0.004743515222012629,
+        "water": 0.007534544726614343,
+        "diethyl-ether": 0.0027910295046017137
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.9896744293523467,
+        "ethylene": 0.004743513508787911,
+        "water": 0.007534542078220605,
+        "diethyl-ether": 0.002791028569432696
+      },
+      "conversion_percent": 1.032557423121594,
+      "ethylene_yield_mol_per_mol_feed": 0.004743515222012629,
+      "ethylene_selectivity_ethanol_equivalent": 0.4593948109609428,
+      "max_component_relative_error": 3.611720964149502e-07,
+      "max_element_relative_residual": 1.1796119636642288e-16,
+      "mass_relative_residual": 6.178001976664405e-08,
+      "internal_energy_residual_kW": 9.486769009248164e-20,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    },
+    {
+      "id": "table12_adsorption-wf0.38",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.99668836865981,
+        "ethylene": 0.0015319310047977423,
+        "water": 0.002421781172493822,
+        "diethyl-ether": 0.0008898501676960795
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.9966883644409235,
+        "ethylene": 0.0015319310479878965,
+        "water": 0.002421783303532169,
+        "diethyl-ether": 0.0008898522555442727
+      },
+      "conversion_percent": 0.3311631340189969,
+      "ethylene_yield_mol_per_mol_feed": 0.0015319310047977423,
+      "ethylene_selectivity_ethanol_equivalent": 0.46259104575023874,
+      "max_component_relative_error": 2.3462863415276683e-06,
+      "max_element_relative_residual": 6.765421556309548e-17,
+      "mass_relative_residual": 1.9952023366798244e-08,
+      "internal_energy_residual_kW": 2.1345230270808369e-19,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    },
+    {
+      "id": "table12_adsorption-wf0.773",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.9933864681557346,
+        "ethylene": 0.003077542891731788,
+        "water": 0.004845537367998587,
+        "diethyl-ether": 0.0017679944762667987
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.9933864584922019,
+        "ethylene": 0.003077542871293418,
+        "water": 0.004845542189545727,
+        "diethyl-ether": 0.0017679993182523096
+      },
+      "conversion_percent": 0.6613531844265386,
+      "ethylene_yield_mol_per_mol_feed": 0.003077542891731788,
+      "ethylene_selectivity_ethanol_equivalent": 0.4653402998883774,
+      "max_component_relative_error": 2.7386806436534685e-06,
+      "max_element_relative_residual": 0.0,
+      "mass_relative_residual": 4.0082228425220023e-08,
+      "internal_energy_residual_kW": 2.710505431213761e-20,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    },
+    {
+      "id": "table12_adsorption-wf1.166",
+      "passed": true,
+      "CHEPTA_outlet_mol_h": {
+        "ethanol": 0.9901987733972781,
+        "ethylene": 0.004586936052214517,
+        "water": 0.007194081327468202,
+        "diethyl-ether": 0.0026071452752536844
+      },
+      "reference_outlet_mol_h": {
+        "ethanol": 0.990198757632633,
+        "ethylene": 0.004586935834134266,
+        "water": 0.007194089100750629,
+        "diethyl-ether": 0.0026071532666163666
+      },
+      "conversion_percent": 0.9801226602721869,
+      "ethylene_yield_mol_per_mol_feed": 0.004586936052214517,
+      "ethylene_selectivity_ethanol_equivalent": 0.46799612315265654,
+      "max_component_relative_error": 3.065167968678688e-06,
+      "max_element_relative_residual": 1.850371707708594e-17,
+      "mass_relative_residual": 5.974071681791315e-08,
+      "internal_energy_residual_kW": 3.8624702394796095e-19,
+      "inlet_rate_max_abs_error_mol_gcat_h": 8.673617379884035e-19,
+      "stream_warnings": [
+        "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+        "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+        "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md).",
+        "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range."
+      ]
+    }
+  ]
+}
