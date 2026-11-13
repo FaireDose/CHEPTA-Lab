@@ -1,0 +1,724 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "ok",
+  "value": {
+    "components": [
+      "ethanol",
+      "ethylene",
+      "water",
+      "diethyl-ether"
+    ],
+    "extrapolations": [
+      {
+        "component": "Ethylene",
+        "property": "Ideal-gas heat capacity",
+        "unit": "K",
+        "range": [
+          103.99,
+          450
+        ],
+        "at": 573.15,
+        "side": "above",
+        "distance": 123.14999999999998,
+        "how": "the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity)",
+        "kind": "idealGasHeatCapacity",
+        "message": "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data. Where: F, R.",
+        "where": [
+          "F",
+          "R"
+        ],
+        "short": "Ethylene: ideal-gas heat capacity extrapolated 123.15 K above its range"
+      },
+      {
+        "component": "Diethyl ether",
+        "property": "Ideal-gas heat capacity",
+        "unit": "K",
+        "range": [
+          270,
+          548
+        ],
+        "at": 573.15,
+        "side": "above",
+        "distance": 25.149999999999977,
+        "how": "the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity)",
+        "kind": "idealGasHeatCapacity",
+        "message": "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data. Where: F, R.",
+        "where": [
+          "F",
+          "R"
+        ],
+        "short": "Diethyl ether: ideal-gas heat capacity extrapolated 25.15 K above its range"
+      },
+      {
+        "component": "Ethanol + Water",
+        "property": "PR k_ij set",
+        "kind": "pairSet",
+        "range": [
+          351.26,
+          368.18
+        ],
+        "at": 573.15,
+        "side": "above",
+        "distance": 204.96999999999997,
+        "how": "the set's temperature dependence is used as it is (fitted to data at 351.26-368.18 K)",
+        "message": "Ethanol + Water: PR k_ij set at 573.15 K is 204.97 K above its range (351.26-368.18 K): the set's temperature dependence is used as it is (fitted to data at 351.26-368.18 K). This is an extrapolation, not data. Where: F, R.",
+        "where": [
+          "F",
+          "R"
+        ],
+        "short": "Ethanol + Water: PR k_ij set extrapolated 204.97 K above its range"
+      }
+    ],
+    "streams": {
+      "feed": {
+        "id": "feed",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "ethylene",
+          "water",
+          "diethyl-ether"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.001,
+          "ethylene": 0,
+          "water": 0,
+          "diethyl-ether": 0
+        },
+        "flows": [
+          0.001,
+          0,
+          0,
+          0
+        ],
+        "F_kmol_h": 0.001,
+        "mass_kg_h": 0.04606844,
+        "z": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "T_K": 573.15,
+        "P_kPa": 101.325,
+        "VF": 1,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 1,
+            "composition": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "h_J_mol": 23599.543584780095,
+            "F_kmol_h": 0.001,
+            "flow_kmol_h": {
+              "ethanol": 0.001,
+              "ethylene": 0,
+              "water": 0,
+              "diethyl-ether": 0
+            }
+          }
+        ],
+        "h_J_mol": 23599.543584780095,
+        "H_kW": 0.0065554287735500255,
+        "MW": 46.06844,
+        "warnings": [
+          "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range.",
+          "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Ethylene"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/python/eos_fit_kij.py to the 21 bubble temperatures of Kamihama et al. (2012) at 101.3 kPa: AAD 0.72 K in T (max 1.47 K), 0.0222 in y (max 0.0748); data: validation/data/ethanol_water_101kPa.json; P = 101.3 kPa, T = 351.26-368.18 K",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethylene",
+              "Water"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethylene",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Water",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          }
+        ]
+      },
+      "product": {
+        "id": "product",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "ethanol",
+          "ethylene",
+          "water",
+          "diethyl-ether"
+        ],
+        "flow_kmol_h": {
+          "ethanol": 0.0009966289778566494,
+          "ethylene": 0.0000015496318952372913,
+          "water": 0.0000024603270192938894,
+          "diethyl-ether": 9.10695124056598e-7
+        },
+        "flows": [
+          0.0009966289778566494,
+          0.0000015496318952372913,
+          0.0000024603270192938894,
+          9.10695124056598e-7
+        ],
+        "F_kmol_h": 0.0010015496318952373,
+        "mass_kg_h": 0.04606844092977914,
+        "z": [
+          0.9950869593658813,
+          0.0015472342516914667,
+          0.0024565203170592758,
+          0.0009092860653678092
+        ],
+        "T_K": 573.15,
+        "P_kPa": 101.325,
+        "VF": 1,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 1,
+            "composition": [
+              0.9950869593658815,
+              0.0015472342516914671,
+              0.002456520317059276,
+              0.0009092860653678094
+            ],
+            "h_J_mol": 23568.731135783306,
+            "F_kmol_h": 0.0010015496318952373,
+            "flow_kmol_h": {
+              "ethanol": 0.0009966289778566497,
+              "ethylene": 0.000001549631895237292,
+              "water": 0.0000024603270192938898,
+              "diethyl-ether": 9.106951240565982e-7
+            }
+          }
+        ],
+        "h_J_mol": 23568.731135783306,
+        "H_kW": 0.006557014998133775,
+        "MW": 45.99716226005056,
+        "warnings": [
+          "No PR k_ij for Ethanol + Ethylene: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "k_ij of Ethanol + Water (-0.0931) comes from data at 351.26-368.18 K; 573.15 K is outside that range.",
+          "No PR k_ij for Ethanol + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Ethylene + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Ethylene + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "No PR k_ij for Water + Diethyl ether: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "Ethylene: ideal-gas heat capacity at 573.15 K is 123.15 K above its range (103.99-450 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "Diethyl ether: ideal-gas heat capacity at 573.15 K is 25.15 K above its range (270-548 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "PR for a mixture with polar components (Ethanol, Water, Diethyl ether) is not the recommended method for their liquid: below about 10 bar an activity model (NRTL or UNIQUAC) describes it better; above 10 bar a cubic equation with a gE mixing rule (PSRK, Wong-Sandler, MHV2), in CHEPTA \"PR + gE (MHV1)\" or \"SRK + gE (MHV1)\" (mixing: \"MHV1\"), which takes the pairs' NRTL sets into the equation of state (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Ethanol",
+              "Ethylene"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Water"
+            ],
+            "set": "fitted-kamihama2012",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/python/eos_fit_kij.py to the 21 bubble temperatures of Kamihama et al. (2012) at 101.3 kPa: AAD 0.72 K in T (max 1.47 K), 0.0222 in y (max 0.0748); data: validation/data/ethanol_water_101kPa.json; P = 101.3 kPa, T = 351.26-368.18 K",
+            "source_ids": [
+              "kamihama2012-ethanol-water"
+            ]
+          },
+          {
+            "pair": [
+              "Ethanol",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethylene",
+              "Water"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Ethylene",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Water",
+              "Diethyl ether"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          }
+        ]
+      }
+    },
+    "energy": {
+      "Q-R": {
+        "id": "Q-R",
+        "block": "R",
+        "kind": "heat",
+        "duty_kW": 0.00001515985368955693
+      }
+    },
+    "blocks": {
+      "F": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "R": {
+        "type": "pfr",
+        "duty_kW": 0.00001515985368955693,
+        "balance": {
+          "material": 0,
+          "energy_kW": 3.1848438816761693e-19,
+          "elements": {
+            "C": 9.359714067160019e-17,
+            "H": 9.345596851372447e-17,
+            "O": 9.359714067160019e-17
+          },
+          "mass": 2.018256170216264e-8
+        },
+        "notes": [],
+        "reaction": {
+          "generation": [
+            -0.000003371022143350581,
+            0.0000015496318952372913,
+            0.0000024603270192938894,
+            9.10695124056598e-7
+          ],
+          "heat_kW": 0.000013573629105807291,
+          "extents_kmol_h": {
+            "E1": 0.0000015496318952372913,
+            "E2": 9.10695124056598e-7
+          },
+          "keyConversion": {
+            "ethanol": 0.003371022143350581
+          },
+          "heats": {
+            "E1": {
+              "dH_J_mol": 45646,
+              "from": "formation data"
+            },
+            "E2": {
+              "dH_J_mol": -24014,
+              "from": "formation data"
+            }
+          },
+          "rates": {
+            "E1": {
+              "r": 0.0011314578940708711,
+              "units": "mol/(kg s)"
+            },
+            "E2": {
+              "r": 0.0006653258788756868,
+              "units": "mol/(kg s)"
+            }
+          },
+          "kinetic": {
+            "kind": "pfr",
+            "L_m": 0.0069118718142765975,
+            "D_m": 0.01,
+            "tubes": 1,
+            "V_m3": 5.428571428571428e-7,
+            "phases": 1,
+            "steps": 5,
+            "profile": [
+              {
+                "z_m": 0,
+                "V_m3": 0,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.001,
+                  0,
+                  0,
+                  0
+                ],
+                "rates": [
+                  0.001134085488095761,
+                  0.000666099159607357
+                ],
+                "Q_m3_h": 0.04684134022363376
+              },
+              {
+                "z_m": 0.000034559359071382984,
+                "V_m3": 2.714285714285714e-9,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.0009999831306900836,
+                  7.757099812024847e-9,
+                  1.2313204864223289e-8,
+                  4.556105052198442e-9
+                ],
+                "rates": [
+                  0.0011340723516532827,
+                  0.0006660953000765928
+                ],
+                "Q_m3_h": 0.0468417056564162
+              },
+              {
+                "z_m": 0.0002073561544282979,
+                "V_m3": 1.6285714285714284e-8,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.0009998987862802865,
+                  4.6541251079134414e-8,
+                  7.38774853963094e-8,
+                  2.7336234317174984e-8
+                ],
+                "rates": [
+                  0.0011340066692091004,
+                  0.0006660760013880567
+                ],
+                "Q_m3_h": 0.04684353275688153
+              },
+              {
+                "z_m": 0.0010713401312128724,
+                "V_m3": 8.414285714285712e-8,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.0009994771177281423,
+                  2.4042831306849475e-7,
+                  3.8165529246313476e-7,
+                  1.4122697939463998e-7
+                ],
+                "rates": [
+                  0.0011336782511985875,
+                  0.0006659794820717073
+                ],
+                "Q_m3_h": 0.046852666673061094
+              },
+              {
+                "z_m": 0.005391260015135745,
+                "V_m3": 4.2342857142857133e-7,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.0009973701126653046,
+                  0.0000012090213244406003,
+                  0.0000019194543295680277,
+                  7.104330051274272e-7
+                ],
+                "rates": [
+                  0.0011320360170554472,
+                  0.0006654962379205647
+                ],
+                "Q_m3_h": 0.04689829660307654
+              },
+              {
+                "z_m": 0.0069118718142765975,
+                "V_m3": 5.428571428571428e-7,
+                "T_K": 573.15,
+                "P_kPa": 101.325,
+                "VF": null,
+                "flows_kmol_h": [
+                  0.0009966289778566494,
+                  0.0000015496318952372913,
+                  0.0000024603270192938894,
+                  9.10695124056598e-7
+                ],
+                "rates": [
+                  0.0011314578940708711,
+                  0.0006653258788756868
+                ],
+                "Q_m3_h": 0.04691434260753408
+              }
+            ]
+          }
+        }
+      },
+      "P": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      }
+    },
+    "order": [
+      "F",
+      "R",
+      "P"
+    ],
+    "loops": [],
+    "balance": {
+      "material_kmol_h": {
+        "ethanol": 0,
+        "ethylene": 0,
+        "water": 0,
+        "diethyl-ether": 0
+      },
+      "energy_kW": 3.1848438816761693e-19,
+      "generation_kmol_h": {
+        "ethanol": -0.000003371022143350581,
+        "ethylene": 0.0000015496318952372913,
+        "water": 0.0000024603270192938894,
+        "diethyl-ether": 9.10695124056598e-7
+      },
+      "reaction_kW": 0.000013573629105807291
+    }
+  },
+  "checks": {
+    "material_kmol_h": 0,
+    "energy_kW": 3.1848438816761693e-19,
+    "blocks": {
+      "F": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "R": {
+        "material": 0,
+        "energy_kW": 3.1848438816761693e-19
+      },
+      "P": {
+        "material": 0,
+        "energy_kW": 0
+      }
+    },
+    "loops": []
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Ethanol",
+          "Ethylene"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Water"
+        ],
+        "set": "fitted-kamihama2012",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethylene",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethylene",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Water",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Ethanol",
+        "Ethylene"
+      ],
+      [
+        "Ethanol",
+        "Diethyl ether"
+      ],
+      [
+        "Ethylene",
+        "Water"
+      ],
+      [
+        "Ethylene",
+        "Diethyl ether"
+      ],
+      [
+        "Water",
+        "Diethyl ether"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "e7ce9a6b43d3114d",
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "parameter_sets": [
+      {
+        "pair": [
+          "Ethanol",
+          "Ethylene"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Water"
+        ],
+        "set": "fitted-kamihama2012",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Ethanol",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethylene",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Ethylene",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Water",
+          "Diethyl ether"
+        ],
+        "set": null,
+        "tier": "none"
+      }
+    ],
+    "databank_hash": "852b926c89fa84fa",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwfdkj8s-1",
+    "input_hash": "e7ce9a6b43d3114d",
+    "limits": {
+      "time_ms": 60000
+    },
+    "status": "done",
+    "elapsed_ms": 50.45836600000001
+  }
+}
