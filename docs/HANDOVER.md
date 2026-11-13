@@ -110,6 +110,17 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    shows stream names only (values on hover and in the table); there is no per-block balance table. Requests to CHEPTA,
    if the maintainer agrees: stream values on the drawing (a toggle), a per-block balance table, PNG/SVG export of the
    drawing; opening a project at start is not needed (Playwright uses the file input).
+5. **CHEPTA 0.7 waits for Lab's first 4 complete plant flowsheets** (the maintainer, 2026-11-13): the four processes of
+   [CANDIDATE_PROCESSES.md](reference/CANDIDATE_PROCESSES.md) priorities 1 to 4 (CO2 to methanol, ethyl acetate,
+   ethanol to ethylene/diethyl ether, cumene hydroperoxide to phenol/acetone), each run as a whole plant from a paper and
+   compared stream by stream. For 1, 3 and 4, search the open literature for the best plant-level study (complete
+   flowsheet, full stream table, unit specs and duties); if no good open study exists, replace the process with another
+   one, preferably with a downstream mixture overlapping a register row (row E), and record the replacement and its
+   reason in CANDIDATE_PROCESSES.md. The per-plant dataset table goes to the maintainer before any CHEPTA run.
+6. **Methanol flash, H2 + CO k_ij** (the maintainer, 2026-11-13): keep CHEPTA's extrapolation warning; rerun the flash
+   once with k_ij {H2, CO} = 0 and record in the case how much the outlets move (Sonnet). Column extrapolations: until
+   CHEPTA fixes `solve_column` and the other single-block wrappers, read `value.extrapolations` from a `solve_flowsheet`
+   run.
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer

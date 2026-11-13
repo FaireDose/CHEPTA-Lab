@@ -1,0 +1,428 @@
+{
+  "checked_by": "check_flash.py (Lab); reads files only",
+  "case_input": {
+    "T_K": 313,
+    "P_kPa": 5000
+  },
+  "tolerances": {
+    "regression": "half a unit of the last printed digit of the decision file's table"
+  },
+  "checks": [
+    {
+      "id": "pr-kij",
+      "kind": "regression",
+      "against": "2026-11-06-02-mhv1.md, separator table, row 'PR, k_ij (a + b/T for CO2)'",
+      "rows": [
+        {
+          "quantity": "liquid_fraction",
+          "printed": "0.2534",
+          "observed": 0.25335657132094747,
+          "difference": -4.3428679052548436e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x carbon-dioxide",
+          "printed": "0.0333",
+          "observed": 0.03334380233736438,
+          "difference": 4.3802337364375055e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x hydrogen",
+          "printed": "0.00115",
+          "observed": 0.0011456064632748145,
+          "difference": -4.393536725185452e-06,
+          "tolerance": 5.000000500000001e-06,
+          "passed": true
+        },
+        {
+          "quantity": "x carbon-monoxide",
+          "printed": "0.00023",
+          "observed": 0.0002324988815925655,
+          "difference": 2.4988815925654987e-06,
+          "tolerance": 5.000000500000001e-06,
+          "passed": true
+        },
+        {
+          "quantity": "x methanol",
+          "printed": "0.5736",
+          "observed": 0.5735775813848414,
+          "difference": -2.2418615158614763e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x water",
+          "printed": "0.3917",
+          "observed": 0.3917005109329269,
+          "difference": 5.109329269115115e-07,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "pr-kij",
+      "kind": "pairs_without_parameters",
+      "printed": "CO2 + CO, H2 + methanol, H2 + water, CO + water (k_ij = 0)",
+      "observed": [
+        [
+          "carbon-dioxide",
+          "carbon-monoxide"
+        ],
+        [
+          "carbon-monoxide",
+          "water"
+        ],
+        [
+          "hydrogen",
+          "methanol"
+        ],
+        [
+          "hydrogen",
+          "water"
+        ]
+      ],
+      "expected": [
+        [
+          "carbon-dioxide",
+          "carbon-monoxide"
+        ],
+        [
+          "carbon-monoxide",
+          "water"
+        ],
+        [
+          "hydrogen",
+          "methanol"
+        ],
+        [
+          "hydrogen",
+          "water"
+        ]
+      ],
+      "passed": true
+    },
+    {
+      "id": "pr-kij",
+      "kind": "balances",
+      "component_kmol_h": {
+        "carbon-dioxide": -2.55351295663786e-15,
+        "hydrogen": -1.908195823574488e-15,
+        "carbon-monoxide": -9.341485918135106e-16,
+        "methanol": 0.0,
+        "water": 0.0
+      },
+      "energy_kW": 0.0,
+      "flash_duty_kW": 5.684341886080802e-14,
+      "tolerances": {
+        "material_kmol_h": 1.0000000000000001e-07,
+        "energy_kW": 1e-06,
+        "basis": "Lab's choice: 1e-9 of the feed; 1e-6 kW"
+      },
+      "chepta_reported": {
+        "material_kmol_h": {
+          "carbon-dioxide": -3.552713678800501e-15,
+          "hydrogen": 0,
+          "carbon-monoxide": -8.881784197001252e-16,
+          "methanol": 0,
+          "water": 0
+        },
+        "energy_kW": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "pr-mhv1",
+      "kind": "regression",
+      "against": "2026-11-06-02-mhv1.md, separator table, row '**PR + gE (MHV1)**'",
+      "rows": [
+        {
+          "quantity": "liquid_fraction",
+          "printed": "0.2505",
+          "observed": 0.25048669914417643,
+          "difference": -1.3300855823572544e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x carbon-dioxide",
+          "printed": "0.0247",
+          "observed": 0.024729328293916913,
+          "difference": 2.9328293916913717e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x hydrogen",
+          "printed": "0.00368",
+          "observed": 0.0036810890180066155,
+          "difference": 1.0890180066154206e-06,
+          "tolerance": 5.000000500000001e-06,
+          "passed": true
+        },
+        {
+          "quantity": "x carbon-monoxide",
+          "printed": "0.00056",
+          "observed": 0.0005636353369096964,
+          "difference": 3.6353369096964183e-06,
+          "tolerance": 5.000000500000001e-06,
+          "passed": true
+        },
+        {
+          "quantity": "x methanol",
+          "printed": "0.5756",
+          "observed": 0.5755588396890672,
+          "difference": -4.116031093281958e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        },
+        {
+          "quantity": "x water",
+          "printed": "0.3955",
+          "observed": 0.39546710766209964,
+          "difference": -3.289233790038093e-05,
+          "tolerance": 5.0000005e-05,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "pr-mhv1",
+      "kind": "pairs_without_parameters",
+      "printed": "CO2 + H2, CO2 + CO, H2 + CO (gas + gas, g^E = 0)",
+      "observed": [
+        [
+          "carbon-dioxide",
+          "carbon-monoxide"
+        ],
+        [
+          "carbon-dioxide",
+          "hydrogen"
+        ],
+        [
+          "carbon-monoxide",
+          "hydrogen"
+        ]
+      ],
+      "expected": [
+        [
+          "carbon-dioxide",
+          "carbon-monoxide"
+        ],
+        [
+          "carbon-dioxide",
+          "hydrogen"
+        ],
+        [
+          "carbon-monoxide",
+          "hydrogen"
+        ]
+      ],
+      "passed": true
+    },
+    {
+      "id": "pr-mhv1",
+      "kind": "balances",
+      "component_kmol_h": {
+        "carbon-dioxide": 2.4424906541753444e-15,
+        "hydrogen": 1.1504686092678185e-14,
+        "carbon-monoxide": -1.1102230246251565e-16,
+        "methanol": -3.552713678800501e-15,
+        "water": -3.552713678800501e-15
+      },
+      "energy_kW": 0.0,
+      "flash_duty_kW": 0,
+      "tolerances": {
+        "material_kmol_h": 1.0000000000000001e-07,
+        "energy_kW": 1e-06,
+        "basis": "Lab's choice: 1e-9 of the feed; 1e-6 kW"
+      },
+      "chepta_reported": {
+        "material_kmol_h": {
+          "carbon-dioxide": 3.552713678800501e-15,
+          "hydrogen": 1.4210854715202004e-14,
+          "carbon-monoxide": 0,
+          "methanol": -3.552713678800501e-15,
+          "water": -3.552713678800501e-15
+        },
+        "energy_kW": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "srk-mhv1",
+      "kind": "refusal",
+      "decision_file_says": "refused: CO2 + water has no SRK set in the rule (item 2)",
+      "observed": "unsupported",
+      "error": {
+        "code": "NOT_AVAILABLE",
+        "message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+        "where": []
+      },
+      "passed": true
+    },
+    {
+      "id": "pr-mhv1",
+      "kind": "method_notes",
+      "pairs": [
+        {
+          "pair": [
+            "carbon-dioxide",
+            "hydrogen"
+          ],
+          "set": null,
+          "tier": "none",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "carbon-dioxide",
+            "carbon-monoxide"
+          ],
+          "set": null,
+          "tier": "none",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "carbon-dioxide",
+            "methanol"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": true,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "carbon-dioxide",
+            "water"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": true,
+          "source_ids_naming_another_system": [
+            "pokki2018-furfural-gvl",
+            "schuler2012-carbon-dioxide-methanol"
+          ]
+        },
+        {
+          "pair": [
+            "hydrogen",
+            "carbon-monoxide"
+          ],
+          "set": null,
+          "tier": "none",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "hydrogen",
+            "methanol"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": true,
+          "source_ids_naming_another_system": [
+            "wu2019-carbon-dioxide-methanol"
+          ]
+        },
+        {
+          "pair": [
+            "hydrogen",
+            "water"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "carbon-monoxide",
+            "methanol"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": [
+            "wu2019-carbon-dioxide-methanol"
+          ]
+        },
+        {
+          "pair": [
+            "carbon-monoxide",
+            "water"
+          ],
+          "set": "mhv1-fitted",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": true,
+          "source_ids_naming_another_system": []
+        },
+        {
+          "pair": [
+            "methanol",
+            "water"
+          ],
+          "set": "fitted-zhang2019-etal",
+          "tier": "fitted",
+          "flagged_fit_quality_by_chepta_advice_in_pr_kij": false,
+          "source_ids_naming_another_system": [
+            "zhang2019-2-propanol-isopropyl-acetate",
+            "zhang2019-2-propanol-n-butyl-acetate"
+          ]
+        }
+      ],
+      "pairs_flagged_fit_quality_in_pr_kij_advice": [
+        [
+          "carbon-dioxide",
+          "methanol"
+        ],
+        [
+          "carbon-dioxide",
+          "water"
+        ],
+        [
+          "carbon-monoxide",
+          "water"
+        ],
+        [
+          "hydrogen",
+          "methanol"
+        ]
+      ],
+      "pr_mhv1_output_mentions_fit_quality": true,
+      "pr_mhv1_warnings_S1": [
+        "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+        "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+        "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 29.7 %), 10.2 % in the gas solubility, 0.6 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+        "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.6 %), 7.9 % in the gas solubility, 4 of 573 points without a bubble pressure, 6.4 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07: alpha fitted, better than k_ij = a + b / T ({\"P_pct\":13.8,\"x_pct\":10.2,\"no_bubble_pressure\":4})",
+        "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+        "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %), 5.6 % in the gas solubility, 0.7 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+        "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry's law constant against IAPWS G7-04 (max 16.4 %), 2.1 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+        "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used inside the MHV1 rule",
+        "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+      ],
+      "pr_mhv1_qualification_warnings": [],
+      "note": "Observation, not a pass/fail check: the fit-quality known issues of the MHV1 sets appear in the plain-PR run's advice, not in the MHV1 run's own warnings or qualifications.",
+      "passed": true
+    },
+    {
+      "id": "pr-mhv1",
+      "kind": "derived_ratio",
+      "quantity": "x_H2 in the liquid, PR + gE (MHV1) over plain PR",
+      "observed": 3.2132229836447554,
+      "printed": "3.2",
+      "tolerance": 0.05,
+      "passed": true
+    }
+  ]
+}
