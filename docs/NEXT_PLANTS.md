@@ -19,10 +19,10 @@ npm package `chepta@0.6.2`, not run).
 | Process | Recommended paper | Usable as a complete plant? | Status |
 |---|---|---|---|
 | 1 CO2 to methanol | **Lacerda de Oliveira Campos et al. 2022** (CC BY 4.0) | **yes** | transcribed and audited: [cases/methanol-co2-campos-2022](../cases/methanol-co2-campos-2022/README.md) |
-| 3 Ethanol to ethylene / diethyl ether | none usable as a complete plant. Best found: Tripodi, Belotti & Rossetti 2019 (accepted manuscript, open since 2020; licence to check) | **no as published**: a partial plant at best (reactor, compression, ethanol recovery); its CO2 removal uses amines and its purification uses PSA and cryogenics | **maintainer decides**: keep as a partial plant from Tripodi after a rights check (recommended), or replace it after a wider search; no replacement with an open stream table was found today |
+| 3 Ethanol to ethylene / diethyl ether | none usable as a complete plant (best: Tripodi et al. 2019, rights unclear, amine and PSA sections) | **no** | **replaced** (the maintainer, 2026-11-13: four different processes; neither Tripodi nor Šulgan) by **ethylene glycol from ethylene oxide, direct hydration: Shehata, Nady & Gad 2024** (CC BY 4.0), recommended below |
 | 4 Cumene hydroperoxide to phenol / acetone | none found | **no**: no open paper with a plant flowsheet and a stream table; CHEPTA also lacks the side products (alpha-methylstyrene, acetophenone, dimethylbenzyl alcohol) | **replaced** by n-butyl acetate (Al-Rabiah et al. 2022, CC BY 4.0) |
 
-Order recommended: **1 methanol (Campos 2022)**, then **4' butyl acetate (Al-Rabiah 2022)**, then **3** as decided.
+Approved by the maintainer (2026-11-13): Campos 2022 for process 1, Al-Rabiah 2022 in place of process 4. Order: **1 methanol (Campos 2022)**, **4' butyl acetate (Al-Rabiah 2022)**, **3' ethylene glycol (Shehata 2024)**, if approved.
 
 The four complete plants are the four processes of CANDIDATE_PROCESSES.md: process 2 is Piotrowski & Kubica 2021. The Šulgan 2020 ethyl acetate plant prepared in this pull request is **not one of the four**: it is a later second ethyl acetate plant (same family as Piotrowski).
 
@@ -65,12 +65,20 @@ Why this replacement: it **overlaps the register** (ester + alcohol + water; ace
 esterification equilibrium; [data/ISSUES_AND_ROUTES.md](../data/ISSUES_AND_ROUTES.md)) through a **different
 reaction**, and uses extractive distillation with a heavy solvent, today only a lead in the register.
 
-### Process 3: what to do (to decide)
+### Replacement for process 3: another classic process (to decide)
 
-| Option | For | Against |
-|---|---|---|
-| **Keep process 3 as a partial plant from Tripodi 2019** (recommended) | keeps the process and a gas-phase olefin plant in the set; stream reports Tables 9-10 cover reactor, compression and ethanol recovery | reuse rights of the ACS accepted manuscript to check first; only part of the plant; lumped components |
-| Replace process 3 after a wider search | a complete plant | no open paper with a full stream table found today for an unrelated process; the Šulgan ethyl acetate plant is excluded (process 2 is already ethyl acetate) |
+The maintainer (2026-11-13): four **different** processes, to find more kinds of issues in CHEPTA; neither Tripodi
+nor Šulgan. Searched: cumene, ethylbenzene/styrene, acetone from isopropanol, isopropanol, MTBE/ETBE, ethylene
+glycol, formaldehyde, VCM, cyclohexane, allyl chloride, maleic anhydride, toluene HDA, ethanol from ethylene, acetic
+acid, DME (OpenAlex with a CC BY filter and a full-text search for "stream table"; CC BY journals).
+
+| Paper (licence) | What it gives | What is missing | New kinds of issues for CHEPTA | Verdict |
+|---|---|---|---|---|
+| **Shehata, Nady & Gad 2024**, *Sci. Rep.* 14, 28375, doi 10.1038/s41598-024-77713-y (CC BY 4.0, p.19): monoethylene glycol by **direct hydration of ethylene oxide** (Aspen HYSYS 11) | **Stream table** Table 3 (p.10): 14 streams of the direct-hydration plant, molar flow (kmol/h), mass flow (t/yr), mole fractions of water, EO, MEG, DEG, TEG; flowsheet Fig. 5 (p.10); unit specifications Table 1 (p.3: trays and pressures of the dehydration and MEG columns); reactor in the text (p.8: plug flow, 77.8 m × 0.55 m, 199 °C, 3480 kPa, 3 min; outlet distribution); three-effect evaporator 17.8 MW, dehydration column at 85 mm Hg (p.8); energy streams Table 8 (p.14) | **T and P of each stream not in Table 3** (a few in the text); no kinetics (an outlet distribution instead); triethylene glycol is **not a CHEPTA component** (user data needed); the table shows small inconsistencies to audit (e.g. water 0 in the MEG column feed but 0.0023 in its products) | heavy side products (DEG, TEG); a **multiple-effect evaporator**; **vacuum columns** and a **side draw**; a large water recycle (water/EO 10:1) | **recommended** |
+| Yalçın 2025, *Int. J. Energy Res.* 2025, doi 10.1155/er/2393398 (CC BY per OpenAlex): toluene hydrodealkylation to benzene, techno-economic | not seen: the publisher refused the download from this session (HTTP 403) | everything unverified | gas-phase recycle with purge, a heavy side product (biphenyl), H2/CH4 with aromatics (Peng-Robinson) | to check: the maintainer could download it; if it has a full stream table it is a strong alternative |
+| Odunlami et al. 2022, *Nigerian Res. J. Eng. Environ. Sci.* 7(1), 363-368, doi 10.5281/zenodo.6726535 (CC BY 4.0): acetone from isopropanol | equipment Table 1, stream Table 2 (an image) | no columns (reactor, separator only); the text gives the product as 96.47 % hydrogen | - | no |
+| Prestigiacomo, Proietto, Giaconia et al. 2024, *Energy Convers. Manage. X* 22, 100546 (CC BY): ethylbenzene to styrene with solar heat | reactor design Tables 1-4, costs | reactor only, no stream table | - | no |
+| Chen, Kuo, Lobo & Ierapetritou 2024, *Green Chem.* 26, 2903 (CC BY-NC 3.0): ethylene from ethane | | non-commercial; ethane routes | - | no |
 
 ## Other candidates considered
 
@@ -84,7 +92,7 @@ reaction**, and uses extractive distillation with a heavy solvent, today only a 
 
 ## What to decide
 
-1. **Process 1:** approve Campos 2022 as the methanol plant (recommended: yes), then give the go to run it.
-2. **Process 3:** keep it as a partial plant from Tripodi 2019 after a rights check (recommended), or replace it
-   after a wider search.
-3. **Process 4:** approve its replacement by butyl acetate, Al-Rabiah 2022 (recommended: yes).
+1. **Process 1:** approved (Campos 2022). The go to run it is still to give.
+2. **Process 3:** replace it by ethylene glycol from ethylene oxide (Shehata, Nady & Gad 2024) (recommended), or
+   first have the HDA paper (Yalçın 2025) downloaded and checked.
+3. **Process 4:** approved (butyl acetate, Al-Rabiah 2022).
