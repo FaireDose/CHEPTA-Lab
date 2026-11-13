@@ -48,12 +48,12 @@
       "use": "Baseline CO2-to-methanol plant: reactor, condensation, recycle/purge and purification.",
       "limitations": [
         "Select the green-methanol baseline only; biomass and reverse-Boudouard sections are outside the first case.",
-        "Supporting PDF fetch failed; its detailed specifications and rights remain unaudited.",
-        "CHEPTA's equilibrium example is not the paper's kinetic PFR."
+        "CHEPTA's equilibrium example is not the paper's kinetic PFR.",
+        "Supporting information read 2026-11-13 (from Europe PMC's supplementary files of PMC12093377): life-cycle inventories, heat-exchanger stream lists (Tables S13-S15) and costs; no stream table. Not usable for a stream-by-stream comparison."
       ],
-      "next_action": "Retrieve supporting information and audit kinetics, thermodynamics, stream specifications and column data.",
+      "next_action": "None for now: replaced by lacerda-campos-2022 as the CO2-to-methanol plant (docs/NEXT_PLANTS.md).",
       "supplement_url": "https://pubs.acs.org/doi/suppl/10.1021/acssuschemeng.5c01021/suppl_file/sc5c01021_si_001.pdf",
-      "checked_on": "2026-10-29"
+      "checked_on": "2026-11-13"
     },
     {
       "id": "sulgan-2020",
@@ -63,23 +63,27 @@
       "year": 2020,
       "doi": "10.3390/pr8121618",
       "url": "https://www.mdpi.com/2227-9717/8/12/1618",
-      "open_copy_url": "https://psecommunity.org/wp-content/plugins/wpor/includes/file/2107/LAPSE-2021.0623-1v1.pdf",
+      "open_copy_url": "https://mdpi-res.com/d_attachment/processes/processes-08-01618/article_deploy/processes-08-01618.pdf",
       "access_verified": "full_text",
-      "license": "CC-BY-4.0",
+      "license": "CC-BY-4.0, stated on publisher PDF p. 32",
       "rights_status": "attribution_required",
       "locators": [
-        "Sections 2.1\u20132.3: thermodynamics, kinetics, equipment",
-        "Section 3.1; Figure 1; Tables 1\u20132: conventional process",
-        "Section 4.1; Table 9: energy"
+        "Figure 1, p. 9: conventional set-up, 19 blocks",
+        "Table 1, p. 10: all 32 streams (kmol/h, mole fractions, T, P, volume flow)",
+        "Table 2, p. 11: columns C1-C3",
+        "Sections 2.1-2.4, pp. 5-7: NRTL-HOC, kinetics Eq. 6, equipment models, specifications; Section 3.1, pp. 7-8 and 11",
+        "Table 9, p. 23: duties per unit"
       ],
-      "use": "Detailed conventional ethyl-acetate plant for a later complete flowsheet case.",
+      "use": "Second complete ethyl acetate plant (conventional set-up): cases/ethyl-acetate-sulgan-2020, transcribed and audited 2026-11-13; first of the three plants chosen in docs/NEXT_PLANTS.md.",
       "limitations": [
-        "Uses NRTL-HOC and non-equilibrium column models; initial CHEPTA equilibrium-stage columns alone will not reproduce the same model.",
-        "Some property inputs originate in external databases; article access does not establish rights to redistribute those databases.",
+        "Uses NRTL-HOC and rate-based packed columns; CHEPTA's NRTL with a dimerizing ideal vapour and equilibrium stages are a different model.",
+        "NRTL-HOC parameters (Aspen databank) and the sulfuric acid concentration are not printed; the units of the activation energy are not stated.",
+        "Same process family as piotrowski-kubica-2021: keep both in one split group.",
         "Reactive-distillation variants are later work."
       ],
-      "next_action": "Audit the conventional CSTR case first; map each property and kinetic input to an open source and document method differences.",
-      "checked_on": "2026-10-29"
+      "next_action": "Build CHEPTA requests from cases/ethyl-acetate-sulgan-2020 and run the conventional plant unit by unit, then whole.",
+      "checked_on": "2026-11-13",
+      "pdf_sha256": "bf5dae4b4990116a190b15f111fac3c59cba4f452e081f94a0ab19293935cb51"
     },
     {
       "id": "van-der-borght-2019",
@@ -245,6 +249,61 @@
       ],
       "next_action": "None for the source; replace the illustrative state by an audited paper state (medrano-garcia-2025 supplement) before any process claim.",
       "checked_on": "2026-11-11"
+    },
+    {
+      "id": "lacerda-campos-2022",
+      "kind": "paper",
+      "title": "A Detailed Process and Techno-Economic Analysis of Methanol Synthesis from H2 and CO2 with Intermediate Condensation Steps",
+      "authors": "Bruno Lacerda de Oliveira Campos; Kelechi John; Philipp Beeskow; Karla Herrera Delgado; Stephan Pitter; Nicolaus Dahmen; J\u00f6rg Sauer",
+      "year": 2022,
+      "doi": "10.3390/pr10081535",
+      "url": "https://doi.org/10.3390/pr10081535",
+      "open_copy_url": "https://mdpi-res.com/d_attachment/processes/processes-10-01535/article_deploy/processes-10-01535.pdf",
+      "supplement_url": "https://mdpi-res.com/d_attachment/processes/processes-10-01535/article_deploy/processes-10-01535-s001.zip",
+      "access_verified": "full_text",
+      "license": "CC-BY-4.0, stated on publisher PDF p. 1 (main article); the supplement carries no separate licence statement",
+      "rights_status": "attribution_required",
+      "locators": [
+        "Section 2.3 and Table 1, main article: LHHW kinetics (Table 1 reprinted with permission from an ACS paper, ref. 19)",
+        "Main article: Peng-Robinson for the reactor, NRTL (NRTL2) elsewhere, Aspen Plus V10",
+        "Supplement Section E, Figure S1, Tables S9-S10 (pp. 12-15): one-step process, 61 streams with flows, T, P, molar enthalpy, entropy, exergy and mole %",
+        "Supplement Tables S11-S12 (pp. 19-22): three-step process"
+      ],
+      "use": "Candidate complete plant: CO2 + H2 to methanol, synthesis loop and column (second of three in docs/NEXT_PLANTS.md). Not transcribed yet.",
+      "limitations": [
+        "Kinetic parameters (Table 1) are reprinted with permission from a copyrighted ACS article: check what may be reused before transcription.",
+        "Supplement licence not stated separately; assumed to follow the article only after a check.",
+        "NRTL with dissolved gases in the paper; CHEPTA needs PR or PR + gE (MHV1) there: a method difference.",
+        "Includes a fired heater and a steam cycle that may be scoped out of the first case."
+      ],
+      "next_action": "After the Sulgan case: transcribe Tables S9-S10 and Figure S1, audit their balances.",
+      "checked_on": "2026-11-13"
+    },
+    {
+      "id": "al-rabiah-2022",
+      "kind": "paper",
+      "title": "Novel Process for Butyl Acetate Production via Membrane Reactor: A Comparative Study with the Conventional and Reactive Distillation Processes",
+      "authors": "Abdulrahman A. Al-Rabiah; Abdullah E. Alqahtani; Rayan K. Al Darwish; Abdulaziz S. Bin Naqyah",
+      "year": 2022,
+      "doi": "10.3390/pr10091801",
+      "url": "https://doi.org/10.3390/pr10091801",
+      "open_copy_url": "https://mdpi-res.com/d_attachment/processes/processes-10-01801/article_deploy/processes-10-01801.pdf",
+      "access_verified": "full_text",
+      "license": "CC-BY-4.0, stated on publisher PDF p. 1",
+      "rights_status": "attribution_required",
+      "locators": [
+        "Section 6.1, Eqs. 13-15, Table 6, pp. 11-12: conventional process, Amberlyst-15 kinetics, reactor",
+        "Table 7, p. 14: conventional process, 14 streams (component kmol/h, T, P, enthalpy kW, vapour fraction)",
+        "Table 4 and Table 5: membrane-reactor process streams and equipment; Table 9: reactive-distillation process streams"
+      ],
+      "use": "Candidate complete plant: n-butyl acetate, conventional process (third of three in docs/NEXT_PLANTS.md). Not transcribed yet.",
+      "limitations": [
+        "Columns T-101 and T-103 of the conventional process have no stages or reflux printed (only T-102: 29 stages).",
+        "Three binary pairs are only predicted in CHEPTA 0.6.2 (butanol + acetic acid, acetic acid + 1,4-butanediol, butyl acetate + 1,4-butanediol).",
+        "Butanol + water two liquids with acetic acid present: refused by CHEPTA today."
+      ],
+      "next_action": "Third plant: transcribe Table 7 and the Figure of the conventional process, audit the balances.",
+      "checked_on": "2026-11-13"
     }
   ]
 }

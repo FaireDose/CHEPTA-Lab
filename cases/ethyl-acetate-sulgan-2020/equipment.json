@@ -1,0 +1,545 @@
+{
+  "source_id": "sulgan-2020",
+  "source_doi": "10.3390/pr8121618",
+  "classification": "published flowsheet and settings (Aspen Plus V10); not CHEPTA input and not sizing",
+  "property_method": {
+    "value": "NRTL-HOC (NRTL liquid, Hayden-O'Connell vapour with acetic acid association); parameters from the Aspen Plus databank, not printed",
+    "locator": "p.5, Section 2.1"
+  },
+  "feeds": {
+    "value": "10 kmol/h ethanol and 10 kmol/h acetic acid, 25 C, atmospheric; product 10 kmol/h ethyl acetate 99.9 mol %",
+    "locator": "p.7, Section 2.4; Table 1"
+  },
+  "boundary": {
+    "inlets": [
+      "AA0",
+      "ETOH0",
+      "H2OIN"
+    ],
+    "outlets": [
+      "W23",
+      "H2OP2"
+    ],
+    "note": "H2OP2 is not printed; the audit uses H2OP1 (the stream before EX6) for the plant boundary"
+  },
+  "unit_count": {
+    "value": "19 blocks in Figure 1 (3 columns, 1 CSTR, 1 decanter, 7 exchangers, 4 mixers, 3 splitters); the paper counts 5 main units and 7 exchangers (Table 9)",
+    "locator": "Figure 1 p.9; Table 9 p.23"
+  },
+  "equipment": [
+    {
+      "id": "MIXAA",
+      "type": "mixer",
+      "inlets": [
+        "AA0",
+        "W12"
+      ],
+      "outlets": [
+        "F11"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {}
+    },
+    {
+      "id": "MIXETOH",
+      "type": "mixer",
+      "inlets": [
+        "ETOH0",
+        "D32"
+      ],
+      "outlets": [
+        "F21"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {}
+    },
+    {
+      "id": "MIXF",
+      "type": "mixer",
+      "inlets": [
+        "F11",
+        "F21"
+      ],
+      "outlets": [
+        "R1"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {}
+    },
+    {
+      "id": "CSTR",
+      "type": "cstr",
+      "inlets": [
+        "R1"
+      ],
+      "outlets": [
+        "P1"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "operation": {
+          "value": "adiabatic",
+          "locator": "p.8, Section 3.1.2; Table 9 footnote a, p.23"
+        },
+        "residence_time_min": {
+          "value": 200,
+          "locator": "p.8, Section 3.1.2 ('residence time of 200 min [15]')"
+        },
+        "liquid_volume_m3": {
+          "value": 8.9,
+          "locator": "p.8, Section 3.1.2 ('calculated to be 8.9 m3')",
+          "kind": "source-reported result"
+        },
+        "acetic_acid_conversion_pct": {
+          "value": 53.0,
+          "locator": "p.8, Section 3.1.2 ('53.0% compared to 63.0%')",
+          "kind": "source-reported result"
+        },
+        "reaction": {
+          "value": "acetic acid + ethanol = ethyl acetate + water, liquid phase only, homogeneous sulfuric acid catalyst (not in phase equilibria)",
+          "locator": "p.5, Section 2.2, Eq. 5; p.6, Section 2.3"
+        },
+        "rate_law": {
+          "value": "r1 = 2.8e4 exp(-41868/RT) C_AA C_EtOH - 7.1e3 exp(-41868/RT) C_H2O C_EtAc",
+          "units": "r in kmol m-3 s-1, C in kmol m-3 (p.5); units of 41,868 and R not printed (kJ kmol-1 with R in kJ kmol-1 K-1 assumed by Lab, to check)",
+          "locator": "p.6, Eq. 6 (checked on a render of p.6)"
+        },
+        "catalyst_basis": {
+          "value": "sulfuric acid, 0.2-1.0 vol % quoted from the literature; the concentration used is not stated and does not appear in Eq. 6",
+          "locator": "p.5, Section 2.2"
+        }
+      },
+      "missing_design_data": [
+        "sulfuric acid concentration used",
+        "pressure (only streams at 101.3 kPa printed)",
+        "reactor duty: adiabatic, none"
+      ]
+    },
+    {
+      "id": "EX1",
+      "type": "hx",
+      "inlets": [
+        "P1",
+        "W11"
+      ],
+      "outlets": [
+        "P2",
+        "W12"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 25.01,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "footnote b: heat integration, no external energy; printed in the Q_C column"
+        }
+      },
+      "missing_design_data": [
+        "exchanger area, U, pressure drops",
+        "which side is hot and which cold is read from Figure 1 and the stream temperatures, not stated"
+      ],
+      "note": "P1 39.01 -> P2 54.24 C (cold side); W11 98.20 -> W12 49.01 C (hot side), Table 1"
+    },
+    {
+      "id": "C1",
+      "type": "column",
+      "inlets": [
+        "P2",
+        "AZ"
+      ],
+      "outlets": [
+        "D11",
+        "W11"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "stages_N": {
+          "value": 60,
+          "locator": "Table 2, p.11"
+        },
+        "feed_stage_P2": {
+          "value": 35,
+          "locator": "Table 2, p.11 (row f_P12, read as the P2 feed)"
+        },
+        "feed_stage_AZ": {
+          "value": 34,
+          "locator": "Table 2, p.11"
+        },
+        "reflux_ratio": {
+          "value": 2.0,
+          "locator": "Table 2, p.11"
+        },
+        "design_spec_1": {
+          "value": "x_D11(AA) = 1e-5",
+          "locator": "Table 2, p.11 (text p.8: 'less than 0.001 mol.% of AA is allowed in the distillate')"
+        },
+        "design_spec_2": {
+          "value": "x_W11(AA) = 0.70",
+          "locator": "Table 2, p.11; p.8"
+        },
+        "pressure_kPa": {
+          "value": 101.3,
+          "locator": "Table 2, p.11"
+        },
+        "condenser_duty_kW": {
+          "value": 1135.23,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "reboiler_duty_kW": {
+          "value": 1181.19,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "internals": {
+          "value": "packed, d 1.0 m; section 1 stages 2-40 (39), RALU-RING 25 mm, 2 x 4.0 m, HETP 0.21 m, dP 2.0 kPa; section 2 stages 41-59 (19), RALU-RING 38 mm, 4.0 m, HETP 0.21 m, dP 0.9 kPa",
+          "locator": "Table 2, p.11"
+        },
+        "model": {
+          "value": "rate-based (NEQ) RadFrac, after an equilibrium-stage start",
+          "locator": "p.6, Section 2.3"
+        },
+        "AZ_to_W22_ratio": {
+          "value": 1,
+          "locator": "p.8 ('set to 1')"
+        }
+      },
+      "missing_design_data": [
+        "condenser type (total assumed from the liquid distillate D11)",
+        "stage numbering convention (Aspen: 1 = condenser, N = reboiler, assumed)"
+      ],
+      "note": "Table 2 labels the reaction-mixture feed 'f P12'; Figure 1 and Table 1 call the stream P2. Text p.8 says 25 mm and 35 mm packings, Table 2 says 25 mm and 38 mm."
+    },
+    {
+      "id": "MIXDEC",
+      "type": "mixer",
+      "inlets": [
+        "D11",
+        "H2OIN",
+        "D22",
+        "BYPASS",
+        "H2OREC"
+      ],
+      "outlets": [
+        "D12"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {}
+    },
+    {
+      "id": "EX2",
+      "type": "heater",
+      "inlets": [
+        "D12"
+      ],
+      "outlets": [
+        "D13"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 133.75,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "cooling; printed in the Q_C column"
+        }
+      }
+    },
+    {
+      "id": "DEC",
+      "type": "decanter",
+      "inlets": [
+        "D13"
+      ],
+      "outlets": [
+        "ORG",
+        "H2OL"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "T_C": {
+          "value": 25.0,
+          "locator": "Table 1, p.10 (D13, ORG, H2OL)"
+        },
+        "water_to_EtAc_mole_ratio_in_D13": {
+          "value": 4.1,
+          "locator": "p.8"
+        },
+        "EtAc_recovery_pct": {
+          "value": "over 90",
+          "locator": "p.8",
+          "kind": "source-reported result"
+        },
+        "duty_kW": {
+          "value": 0.85,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "cooling, printed in the Q_C column"
+        }
+      }
+    },
+    {
+      "id": "EX3",
+      "type": "hx",
+      "inlets": [
+        "ORG",
+        "D21"
+      ],
+      "outlets": [
+        "F2",
+        "D22"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 31.04,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "footnote b: heat integration"
+        }
+      },
+      "missing_design_data": [
+        "exchanger area, U, pressure drops",
+        "which side is hot and which cold is read from Figure 1 and the stream temperatures, not stated"
+      ],
+      "note": "ORG 25.00 -> F2 41.79 C; D21 70.02 -> D22 35.00 C"
+    },
+    {
+      "id": "C2",
+      "type": "column",
+      "inlets": [
+        "F2"
+      ],
+      "outlets": [
+        "D21",
+        "W21"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "stages_N": {
+          "value": 60,
+          "locator": "Table 2, p.11"
+        },
+        "feed_stage_F2": {
+          "value": 36,
+          "locator": "Table 2, p.11"
+        },
+        "reflux_ratio": {
+          "value": 5.0,
+          "locator": "Table 2, p.11"
+        },
+        "design_spec_1": {
+          "value": "x_W21(EtAc) = 0.999",
+          "locator": "Table 2, p.11"
+        },
+        "pressure_kPa": {
+          "value": 101.3,
+          "locator": "Table 2, p.11"
+        },
+        "condenser_duty_kW": {
+          "value": 1212.97,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "reboiler_duty_kW": {
+          "value": 1267.94,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "internals": {
+          "value": "packed, d 1.20 m; stages 2-59 (58), RALU-RING 25 mm, 2 x 3.5 m, HETP 0.12 m, dP 1.8 kPa",
+          "locator": "Table 2, p.11"
+        },
+        "EtAc_recovery_pct": {
+          "value": 63.2,
+          "locator": "p.8",
+          "kind": "source-reported result"
+        }
+      },
+      "missing_design_data": [
+        "second specification of C2: only one design spec printed; Lab will need to choose one (e.g. bottoms rate 20.00 kmol/h from Table 1)",
+        "whether the condenser holds two liquids"
+      ]
+    },
+    {
+      "id": "SPETAC",
+      "type": "splitter",
+      "inlets": [
+        "W21"
+      ],
+      "outlets": [
+        "AZ",
+        "W22"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "AZ_to_W22": {
+          "value": 1,
+          "locator": "p.8"
+        }
+      }
+    },
+    {
+      "id": "EX7",
+      "type": "heater",
+      "inlets": [
+        "W22"
+      ],
+      "outlets": [
+        "W23"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 25.85,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "cooling"
+        }
+      }
+    },
+    {
+      "id": "SPBY",
+      "type": "splitter",
+      "inlets": [
+        "H2OL"
+      ],
+      "outlets": [
+        "BYPASS",
+        "F31"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "bypass_limit": {
+          "value": "at most 20 % of H2OL",
+          "locator": "p.11"
+        }
+      },
+      "note": "Table 1 gives BYPASS/H2OL = 29.31/146.57 = 0.19998 (derived)"
+    },
+    {
+      "id": "EX4",
+      "type": "hx",
+      "inlets": [
+        "F31",
+        "D31"
+      ],
+      "outlets": [
+        "F32",
+        "D32"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 13.73,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "footnote b: heat integration"
+        }
+      },
+      "missing_design_data": [
+        "exchanger area, U, pressure drops",
+        "which side is hot and which cold is read from Figure 1 and the stream temperatures, not stated"
+      ],
+      "note": "F31 25.00 -> F32 30.34 C; D31 71.69 -> D32 35.00 C"
+    },
+    {
+      "id": "EX5",
+      "type": "hx",
+      "inlets": [
+        "F32",
+        "W31"
+      ],
+      "outlets": [
+        "F33",
+        "W32"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 131.31,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "footnote b: heat integration"
+        }
+      },
+      "missing_design_data": [
+        "exchanger area, U, pressure drops",
+        "which side is hot and which cold is read from Figure 1 and the stream temperatures, not stated"
+      ],
+      "note": "F32 30.34 -> F33 72.79 C (partly vapour, Table 1 footnote a); W31 99.34 -> W32 40.34 C"
+    },
+    {
+      "id": "C3",
+      "type": "column",
+      "inlets": [
+        "F33"
+      ],
+      "outlets": [
+        "D31",
+        "W31"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "stages_N": {
+          "value": 30,
+          "locator": "Table 2, p.11"
+        },
+        "feed_stage_F33": {
+          "value": 18,
+          "locator": "Table 2, p.11"
+        },
+        "reflux_ratio": {
+          "value": 4.0,
+          "locator": "Table 2, p.11"
+        },
+        "design_spec_1": {
+          "value": "x_W31(H2O) = 0.999",
+          "locator": "Table 2, p.11"
+        },
+        "design_spec_2": {
+          "value": "x_D31(EtOH) = 0.56",
+          "locator": "Table 2, p.11"
+        },
+        "pressure_kPa": {
+          "value": 101.3,
+          "locator": "Table 2, p.11"
+        },
+        "condenser_duty_kW": {
+          "value": 502.97,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "reboiler_duty_kW": {
+          "value": 549.35,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'"
+        },
+        "internals": {
+          "value": "packed, d 0.60 m; stages 2-29 (28), RALU-RING 38 mm, 2 x 4.0 m, HETP 0.29 m, dP 0.8 kPa",
+          "locator": "Table 2, p.11"
+        }
+      }
+    },
+    {
+      "id": "SPH2O",
+      "type": "splitter",
+      "inlets": [
+        "W32"
+      ],
+      "outlets": [
+        "H2OREC",
+        "H2OP1"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {}
+    },
+    {
+      "id": "EX6",
+      "type": "heater",
+      "inlets": [
+        "H2OP1"
+      ],
+      "outlets": [
+        "H2OP2"
+      ],
+      "connectivity_source": "Figure 1, p.9, read from a render of the page",
+      "specification": {
+        "duty_kW": {
+          "value": 3.1,
+          "locator": "Table 9, p.23, column 'Conventional Process Set-Up (Figure 1)'",
+          "note": "cooling"
+        }
+      },
+      "note": "H2OP2 is drawn in Figure 1 but is not in Table 1"
+    }
+  ]
+}
