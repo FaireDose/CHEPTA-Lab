@@ -19,10 +19,12 @@ npm package `chepta@0.6.2`, not run).
 | Process | Recommended paper | Usable as a complete plant? | Status |
 |---|---|---|---|
 | 1 CO2 to methanol | **Lacerda de Oliveira Campos et al. 2022** (CC BY 4.0) | **yes** | transcribed and audited: [cases/methanol-co2-campos-2022](../cases/methanol-co2-campos-2022/README.md) |
-| 3 Ethanol to ethylene / diethyl ether | none usable. Best found: Tripodi, Belotti & Rossetti 2019 (accepted manuscript, open since 2020; licence to check) | **no as published**: a partial plant at best (reactor, compression, ethanol recovery); its CO2 removal uses amines and its purification uses PSA and cryogenics | **maintainer decides**: replace (recommended: by the Šulgan 2020 ethyl acetate plant, already prepared) or keep as a partial plant after a rights check |
+| 3 Ethanol to ethylene / diethyl ether | none usable as a complete plant. Best found: Tripodi, Belotti & Rossetti 2019 (accepted manuscript, open since 2020; licence to check) | **no as published**: a partial plant at best (reactor, compression, ethanol recovery); its CO2 removal uses amines and its purification uses PSA and cryogenics | **maintainer decides**: keep as a partial plant from Tripodi after a rights check (recommended), or replace it after a wider search; no replacement with an open stream table was found today |
 | 4 Cumene hydroperoxide to phenol / acetone | none found | **no**: no open paper with a plant flowsheet and a stream table; CHEPTA also lacks the side products (alpha-methylstyrene, acetophenone, dimethylbenzyl alcohol) | **replaced** by n-butyl acetate (Al-Rabiah et al. 2022, CC BY 4.0) |
 
-Order recommended: **1 methanol (Campos 2022)**, then **the replacement of 3**, then **4' butyl acetate (Al-Rabiah 2022)**.
+Order recommended: **1 methanol (Campos 2022)**, then **4' butyl acetate (Al-Rabiah 2022)**, then **3** as decided.
+
+The four complete plants are the four processes of CANDIDATE_PROCESSES.md: process 2 is Piotrowski & Kubica 2021. The Šulgan 2020 ethyl acetate plant prepared in this pull request is **not one of the four**: it is a later second ethyl acetate plant (same family as Piotrowski).
 
 ## Dataset table, per process (2 or 3 candidates each)
 
@@ -41,7 +43,7 @@ Order recommended: **1 methanol (Campos 2022)**, then **the replacement of 3**, 
 | Tripodi, Belotti & Rossetti 2019, *ACS Sust. Chem. Eng.*, doi 10.1021/acssuschemeng.9b02579. Accepted manuscript in the University of Milan repository (air.unimi.it/handle/2434/699658): "Open Access dal 05/08/2020"; the repository's default licence is CC BY-SA "salvo diversa indicazione"; the publisher's version is restricted | Stream reports for four sections, Tables 9-12 (pp.40-42 of the manuscript; P, T, mass flow and component flows in t/h); mass and energy balances Table 7 (p.37); block data Table 8 (p.39); kinetics Table 3 (p.36); property methods Table 2 (p.35); a 100 kt/a plant | **rights**: whether an ACS accepted manuscript may be reused is to be checked; components partly lumped ("Lights", "Heavies"); CO2 removal by amines (electrolyte NRTL; CHEPTA refuses amines in columns) and PSA (no CHEPTA unit); cryogenic purification | **no as published**; reactor + compression + ethanol recovery (Tables 9-10) could be a partial plant |
 | Van der Borght et al. 2019, *Catalysts* 9, 921, doi 10.3390/catal9110921 (CC BY 4.0) | Industrial reactor: transport limitations Table 1, thermodynamics Table 2, operating conditions Table 3, performance Table 4; Figure 1 is a plant sketch taken from another source | no stream table; no separation units simulated | no (reactor only) |
 | Maia, Demuner, Secchi & Biscaia 2016, *Braz. J. Chem. Eng.* 33(3), 479-490, doi 10.1590/0104-6632.20160333s20150139 (CC BY 4.0) | dynamic fixed-bed reactor model, Tables 1-5 | no stream table; separation only described | no (reactor only) |
-| Not usable: Aali & Hadi 2023 (kinetics only); Mohsenzadeh et al. 2017, doi 10.1002/cben.201600025 (CC BY-NC-ND, so excluded from a commercially reusable release; not read); Mash Attar 2022, *Int. J. Chem.* 14(2) (CC BY, diethyl ether; no stream table) | | | no |
+| Not usable: Chen, Kuo, Lobo & Ierapetritou 2024, *Green Chem.* 26, 2903, doi 10.1039/d3gc03858k (CC BY-NC 3.0; ethylene from ethane, not ethanol); Aali & Hadi 2023 (kinetics only); Mohsenzadeh et al. 2017, doi 10.1002/cben.201600025 (CC BY-NC-ND, so excluded from a commercially reusable release; not read); Mash Attar 2022, *Int. J. Chem.* 14(2) (CC BY, diethyl ether; no stream table) | | | no |
 
 ### Process 4: cumene hydroperoxide to phenol / acetone
 
@@ -50,6 +52,7 @@ Order recommended: **1 methanol (Campos 2022)**, then **the replacement of 3**, 
 | J. Phys.: Conf. Ser. 1096, 012197 (2018), doi 10.1088/1742-6596/1096/1/012197 (CC BY 3.0) | a mathematical model of the hydroperoxide decomposition unit; reaction parameters Table 1 | no flowsheet with streams; no separation | no |
 | J. Phys.: Conf. Ser. 1096, 012191 (2018), doi 10.1088/1742-6596/1096/1/012191 (CC BY 3.0) | a model of one fractionation column; loads along the column Table 1 | no plant, no stream table | no |
 | Phenol-acetone plant simulations in the closed literature (e.g. doi 10.1016/0009-2509(92)87085-5) | | closed access | no |
+| Whole cumene-to-phenol route: *J. Chem. Eng. Res. Prog.* 2024, doi 10.9767/jcerp.20276 (CC BY-SA), cumene oxidation to the hydroperoxide | energy study of the oxidation section (abstract read only) | not the cleavage and purification; CC BY-SA (share-alike) | no |
 
 **Replacement for process 4: n-butyl acetate, Al-Rabiah et al. 2022.** Reason: no open plant paper for process 4,
 and CHEPTA lacks its side products.
@@ -62,18 +65,18 @@ Why this replacement: it **overlaps the register** (ester + alcohol + water; ace
 esterification equilibrium; [data/ISSUES_AND_ROUTES.md](../data/ISSUES_AND_ROUTES.md)) through a **different
 reaction**, and uses extractive distillation with a heavy solvent, today only a lead in the register.
 
-### Replacement for process 3 (to decide)
+### Process 3: what to do (to decide)
 
 | Option | For | Against |
 |---|---|---|
-| **Šulgan, Labovský & Labovská 2020**, *Processes* 8, 1618, doi 10.3390/pr8121618 (CC BY 4.0, p.32), ethyl acetate, conventional set-up (recommended) | Already transcribed and audited ([cases/ethyl-acetate-sulgan-2020](../cases/ethyl-acetate-sulgan-2020/README.md)): Table 1 p.10, all 32 streams; columns Table 2 p.11; duties Table 9 p.23; every balance closes within rounding. Overlaps three register rows by other routes. Its two-liquid streams carry no acetic acid, so it may be the first plant CHEPTA closes with all recycles | Same family as process 2: one train/test group, so the set gets narrower (two ethyl acetate plants of four) |
-| Tripodi 2019 as a partial plant | keeps process 3 and a gas-phase olefin plant in the set | rights unclear; only part of the plant; lumped components |
-| A wider search for another unrelated plant | broader set | none found today with an open paper and a stream table |
+| **Keep process 3 as a partial plant from Tripodi 2019** (recommended) | keeps the process and a gas-phase olefin plant in the set; stream reports Tables 9-10 cover reactor, compression and ethanol recovery | reuse rights of the ACS accepted manuscript to check first; only part of the plant; lumped components |
+| Replace process 3 after a wider search | a complete plant | no open paper with a full stream table found today for an unrelated process; the Šulgan ethyl acetate plant is excluded (process 2 is already ethyl acetate) |
 
 ## Other candidates considered
 
 | Paper | Why not chosen |
 |---|---|
+| Šulgan, Labovský & Labovská 2020, *Processes* 8, 1618 (CC BY 4.0), ethyl acetate, conventional | process 2 is already covered by Piotrowski & Kubica 2021. Transcribed and audited before the task was corrected ([cases/ethyl-acetate-sulgan-2020](../cases/ethyl-acetate-sulgan-2020/README.md)); kept as a **later second ethyl acetate plant** (same family), not in the first four |
 | Šulgan et al. 2021, *Processes* 9, 1380 (CC BY) | heat-pump variant of Šulgan 2020 |
 | Klafke, de Souza Jr. & Secchi 2016, *Braz. J. Chem. Eng.* 33(4) (CC BY 4.0), toluene transalkylation | no stream table |
 | Trirahayu et al. 2022, *Fuels* 3, 563-579 (CC BY), biodiesel | no stream table |
@@ -82,6 +85,6 @@ reaction**, and uses extractive distillation with a heavy solvent, today only a 
 ## What to decide
 
 1. **Process 1:** approve Campos 2022 as the methanol plant (recommended: yes), then give the go to run it.
-2. **Process 3:** replace it with the Šulgan 2020 ethyl acetate plant (recommended), or keep it as a partial plant
-   from Tripodi 2019 after a rights check.
+2. **Process 3:** keep it as a partial plant from Tripodi 2019 after a rights check (recommended), or replace it
+   after a wider search.
 3. **Process 4:** approve its replacement by butyl acetate, Al-Rabiah 2022 (recommended: yes).

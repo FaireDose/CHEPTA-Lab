@@ -14,7 +14,7 @@ agreement with CHEPTA, later, will be two models agreeing.
 
 ## Why this plant
 
-Prepared first, then the task was corrected (the maintainer, 2026-11-13): the next plants are processes 1, 3 and 4. In [docs/NEXT_PLANTS.md](../../docs/NEXT_PLANTS.md) this plant is the **recommended replacement for process 3** (ethanol to ethylene), to decide; otherwise a reserve. Its mixture is the one
+Prepared first, then the task was corrected (the maintainer, 2026-11-13): the next plants are processes 1, 3 and 4. Process 2 is already covered by Piotrowski & Kubica 2021, so this plant is **not one of the first four**: it is kept as a later second ethyl acetate plant (same family; [docs/NEXT_PLANTS.md](../../docs/NEXT_PLANTS.md)). Its mixture is the one
 of three rows of [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md) (ethyl acetate + ethanol + water
 azeotrope; acetic acid kept out of the ester; equilibrium-limited esterification), seen so far in one paper only, and
 it takes them by other routes than Piotrowski & Kubica 2021: an azeotropic column with the product as entrainer
