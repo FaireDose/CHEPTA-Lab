@@ -1,0 +1,59 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 38534.0714,
+              "carbon-monoxide": 1130.3413,
+              "carbon-dioxide": 11434.6991,
+              "methanol": 4748.7143,
+              "water": 4577.08174,
+              "nitrogen": 3616.45174
+            },
+            "T_K": 330.05,
+            "P_kPa": 6925.0
+          }
+        },
+        {
+          "id": "HE7",
+          "type": "heater",
+          "spec": {
+            "T_K": 303.15
+          }
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-22",
+          "from": "F0.out",
+          "to": "HE7.in"
+        },
+        {
+          "id": "out-out",
+          "from": "HE7.out",
+          "to": "P0.in"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "ok",
+  "value": {
+    "components": [
+      "carbon-monoxide",
+      "methanol",
+      "water"
+    ],
+    "extrapolations": [],
+    "streams": {
+      "S1": {
+        "id": "S1",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-monoxide": 0.001,
+          "methanol": 50,
+          "water": 50
+        },
+        "flows": [
+          0.001,
+          50,
+          50
+        ],
+        "F_kmol_h": 100.001,
+        "mass_kg_h": 2502.8850101000003,
+        "z": [
+          0.000009999900000999989,
+          0.49999500004999947,
+          0.49999500004999947
+        ],
+        "T_K": 330,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009999900000999989,
+              0.49999500004999947,
+              0.49999500004999947
+            ],
+            "h_J_mol": -39795.935952983455,
+            "F_kmol_h": 100.001,
+            "flow_kmol_h": {
+              "carbon-monoxide": 0.001,
+              "methanol": 50,
+              "water": 50
+            }
+          }
+        ],
+        "h_J_mol": -39795.935952983455,
+        "H_kW": -1105.453719787305,
+        "MW": 25.028599815001847,
+        "warnings": [
+          "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "PR is the method here: Carbon monoxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "fitted-wu2019",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 4.9 % in P (max 15.7 %), gas solubility at the measured T and P AAD 5 % (max 18.5 %); data: validation/data/eos/thermoml_carbon-monoxide_methanol_10-1021-acs-jced-9b00676.json; T = 298.15-372.9 K, P = 241.5-3232.2 kPa",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      },
+      "S2": {
+        "id": "S2",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-monoxide": 0,
+          "methanol": 0,
+          "water": 0
+        },
+        "flows": [
+          0,
+          0,
+          0
+        ],
+        "F_kmol_h": 0,
+        "mass_kg_h": 0,
+        "T_K": 342.01048147217443,
+        "P_kPa": 100,
+        "z": [
+          0,
+          0,
+          0
+        ],
+        "VF": null,
+        "phases": [],
+        "h_J_mol": null,
+        "H_kW": 0,
+        "MW": null,
+        "warnings": [
+          "The stream has no flow."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "fitted-wu2019",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 4.9 % in P (max 15.7 %), gas solubility at the measured T and P AAD 5 % (max 18.5 %); data: validation/data/eos/thermoml_carbon-monoxide_methanol_10-1021-acs-jced-9b00676.json; T = 298.15-372.9 K, P = 241.5-3232.2 kPa",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      },
+      "S3": {
+        "id": "S3",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "carbon-monoxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-monoxide": 0.001,
+          "methanol": 50,
+          "water": 50
+        },
+        "flows": [
+          0.001,
+          50,
+          50
+        ],
+        "F_kmol_h": 100.001,
+        "mass_kg_h": 2502.8850101000003,
+        "T_K": 342.01048147217443,
+        "P_kPa": 100,
+        "z": [
+          0.000009999900000999989,
+          0.49999500004999947,
+          0.49999500004999947
+        ],
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.000009999900000999989,
+              0.49999500004999947,
+              0.49999500004999947
+            ],
+            "h_J_mol": -38587.3339828434,
+            "F_kmol_h": 100.001,
+            "flow_kmol_h": {
+              "carbon-monoxide": 0.001,
+              "methanol": 50,
+              "water": 50
+            }
+          }
+        ],
+        "h_J_mol": -38587.3339828434,
+        "H_kW": -1071.8811071162008,
+        "MW": 25.028599815001847,
+        "warnings": [
+          "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "PR is the method here: Carbon monoxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Methanol"
+            ],
+            "set": "fitted-wu2019",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs to the 27 bubble pressures of 1 article of the NIST TRC ThermoML Archive (each article the same total weight), 298.15-372.9 K, 241.5-3232.2 kPa: AAD 4.9 % in P (max 15.7 %), gas solubility at the measured T and P AAD 5 % (max 18.5 %); data: validation/data/eos/thermoml_carbon-monoxide_methanol_10-1021-acs-jced-9b00676.json; T = 298.15-372.9 K, P = 241.5-3232.2 kPa",
+            "source_ids": [
+              "wu2019-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon monoxide",
+              "Water"
+            ],
+            "set": null,
+            "tier": "none",
+            "source": "no PR k_ij in the databank; k_ij = 0 used",
+            "source_ids": []
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      }
+    },
+    "energy": {
+      "Q-B1": {
+        "id": "Q-B1",
+        "block": "B1",
+        "kind": "heat",
+        "duty_kW": 33.57261267110425
+      }
+    },
+    "blocks": {
+      "F1": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "B1": {
+        "type": "flash",
+        "duty_kW": 33.57261267110425,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": [],
+        "state": {
+          "T_K": 342.01048147217443,
+          "P_kPa": 100,
+          "VF": 0
+        }
+      },
+      "P2": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P1": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      }
+    },
+    "order": [
+      "F1",
+      "B1",
+      "P2",
+      "P1"
+    ],
+    "loops": [],
+    "balance": {
+      "material_kmol_h": {
+        "carbon-monoxide": 0,
+        "methanol": 0,
+        "water": 0
+      },
+      "energy_kW": 0
+    }
+  },
+  "checks": {
+    "material_kmol_h": 0,
+    "energy_kW": 0,
+    "blocks": {
+      "F1": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "B1": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P2": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P1": {
+        "material": 0,
+        "energy_kW": 0
+      }
+    },
+    "loops": []
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "fitted-wu2019",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon monoxide",
+        "Water"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "6163ed37e9be72a7",
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "parameter_sets": [
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "fitted-wu2019",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      }
+    ],
+    "databank_hash": "5f3d142773dbd86b",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwgato13-1",
+    "input_hash": "6163ed37e9be72a7",
+    "limits": {
+      "time_ms": 900000
+    },
+    "status": "done",
+    "elapsed_ms": 48.999966
+  }
+}

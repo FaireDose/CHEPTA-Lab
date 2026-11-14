@@ -1,0 +1,412 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "HE5",
+          "type": "hx",
+          "spec": {
+            "T_cold_out_K": 356.04999999999995
+          }
+        },
+        {
+          "id": "HE6",
+          "type": "hx",
+          "spec": {
+            "T_cold_out_K": 303.15
+          }
+        },
+        {
+          "id": "VALVE1",
+          "type": "valve",
+          "spec": {
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "VALVE2",
+          "type": "valve",
+          "spec": {
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "VALVE3",
+          "type": "valve",
+          "spec": {
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "MIXER4",
+          "type": "mixer",
+          "spec": {}
+        },
+        {
+          "id": "FLASH4",
+          "type": "flash",
+          "spec": {
+            "T_K": 303.15,
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "SPLIT3",
+          "type": "splitter",
+          "spec": {
+            "fractions": [
+              0.02,
+              0.98
+            ]
+          }
+        },
+        {
+          "id": "COLUMN",
+          "type": "column",
+          "spec": {
+            "mode": "rigorous",
+            "stages": 30,
+            "feed_stage": 24,
+            "reflux_ratio": 2,
+            "P_kPa": 100,
+            "condenser": "partial",
+            "bottoms_kmol_h": 4581
+          }
+        },
+        {
+          "id": "MIXER5",
+          "type": "mixer",
+          "spec": {}
+        },
+        {
+          "id": "P-45-PURGE",
+          "type": "product"
+        },
+        {
+          "id": "P-30-WATER",
+          "type": "product"
+        },
+        {
+          "id": "P-31-MEOH",
+          "type": "product"
+        },
+        {
+          "id": "TRACES",
+          "type": "separator",
+          "spec": {
+            "fractions": {
+              "carbon-dioxide": [
+                0,
+                1
+              ],
+              "hydrogen": [
+                1,
+                0
+              ],
+              "carbon-monoxide": [
+                1,
+                0
+              ],
+              "methanol": [
+                0,
+                1
+              ],
+              "water": [
+                0,
+                1
+              ],
+              "nitrogen": [
+                1,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "id": "MIX-TOP",
+          "type": "mixer",
+          "spec": {}
+        },
+        {
+          "id": "FLASH-COND",
+          "type": "flash",
+          "spec": {
+            "T_K": 326.15,
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "F-40",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "carbon-monoxide": 0.00276,
+              "carbon-dioxide": 16.08528,
+              "methanol": 198.42744,
+              "water": 61.47348,
+              "nitrogen": 0.00828
+            },
+            "T_K": 303.15,
+            "P_kPa": 412.0
+          }
+        },
+        {
+          "id": "F-42",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 0.00196,
+              "carbon-monoxide": 0.00784,
+              "carbon-dioxide": 33.30236,
+              "methanol": 145.44964,
+              "water": 17.21468,
+              "nitrogen": 0.02352
+            },
+            "T_K": 318.15,
+            "P_kPa": 1698.0
+          }
+        },
+        {
+          "id": "F-20",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 38534.0714,
+              "carbon-monoxide": 1130.3413,
+              "carbon-dioxide": 11434.6991,
+              "methanol": 4748.7143,
+              "water": 4577.08174,
+              "nitrogen": 3616.45174
+            },
+            "T_K": 406.35,
+            "P_kPa": 6925.0
+          }
+        },
+        {
+          "id": "P-22",
+          "type": "product"
+        },
+        {
+          "id": "F-24",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 43.99904,
+              "carbon-monoxide": 19.18496,
+              "carbon-dioxide": 2130.4496,
+              "methanol": 4674.23744,
+              "water": 4562.80384,
+              "nitrogen": 57.21024
+            },
+            "T_K": 303.15,
+            "P_kPa": 6925.0
+          }
+        },
+        {
+          "id": "P-39-REC",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "40",
+          "from": "F-40.out",
+          "to": "VALVE3.in"
+        },
+        {
+          "id": "42",
+          "from": "F-42.out",
+          "to": "VALVE2.in"
+        },
+        {
+          "id": "20",
+          "from": "F-20.out",
+          "to": "HE5.hot"
+        },
+        {
+          "id": "21",
+          "from": "HE5.hot",
+          "to": "HE6.hot"
+        },
+        {
+          "id": "22",
+          "from": "HE6.hot",
+          "to": "P-22.in"
+        },
+        {
+          "id": "24",
+          "from": "F-24.out",
+          "to": "VALVE1.in"
+        },
+        {
+          "id": "25",
+          "from": "VALVE1.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "41",
+          "from": "VALVE3.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "43",
+          "from": "VALVE2.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "26",
+          "from": "MIXER4.out",
+          "to": "HE6.cold",
+          "guess": {
+            "flow_kmol_h": {
+              "hydrogen": 44.0128,
+              "carbon-monoxide": 19.2556,
+              "carbon-dioxide": 2179.8296,
+              "methanol": 5018.1768,
+              "water": 4641.5564,
+              "nitrogen": 57.1688
+            },
+            "T_K": 292.05,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "27",
+          "from": "HE6.cold",
+          "to": "FLASH4.in"
+        },
+        {
+          "id": "37",
+          "from": "FLASH4.vapour",
+          "to": "SPLIT3.in"
+        },
+        {
+          "id": "28",
+          "from": "FLASH4.liquid",
+          "to": "HE5.cold"
+        },
+        {
+          "id": "45-PURGE",
+          "from": "SPLIT3.out",
+          "to": "P-45-PURGE.in"
+        },
+        {
+          "id": "38",
+          "from": "SPLIT3.out",
+          "to": "MIXER5.in"
+        },
+        {
+          "id": "39-REC",
+          "from": "MIXER5.out",
+          "to": "P-39-REC.in"
+        },
+        {
+          "id": "30-WATER",
+          "from": "COLUMN.bottoms",
+          "to": "P-30-WATER.in"
+        },
+        {
+          "id": "29",
+          "from": "HE5.cold",
+          "to": "TRACES.in"
+        },
+        {
+          "id": "29-gas",
+          "from": "TRACES.out",
+          "to": "MIX-TOP.in"
+        },
+        {
+          "id": "29-col",
+          "from": "TRACES.out",
+          "to": "COLUMN.in"
+        },
+        {
+          "id": "D",
+          "from": "COLUMN.distillate",
+          "to": "MIX-TOP.in"
+        },
+        {
+          "id": "D2",
+          "from": "MIX-TOP.out",
+          "to": "FLASH-COND.in"
+        },
+        {
+          "id": "32",
+          "from": "FLASH-COND.vapour",
+          "to": "MIXER5.in"
+        },
+        {
+          "id": "31-MEOH",
+          "from": "FLASH-COND.liquid",
+          "to": "P-31-MEOH.in"
+        }
+      ],
+      "reactions": [
+        {
+          "id": "R1",
+          "name": "CO2 hydrogenation",
+          "stoichiometry": {
+            "carbon-dioxide": -1,
+            "hydrogen": -3,
+            "methanol": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "exp(14.41-94730.0/(R*T))*phi*(1/(K2*(f['hydrogen']/100)^0.5*(f['carbon-dioxide']/100)+1))*(1/(K3*(f['hydrogen']/100)^(-0.5)*(f['water']/100)+1))*(f['hydrogen']/100)^1.5*(f['carbon-dioxide']/100)*(1-(f['methanol']/100)*(f['water']/100)/((f['hydrogen']/100)^3*(f['carbon-dioxide']/100)*(T^(-4.481)*exp(4755.7/T+8.369))))",
+            "constants": {
+              "phi": 0.1,
+              "K2": 0.1441,
+              "K3": 49.44
+            },
+            "per": "catalyst-mass",
+            "T_K": [
+              483.15,
+              533.15
+            ],
+            "source": "Model-6p, Lacerda de Oliveira Campos et al. 2022, article Eqs. 8-11 (p.8) and Table 1 (p.9); fit range 210-260 C, 20-60 bar (p.8)"
+          }
+        },
+        {
+          "id": "R2",
+          "name": "reverse water-gas shift",
+          "stoichiometry": {
+            "carbon-dioxide": -1,
+            "hydrogen": -1,
+            "carbon-monoxide": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "exp(29.13-132790.0/(R*T))*phi*(1/(K2*(f['hydrogen']/100)^0.5*(f['carbon-dioxide']/100)+1))*(1/(K3*(f['hydrogen']/100)^(-0.5)*(f['water']/100)+1))*(f['carbon-dioxide']/100)*(f['water']/100)*(1-(f['carbon-monoxide']/100)*(f['water']/100)/((f['hydrogen']/100)*(f['carbon-dioxide']/100)*(T^(-1.097)*exp(-5337.4/T+12.569))))",
+            "constants": {
+              "phi": 0.1,
+              "K2": 0.1441,
+              "K3": 49.44
+            },
+            "per": "catalyst-mass",
+            "T_K": [
+              483.15,
+              533.15
+            ],
+            "source": "Model-6p, Lacerda de Oliveira Campos et al. 2022, article Eqs. 8-11 (p.8) and Table 1 (p.9); fit range 210-260 C, 20-60 bar (p.8)"
+          }
+        }
+      ]
+    }
+  }
+}

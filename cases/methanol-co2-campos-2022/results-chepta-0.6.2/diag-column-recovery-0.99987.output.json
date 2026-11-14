@@ -1,0 +1,50 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "invalid_input",
+  "error": {
+    "code": "OUT_OF_RANGE",
+    "message": "Column COLUMN: the recovery of Water in the bottoms cannot be 0.99987 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (1046 to 2588 mol/s, 9 columns solved) it stays between 0.0205455 (at 2588) and 1 (at 1046). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 30 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 1342 mol/s (6 iterations: the specifications' residual stopped falling)",
+        "a scan of the distillate flow from 26.14 to 2588 (9 columns solved): no value meets the specification"
+      ],
+      "specifications": [
+        {
+          "label": "the recovery of Water in the bottoms",
+          "asked": 0.99987,
+          "reached": 0.9998655333034556
+        }
+      ],
+      "at": {
+        "distillate_rate": 1342.0548975426677
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.020545498728859034,
+          "at": 2588.222351
+        },
+        "highest": {
+          "value": 0.9999998957713737,
+          "at": 1045.7464044444446
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "9d5d218420b980ff"
+  },
+  "run": {
+    "id": "run-mwgble99-1",
+    "input_hash": "9d5d218420b980ff",
+    "limits": {
+      "time_ms": 900000
+    },
+    "status": "failed",
+    "elapsed_ms": 152678.626986
+  }
+}

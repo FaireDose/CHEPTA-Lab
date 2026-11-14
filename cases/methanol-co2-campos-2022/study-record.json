@@ -1,0 +1,4041 @@
+{
+  "study_record": 1,
+  "id": "methanol-co2-campos-2022-one-step-chepta-0.6.2",
+  "case_id": "methanol-co2-campos-2022",
+  "title": "One-step CO2-to-methanol plant of Lacerda de Oliveira Campos et al. 2022 on chepta@0.6.2, stream by stream",
+  "question": "Run every unit, then the sections, then the whole one-step plant with its recycles and purges as one flowsheet in the released chepta 0.6.2 through its command line; compare with the supplement's Tables S9-S10 and S14; record what CHEPTA refuses.",
+  "status": "draft",
+  "written_on": "2026-11-14",
+  "written_by": "CHEPTA-Lab worker session (Claude); runs executed by this session on chepta@0.6.2",
+  "supersedes": null,
+  "sources": {
+    "source_ids": [
+      "lacerda-campos-2022"
+    ],
+    "evidence_ids": [],
+    "note": "Paper numbers from streams.json (Tables S9-S10) and equipment.json (Figure S1, Tables S13-S14), transcribed 2026-11-13; the article (sha256 8215079335f3...) and supplement (sha256 015d60b56ef5...) were downloaded again for this study into raw_papers/ (not redistributed). Kinetics: article Eqs. 8-11 and Table 1 (rights of Table 1: see README)."
+  },
+  "files": [
+    {
+      "id": "streams",
+      "path": "cases/methanol-co2-campos-2022/streams.json",
+      "sha256": "e1ee7864f889550debe61fd581ff3c5516625f9ad94680da97c3a7ab45dbc31e",
+      "role": "case_input"
+    },
+    {
+      "id": "equipment",
+      "path": "cases/methanol-co2-campos-2022/equipment.json",
+      "sha256": "4267696d51646c8031f8afb0f608ae91241909e40063596fe007c64d8531fdf3",
+      "role": "case_input"
+    },
+    {
+      "id": "model",
+      "path": "cases/methanol-co2-campos-2022/model.py",
+      "sha256": "cba8691ec95eefdc6da1a50d191a5de09a1e2bbbe20e5327a3abf8af3fc6ed43",
+      "role": "case_input"
+    },
+    {
+      "id": "runner",
+      "path": "cases/methanol-co2-campos-2022/run_chepta_0.6.2.py",
+      "sha256": "89b9b42ac74070251ef5a7fbced063088b60a4ecae7d92519ca3959f83f93cd6",
+      "role": "runner"
+    },
+    {
+      "id": "verifier",
+      "path": "cases/methanol-co2-campos-2022/compare.py",
+      "sha256": "252720531c6df90550b3681d9c3c5fa1ce3494cd02074406b68a2a7dfc1623b8",
+      "role": "verifier"
+    },
+    {
+      "id": "run-manifest",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/run-manifest.json",
+      "sha256": "baac1e77620de7d84f05cf47a425ad2dc766b8e8274a6cda847bcbf96fb7eea2",
+      "role": "execution_manifest"
+    },
+    {
+      "id": "comparison",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/comparison.json",
+      "sha256": "7169b947886aa68acdf8023e8998ae9a1c48276e0c166684d6f658963ae46694",
+      "role": "lab_check"
+    },
+    {
+      "id": "engine-lock",
+      "path": "package-lock.json",
+      "sha256": "869f7e37666ac17e7824eca147713e22c8251535724109b6c820123f2fc5e091",
+      "role": "engine_lock"
+    },
+    {
+      "id": "case-readme",
+      "path": "cases/methanol-co2-campos-2022/README.md",
+      "sha256": "51d56e72deef243a9099b2ff0a26c54cf31ebbe588f1a2f9b0cae7b4127cc217",
+      "role": "other"
+    },
+    {
+      "id": "request.u-cp1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp1.request.json",
+      "sha256": "360bf4d123aa6482fff8c9ebf857498cb4f83213a498b1c364ef4a6cc60c7e2a",
+      "role": "request"
+    },
+    {
+      "id": "result.u-cp1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp1.output.json",
+      "sha256": "d3d60714829b1b3681fefeb33e51e5b967dbb23bd0a3ebcac6bbf952e23a99aa",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-cp1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he1.request.json",
+      "sha256": "54319cf1b5c49a345d1051f9cf385e79c0d480639644269a8761a18ec5148c3b",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he1.output.json",
+      "sha256": "bc88de5e2f1447965ec2bb66dd561d37d192e22dc5343642bbe7684348fb1083",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-flash1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash1.request.json",
+      "sha256": "0fee26e899712022f7692536d6e337dd5f2f82760dc7e2e93c3efb5b362b5166",
+      "role": "request"
+    },
+    {
+      "id": "result.u-flash1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash1.output.json",
+      "sha256": "487126f63ad8487f1ce5a01ac7e044043fc83bd3ecb352185cdde687ac042768",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-flash1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-cp2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp2.request.json",
+      "sha256": "fe71af527bd5a972083d21d960dab6d5542ba4be9349c00d3a2080fa8f4d21e3",
+      "role": "request"
+    },
+    {
+      "id": "result.u-cp2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp2.output.json",
+      "sha256": "59d81c2167bdbeaff11c9cd8bda1c2538529c4f1a1fd6826870f782ff711b99a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-cp2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he2.request.json",
+      "sha256": "c779ca76ee7545049eecf87a3b8da2521d51e8dd19c3e925f3882d125b2d072b",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he2.output.json",
+      "sha256": "7c1a7b2bc75e7e1e7fbd299b07ba5c45b5518ad4614e35744132a11df9a7bc3d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-flash2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash2.request.json",
+      "sha256": "41f9ec21bf9dc20e80b590eab6c224c75aee5c82c9fc43ba30e6ecc6eabdbd14",
+      "role": "request"
+    },
+    {
+      "id": "result.u-flash2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash2.output.json",
+      "sha256": "d92d5ae32e76b443b62e7765f77cbd73417e96b3d2ccb3b7974fc165c6d94e78",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-flash2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-cp3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp3.request.json",
+      "sha256": "91e4a612994f94e3c4c28b0138a1283f38902fb4e2525d3e69c91a2879bfb23a",
+      "role": "request"
+    },
+    {
+      "id": "result.u-cp3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp3.output.json",
+      "sha256": "e979574b370dfad80ddb49da86d746c7404d4ae497cad5e183d238feea198e25",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-cp3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cp3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he3.request.json",
+      "sha256": "f1307b5143c8118e60a233831991db45d80efa695d6242a49d44fe0664a0a5ba",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he3.output.json",
+      "sha256": "a62e89ecae512660dda941d5622ec10e8078df1392921e35808b0771be37e40b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-cph2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cph2.request.json",
+      "sha256": "13f04bedb837e59b881261e3c40514d730448e39df4fd74fcb32f78bff9aae14",
+      "role": "request"
+    },
+    {
+      "id": "result.u-cph2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cph2.output.json",
+      "sha256": "ff1bc4c9d78d16fb39f7a1231539de36d4e28ff6557ce341ad05d4b5ee043f6b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-cph2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cph2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-mixer2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer2.request.json",
+      "sha256": "c6042c3183286f9a551f79f08f36a0c6aca621944d19aec7fb4aa5ab76542c00",
+      "role": "request"
+    },
+    {
+      "id": "result.u-mixer2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer2.output.json",
+      "sha256": "2f689dfc7fb3099f87452e2bd9bd4230c74dcd5b0d7e6735ef0ac46fbf825b74",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-mixer2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he4.request.json",
+      "sha256": "ab2e75c7dd61ab87db0134877070d07dd3b2ad7f2d44c4497991cef7795fa8eb",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he4.output.json",
+      "sha256": "ced4c91a2963fae85bc24b21b3be2fc1db3831b6a996a9540df7aa6e923910cc",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he4.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-reactor-u300",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U300.request.json",
+      "sha256": "548b4b6e9a9a0405d59b4d2b34f85739e6a7edda3b65b0348d6c0d5f8387051a",
+      "role": "request"
+    },
+    {
+      "id": "result.u-reactor-u300",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U300.output.json",
+      "sha256": "e312ba232e1add71c040566b4dc44f03a049c043434a75bcdce141f67f2e7024",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-reactor-u300",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U300.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-reactor-u150",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U150.request.json",
+      "sha256": "a838daea1b46e90f2e1a4177da707b0ad0c5eaa85627577da0cdb7fb14fea49c",
+      "role": "request"
+    },
+    {
+      "id": "result.u-reactor-u150",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U150.output.json",
+      "sha256": "3c4d87130cf925b9291072b206f307337808adb3a1322233194163baceb5222e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-reactor-u150",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U150.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-reactor-u1000",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U1000.request.json",
+      "sha256": "bc573d8be45747d97374c0343fc7b18f9fe01a5a6b9b3ff3c661071fbb4dff30",
+      "role": "request"
+    },
+    {
+      "id": "result.u-reactor-u1000",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U1000.output.json",
+      "sha256": "73b3accf2e700054462eabe2dd883575047994d159a17d0922fd3c7cab426587",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-reactor-u1000",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U1000.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-reactor-isothermal",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-isothermal.request.json",
+      "sha256": "3aa0a8b653e36b89c0c1a9e0a52f213e2e0ca998ecf8c0dd9b1f39b9af744aec",
+      "role": "request"
+    },
+    {
+      "id": "result.u-reactor-isothermal",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-isothermal.output.json",
+      "sha256": "92edfffb18109469d4cadfec960fd0b32e0bc586f6978f1835ab8472fa7df7a1",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-reactor-isothermal",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-isothermal.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5.request.json",
+      "sha256": "50eba933e580a60dcc569a09678689640542d18fc16e93b8a614a6e478396d9e",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5.output.json",
+      "sha256": "e58275389aa7b2d30fc3158a64b475e68c230266c429659a5a1a970ceb4f99bc",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he6.request.json",
+      "sha256": "a4da376cc3d825a5e74b30851500aa6defb93f3beba842b6530ca08374a85c0c",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he6.output.json",
+      "sha256": "fe46656b9284e100b0b3a924ddae7c9a910df6a6828e407f3ece4a0f8ccec1cd",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he6.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he7",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7.request.json",
+      "sha256": "16b882918230b16f8df3b8a51cb3aad9ddcd71524e3fd7908d790bcb6a54b1df",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he7",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7.output.json",
+      "sha256": "e6240d9e34cfaa984607d6e9621f9c9e4c3b8b3932326e42be9237a30fefd6dd",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he7",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he7-duty24.2mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty24.2MW.request.json",
+      "sha256": "396603df5e7ba2df88cb3c39adb9cbf1dff00c461a5425e36e3079ef275f462f",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he7-duty24.2mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty24.2MW.output.json",
+      "sha256": "36c30679ba45582b5f3c649dfdd451eebaa39f857d9ac5a5c436272f980ee945",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he7-duty24.2mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty24.2MW.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he7-duty19.75mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty19.75MW.request.json",
+      "sha256": "549ae68d0859d30bba9367a960e515e5246f02f7af3ee5be179f2031523b5c69",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he7-duty19.75mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty19.75MW.output.json",
+      "sha256": "0a1dac550a7395bd5ebc3a006eeef7b707bb1f8bf623d6701c32c4a279302c9c",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he7-duty19.75mw",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he7-duty19.75MW.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-flash3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3.request.json",
+      "sha256": "94f57f6ebdd7275f1b1cfe2bec2af408ffa0c0ea73dacddb444b52b563720873",
+      "role": "request"
+    },
+    {
+      "id": "result.u-flash3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3.output.json",
+      "sha256": "b25ef670f1698d78f44bbb57cf6cfb30684b2a016c8633f823c42f3bcfe1f1cb",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-flash3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-flash3-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3-mhv1.request.json",
+      "sha256": "6cebab346d670bafe8cbee18c0b2e1607ac200966cfc0c8c8d3282eebeed9604",
+      "role": "request"
+    },
+    {
+      "id": "result.u-flash3-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3-mhv1.output.json",
+      "sha256": "7e0cca533fc599ea6868594876856b9b227e2a73dd456a59c20b6c6e2e9e7bac",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-flash3-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash3-mhv1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-cprec",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cprec.request.json",
+      "sha256": "d1670092410b9a8dca3ec14a6f9b3123630d30358d8c589786203ce19a548518",
+      "role": "request"
+    },
+    {
+      "id": "result.u-cprec",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cprec.output.json",
+      "sha256": "5d9b4bdeefa58f4ce96e4f263873dadff2d894f23ff7af2a231c56f007e72b63",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-cprec",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-cprec.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-valve1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve1.request.json",
+      "sha256": "76cbc6d1bed890d18139d53d0922930477902f25ffcf1cb80060d38d7628d0a6",
+      "role": "request"
+    },
+    {
+      "id": "result.u-valve1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve1.output.json",
+      "sha256": "d011bf46bf5a4eae541efc4ceb28f72ab25b28f7e8bb313700e94506199d2bc0",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-valve1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-valve3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve3.request.json",
+      "sha256": "d7beda00093f6fb4d15339c4c872269a6b7bc4f2b946d6826b2f6c72b14937a3",
+      "role": "request"
+    },
+    {
+      "id": "result.u-valve3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve3.output.json",
+      "sha256": "aff2fa6732fd3e0f07488c480976ebc614d21637a827a0495141f46069161636",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-valve3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-valve2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve2.request.json",
+      "sha256": "65681784d1dbcf7dc580d9e21b5e23fca3580f377522f44b8d98e56296448101",
+      "role": "request"
+    },
+    {
+      "id": "result.u-valve2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve2.output.json",
+      "sha256": "98125202286892fb8c97e98a2c1874d8a1f2a51b059109222a868fe37ac7ddd0",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-valve2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-valve2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-mixer4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer4.request.json",
+      "sha256": "b9d4ad3147368fb481976189f022791ac7ebb0679cbd5830e913e334bdd51303",
+      "role": "request"
+    },
+    {
+      "id": "result.u-mixer4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer4.output.json",
+      "sha256": "2100a89651bc72020a8e45ef10c578718bd5575821cc62c8a88a1a6d0d671496",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-mixer4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer4.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-flash4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash4.request.json",
+      "sha256": "e2fd5ae9a4555bc3f59694791c9f55594e5bed665ab440f7d865c376d9cc1541",
+      "role": "request"
+    },
+    {
+      "id": "result.u-flash4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash4.output.json",
+      "sha256": "53877dbd2a0c7b2c8a50b63d3504d817e8fd3c0f4a928a58bb28021cc8bf0560",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-flash4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-flash4.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-mixer5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer5.request.json",
+      "sha256": "f9482e75f9cbda95fa19ee6952e774b75687e171e38a3949c0a6d1f3418653eb",
+      "role": "request"
+    },
+    {
+      "id": "result.u-mixer5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer5.output.json",
+      "sha256": "6f9280d1dff467f0c63e6023596d6e6587095a7355b6b26cc66299aba09d03f1",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-mixer5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer5.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-mixer1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer1.request.json",
+      "sha256": "d7c0fbc2ae2a34ac01976967015c468ed365f8528383f15ca2b1608b17f4330e",
+      "role": "request"
+    },
+    {
+      "id": "result.u-mixer1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer1.output.json",
+      "sha256": "1bdbffcb97ef036765e4113cd7b2675749ff4e7832fdc7c1a12c19cf8d092fa5",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-mixer1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-mixer1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-partial-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-pr.request.json",
+      "sha256": "06483bcdd04b12f412297970feb2ab67da8d68e90581e8dc54c21dbbb080e332",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-partial-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-pr.output.json",
+      "sha256": "213080cf2195f264e6240426a4c3a782877f2b3d86b093427a8d3b42c3f47e48",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-partial-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-pr.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-total-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-pr.request.json",
+      "sha256": "f2cd6491740b302477387048d1314d98c604c89cf302b4bcfbe44e7aa1d53f73",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-total-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-pr.output.json",
+      "sha256": "ae91997bc2d63df92136eec4d8118e3afe1466be573ba4aab38cfbe2eaca2463",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-total-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-pr.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-partial-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-mhv1.request.json",
+      "sha256": "7e7d9e703c81eb77f6f46e5365e9aa199f8827831db5ecbe232e270d5442dce1",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-partial-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-mhv1.output.json",
+      "sha256": "f854b95389a9fce08c2b71c0d85643eff08439e37c0d48995bc2ca582662c61e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-partial-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-mhv1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-total-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-mhv1.request.json",
+      "sha256": "fd731a2ddbac07d62d9c9718159a54f2e4a8ba09ac6c77a1fc4f5498dbc4511b",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-total-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-mhv1.output.json",
+      "sha256": "c18918986df8414efef186c22cb957dc673427c5751fefc57ac9187cc351321b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-total-mhv1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-mhv1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-partial-side-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-side-pr.request.json",
+      "sha256": "b758abdd23d8fb42cc24c2d4aaeada448f3974288f2410e2ab2c491063714aee",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-partial-side-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-side-pr.output.json",
+      "sha256": "3346148d3d12ad250e804450bb930a4bbd5fea86121d6657546f6892d1e2baf6",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-partial-side-pr",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-side-pr.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-feed29-bubble",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble.request.json",
+      "sha256": "b6bd219f15129ceb22e6f82e6b6fa7367c8acabc82f8591555509d787ad6a7f1",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-feed29-bubble",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble.output.json",
+      "sha256": "c525f6ac145855f11bc7a6b1e5a953b945bdcc261405729eee8ed11811ad3fbe",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-feed29-bubble",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-feed29-flash",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-flash.request.json",
+      "sha256": "291c72cddf1bcc3c95c0ecd7823c127e3da10a17d024051e767baa78128d92ca",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-feed29-flash",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-flash.output.json",
+      "sha256": "4c0c71d294c496c5f43b25bbde8f8dde08d8e4dcf0fb54c9d112d5d6b0c9d87c",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-feed29-flash",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-flash.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-total-no-h2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-no-H2.request.json",
+      "sha256": "b6e5338ab87735bf4422ab6c7413d4b6edd2276ab21ec092e0881d5d331d700b",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-total-no-h2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-no-H2.output.json",
+      "sha256": "38325299fea2d1ad2d3c2db743b6a24cc6c8e2877ec1c92daf2a09acb9b00b6b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-total-no-h2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-no-H2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-total-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-CO2-MeOH-H2O.request.json",
+      "sha256": "d6958867f795cea697d6fbf537e4ce82715cb70cdf99a51784d639ad9dc5a0bf",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-total-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-CO2-MeOH-H2O.output.json",
+      "sha256": "174cc9419f3ca8c6084134d98d9f51f7839b0cdd7b57c603611264c04de0ead0",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-total-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-CO2-MeOH-H2O.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-total-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-MeOH-H2O.request.json",
+      "sha256": "e50d4fdb311042f44066961298af2093df90a9fe52a5d61543ab2d261f2a0cf4",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-total-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-MeOH-H2O.output.json",
+      "sha256": "e3f35aaf061f7db61cfa85e4c8fa6faaaad9f4961fa6633d69f59e6afaa11f5d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-total-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-total-MeOH-H2O.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-feed29-bubble-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-CO.request.json",
+      "sha256": "57fd13034a4628764915550b9faa849c7a6d55a40aa647775802e644fa580b14",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-feed29-bubble-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-CO.output.json",
+      "sha256": "73e6a8c4ded8aa8ce73a25aea6b74c68a3fe8a126a84b7a5b7796fd8b3b9c456",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-feed29-bubble-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-CO.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-feed29-bubble-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-N2.request.json",
+      "sha256": "89b0ec4d7dcb171bc5cbf85dc82a35424bf27c9fe6c3240638ac7d8de0e6fe54",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-feed29-bubble-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-N2.output.json",
+      "sha256": "c25df2f8be26443f2265ecf330913a23610d358565bd1cee1bb1c5f9a5708e25",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-feed29-bubble-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-plus-N2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-feed29-bubble-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-CO2-MeOH-H2O.request.json",
+      "sha256": "6f311efd54c05e122f2fba56c98d9543ca044ecec78c4f6c1a0131dd0e82e895",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-feed29-bubble-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-CO2-MeOH-H2O.output.json",
+      "sha256": "e8180c465c332b634ca61305cd1e66d7615c51e58fe931b1d99f2359f2e2d053",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-feed29-bubble-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-feed29-bubble-CO2-MeOH-H2O.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.mini-bubble-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-10ppm.request.json",
+      "sha256": "57f3b07404c4b154f06f99ac236d982cf3394e98a56987a3a4a26f26d3b5b4a6",
+      "role": "request"
+    },
+    {
+      "id": "result.mini-bubble-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-10ppm.output.json",
+      "sha256": "788a5474e5adca3071e5f85bf53ee2d326d345fbac994baae487ff14482c646a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.mini-bubble-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-10ppm.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.mini-bubble-co-1000ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-1000ppm.request.json",
+      "sha256": "692e9084614fd3264905ffadc0c93a87c17b83d0ba73ab967036cad6e2aa1d8a",
+      "role": "request"
+    },
+    {
+      "id": "result.mini-bubble-co-1000ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-1000ppm.output.json",
+      "sha256": "b1d84691f4023e0507aecf015589de28aefc67057c986480497be5e26ac91e9b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.mini-bubble-co-1000ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-bubble-CO-1000ppm.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.mini-flash-tp-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-flash-TP-CO-10ppm.request.json",
+      "sha256": "248fb13ba54bbd2929cb26939ff54c0245a5583b688939c7b16161886dd58511",
+      "role": "request"
+    },
+    {
+      "id": "result.mini-flash-tp-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-flash-TP-CO-10ppm.output.json",
+      "sha256": "82a68ba001e246b508b2c350e94fd97413891eb51c1036fbafe5fa5a040209c2",
+      "role": "result"
+    },
+    {
+      "id": "stderr.mini-flash-tp-co-10ppm",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/mini-flash-TP-CO-10ppm.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-full.request.json",
+      "sha256": "a6d94fec8cda65ee714593f1ba70aab0192824231c6a0bb43ac70796745ad7b3",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-full.output.json",
+      "sha256": "1e0e05dcf0a6bac78412afd307d6701b5768b4985119c5a78b0db194a20a5474",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-full.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O.request.json",
+      "sha256": "fd796e06b78cbf0ec81042b8c9d60805913bdaee86d9f67c7a72d2908803d4ad",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O.output.json",
+      "sha256": "3e8435be163a9a9735b72f9b59c04dfb925e03c073dfd751eee0def9d903f1dd",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-CO.request.json",
+      "sha256": "a05c32fa73bd47ee7857c86eec1bd1981cd1fcc3576f72f04a2ed0a6492b5911",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-CO.output.json",
+      "sha256": "4c8d97f352daf76a1a692ebb4be1d26e5c68ec4a83ff8ccc1689fbb7549e8387",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-plus-co",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-CO.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-N2.request.json",
+      "sha256": "12dd6312b9fdd7e5b62ef5d74d01f5ee78252f361ab87f02200bc58f79e6a8b3",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-N2.output.json",
+      "sha256": "baa6b4ee0acc8648a78b47c2e297cd8d93b7d05ad85f33b84f5dead20ce5172a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-plus-n2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-plus-N2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-r49-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full.request.json",
+      "sha256": "843aba4f41f7c9a269379790b714774b16c2ea5574c24499fc8f10b179877b36",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-r49-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full.output.json",
+      "sha256": "4cf94c3c3b79867f45f01bb3ff3cafa2ff84ffc7980af4d9485f3bf2027761c0",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-r49-full",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-r49-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-CO2-MeOH-H2O.request.json",
+      "sha256": "d09a50227ec161935d2eabad8722a62fe10cb9f81b8268d6254507b01de70551",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-r49-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-CO2-MeOH-H2O.output.json",
+      "sha256": "b84a9fec9bff5e7c360cc651bd9c580f6cbbf31ec8756aadd4654e96e0dae683",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-r49-co2-meoh-h2o",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-CO2-MeOH-H2O.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-r49-full-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full-maxit100.request.json",
+      "sha256": "d3c37046b881c2a81a8b126489b0cc5ca86c8e6ac4d0d98888b1a0a922e79420",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-r49-full-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full-maxit100.output.json",
+      "sha256": "0c043822419b81812ebaa1e11b87e6b408d7537ce5af208bee1ee4c71849411d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-r49-full-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-R49-full-maxit100.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-partial-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53.request.json",
+      "sha256": "e7c541c37ee49a4b07a4dd6e31c9ecf749bcfec8c392f3e6cab22665be16ec20",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-partial-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53.output.json",
+      "sha256": "a1dce931f9befc6e14388838269c515c034f9c35208676938cc901e57784f483",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-partial-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-total-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-flash53.request.json",
+      "sha256": "6ce6a35c38f6ba25ed3d65b801a33df8c9d9f91f7fc1b55732a3ee730a78b949",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-total-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-flash53.output.json",
+      "sha256": "ec22f9544605409ebd22cdcceaa7f2c371b59c6dfb9349e080ecefd45128268d",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-total-flash53",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-total-flash53.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-compression",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-compression.request.json",
+      "sha256": "7df8ddae3a430c50f8237f5ba8af24f2b2998aeee438d68859adaa3823866cb1",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-compression",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-compression.output.json",
+      "sha256": "5c115f0ff904c09d691fa3402f822328ad1708e5b75a77d67545bc0d117e9277",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-compression",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-compression.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a1.request.json",
+      "sha256": "b2bdb4aa270b8ae7d7fed72f3633b962837bf98443df5fc68169a9cae3625027",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a1.output.json",
+      "sha256": "1be0fe31f5c93033ec717210827fa930c7d52a9ff0a97419b4789c5029c950f4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-purification-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification-a1.request.json",
+      "sha256": "aff0cbfd7006336eefa70e11c0c4e79ce9200f970824b969ee238431f88de6f2",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-purification-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification-a1.output.json",
+      "sha256": "a2e6e0ce454cf94bbb14c9e1d7f69c8be47866d0f4d0b46abb70a1933670b91f",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-purification-a1",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification-a1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he5-cold82.9",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-cold82.9.request.json",
+      "sha256": "fd97bc7776cc110e349c2d1d6518c325cad16ac3ce695e96d21f1b09233ce639",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he5-cold82.9",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-cold82.9.output.json",
+      "sha256": "5507691a7cc045408929100cc7b984d1130081c6dee013fd3cc8005d4223fee2",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he5-cold82.9",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-cold82.9.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a2.request.json",
+      "sha256": "fc587a9507a64b211abd37b8c9d068db092c096f4122902068c058f3765193bf",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a2.output.json",
+      "sha256": "4730b3dc47b21e935930cef6432b32b0747c2157881ff109a4e045e9db335730",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a3.request.json",
+      "sha256": "d4b05d68cf139a544ca90d983695106a91ca6fef21a2d096df01224126142ce9",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a3.output.json",
+      "sha256": "636c2f37e5c189e260d02efc8205fd9738134ee9b5ddd8dd367d4398fb839d2f",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-purification",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification.request.json",
+      "sha256": "159121018262285e232f4d090a4e9fb8842446766b7bf4b8ee43abb2dcc6b6d2",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-purification",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification.output.json",
+      "sha256": "36ec6badb14dff1f3ab6a92f05fb04aae5a00a18684bd0c47d81adea50851373",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-purification",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-purification.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-direct",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-direct.request.json",
+      "sha256": "46da9bfb984c198d7e773aed15fa64d1cbdee6e6e7b4f9b009e4c31adf60fb5e",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-direct",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-direct.output.json",
+      "sha256": "79fc1373748feb3c66e46e5566a37c6e4723a495686d2ba69330f0a02628da5b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-direct",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-direct.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-wegstein",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-wegstein.request.json",
+      "sha256": "f756390482dc5a9ba8ce762afa8abc30abb7caa779fa6a55a0500bfd70196246",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-wegstein",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-wegstein.output.json",
+      "sha256": "46fec4a8f87c0f92a74bd0800ffdcc02ef6e5282ff2b7b07c13297fca135fc67",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-wegstein",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-wegstein.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a4.request.json",
+      "sha256": "793d457ccd3f8d0ab2e7a6a42866bcdf9f4cf6d4b16779c4717e86e835276198",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a4.output.json",
+      "sha256": "cc3fb4ac15e2564cc7502f0e3a503d69d6ac13fc7b6b6863641960d9e9fa258e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-a4.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he5-dtmin2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2.request.json",
+      "sha256": "fce684d6e348184aeaca6801e5464440e8bd93f8643d6744e309949396eff72a",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he5-dtmin2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2.output.json",
+      "sha256": "bd6ae520cf7a72fc47650c3861d7c88adfe8203812ea7a3cc57369e5628e940c",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he5-dtmin2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-he5-dtmin2-zones10",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2-zones10.request.json",
+      "sha256": "3c9b5ab9d4e29e5a193030c2663ea3d34379e345fb649e521994890f8e0dad31",
+      "role": "request"
+    },
+    {
+      "id": "result.u-he5-dtmin2-zones10",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2-zones10.output.json",
+      "sha256": "b5dbcce9e1bf41f669fd525f0128ca047edf4590be1469c67472351acd0e46d8",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-he5-dtmin2-zones10",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-he5-dTmin2-zones10.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop.request.json",
+      "sha256": "7187bb0914f3f8f94dc45d42a581ec32f420b9e8bb6bb1f023bcebc84453c539",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop.output.json",
+      "sha256": "dc95186075562a6e179714f2feeb91b02096101c3ceca1b1cdde51048ce5ff1a",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.sec-loop-it200",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-it200.request.json",
+      "sha256": "c37294042ca3691c010210793951df2aa10d4520b13fd75b937c022175398527",
+      "role": "request"
+    },
+    {
+      "id": "result.sec-loop-it200",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-it200.output.json",
+      "sha256": "fd0edf3208a3a530daadcf684e5b7ed44a807ae0e856fbb02081fa7f1268d449",
+      "role": "result"
+    },
+    {
+      "id": "stderr.sec-loop-it200",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/sec-loop-it200.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant.request.json",
+      "sha256": "0a2eb18a9364e41700aebef3d4a34f610f56473f3c53cfbe698fb32db2648d7a",
+      "role": "request"
+    },
+    {
+      "id": "result.plant",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant.output.json",
+      "sha256": "0e4c01be2bc63ae68e4eeea62260512d9cc735c178504573ef91b39bce6c38c1",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a2.request.json",
+      "sha256": "70813dfe73e16c0b1e04740a6d2f523367910764837761180f4c78b8cbf55a44",
+      "role": "request"
+    },
+    {
+      "id": "result.plant-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a2.output.json",
+      "sha256": "3ecbdd381edf0ca58702de231e3438a26c7ac648512bb3e8b2577c6b08170701",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant-a2",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a3.request.json",
+      "sha256": "d8eb628b6a4509aac19549ee8584c2dcc95306919c5ffec0a3a3c48b64f221dd",
+      "role": "request"
+    },
+    {
+      "id": "result.plant-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a3.output.json",
+      "sha256": "52546c26098d6aff47fd041be370343d924106f37544a97dba145b650f89392e",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant-a3",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a3.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-recovery-0.99987",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-recovery-0.99987.request.json",
+      "sha256": "0b5cc31c5dacd779df8c4b10c1a2d7362379bfc9840003556715fb6c6c2009da",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-recovery-0.99987",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-recovery-0.99987.output.json",
+      "sha256": "aaa603c695c71f9e8bb7cf92503baa92c94bd94b2fd6c2aee1397fab84ab81c4",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-recovery-0.99987",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-recovery-0.99987.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.u-column-partial-flash53-purity",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53-purity.request.json",
+      "sha256": "e8091cd3cb8f6c50eca9627199094815fe6c16f9c181cc3edf6c13d2e21244ac",
+      "role": "request"
+    },
+    {
+      "id": "result.u-column-partial-flash53-purity",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53-purity.output.json",
+      "sha256": "234c36215e4217136b3b9b0f911040f8a2849f3b5d182f5a784d592453692a0b",
+      "role": "result"
+    },
+    {
+      "id": "stderr.u-column-partial-flash53-purity",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-column-partial-flash53-purity.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a4.request.json",
+      "sha256": "30559e2af736212df48f65f7eeb8cb14bbb668d415f43d4cf8dd9a8c8e462694",
+      "role": "request"
+    },
+    {
+      "id": "result.plant-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a4.output.json",
+      "sha256": "7ab731863d6ae1b2d96f06016a6003dda66ce91eaa3c699ebdd3d7d56eaacf02",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant-a4",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a4.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant-a5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a5.request.json",
+      "sha256": "eb8b4d746a1036698e35622374a9e7d6394006f5d36a18641838eeaf002f6971",
+      "role": "request"
+    },
+    {
+      "id": "result.plant-a5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a5.output.json",
+      "sha256": "a468b8a6dc33b5dad24a25d56390f6a60f48d9be14f2c67577e1dc2338dcf772",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant-a5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a5.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.plant-a6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a6.request.json",
+      "sha256": "a203aa4f144dcd4bbb661ae4f7ac128e75d09f6ca9c12e8c00d57cb8d712f54a",
+      "role": "request"
+    },
+    {
+      "id": "result.plant-a6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a6.output.json",
+      "sha256": "16bbc3f36f618608670d84d87eb19d398e55869dd221b9d2d749b3167b7dd4bd",
+      "role": "result"
+    },
+    {
+      "id": "stderr.plant-a6",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/plant-a6.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit100.request.json",
+      "sha256": "723997dcca5b5aa2b74f7bd4f24ff5efea68b3fccf1707872e8679d1997b9426",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit100.output.json",
+      "sha256": "a38e46794f02d79ee92097c76b287abf5d17f0ad387db7aa64c371a68f78f6c5",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit100.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    },
+    {
+      "id": "request.diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit5.request.json",
+      "sha256": "3c96e95bb3d07ee9dd4ae6af97d45a40e49388541967766803a52cd589000e26",
+      "role": "request"
+    },
+    {
+      "id": "result.diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit5.output.json",
+      "sha256": "6a7877e2ec42989b3a55c03435d3d980e16aa16b55fef63f0f76938895320d50",
+      "role": "result"
+    },
+    {
+      "id": "stderr.diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "path": "cases/methanol-co2-campos-2022/results-chepta-0.6.2/diag-column-partialside-T53-CO2-MeOH-H2O-maxit5.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "other"
+    }
+  ],
+  "engines": [
+    {
+      "id": "chepta@0.6.2",
+      "package": "chepta",
+      "release": "0.6.2",
+      "commit": null,
+      "pin": "release",
+      "commit_observed": false,
+      "engine_file_hashes": null,
+      "lock": {
+        "file": "engine-lock",
+        "pointer": "/packages/node_modules~1chepta"
+      },
+      "request_path": "CHEPTA.run",
+      "contracts": "v1",
+      "result_format": 1,
+      "note": "Lab's package.json pin (chepta 0.6.2), installed with npm ci; called through its command line, chepta request --time-ms N <file>."
+    }
+  ],
+  "variants": [
+    {
+      "id": "units-paper-inlets",
+      "description": "Every unit alone, fed with the paper's Table S9-S10 streams.",
+      "modifications": []
+    },
+    {
+      "id": "sections-paper-inlets",
+      "description": "Compression, synthesis loop (with its recycle and purge), purification (with column); streams entering from outside the section are the paper's.",
+      "modifications": [
+        {
+          "kind": "other",
+          "description": "Column with CHEPTA's partial condenser and a flash at 53 C; H2, CO and N2 traces bypass the column."
+        }
+      ]
+    },
+    {
+      "id": "plant-one-flowsheet",
+      "description": "The whole one-step plant as one CHEPTA flowsheet, with both recycles and both purges; the fired heater and steam cycle are left out.",
+      "modifications": [
+        {
+          "kind": "other",
+          "description": "Exchangers HE4, HE5, HE6 by their cold-side targets or approach; reactor coolant at constant 247.5 C; column by reflux and boil-up ratio."
+        }
+      ]
+    },
+    {
+      "id": "diagnostics",
+      "description": "Runs that isolate a CHEPTA refusal (column start with trace gases, specification searches, column iteration limit).",
+      "modifications": []
+    }
+  ],
+  "runs": [
+    {
+      "id": "u-cp1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-cp1",
+      "result": "result.u-cp1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/0"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/0/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he1",
+      "result": "result.u-he1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/1"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/1/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-flash1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-flash1",
+      "result": "result.u-flash1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/2"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/2/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-cp2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-cp2",
+      "result": "result.u-cp2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/3"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/3/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he2",
+      "result": "result.u-he2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/4"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/4/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-flash2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-flash2",
+      "result": "result.u-flash2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/5"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/5/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-cp3",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-cp3",
+      "result": "result.u-cp3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/6"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/6/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he3",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he3",
+      "result": "result.u-he3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/7"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/7/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-cph2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-cph2",
+      "result": "result.u-cph2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/8"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/8/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-mixer2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-mixer2",
+      "result": "result.u-mixer2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/9"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/9/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he4",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he4",
+      "result": "result.u-he4",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/10"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/10/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-reactor-u300",
+      "execution_id": "u-reactor-U300",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-reactor-u300",
+      "result": "result.u-reactor-u300",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/11"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/11/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-reactor-u150",
+      "execution_id": "u-reactor-U150",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-reactor-u150",
+      "result": "result.u-reactor-u150",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/12"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/12/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-reactor-u1000",
+      "execution_id": "u-reactor-U1000",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-reactor-u1000",
+      "result": "result.u-reactor-u1000",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/13"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/13/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-reactor-isothermal",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-reactor-isothermal",
+      "result": "result.u-reactor-isothermal",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/14"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/14/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he5",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he5",
+      "result": "result.u-he5",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/15"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/15/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he6",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he6",
+      "result": "result.u-he6",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/16"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/16/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he7",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he7",
+      "result": "result.u-he7",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/17"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/17/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he7-duty24.2mw",
+      "execution_id": "u-he7-duty24.2MW",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he7-duty24.2mw",
+      "result": "result.u-he7-duty24.2mw",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/18"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/18/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-he7-duty19.75mw",
+      "execution_id": "u-he7-duty19.75MW",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he7-duty19.75mw",
+      "result": "result.u-he7-duty19.75mw",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/19"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/19/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-flash3",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-flash3",
+      "result": "result.u-flash3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/20"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/20/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-flash3-mhv1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-flash3-mhv1",
+      "result": "result.u-flash3-mhv1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/21"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/21/started_at"
+      },
+      "failure_note": "unsupported (exit 4): NOT_AVAILABLE: PR + gE (MHV1): Methanol + Nitrogen, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, carbon-dioxide + water, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use PR with its k_ij."
+    },
+    {
+      "id": "u-cprec",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-cprec",
+      "result": "result.u-cprec",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/22"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/22/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-valve1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-valve1",
+      "result": "result.u-valve1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/23"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/23/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-valve3",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-valve3",
+      "result": "result.u-valve3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/24"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/24/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-valve2",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-valve2",
+      "result": "result.u-valve2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/25"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/25/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-mixer4",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-mixer4",
+      "result": "result.u-mixer4",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/26"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/26/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-flash4",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-flash4",
+      "result": "result.u-flash4",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/27"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/27/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-mixer5",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-mixer5",
+      "result": "result.u-mixer5",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/28"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/28/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-mixer1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-mixer1",
+      "result": "result.u-mixer1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/29"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/29/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-column-partial-pr",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-partial-pr",
+      "result": "result.u-column-partial-pr",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/30"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/30/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "u-column-total-pr",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-total-pr",
+      "result": "result.u-column-total-pr",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/31"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/31/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "u-column-partial-mhv1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-partial-mhv1",
+      "result": "result.u-column-partial-mhv1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/32"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/32/started_at"
+      },
+      "failure_note": "unsupported (exit 4): NOT_AVAILABLE: PR + gE (MHV1): Methanol + Nitrogen, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, carbon-dioxide + water, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use PR with its k_ij."
+    },
+    {
+      "id": "u-column-total-mhv1",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-total-mhv1",
+      "result": "result.u-column-total-mhv1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/33"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/33/started_at"
+      },
+      "failure_note": "unsupported (exit 4): NOT_AVAILABLE: PR + gE (MHV1): Methanol + Nitrogen, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, carbon-dioxide + water, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use PR with its k_ij."
+    },
+    {
+      "id": "u-column-partial-side-pr",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-partial-side-pr",
+      "result": "result.u-column-partial-side-pr",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/34"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/34/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-feed29-bubble",
+      "execution_id": null,
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-feed29-bubble",
+      "result": "result.diag-feed29-bubble",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/35"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/35/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Flash drum B: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-feed29-flash",
+      "execution_id": null,
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-feed29-flash",
+      "result": "result.diag-feed29-flash",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/36"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/36/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-column-total-no-h2",
+      "execution_id": "diag-column-total-no-H2",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-total-no-h2",
+      "result": "result.diag-column-total-no-h2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/37"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/37/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-column-total-co2-meoh-h2o",
+      "execution_id": "diag-column-total-CO2-MeOH-H2O",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-total-co2-meoh-h2o",
+      "result": "result.diag-column-total-co2-meoh-h2o",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/38"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/38/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-column-total-meoh-h2o",
+      "execution_id": "diag-column-total-MeOH-H2O",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-total-meoh-h2o",
+      "result": "result.diag-column-total-meoh-h2o",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/39"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/39/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-feed29-bubble-plus-co",
+      "execution_id": "diag-feed29-bubble-plus-CO",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-feed29-bubble-plus-co",
+      "result": "result.diag-feed29-bubble-plus-co",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/40"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/40/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Flash drum B: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 90.0 and 749.6 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-feed29-bubble-plus-n2",
+      "execution_id": "diag-feed29-bubble-plus-N2",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-feed29-bubble-plus-n2",
+      "result": "result.diag-feed29-bubble-plus-n2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/41"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/41/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Flash drum B: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.9 and 748.8 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-feed29-bubble-co2-meoh-h2o",
+      "execution_id": "diag-feed29-bubble-CO2-MeOH-H2O",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-feed29-bubble-co2-meoh-h2o",
+      "result": "result.diag-feed29-bubble-co2-meoh-h2o",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/42"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/42/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "mini-bubble-co-10ppm",
+      "execution_id": "mini-bubble-CO-10ppm",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.mini-bubble-co-10ppm",
+      "result": "result.mini-bubble-co-10ppm",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/43"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/43/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "mini-bubble-co-1000ppm",
+      "execution_id": "mini-bubble-CO-1000ppm",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.mini-bubble-co-1000ppm",
+      "result": "result.mini-bubble-co-1000ppm",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/44"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/44/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Flash drum B1: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 91.4 and 761.3 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "mini-flash-tp-co-10ppm",
+      "execution_id": "mini-flash-TP-CO-10ppm",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.mini-flash-tp-co-10ppm",
+      "result": "result.mini-flash-tp-co-10ppm",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/45"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/45/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-column-partialside-t53-full",
+      "execution_id": "diag-column-partialside-T53-full",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-full",
+      "result": "result.diag-column-partialside-t53-full",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/46"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/46/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-column-partialside-t53-co2-meoh-h2o",
+      "execution_id": "diag-column-partialside-T53-CO2-MeOH-H2O",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-co2-meoh-h2o",
+      "result": "result.diag-column-partialside-t53-co2-meoh-h2o",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/47"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/47/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 381 ms: the residual fell only from 1.793 to 1.747 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 288 ms). Last residuals: material 1268 mol/s, equilibrium 65.25, energy 39160000 W, specifications 0.002737. By constant molar overflow the boil-up would be -2198 mol/s (the vapour above the feed, 320.8, is less than the feed's own vapour, 2519): these specifications may have no column. Take a larger distillate or a larger reflux ratio (or a feed with less vapour). The column has a side draw (1262 mol/s of liquid from stage 2): a draw larger than the liquid or the vapour that reaches its stage has no solution; take a smaller draw, or a larger reflux (for a liquid draw) or boil-up (for a vapour draw). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    },
+    {
+      "id": "diag-column-partialside-t53-plus-co",
+      "execution_id": "diag-column-partialside-T53-plus-CO",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-plus-co",
+      "result": "result.diag-column-partialside-t53-plus-co",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/48"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/48/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 90.0 and 749.6 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-column-partialside-t53-plus-n2",
+      "execution_id": "diag-column-partialside-T53-plus-N2",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-plus-n2",
+      "result": "result.diag-column-partialside-t53-plus-n2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/49"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/49/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.9 and 748.8 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-column-partialside-r49-full",
+      "execution_id": "diag-column-partialside-R49-full",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-r49-full",
+      "result": "result.diag-column-partialside-r49-full",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/50"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/50/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "diag-column-partialside-r49-co2-meoh-h2o",
+      "execution_id": "diag-column-partialside-R49-CO2-MeOH-H2O",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-r49-co2-meoh-h2o",
+      "result": "result.diag-column-partialside-r49-co2-meoh-h2o",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/51"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/51/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-column-partialside-r49-full-maxit100",
+      "execution_id": "diag-column-partialside-R49-full-maxit100",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-r49-full-maxit100",
+      "result": "result.diag-column-partialside-r49-full-maxit100",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/52"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/52/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: PR bubble temperature at P = 100 kPa: no two-phase solution found (non-finite residual from Wilson's K-values, and no sign change found between 89.8 and 748.0 K). The state is probably at or above the mixture's critical region, where only the trivial solution (vapour = liquid) exists."
+    },
+    {
+      "id": "u-column-partial-flash53",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-partial-flash53",
+      "result": "result.u-column-partial-flash53",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/53"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/53/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "u-column-total-flash53",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-total-flash53",
+      "result": "result.u-column-total-flash53",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/54"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/54/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "sec-compression",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-compression",
+      "result": "result.sec-compression",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/55"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/55/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "sec-loop-a1",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-a1",
+      "result": "result.sec-loop-a1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/56"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/56/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge: at iteration 8, Heat exchanger HE5: Temperature cross: where 49310 kW of 70440 kW has left the hot side, the hot side is at 70.86 °C and the cold side at 71.35 °C. Heat cannot flow there: lower the duty, change an outlet.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-purification-a1",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-purification-a1",
+      "result": "result.sec-purification-a1",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/57"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/57/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: 26 is marked as a tear stream but is not part of a recycle loop."
+    },
+    {
+      "id": "u-he5-cold82.9",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he5-cold82.9",
+      "result": "result.u-he5-cold82.9",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/58"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/58/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "sec-loop-a2",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-a2",
+      "result": "result.sec-loop-a2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/59"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/59/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge: at iteration 2, Heat exchanger HE6: The hot side's outlet (56.9 °C, vapour fraction 0.8584) would take heat in: the hot stream must cool down.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-loop-a3",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-a3",
+      "result": "result.sec-loop-a3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/60"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/60/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge: at iteration 5, Heat exchanger HE5: Temperature cross: where 75260 kW of 100300 kW has left the hot side, the hot side is at 71.5 °C and the cold side at 72.34 °C. Heat cannot flow there: lower the duty, change an outlet.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-purification",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-purification",
+      "result": "result.sec-purification",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/61"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/61/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "sec-loop-direct",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-direct",
+      "result": "result.sec-loop-direct",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/62"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/62/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge: at iteration 16, Heat exchanger HE5: Temperature cross: where 85300 kW of 100300 kW has left the hot side, the hot side is at 67.92 °C and the cold side at 68.38 °C. Heat cannot flow there: lower the duty, change an outlet.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-loop-wegstein",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-wegstein",
+      "result": "result.sec-loop-wegstein",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/63"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/63/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge: at iteration 16, Heat exchanger HE5: Temperature cross: where 85300 kW of 100300 kW has left the hot side, the hot side is at 67.64 °C and the cold side at 68.38 °C. Heat cannot flow there: lower the duty, change an outlet.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-loop-a4",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-a4",
+      "result": "result.sec-loop-a4",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/64"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/64/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: Heat exchanger HE5: a crossflow exchanger reaches its limit at 105800 kW, where the smallest temperature difference is still 0.53 K: it cannot approach 2 K. Put more shells in series, use counterflow, or give a larger minimum approach."
+    },
+    {
+      "id": "u-he5-dtmin2",
+      "execution_id": "u-he5-dTmin2",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he5-dtmin2",
+      "result": "result.u-he5-dtmin2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/65"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/65/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: Heat exchanger HE5: a crossflow exchanger reaches its limit at 115000 kW, where the smallest temperature difference is still 1.65 K: it cannot approach 2 K. Put more shells in series, use counterflow, or give a larger minimum approach."
+    },
+    {
+      "id": "u-he5-dtmin2-zones10",
+      "execution_id": "u-he5-dTmin2-zones10",
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-he5-dtmin2-zones10",
+      "result": "result.u-he5-dtmin2-zones10",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/66"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/66/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "sec-loop",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop",
+      "result": "result.sec-loop",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/67"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/67/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, MIXER3, HE7, FLASH3, SPLIT2, CPREC, HE2 did not converge in 50 iterations: the tear streams still change by 6.63e-6 (relative) per iteration; the tolerance is 1e-8. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 36-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "sec-loop-it200",
+      "execution_id": null,
+      "variant": "sections-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.sec-loop-it200",
+      "result": "result.sec-loop-it200",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/68"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/68/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "plant",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant",
+      "result": "result.plant",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/69"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/69/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: The streams marked as tear streams (19, 36-REC, 26, 39-REC) do not break every cycle of the loop VALVE3, VALVE2, COLUMN, FLASH-COND, MIX-TOP, TRACES, MIXER5, SPLIT3, FLASH4, MIXER4, VALVE1, CPREC, SPLIT2, FLASH3, HE7, HE6, HE5, REACTOR2, MIXER3, REACTOR1, SPLIT1, HE4, MIXER2, HE3, CP3, FLASH2, HE2, CP2, FLASH1, HE1, CP1, MIXER1; mark another stream or none (the solver then chooses)."
+    },
+    {
+      "id": "plant-a2",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant-a2",
+      "result": "result.plant-a2",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/70"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/70/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): BAD_INPUT: The streams marked as tear streams (19, 36-REC, 26, 28, 39-REC) do not break every cycle of the loop VALVE3, VALVE2, COLUMN, FLASH-COND, MIX-TOP, TRACES, MIXER5, SPLIT3, FLASH4, MIXER4, VALVE1, CPREC, SPLIT2, FLASH3, HE7, HE6, HE5, REACTOR2, MIXER3, REACTOR1, SPLIT1, HE4, MIXER2, HE3, CP3, FLASH2, HE2, CP2, FLASH1, HE1, CP1, MIXER1; mark another stream or none (the solver then chooses)."
+    },
+    {
+      "id": "plant-a3",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant-a3",
+      "result": "result.plant-a3",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/71"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/71/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): OUT_OF_RANGE: Column COLUMN: the recovery of Water in the bottoms cannot be 0.99987 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (1046 to 2588 mol/s, 9 columns solved) it stays between 0.0205455 (at 2588) and 1 (at 1046). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 30 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above."
+    },
+    {
+      "id": "diag-column-recovery-0.99987",
+      "execution_id": null,
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-recovery-0.99987",
+      "result": "result.diag-column-recovery-0.99987",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/72"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/72/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): OUT_OF_RANGE: Column COLUMN: the recovery of Water in the bottoms cannot be 0.99987 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (1046 to 2588 mol/s, 9 columns solved) it stays between 0.0205455 (at 2588) and 1 (at 1046). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 30 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above."
+    },
+    {
+      "id": "u-column-partial-flash53-purity",
+      "execution_id": null,
+      "variant": "units-paper-inlets",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.u-column-partial-flash53-purity",
+      "result": "result.u-column-partial-flash53-purity",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/73"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/73/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): OUT_OF_RANGE: Column COLUMN: the mole fraction of Water in the bottoms cannot be 0.99985 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (1046 to 2588 mol/s, 9 columns solved) it stays between 0.811208 (at 1046) and 1 (at 2588). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 30 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above."
+    },
+    {
+      "id": "plant-a4",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant-a4",
+      "result": "result.plant-a4",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/74"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/74/started_at"
+      },
+      "failure_note": "invalid_input (exit 2): OUT_OF_RANGE: Column COLUMN: the mole fraction of Water in the bottoms cannot be 0.99985 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (1046 to 2588 mol/s, 9 columns solved) it stays between 0.811208 (at 1046) and 1 (at 2588). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 30 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above."
+    },
+    {
+      "id": "plant-a5",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant-a5",
+      "result": "result.plant-a5",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/75"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/75/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: The loop through MIXER1, CP1, HE1, FLASH1, CP2, VALVE3, HE2, FLASH2, CP3, VALVE2, HE3, MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, TRACES, MIXER3, HE7, FLASH4, COLUMN, FLASH3, SPLIT3, MIX-TOP, SPLIT2, VALVE1, FLASH-COND, CPREC, MIXER4, MIXER5 did not converge: at iteration 2, Column COLUMN: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 945 ms: the residual fell only from 0.05682 to 0.0147 in 12 iterations); continuation in the relative volatilities (stopped at 98.6 % of the way, after 32 steps, 36854 ms). Last residuals: material 1.199 mol/s, equilibrium 0.004478, energy 277800 W, specifications 0.0006653. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (19, 35, 26, 28, 39-REC) close to the answer, another tear stream, another convergence method, or more iterations."
+    },
+    {
+      "id": "plant-a6",
+      "execution_id": null,
+      "variant": "plant-one-flowsheet",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.plant-a6",
+      "result": "result.plant-a6",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/76"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/76/started_at"
+      },
+      "failure_note": null
+    },
+    {
+      "id": "diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "execution_id": "diag-column-partialside-T53-CO2-MeOH-H2O-maxit100",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "result": "result.diag-column-partialside-t53-co2-meoh-h2o-maxit100",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/77"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/77/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 399 ms: the residual fell only from 1.793 to 1.747 in 12 iterations). Last residuals: material 1268 mol/s, equilibrium 65.25, energy 39160000 W, specifications 0.002737. By constant molar overflow the boil-up would be -2198 mol/s (the vapour above the feed, 320.8, is less than the feed's own vapour, 2519): these specifications may have no column. Take a larger distillate or a larger reflux ratio (or a feed with less vapour). The column has a side draw (1262 mol/s of liquid from stage 2): a draw larger than the liquid or the vapour that reaches its stage has no solution; take a smaller draw, or a larger reflux (for a liquid draw) or boil-up (for a vapour draw). This does not show that the column has no solution: raise the iteration limit, or try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    },
+    {
+      "id": "diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "execution_id": "diag-column-partialside-T53-CO2-MeOH-H2O-maxit5",
+      "variant": "diagnostics",
+      "engine": "chepta@0.6.2",
+      "interface": "command_line",
+      "runner": "runner",
+      "request": "request.diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "result": "result.diag-column-partialside-t53-co2-meoh-h2o-maxit5",
+      "execution_record": {
+        "file": "run-manifest",
+        "pointer": "/runs/78"
+      },
+      "executed_at": {
+        "file": "run-manifest",
+        "pointer": "/runs/78/started_at"
+      },
+      "failure_note": "not_converged (exit 5): NO_CONVERGENCE: Column COLUMN: no column could be solved to start the search for the specifications (the temperature of stage 1 = 326.15). Tried: a first column with the reflux ratio 3: not solved (NO_CONVERGENCE); a first column with the reflux ratio 8: not solved (NO_CONVERGENCE); a first column with the reflux ratio 1.2: not solved (NO_CONVERGENCE); a first column with the reflux ratio 20: not solved (NO_CONVERGENCE). The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (5 iterations, 310 ms: it stopped at its iteration limit (maxIterations = 5)). Last residuals: material 1268 mol/s, equilibrium 6.052, energy 39160000 W, specifications 0.002737. By constant molar overflow the boil-up would be -2198 mol/s (the vapour above the feed, 320.8, is less than the feed's own vapour, 2519): these specifications may have no column. Take a larger distillate or a larger reflux ratio (or a feed with less vapour). The column has a side draw (1262 mol/s of liquid from stage 2): a draw larger than the liquid or the vapour that reaches its stage has no solution; take a smaller draw, or a larger reflux (for a liquid draw) or boil-up (for a vapour draw). This does not show that the column has no solution: raise the iteration limit, or try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+    }
+  ],
+  "values": [
+    {
+      "id": "paper-meoh-purity",
+      "name": "Methanol product 31-MEOH, methanol",
+      "unit": "mol %",
+      "class": "published",
+      "ref": {
+        "file": "streams",
+        "pointer": "/streams/30/mol_pct/CH3OH"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S10, p.15, row 31-MEOH"
+      },
+      "as_printed": "99.667",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-meoh-flow",
+      "name": "Methanol product 31-MEOH, molar flow",
+      "unit": "kmol/h",
+      "class": "published",
+      "ref": {
+        "file": "streams",
+        "pointer": "/streams/30/molar_kmol_h"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S9, p.13, row 31-MEOH"
+      },
+      "as_printed": "4542",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-water-purity",
+      "name": "Water product 30-WATER, water",
+      "unit": "mol %",
+      "class": "published",
+      "ref": {
+        "file": "streams",
+        "pointer": "/streams/29/mol_pct/H2O"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S10, p.15, row 30-WATER"
+      },
+      "as_printed": "99.985",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-24-co2",
+      "name": "FLASH3 liquid 24, CO2",
+      "unit": "mol %",
+      "class": "published",
+      "ref": {
+        "file": "streams",
+        "pointer": "/streams/23/mol_pct/CO2"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S10, p.14, row 24"
+      },
+      "as_printed": "18.545",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-16-meoh",
+      "name": "Reactor outlet 16, methanol",
+      "unit": "mol %",
+      "class": "published",
+      "ref": {
+        "file": "streams",
+        "pointer": "/streams/15/mol_pct/CH3OH"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S10, p.14, row 16"
+      },
+      "as_printed": "7.415",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-he7-duty",
+      "name": "HE7 duty (Table S14)",
+      "unit": "MW",
+      "class": "published",
+      "ref": {
+        "file": "equipment",
+        "pointer": "/equipment/18/specification/duty_MW/value"
+      },
+      "source": {
+        "source_id": "lacerda-campos-2022",
+        "locator": "Supplement Table S14, p.26, one-step"
+      },
+      "as_printed": "24.2",
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "paper-he7-from-streams",
+      "name": "HE7 duty from the printed enthalpies of streams 22 and 23",
+      "unit": "MW",
+      "class": "derived",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/paper_duties_MW/from_printed_stream_enthalpies/HE7"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": "compare.py: sum of F x H (Table S9) out minus in",
+      "run_id": null,
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-he7-duty",
+      "name": "HE7 duty, paper stream 22 cooled to 30 C (CHEPTA)",
+      "unit": "kW",
+      "class": "simulated",
+      "ref": {
+        "file": "result.u-he7",
+        "pointer": "/value/blocks/HE7/duty_kW"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "u-he7",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-reactor-16-meoh",
+      "name": "Reactor outlet methanol flow, paper stream 15 in (CHEPTA, U 300)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.u-reactor-u300",
+        "pointer": "/value/streams/out-out/flow_kmol_h/methanol"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "u-reactor-u300",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-flash3-24-co2",
+      "name": "FLASH3 liquid, CO2 flow, paper stream 23 in (CHEPTA)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.u-flash3",
+        "pointer": "/value/streams/out-liquid/flow_kmol_h/carbon-dioxide"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "u-flash3",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-column-meoh",
+      "name": "Liquid distillate after the 53 C flash, methanol flow (CHEPTA, paper stream 29 in)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.u-column-partial-flash53",
+        "pointer": "/value/streams/31-MEOH/flow_kmol_h/methanol"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "u-column-partial-flash53",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-plant-meoh",
+      "name": "Methanol product 31-MEOH, methanol flow (CHEPTA, whole plant)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.plant-a6",
+        "pointer": "/value/streams/31-MEOH/flow_kmol_h/methanol"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "plant-a6",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-plant-meoh-total",
+      "name": "Methanol product 31-MEOH, total flow (CHEPTA, whole plant)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.plant-a6",
+        "pointer": "/value/streams/31-MEOH/F_kmol_h"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "plant-a6",
+      "unresolved_ids": []
+    },
+    {
+      "id": "chepta-plant-water",
+      "name": "Water product 30-WATER, water flow (CHEPTA, whole plant)",
+      "unit": "kmol/h",
+      "class": "simulated",
+      "ref": {
+        "file": "result.plant-a6",
+        "pointer": "/value/streams/30-WATER/flow_kmol_h/water"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": null,
+      "method": null,
+      "run_id": "plant-a6",
+      "unresolved_ids": []
+    },
+    {
+      "id": "reactor-u",
+      "name": "Overall heat-transfer coefficient of the reactor tubes",
+      "unit": "W/m2/K",
+      "class": "assumed",
+      "ref": {
+        "file": "request.u-reactor-u300",
+        "pointer": "/input/flowsheet/blocks/1/spec/coolant/U_W_m2K"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Not printed (the paper computes U along the tube, supplement Section B). Runs at 150 and 1000 W/m2/K move the outlet by less than 0.5 K and 0.05 mol-% points.",
+      "method": null,
+      "run_id": "u-reactor-u300",
+      "unresolved_ids": []
+    },
+    {
+      "id": "compressor-efficiency",
+      "name": "Isentropic efficiency of the compressors",
+      "unit": "-",
+      "class": "assumed",
+      "ref": {
+        "file": "run-manifest",
+        "pointer": "/settings/1/1"
+      },
+      "source": null,
+      "as_printed": null,
+      "conversion": null,
+      "rationale": "Not printed; CHEPTA's typical value 0.75 is used (no key in the spec). The compressor outlets are 7-14 K hotter than the paper's.",
+      "method": null,
+      "run_id": "u-cp1",
+      "unresolved_ids": []
+    }
+  ],
+  "constraint_declaration": {
+    "timing": "reconstructed_after_runs",
+    "declared_on": "2026-11-14",
+    "basis": "No constraint is declared: the column ends are compared in comparison.json, not tested against a limit."
+  },
+  "constraints": [],
+  "product_constraints_note": "The paper states the methanol product purity 99.67 mol % (supplement p.10) as a result, not a limit; compared in comparison.json.",
+  "constraint_results": [],
+  "checks": [
+    {
+      "id": "compare.u-cp1",
+      "run_id": "u-cp1",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/0"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he1",
+      "run_id": "u-he1",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/1"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-flash1",
+      "run_id": "u-flash1",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/2"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-cp2",
+      "run_id": "u-cp2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/3"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he2",
+      "run_id": "u-he2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/4"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-flash2",
+      "run_id": "u-flash2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/5"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-cp3",
+      "run_id": "u-cp3",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/6"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he3",
+      "run_id": "u-he3",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/7"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-cph2",
+      "run_id": "u-cph2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/8"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-mixer2",
+      "run_id": "u-mixer2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/9"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he4",
+      "run_id": "u-he4",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/10"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-reactor-u300",
+      "run_id": "u-reactor-u300",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/11"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-reactor-u150",
+      "run_id": "u-reactor-u150",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/12"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-reactor-u1000",
+      "run_id": "u-reactor-u1000",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/13"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-reactor-isothermal",
+      "run_id": "u-reactor-isothermal",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/14"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he5",
+      "run_id": "u-he5",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/15"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he6",
+      "run_id": "u-he6",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/16"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he7",
+      "run_id": "u-he7",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/17"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he7-duty24.2mw",
+      "run_id": "u-he7-duty24.2mw",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/18"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he7-duty19.75mw",
+      "run_id": "u-he7-duty19.75mw",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/19"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-flash3",
+      "run_id": "u-flash3",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/20"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-cprec",
+      "run_id": "u-cprec",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/22"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-valve1",
+      "run_id": "u-valve1",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/23"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-valve3",
+      "run_id": "u-valve3",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/24"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-valve2",
+      "run_id": "u-valve2",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/25"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-mixer4",
+      "run_id": "u-mixer4",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/26"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-flash4",
+      "run_id": "u-flash4",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/27"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-mixer5",
+      "run_id": "u-mixer5",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/28"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-mixer1",
+      "run_id": "u-mixer1",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/29"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-column-partial-flash53",
+      "run_id": "u-column-partial-flash53",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/53"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-column-total-flash53",
+      "run_id": "u-column-total-flash53",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/54"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.sec-compression",
+      "run_id": "sec-compression",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/55"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he5-cold82.9",
+      "run_id": "u-he5-cold82.9",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/58"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.sec-purification",
+      "run_id": "sec-purification",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/61"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.u-he5-dtmin2-zones10",
+      "run_id": "u-he5-dtmin2-zones10",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/66"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.sec-loop-it200",
+      "run_id": "sec-loop-it200",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/68"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    },
+    {
+      "id": "compare.plant-a6",
+      "run_id": "plant-a6",
+      "kind": "comparison_with_source",
+      "ref": {
+        "file": "comparison",
+        "pointer": "/runs/76"
+      },
+      "method": "compare.py: every CHEPTA stream against Tables S9-S10 (flow, T, mol %), duties against Table S14 and the printed stream enthalpies",
+      "scope": "Published simulation (Aspen Plus V10; PR in the reactors, NRTL2 elsewhere) against CHEPTA 0.6.2 with PR everywhere: two models agreeing or not, not measurements.",
+      "tolerances": null,
+      "verifier": {
+        "file": "verifier",
+        "earlier_version": null
+      }
+    }
+  ],
+  "warning_notes": [
+    {
+      "id": "pr-kij-extrapolations",
+      "run_ids": [
+        "plant-a6",
+        "u-flash3"
+      ],
+      "pointers": [
+        "/value/extrapolations"
+      ],
+      "note": "CHEPTA reports k_ij sets used outside their data range in every run (H2 + CO up to 433 K above, H2 + N2, CO + N2, CO2 + N2, CO2 + methanol, CO2 + water, CO + methanol) and CO's ideal-gas heat capacity 21 K above its range in the reactors. Each run's list, with the blocks it applies to, is in comparison.json and COMPARISON.md. The warnings are kept, not removed."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "pr-everywhere",
+      "statement": "Peng-Robinson with CHEPTA's k_ij is the method of every unit.",
+      "applies_to": [
+        "units-paper-inlets",
+        "sections-paper-inlets",
+        "plant-one-flowsheet"
+      ],
+      "basis": "The paper uses NRTL2 outside the reactors (article p.9); CHEPTA has no NRTL pairs for the gases with methanol and water, and PR + MHV1 lacks methanol + N2 (runs u-flash3-mhv1, u-column-*-mhv1)."
+    },
+    {
+      "id": "column-condenser",
+      "statement": "The paper's partial vapour-liquid condenser at 53 C is CHEPTA's partial condenser (all distillate as vapour, reflux ratio 2) followed by a flash at 53 C.",
+      "applies_to": [
+        "sections-paper-inlets",
+        "plant-one-flowsheet"
+      ],
+      "basis": "CHEPTA's column has one distillate, vapour or liquid; the product split of the flash is the paper's condenser equilibrium, the reflux composition is not."
+    },
+    {
+      "id": "trace-bypass",
+      "statement": "H2, CO and N2 in the column feed (8 to 20 ppm each) bypass the column to the 53 C flash.",
+      "applies_to": [
+        "sections-paper-inlets",
+        "plant-one-flowsheet"
+      ],
+      "basis": "CHEPTA's column cannot start with them (runs diag-feed29-*, diag-column-*); the paper sends 98.6-99.9 % of each to stream 32 (supplement Table S2)."
+    },
+    {
+      "id": "no-steam-cycle",
+      "statement": "Fired heater, steam cycle and the water sides of HE3 and the reactors are left out; the reactor coolant is at a constant 247.5 C.",
+      "applies_to": [
+        "plant-one-flowsheet"
+      ],
+      "basis": "equipment.json: may be left out of the first case."
+    }
+  ],
+  "unresolved_inputs": [
+    {
+      "id": "reactor-u",
+      "item": "Overall U of the reactor tubes.",
+      "consequence": "Assumed 300 W/m2/K; insensitive in runs at 150 and 1000.",
+      "blocking": false,
+      "next_action": "None needed for this case."
+    },
+    {
+      "id": "compressor-efficiency",
+      "item": "Isentropic efficiencies of the five compressors.",
+      "consequence": "Outlet temperatures 7-14 K above the paper's with 0.75.",
+      "blocking": false,
+      "next_action": "Could be back-calculated from Table S9 temperatures; not done."
+    },
+    {
+      "id": "he7-duty",
+      "item": "HE7: Table S14 24.2 MW against 19.75 MW from the printed enthalpies of streams 22 and 23.",
+      "consequence": "CHEPTA gives 25.1 MW for 22 -> 30 C (run u-he7): it supports Table S14.",
+      "blocking": false,
+      "next_action": "Spot check by the maintainer."
+    },
+    {
+      "id": "kinetics-rights",
+      "item": "Table 1 of the article (Model-6p constants) is reprinted with permission from an ACS paper.",
+      "consequence": "The constants are in model.py and the request files.",
+      "blocking": false,
+      "next_action": "Maintainer's decision (README)."
+    }
+  ],
+  "cost_coverage": {
+    "status": "not_costed",
+    "scope": null,
+    "missing_items": [],
+    "result_files": []
+  },
+  "corpus_links": {
+    "task_ids": [],
+    "run_ids": []
+  },
+  "reviews": [],
+  "limitations": [
+    "Agreement with the paper is agreement between two simulators (Aspen Plus V10 with NRTL2 and PR; CHEPTA 0.6.2 with PR), not with measurements.",
+    "Fired heater and steam cycle not modelled.",
+    "No separate AI review session yet and no person's spot check of this study; draft only."
+  ]
+}

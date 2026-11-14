@@ -1,0 +1,131 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 26081.95722,
+              "carbon-monoxide": 553.83855,
+              "carbon-dioxide": 7996.47818,
+              "methanol": 106.74644,
+              "water": 9.50482,
+              "nitrogen": 1808.10922
+            },
+            "T_K": 510.65,
+            "P_kPa": 7000.0
+          }
+        },
+        {
+          "id": "REACTOR1",
+          "type": "pfr",
+          "spec": {
+            "reactions": [
+              {
+                "reaction": "R1"
+              },
+              {
+                "reaction": "R2"
+              }
+            ],
+            "L_m": 12.5,
+            "D_m": 0.0375,
+            "tubes": 99000,
+            "bed_kg_m3": 1050,
+            "coolant": {
+              "U_W_m2K": 1000,
+              "T_K": 520.65
+            },
+            "pressureDrop": {
+              "dP_kPa": 75
+            }
+          }
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-15",
+          "from": "F0.out",
+          "to": "REACTOR1.in"
+        },
+        {
+          "id": "out-out",
+          "from": "REACTOR1.out",
+          "to": "P0.in"
+        }
+      ],
+      "reactions": [
+        {
+          "id": "R1",
+          "name": "CO2 hydrogenation",
+          "stoichiometry": {
+            "carbon-dioxide": -1,
+            "hydrogen": -3,
+            "methanol": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "exp(14.41-94730.0/(R*T))*phi*(1/(K2*(f['hydrogen']/100)^0.5*(f['carbon-dioxide']/100)+1))*(1/(K3*(f['hydrogen']/100)^(-0.5)*(f['water']/100)+1))*(f['hydrogen']/100)^1.5*(f['carbon-dioxide']/100)*(1-(f['methanol']/100)*(f['water']/100)/((f['hydrogen']/100)^3*(f['carbon-dioxide']/100)*(T^(-4.481)*exp(4755.7/T+8.369))))",
+            "constants": {
+              "phi": 0.1,
+              "K2": 0.1441,
+              "K3": 49.44
+            },
+            "per": "catalyst-mass",
+            "T_K": [
+              483.15,
+              533.15
+            ],
+            "source": "Model-6p, Lacerda de Oliveira Campos et al. 2022, article Eqs. 8-11 (p.8) and Table 1 (p.9); fit range 210-260 C, 20-60 bar (p.8)"
+          }
+        },
+        {
+          "id": "R2",
+          "name": "reverse water-gas shift",
+          "stoichiometry": {
+            "carbon-dioxide": -1,
+            "hydrogen": -1,
+            "carbon-monoxide": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "exp(29.13-132790.0/(R*T))*phi*(1/(K2*(f['hydrogen']/100)^0.5*(f['carbon-dioxide']/100)+1))*(1/(K3*(f['hydrogen']/100)^(-0.5)*(f['water']/100)+1))*(f['carbon-dioxide']/100)*(f['water']/100)*(1-(f['carbon-monoxide']/100)*(f['water']/100)/((f['hydrogen']/100)*(f['carbon-dioxide']/100)*(T^(-1.097)*exp(-5337.4/T+12.569))))",
+            "constants": {
+              "phi": 0.1,
+              "K2": 0.1441,
+              "K3": 49.44
+            },
+            "per": "catalyst-mass",
+            "T_K": [
+              483.15,
+              533.15
+            ],
+            "source": "Model-6p, Lacerda de Oliveira Campos et al. 2022, article Eqs. 8-11 (p.8) and Table 1 (p.9); fit range 210-260 C, 20-60 bar (p.8)"
+          }
+        }
+      ]
+    }
+  }
+}

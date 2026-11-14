@@ -1,0 +1,78 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 43.14816,
+              "carbon-monoxide": 18.75247,
+              "carbon-dioxide": 2017.40121,
+              "methanol": 302.31179,
+              "water": 59.57842,
+              "nitrogen": 55.80795
+            },
+            "T_K": 303.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F1",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 0.01156,
+              "carbon-monoxide": 0.08381,
+              "carbon-dioxide": 106.66701,
+              "methanol": 181.99486,
+              "water": 0.01156,
+              "nitrogen": 0.2312
+            },
+            "T_K": 326.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "MIXER5",
+          "type": "mixer",
+          "spec": {}
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-38",
+          "from": "F0.out",
+          "to": "MIXER5.in"
+        },
+        {
+          "id": "in1-32",
+          "from": "F1.out",
+          "to": "MIXER5.in"
+        },
+        {
+          "id": "out-out",
+          "from": "MIXER5.out",
+          "to": "P0.in"
+        }
+      ]
+    }
+  }
+}

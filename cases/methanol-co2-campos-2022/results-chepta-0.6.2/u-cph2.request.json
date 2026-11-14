@@ -1,0 +1,55 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 14399.64,
+              "nitrogen": 72.36
+            },
+            "T_K": 298.15,
+            "P_kPa": 3000.0
+          }
+        },
+        {
+          "id": "CPH2",
+          "type": "compressor",
+          "spec": {
+            "P_kPa": 7000
+          }
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-11-H2",
+          "from": "F0.out",
+          "to": "CPH2.in"
+        },
+        {
+          "id": "out-out",
+          "from": "CPH2.out",
+          "to": "P0.in"
+        }
+      ]
+    }
+  }
+}
