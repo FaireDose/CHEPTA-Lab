@@ -89,3 +89,12 @@ its specifications.
 - A higher reflux in column 11 (R/D 3.5: worse product, 99.62 %; R/D 4: fails).
 - Opening the outer recycles (27 and 21 fed from Table A2) to find guesses: the half-plant is then over-specified and
   its water loop drifts (runs `*-open`).
+- A higher or lower reactor conversion per pass (0.74, 0.80): with the acid recycled until used up it changes only the
+  recycle, not the product (99.11 % either way).
+- More extractor stages (3, 4): column 11 then does not converge in CHEPTA.
+
+## Upstream changes that helped (round 5)
+
+- Colder extraction (20 C instead of 27 C, Section 3.3's own advice): product water 0.81 → 0.61 %.
+- Together with 5 kg/h less ethanol feed: 99.67 % (water 0.30 %, ethanol 0.038 %).
+

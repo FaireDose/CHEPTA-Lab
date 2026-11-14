@@ -3,7 +3,7 @@
 | In one look | |
 |---|---|
 | Paper | Piotrowski & Kubica 2021, Processes 9, 1425 (CC BY 4.0): ethyl acetate from ethanol and acetic acid; the classic plant S2 |
-| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles**, with more stages and tighter tolerances, the paper's thermodynamic statements and the ethanol balance (134 runs) |
+| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles**, with more stages and tighter tolerances, the paper's thermodynamic statements and the ethanol balance and upstream changes (141 runs) |
 | Complete flowsheet | **Closed and settled on 0.6.2.** One CHEPTA flowsheet, acetic acid everywhere (no cut), all five recycles, splitters by flow (26 = 60,000 kg/h; recycle 23 = 95,797 kg/h), feeds at 15 C, column 15 on its bottoms purity, column 11 on R/D 3 and its distillate flow. Settled at a tear tolerance of 1e-5 (change 2.1e-6), plant balance within 0.1 kg/h of 32,461 kg/h. **Product 99.11-99.14 mass % ethyl acetate, not the paper's 99.90 %.** Starting values saved: [init-closed-plant-chepta-0.6.2-settled.json](init-closed-plant-chepta-0.6.2-settled.json) |
 | Agrees with the paper | (settled closed plant, run plant62-best-init1e-4-tol1e-5) every stream within −1.2 to +6.5 % of Table A2 in flow (no blown-up flow); wastewater 25 19,919 vs 20,000 kg/h (it follows by itself); product 12,542 vs 12,434 kg/h (+0.9 %); acid in the azeotrope 0.0000 % (limit 0.005 %); wastewater organics 0.010 % (limit 0.01 %); HTXR 6 +4.7 %, HTXR 17 0.0 %, column 11 condenser +3.6 %, column 15 reboiler +7.1 %. (0.6.1, once through) azeotrope 9 within 0.01 % |
 | Differs | (settled closed plant) product 99.11 % ester with 0.81 % water (paper 99.90 %, water limit 0.03 %); more ethanol circulates than in the paper (azeotrope 8: 11.6 vs 8.5 %; stream 21: 40.0 vs 31.1 %), which wets the raffinate (5.05 vs 4.70 % water) and overloads column 11 with water; reactor duty +12.9 % (conversion from the paper); column 15 condenser +16 %; column 11 reboiler −21 %. In the paper itself: the acid of column 11's feed must leave in the product (0.022 %, not 0.01 %), and column 15's 0.01 % organics limit cannot hold with the feed's acid |
@@ -13,7 +13,7 @@
 Study record: [study-record.json](study-record.json). Runs and CHEPTA's answers, unchanged:
 [results-chepta-0.6.1/](results-chepta-0.6.1/) (56 runs, [run-manifest.json](results-chepta-0.6.1/run-manifest.json),
 [comparison-s2.json](results-chepta-0.6.1/comparison-s2.json)) and [results-chepta-0.6.2/](results-chepta-0.6.2/)
-(134 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
+(141 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
 Register rows this case feeds: [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md).
 
 **Verdict (2026-11-14, chepta 0.6.2): BLOCKED on the product purity.** The plant closes and settles as one CHEPTA
@@ -344,6 +344,29 @@ organic phase, p.4) and overloads column 11 with water. Five kg/h less ethanol f
 points. The paper's products carry 6.5 kg/h of ethanol, and its own plant balance is 27 kg/h short, so Table A2 cannot
 fix this balance to the precision that decides the purity. A real plant (and probably Chemcad) would trim the ethanol
 make-up to the product's quality; CHEPTA has no design specification on a feed (request 15: global design specifications and sensitivity tables, as in Aspen or HYSYS).
+
+### Round 5 (the maintainer, 2026-11-14): upstream changes
+
+Closed plant, settled start, tolerance 1e-5. SENSITIVITY runs, not the paper's case.
+
+| Run | Upstream change | Product 16 | Raffinate 11 water | Ethanol in reactor feed 5 |
+|---|---|---|---|---|
+| plant62-best-init1e-4-tol1e-5 | none (settled) | 99.109 %, 0.813 % water, 0.078 % ethanol | 5.05 % | 17,455 kg/h |
+| plant62-settled-conv0.80 / -conv0.74 | reactor conversion per pass 0.80 / 0.74 (paper's streams: 0.7703) | 99.112 / 99.113 % | 5.05 % | 17,396 / 17,487 |
+| plant62-settled-extr20C | extractor at 20 C (27 C) | 99.312 %, 0.610 % water, 0.078 % ethanol | 4.96 % | 18,016 |
+| plant62-settled-extr3st / -extr4st | extractor with 3 / 4 stages (2) | `NO_CONVERGENCE` in column 11 (iteration 3 / 2) | — | — |
+| plant62-settled-ethanol6506 | ethanol feed 6,506 kg/h (6,511) | 99.498 %, 0.464 %, 0.038 % | 4.92 % | 15,533 |
+| plant62-settled-extr20C-ethanol6508 | 20 C and 6,508 kg/h | 99.508 %, 0.438 %, 0.054 % | — | 17,115 |
+| **plant62-settled-extr20C-ethanol6506** | **20 C and 6,506 kg/h** | **99.666 %, 0.296 % water, 0.038 % ethanol** | — | 16,360 |
+
+- The reactor's conversion per pass does not matter: the acetic acid is recycled until it is used up, so a higher or
+  lower conversion per pass only changes the recycle, not what leaves.
+- The product's ethanol (0.078 %) moves only with the ethanol feed: it is the excess ethanol, which has no other exit.
+- Colder extraction dries the raffinate (Section 3.3's own advice, here 20 C, the cooling-water limit it names) and
+  lowers the product's water; with 5 kg/h less ethanol the two give 99.67 %, still short of 99.9 % (water 0.30 %
+  against 0.03 %). More extractor stages would dry it further but column 11 then does not converge in CHEPTA.
+- What is left is CHEPTA's wetter organic phase (round 4) and the paper's own column 11 balance, which leaves 0.07 %
+  water at its own settings; holding the purity needs the global design specifications of request 15.
 
 ## On chepta 0.6.1 (2026-11-12): what was run
 
