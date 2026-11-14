@@ -44,7 +44,7 @@ def splitter_by_flow(first_kg_h=None, second_kg_h=None):
 
 
 def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phases15="VLL", extractor_stages=2,
-          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None):
+          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None, feed11=None, r23_kg_h=None):
     """open_recycles: None for the closed plant; else {27: feed spec, 21: feed spec}: streams 27 and 21 enter as feeds
     (given) and leave as products, the outer recycles opened (used to find starting guesses, never compared as the plant).
     guesses: {stream number: {flow_kmol_h, T_K, P_kPa}} starting guesses of the tear streams (else Table A2)."""
@@ -52,8 +52,8 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     s9 = splitter_by_flow(None, M.STREAMS[26]["mass_kg_h"]) if split9 == "flow" else {"fractions": M.split9()}  # S12 (rest), S26 (60,000)
     if split16 == "W":
         s16 = splitter_by_flow(None, M.STREAMS[25]["mass_kg_h"])  # outlets: S23 (rest), S25 (20,000)
-    elif split16 == "R":
-        s16 = splitter_by_flow(M.STREAMS[23]["mass_kg_h"], None)  # S23 (95,797), S25 (rest)
+    elif split16 == "R":  # S23 (95,797 kg/h, or r23_kg_h to raise W/A), S25 (rest)
+        s16 = splitter_by_flow(r23_kg_h or M.STREAMS[23]["mass_kg_h"], None)
     else:
         s16 = {"fractions": M.split16()}
     c5 = M.column5_spec()
@@ -72,6 +72,8 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
         c11["reflux_ratio"] = reflux11
     if col11_stages:  # more stages than Table 1's 35, feed stage kept at 15
         c11["stages"] = col11_stages
+    if feed11:  # Section 3.4 p.9: "the best results were obtained when the feed was located between the 6th and 4th column stage"
+        c11["feed_stage"] = feed11
     c15 = M.column15_spec(phases15)
     if spec15 == "purity":  # Section 3.5 p.10: bottoms "less than 0.01% of its weight in organic compounds"
         c15.pop("distillate_kmol_h")

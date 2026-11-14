@@ -274,8 +274,46 @@ PLANTS3 = {  # round 3 (the maintainer, 2026-11-14): more stages, started from t
     "plant62-best-init1e-4-tol1e-5-dist260": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 260}, "as -tol1e-5, column 11 distillate 260 kmol/h"),
     "plant62-best-init1e-4-tol1e-5-dist270": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 270}, "as -tol1e-5, column 11 distillate 270 kmol/h"),
     "plant62-best-init1e-4-tol1e-5-dist280": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 280}, "as -tol1e-5, column 11 distillate 280 kmol/h"),
+    "plant62-settled-feed11-5": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "feed11": 5}, "settled start, column 11 fed on stage 5 (Section 3.4: best between the 6th and 4th stage; Table 1: 15)"),
+    "plant62-settled-feed11-5-dist230": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "feed11": 5, "spec11": "distillate"}, "as -feed11-5, distillate 230.4 kmol/h as the paper"),
+    "plant62-settled-WA1.2": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 121000}, "settled start, recycle 23 = 121,000 kg/h (W/A about 1.2, Section 3.3: optimum W/A 1-2)"),
+    "plant62-settled-WA1.4": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 144000}, "settled start, recycle 23 = 144,000 kg/h (W/A about 1.4)"),
+    "plant62-settled-WA1.2-feed11-5": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 121000, "feed11": 5}, "W/A about 1.2 and column 11 fed on stage 5"),
     "plant62-best-init1e-4-tol1e-5-dist246": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 246}, "as -tol1e-5, column 11 distillate 246 kmol/h (the water balance of column 11)"),
 }
+
+
+def thermo_requests():
+    """The paper's thermodynamic statements tested in CHEPTA (the maintainer, 2026-11-14): the ternary azeotrope
+    (pp.3, 6: 83.1 % ethyl acetate, 8.7 % ethanol, 8.2 % water [ref. 22]), the extractor's temperature and W/A trends
+    (Section 3.3, Figure 4), and column 11's R/D and feed-stage trends at a fixed product rate (Section 3.4, Figures 5, 6)."""
+    J = {}
+    az = {"flow_kg_h": {"ethyl acetate": 831.0, "ethanol": 87.0, "water": 82.0}}
+    for P_kPa in (100.0, 101.325):
+        for VF in (0, 1):
+            f = {**az, "P_kPa": P_kPa, "VF": VF}
+            blocks = [{"id": "F", "type": "feed", "spec": f}, {"id": "P", "type": "product"}]
+            J[f"thermo-azeotrope-{'bubble' if VF == 0 else 'dew'}-{P_kPa:g}kPa"] = M.doc(blocks, [{"id": "S1", "from": "F.out", "to": "P.in"}], M.COMPONENTS_B)
+    for T in (20, 30, 40, 50):
+        J[f"thermo-extr8-2st-{T}C-WA1"] = M.unit({"id": "EXTR8", "type": "extraction", "spec": M.extractor_spec(2, T)},
+                                                  [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)])
+    for wa in (1.5, 2.0):
+        d = M.unit({"id": "EXTR8", "type": "extraction", "spec": M.extractor_spec(2)}, [("feed", 10), ("solvent", 19)], [("raffinate", 11), ("extract", 20)])
+        for b in d["blocks"]:
+            if b["id"] == "F19":
+                b["spec"]["flow_kg_h"] = {k: v * wa for k, v in b["spec"]["flow_kg_h"].items()}
+        J[f"thermo-extr8-2st-27C-WA{wa:g}"] = d
+
+    def col11(rd=3, feed=15):
+        sp = M.column11_spec("flow", "VLL")
+        sp["reflux_ratio"] = rd
+        sp["feed_stage"] = feed
+        return M.unit({"id": "SCDS11", "type": "column", "spec": sp}, [("in", 13)], [("distillate", 14), ("bottoms", 16)], M.COMPONENTS_B)
+    for rd in (1.5, 2.25, 3, 3.5, 5):
+        J[f"thermo-scds11-noacid-RD{rd:g}-feed15"] = col11(rd=rd)
+    for fst in (4, 5, 6, 10):
+        J[f"thermo-scds11-noacid-RD3-feed{fst}"] = col11(feed=fst)
+    return J
 
 
 def build_plant(kw):
@@ -321,6 +359,8 @@ def main():
         run_parallel(R, [(k, fs(v)) for k, v in isolate_requests().items()])
     if "plant2" in groups:
         run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS2.items()])
+    if "thermo" in groups:
+        run_parallel(R, [(k, fs(v)) for k, v in thermo_requests().items()])
     if "plant3" in groups:
         run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS3.items()])
     if "policy" in groups:
