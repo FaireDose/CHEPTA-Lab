@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-14T08:10:36.287261+00:00",
+  "executed_at": "2026-11-14T08:39:06.293791+00:00",
   "engine": {
     "package": "chepta",
     "version": "0.6.2",
@@ -17,7 +17,7 @@
       "streams.json": "986a0da6086efe2cf38cddfd2fad145ffca6f1bf110c12d598190a86aef92626",
       "equipment.json": "a3b5b8d8b66b3062307ff8359708f8703cde199f9c154bd92ee0dac0c13a47e6",
       "s2_model.py": "63b7e67b302bc8a28dd1f84b41ecdd0f2c779e1810986a5fa0bb9c29fcfa3359",
-      "s2_model_062.py": "96081a2a6a787409b79a14780659d92afa6322396dbd211251ccd355393e2b15"
+      "s2_model_062.py": "ffbab89feda81da6bd7b25300316b1e556b1b9cea4580b0ce2233c873433729c"
     }
   },
   "settings": [
@@ -737,6 +737,61 @@
         "f1_kg_h": 6503
       },
       "what": "SENSITIVITY: ethanol feed 6,503 kg/h"
+    },
+    "plant62-settled-extr3st": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "extractor_stages": 3
+      },
+      "what": "SENSITIVITY (upstream): extractor with 3 equilibrium stages (2 elsewhere)"
+    },
+    "plant62-settled-extr4st": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "extractor_stages": 4
+      },
+      "what": "SENSITIVITY (upstream): extractor with 4 equilibrium stages"
+    },
+    "plant62-settled-extr20C": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "extr_T_C": 20
+      },
+      "what": "SENSITIVITY (upstream): extractor at 20 C (27 C elsewhere; Section 3.3: colder is better, limited by the cooling water)"
+    },
+    "plant62-settled-conv0.80": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "conversion": 0.8
+      },
+      "what": "SENSITIVITY (upstream): reactor acetic acid conversion per pass 0.80 (0.7703 from the paper's streams 5 and 6)"
+    },
+    "plant62-settled-conv0.74": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "conversion": 0.74
+      },
+      "what": "SENSITIVITY (upstream): conversion per pass 0.74"
     },
     "plant62-best-init1e-4-tol1e-5-dist246": {
       "kwargs": {
@@ -5916,6 +5971,219 @@
       ],
       "missing_pairs": [],
       "note": "SENSITIVITY, not the paper's case: ethanol feed 6,506 kg/h (paper 6,511; its molar 141.3 kmol/h spans 6,507-6,512): less excess ethanol to leave with the products"
+    },
+    {
+      "id": "plant62-settled-extr4st",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-extr4st.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T08:26:09.967310+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12790 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 96.09 % of the way, after 14 steps, 41961 ms). Last residuals: material 3.107 mol/s, equilibrium 0.000003377, energy 87040 W, specifications 1.421e-16. On the last iterate the liquid of stages 1, 2, 3 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.08086336859214979
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12790 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 96.09 % of the way, after 14 steps, 41961 ms). Last residuals: material 3.107 mol/s, equilibrium 0.000003377, energy 87040 W, specifications 1.421e-16. On the last iterate the liquid of stages 1, 2, 3 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwg55r44-1",
+      "elapsed_ms": 187696.608862,
+      "request_file": "results-chepta-0.6.2/plant62-settled-extr4st.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-extr4st.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-extr4st.stderr.txt",
+      "request_file_sha256": "07060380b713c416d5d9aa7e0fbf9c76bfd4c1abf1ed2eb4e21fadc81329d938",
+      "output_file_sha256": "baf16c4791ba185f520c93b0b5125723b64e9f0145e3f3136377cd2fa8ba1f69",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "SENSITIVITY (upstream): extractor with 4 equilibrium stages"
+    },
+    {
+      "id": "plant62-settled-extr3st",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-extr3st.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T08:26:09.966919+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 11557 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 95.8 % of the way, after 15 steps, 58661 ms). Last residuals: material 103.1 mol/s, equilibrium 1.318e-7, energy 2199000 W, specifications 2.842e-16. On the last iterate the liquid of stage 18 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.045499159497892905,
+            0.027624815764022138
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 11557 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 95.8 % of the way, after 15 steps, 58661 ms). Last residuals: material 103.1 mol/s, equilibrium 1.318e-7, energy 2199000 W, specifications 2.842e-16. On the last iterate the liquid of stage 18 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwg55r46-1",
+      "elapsed_ms": 308015.021119,
+      "request_file": "results-chepta-0.6.2/plant62-settled-extr3st.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-extr3st.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-extr3st.stderr.txt",
+      "request_file_sha256": "7d49e1a5d235690871c4f4e8b57170bb7d26e9f5f2321a4cff54d08942c166a1",
+      "output_file_sha256": "4684c40a27f37286f445e34c9db5c57812ba717273997f3b7c9fc0c6edd96601",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "SENSITIVITY (upstream): extractor with 3 equilibrium stages (2 elsewhere)"
+    },
+    {
+      "id": "plant62-settled-conv0.80",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-conv0.80.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T08:26:09.967110+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwg55r44-1",
+      "elapsed_ms": 722294.3616439999,
+      "request_file": "results-chepta-0.6.2/plant62-settled-conv0.80.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-conv0.80.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-conv0.80.stderr.txt",
+      "request_file_sha256": "1d1a266bdaec99bad826af356f6f3bf547bb51927e6c010a74372c792e797cbc",
+      "output_file_sha256": "52904375ba47b3590f82088521304ee226362e44770760174ee80573801d750f",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "SENSITIVITY (upstream): reactor acetic acid conversion per pass 0.80 (0.7703 from the paper's streams 5 and 6)"
+    },
+    {
+      "id": "plant62-settled-extr20C",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-extr20C.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T08:26:09.966842+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwg55r45-1",
+      "elapsed_ms": 753741.135987,
+      "request_file": "results-chepta-0.6.2/plant62-settled-extr20C.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-extr20C.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-extr20C.stderr.txt",
+      "request_file_sha256": "63746fb48f4d1cdeff7a39e92ee343da1de8d93a5a696f4002afb231b55ce942",
+      "output_file_sha256": "513e6a90d6b7d3e7f6479e2e3b855d4506d7d6d163e071da8e1126d321405b61",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "SENSITIVITY (upstream): extractor at 20 C (27 C elsewhere; Section 3.3: colder is better, limited by the cooling water)"
+    },
+    {
+      "id": "plant62-settled-conv0.74",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-conv0.74.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T08:29:17.897008+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwg59s40-1",
+      "elapsed_ms": 588156.112066,
+      "request_file": "results-chepta-0.6.2/plant62-settled-conv0.74.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-conv0.74.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-conv0.74.stderr.txt",
+      "request_file_sha256": "e117cddf6fd0b06ea026484fb86d0fbbc6111375e2f2e178204885908fc88642",
+      "output_file_sha256": "551f8ebfedc6cfd38c38fd80a380d776dc529e84dfded0ecbf484398941e0fef",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "SENSITIVITY (upstream): conversion per pass 0.74"
     }
   ]
 }

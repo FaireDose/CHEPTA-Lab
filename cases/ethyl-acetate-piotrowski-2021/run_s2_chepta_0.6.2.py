@@ -287,6 +287,8 @@ PLANTS3 = {  # round 3 (the maintainer, 2026-11-14): more stages, started from t
     "plant62-settled-extr20C": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "extr_T_C": 20}, "SENSITIVITY (upstream): extractor at 20 C (27 C elsewhere; Section 3.3: colder is better, limited by the cooling water)"),
     "plant62-settled-conv0.80": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "conversion": 0.80}, "SENSITIVITY (upstream): reactor acetic acid conversion per pass 0.80 (0.7703 from the paper's streams 5 and 6)"),
     "plant62-settled-conv0.74": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "conversion": 0.74}, "SENSITIVITY (upstream): conversion per pass 0.74"),
+    "plant62-settled-extr20C-ethanol6506": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "extr_T_C": 20, "f1_kg_h": 6506}, "SENSITIVITY: extractor at 20 C and ethanol feed 6,506 kg/h"),
+    "plant62-settled-extr20C-ethanol6508": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "extr_T_C": 20, "f1_kg_h": 6508}, "SENSITIVITY: extractor at 20 C and ethanol feed 6,508 kg/h"),
     "plant62-best-init1e-4-tol1e-5-dist246": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 246}, "as -tol1e-5, column 11 distillate 246 kmol/h (the water balance of column 11)"),
 }
 
