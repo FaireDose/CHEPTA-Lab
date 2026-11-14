@@ -9,7 +9,7 @@ comparison with the source, and a study record (`study-record.json`, the case's 
 | [ethanol-zsm5-573k](ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | reactor only | no | matches an independent calculation | no |
 | [benzene-toluene-chemsep-b2](benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one column | no | within 0.80 K, 0.018 (book's specifications); purity-specified runs (0.6.1 and 0.6.2) outside those limits; same numbers on 0.6.2 | no |
 | [methanol-separator-flash](methanol-separator-flash/README.md) | CHEPTA's own notes | one flash drum | no | same as CHEPTA's earlier result (0.6.0, 0.6.1 and 0.6.2) | no |
-| [ethyl-acetate-piotrowski-2021](ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | classic plant S2: all 19 units and 28 streams (chepta 0.6.1); on 0.6.2 the whole plant as one flowsheet with all recycles | **closed on 0.6.2** at a loose recycle tolerance (balance within 0.02 %); BLOCKED on the product purity: 99.67 % vs 99.90 % | azeotrope stream within 0.01 %, product +0.3 %, 7 of 11 duties within 7 % (0.6.1); units with acetic acid on 0.6.2 agree as well; reactor conversion taken from the paper | no |
+| [ethyl-acetate-piotrowski-2021](ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | classic plant S2: all 19 units and 28 streams (chepta 0.6.1); on 0.6.2 the whole plant as one flowsheet with all recycles | **closed and settled on 0.6.2** (balance within 0.1 kg/h); BLOCKED on the product purity: 99.11 % vs 99.90 % | azeotrope stream within 0.01 %, product +0.3 %, 7 of 11 duties within 7 % (0.6.1); units with acetic acid on 0.6.2 agree as well; reactor conversion taken from the paper | no |
 
 ## A new case
 

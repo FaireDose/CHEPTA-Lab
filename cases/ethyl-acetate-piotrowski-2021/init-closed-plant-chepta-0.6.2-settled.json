@@ -1,0 +1,93 @@
+{
+  "what": "Starting values (tear-stream guesses) for the closed S2 plant on chepta 0.6.2: the SETTLED steady state (tear change 2.1e-6 at tolerance 1e-5). Use this file to redo the calculations.",
+  "from_run": "plant62-best-init1e-4-tol1e-5",
+  "from_file": "results-chepta-0.6.2/plant62-best-init1e-4-tol1e-5.output.json",
+  "from_file_sha256": "10851f35d9053aa01b31a91da6a69974fa65e80961c6950840b1f0854200b0a5",
+  "chepta_version": "0.6.2",
+  "loop": {
+    "blocks": [
+      "MIX13",
+      "MIX3",
+      "PUMP14",
+      "KREA4",
+      "SCDS5",
+      "HTXR6",
+      "MIX7",
+      "EXTR8",
+      "SPLIT9",
+      "HTXR19",
+      "HTXR10",
+      "HTXR18",
+      "SCDS15",
+      "SCDS11",
+      "SPLIT16",
+      "HTXR12",
+      "HTXR17"
+    ],
+    "tears": [
+      "S27",
+      "S7",
+      "S21",
+      "S15",
+      "S24"
+    ],
+    "iterations": 1,
+    "residual": 2.113270865617112e-06,
+    "tolerance": 1e-05
+  },
+  "plant_settings": "split16 R (23 = 95,797 kg/h), splitter 9 26 = 60,000 kg/h, column 11 R/D 3 and distillate 240 kmol/h, column 15 R/D 2 and 99.99 mass % water in its bottoms, column 5 VLL 8 stages, feeds 15 C (s2_model_062.plant(split16='R', spec11=240, spec15='purity', ...))",
+  "use": "s2_model_062.plant(..., guesses=s2_model_062.init_guesses()); units kmol/h, K, kPa",
+  "note": "Starting values only: a converged answer does not depend on them, but a start this close lets column 11 converge where a cold start fails (distillate 246 kmol/h). CHEPTA 0.6.2 columns take no starting profiles; the stage profiles are in the run output (value.blocks.SCDS*.profile).",
+  "tears": {
+    "7": {
+      "flow_kmol_h": {
+        "ethanol": 21.02568324579906,
+        "water": 608.7115749761839,
+        "ethyl-acetate": 3.0121697680608785,
+        "acetic-acid": 42.06870642594734
+      },
+      "T_K": 361.3569985450169,
+      "P_kPa": 100
+    },
+    "15": {
+      "flow_kmol_h": {
+        "ethanol": 15.734430122161081,
+        "water": 72.69101877777518,
+        "ethyl-acetate": 151.57455110006381,
+        "acetic-acid": 3.427684400027595e-14
+      },
+      "T_K": 343.029364078796,
+      "P_kPa": 100
+    },
+    "21": {
+      "flow_kmol_h": {
+        "ethanol": 216.53477637171952,
+        "water": 81.41227597123118,
+        "ethyl-acetate": 153.05515001519385,
+        "acetic-acid": 5.874640839011565e-14
+      },
+      "T_K": 344.12168554157716,
+      "P_kPa": 100
+    },
+    "24": {
+      "flow_kmol_h": {
+        "ethanol": 0.20775006651209002,
+        "water": 5317.009799454993,
+        "ethyl-acetate": 6.884103713827224e-14,
+        "acetic-acid": 0.00014951385976246656
+      },
+      "T_K": 293.15,
+      "P_kPa": 100
+    },
+    "27": {
+      "flow_kmol_h": {
+        "ethanol": 34.259079387652235,
+        "water": 168.30796311050892,
+        "ethyl-acetate": 628.6765197338774,
+        "acetic-acid": 3.934548648758052e-05
+      },
+      "T_K": 343.15,
+      "P_kPa": 100
+    }
+  }
+}

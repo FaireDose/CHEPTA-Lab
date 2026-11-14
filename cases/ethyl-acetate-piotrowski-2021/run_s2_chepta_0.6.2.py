@@ -260,12 +260,36 @@ def isolate_requests():
     return J
 
 
+BEST = {"split16": "R", "spec11": 240, "spec15": "purity", "tolerance": 3e-4}
+PLANTS3 = {  # round 3 (the maintainer, 2026-11-14): more stages, started from the saved closed plant
+    "plant62-best-init": ({**BEST, "guesses": "062closed"}, "the best closed plant again, started from init-closed-plant-chepta-0.6.2.json"),
+    "plant62-best-init-col11-36st": ({**BEST, "guesses": "062closed", "col11_stages": 36}, "column 11 with 36 stages (Table 1: 35)"),
+    "plant62-best-init-col11-38st": ({**BEST, "guesses": "062closed", "col11_stages": 38}, "column 11 with 38 stages"),
+    "plant62-best-init-col11-40st": ({**BEST, "guesses": "062closed", "col11_stages": 40}, "column 11 with 40 stages"),
+    "plant62-best-init-col5-9st": ({**BEST, "guesses": "062closed", "col5_stages": 9}, "column 5 with 9 stages (Table 1: 8)"),
+    "plant62-best-init-col15-19st": ({**BEST, "guesses": "062closed", "col15_stages": 19}, "column 15 with 19 stages (Table 1: 18)"),
+    "plant62-best-init-col11-40st-dist230": ({**BEST, "guesses": "062closed", "col11_stages": 40, "spec11": "distillate"}, "column 11 with 40 stages, distillate 230.4 kmol/h as the paper"),
+    "plant62-best-init-tol1e-4": ({**BEST, "guesses": "062closed", "tolerance": 1e-4}, "the best closed plant from the saved start, tear tolerance 1e-4"),
+    "plant62-best-init1e-4-tol1e-5": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5}, "started from the 1e-4 answer (init-closed-plant-chepta-0.6.2-tol1e-4.json), tear tolerance 1e-5"),
+    "plant62-best-init1e-4-tol1e-5-dist260": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 260}, "as -tol1e-5, column 11 distillate 260 kmol/h"),
+    "plant62-best-init1e-4-tol1e-5-dist270": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 270}, "as -tol1e-5, column 11 distillate 270 kmol/h"),
+    "plant62-best-init1e-4-tol1e-5-dist280": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 280}, "as -tol1e-5, column 11 distillate 280 kmol/h"),
+    "plant62-best-init1e-4-tol1e-5-dist246": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 246}, "as -tol1e-5, column 11 distillate 246 kmol/h (the water balance of column 11)"),
+}
+
+
 def build_plant(kw):
     kw = dict(kw)
     if kw.get("open_recycles") == OPEN:
         kw["open_recycles"] = {27: M.feed_spec(27), 21: M.feed_spec(21, VF=0)}
     if kw.get("guesses") == "061":
         kw["guesses"] = guesses_061()
+    if kw.get("guesses") == "062closed":
+        kw["guesses"] = P.init_guesses(H / "init-closed-plant-chepta-0.6.2.json")
+    if kw.get("guesses") == "062settled":
+        kw["guesses"] = P.init_guesses()
+    if kw.get("guesses") == "062tol1e-4":
+        kw["guesses"] = P.init_guesses(H / "init-closed-plant-chepta-0.6.2-tol1e-4.json")
     return P.plant(**kw)
 
 
@@ -297,6 +321,8 @@ def main():
         run_parallel(R, [(k, fs(v)) for k, v in isolate_requests().items()])
     if "plant2" in groups:
         run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS2.items()])
+    if "plant3" in groups:
+        run_parallel(R, [(k, fs(build_plant(kw)), what) for k, (kw, what) in PLANTS3.items()])
     if "policy" in groups:
         base = os.environ.get("S2_POLICY_BASE", "plant62-W-dist")
         kw = PLANTS[base][0]
@@ -336,7 +362,7 @@ def main():
                    "transcriptions": {n: sha((H / n).read_bytes()) for n in ("streams.json", "equipment.json", "s2_model.py", "s2_model_062.py")}},
         "settings": M.SETTINGS,
         "settings_062": P.SETTINGS_062,
-        "plants": {k: {"kwargs": kw, "what": what} for k, (kw, what) in {**PLANTS, **PLANTS2}.items()},
+        "plants": {k: {"kwargs": kw, "what": what} for k, (kw, what) in {**PLANTS, **PLANTS2, **PLANTS3}.items()},
         "plants_note": "open_recycles \"open\": streams 27 and 21 fed with Table A2 (27 as printed, 21 saturated liquid); guesses \"061\": tear guesses from 0.6.1 runs plant-a2-r01-A/B",
         "runs": [r for r in old["runs"] if r["id"] not in new_ids] + R.runs,
     }

@@ -52,6 +52,12 @@ add_file("verifier-062", "compare_s2_062.py", "verifier")
 add_file("run-manifest-062", "results-chepta-0.6.2/run-manifest.json", "execution_manifest")
 add_file("comparison-062", "results-chepta-0.6.2/comparison-s2.json", "lab_check")
 add_file("engine-lock-062", "chepta-0.6.2.npm-lock.json", "engine_lock")
+add_file("init-settled-062", "init-closed-plant-chepta-0.6.2-settled.json", "other")
+add_file("init-3e-4-062", "init-closed-plant-chepta-0.6.2.json", "other")
+add_file("init-1e-4-062", "init-closed-plant-chepta-0.6.2-tol1e-4.json", "other")
+add_file("convergence-practices", "CONVERGENCE_PRACTICES.md", "other")
+add_file("blowout-checker-062", "check_blowout_062.py", "verifier")
+add_file("blowout-check-062", "results-chepta-0.6.2/blowout-check.json", "lab_check")
 
 
 def variant_of(rid):
@@ -194,8 +200,8 @@ sim("chepta062-htxr10-duty-acid", "HTXR 10 duty with acetic acid (CHEPTA 0.6.2, 
 sim("chepta062-raffinate-kg-h-acid", "Raffinate stream 11 mass flow, 2-stage extractor with acetic acid (CHEPTA 0.6.2, paper's inlets)", "kg/h", V2("u62-extr8-2stage-acid"), "/value/streams/S11/mass_kg_h")
 sim("chepta062-scds15-reboiler-acid", "Wastewater column reboiler duty with acetic acid, two liquids allowed (CHEPTA 0.6.2, paper's stream 28)", "kW", V2("u62-scds15-acid-VLL"), "/value/blocks/SCDS15/state/reboiler_kW")
 sim("chepta062-scds11-purity-product-kmol-h", "Product stream 16 molar flow, column 11 with acetic acid and the 99.90 mass % purity given (CHEPTA 0.6.2): a 31 kmol/h answer", "kmol/h", V2("u62-scds11-acid-purity"), "/value/streams/S16/F_kmol_h")
-CL = V2("plant62-R-dist240-col15purity-tol3e-4")  # the best closed plant
-sim("chepta062-closed-product-kmol-h", "Product stream 16 molar flow (CHEPTA 0.6.2, closed plant, tear tolerance 3e-4)", "kmol/h", CL, "/value/streams/S16/F_kmol_h")
+CL = V2("plant62-best-init1e-4-tol1e-5")  # the settled closed plant
+sim("chepta062-closed-product-kmol-h", "Product stream 16 molar flow (CHEPTA 0.6.2, settled closed plant, tear tolerance 1e-5)", "kmol/h", CL, "/value/streams/S16/F_kmol_h")
 sim("chepta062-closed-product-kg-h", "Product stream 16 mass flow (CHEPTA 0.6.2, closed plant)", "kg/h", CL, "/value/streams/S16/mass_kg_h")
 sim("chepta062-closed-wastewater-kg-h", "Wastewater stream 25 mass flow (CHEPTA 0.6.2, closed plant; recycle 23 fixed, 25 the rest)", "kg/h", CL, "/value/streams/S25/mass_kg_h")
 sim("chepta062-closed-krea4-duty", "Reactor KREA 4 duty (CHEPTA 0.6.2, closed plant; conversion imposed from the paper)", "kW", CL, "/value/blocks/KREA4/duty_kW")
@@ -308,7 +314,7 @@ record = {
         {"id": "conversion-imposed-062", "statement": "On 0.6.2 too the reactor-evaporator is CHEPTA's conversion reactor with an all-vapour outlet (VF 1), its acetic acid conversion per pass (0.7703) imposed from the paper's streams 5 and 6.",
          "applies_to": ["units-062", "plant-closed-062", "plant-open-recycles-062", "policy-062"], "basis": "The paper's rate law lacks the catalyst concentration and units; a kinetic reactor-evaporator is not available."},
         {"id": "closed-loose-tolerance-062", "statement": "The closed plant is accepted by CHEPTA at a tear tolerance of 3e-4 (5e-4 for variant W): with Broyden the loop plateaus near 2e-4 relative change per iteration and CHEPTA's default 1e-8 is not reached; CHEPTA then loosens its own balance check with the tolerance, so Lab checks the plant balance from the result (feeds 1, 2, 17 against products 16, 25: within 6-8 kg/h of 32,461 kg/h for variant R; 42 kg/h for W).",
-         "applies_to": ["plant-closed-062"], "basis": "Runs plant62-*-tol3e-4 and -tol5e-4; the maintainer (2026-11-13): the plant must converge even with small deviations from the tables."},
+         "applies_to": ["plant-closed-062"], "basis": "Runs plant62-*-tol3e-4 and -tol5e-4; the maintainer (2026-11-13): the plant must converge even with small deviations from the tables. Superseded for the compared numbers by the settled run plant62-best-init1e-4-tol1e-5 (tolerance 1e-5, started from the saved values): the 3e-4 answer had not settled (ethanol inventory still rising)."},
         {"id": "column-specs-from-purities-062", "statement": "In the closed plant column 15 is held at 99.99 mass % water in its bottoms (Section 3.5's organics limit) instead of the paper's distillate flow, and column 11 at R/D 3 with a distillate flow (230.4 kmol/h as the paper, or 240 kmol/h tuned towards the 99.9 % product); the product purity is then a result.",
          "applies_to": ["plant-closed-062"], "basis": "The maintainer (2026-11-13): the purities at the ends of the columns matter more than the flows. Column 11 on its purity refuses in the loop (OUT_OF_RANGE), and on its product flow the loop runs out of ethanol."},
         {"id": "splitters-by-flow-062", "statement": "Splitter 9 gives stream 26 = 60,000 kg/h; splitter 16 gives stream 25 = 20,000 kg/h (variant W) or stream 23 = 95,797 kg/h (variant R). The paper's plant balance is 27 kg/h short, so W fixes the product flow by the balance and column 11 takes its distillate flow (230.4 kmol/h) as second specification.",
@@ -328,7 +334,7 @@ record = {
         "Agreement with the paper is agreement between two simulators (Chemcad 7 and CHEPTA 0.6.1, both UNIQUAC with different parameters), not with measurements.",
         "The reactor's conversion is imposed from the paper; reactor outlet composition is not predicted.",
         "On 0.6.1 the whole plant is not one CHEPTA flowsheet: acetic acid forces a cut at stream 9, closed by Lab's script.",
-        "On 0.6.2 the whole plant is one CHEPTA flowsheet with acetic acid everywhere. With the paper's own column specifications it does not converge (column 5, NO_CONVERGENCE, ten variants). With the column specifications set by the outlet purities it closes at a loose tear tolerance (3e-4) with the plant balance within 0.02 %; the product then reaches 99.67 mass % ethyl acetate (paper 99.90 %), and the column 11 settings that would reach 99.9 % do not converge in CHEPTA.",
+        "On 0.6.2 the whole plant is one CHEPTA flowsheet with acetic acid everywhere. With the paper's own column specifications it does not converge (column 5, NO_CONVERGENCE, ten variants). With the column specifications set by the outlet purities it closes (tear tolerance 3e-4) and, started from that answer, settles (1e-5, change 2.1e-6, balance within 0.1 kg/h). The 3e-4 answer (product 99.67 %) had not settled: excess ethanol was still building up in the recycles. Settled product 99.11 mass % ethyl acetate (paper 99.90 %); column 11's distillate flows that would remove the water do not converge in CHEPTA.",
         "On 0.6.2 no pair was estimated (all six UNIQUAC pairs fitted; qualifications.estimated_pairs empty in every run). Extrapolations CHEPTA listed (result.value.extrapolations) are kept per run in the 0.6.2 run manifest and attached to each compared number in comparison-062.",
         "On 0.6.2 strictRanges true (request.options or the flowsheet's solver.strictRanges) did not refuse the 15 C acid feed that 0.6.1 refused; thermo.missingPairs is refused as an unknown key of a flowsheet (BAD_INPUT). Both are reported to CHEPTA.",
         "The extractor is isothermal at 27 C with a calibrated stage count; the paper's extractor is adiabatic at an unknown stage count.",

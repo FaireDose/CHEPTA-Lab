@@ -3,24 +3,28 @@
 | In one look | |
 |---|---|
 | Paper | Piotrowski & Kubica 2021, Processes 9, 1425 (CC BY 4.0): ethyl acetate from ethanol and acetic acid; the classic plant S2 |
-| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles** (95 runs) |
-| Complete flowsheet | **Closed on 0.6.2, at a loose recycle tolerance.** One CHEPTA flowsheet, acetic acid everywhere (no cut), all five recycles, splitters by flow (26 = 60,000 kg/h; recycle 23 = 95,797 kg/h), feeds at 15 C, columns 11 and 15 on purities or flows chosen to reach them. CHEPTA accepts it at a tear tolerance of 3e-4 (its default 1e-8 is not reached: the recycles plateau near 2e-4 per iteration); Lab's own plant balance closes within 6-8 kg/h of 32,461 kg/h (0.02 %). **Product 99.67 mass % ethyl acetate, not the paper's 99.90 %** |
-| Agrees with the paper | (closed plant, run plant62-R-dist240-col15purity-tol3e-4) wastewater 25 19,983 vs 20,000 kg/h (it follows by itself, 23 fixed); product 12,470 vs 12,434 kg/h (+0.3 %); raffinate 11 +0.8 %; azeotrope 8 −2.3 %; acid in the azeotrope 0.0000 % (limit 0.005 %); wastewater organics 0.010 % (limit 0.01 %); HTXR 6, 17 within 2 %; reactor duty +5.7 % (conversion from the paper). (0.6.1, once through) azeotrope 9 within 0.01 % |
-| Differs | (closed plant) product 99.67 % ester with 0.30 % water (paper 99.90 %, water limit 0.03 %); wastewater distillate 21 −9.8 %; reactor vapour 6 −5.3 %; product column reboiler −17 %; wastewater column reboiler −8.4 %. In the paper itself: the acid of column 11's feed must leave in the product (0.022 %, not 0.01 %), and column 15's 0.01 % organics limit cannot hold with the feed's acid |
-| CHEPTA could not | (0.6.2) converge the loop at its default tolerance; column 5 converges and fails irregularly on neighbouring inputs; column 11 does not converge with a trace of acetic acid near the paper's product flow, nor in the loop when its distillate is raised to 245-255 kmol/h or its R/D to 4 (the tuning that would reach 99.9 %); column 11 on a purity in the loop answers a contradictory `OUT_OF_RANGE`; `strictRanges` did not refuse the 15 C feed; `missingPairs` not accepted in a flowsheet; an `OUT_OF_TIME` loop reports no progress (requests 8-14) |
+| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles**, with more stages and tighter tolerances (108 runs) |
+| Complete flowsheet | **Closed and settled on 0.6.2.** One CHEPTA flowsheet, acetic acid everywhere (no cut), all five recycles, splitters by flow (26 = 60,000 kg/h; recycle 23 = 95,797 kg/h), feeds at 15 C, column 15 on its bottoms purity, column 11 on R/D 3 and its distillate flow. Settled at a tear tolerance of 1e-5 (change 2.1e-6), plant balance within 0.1 kg/h of 32,461 kg/h. **Product 99.11-99.14 mass % ethyl acetate, not the paper's 99.90 %.** Starting values saved: [init-closed-plant-chepta-0.6.2-settled.json](init-closed-plant-chepta-0.6.2-settled.json) |
+| Agrees with the paper | (settled closed plant, run plant62-best-init1e-4-tol1e-5) every stream within −1.2 to +6.5 % of Table A2 in flow (no blown-up flow); wastewater 25 19,919 vs 20,000 kg/h (it follows by itself); product 12,542 vs 12,434 kg/h (+0.9 %); acid in the azeotrope 0.0000 % (limit 0.005 %); wastewater organics 0.010 % (limit 0.01 %); HTXR 6 +4.7 %, HTXR 17 0.0 %, column 11 condenser +3.6 %, column 15 reboiler +7.1 %. (0.6.1, once through) azeotrope 9 within 0.01 % |
+| Differs | (settled closed plant) product 99.11 % ester with 0.81 % water (paper 99.90 %, water limit 0.03 %); more ethanol circulates than in the paper (azeotrope 8: 11.6 vs 8.5 %; stream 21: 40.0 vs 31.1 %), which wets the raffinate (5.05 vs 4.70 % water) and overloads column 11 with water; reactor duty +12.9 % (conversion from the paper); column 15 condenser +16 %; column 11 reboiler −21 %. In the paper itself: the acid of column 11's feed must leave in the product (0.022 %, not 0.01 %), and column 15's 0.01 % organics limit cannot hold with the feed's acid |
+| CHEPTA could not | (0.6.2) converge the loop at its default tolerance from a cold start; converge column 11 in the loop at the distillate flows that would remove the water (245-255 kmol/h from a cold start; 260-280 even from the settled start); column 5 converges and fails irregularly on neighbouring inputs; column 11 does not converge with a trace of acetic acid near the paper's product flow; column 11 on a purity answers a contradictory `OUT_OF_RANGE`; `strictRanges` did not refuse the 15 C feed; `missingPairs` not accepted in a flowsheet; an `OUT_OF_TIME` loop reports no progress (requests 8-14) |
 | Reviewed by a person | no full review; the maintainer spot-checked 3 items of the 0.6.2 part on 2026-11-13 (below). Draft, written by AI sessions on 2026-11-12 (0.6.1) and 2026-11-13/14 (0.6.2) |
 
 Study record: [study-record.json](study-record.json). Runs and CHEPTA's answers, unchanged:
 [results-chepta-0.6.1/](results-chepta-0.6.1/) (56 runs, [run-manifest.json](results-chepta-0.6.1/run-manifest.json),
 [comparison-s2.json](results-chepta-0.6.1/comparison-s2.json)) and [results-chepta-0.6.2/](results-chepta-0.6.2/)
-(95 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
+(108 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
 Register rows this case feeds: [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md).
 
-**Verdict (2026-11-14, chepta 0.6.2): BLOCKED on the product purity.** The plant closes as one CHEPTA flowsheet (all
-recycles, balance within 0.02 %) at a tear tolerance of 3e-4, and the azeotrope and wastewater meet their limits, but
-the product is 99.67 mass % ethyl acetate (0.30 % water) against the paper's 99.90 % (water limit 0.03 %). Tuning
-column 11 further, which would reach the purity, fails in CHEPTA: `NO_CONVERGENCE` in column SCDS11 inside the loop at
-a distillate of 245, 248, 250 and 255 kmol/h and at R/D 4 (runs plant62-R-dist2*-col15purity-tol3e-4).
+**Verdict (2026-11-14, chepta 0.6.2): BLOCKED on the product purity.** The plant closes and settles as one CHEPTA
+flowsheet (all recycles; tear change 2.1e-6; balance within 0.1 kg/h); every stream is within −1.2 to +6.5 % of the
+paper's flow, the azeotrope and the wastewater meet their limits, but the product is 99.11 mass % ethyl acetate (0.81 %
+water) against the paper's 99.90 % (water limit 0.03 %). The column 11 water balance shows why: its distillate leaves at
+the water azeotrope (8.52 % water), so removing the water that CHEPTA's wetter raffinate brings needs about 255-280
+kmol/h of distillate, and column 11 does not converge in the loop there (`NO_CONVERGENCE`, runs
+plant62-best-init1e-4-tol1e-5-dist260/270/280). More stages do not help (36 and 38 stages: +0.01 point).
+An earlier answer of this day (99.67 %, at a loose tolerance of 3e-4) had not settled: the ethanol inventory was still
+rising (below, round 3).
 First verdict (2026-11-13, before the maintainer's advice): BLOCKED by `NO_CONVERGENCE` in column 5 in every closed
 variant with the paper's own column specifications (runs plant62-* of the first table below).
 
@@ -189,8 +193,8 @@ its distillate so the product purity is a result):
 | plant62-R-dist245, -248, -250, -255, -dist240-RD4 | tuning column 11 further | `NO_CONVERGENCE` in column 11 at iteration 2-3 (request 13) | — | — |
 | plant62-R-dist260-col15purity-tol3e-4 | distillate 260 | `NO_CONVERGENCE`: the reactor runs short of ethanol at iteration 10 | — | — |
 
-The best closed plant (plant62-R-dist240-col15purity-tol3e-4) against the paper. Every number rests on 7 listed
-extrapolations (acid and ester records below their range at the 15 C feeds; water + ethyl acetate UNIQUAC set above
+The closed plant at tolerance 3e-4 (plant62-R-dist240-col15purity-tol3e-4) against the paper; **not settled**: see
+round 3, where the settled plant's product is 99.11 %, not 99.67 %. Every number rests on 7 listed extrapolations (acid and ester records below their range at the 15 C feeds; water + ethyl acetate UNIQUAC set above
 343.55 K on hot stages); no pair estimated.
 
 | Stream or unit | CHEPTA, closed plant | Paper (Table A2, Table 1) | Difference |
@@ -222,6 +226,78 @@ column 11 settings that would reach it do not converge in CHEPTA.
 | 14 | A loop stopped by its time limit reports nothing of its progress (iterations, tear change) | `OUT_OF_TIME` "The calculation did not finish within limits.time_ms ..." | plant62-*-direct, plant62-*-direct-tol1e-5 |
 | (8) | Column 5: converges and fails irregularly on neighbouring inputs | see the column 5 table above | iso-scds5-* |
 | (note) | The recycle loop plateaus near 2e-4 relative change with Broyden; CHEPTA's default tolerance (1e-8) is not reached, so a closed answer needs a loose tolerance, and its own balance check is then loosened with it (1000 × tolerance) | — | plant62-*-tol3e-4 |
+
+### Round 3 (the maintainer, 2026-11-14): saved starting values, more stages, a check for blown-up flows
+
+**Saved starting values.** The converged recycle streams (7, 15, 21, 24, 27) are kept as starting values for a redo:
+[init-closed-plant-chepta-0.6.2-settled.json](init-closed-plant-chepta-0.6.2-settled.json) (the settled plant; the
+default of `s2_model_062.init_guesses()`) and [init-closed-plant-chepta-0.6.2.json](init-closed-plant-chepta-0.6.2.json)
+(the 3e-4 answer, not settled). Each names its run and the sha256 of its output. CHEPTA's columns take no starting
+profiles; their converged stage profiles are in the run outputs. From the saved start the plant converges in 1
+iteration instead of 6 (run plant62-best-init), and column 11 converges at a distillate of 246 kmol/h, which failed from
+a cold start.
+
+**More stages** (from the saved start, tolerance 3e-4):
+
+| Run | Change | Product 16 | Outcome |
+|---|---|---|---|
+| plant62-best-init | none (35 stages in column 11) | 99.672 %, 0.302 % water | ok, 1 iteration |
+| plant62-best-init-col11-36st | column 11 with 36 stages | 99.675 % | ok |
+| plant62-best-init-col11-38st | 38 stages | 99.680 % | ok |
+| plant62-best-init-col11-40st | 40 stages | — | `NO_CONVERGENCE` in column 11 |
+| plant62-best-init-col11-40st-dist230 | 40 stages, distillate 230.4 kmol/h | 99.486 % | ok |
+| plant62-best-init-col5-9st | column 5 with 9 stages | 99.668 %; acid in 8 0.0000 % | ok |
+| plant62-best-init-col15-19st | column 15 with 19 stages | 99.672 %; wastewater organics 0.010 % | ok |
+
+More stages change the product by at most 0.01 point: the limit is column 11's water balance, not its stage count.
+Its distillate leaves at the water azeotrope, 8.52 % water at every flow, so the water it can carry overhead is fixed
+by the distillate flow; the rest goes down with the product. Paper: feed 13 brings 1,284 kg/h of water, the distillate
+takes 1,275, the product 9 (Table A2). CHEPTA, closed plant: feed 13 brings 1,360-1,411 kg/h (its raffinate is wetter,
+4.86-5.05 % water against 4.70 %), the distillate at 240 kmol/h takes 1,322 kg/h. Two liquids sit on stages 1-31 of 35
+of column 11 in the closed plant (the water front near the bottom), against stage 1 only in the column alone at 139
+kmol/h of product.
+
+**Blown-up flows?** ([check_blowout_062.py](check_blowout_062.py) → [blowout-check.json](results-chepta-0.6.2/blowout-check.json):
+every stream and component against Table A2, column stage flows against their feeds, two-liquid zones, the plant
+balance.) Within each converged answer nothing is blown up: every stream is within 0.90-1.07 of the paper's flow,
+the largest column internal flow is 2.9 times its feed, and the only flag is the ester in stream 7 (243-265 kg/h vs 547).
+**But the loose-tolerance answer had not settled.** From its saved start, a tolerance of 1e-4 took 16 more iterations
+(change 3.3e-5; balance within 0.2 kg/h) and 1e-5 one more (change 2.1e-6, the same numbers):
+
+| | Tolerance 3e-4 (run plant62-R-dist240-col15purity-tol3e-4) | Settled, 1e-5 (run plant62-best-init1e-4-tol1e-5) | Paper |
+|---|---:|---:|---:|
+| Ethanol in the reactor feed 5 | 14,629 kg/h | 17,455 | 14,650 |
+| Ethanol in stream 21 (to the reactor) | 7,415 kg/h | 9,976 | 7,270 |
+| Water in feed 13 to column 11 | 1,359 kg/h | 1,411 | 1,284 |
+| Ethanol leaving (product + wastewater) | 5 kg/h | 12 kg/h | 6.5 |
+| Product 16 | 99.673 % ester, 0.301 % water | **99.109 %, 0.813 %** | 99.90, 0.07 |
+| Plant balance | 7.5 kg/h | 0.1 kg/h | 27 kg/h short |
+
+The feeds bring about 0.2 kmol/h more ethanol than the reaction uses (conversion fixed per pass); its only exits are the
+product and the wastewater, so ethanol builds up in the reactor-column 5-extractor-column 15 loop until they carry it
+out. A plant balance that closes to 0.02 % did not show it; comparing the recycle inventories between two tolerances
+did.
+
+The settled plant against the paper (run plant62-best-init1e-4-tol1e-5; 7 extrapolations listed, no pair estimated):
+
+| Stream or unit | CHEPTA, settled closed plant | Paper (Table A2, Table 1) | Difference |
+|---|---:|---:|---:|
+| 6 reactor vapour | 54,637 kg/h; 88.5 C | 53,292; 90 C | +2.5 %; −1.5 K |
+| 7 column 5 bottoms | 14,726 kg/h | 14,912 | −1.2 % |
+| 8 azeotrope | 99,911 kg/h; ester 81.38 %, ethanol 11.58 %; acid 0.0000 % | 98,380; 84.78, 8.53; 0.01 (limit 0.005) | +1.6 %; limit met |
+| 11 raffinate | 87,931 kg/h; water 5.05 % | 87,314; 4.70 | +0.7 %; +0.35 points |
+| **16 product** | **12,542 kg/h; 99.109 % ester, 0.813 % water, 0.078 % ethanol** | 12,434; 99.90; 0.07; 0.02 | +0.9 %; **−0.79 points** |
+| 21 wastewater distillate | 24,927 kg/h; ethanol 40.0 % | 23,405; 31.06 | +6.5 % |
+| 25 wastewater | 19,919 kg/h; organics 0.010 % | 20,000; 0.03 (limit < 0.01) | −0.4 % |
+| KREA 4 duty | 15,340 kW | 13,586.2 | +12.9 % |
+| HTXR 6; HTXR 17 | −15,555; −8871 kW | −14,855.8; −8869.3 | +4.7 %; 0.0 % |
+| Column 11 condenser; reboiler | −9514; 7256 kW | −9180.3; 9219.2 | +3.6 %; −21 % |
+| Column 15 condenser; reboiler | −14,111; 17,279 kW | −12,127.2; 16,136.6 | +16 %; +7.1 % |
+
+With column 11's distillate at 246 kmol/h (settled, run plant62-best-init1e-4-tol1e-5-dist246) the product is 99.137 %;
+at 260, 270 and 280 kmol/h column 11 does not converge (iterations 3-11).
+
+The practices used to make the plant converge, and what did not help: [CONVERGENCE_PRACTICES.md](CONVERGENCE_PRACTICES.md).
 
 ## On chepta 0.6.1 (2026-11-12): what was run
 
