@@ -1,0 +1,1264 @@
+{
+  "energy_table_checks": {
+    "cooling_external_sum_kW": {
+      "value": 3014.72,
+      "paper": "OEC Q_C 3014.72 (Table 9; heat-integrated exchangers excluded)"
+    },
+    "heating_sum_kW": {
+      "value": 2998.48,
+      "paper": "OEC Q_W 2998.48 (Table 9)"
+    },
+    "heat_integrated_exchangers_kW": {
+      "value": 201.09,
+      "paper": "EX1, EX3, EX4, EX5 marked b (no external energy)"
+    },
+    "condensers_sum_kW": {
+      "value": 2851.17,
+      "paper": "2851 kW (p.21)"
+    },
+    "condensers_share_of_cooling_pct": {
+      "value": 94.57,
+      "paper": "94.6 % (p.21)"
+    },
+    "C3_reboiler_share_of_heating_pct": {
+      "value": 18.32,
+      "paper": "18.4 % (p.21)"
+    },
+    "C1_C2_reboilers_share_of_heating_pct": {
+      "value": 81.68,
+      "paper": "81.6 % (p.21)"
+    },
+    "EX2_EX6_EX7_cooling_kW": {
+      "value": 162.7,
+      "paper": "less than 164 kW (p.21)"
+    }
+  },
+  "method": "outlet minus inlet, molar; original values, nothing normalized",
+  "rounding_model": "nearest rounding at the printed precision: flows +/-0.005 kmol/h, mole fractions +/-0.00005; bounds are sums over the streams of a block (conservative), not statistics",
+  "dash_convention": "A '-' printed in the table is stored as null. It is not known whether '-' means exactly zero or below the printed precision; the audit treats it as zero with the same rounding allowance as 0.0000.",
+  "balances": [
+    {
+      "block": "MIXAA",
+      "inlets": [
+        "AA0",
+        "W12"
+      ],
+      "outlets": [
+        "F11"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": -0.01,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": -0.0072,
+        "ethyl_acetate": -0.002268,
+        "ethanol": -0.000532
+      },
+      "component_bound_kmol_h": {
+        "water": 0.002265,
+        "acetic_acid": 0.014928,
+        "ethyl_acetate": 0.0046,
+        "ethanol": 0.002268
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.024536,
+        "H": -0.050136,
+        "O": -0.019468
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.052791,
+        "H": 0.114649,
+        "O": 0.043589
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "MIXETOH",
+      "inlets": [
+        "ETOH0",
+        "D32"
+      ],
+      "outlets": [
+        "F21"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.01,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.001309,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.001435,
+        "ethanol": 0.007256
+      },
+      "component_bound_kmol_h": {
+        "water": 0.003297,
+        "acetic_acid": 0.001988,
+        "ethyl_acetate": 0.003948,
+        "ethanol": 0.013719
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.020252,
+        "H": 0.057634,
+        "O": 0.011435
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.047208,
+        "H": 0.128449,
+        "O": 0.02889
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "MIXF",
+      "inlets": [
+        "F11",
+        "F21"
+      ],
+      "outlets": [
+        "R1"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.002992,
+        "acetic_acid": 0.001316,
+        "ethyl_acetate": -0.000312,
+        "ethanol": 0.000256
+      },
+      "component_bound_kmol_h": {
+        "water": 0.004891,
+        "acetic_acid": 0.010632,
+        "ethyl_acetate": 0.006489,
+        "ethanol": 0.01
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.001896,
+        "H": 0.010288,
+        "O": 0.005256
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.06722,
+        "H": 0.164221,
+        "O": 0.049133
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "CSTR",
+      "inlets": [
+        "R1"
+      ],
+      "outlets": [
+        "P1"
+      ],
+      "reactive": true,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 9.987948,
+        "acetic_acid": -9.9922,
+        "ethyl_acetate": 9.987948,
+        "ethanol": -9.9922
+      },
+      "component_bound_kmol_h": {
+        "water": 0.005834,
+        "acetic_acid": 0.007511,
+        "ethyl_acetate": 0.006926,
+        "ethanol": 0.00674
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.017008,
+        "H": -0.04252,
+        "O": -0.012756
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.056204,
+        "H": 0.137555,
+        "O": 0.041447
+      },
+      "atoms_within": true,
+      "extent_from_each_species_kmol_h": {
+        "water": 9.987948,
+        "acetic_acid": 9.9922,
+        "ethyl_acetate": 9.987948,
+        "ethanol": 9.9922
+      },
+      "within_envelope": true
+    },
+    {
+      "block": "EX1 (P1->P2)",
+      "inlets": [
+        "P1"
+      ],
+      "outlets": [
+        "P2"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.007008,
+        "acetic_acid": 0.006335,
+        "ethyl_acetate": 0.008101,
+        "ethanol": 0.005565
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.056202,
+        "H": 0.13755,
+        "O": 0.041445
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX1 (W11->W12)",
+      "inlets": [
+        "W11"
+      ],
+      "outlets": [
+        "W12"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.001266,
+        "acetic_acid": 0.008266,
+        "ethyl_acetate": 0.004261,
+        "ethanol": 0.00127
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.036116,
+        "H": 0.077302,
+        "O": 0.027589
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "C1",
+      "inlets": [
+        "P2",
+        "AZ"
+      ],
+      "outlets": [
+        "D11",
+        "W11"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": -0.01,
+      "total_bound_kmol_h": 0.02,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": -0.002672,
+        "acetic_acid": -0.001916,
+        "ethyl_acetate": -0.000996,
+        "ethanol": -0.000164
+      },
+      "component_bound_kmol_h": {
+        "water": 0.008102,
+        "acetic_acid": 0.009794,
+        "ethyl_acetate": 0.0165,
+        "ethanol": 0.006614
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.008144,
+        "H": -0.02196,
+        "O": -0.00866
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.098814,
+        "H": 0.22706,
+        "O": 0.067303
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "MIXDEC",
+      "inlets": [
+        "D11",
+        "H2OIN",
+        "D22",
+        "BYPASS",
+        "H2OREC"
+      ],
+      "outlets": [
+        "D12"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.01,
+      "total_bound_kmol_h": 0.03,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.000184,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.008461,
+        "ethanol": 0.001355
+      },
+      "component_bound_kmol_h": {
+        "water": 0.040253,
+        "acetic_acid": 0.018779,
+        "ethyl_acetate": 0.02539,
+        "ethanol": 0.020694
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.036554,
+        "H": 0.076186,
+        "O": 0.018461
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.180507,
+        "H": 0.482907,
+        "O": 0.149286
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX2",
+      "inlets": [
+        "D12"
+      ],
+      "outlets": [
+        "D13"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.026387,
+        "acetic_acid": 0.018779,
+        "ethyl_acetate": 0.020635,
+        "ethanol": 0.019314
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.158724,
+        "H": 0.40885,
+        "O": 0.124527
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "DEC",
+      "inlets": [
+        "D13"
+      ],
+      "outlets": [
+        "ORG",
+        "H2OL"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": -0.001468,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": -0.011116,
+        "ethanol": 0.012584
+      },
+      "component_bound_kmol_h": {
+        "water": 0.028033,
+        "acetic_acid": 0.018779,
+        "ethyl_acetate": 0.023653,
+        "ethanol": 0.019651
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.019296,
+        "H": -0.01636,
+        "O": -0.011116
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.17147,
+        "H": 0.438307,
+        "O": 0.132547
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX3 (ORG->F2)",
+      "inlets": [
+        "ORG"
+      ],
+      "outlets": [
+        "F2"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.005726,
+        "acetic_acid": 0.004122,
+        "ethyl_acetate": 0.011794,
+        "ethanol": 0.004845
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.065108,
+        "H": 0.151358,
+        "O": 0.042401
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX3 (D21->D22)",
+      "inlets": [
+        "D21"
+      ],
+      "outlets": [
+        "D22"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.005235,
+        "acetic_acid": 0.002122,
+        "ethyl_acetate": 0.007608,
+        "ethanol": 0.003521
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.041718,
+        "H": 0.100948,
+        "O": 0.028216
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "C2",
+      "inlets": [
+        "F2"
+      ],
+      "outlets": [
+        "D21",
+        "W21"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.00071,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.001615,
+        "ethanol": -0.002325
+      },
+      "component_bound_kmol_h": {
+        "water": 0.006482,
+        "acetic_acid": 0.004122,
+        "ethyl_acetate": 0.015696,
+        "ethanol": 0.005187
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.00181,
+        "H": 0.00039,
+        "O": 0.001615
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.081402,
+        "H": 0.186142,
+        "O": 0.051305
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "SPETAC",
+      "inlets": [
+        "W21"
+      ],
+      "outlets": [
+        "AZ",
+        "W22"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.002005,
+        "acetic_acid": 0.002001,
+        "ethyl_acetate": 0.016986,
+        "ethanol": 0.002011
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.075967,
+        "H": 0.159967,
+        "O": 0.041989
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX7",
+      "inlets": [
+        "W22"
+      ],
+      "outlets": [
+        "W23"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.001004,
+        "acetic_acid": 0.001001,
+        "ethyl_acetate": 0.010991,
+        "ethanol": 0.001008
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.047978,
+        "H": 0.099978,
+        "O": 0.025993
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "SPBY",
+      "inlets": [
+        "H2OL"
+      ],
+      "outlets": [
+        "BYPASS",
+        "F31"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.028602,
+        "acetic_acid": 0.014658,
+        "ethyl_acetate": 0.014988,
+        "ethanol": 0.015384
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.120034,
+        "H": 0.328039,
+        "O": 0.103277
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX4 (F31->F32)",
+      "inlets": [
+        "F31"
+      ],
+      "outlets": [
+        "F32"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.021022,
+        "acetic_acid": 0.011727,
+        "ethyl_acetate": 0.011947,
+        "ethanol": 0.012211
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.09566,
+        "H": 0.257786,
+        "O": 0.080579
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX4 (D31->D32)",
+      "inlets": [
+        "D31"
+      ],
+      "outlets": [
+        "D32"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.002737,
+        "acetic_acid": 0.000988,
+        "ethyl_acetate": 0.003607,
+        "ethanol": 0.00662
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.02964,
+        "H": 0.077992,
+        "O": 0.018544
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX5 (F32->F33)",
+      "inlets": [
+        "F32"
+      ],
+      "outlets": [
+        "F33"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.021022,
+        "acetic_acid": 0.011727,
+        "ethyl_acetate": 0.011947,
+        "ethanol": 0.012211
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.09566,
+        "H": 0.257786,
+        "O": 0.080579
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX5 (W31->W32)",
+      "inlets": [
+        "W31"
+      ],
+      "outlets": [
+        "W32"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": 0.0,
+      "total_bound_kmol_h": 0.01,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "component_bound_kmol_h": {
+        "water": 0.020729,
+        "acetic_acid": 0.010738,
+        "ethyl_acetate": 0.010738,
+        "ethanol": 0.010748
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.0,
+        "H": 0.0,
+        "O": 0.0
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.085928,
+        "H": 0.23481,
+        "O": 0.074431
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "C3",
+      "inlets": [
+        "F33"
+      ],
+      "outlets": [
+        "D31",
+        "W31"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": -0.01,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": -0.006013,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.005233,
+        "ethanol": -0.00922
+      },
+      "component_bound_kmol_h": {
+        "water": 0.022244,
+        "acetic_acid": 0.011726,
+        "ethyl_acetate": 0.013146,
+        "ethanol": 0.014789
+      },
+      "atom_residual_kmol_h": {
+        "C": 0.002492,
+        "H": -0.025482,
+        "O": -0.004767
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.105614,
+        "H": 0.285294,
+        "O": 0.086777
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "SPH2O",
+      "inlets": [
+        "W32"
+      ],
+      "outlets": [
+        "H2OREC",
+        "H2OP1"
+      ],
+      "reactive": false,
+      "total_residual_kmol_h": -0.01,
+      "total_bound_kmol_h": 0.015,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": -0.00999,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": -1e-05
+      },
+      "component_bound_kmol_h": {
+        "water": 0.025723,
+        "acetic_acid": 0.010738,
+        "ethyl_acetate": 0.010738,
+        "ethanol": 0.010753
+      },
+      "atom_residual_kmol_h": {
+        "C": -2e-05,
+        "H": -0.02004,
+        "O": -0.01
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.085936,
+        "H": 0.244825,
+        "O": 0.07943
+      },
+      "atoms_within": true,
+      "components_within": true,
+      "within_envelope": true
+    },
+    {
+      "block": "EX6",
+      "inlets": [
+        "H2OP1"
+      ],
+      "outlets": [
+        "H2OP2"
+      ],
+      "skipped": "streams not in Table 1: ['H2OP2']"
+    },
+    {
+      "block": "plant (AA0, ETOH0, H2OIN -> W23, H2OP1)",
+      "inlets": [
+        "AA0",
+        "ETOH0",
+        "H2OIN"
+      ],
+      "outlets": [
+        "W23",
+        "H2OP1"
+      ],
+      "reactive": true,
+      "total_residual_kmol_h": -0.02,
+      "total_bound_kmol_h": 0.025,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 9.973,
+        "acetic_acid": -10.0,
+        "ethyl_acetate": 9.99,
+        "ethanol": -9.983
+      },
+      "component_bound_kmol_h": {
+        "water": 0.011999,
+        "acetic_acid": 0.007002,
+        "ethyl_acetate": 0.006997,
+        "ethanol": 0.007011
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.006,
+        "H": -0.032,
+        "O": -0.03
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.056015,
+        "H": 0.150049,
+        "O": 0.047009
+      },
+      "atoms_within": true,
+      "extent_from_each_species_kmol_h": {
+        "water": 9.973,
+        "acetic_acid": 10.0,
+        "ethyl_acetate": 9.99,
+        "ethanol": 9.983
+      },
+      "within_envelope": true
+    },
+    {
+      "block": "CSTR + C1 (R1, AZ -> D11, W11) less EX1",
+      "inlets": [
+        "R1",
+        "AZ"
+      ],
+      "outlets": [
+        "D11",
+        "W11"
+      ],
+      "reactive": true,
+      "total_residual_kmol_h": -0.01,
+      "total_bound_kmol_h": 0.02,
+      "total_within": true,
+      "component_residual_kmol_h": {
+        "water": 9.985276,
+        "acetic_acid": -9.994116,
+        "ethyl_acetate": 9.986952,
+        "ethanol": -9.992364
+      },
+      "component_bound_kmol_h": {
+        "water": 0.006927,
+        "acetic_acid": 0.010969,
+        "ethyl_acetate": 0.015325,
+        "ethanol": 0.007789
+      },
+      "atom_residual_kmol_h": {
+        "C": -0.025152,
+        "H": -0.06448,
+        "O": -0.021416
+      },
+      "atom_bound_kmol_h": {
+        "C": 0.098816,
+        "H": 0.227065,
+        "O": 0.067305
+      },
+      "atoms_within": true,
+      "extent_from_each_species_kmol_h": {
+        "water": 9.985276,
+        "acetic_acid": 9.994116,
+        "ethyl_acetate": 9.986952,
+        "ethanol": 9.992364
+      },
+      "within_envelope": true
+    }
+  ],
+  "streams": [
+    {
+      "stream": "AA0",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "ETOH0",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F11",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F21",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "R1",
+      "sum_of_mole_fractions": 1.0001,
+      "within": true
+    },
+    {
+      "stream": "P1",
+      "sum_of_mole_fractions": 0.9999,
+      "within": true
+    },
+    {
+      "stream": "P2",
+      "sum_of_mole_fractions": 0.9999,
+      "within": true
+    },
+    {
+      "stream": "W11",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W12",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D11",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D12",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D13",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "ORG",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F2",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W21",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "AZ",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W22",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W23",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D21",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D22",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "H2OL",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "BYPASS",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F31",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F32",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "F33",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D31",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "D32",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W31",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "W32",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "H2OREC",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "H2OIN",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    },
+    {
+      "stream": "H2OP1",
+      "sum_of_mole_fractions": 1.0,
+      "within": true
+    }
+  ],
+  "splitters": [
+    {
+      "block": "SPETAC",
+      "inlet": "W21",
+      "outlet": "AZ",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    },
+    {
+      "block": "SPETAC",
+      "inlet": "W21",
+      "outlet": "W22",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    },
+    {
+      "block": "SPETAC",
+      "derived": "AZ / W22",
+      "value": 1.0,
+      "paper": "1 (p.8)"
+    },
+    {
+      "block": "SPBY",
+      "inlet": "H2OL",
+      "outlet": "BYPASS",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    },
+    {
+      "block": "SPBY",
+      "inlet": "H2OL",
+      "outlet": "F31",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    },
+    {
+      "block": "SPBY",
+      "derived": "BYPASS / H2OL",
+      "value": 0.19997,
+      "paper_limit": "at most 0.20 (p.11)"
+    },
+    {
+      "block": "SPH2O",
+      "inlet": "W32",
+      "outlet": "H2OREC",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    },
+    {
+      "block": "SPH2O",
+      "inlet": "W32",
+      "outlet": "H2OP1",
+      "fraction_difference": {
+        "water": 0.0,
+        "acetic_acid": 0.0,
+        "ethyl_acetate": 0.0,
+        "ethanol": 0.0
+      },
+      "same_composition": true
+    }
+  ],
+  "derived": {
+    "D13_water_to_EtAc_mole_ratio": {
+      "value": 4.099,
+      "paper": "4.1 (p.8)"
+    },
+    "CSTR_acetic_acid_conversion_per_pass": {
+      "value": 0.5301,
+      "paper": "53.0 % (p.8)"
+    },
+    "decanter_EtAc_recovery_to_ORG": {
+      "value": 0.9072,
+      "paper": "over 90 % (p.8)"
+    },
+    "C2_EtAc_recovery_to_W21": {
+      "value": 0.632,
+      "paper": "63.2 % (p.8)"
+    }
+  }
+}

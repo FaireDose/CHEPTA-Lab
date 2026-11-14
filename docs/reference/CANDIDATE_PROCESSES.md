@@ -8,10 +8,23 @@ Audit: 2026-10-29, CHEPTA [c1adf6bab522](https://github.com/FaireDose/CHEPTA/com
 |---|---|---|---|
 | 1 | CO2 to methanol | Reactor, cooling, flash, recycle and purge | Paper kinetics/specifications audit; distillation for purified product |
 | 2 | Ethyl acetate esterification | Existing equilibrium reactor; later conventional kinetic CSTR plant | Columns, mixture phase behavior, vapor association, rate-based versus equilibrium-stage methods |
-| 3 | Ethanol to ethylene/diethyl ether | Existing catalytic PFR example | Source-unit/experimental review; downstream columns; industrial network/transport audit |
-| 4 | Cumene hydroperoxide to phenol/acetone | Existing teaching CSTR | Open process paper, source rights, mixture data and purification |
+| 3 | Ethanol to ethylene/diethyl ether | Existing catalytic PFR example | Source-unit/experimental review; downstream columns; industrial network/transport audit. **2026-11-13: no open complete-plant paper found; replaced by ethylene glycol, to approve (below)** |
+| 4 | Cumene hydroperoxide to phenol/acetone | Existing teaching CSTR | Open process paper, source rights, mixture data and purification. **2026-11-13: replaced as a complete plant by n-butyl acetate (below)** |
 | 5 | Benzene pyrolysis | Deferred | p-Terphenyl ideal-gas heat capacity and process source |
 | 6 | HMF to levulinic/formic acids | Deferred | Levulinic-acid ideal-gas heat capacity and process source |
+
+## Replacements for the complete-plant set (2026-11-13)
+
+The maintainer (2026-11-13, through the coordinator): the next complete plants are processes 1, 3 and 4; a process is
+replaced only if no usable open plant-level paper exists. Searched and documented in [../NEXT_PLANTS.md](../NEXT_PLANTS.md).
+
+| Process | Replaced? | By | Reason |
+|---|---|---|---|
+| 1 CO2 to methanol | no (approved 2026-11-13) | Lacerda de Oliveira Campos et al. 2022 (CC BY 4.0) as the paper, instead of Medrano-García et al. 2025 | Medrano-García's supporting information has no stream table; Campos 2022 gives all 61 streams (supplement Tables S9-S10) |
+| 3 Ethanol to ethylene/diethyl ether | **yes (proposed, to approve)** | monoethylene glycol by direct hydration of ethylene oxide, Shehata, Nady & Gad 2024 (CC BY 4.0) | open papers found are reactor-only (Van der Borght 2019, Maia et al. 2016, Aali & Hadi 2023) or a plant with unclear reuse rights and amine/PSA sections (Tripodi 2019). The maintainer (2026-11-13) wants four different processes (not Tripodi, not a second ethyl acetate plant). Ethylene glycol brings heavy side products, a multiple-effect evaporator and vacuum columns |
+| 4 Cumene hydroperoxide to phenol/acetone | **yes (approved 2026-11-13)** | n-butyl acetate, conventional process, Al-Rabiah et al. 2022 (CC BY 4.0) | no open paper with a plant flowsheet and stream table (open ones model one unit only); CHEPTA lacks the side products. Butyl acetate overlaps the ester + alcohol + water register rows through a different reaction |
+
+The cumene teaching CSTR stays as a reactor example; the replacement concerns the complete-plant set only.
 
 ## Important source distinctions
 

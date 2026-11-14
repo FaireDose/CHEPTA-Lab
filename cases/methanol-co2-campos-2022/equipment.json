@@ -1,0 +1,885 @@
+{
+  "source_id": "lacerda-campos-2022",
+  "source_doi": "10.3390/pr10081535",
+  "classification": "published flowsheet and settings (Aspen Plus V10), one-step process; not CHEPTA input",
+  "property_method": {
+    "value": "Peng-Robinson in the reactors; NRTL with the second set of binary parameters (NRTL2) in all other units",
+    "locator": "article p.9"
+  },
+  "feeds": {
+    "value": "1-CO2 4824 kmol/h (99.5 % CO2, 0.5 % water), 25 C, 1 bar; 11-H2 14472 kmol/h (99.5 % H2, 0.5 % N2), 25 C, 30 bar; 46-AIR 2232 kmol/h",
+    "locator": "Supplement Tables S9-S10"
+  },
+  "boundary": {
+    "inlets": [
+      "1-CO2",
+      "11-H2",
+      "46-AIR"
+    ],
+    "outlets": [
+      "30-WATER",
+      "31-MEOH",
+      "49-FLUE"
+    ],
+    "note": "the water cycle (50W-61W) is closed"
+  },
+  "sections": {
+    "loop": "compression, synthesis loop, flash drums: 28 blocks",
+    "purification": "column and its recycle mixer: 2 blocks",
+    "fired heater and steam cycle": "9 blocks; may be left out of the first CHEPTA case, saying so"
+  },
+  "equipment": [
+    {
+      "id": "MIXER1",
+      "type": "mixer",
+      "section": "loop",
+      "inlets": [
+        "1-CO2",
+        "39-REC"
+      ],
+      "outlets": [
+        "2"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "CP1-CO2",
+      "type": "compressor",
+      "section": "loop",
+      "inlets": [
+        "2"
+      ],
+      "outlets": [
+        "3"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "stages_note": {
+          "value": "three stages with equal pressure ratio, 1 to 70 bar",
+          "locator": "Supplement p.9, Section E"
+        }
+      }
+    },
+    {
+      "id": "HE1",
+      "type": "heater",
+      "section": "loop",
+      "inlets": [
+        "3"
+      ],
+      "outlets": [
+        "4"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 13.6,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 50,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 5800,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "utility": {
+          "value": "cooling water",
+          "locator": "Supplement p.9"
+        }
+      }
+    },
+    {
+      "id": "FLASH1",
+      "type": "flash",
+      "section": "loop",
+      "inlets": [
+        "4"
+      ],
+      "outlets": [
+        "5",
+        "40"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "T_C": {
+          "value": 30,
+          "locator": "Supplement p.9"
+        },
+        "size": {
+          "value": "D 4.59 m, H 7.48 m, 123.5 m3",
+          "locator": "Supplement Table S13, p.23"
+        }
+      },
+      "note": "5 = vapour, 40 = liquid (from compositions)"
+    },
+    {
+      "id": "CP2-CO2",
+      "type": "compressor",
+      "section": "loop",
+      "inlets": [
+        "5"
+      ],
+      "outlets": [
+        "6"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "HE2",
+      "type": "hx",
+      "section": "loop",
+      "inlets": [
+        "6",
+        "35"
+      ],
+      "outlets": [
+        "7",
+        "36-REC"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 11.1,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 70,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 3610,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "hot 6 -> 7 (to 45 C); cold 35 -> 36-REC (recycle gas)"
+    },
+    {
+      "id": "FLASH2",
+      "type": "flash",
+      "section": "loop",
+      "inlets": [
+        "7"
+      ],
+      "outlets": [
+        "8",
+        "42"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "T_C": {
+          "value": 45,
+          "locator": "Supplement p.9"
+        },
+        "size": {
+          "value": "D 3.25 m, H 5.54 m, 46.0 m3",
+          "locator": "Supplement Table S13, p.23"
+        }
+      }
+    },
+    {
+      "id": "CP3-CO2",
+      "type": "compressor",
+      "section": "loop",
+      "inlets": [
+        "8"
+      ],
+      "outlets": [
+        "9"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "HE3",
+      "type": "hx",
+      "section": "loop",
+      "inlets": [
+        "9",
+        "51W"
+      ],
+      "outlets": [
+        "10",
+        "52W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 5.6,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 200,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 1160,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "hot CO2 9 -> 10; cold pressurized water 51W -> 52W"
+    },
+    {
+      "id": "CP-H2",
+      "type": "compressor",
+      "section": "loop",
+      "inlets": [
+        "11-H2"
+      ],
+      "outlets": [
+        "12"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "note": {
+          "value": "single stage, 30 to 70 bar",
+          "locator": "Supplement p.9"
+        }
+      }
+    },
+    {
+      "id": "MIXER2",
+      "type": "mixer",
+      "section": "loop",
+      "inlets": [
+        "10",
+        "12",
+        "36-REC"
+      ],
+      "outlets": [
+        "13"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "HE4",
+      "type": "hx",
+      "section": "loop",
+      "inlets": [
+        "13",
+        "19"
+      ],
+      "outlets": [
+        "14",
+        "20"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 105.5,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 150,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 27270,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "cold reactor feed 13 -> 14 (237.5 C); hot reactor product 19 -> 20"
+    },
+    {
+      "id": "SPLIT1",
+      "type": "splitter",
+      "section": "loop",
+      "inlets": [
+        "14"
+      ],
+      "outlets": [
+        "15",
+        "17"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "REACTOR1",
+      "type": "pfr",
+      "section": "loop",
+      "inlets": [
+        "15",
+        "54W"
+      ],
+      "outlets": [
+        "16",
+        "55W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "tubes": {
+          "value": "99,000 in the Aspen block, standing for 3 modules of 33,000 tubes",
+          "locator": "Supplement p.9"
+        },
+        "tube_length_m": {
+          "value": 12.5,
+          "locator": "article p.4"
+        },
+        "tube_inner_diameter_m": {
+          "value": 0.0375,
+          "locator": "article p.4 (3.75 cm)"
+        },
+        "bed_density_kg_m3": {
+          "value": 1050,
+          "locator": "article p.4"
+        },
+        "catalyst_per_module_t": {
+          "value": 478.13,
+          "locator": "article p.4"
+        },
+        "pressure_drop_bar": {
+          "value": 0.75,
+          "locator": "article p.4, per module (Table S9: 70.00 -> 69.25)"
+        },
+        "coolant": {
+          "value": "boiling water at 247.5 C (38.07 bar)",
+          "locator": "Supplement p.9; Table S9 54W"
+        },
+        "catalyst": {
+          "value": "Cu/ZnO/Al2O3 (CZA)",
+          "locator": "article p.4"
+        },
+        "kinetics": {
+          "value": "LHHW, Model-6p (CO2 hydrogenation, reverse water-gas shift), Table 1 of the article, reprinted with permission from an ACS paper (ref. 19)",
+          "locator": "article p.9, Table 1; Section 2.3"
+        },
+        "property_method": {
+          "value": "Peng-Robinson",
+          "locator": "article p.9"
+        }
+      },
+      "note": "RPLUG; process side 15 -> 16, coolant 54W -> 55W"
+    },
+    {
+      "id": "REACTOR2",
+      "type": "pfr",
+      "section": "loop",
+      "inlets": [
+        "17",
+        "56W"
+      ],
+      "outlets": [
+        "18",
+        "57W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "same_as": {
+          "value": "REACTOR1",
+          "locator": "Supplement p.9"
+        }
+      }
+    },
+    {
+      "id": "MIXER3",
+      "type": "mixer",
+      "section": "loop",
+      "inlets": [
+        "16",
+        "18"
+      ],
+      "outlets": [
+        "19"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "HE5",
+      "type": "hx",
+      "section": "loop",
+      "inlets": [
+        "20",
+        "28"
+      ],
+      "outlets": [
+        "21",
+        "29"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 103.3,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 300,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 8520,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "hot 20 -> 21; cold column feed 28 -> 29. The text (Supplement p.10) says stream 26 is heated in HE5; the enthalpies show 26 -> 27 is HE6 (see audit)"
+    },
+    {
+      "id": "HE6",
+      "type": "hx",
+      "section": "loop",
+      "inlets": [
+        "21",
+        "26"
+      ],
+      "outlets": [
+        "22",
+        "27"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 5.0,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 600,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 240,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "hot 21 -> 22; cold 26 -> 27"
+    },
+    {
+      "id": "HE7",
+      "type": "heater",
+      "section": "loop",
+      "inlets": [
+        "22"
+      ],
+      "outlets": [
+        "23"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 24.2,
+          "locator": "Supplement Table S14, p.26, one-step process",
+          "note": "Disagrees with the streams: 22 -> 23 gives 19.75 MW from the printed enthalpies (STREAM_AUDIT.md). Basis for the comparison: the streams (the maintainer, 2026-11-14)."
+        },
+        "U_W_m2K": {
+          "value": 300,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 4280,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "utility": {
+          "value": "cooling water",
+          "locator": "Supplement p.9"
+        }
+      }
+    },
+    {
+      "id": "FLASH3",
+      "type": "flash",
+      "section": "loop",
+      "inlets": [
+        "23"
+      ],
+      "outlets": [
+        "33",
+        "24"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "T_C": {
+          "value": 30,
+          "locator": "Supplement p.10"
+        },
+        "P_bar": {
+          "value": 69.25,
+          "locator": "Supplement p.10"
+        },
+        "size": {
+          "value": "D 4.33 m, H 11.18 m, 164.8 m3",
+          "locator": "Supplement Table S13, p.23"
+        }
+      }
+    },
+    {
+      "id": "SPLIT2",
+      "type": "splitter",
+      "section": "loop",
+      "inlets": [
+        "33"
+      ],
+      "outlets": [
+        "44-PURGE",
+        "34"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "purge_fraction": {
+          "value": 0.02,
+          "locator": "Supplement p.10; article p.7"
+        }
+      }
+    },
+    {
+      "id": "CP-REC",
+      "type": "compressor",
+      "section": "loop",
+      "inlets": [
+        "34"
+      ],
+      "outlets": [
+        "35"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "P_out_bar": {
+          "value": 70,
+          "locator": "Supplement p.10"
+        }
+      },
+      "note": "labelled CP-REF in Figure S1"
+    },
+    {
+      "id": "VALVE1",
+      "type": "valve",
+      "section": "loop",
+      "inlets": [
+        "24"
+      ],
+      "outlets": [
+        "25"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "P_out_bar": {
+          "value": 1,
+          "locator": "Supplement p.10"
+        }
+      }
+    },
+    {
+      "id": "VALVE3",
+      "type": "valve",
+      "section": "loop",
+      "inlets": [
+        "40"
+      ],
+      "outlets": [
+        "41"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "VALVE2",
+      "type": "valve",
+      "section": "loop",
+      "inlets": [
+        "42"
+      ],
+      "outlets": [
+        "43"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "MIXER4",
+      "type": "mixer",
+      "section": "loop",
+      "inlets": [
+        "25",
+        "41",
+        "43"
+      ],
+      "outlets": [
+        "26"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "FLASH4",
+      "type": "flash",
+      "section": "loop",
+      "inlets": [
+        "27"
+      ],
+      "outlets": [
+        "37",
+        "28"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "T_C": {
+          "value": 30,
+          "locator": "Supplement p.10"
+        },
+        "P_bar": {
+          "value": 1,
+          "locator": "Supplement p.10"
+        },
+        "size": {
+          "value": "D 3.77 m, H 10.37 m, 115.6 m3",
+          "locator": "Supplement Table S13, p.23"
+        }
+      }
+    },
+    {
+      "id": "SPLIT3",
+      "type": "splitter",
+      "section": "loop",
+      "inlets": [
+        "37"
+      ],
+      "outlets": [
+        "45-PURGE",
+        "38"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "purge_fraction": {
+          "value": 0.02,
+          "locator": "Supplement p.10"
+        }
+      }
+    },
+    {
+      "id": "COLUMN",
+      "type": "column",
+      "section": "purification",
+      "inlets": [
+        "29"
+      ],
+      "outlets": [
+        "32",
+        "31-MEOH",
+        "30-WATER"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "stages": {
+          "value": 30,
+          "locator": "Supplement p.11"
+        },
+        "feed": {
+          "value": "above stage 24",
+          "locator": "Supplement p.11"
+        },
+        "reflux_ratio": {
+          "value": 2,
+          "locator": "Supplement p.11"
+        },
+        "condenser": {
+          "value": "partial vapour-liquid, 53 C",
+          "locator": "Supplement p.11"
+        },
+        "reboiler": {
+          "value": "kettle, 99.6 C, heated by steam 60W through heat stream H1",
+          "locator": "Supplement p.11"
+        },
+        "condenser_duty_MW": {
+          "value": 143.6,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "reboiler_duty_MW": {
+          "value": 53.7,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "products": {
+          "value": "water 4581 kmol/h 99.99 %; methanol 4542 kmol/h 99.67 %; gas distillate 62.97 % methanol, 36.91 % CO2",
+          "locator": "Supplement p.11"
+        },
+        "size": {
+          "value": "two packed columns of D 5 m, 30 m (HETP 1 m, 76 mm pall rings, assumed)",
+          "locator": "Supplement Section G.2, p.24"
+        },
+        "property_method": {
+          "value": "NRTL2",
+          "locator": "article p.9"
+        }
+      }
+    },
+    {
+      "id": "MIXER5",
+      "type": "mixer",
+      "section": "purification",
+      "inlets": [
+        "38",
+        "32"
+      ],
+      "outlets": [
+        "39-REC"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "FIRED-HT",
+      "type": "burner",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "44-PURGE",
+        "45-PURGE",
+        "46-AIR"
+      ],
+      "outlets": [
+        "47"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "air_excess": {
+          "value": "15 %",
+          "locator": "Supplement p.11"
+        }
+      }
+    },
+    {
+      "id": "HE9-FH",
+      "type": "hx",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "47",
+        "58W"
+      ],
+      "outlets": [
+        "48",
+        "59W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "HE10-FH",
+      "type": "hx",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "48",
+        "52W"
+      ],
+      "outlets": [
+        "49-FLUE",
+        "53W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "PUMP",
+      "type": "pump",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "50W"
+      ],
+      "outlets": [
+        "51W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "P_out_bar": {
+          "value": 38.07,
+          "locator": "Supplement p.11"
+        }
+      }
+    },
+    {
+      "id": "SPLIT4",
+      "type": "splitter",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "53W"
+      ],
+      "outlets": [
+        "54W",
+        "56W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "MIXER6",
+      "type": "mixer",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "55W",
+        "57W"
+      ],
+      "outlets": [
+        "58W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {}
+    },
+    {
+      "id": "TURBINE",
+      "type": "expander",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "59W"
+      ],
+      "outlets": [
+        "60W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "P_out_bar": {
+          "value": 1.43,
+          "locator": "Supplement p.11"
+        },
+        "power_MW": {
+          "value": 30.3,
+          "locator": "Supplement p.11"
+        }
+      }
+    },
+    {
+      "id": "REBOILER",
+      "type": "heater",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "60W"
+      ],
+      "outlets": [
+        "61W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "note": {
+          "value": "hot side of the column reboiler; heat stream H1 to COLUMN",
+          "locator": "Supplement p.11"
+        }
+      }
+    },
+    {
+      "id": "HE8",
+      "type": "heater",
+      "section": "fired heater and steam cycle",
+      "inlets": [
+        "61W"
+      ],
+      "outlets": [
+        "50W"
+      ],
+      "connectivity_source": "Supplement Figure S1, p.10 (read from a render), and Section E text, pp.9-11",
+      "specification": {
+        "duty_MW": {
+          "value": 41.8,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "U_W_m2K": {
+          "value": 1500,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        },
+        "area_m2": {
+          "value": 340,
+          "locator": "Supplement Table S14, p.26, one-step process"
+        }
+      },
+      "note": "called HE13 in the text (p.11), HE8 in Figure S1 and Table S14"
+    }
+  ]
+}
