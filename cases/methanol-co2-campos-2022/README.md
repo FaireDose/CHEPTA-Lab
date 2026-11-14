@@ -45,6 +45,21 @@ Run `python cases/methanol-co2-campos-2022/audit_balances.py` from the repositor
 | 5 | Supplement p.11 vs Table S9 | Turbine: 30.3 MW of electricity in the text; the enthalpy drop 59W → 60W is 31.40 MW (a generator or mechanical efficiency is not stated) |
 | 6 | Figure S1 vs text | Recycle compressor labelled CP-REF in the figure, CP-REC in the text |
 
+## Maintainer's spot check (2026-11-14) and the answers
+
+The maintainer checked three items selected by the building session (not by a separate AI review session, which has
+not been done yet). Their findings, as written, and what the source shows:
+
+| Item | Maintainer | Source | Status |
+|---|---|---|---|
+| HE7 duty (24.2 MW, Table S14) against its streams | "22 and 23 are for HE8, 21 and 22 are for HE7; the properties are Table S11, not S10" | Right for the **three-step** process (Figure S2, Table S11, supplement p.17: HE7 cools 21 → 22, HE8 cools 22 → 23; from Table S11, 21 → 22 is −46.24 MW against 46.3 MW for three-step HE7 in Table S14). This case is the **one-step** process: properties in Table S9 (pp.12-13), compositions in Table S10 (pp.14-15), and in Figure S1 and the text (supplement p.10, "finally by cooling water (HE7)") HE7 cools 22 → 23. The spot-check request did not say "one-step"; that was the building session's error in wording | case data unchanged; the one-step HE7 item (19.75 MW from the streams against 24.2 MW) **still needs a person's check** |
+| Column feed, Table S10 p.14, streams 28 and 29 | 28 = 0, 0.001, 1.285, 50.041, 48.671, 0.002, 0; 29 the same | matches streams.json | confirmed by the maintainer |
+| Reactor tubes, article p.4 | 22,000 tubes per reactor, 12.5 m, 3.75 cm | the article p.4 reads "33,000 tubes" (text layer and a 200 dpi render), the supplement p.9 "six reactor modules with 33000 tubes each" (99,000 per RPLUG block); 33,000 tubes × 12.5 m × 3.75 cm × 1050 kg/m³ = 478.4 t, the stated 478.13 t per module; 22,000 tubes would give 318.9 t | case value kept (33,000); **open: where the maintainer read 22,000** |
+
+Side observation, outside this case: in the three-step process, Table S14 gives HE8 14.3 MW and HE9 37.9 MW, but the
+Table S11 streams give 37.89 MW for 22 → 23 (HE8 in the text) and 12.79 MW for 23 → 24. Not transcribed; to note if
+the three-step process is ever built.
+
 ## What is not in the paper (to choose and record when the plant is run)
 
 - Phases or vapour fractions of the streams (only the steam leaving the reboiler: 0.47).
