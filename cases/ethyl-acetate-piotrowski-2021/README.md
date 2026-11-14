@@ -224,7 +224,7 @@ column 11 settings that would reach it do not converge in CHEPTA.
 
 | # | Request | Outcome and message | Evidence |
 |---|---|---|---|
-| 15 | A flowsheet design specification that varies a feed to hold a product quality (here: the ethanol feed to hold the product's ethanol below 0.04 % or its purity at 99.9 %), as a make-up controller; refines request 7 | not available; by hand, 6,506 kg/h gives 99.50 % and smaller steps fail to converge | plant62-settled-ethanol6500/6503/6506 |
+| 15 | **Global design specifications for the flowsheet** (the maintainer, 2026-11-14: "like in Aspen or HYSYS, a master tab where you set fixed targets and the variables to vary"): a flowsheet-level list of targets (any stream or block result: a product's purity or component content, a flow, a temperature, a duty) and of manipulated variables (any input anywhere: a feed's flow, a splitter's flow, a column's reflux or distillate, a heater's temperature), each with bounds, solved together with the recycle loops and reported with the achieved values and the variables' final values; and **sensitivity tables** (one or two inputs swept, chosen results tabulated; Aspen's Sensitivity, HYSYS's Case Study), each point started from the last. Here: the ethanol feed varied to hold the product's ethanol below 0.04 % or its purity at 99.9 %, and the sweeps of this case (ethanol feed, extractor temperature, W/A, column 11 distillate) run in one request instead of one run each. Refines request 7 | not available; by hand, ethanol feed 6,506 kg/h gives 99.50 % and smaller steps fail to converge; every sweep in this case needed one run per point | plant62-settled-ethanol*, plant62-settled-extr*, plant62-settled-WA*, plant62-*-dist2* |
 | 13 | Column 11 (35 stages, VLL) inside the closed plant: no convergence when its distillate is raised to 245-255 kmol/h or its R/D to 4; on a bottoms purity a contradictory refusal | `NO_CONVERGENCE` at loop iteration 2-3; `OUT_OF_RANGE` "the mass fraction of Ethyl acetate in the bottoms cannot be 0.999 ... it stays between 0.943249 (at 24.25) and 1 (at 117.6)" | plant62-R-dist245/248/250/255-*, plant62-R-dist240-RD4-*, plant62-R-purity-col15purity-warm |
 | 14 | A loop stopped by its time limit reports nothing of its progress (iterations, tear change) | `OUT_OF_TIME` "The calculation did not finish within limits.time_ms ..." | plant62-*-direct, plant62-*-direct-tol1e-5 |
 | (8) | Column 5: converges and fails irregularly on neighbouring inputs | see the column 5 table above | iso-scds5-* |
@@ -343,7 +343,7 @@ product (0.078 %, above the 0.04 % limit); that inventory wets the raffinate (et
 organic phase, p.4) and overloads column 11 with water. Five kg/h less ethanol feed (−0.08 %) lifts the product by 0.4
 points. The paper's products carry 6.5 kg/h of ethanol, and its own plant balance is 27 kg/h short, so Table A2 cannot
 fix this balance to the precision that decides the purity. A real plant (and probably Chemcad) would trim the ethanol
-make-up to the product's quality; CHEPTA has no design specification on a feed (request 15).
+make-up to the product's quality; CHEPTA has no design specification on a feed (request 15: global design specifications and sensitivity tables, as in Aspen or HYSYS).
 
 ## On chepta 0.6.1 (2026-11-12): what was run
 
