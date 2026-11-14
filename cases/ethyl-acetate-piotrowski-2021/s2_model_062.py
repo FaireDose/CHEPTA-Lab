@@ -44,7 +44,7 @@ def splitter_by_flow(first_kg_h=None, second_kg_h=None):
 
 
 def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phases15="VLL", extractor_stages=2,
-          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None, feed11=None, r23_kg_h=None, f1_kg_h=None):
+          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None, feed11=None, r23_kg_h=None, f1_kg_h=None, extr_T_C=None, conversion=None):
     """open_recycles: None for the closed plant; else {27: feed spec, 21: feed spec}: streams 27 and 21 enter as feeds
     (given) and leave as products, the outer recycles opened (used to find starting guesses, never compared as the plant).
     guesses: {stream number: {flow_kmol_h, T_K, P_kPa}} starting guesses of the tear streams (else Table A2)."""
@@ -89,11 +89,12 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
         {"id": "MIX1", "type": "mixer"},
         {"id": "HTXR2", "type": "heater", "spec": M.heater(4)},
         {"id": "MIX3", "type": "mixer"},
-        {"id": "KREA4", "type": "conversion-reactor", "spec": M.reactor_spec()},
+        {"id": "KREA4", "type": "conversion-reactor", "spec": M.reactor_spec() if conversion is None else
+         {**M.reactor_spec(), "reactions": [{"reaction": "R1", "key": "acetic-acid", "conversion": conversion}]}},
         {"id": "SCDS5", "type": "column", "spec": c5},
         {"id": "HTXR6", "type": "heater", "spec": {"VF": 0, "P_kPa": M.P_KPA}},
         {"id": "MIX7", "type": "mixer"} if mix7 == "adiabatic" else {"id": "MIX7", "type": "heater", "spec": {"VF": 0, "P_kPa": M.P_KPA}},
-        {"id": "EXTR8", "type": "extraction", "spec": M.extractor_spec(extractor_stages)},
+        {"id": "EXTR8", "type": "extraction", "spec": M.extractor_spec(extractor_stages) if extr_T_C is None else M.extractor_spec(extractor_stages, extr_T_C)},
         {"id": "SPLIT9", "type": "splitter", "spec": s9},
         {"id": "HTXR10", "type": "heater", "spec": M.heater(13)},
         {"id": "SCDS11", "type": "column", "spec": c11},
