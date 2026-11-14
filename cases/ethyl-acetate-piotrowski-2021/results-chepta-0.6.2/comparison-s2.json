@@ -1764,6 +1764,44 @@
    ],
    "estimated_pairs": [],
    "note": "settled start, recycle 23 = 121,000 kg/h (W/A about 1.2, Section 3.3: optimum W/A 1-2)"
+  },
+  {
+   "id": "plant62-settled-ethanol6500",
+   "outcome": "not_converged",
+   "code": "NO_CONVERGENCE",
+   "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 5, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12050 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 96.97 % of the way, after 15 steps, 44477 ms). Last residuals: material 0.2416 mol/s, equilibrium 0.000003079, energy 38160 W, specifications 1.066e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+   "elapsed_ms": 385324.562093,
+   "extrapolations": [],
+   "estimated_pairs": [],
+   "note": "SENSITIVITY: ethanol feed 6,500 kg/h"
+  },
+  {
+   "id": "plant62-settled-ethanol6503",
+   "outcome": "not_converged",
+   "code": "NO_CONVERGENCE",
+   "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 6, Column SCDS15: the mass fraction of Water in the bottoms cannot be 0.9999 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (18.31 to 1813 mol/s, 15 columns solved) it stays between 0.952212 (at 18.31) and 1 (at 366.2). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 18 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+   "elapsed_ms": 450444.969862,
+   "extrapolations": [],
+   "estimated_pairs": [],
+   "note": "SENSITIVITY: ethanol feed 6,503 kg/h"
+  },
+  {
+   "id": "plant62-settled-ethanol6506",
+   "outcome": "ok",
+   "code": null,
+   "message": null,
+   "elapsed_ms": 883365.4666360001,
+   "extrapolations": [
+    "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+    "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+    "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+    "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+    "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+    "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+    "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+   ],
+   "estimated_pairs": [],
+   "note": "SENSITIVITY, not the paper's case: ethanol feed 6,506 kg/h (paper 6,511; its molar 141.3 kmol/h spans 6,507-6,512): less excess ethanol to leave with the products"
   }
  ],
  "runs": {
@@ -33709,6 +33747,1421 @@
      "chepta_kW": -11205.314669219544,
      "paper_kW": -8869.3,
      "rel": 0.2633820785427875,
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    }
+   ],
+   "extrapolations_all": [
+    "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+    "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+    "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+    "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+    "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+    "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+    "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+   ],
+   "estimated_pairs_all": []
+  },
+  "plant62-settled-ethanol6506": {
+   "streams": [
+    {
+     "stream": 1,
+     "id": "S1",
+     "chepta": {
+      "T_C": 15.0,
+      "VF": 0,
+      "kmol_h": 141.22466486818308,
+      "kg_h": 6506.000000000001,
+      "mass_pct": {
+       "ethanol": 100.0,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.0
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 15.0,
+      "kmol_h": 141.3,
+      "kg_h": 6511.0,
+      "mass_pct": {
+       "ethanol": 100.0,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.0
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": -4.9999999999990905,
+     "rel_kg_h": -0.0007679311933649348,
+     "dmass_pct_points": {
+      "ethanol": 0.0,
+      "water": 0.0,
+      "ethyl-acetate": 0.0,
+      "acetic-acid": 0.0
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+       "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+       "Acetic acid: heat of vaporization extrapolated 2.4 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 2,
+     "id": "S2",
+     "chepta": {
+      "T_C": 15.0,
+      "VF": 0,
+      "kmol_h": 141.07782660216253,
+      "kg_h": 8472.0,
+      "mass_pct": {
+       "ethanol": 0.0,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 100.0
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 15.0,
+      "kmol_h": 141.1,
+      "kg_h": 8472.0,
+      "mass_pct": {
+       "ethanol": 0.0,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 100.0
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 0.0,
+     "rel_kg_h": 0.0,
+     "dmass_pct_points": {
+      "ethanol": 0.0,
+      "water": 0.0,
+      "ethyl-acetate": 0.0,
+      "acetic-acid": 0.0
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+       "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+       "Acetic acid: heat of vaporization extrapolated 2.4 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 3,
+     "id": "S3",
+     "chepta": {
+      "T_C": 14.262221825232189,
+      "VF": 0,
+      "kmol_h": 282.3024914703456,
+      "kg_h": 14978.0,
+      "mass_pct": {
+       "ethanol": 43.43704099345708,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 56.56295900654293
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 15.0,
+      "kmol_h": 282.4,
+      "kg_h": 14983.0,
+      "mass_pct": {
+       "ethanol": 43.46,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 56.54
+      }
+     },
+     "dT_K": -0.7377781747678114,
+     "dkg_h": -5.0,
+     "rel_kg_h": -0.0003337115397450444,
+     "dmass_pct_points": {
+      "ethanol": -0.02295900654291927,
+      "water": 0.0,
+      "ethyl-acetate": 0.0,
+      "acetic-acid": 0.02295900654293348
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+       "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+       "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+       "Acetic acid: heat of vaporization extrapolated 2.4 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 4,
+     "id": "S4",
+     "chepta": {
+      "T_C": 70.0,
+      "VF": 0,
+      "kmol_h": 282.3024914703456,
+      "kg_h": 14978.0,
+      "mass_pct": {
+       "ethanol": 43.43704099345708,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 56.56295900654293
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 282.4,
+      "kg_h": 14983.0,
+      "mass_pct": {
+       "ethanol": 43.46,
+       "water": 0.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 56.54
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": -5.0,
+     "rel_kg_h": -0.0003337115397450444,
+     "dmass_pct_points": {
+      "ethanol": -0.02295900654291927,
+      "water": 0.0,
+      "ethyl-acetate": 0.0,
+      "acetic-acid": 0.02295900654293348
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 5,
+     "id": "S5",
+     "chepta": {
+      "T_C": 77.03325020498244,
+      "VF": 0,
+      "kmol_h": 1347.4482998798962,
+      "kg_h": 51806.83750496057,
+      "mass_pct": {
+       "ethanol": 29.982820118824844,
+       "water": 23.61531476190685,
+       "ethyl-acetate": 25.172405475692624,
+       "acetic-acid": 21.229459643575684
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 77.0,
+      "kmol_h": 1352.7,
+      "kg_h": 53292.0,
+      "mass_pct": {
+       "ethanol": 27.49,
+       "water": 22.86,
+       "ethyl-acetate": 29.02,
+       "acetic-acid": 20.64
+      }
+     },
+     "dT_K": 0.033250204982437026,
+     "dkg_h": -1485.1624950394325,
+     "rel_kg_h": -0.027868394787950022,
+     "dmass_pct_points": {
+      "ethanol": 2.492820118824845,
+      "water": 0.755314761906849,
+      "ethyl-acetate": -3.8475945243073753,
+      "acetic-acid": 0.5894596435756831
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 6,
+     "id": "S6",
+     "chepta": {
+      "T_C": 89.21093795931012,
+      "VF": 1,
+      "kmol_h": 1347.4482998798962,
+      "kg_h": 51806.83750496057,
+      "mass_pct": {
+       "ethanol": 17.43769036702886,
+       "water": 28.521146717903953,
+       "ethyl-acetate": 49.16475603493786,
+       "acetic-acid": 4.876406880129334
+      },
+      "phases": [
+       "vapour"
+      ]
+     },
+     "paper": {
+      "T_C": 90.0,
+      "kmol_h": 1352.7,
+      "kg_h": 53292.0,
+      "mass_pct": {
+       "ethanol": 15.29,
+       "water": 27.62,
+       "ethyl-acetate": 52.34,
+       "acetic-acid": 4.74
+      }
+     },
+     "dT_K": -0.7890620406898847,
+     "dkg_h": -1485.1624950394325,
+     "rel_kg_h": -0.027868394787950022,
+     "dmass_pct_points": {
+      "ethanol": 2.1476903670288614,
+      "water": 0.9011467179039521,
+      "ethyl-acetate": -3.175243965062144,
+      "acetic-acid": 0.13640688012933389
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 7,
+     "id": "S7",
+     "chepta": {
+      "T_C": 88.880319697792,
+      "VF": 0,
+      "kmol_h": 669.0633985110768,
+      "kg_h": 14501.55616508917,
+      "mass_pct": {
+       "ethanol": 5.446509409730808,
+       "water": 75.40928889182614,
+       "ethyl-acetate": 1.723232154475308,
+       "acetic-acid": 17.420969543967754
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 88.0,
+      "kmol_h": 676.0,
+      "kg_h": 14912.0,
+      "mass_pct": {
+       "ethanol": 5.86,
+       "water": 73.55,
+       "ethyl-acetate": 3.67,
+       "acetic-acid": 16.93
+      }
+     },
+     "dT_K": 0.8803196977920038,
+     "dkg_h": -410.44383491082954,
+     "rel_kg_h": -0.027524398800350694,
+     "dmass_pct_points": {
+      "ethanol": -0.4134905902691921,
+      "water": 1.8592888918261394,
+      "ethyl-acetate": -1.946767845524692,
+      "acetic-acid": 0.49096954396775416
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 8,
+     "id": "S8",
+     "chepta": {
+      "T_C": 70.05861314451937,
+      "VF": 1,
+      "kmol_h": 1503.0583114437134,
+      "kg_h": 97305.2813398714,
+      "mass_pct": {
+       "ethanol": 9.795203268243672,
+       "water": 6.980079051079472,
+       "ethyl-acetate": 83.22471678539644,
+       "acetic-acid": 8.952804089024375e-07
+      },
+      "phases": [
+       "vapour"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 1493.9,
+      "kg_h": 98380.0,
+      "mass_pct": {
+       "ethanol": 8.53,
+       "water": 6.68,
+       "ethyl-acetate": 84.78,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.05861314451937005,
+     "dkg_h": -1074.718660128594,
+     "rel_kg_h": -0.010924157960241857,
+     "dmass_pct_points": {
+      "ethanol": 1.2652032682436722,
+      "water": 0.3000790510794724,
+      "ethyl-acetate": -1.5552832146035627,
+      "acetic-acid": -0.009999104719591098
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 9,
+     "id": "S9",
+     "chepta": {
+      "T_C": 69.73820814730493,
+      "VF": 0,
+      "kmol_h": 1503.0583114437134,
+      "kg_h": 97305.2813398714,
+      "mass_pct": {
+       "ethanol": 9.795203268243672,
+       "water": 6.980079051079472,
+       "ethyl-acetate": 83.22471678539644,
+       "acetic-acid": 8.952804089024375e-07
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 1493.9,
+      "kg_h": 98380.0,
+      "mass_pct": {
+       "ethanol": 8.53,
+       "water": 6.68,
+       "ethyl-acetate": 84.78,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -0.2617918526950689,
+     "dkg_h": -1074.718660128594,
+     "rel_kg_h": -0.010924157960241857,
+     "dmass_pct_points": {
+      "ethanol": 1.2652032682436722,
+      "water": 0.3000790510794724,
+      "ethyl-acetate": -1.5552832146035627,
+      "acetic-acid": -0.009999104719591098
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 10,
+     "id": "S10",
+     "chepta": {
+      "T_C": 69.72534439376068,
+      "VF": 0,
+      "kmol_h": 1743.0583114437136,
+      "kg_h": 112780.11628863377,
+      "mass_pct": {
+       "ethanol": 8.978936385559111,
+       "water": 7.190856800142082,
+       "ethyl-acetate": 83.83020604186201,
+       "acetic-acid": 7.724367994387898e-07
+      },
+      "phases": [
+       "liquid",
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 1724.2,
+      "kg_h": 113256.0,
+      "mass_pct": {
+       "ethanol": 7.86,
+       "water": 6.93,
+       "ethyl-acetate": 85.21,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -0.27465560623932106,
+     "dkg_h": -475.8837113662303,
+     "rel_kg_h": -0.004201841062426982,
+     "dmass_pct_points": {
+      "ethanol": 1.1189363855591106,
+      "water": 0.2608568001420819,
+      "ethyl-acetate": -1.3797939581379808,
+      "acetic-acid": -0.009999227563200562
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 11,
+     "id": "S11",
+     "chepta": {
+      "T_C": 27.0,
+      "VF": 0,
+      "kmol_h": 1209.0703414856496,
+      "kg_h": 87967.21113778798,
+      "mass_pct": {
+       "ethanol": 2.145271679801371,
+       "water": 4.919336479707566,
+       "ethyl-acetate": 92.93539121768954,
+       "acetic-acid": 6.228015236763442e-07
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 27.0,
+      "kmol_h": 1189.1,
+      "kg_h": 87314.0,
+      "mass_pct": {
+       "ethanol": 1.86,
+       "water": 4.7,
+       "ethyl-acetate": 93.43,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 653.2111377879773,
+     "rel_kg_h": 0.007481172982430966,
+     "dmass_pct_points": {
+      "ethanol": 0.2852716798013708,
+      "water": 0.21933647970756542,
+      "ethyl-acetate": -0.4946087823104648,
+      "acetic-acid": -0.009999377198476324
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 12,
+     "id": "S12",
+     "chepta": {
+      "T_C": 27.0,
+      "VF": 0,
+      "kmol_h": 384.39692566587456,
+      "kg_h": 27967.21113778798,
+      "mass_pct": {
+       "ethanol": 2.145271679801371,
+       "water": 4.919336479707566,
+       "ethyl-acetate": 92.93539121768954,
+       "acetic-acid": 6.228015236763442e-07
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 27.0,
+      "kmol_h": 372.0,
+      "kg_h": 27314.0,
+      "mass_pct": {
+       "ethanol": 1.86,
+       "water": 4.7,
+       "ethyl-acetate": 93.43,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 653.211137787981,
+     "rel_kg_h": 0.023914883861315846,
+     "dmass_pct_points": {
+      "ethanol": 0.2852716798013708,
+      "water": 0.21933647970756542,
+      "ethyl-acetate": -0.4946087823104648,
+      "acetic-acid": -0.009999377198476324
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 13,
+     "id": "S13",
+     "chepta": {
+      "T_C": 71.0,
+      "VF": 0.5307796303362561,
+      "kmol_h": 384.39692566587456,
+      "kg_h": 27967.21113778798,
+      "mass_pct": {
+       "ethanol": 2.145271679801371,
+       "water": 4.919336479707566,
+       "ethyl-acetate": 92.93539121768954,
+       "acetic-acid": 6.228015236763442e-07
+      },
+      "phases": [
+       "vapour",
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 71.0,
+      "kmol_h": 372.0,
+      "kg_h": 27314.0,
+      "mass_pct": {
+       "ethanol": 1.86,
+       "water": 4.7,
+       "ethyl-acetate": 93.43,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 653.211137787981,
+     "rel_kg_h": 0.023914883861315846,
+     "dmass_pct_points": {
+      "ethanol": 0.2852716798013708,
+      "water": 0.21933647970756542,
+      "ethyl-acetate": -0.4946087823104648,
+      "acetic-acid": -0.009999377198476324
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 14,
+     "id": "S14",
+     "chepta": {
+      "T_C": 69.94129856623823,
+      "VF": 0,
+      "kmol_h": 240.00000000000114,
+      "kg_h": 15474.834886943,
+      "mass_pct": {
+       "ethanol": 3.8462760649543566,
+       "water": 8.516220765958208,
+       "ethyl-acetate": 87.63750316908713,
+       "acetic-acid": 3.0792842483529446e-13
+      },
+      "phases": [
+       "liquid",
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 230.4,
+      "kg_h": 14880.0,
+      "mass_pct": {
+       "ethanol": 3.4,
+       "water": 8.57,
+       "ethyl-acetate": 88.03,
+       "acetic-acid": 0.0
+      }
+     },
+     "dT_K": -0.05870143376176884,
+     "dkg_h": 594.8348869429992,
+     "rel_kg_h": 0.039975462832190806,
+     "dmass_pct_points": {
+      "ethanol": 0.4462760649543567,
+      "water": -0.053779234041792634,
+      "ethyl-acetate": -0.3924968309128758,
+      "acetic-acid": 3.0792842483529446e-13
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 15,
+     "id": "S15",
+     "chepta": {
+      "T_C": 69.94129856623823,
+      "VF": 0,
+      "kmol_h": 240.00000000000114,
+      "kg_h": 15474.834886943,
+      "mass_pct": {
+       "ethanol": 3.8462760649543566,
+       "water": 8.516220765958208,
+       "ethyl-acetate": 87.63750316908713,
+       "acetic-acid": 3.0792842483529446e-13
+      },
+      "phases": [
+       "liquid",
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 230.4,
+      "kg_h": 14880.0,
+      "mass_pct": {
+       "ethanol": 3.4,
+       "water": 8.57,
+       "ethyl-acetate": 88.03,
+       "acetic-acid": 0.0
+      }
+     },
+     "dT_K": -0.05870143376176884,
+     "dkg_h": 594.8348869429992,
+     "rel_kg_h": 0.039975462832190806,
+     "dmass_pct_points": {
+      "ethanol": 0.4462760649543567,
+      "water": -0.053779234041792634,
+      "ethyl-acetate": -0.3924968309128758,
+      "acetic-acid": 3.0792842483529446e-13
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 16,
+     "id": "S16",
+     "chepta": {
+      "T_C": 75.2964471049371,
+      "VF": 0,
+      "kmol_h": 144.39692566587462,
+      "kg_h": 12492.376250845049,
+      "mass_pct": {
+       "ethanol": 0.03816559576648012,
+       "water": 0.46372376684172845,
+       "ethyl-acetate": 99.49810924309969,
+       "acetic-acid": 1.394292112882836e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 77.0,
+      "kmol_h": 141.5,
+      "kg_h": 12434.0,
+      "mass_pct": {
+       "ethanol": 0.02,
+       "water": 0.07,
+       "ethyl-acetate": 99.9,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -1.7035528950628986,
+     "dkg_h": 58.37625084504907,
+     "rel_kg_h": 0.004694889081956657,
+     "dmass_pct_points": {
+      "ethanol": 0.01816559576648012,
+      "water": 0.39372376684172844,
+      "ethyl-acetate": -0.4018907569003147,
+      "acetic-acid": -0.009998605707887118
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 17,
+     "id": "S17",
+     "chepta": {
+      "T_C": 20.0,
+      "VF": 0,
+      "kmol_h": 970.1764280100003,
+      "kg_h": 17478.0,
+      "mass_pct": {
+       "ethanol": 0.0,
+       "water": 100.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.0
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 20.0,
+      "kmol_h": 970.2,
+      "kg_h": 17478.0,
+      "mass_pct": {
+       "ethanol": 0.0,
+       "water": 100.0,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.0
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 0.0,
+     "rel_kg_h": 0.0,
+     "dmass_pct_points": {
+      "ethanol": 0.0,
+      "water": 0.0,
+      "ethyl-acetate": 0.0,
+      "acetic-acid": 0.0
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 18,
+     "id": "S18",
+     "chepta": {
+      "T_C": 19.999999984466513,
+      "VF": 0,
+      "kmol_h": 6287.394165078299,
+      "kg_h": 113274.99999999997,
+      "mass_pct": {
+       "ethanol": 0.008455770293988224,
+       "water": 99.99154296737815,
+       "ethyl-acetate": 6.086993036019891e-15,
+       "acetic-acid": 1.2623278460438678e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 20.0,
+      "kmol_h": 6286.9,
+      "kg_h": 113276.0,
+      "mass_pct": {
+       "ethanol": 0.01,
+       "water": 99.98,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -1.5533487385255285e-08,
+     "dkg_h": -1.0000000000291038,
+     "rel_kg_h": -8.82799533907539e-06,
+     "dmass_pct_points": {
+      "ethanol": -0.0015442297060117762,
+      "water": 0.01154296737814775,
+      "ethyl-acetate": 6.086993036019891e-15,
+      "acetic-acid": -0.009998737672153956
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 19,
+     "id": "S19",
+     "chepta": {
+      "T_C": 19.99999998423658,
+      "VF": 0,
+      "kmol_h": 6287.394165078299,
+      "kg_h": 113274.99999999997,
+      "mass_pct": {
+       "ethanol": 0.008455770293988224,
+       "water": 99.99154296737815,
+       "ethyl-acetate": 6.086993036019891e-15,
+       "acetic-acid": 1.2623278460438678e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 20.0,
+      "kmol_h": 6286.9,
+      "kg_h": 113276.0,
+      "mass_pct": {
+       "ethanol": 0.01,
+       "water": 99.98,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -1.5763419014547253e-08,
+     "dkg_h": -1.0000000000291038,
+     "rel_kg_h": -8.82799533907539e-06,
+     "dmass_pct_points": {
+      "ethanol": -0.0015442297060117762,
+      "water": 0.01154296737814775,
+      "ethyl-acetate": 6.086993036019891e-15,
+      "acetic-acid": -0.009998737672153956
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 20,
+     "id": "S20",
+     "chepta": {
+      "T_C": 27.0,
+      "VF": 0,
+      "kmol_h": 6821.38213503671,
+      "kg_h": 138087.90515086183,
+      "mass_pct": {
+       "ethanol": 5.973656775993271,
+       "water": 84.76330618680284,
+       "ethyl-acetate": 9.263035767580854,
+       "acetic-acid": 1.2696230383493952e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 41.0,
+      "kmol_h": 6821.3,
+      "kg_h": 139203.0,
+      "mass_pct": {
+       "ethanol": 5.24,
+       "water": 84.04,
+       "ethyl-acetate": 10.72,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -14.0,
+     "dkg_h": -1115.0948491381714,
+     "rel_kg_h": -0.00801056621723793,
+     "dmass_pct_points": {
+      "ethanol": 0.7336567759932704,
+      "water": 0.7233061868028301,
+      "ethyl-acetate": -1.4569642324191463,
+      "acetic-acid": -0.00999873037696165
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 21,
+     "id": "S21",
+     "chepta": {
+      "T_C": 70.78749429371476,
+      "VF": 0,
+      "kmol_h": 396.0824273179111,
+      "kg_h": 22327.28248091862,
+      "mass_pct": {
+       "ethanol": 36.89353236659167,
+       "water": 5.817220472411316,
+       "ethyl-acetate": 57.289247160997014,
+       "acetic-acid": 2.6250158658947558e-15
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 71.0,
+      "kmol_h": 394.6,
+      "kg_h": 23405.0,
+      "mass_pct": {
+       "ethanol": 31.06,
+       "water": 5.19,
+       "ethyl-acetate": 63.75,
+       "acetic-acid": 0.0
+      }
+     },
+     "dT_K": -0.212505706285242,
+     "dkg_h": -1077.7175190813796,
+     "rel_kg_h": -0.04604646524594658,
+     "dmass_pct_points": {
+      "ethanol": 5.8335323665916725,
+      "water": 0.6272204724113157,
+      "ethyl-acetate": -6.460752839002986,
+      "acetic-acid": 2.6250158658947558e-15
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 22,
+     "id": "S22",
+     "chepta": {
+      "T_C": 99.59507165802427,
+      "VF": 0,
+      "kmol_h": 6425.2997077188,
+      "kg_h": 115760.62266994323,
+      "mass_pct": {
+       "ethanol": 0.009998489923946124,
+       "water": 99.98999999557499,
+       "ethyl-acetate": 7.197559055560014e-15,
+       "acetic-acid": 1.5145010601774798e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 100.0,
+      "kmol_h": 6426.7,
+      "kg_h": 115797.0,
+      "mass_pct": {
+       "ethanol": 0.02,
+       "water": 99.97,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -0.404928341975733,
+     "dkg_h": -36.377330056770006,
+     "rel_kg_h": -0.00031414743090727744,
+     "dmass_pct_points": {
+      "ethanol": -0.010001510076053877,
+      "water": 0.019999995574991658,
+      "ethyl-acetate": 7.197559055560014e-15,
+      "acetic-acid": -0.009998485498939823
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 23,
+     "id": "S23",
+     "chepta": {
+      "T_C": 99.59507165802427,
+      "VF": 0,
+      "kmol_h": 5317.217736944293,
+      "kg_h": 95797.0,
+      "mass_pct": {
+       "ethanol": 0.009998489923946122,
+       "water": 99.98999999557498,
+       "ethyl-acetate": 7.197559055560013e-15,
+       "acetic-acid": 1.5145010601774798e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 100.0,
+      "kmol_h": 5316.7,
+      "kg_h": 95797.0,
+      "mass_pct": {
+       "ethanol": 0.02,
+       "water": 99.97,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -0.404928341975733,
+     "dkg_h": 0.0,
+     "rel_kg_h": 0.0,
+     "dmass_pct_points": {
+      "ethanol": -0.010001510076053878,
+      "water": 0.019999995574977447,
+      "ethyl-acetate": 7.197559055560013e-15,
+      "acetic-acid": -0.009998485498939823
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 24,
+     "id": "S24",
+     "chepta": {
+      "T_C": 20.0,
+      "VF": 0,
+      "kmol_h": 5317.217736944293,
+      "kg_h": 95797.0,
+      "mass_pct": {
+       "ethanol": 0.009998489923946122,
+       "water": 99.98999999557498,
+       "ethyl-acetate": 7.197559055560013e-15,
+       "acetic-acid": 1.5145010601774798e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 20.0,
+      "kmol_h": 5316.7,
+      "kg_h": 95797.0,
+      "mass_pct": {
+       "ethanol": 0.02,
+       "water": 99.97,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": 0.0,
+     "rel_kg_h": 0.0,
+     "dmass_pct_points": {
+      "ethanol": -0.010001510076053878,
+      "water": 0.019999995574977447,
+      "ethyl-acetate": 7.197559055560013e-15,
+      "acetic-acid": -0.009998485498939823
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+       "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 25,
+     "id": "S25",
+     "chepta": {
+      "T_C": 99.59507165802427,
+      "VF": 0,
+      "kmol_h": 1108.0819707745063,
+      "kg_h": 19963.62266994324,
+      "mass_pct": {
+       "ethanol": 0.00999848992394612,
+       "water": 99.98999999557498,
+       "ethyl-acetate": 7.197559055560011e-15,
+       "acetic-acid": 1.5145010601774798e-06
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 100.0,
+      "kmol_h": 1110.0,
+      "kg_h": 20000.0,
+      "mass_pct": {
+       "ethanol": 0.02,
+       "water": 99.97,
+       "ethyl-acetate": 0.0,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": -0.404928341975733,
+     "dkg_h": -36.37733005675909,
+     "rel_kg_h": -0.0018188665028379546,
+     "dmass_pct_points": {
+      "ethanol": -0.01000151007605388,
+      "water": 0.019999995574977447,
+      "ethyl-acetate": 7.197559055560011e-15,
+      "acetic-acid": -0.009998485498939823
+     },
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 26,
+     "id": "S26",
+     "chepta": {
+      "T_C": 27.0,
+      "VF": 0,
+      "kmol_h": 824.6734158197751,
+      "kg_h": 59999.99999999999,
+      "mass_pct": {
+       "ethanol": 2.145271679801371,
+       "water": 4.919336479707566,
+       "ethyl-acetate": 92.93539121768954,
+       "acetic-acid": 6.228015236763442e-07
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 27.0,
+      "kmol_h": 817.1,
+      "kg_h": 60000.0,
+      "mass_pct": {
+       "ethanol": 1.86,
+       "water": 4.7,
+       "ethyl-acetate": 93.43,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": -7.275957614183426e-12,
+     "rel_kg_h": -1.2126596023639044e-16,
+     "dmass_pct_points": {
+      "ethanol": 0.2852716798013708,
+      "water": 0.21933647970756542,
+      "ethyl-acetate": -0.4946087823104648,
+      "acetic-acid": -0.009999377198476324
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 27,
+     "id": "S27",
+     "chepta": {
+      "T_C": 70.0,
+      "VF": 0,
+      "kmol_h": 824.6734158197751,
+      "kg_h": 59999.99999999999,
+      "mass_pct": {
+       "ethanol": 2.145271679801371,
+       "water": 4.919336479707566,
+       "ethyl-acetate": 92.93539121768954,
+       "acetic-acid": 6.228015236763442e-07
+      },
+      "phases": [
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 817.1,
+      "kg_h": 60000.0,
+      "mass_pct": {
+       "ethanol": 1.86,
+       "water": 4.7,
+       "ethyl-acetate": 93.43,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": -7.275957614183426e-12,
+     "rel_kg_h": -1.2126596023639044e-16,
+     "dmass_pct_points": {
+      "ethanol": 0.2852716798013708,
+      "water": 0.21933647970756542,
+      "ethyl-acetate": -0.4946087823104648,
+      "acetic-acid": -0.009999377198476324
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "stream": 28,
+     "id": "S28",
+     "chepta": {
+      "T_C": 70.0,
+      "VF": 0.012233501592693357,
+      "kmol_h": 6821.38213503671,
+      "kg_h": 138087.90515086183,
+      "mass_pct": {
+       "ethanol": 5.973656775993271,
+       "water": 84.76330618680284,
+       "ethyl-acetate": 9.263035767580854,
+       "acetic-acid": 1.2696230383493952e-06
+      },
+      "phases": [
+       "vapour",
+       "liquid"
+      ]
+     },
+     "paper": {
+      "T_C": 70.0,
+      "kmol_h": 6821.3,
+      "kg_h": 139203.0,
+      "mass_pct": {
+       "ethanol": 5.24,
+       "water": 84.04,
+       "ethyl-acetate": 10.72,
+       "acetic-acid": 0.01
+      }
+     },
+     "dT_K": 0.0,
+     "dkg_h": -1115.0948491381714,
+     "rel_kg_h": -0.00801056621723793,
+     "dmass_pct_points": {
+      "ethanol": 0.7336567759932704,
+      "water": 0.7233061868028301,
+      "ethyl-acetate": -1.4569642324191463,
+      "acetic-acid": -0.00999873037696165
+     },
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    }
+   ],
+   "duties": [
+    {
+     "block": "HTXR 2",
+     "chepta_kW": 581.0987283823929,
+     "paper_kW": 535.6,
+     "rel": 0.08494908211798519,
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "KREA 4",
+     "chepta_kW": 14667.158713241724,
+     "paper_kW": 13586.2,
+     "rel": 0.07956299136194989,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 6",
+     "chepta_kW": -14885.754243335246,
+     "paper_kW": -14855.8,
+     "rel": 0.002016333239222873,
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 19",
+     "chepta_kW": 7345.4780526499235,
+     "paper_kW": 1541.1,
+     "rel": 3.766386381578044,
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 10",
+     "chepta_kW": 2705.6308959847634,
+     "paper_kW": 713.5,
+     "rel": 2.7920545143444477,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 18",
+     "chepta_kW": 1530.6155619270394,
+     "paper_kW": 4332.9,
+     "rel": -0.6467456987405572,
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "SCDS 15 condenser",
+     "chepta_kW": -12320.576357957623,
+     "paper_kW": -12127.2,
+     "rel": 0.015945672369353396,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "SCDS 15 reboiler",
+     "chepta_kW": 15570.083837966175,
+     "paper_kW": 16136.6,
+     "rel": -0.03510752959321207,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "SCDS 11 condenser",
+     "chepta_kW": -9499.861088570817,
+     "paper_kW": -9180.3,
+     "rel": 0.03480943853368817,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "SCDS 11 reboiler",
+     "chepta_kW": 7525.432201961678,
+     "paper_kW": 9219.2,
+     "rel": -0.18372177608017207,
+     "depends_on": {
+      "extrapolated": [
+       "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 12",
+     "chepta_kW": 0,
+     "paper_kW": 0,
+     "rel": null,
+     "depends_on": {
+      "extrapolated": [],
+      "estimated_pairs": []
+     }
+    },
+    {
+     "block": "HTXR 17",
+     "chepta_kW": -8871.365809166557,
+     "paper_kW": -8869.3,
+     "rel": 0.00023291682168348135,
      "depends_on": {
       "extrapolated": [
        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",

@@ -71,7 +71,14 @@ its specifications.
     blown up, yet the ethanol inventory was still rising.
 15. **Mind an excess reactant with no exit of its own.** With the conversion fixed per pass, any ethanol the reaction
     does not use circulates until the product and wastewater carry it out; that inventory sets the reactor feed and
-    the product's purity.
+    the product's purity. Five kg/h less ethanol feed (of 6,511) moved the product from 99.11 to 99.50 %, and more wash
+    water only raised the ethanol inventory (W/A 1.4: the extractor's feeds became one liquid). Check the feed ratio
+    against what the products can carry before tuning the columns; hold it with a design specification where the
+    simulator has one.
+16. **Test the paper's own thermodynamic statements in the simulator** (runs `thermo-*`): the azeotrope (bubble = dew
+    point), the extractor's temperature and solvent trends, a column's response to R/D and feed stage. They separate
+    a thermodynamic difference (here: CHEPTA's organic phase slightly wetter and more temperature-sensitive) from a
+    balance that cannot work in either model (column 11's water at the azeotropic distillate).
 
 ## What did not help
 

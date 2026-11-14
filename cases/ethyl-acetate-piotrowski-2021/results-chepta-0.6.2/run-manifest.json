@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-14T07:54:49.229274+00:00",
+  "executed_at": "2026-11-14T08:10:36.287261+00:00",
   "engine": {
     "package": "chepta",
     "version": "0.6.2",
@@ -17,7 +17,7 @@
       "streams.json": "986a0da6086efe2cf38cddfd2fad145ffca6f1bf110c12d598190a86aef92626",
       "equipment.json": "a3b5b8d8b66b3062307ff8359708f8703cde199f9c154bd92ee0dac0c13a47e6",
       "s2_model.py": "63b7e67b302bc8a28dd1f84b41ecdd0f2c779e1810986a5fa0bb9c29fcfa3359",
-      "s2_model_062.py": "c9b9c2ad94cd47c486d56068a7a13cb92caa3e06843eb62af06a9c7d321d16be"
+      "s2_model_062.py": "96081a2a6a787409b79a14780659d92afa6322396dbd211251ccd355393e2b15"
     }
   },
   "settings": [
@@ -704,6 +704,39 @@
         "feed11": 5
       },
       "what": "W/A about 1.2 and column 11 fed on stage 5"
+    },
+    "plant62-settled-ethanol6506": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "f1_kg_h": 6506
+      },
+      "what": "SENSITIVITY, not the paper's case: ethanol feed 6,506 kg/h (paper 6,511; its molar 141.3 kmol/h spans 6,507-6,512): less excess ethanol to leave with the products"
+    },
+    "plant62-settled-ethanol6500": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "f1_kg_h": 6500
+      },
+      "what": "SENSITIVITY: ethanol feed 6,500 kg/h"
+    },
+    "plant62-settled-ethanol6503": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 1e-05,
+        "guesses": "062settled",
+        "f1_kg_h": 6503
+      },
+      "what": "SENSITIVITY: ethanol feed 6,503 kg/h"
     },
     "plant62-best-init1e-4-tol1e-5-dist246": {
       "kwargs": {
@@ -5728,6 +5761,161 @@
       ],
       "missing_pairs": [],
       "note": "settled start, recycle 23 = 121,000 kg/h (W/A about 1.2, Section 3.3: optimum W/A 1-2)"
+    },
+    {
+      "id": "plant62-settled-ethanol6500",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-ethanol6500.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T07:55:52.701052+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 5, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12050 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 96.97 % of the way, after 15 steps, 44477 ms). Last residuals: material 0.2416 mol/s, equilibrium 0.000003079, energy 38160 W, specifications 1.066e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.0003840233489389232,
+            0.0003891605041318852,
+            0.000537745864052248,
+            0.0027598892224920315
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12050 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 96.97 % of the way, after 15 steps, 44477 ms). Last residuals: material 0.2416 mol/s, equilibrium 0.000003079, energy 38160 W, specifications 1.066e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwg42svz-1",
+      "elapsed_ms": 385324.562093,
+      "request_file": "results-chepta-0.6.2/plant62-settled-ethanol6500.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-ethanol6500.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-ethanol6500.stderr.txt",
+      "request_file_sha256": "76cda9a400aebd4f385a02eb9104a9e85e3074809e340534d84c0825b2c28f4b",
+      "output_file_sha256": "b2431e95717d90d6429b8d093491a6929fb5e7d5058697664b8babdc981c7c5c",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "SENSITIVITY: ethanol feed 6,500 kg/h"
+    },
+    {
+      "id": "plant62-settled-ethanol6503",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-ethanol6503.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T07:55:52.700864+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 6, Column SCDS15: the mass fraction of Water in the bottoms cannot be 0.9999 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (18.31 to 1813 mol/s, 15 columns solved) it stays between 0.952212 (at 18.31) and 1 (at 366.2). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 18 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.00027979420288567846,
+            0.00028348170364862703,
+            0.00038193493149997,
+            0.0020675073393295333,
+            0.005264225898668141
+          ],
+          "cause": "Column SCDS15: the mass fraction of Water in the bottoms cannot be 0.9999 in this column with reflux_ratio 2 given: over the whole range of the distillate flow (18.31 to 1813 mol/s, 15 columns solved) it stays between 0.952212 (at 18.31) and 1 (at 366.2). With reflux_ratio fixed at 2, no distillate flow gives it: the reflux ratio is too low for this specification on 18 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above."
+        }
+      },
+      "chepta_run_id": "run-mwg42svi-1",
+      "elapsed_ms": 450444.969862,
+      "request_file": "results-chepta-0.6.2/plant62-settled-ethanol6503.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-ethanol6503.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-ethanol6503.stderr.txt",
+      "request_file_sha256": "f12670720a2b9232d4530cb0222a14013d5356628c2c606015a7c3e282b6b4af",
+      "output_file_sha256": "ba3d8cd2e89ad91beb1aace41f5e68aac3b7abaebccbf424517a37f50ab146b0",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "SENSITIVITY: ethanol feed 6,503 kg/h"
+    },
+    {
+      "id": "plant62-settled-ethanol6506",
+      "command": "chepta request --time-ms 3400000 results-chepta-0.6.2/plant62-settled-ethanol6506.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T07:55:52.700770+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwg42svg-1",
+      "elapsed_ms": 883365.4666360001,
+      "request_file": "results-chepta-0.6.2/plant62-settled-ethanol6506.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-settled-ethanol6506.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-settled-ethanol6506.stderr.txt",
+      "request_file_sha256": "706e13c5a1acfdc66a210934f2f0a841f548c24edc3df8953320de5581b73681",
+      "output_file_sha256": "c0adc4eef6c7c37aab19862ee9c24cb714416409fcd62fa568e3427b8fcebe99",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "SENSITIVITY, not the paper's case: ethanol feed 6,506 kg/h (paper 6,511; its molar 141.3 kmol/h spans 6,507-6,512): less excess ethanol to leave with the products"
     }
   ]
 }

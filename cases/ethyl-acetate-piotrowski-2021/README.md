@@ -3,7 +3,7 @@
 | In one look | |
 |---|---|
 | Paper | Piotrowski & Kubica 2021, Processes 9, 1425 (CC BY 4.0): ethyl acetate from ethanol and acetic acid; the classic plant S2 |
-| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles**, with more stages and tighter tolerances (108 runs) |
+| Simulated | **all 19 units and 28 streams of S2** through CHEPTA's command line: on `chepta@0.6.1` each unit alone, the two halves and the plant once through (56 runs); on `chepta@0.6.2` every 0.6.1 refusal again, the units with acetic acid, each separation column alone with its specifications varied, and **the whole plant as one flowsheet with all five recycles**, with more stages and tighter tolerances, the paper's thermodynamic statements and the ethanol balance (134 runs) |
 | Complete flowsheet | **Closed and settled on 0.6.2.** One CHEPTA flowsheet, acetic acid everywhere (no cut), all five recycles, splitters by flow (26 = 60,000 kg/h; recycle 23 = 95,797 kg/h), feeds at 15 C, column 15 on its bottoms purity, column 11 on R/D 3 and its distillate flow. Settled at a tear tolerance of 1e-5 (change 2.1e-6), plant balance within 0.1 kg/h of 32,461 kg/h. **Product 99.11-99.14 mass % ethyl acetate, not the paper's 99.90 %.** Starting values saved: [init-closed-plant-chepta-0.6.2-settled.json](init-closed-plant-chepta-0.6.2-settled.json) |
 | Agrees with the paper | (settled closed plant, run plant62-best-init1e-4-tol1e-5) every stream within −1.2 to +6.5 % of Table A2 in flow (no blown-up flow); wastewater 25 19,919 vs 20,000 kg/h (it follows by itself); product 12,542 vs 12,434 kg/h (+0.9 %); acid in the azeotrope 0.0000 % (limit 0.005 %); wastewater organics 0.010 % (limit 0.01 %); HTXR 6 +4.7 %, HTXR 17 0.0 %, column 11 condenser +3.6 %, column 15 reboiler +7.1 %. (0.6.1, once through) azeotrope 9 within 0.01 % |
 | Differs | (settled closed plant) product 99.11 % ester with 0.81 % water (paper 99.90 %, water limit 0.03 %); more ethanol circulates than in the paper (azeotrope 8: 11.6 vs 8.5 %; stream 21: 40.0 vs 31.1 %), which wets the raffinate (5.05 vs 4.70 % water) and overloads column 11 with water; reactor duty +12.9 % (conversion from the paper); column 15 condenser +16 %; column 11 reboiler −21 %. In the paper itself: the acid of column 11's feed must leave in the product (0.022 %, not 0.01 %), and column 15's 0.01 % organics limit cannot hold with the feed's acid |
@@ -13,7 +13,7 @@
 Study record: [study-record.json](study-record.json). Runs and CHEPTA's answers, unchanged:
 [results-chepta-0.6.1/](results-chepta-0.6.1/) (56 runs, [run-manifest.json](results-chepta-0.6.1/run-manifest.json),
 [comparison-s2.json](results-chepta-0.6.1/comparison-s2.json)) and [results-chepta-0.6.2/](results-chepta-0.6.2/)
-(108 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
+(134 runs, [run-manifest.json](results-chepta-0.6.2/run-manifest.json), [comparison-s2.json](results-chepta-0.6.2/comparison-s2.json)).
 Register rows this case feeds: [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md).
 
 **Verdict (2026-11-14, chepta 0.6.2): BLOCKED on the product purity.** The plant closes and settles as one CHEPTA
@@ -25,6 +25,8 @@ kmol/h of distillate, and column 11 does not converge in the loop there (`NO_CON
 plant62-best-init1e-4-tol1e-5-dist260/270/280). More stages do not help (36 and 38 stages: +0.01 point).
 An earlier answer of this day (99.67 %, at a loose tolerance of 3e-4) had not settled: the ethanol inventory was still
 rising (below, round 3).
+Round 4: the purity is set by the plant's ethanol balance (excess ethanol must leave with the product); 5 kg/h less
+ethanol feed gives 99.50 %; holding 99.9 % needs a design specification on the ethanol feed (request 15).
 First verdict (2026-11-13, before the maintainer's advice): BLOCKED by `NO_CONVERGENCE` in column 5 in every closed
 variant with the paper's own column specifications (runs plant62-* of the first table below).
 
@@ -222,6 +224,7 @@ column 11 settings that would reach it do not converge in CHEPTA.
 
 | # | Request | Outcome and message | Evidence |
 |---|---|---|---|
+| 15 | A flowsheet design specification that varies a feed to hold a product quality (here: the ethanol feed to hold the product's ethanol below 0.04 % or its purity at 99.9 %), as a make-up controller; refines request 7 | not available; by hand, 6,506 kg/h gives 99.50 % and smaller steps fail to converge | plant62-settled-ethanol6500/6503/6506 |
 | 13 | Column 11 (35 stages, VLL) inside the closed plant: no convergence when its distillate is raised to 245-255 kmol/h or its R/D to 4; on a bottoms purity a contradictory refusal | `NO_CONVERGENCE` at loop iteration 2-3; `OUT_OF_RANGE` "the mass fraction of Ethyl acetate in the bottoms cannot be 0.999 ... it stays between 0.943249 (at 24.25) and 1 (at 117.6)" | plant62-R-dist245/248/250/255-*, plant62-R-dist240-RD4-*, plant62-R-purity-col15purity-warm |
 | 14 | A loop stopped by its time limit reports nothing of its progress (iterations, tear change) | `OUT_OF_TIME` "The calculation did not finish within limits.time_ms ..." | plant62-*-direct, plant62-*-direct-tol1e-5 |
 | (8) | Column 5: converges and fails irregularly on neighbouring inputs | see the column 5 table above | iso-scds5-* |
@@ -298,6 +301,49 @@ With column 11's distillate at 246 kmol/h (settled, run plant62-best-init1e-4-to
 at 260, 270 and 280 kmol/h column 11 does not converge (iterations 3-11).
 
 The practices used to make the plant converge, and what did not help: [CONVERGENCE_PRACTICES.md](CONVERGENCE_PRACTICES.md).
+
+### Round 4 (the maintainer, 2026-11-14): thermodynamics, or a setup before column 11?
+
+The question: column 11 works as an engine; is the short purity due to CHEPTA's thermodynamics against the paper's
+(nothing to do), or to a setup before the column? The paper prints no UNIQUAC parameters (Section 2.1 names Calvar,
+ref. 30, for vapour-liquid and Arce, ref. 31, for liquid-liquid data; CHEPTA uses Calvar's ethanol + ethyl acetate set
+too, and Roque 2018 for the ternary liquid-liquid). What it does print was tested in CHEPTA (runs `thermo-*`):
+
+| Paper's statement | CHEPTA 0.6.2 | Verdict |
+|---|---|---|
+| Ternary azeotrope 83.1 % ester, 8.7 % ethanol, 8.2 % water (pp.3, 6, ref. 22) | at that composition bubble and dew points 0.07-0.08 K apart (70.08 C at 101.325 kPa), two liquids at the bubble point | **agrees** (an azeotrope); CHEPTA puts it on the two-liquid boundary |
+| Organic phase > 93 % ester (p.4); stream 11 93.43 % ester, 4.70 % water at 27 C | 2 stages, W/A 1: 93.25 %, 4.85 % water | close; **CHEPTA's organic phase is wetter by 0.15 points** |
+| Cooling 10 C raises the ester in the organic phase by about 0.15 points; 50 → 20 C by about 0.45 (Section 3.3, Figure 4) | 50 → 20 C: 92.62 → 93.41 %, +0.79 points (0.24-0.29 per 10 C) | **CHEPTA's liquid-liquid split is about 1.7 times as temperature-sensitive** |
+| More wash water raises the ester in the organic phase (Section 3.3) | W/A 1 / 1.5 / 2: 93.25 / 94.29 / 94.78 %; water 4.85 / 4.64 / 4.53 % | agrees |
+| Column 11 at a fixed product rate: 99.9 % from R/D 1.5; water < 0.03 % and ethanol < 0.04 % from R/D 2.25; best feed between stages 4 and 6 (Section 3.4) | the paper's feed 13, 141.5 kmol/h: R/D 1.5 / 2.25 / 3 / 5: 99.574 / 99.825 / 99.868 / 99.882 %; ethanol falls 0.334 → 0.003 %, **water stays 0.11 %**; feed stage 4-6: +0.01 point | the trends agree; the water does not follow R/D in either model |
+
+**The water limit cannot be met from the paper's own column 11 balance** (an inconsistency in the paper): its distillate
+leaves at the water azeotrope, so the water it carries is fixed by its flow. Table A2: feed 13 brings 1,283.8 kg/h of
+water, distillate 14 takes 1,275.2, product 16 keeps 8.6 kg/h, 0.07 %, against the 0.03 % limit and the text's claim
+that R/D above 2.25 meets it. CHEPTA's distillate holds 8.52 % water against the paper's 8.57 %: the difference in
+thermodynamics adds about 5 kg/h.
+
+**Setups tried before and in column 11** (closed plant, settled start, tolerance 1e-5):
+
+| Run | Change | Product 16 | Note |
+|---|---|---|---|
+| plant62-best-init1e-4-tol1e-5 | the settled plant | 99.109 %, 0.813 % water, 0.078 % ethanol | reference |
+| plant62-settled-feed11-5 | column 11 fed on stage 5 (Section 3.4) | 98.915 %, 1.007 % water | worse: more ethanol stays in the loop |
+| plant62-settled-WA1.2 | recycle 23 = 121,000 kg/h (W/A 1.13) | 99.118 %, 0.805 % water | no gain: the ethanol in the loop rises (reactor feed 21,199 kg/h of ethanol) and the raffinate is as wet |
+| plant62-settled-WA1.4 | recycle 23 = 144,000 kg/h | `NO_CONVERGENCE`: the extractor's feeds become one liquid | the ethanol inventory runs away |
+| plant62-settled-WA1.2-feed11-5 | both | `NO_CONVERGENCE`: column 15 cannot reach 99.99 % water | idem |
+| **plant62-settled-ethanol6506** | **sensitivity: ethanol feed 6,506 kg/h** (paper 6,511; its 141.3 kmol/h spans 6,507-6,512) | **99.498 %, 0.464 % water, 0.038 % ethanol** | ethanol in the reactor feed 15,533 kg/h (paper 14,650); reactor duty 14,667 kW (+8.0 %) |
+| plant62-settled-ethanol6503, -6500 | ethanol feed 6,503 / 6,500 kg/h | `NO_CONVERGENCE` in column 15 / column 11 while iterating | — |
+
+**What sets the purity is the plant's ethanol balance, not column 11 and mostly not the thermodynamics.** The feeds
+bring 141.33 kmol/h of ethanol and 141.08 kmol/h of acetic acid; the acid is used up (conversion per pass fixed), so
+about 0.25 kmol/h (11.6 kg/h) of ethanol is never used and can only leave with the product and the wastewater (2 kg/h).
+Ethanol therefore accumulates in the reactor-column 5-extractor-column 15 loop until about 10 kg/h leaves in the
+product (0.078 %, above the 0.04 % limit); that inventory wets the raffinate (ethanol raises water's solubility in the
+organic phase, p.4) and overloads column 11 with water. Five kg/h less ethanol feed (−0.08 %) lifts the product by 0.4
+points. The paper's products carry 6.5 kg/h of ethanol, and its own plant balance is 27 kg/h short, so Table A2 cannot
+fix this balance to the precision that decides the purity. A real plant (and probably Chemcad) would trim the ethanol
+make-up to the product's quality; CHEPTA has no design specification on a feed (request 15).
 
 ## On chepta 0.6.1 (2026-11-12): what was run
 
@@ -397,6 +443,10 @@ needs capability requests 1 and 2.
 - Column 11 (Table A2): its feed 13 holds 0.01 % acetic acid (2.7 kg/h), the heaviest component, which must leave in
   the product: 0.022 %, not the 0.01 % printed for stream 16 (stream 14 prints 0.00 %). Confirmed as a table error by the
   maintainer (2026-11-13); CHEPTA runs iso-scds11-acid0.01-bottoms139.
+- Column 11 (Section 3.4 against Table A2): the text says water below 0.03 % is met for R/D above 2.25, but Table A2's
+  own column balance (water in 13: 1,283.8 kg/h; in 14: 1,275.2) leaves 0.07 % in the product at R/D 3.
+- Ethanol balance: the feeds bring about 11.6 kg/h more ethanol than the reaction uses; the products of Table A2 carry
+  6.5 kg/h; the plant balance is 27 kg/h short. The closed plant's purity depends on this balance to a few kg/h.
 - Column 15 (Section 3.5, p.10): "less than 0.01 % organics" in the bottoms cannot hold with 0.01 % acetic acid in its
   feed 28; the acid alone leaves 0.012 % (runs iso-scds15-*), and the paper's stream 22 prints 0.03 %.
 - The earlier ones below (energy units of Table 2, S3 labels, kinetics) stand.
