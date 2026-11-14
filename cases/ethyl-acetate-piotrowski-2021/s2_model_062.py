@@ -44,7 +44,7 @@ def splitter_by_flow(first_kg_h=None, second_kg_h=None):
 
 
 def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phases15="VLL", extractor_stages=2,
-          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None):
+          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None):
     """open_recycles: None for the closed plant; else {27: feed spec, 21: feed spec}: streams 27 and 21 enter as feeds
     (given) and leave as products, the outer recycles opened (used to find starting guesses, never compared as the plant).
     guesses: {stream number: {flow_kmol_h, T_K, P_kPa}} starting guesses of the tear streams (else Table A2)."""
@@ -65,9 +65,11 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     if col5_max_iter:
         c5["max_iterations"] = col5_max_iter
     c11 = M.column11_spec("flow" if spec11 == "bottoms" else "purity", phases11)
-    if spec11 == "distillate":
+    if spec11 == "distillate" or isinstance(spec11, (int, float)):  # a number: a distillate flow tuned to the purity
         c11.pop("bottoms_purity", None)
-        c11["distillate_kmol_h"] = M.STREAMS[14]["molar_kmol_h"]
+        c11["distillate_kmol_h"] = M.STREAMS[14]["molar_kmol_h"] if spec11 == "distillate" else spec11
+    if reflux11:
+        c11["reflux_ratio"] = reflux11
     c15 = M.column15_spec(phases15)
     if spec15 == "purity":  # Section 3.5 p.10: bottoms "less than 0.01% of its weight in organic compounds"
         c15.pop("distillate_kmol_h")

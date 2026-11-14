@@ -1,0 +1,50 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "invalid_input",
+  "error": {
+    "code": "OUT_OF_RANGE",
+    "message": "Column SCDS11: the mass fraction of Ethyl acetate in the bottoms cannot be 0.999 in this column with reflux_ratio 3 given: over the whole range of the distillate flow (24.25 to 120 mol/s, 7 columns solved) it stays between 0.943249 (at 24.25) and 1 (at 117.6). With reflux_ratio fixed at 3, no distillate flow gives it: the reflux ratio is too low for this specification on 35 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 30.59 mol/s (17 iterations: the specifications' residual stopped falling)",
+        "a scan of the distillate flow from 1.212 to 120 (7 columns solved): no value meets the specification"
+      ],
+      "specifications": [
+        {
+          "label": "the mass fraction of Ethyl acetate in the bottoms",
+          "asked": 0.9990000000000001,
+          "reached": 0.9984814289484989
+        }
+      ],
+      "at": {
+        "distillate_rate": 77.57707533841956
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.9432493862377428,
+          "at": 24.248467704599143
+        },
+        "highest": {
+          "value": 0.9999999984649972,
+          "at": 117.60506836730583
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "f13b4d322af75950"
+  },
+  "run": {
+    "id": "run-mwfg2934-1",
+    "input_hash": "f13b4d322af75950",
+    "limits": {
+      "time_ms": 1600000
+    },
+    "status": "failed",
+    "elapsed_ms": 1053282.988164
+  }
+}

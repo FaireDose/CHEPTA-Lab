@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-13T22:07:41.267912+00:00",
+  "executed_at": "2026-11-14T00:16:49.923619+00:00",
   "engine": {
     "package": "chepta",
     "version": "0.6.2",
@@ -17,7 +17,7 @@
       "streams.json": "986a0da6086efe2cf38cddfd2fad145ffca6f1bf110c12d598190a86aef92626",
       "equipment.json": "a3b5b8d8b66b3062307ff8359708f8703cde199f9c154bd92ee0dac0c13a47e6",
       "s2_model.py": "63b7e67b302bc8a28dd1f84b41ecdd0f2c779e1810986a5fa0bb9c29fcfa3359",
-      "s2_model_062.py": "94a9c8f0517184831d901437720c9ef33b2704287c9a40bfe1e97a859d98b654"
+      "s2_model_062.py": "43a7f1bcff6a172eb2ba2f9f9a857c222c241697f07ac6235599bf6f42ae47a7"
     }
   },
   "settings": [
@@ -420,6 +420,98 @@
         "tolerance": 1e-05
       },
       "what": "as -direct, tear tolerance 1e-5"
+    },
+    "plant62-R-dist-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": "distillate",
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "CLOSED: R (23 = 95,797 kg/h), column 11 distillate 230.4 kmol/h, column 15 on 99.99 % water; Broyden, tear tolerance 3e-4 (it plateaus near 2e-4)"
+    },
+    "plant62-W-dist-col15purity-tol5e-4": {
+      "kwargs": {
+        "split16": "W",
+        "spec11": "distillate",
+        "spec15": "purity",
+        "tolerance": 0.0005
+      },
+      "what": "CLOSED: W (25 = 20,000 kg/h), otherwise as plant62-R-dist-col15purity-tol3e-4; tear tolerance 5e-4"
+    },
+    "plant62-R-dist240-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 240 kmol/h (tuned to the product purity)"
+    },
+    "plant62-R-dist245-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 245,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 245 kmol/h"
+    },
+    "plant62-R-dist248-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 248,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 248 kmol/h"
+    },
+    "plant62-R-dist255-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 255,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 255 kmol/h"
+    },
+    "plant62-R-dist240-RD3.5-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 0.0003,
+        "reflux11": 3.5
+      },
+      "what": "as -dist240, column 11 R/D 3.5"
+    },
+    "plant62-R-dist240-RD4-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 240,
+        "spec15": "purity",
+        "tolerance": 0.0003,
+        "reflux11": 4
+      },
+      "what": "as -dist240, column 11 R/D 4"
+    },
+    "plant62-R-dist250-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 250,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 250 kmol/h"
+    },
+    "plant62-R-dist260-col15purity-tol3e-4": {
+      "kwargs": {
+        "split16": "R",
+        "spec11": 260,
+        "spec15": "purity",
+        "tolerance": 0.0003
+      },
+      "what": "as -tol3e-4, column 11 distillate 260 kmol/h"
     },
     "plant62-R-dist-col15d405-direct-tol1e-5": {
       "kwargs": {
@@ -3284,6 +3376,882 @@
       "estimated_pairs": [],
       "pair_tiers": [],
       "missing_pairs": []
+    },
+    {
+      "id": "plant62-R-purity-col15purity-warm",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-purity-col15purity-warm.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.881725+00:00",
+      "exit_code": 2,
+      "exit_meaning": "invalid_input",
+      "outcome": "invalid_input",
+      "error": {
+        "code": "OUT_OF_RANGE",
+        "message": "Column SCDS11: the mass fraction of Ethyl acetate in the bottoms cannot be 0.999 in this column with reflux_ratio 3 given: over the whole range of the distillate flow (24.25 to 120 mol/s, 7 columns solved) it stays between 0.943249 (at 24.25) and 1 (at 117.6). With reflux_ratio fixed at 3, no distillate flow gives it: the reflux ratio is too low for this specification on 35 stages (below the minimum reflux for it), or the stages are too few. What would make it feasible: a larger reflux_ratio (or leave it free: give the distillate or bottoms flow, or a second design specification, in its place), more stages, or a specification within the range above.",
+        "where": [],
+        "details": {
+          "tried": [
+            "Newton's method on the specifications from the distillate flow 30.59 mol/s (17 iterations: the specifications' residual stopped falling)",
+            "a scan of the distillate flow from 1.212 to 120 (7 columns solved): no value meets the specification"
+          ],
+          "specifications": [
+            {
+              "label": "the mass fraction of Ethyl acetate in the bottoms",
+              "asked": 0.9990000000000001,
+              "reached": 0.9984814289484989
+            }
+          ],
+          "at": {
+            "distillate_rate": 77.57707533841956
+          },
+          "range": {
+            "variable": "distillate_rate",
+            "lowest": {
+              "value": 0.9432493862377428,
+              "at": 24.248467704599143
+            },
+            "highest": {
+              "value": 0.9999999984649972,
+              "at": 117.60506836730583
+            }
+          }
+        }
+      },
+      "chepta_run_id": "run-mwfg2934-1",
+      "elapsed_ms": 1053282.988164,
+      "request_file": "results-chepta-0.6.2/plant62-R-purity-col15purity-warm.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-purity-col15purity-warm.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-purity-col15purity-warm.stderr.txt",
+      "request_file_sha256": "8f7aca96d7273cd256d294fc3c421294660f29195ec0d712fc02da133d691746",
+      "output_file_sha256": "8eab6ea5794ffd03ca2e05090a39d18aa8881c9b0e556c35ccd0b8f3643c1c36",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "both product columns on their purities (99.90 % ester, 99.99 % water); executed 2026-11-13 by this session as chepta request --time-ms 1600000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-bottoms-col15purity",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-bottoms-col15purity.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.881222+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 9, Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 142.074 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.11762147628598264,
+            0.02928152122921906,
+            0.006284792328020724,
+            0.0014162296056221416,
+            0.0015417745104726382,
+            0.0019260131416604363,
+            0.0016460001962239265,
+            0.0016672604718662143
+          ],
+          "cause": "Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 142.074 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol."
+        }
+      },
+      "chepta_run_id": "run-mwfg292w-1",
+      "elapsed_ms": 398676.95100299997,
+      "request_file": "results-chepta-0.6.2/plant62-R-bottoms-col15purity.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-bottoms-col15purity.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-bottoms-col15purity.stderr.txt",
+      "request_file_sha256": "b413e232a6c1d1d45aa79a0cedb0c3a56dcaa69c486db89489c5367e7aacc858",
+      "output_file_sha256": "0b210eb62371cbcb9282305e8148c0d689847c939daed13cbc65805546101b07",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "column 15 on its bottoms purity (99.99 mass % water, Section 3.5) instead of the distillate flow; column 11 bottoms 141.5 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 1600000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist-col15purity",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist-col15purity.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.884253+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 10, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 4153 ms: the residual fell only from 1.049 to 0.03574 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 3929 ms: the residual fell only from 2.133 to 0.1217 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 10363 ms). Last residuals: material 7.822 mol/s, equilibrium 0.1196, energy 335700 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622,
+            0.02888093518101988,
+            0.008210355864412856,
+            0.0007333499601159877,
+            0.00036041456297258,
+            0.00021882569152484175,
+            0.00022549887235985856,
+            0.005787236803840257,
+            0.002594458464009863
+          ],
+          "cause": "Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 4153 ms: the residual fell only from 1.049 to 0.03574 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 3929 ms: the residual fell only from 2.133 to 0.1217 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 10363 ms). Last residuals: material 7.822 mol/s, equilibrium 0.1196, energy 335700 W, specifications 0. On the last iterate the liquid of stage 7 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption."
+        }
+      },
+      "chepta_run_id": "run-mwfgpcko-1",
+      "elapsed_ms": 698385.303981,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist-col15purity.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist-col15purity.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist-col15purity.stderr.txt",
+      "request_file_sha256": "d78ea87c5380714047915f57ae4d9d8b66e761b74e134468780f0a2b786ea24c",
+      "output_file_sha256": "0243f4416c00d39ca18224497665fd8ef32dec6d2319b5757003f6739f67ce34",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "column 11 R/D 3 and distillate 230.4 kmol/h (product purity a result), column 15 on 99.99 % water; Broyden; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-bottoms-col5-14stages",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-bottoms-col5-14stages.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.882999+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 5858 ms: the residual fell only from 1.023 to 0.244 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (4 iterations, 9991 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 14978 ms). Last residuals: material 0.2283 mol/s, equilibrium 2.081, energy 8723000 W, specifications 0. On the last iterate the liquid of stages 1, 7, 8, 9, 10, 11, 12, 13, 14 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.11770998786612437
+          ],
+          "cause": "Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 5858 ms: the residual fell only from 1.023 to 0.244 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (4 iterations, 9991 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 14978 ms). Last residuals: material 0.2283 mol/s, equilibrium 2.081, energy 8723000 W, specifications 0. On the last iterate the liquid of stages 1, 7, 8, 9, 10, 11, 12, 13, 14 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption."
+        }
+      },
+      "chepta_run_id": "run-mwffzu9n-1",
+      "elapsed_ms": 83472.972148,
+      "request_file": "results-chepta-0.6.2/plant62-R-bottoms-col5-14stages.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-bottoms-col5-14stages.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-bottoms-col5-14stages.stderr.txt",
+      "request_file_sha256": "946ef03e72fa7bbdc9367c1d819788d4a3928942b2c3caeea52f8a47caf56d90",
+      "output_file_sha256": "5d98d527401c6686d7f2c6acf7aef343e60ff1ffb9307d2e7982269ef58ebc9f",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "column 5 with 14 stages (Section 3.2: 'a minimum number of 14 theoretical stages'); executed 2026-11-13 by this session as chepta request --time-ms 1600000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-W-dist-col15purity",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-W-dist-col15purity.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.886086+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 20, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 13846 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 90.09 % of the way, after 17 steps, 138009 ms). Last residuals: material 0.9221 mol/s, equilibrium 0.000003347, energy 1607000 W, specifications 1.48e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622,
+            0.02940662763848535,
+            0.007438597751826586,
+            0.0004994358431424779,
+            0.0004757594202620797,
+            0.00970345985383237,
+            0.008878415886877631,
+            0.0012256415502113723,
+            0.0007229539976692596,
+            0.0013946999731051673,
+            0.08400675270905705,
+            0.03173341153787164,
+            0.002839151620901747,
+            0.009995184324363358,
+            0.03100167651586669,
+            0.002216770856532753,
+            0.0012824228637300145,
+            0.0021731975793870323,
+            0.003670714935443601
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 13846 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 90.09 % of the way, after 17 steps, 138009 ms). Last residuals: material 0.9221 mol/s, equilibrium 0.000003347, energy 1607000 W, specifications 1.48e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwfgpcks-1",
+      "elapsed_ms": 1557918.445634,
+      "request_file": "results-chepta-0.6.2/plant62-W-dist-col15purity.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-W-dist-col15purity.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-W-dist-col15purity.stderr.txt",
+      "request_file_sha256": "fc33f6ff6ae8b37beaa83110d10568bbb3fe387602dc101c5bcaf3eda3aac828",
+      "output_file_sha256": "3ed9f1201074610603551388a18434682d5530653ad1cfa2515f3e13bb078d36",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as plant62-R-dist-col15purity with 25 = 20,000 kg/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist-col15purity-direct",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist-col15purity-direct.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.886933+00:00",
+      "exit_code": 7,
+      "exit_meaning": "out_of_time",
+      "outcome": "out_of_time",
+      "error": {
+        "code": "OUT_OF_TIME",
+        "message": "The calculation did not finish within limits.time_ms = 3400000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwfgpcfw-1",
+      "elapsed_ms": 3400103.310179,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct.stderr.txt",
+      "request_file_sha256": "01eefdcdfd68ff58ac6f29bb4c0ce12f7477d7a0a45ac3d1e8ae6e2c2444c704",
+      "output_file_sha256": "76d2b2e5d301c11c89ed8c1ea96a9b952468aaeb84f314e00b3a4f448aff295c",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as plant62-R-dist-col15purity, direct substitution; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-W-dist-col15purity-direct",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-W-dist-col15purity-direct.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.888114+00:00",
+      "exit_code": 7,
+      "exit_meaning": "out_of_time",
+      "outcome": "out_of_time",
+      "error": {
+        "code": "OUT_OF_TIME",
+        "message": "The calculation did not finish within limits.time_ms = 3400000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwfgpcg1-1",
+      "elapsed_ms": 3400101.852454,
+      "request_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct.stderr.txt",
+      "request_file_sha256": "1df6963267a8e587861de092be311e84f042447947e864b8f0d5c3db99bfde84",
+      "output_file_sha256": "dd1b895c71edfea19938e6a1a57a850c6c04200d6e510b666662a75db19e81c1",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as plant62-W-dist-col15purity, direct substitution; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-W-dist-col15purity-direct-tol1e-5",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-W-dist-col15purity-direct-tol1e-5.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.889695+00:00",
+      "exit_code": 7,
+      "exit_meaning": "out_of_time",
+      "outcome": "out_of_time",
+      "error": {
+        "code": "OUT_OF_TIME",
+        "message": "The calculation did not finish within limits.time_ms = 7000000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwfiqwtp-1",
+      "elapsed_ms": 7000058.306948,
+      "request_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct-tol1e-5.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct-tol1e-5.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-direct-tol1e-5.stderr.txt",
+      "request_file_sha256": "a54bcb60ae3bc81f449aab7b9dd87ae03627109596a084d1ad7ed4ad9e2f8399",
+      "output_file_sha256": "4fd566aae3a8a47171aa7018ea4a03bfbbcdf21fddbf0a18a759e2b79b031a9d",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -direct, tear tolerance 1e-5; executed 2026-11-13 by this session as chepta request --time-ms 7000000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist-col15purity-direct-tol1e-5",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist-col15purity-direct-tol1e-5.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.889903+00:00",
+      "exit_code": 7,
+      "exit_meaning": "out_of_time",
+      "outcome": "out_of_time",
+      "error": {
+        "code": "OUT_OF_TIME",
+        "message": "The calculation did not finish within limits.time_ms = 7000000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller.",
+        "where": []
+      },
+      "chepta_run_id": "run-mwfiqwu7-1",
+      "elapsed_ms": 7000103.4294569995,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct-tol1e-5.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct-tol1e-5.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-direct-tol1e-5.stderr.txt",
+      "request_file_sha256": "96ef98c5d2ad6609882eed4d08ba91e89ea914859a642e8521fff944add80240",
+      "output_file_sha256": "ca71d369abcc4a492e60865e418fcf1fe109ce15ff62f6e562b07c8b4288b257",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -direct, tear tolerance 1e-5; executed 2026-11-13 by this session as chepta request --time-ms 7000000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.891520+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwfmxcky-1",
+      "elapsed_ms": 370813.35665,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "9a83706522c8b3445370d4b92e9caeaeaf428b669c9b7633c7e66b84cd8197eb",
+      "output_file_sha256": "3a71deec169525bddb640c5925b60f2022e77eedd36a1b072ef1371ae7fcf381",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "CLOSED: R (23 = 95,797 kg/h), column 11 distillate 230.4 kmol/h, column 15 on 99.99 % water; Broyden, tear tolerance 3e-4 (it plateaus near 2e-4); executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist245-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist245-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.903177+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 11825 ms: the residual fell only from 2.762 to 2.761 in 12 iterations); continuation in the relative volatilities (stopped at 87.4 % of the way, after 16 steps, 112644 ms). Last residuals: material 87.71 mol/s, equilibrium 0.0001017, energy 2032000 W, specifications 1.701e-10. On the last iterate the liquid of stage 22 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 11825 ms: the residual fell only from 2.762 to 2.761 in 12 iterations); continuation in the relative volatilities (stopped at 87.4 % of the way, after 16 steps, 112644 ms). Last residuals: material 87.71 mol/s, equilibrium 0.0001017, energy 2032000 W, specifications 1.701e-10. On the last iterate the liquid of stage 22 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwfnftge-1",
+      "elapsed_ms": 214339.487131,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist245-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist245-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist245-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "50e60945412c4941bca6305c3f68d3a4f18460b0dd71f23449ffab775d9d9b48",
+      "output_file_sha256": "7af878a1d1e3264cd0f398171a081d392c9395032d944616a0407ba41b74463e",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 245 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist240-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist240-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.902416+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwfn6usk-1",
+      "elapsed_ms": 329469.35779000004,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist240-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist240-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist240-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "217113a7c3c072eb30e5f63e470740afbadf039d7f47057af59ef5d79ec0b260",
+      "output_file_sha256": "fd462bdc3190c980ef3335732241bb5de5425e256499c996013b176637fdb012",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 240 kmol/h (tuned to the product purity); executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist248-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist248-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.907791+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (8 iterations, 11067 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 91.91 % of the way, after 17 steps, 84702 ms). Last residuals: material 10.04 mol/s, equilibrium 0.004206, energy 140500 W, specifications 1.255e-7. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (8 iterations, 11067 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 91.91 % of the way, after 17 steps, 84702 ms). Last residuals: material 10.04 mol/s, equilibrium 0.004206, energy 140500 W, specifications 1.255e-7. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwfnftfe-1",
+      "elapsed_ms": 186120.187439,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist248-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist248-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist248-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "4bf88bade739592e7558e7935ebbb8b39298005995c793fd7acb31323c98509f",
+      "output_file_sha256": "9a7de5d7d718dce875abde2d361ab3593d40e03a6656562a7dbc9c9e7642347c",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 248 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist250-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist250-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.916964+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 2, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 10082 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 94.78 % of the way, after 15 steps, 47218 ms). Last residuals: material 0.5471 mol/s, equilibrium 0.000003366, energy 108600 W, specifications 1.023e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 10082 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 94.78 % of the way, after 15 steps, 47218 ms). Last residuals: material 0.5471 mol/s, equilibrium 0.000003366, energy 108600 W, specifications 1.023e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwfn6ut0-1",
+      "elapsed_ms": 155234.96367,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist250-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist250-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist250-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "fbde5ff61797a169e6d5459ad87989abd3f7828de98c959e4c8aeb656dc53219",
+      "output_file_sha256": "c0f8256922f742e83cdde03cafad871fbeaef399ca2a0b50f449f051b4661f12",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 250 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-W-dist-col15purity-tol5e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-W-dist-col15purity-tol5e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.891948+00:00",
+      "exit_code": 0,
+      "exit_meaning": "ok",
+      "outcome": "ok",
+      "error": null,
+      "chepta_run_id": "run-mwfmxcld-1",
+      "elapsed_ms": 233993.977714,
+      "request_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-tol5e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-tol5e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-W-dist-col15purity-tol5e-4.stderr.txt",
+      "request_file_sha256": "7b9a90efeca3925a5b2f5ca96c15f7196be73a786279e535219a41c1802ddfac",
+      "output_file_sha256": "67c265be3446e9aa456393c3cc94596b9e64a204426391ad97c976d7691fbe8e",
+      "extrapolations": [
+        "Ethyl acetate: ideal-gas heat capacity extrapolated 10.74 K below its range",
+        "Ethanol + Acetic acid: UNIQUAC set extrapolated 10.74 K below its range",
+        "Ethyl acetate: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: vapour pressure extrapolated 2.59 K below its range",
+        "Acetic acid: liquid heat capacity extrapolated 2.28 K below its range",
+        "Acetic acid: heat of vaporization extrapolated 2.4 K below its range",
+        "Water + Ethyl acetate: UNIQUAC set extrapolated 29.2 K above its range"
+      ],
+      "estimated_pairs": [],
+      "pair_tiers": [
+        "fitted"
+      ],
+      "missing_pairs": [],
+      "note": "CLOSED: W (25 = 20,000 kg/h), otherwise as plant62-R-dist-col15purity-tol3e-4; tear tolerance 5e-4; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist255-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist255-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.917470+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12559 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 99.32 % of the way, after 15 steps, 20559 ms). Last residuals: material 0.05428 mol/s, equilibrium 0.000003184, energy 8792 W, specifications 1.003e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07192913832750622,
+            0.029027436264003063
+          ],
+          "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (4 iterations, 12559 ms: the residual stopped falling); continuation in the relative volatilities (stopped at 99.32 % of the way, after 15 steps, 20559 ms). Last residuals: material 0.05428 mol/s, equilibrium 0.000003184, energy 8792 W, specifications 1.003e-16. On the last iterate the liquid of stages 1, 2 would split into two liquids: the column may hold two liquids there, which phases \"VL\" (one liquid) does not represent; turn on \"look for two liquids on the stages\" (phases \"VLL\", activity models). This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage."
+        }
+      },
+      "chepta_run_id": "run-mwfnftfn-1",
+      "elapsed_ms": 153471.08196200003,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist255-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist255-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist255-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "0510881a0bdff25ee93170b1d4103dd0f4c0d70c8c2ab4dc81c395ecfb169619",
+      "output_file_sha256": "27054482897d1b203055b96c8dac61878685df0a4c93365b80ed759e93f77598",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 255 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist260-col15purity-tol3e-4",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist260-col15purity-tol3e-4.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.919120+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 10, Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 141.621 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.07391610930858176,
+            0.02906324112187016,
+            0.006948100556613886,
+            0.0008504479747743711,
+            0.0004013565424580381,
+            0.0004147279473606679,
+            0.0006369182250193714,
+            0.0004200648192141224,
+            0.00042292312217012196
+          ],
+          "cause": "Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 141.621 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol."
+        }
+      },
+      "chepta_run_id": "run-mwfn6usb-1",
+      "elapsed_ms": 387875.11546799995,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist260-col15purity-tol3e-4.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist260-col15purity-tol3e-4.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist260-col15purity-tol3e-4.stderr.txt",
+      "request_file_sha256": "256f2d6ce87b0bef9fd00ee30cdd604385e39396d23504e17599bc65652a7b7c",
+      "output_file_sha256": "38979e261cf1911975e587725549565a2e8a34f1e9f44a65155a57bc4f3d5595",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "as -tol3e-4, column 11 distillate 260 kmol/h; executed 2026-11-13 by this session as chepta request --time-ms 3400000 <file> (the same request document); output copied unchanged into this folder"
+    },
+    {
+      "id": "plant62-R-dist-col15d405-direct-tol1e-5",
+      "command": "chepta request --time-ms 3000000 results-chepta-0.6.2/plant62-R-dist-col15d405-direct-tol1e-5.request.json",
+      "chepta_version": "0.6.2",
+      "started_at": "2026-11-14T00:16:49.920427+00:00",
+      "exit_code": 5,
+      "exit_meaning": "not_converged",
+      "outcome": "not_converged",
+      "error": {
+        "code": "NO_CONVERGENCE",
+        "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 3, Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 4079 ms: the residual fell only from 1.041 to 0.001092 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 5408 ms: the residual fell only from 42.07 to 1.213 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 10145 ms). Last residuals: material 20.04 mol/s, equilibrium 0.7559, energy 4966000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption.. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+        "where": [],
+        "details": {
+          "loop": [
+            "PUMP14",
+            "MIX13",
+            "HTXR17",
+            "SPLIT16",
+            "SCDS15",
+            "HTXR19",
+            "HTXR18",
+            "HTXR12",
+            "SCDS11",
+            "HTXR10",
+            "SPLIT9",
+            "EXTR8",
+            "MIX7",
+            "HTXR6",
+            "SCDS5",
+            "KREA4",
+            "MIX3"
+          ],
+          "tears": [
+            "S27",
+            "S7",
+            "S21",
+            "S15",
+            "S24"
+          ],
+          "history": [
+            0.0938555673247518,
+            0.010717131760043025
+          ],
+          "cause": "Column SCDS5: the rigorous column did not converge. Tried: Newton from the sum-rates start (temperatures at the bubble points), steps of at most 20 K (12 iterations, 4079 ms: the residual fell only from 1.041 to 0.001092 in 12 iterations); Newton from the sum-rates start (temperatures from the energy balances), steps of at most 20 K (12 iterations, 5408 ms: the residual fell only from 42.07 to 1.213 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 10145 ms). Last residuals: material 20.04 mol/s, equilibrium 0.7559, energy 4966000 W, specifications 0. This does not show that the column has no solution: try other feeds (more liquid or less gas), more stages, other feed stages, or stage duties that remove the heat of absorption."
+        }
+      },
+      "chepta_run_id": "run-mwfiqwzn-1",
+      "elapsed_ms": 103752.64054000001,
+      "request_file": "results-chepta-0.6.2/plant62-R-dist-col15d405-direct-tol1e-5.request.json",
+      "output_file": "results-chepta-0.6.2/plant62-R-dist-col15d405-direct-tol1e-5.output.json",
+      "stderr_file": "results-chepta-0.6.2/plant62-R-dist-col15d405-direct-tol1e-5.stderr.txt",
+      "request_file_sha256": "b5de59a3c95427c95294877ff7b452d94d6018be5612c612be7bef65e95e4ac9",
+      "output_file_sha256": "49b311624459a9b912bd8ed610bdbfd424140a2cd60bd2aa46233866d5874366",
+      "extrapolations": [],
+      "estimated_pairs": [],
+      "pair_tiers": [],
+      "missing_pairs": [],
+      "note": "column 15 distillate 405 kmol/h (from the column 15 isolated runs), direct, tolerance 1e-5; executed 2026-11-13 by this session as chepta request --time-ms 7000000 <file> (the same request document); output copied unchanged into this folder"
     }
   ]
 }
