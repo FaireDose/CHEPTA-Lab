@@ -279,6 +279,9 @@ PLANTS3 = {  # round 3 (the maintainer, 2026-11-14): more stages, started from t
     "plant62-settled-WA1.2": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 121000}, "settled start, recycle 23 = 121,000 kg/h (W/A about 1.2, Section 3.3: optimum W/A 1-2)"),
     "plant62-settled-WA1.4": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 144000}, "settled start, recycle 23 = 144,000 kg/h (W/A about 1.4)"),
     "plant62-settled-WA1.2-feed11-5": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "r23_kg_h": 121000, "feed11": 5}, "W/A about 1.2 and column 11 fed on stage 5"),
+    "plant62-settled-ethanol6506": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "f1_kg_h": 6506}, "SENSITIVITY, not the paper's case: ethanol feed 6,506 kg/h (paper 6,511; its molar 141.3 kmol/h spans 6,507-6,512): less excess ethanol to leave with the products"),
+    "plant62-settled-ethanol6500": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "f1_kg_h": 6500}, "SENSITIVITY: ethanol feed 6,500 kg/h"),
+    "plant62-settled-ethanol6503": ({**BEST, "guesses": "062settled", "tolerance": 1e-5, "f1_kg_h": 6503}, "SENSITIVITY: ethanol feed 6,503 kg/h"),
     "plant62-best-init1e-4-tol1e-5-dist246": ({**BEST, "guesses": "062tol1e-4", "tolerance": 1e-5, "spec11": 246}, "as -tol1e-5, column 11 distillate 246 kmol/h (the water balance of column 11)"),
 }
 

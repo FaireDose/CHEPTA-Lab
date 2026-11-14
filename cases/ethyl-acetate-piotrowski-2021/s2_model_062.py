@@ -44,7 +44,7 @@ def splitter_by_flow(first_kg_h=None, second_kg_h=None):
 
 
 def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phases15="VLL", extractor_stages=2,
-          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None, feed11=None, r23_kg_h=None):
+          T_feed_C=T_FEED_C, thermo_extra=None, max_iter=200, method=None, open_recycles=None, guesses=None, mix7="VF0", split9="flow", col5_max_iter=None, col5_stages=None, spec15="distillate", tolerance=None, reflux11=None, col11_stages=None, col15_stages=None, feed11=None, r23_kg_h=None, f1_kg_h=None):
     """open_recycles: None for the closed plant; else {27: feed spec, 21: feed spec}: streams 27 and 21 enter as feeds
     (given) and leave as products, the outer recycles opened (used to find starting guesses, never compared as the plant).
     guesses: {stream number: {flow_kmol_h, T_K, P_kPa}} starting guesses of the tear streams (else Table A2)."""
@@ -83,7 +83,7 @@ def plant(split16="W", spec11="distillate", phases5="VLL", phases11="VLL", phase
     if isinstance(spec15, (int, float)):  # a distillate flow other than the paper's (column 15 isolated runs)
         c15["distillate_kmol_h"] = spec15
     B = [
-        {"id": "F1", "type": "feed", "spec": M.feed_spec(1, C, T_C=T_feed_C)},
+        {"id": "F1", "type": "feed", "spec": M.feed_spec(1, C, T_C=T_feed_C) if not f1_kg_h else {**M.feed_spec(1, C, T_C=T_feed_C), "flow_kg_h": {"ethanol": f1_kg_h}}},
         {"id": "F2", "type": "feed", "spec": M.feed_spec(2, C, T_C=T_feed_C)},
         {"id": "F17", "type": "feed", "spec": M.feed_spec(17, C)},
         {"id": "MIX1", "type": "mixer"},
