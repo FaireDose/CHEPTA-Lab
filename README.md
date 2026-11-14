@@ -14,10 +14,12 @@ later to teach, an AI assistant that uses CHEPTA.
 | [Ethanol to ethylene](cases/ethanol-zsm5-573k/README.md) | Aali & Hadi 2023 | the reactor only (6 variants); same numbers on CHEPTA 0.6.1 and 0.6.2 (0.6.2 lists three extrapolations) | no | not compared with experiment; matches an independent calculation | no |
 | [Benzene + toluene column](cases/benzene-toluene-chemsep-b2/README.md) | The ChemSep Book | one distillation column | no (a column example, not a plant) | yes with the book's own specifications, within 0.80 K and 0.018 mole fraction. With purity or recovery specifications (new in 0.6.1) the column is **not** within those limits, also on 0.6.2 (same numbers) | no |
 | [Methanol separator](cases/methanol-separator-flash/README.md) | none: an example state from CHEPTA's notes | one flash drum; same numbers on CHEPTA 0.6.1 and 0.6.2 (0.6.2 lists one extrapolation, the H2 + CO k_ij) | no | not a paper case | no |
-| [Ethyl acetate plant](cases/ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | the classic plant (S2): all 19 units and 28 streams, CHEPTA 0.6.1 | **once through, not closed**: cut at stream 9, because CHEPTA cannot yet do two liquids with acetic acid | azeotrope within 0.01 %, product within 0.3 %, 7 of 11 duties within 7 %; the reactor conversion is taken from the paper | no |
+| [Ethyl acetate plant](cases/ethyl-acetate-piotrowski-2021/README.md) | Piotrowski & Kubica 2021 | the classic plant (S2): all 19 units and 28 streams, CHEPTA 0.6.1; on CHEPTA 0.6.2 the whole plant as one flowsheet with all recycles | **closed and settled on 0.6.2**, all recycles (balance within 0.1 kg/h); the product reaches 99.11 % ethyl acetate, not the paper's 99.90 % | azeotrope within 0.01 %, product within 0.3 %, 7 of 11 duties within 7 %; the reactor conversion is taken from the paper | no |
 
-**First complete flowsheet from a paper: the ethyl acetate plant**, run once through. Closing its recycles needs two
-liquid phases with acetic acid, which CHEPTA is building now (Lab's request). Problems the plant shows, and the
+**First complete flowsheet from a paper: the ethyl acetate plant**, run once through. On CHEPTA 0.6.2 the whole plant is
+one CHEPTA flowsheet with all its recycles and it closes and settles, but the product reaches 99.11 % ethyl acetate,
+not 99.90 %: the product-column settings that would remove its water do not converge (capability requests 8 to 14 in
+the case README). Problems the plant shows, and the
 routes used for them, are in [data/ISSUES_AND_ROUTES.md](data/ISSUES_AND_ROUTES.md). **Next:** questions with checked
 answers from this plant.
 

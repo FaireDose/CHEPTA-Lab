@@ -1,0 +1,88 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "ethanol",
+        "water",
+        "ethyl acetate",
+        "acetic acid"
+      ],
+      "thermo": {
+        "model": "UNIQUAC",
+        "vapour": "ideal"
+      },
+      "blocks": [
+        {
+          "id": "EXTR8",
+          "type": "extraction",
+          "spec": {
+            "stages": 2,
+            "T_K": 313.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F10",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "ethanol": 8901.9216,
+              "water": 7848.640799999999,
+              "ethyl acetate": 96505.4376,
+              "acetic acid": 11.3256
+            },
+            "P_kPa": 100.0,
+            "VF": 0
+          }
+        },
+        {
+          "id": "F19",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "ethanol": 11.3276,
+              "water": 113253.3448,
+              "acetic acid": 11.3276
+            },
+            "P_kPa": 100.0,
+            "T_K": 293.15
+          }
+        },
+        {
+          "id": "P11",
+          "type": "product"
+        },
+        {
+          "id": "P20",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "S10",
+          "from": "F10.out",
+          "to": "EXTR8.feed"
+        },
+        {
+          "id": "S19",
+          "from": "F19.out",
+          "to": "EXTR8.solvent"
+        },
+        {
+          "id": "S11",
+          "from": "EXTR8.raffinate",
+          "to": "P11.in"
+        },
+        {
+          "id": "S20",
+          "from": "EXTR8.extract",
+          "to": "P20.in"
+        }
+      ],
+      "solver": {
+        "maxIterations": 200
+      }
+    }
+  }
+}
