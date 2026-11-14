@@ -7,6 +7,7 @@
       "title": "CO2 hydrogenation to methanol: synthesis loop, then purification",
       "priority": 1,
       "source_ids": [
+        "lacerda-campos-2022",
         "medrano-garcia-2025"
       ],
       "upstream_paths": [
@@ -15,29 +16,33 @@
         "test/reactors.test.js"
       ],
       "existing_units": [
-        "feed",
-        "mixer",
+        "column",
         "compressor",
+        "conversion-reactor",
+        "equilibrium-reactor",
+        "expander",
+        "feed",
+        "flash",
         "heater",
         "hx",
-        "equilibrium-reactor",
+        "mixer",
         "pfr",
-        "flash",
-        "valve",
+        "product",
+        "pump",
         "splitter",
-        "product"
+        "valve"
       ],
       "required_extensions": [
-        "distillation column for the complete purified-product case"
+        "methanol column with dissolved CO2 and light gases: an activity model refuses them; PR with fitted k_ij or PR + gE (MHV1) to be checked"
       ],
       "status": "candidate_partial",
-      "scope": "First assess reactor/condensation/recycle/purge; keep purified-product extension separate.",
+      "scope": "Lacerda de Oliveira Campos et al. 2022, one-step process: compression, synthesis loop, flash drums and methanol column (30 blocks); the fired heater and steam cycle (9 blocks) may be scoped out, saying so.",
       "blockers": [
-        "Paper PFR kinetic model and complete specifications still need extraction and independent checking.",
-        "Audit high-pressure phase behavior, property ranges and binary parameters; unit availability alone is insufficient.",
+        "Kinetic table reprinted with permission from an ACS paper: reuse to check.",
+        "Paper uses NRTL with gases outside the reactor; CHEPTA needs an equation of state there.",
         "No Lab flowsheet has been executed yet."
       ],
-      "next_action": "Retrieve supporting information, create a specifications ledger, then reproduce the documented upstream reactor test.",
+      "next_action": "Transcribed and audited in cases/methanol-co2-campos-2022 (supplement Tables S9-S10, Figure S1, Tables S13-S14). Next, after the maintainer's go: build CHEPTA requests and run.",
       "training_eligible": false,
       "simulation_status": "not_run",
       "engineering_review": "pending",
@@ -59,30 +64,30 @@
         "test/kinetic-reactors.test.js"
       ],
       "existing_units": [
-        "feed",
-        "mixer",
-        "heater",
-        "hx",
+        "column",
+        "conversion-reactor",
         "cstr",
         "equilibrium-reactor",
+        "extraction",
+        "feed",
         "flash",
-        "splitter",
-        "product"
+        "heater",
+        "hx",
+        "mixer",
+        "product",
+        "splitter"
       ],
       "required_extensions": [
-        "rigorous distillation",
-        "validated liquid-liquid separation for this mixture",
-        "vapor-association treatment or an explicitly evaluated method alternative",
-        "multistage extraction for the Piotrowski extension"
+        "two liquids with acetic acid (VLLE with the acid's association), for closing the Piotrowski plant and possibly column C1 of the Sulgan plant"
       ],
       "status": "blocked_units_and_methods",
-      "scope": "Use Sulgan's conventional process first; reactive-distillation variants are deferred.",
+      "scope": "Piotrowski & Kubica 2021 plant S2 (run once through on chepta 0.6.1); Sulgan 2020 conventional set-up transcribed and audited (cases/ethyl-acetate-sulgan-2020), not run. Reactive-distillation variants deferred.",
       "blockers": [
-        "CHEPTA's existing equilibrium reaction is not a validated kinetic CSTR matching the paper.",
-        "NRTL-HOC and rate-based columns differ from the planned first CHEPTA column model.",
-        "Need auditable kinetic basis and property parameters; preserve the distinction between internal recycle/product streams."
+        "NRTL-HOC and rate-based columns in Sulgan 2020 differ from CHEPTA's NRTL with dimerizing ideal vapour and equilibrium stages.",
+        "Two liquids with acetic acid are refused by CHEPTA 0.6.x (capability request 1 of the Piotrowski case).",
+        "Both plants are one process family: one split group."
       ],
-      "next_action": "Extract the conventional case's specification ledger from Figure 1 and Tables 1\u20132 and audit its reactor kinetics.",
+      "next_action": "Sulgan 2020 conventional plant prepared (cases/ethyl-acetate-sulgan-2020) as a later second ethyl acetate plant, not one of the first four complete plants. Run only after the maintainer's go.",
       "training_eligible": false,
       "simulation_status": "not_run",
       "engineering_review": "pending",
@@ -96,7 +101,8 @@
       "source_ids": [
         "aali-hadi-2023",
         "van-der-borght-2019",
-        "yoo-2021"
+        "yoo-2021",
+        "tripodi-2019"
       ],
       "upstream_paths": [
         "docs/models/reactions.md",
@@ -122,7 +128,8 @@
       "blockers": [
         "Resolve pressure-unit conventions and original experimental evidence before acceptance.",
         "Assumed bed geometry; PR missing/out-of-range pair parameters retained as qualifications.",
-        "Full process still requires physical purification models; do not transplant catalysts or omit side products."
+        "Full process still requires physical purification models; do not transplant catalysts or omit side products.",
+        "2026-11-13: no open paper with a complete plant and stream table found; Tripodi et al. 2019 has stream tables but unclear reuse rights and amine/PSA sections (docs/NEXT_PLANTS.md)."
       ],
       "next_action": "Review the executed reactor benchmark and Table-12 comparison; full-process extension remains separate.",
       "training_eligible": false,
@@ -162,7 +169,8 @@
       "blockers": [
         "Book reuse rights need review.",
         "CHEPTA documents a conversion difference caused by its variable liquid volume; retain this qualification.",
-        "Ideal liquid method and assumed pressure in the upstream example do not establish full-process validity."
+        "Ideal liquid method and assumed pressure in the upstream example do not establish full-process validity.",
+        "2026-11-13: replaced as a complete plant by butyl-acetate-conventional (no open plant paper; CHEPTA lacks the side products); docs/reference/CANDIDATE_PROCESSES.md."
       ],
       "next_action": "Find an open primary process paper with feed, kinetics, thermodynamics and separation data.",
       "training_eligible": false,
@@ -230,6 +238,84 @@
         "No primary process paper accepted in this initial shortlist."
       ],
       "next_action": "Select an open process source and resolve the property gap.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "butyl-acetate-conventional",
+      "family": "butyl-acetate",
+      "title": "n-Butanol + acetic acid: conventional butyl acetate production with extractive distillation",
+      "priority": 7,
+      "source_ids": [
+        "al-rabiah-2022"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md",
+        "test/kinetic-reactors.test.js"
+      ],
+      "existing_units": [
+        "feed",
+        "mixer",
+        "pump",
+        "heater",
+        "pfr",
+        "column",
+        "splitter",
+        "product"
+      ],
+      "required_extensions": [
+        "two liquids with acetic acid (butanol + water) if the columns need them",
+        "measured pairs for butanol + acetic acid and for 1,4-butanediol with acetic acid and butyl acetate (predicted in CHEPTA 0.6.2)"
+      ],
+      "status": "candidate_partial",
+      "scope": "Replacement for process 4 as a complete plant. Al-Rabiah et al. 2022, conventional process (Table 7) only; membrane-reactor and reactive-distillation processes later.",
+      "blockers": [
+        "Columns T-101 and T-103 not specified in the paper (stages, reflux).",
+        "Three predicted binary pairs.",
+        "No Lab flowsheet has been executed yet."
+      ],
+      "next_action": "Third plant of docs/NEXT_PLANTS.md: transcribe Table 7 and the conventional flowsheet, audit balances.",
+      "training_eligible": false,
+      "simulation_status": "not_run",
+      "engineering_review": "pending",
+      "upstream_commit": "c1adf6bab5220bbb334e90e16a8fe20d1ea66ac2"
+    },
+    {
+      "id": "ethylene-glycol-direct-hydration",
+      "family": "ethylene-glycol",
+      "title": "Ethylene oxide + water: monoethylene glycol by direct hydration (evaporators, vacuum columns)",
+      "priority": 8,
+      "source_ids": [
+        "shehata-2024"
+      ],
+      "upstream_paths": [
+        "docs/models/reactions.md"
+      ],
+      "existing_units": [
+        "feed",
+        "heater",
+        "hx",
+        "pump",
+        "pfr",
+        "conversion-reactor",
+        "evaporator",
+        "column",
+        "product"
+      ],
+      "required_extensions": [
+        "triethylene glycol as a component (user data)",
+        "vacuum columns with a side draw: to check"
+      ],
+      "status": "candidate_partial",
+      "scope": "Proposed replacement for process 3 (to approve): Shehata, Nady & Gad 2024, direct hydration plant (Fig. 5, Table 3).",
+      "blockers": [
+        "Stream table without T and P per stream.",
+        "No kinetics.",
+        "No Lab flowsheet has been executed yet."
+      ],
+      "next_action": "If approved: transcribe Table 3, Fig. 5, Tables 1 and 8, audit the balances.",
       "training_eligible": false,
       "simulation_status": "not_run",
       "engineering_review": "pending",
