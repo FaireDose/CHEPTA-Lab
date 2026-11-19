@@ -58,6 +58,7 @@ def main():
     ap.add_argument("--time-ms", default="", help="id=ms,... overrides")
     ap.add_argument("--default-time-ms", type=int, default=3000000)
     ap.add_argument("--extra-dir", default="")
+    ap.add_argument("--resume", action="store_true", help="keep runs whose output file is already there (not sent again)")
     a = ap.parse_args()
     src, dst, cdir = Path(a.src).resolve(), Path(a.dst).resolve(), Path(a.chepta_dir).resolve()
     dst.mkdir(parents=True, exist_ok=True)
@@ -86,9 +87,44 @@ def main():
             t = int(overrides.get(rid, t))
             jobs.append((rid, f, new, t))
 
+    import threading
+    lock = threading.Lock()
+    mf = dst / "run-manifest.json"
+    keep = {r["id"]: r for r in (json.loads(mf.read_text())["runs"] if mf.exists() else [])}
+
+    def save(rec):
+        with lock:
+            keep[rec["id"]] = rec
+            man = {"what": f"The saved request files of {src.name}, sent again unchanged (and new runs marked new) to CHEPTA at commit "
+                           f"{commit}, an unreleased build run from its source (bin/chepta.mjs; package.json still says {cli_version}).",
+                   "chepta_commit": commit, "chepta_repository": "https://github.com/FaireDose/CHEPTA", "chepta_tree_clean": clean,
+                   "node": node, "source_folder": src.name, "runner": "scripts/rerun_chepta_requests.py",
+                   "runs": sorted(keep.values(), key=lambda r: r["id"])}
+            tmp = mf.with_suffix(".tmp")
+            tmp.write_text(json.dumps(man, indent=1) + "\n")
+            tmp.replace(mf)
+
     def one(job):
         rid, f, new, t = job
         body = f.read_bytes()
+        of = dst / f"{rid}.output.json"
+        if a.resume and of.exists() and of.read_text().strip() and rid not in keep:
+            # finished before an interruption (container restart): the answer is kept as written; timing from CHEPTA's own run
+            res = json.loads(of.read_text())
+            e = res.get("error") or {}
+            src_r = src_man.get(rid) or {}
+            rec = {"id": rid, "new": new, "command": f"node <chepta {commit[:7]}>/bin/chepta.mjs request --time-ms {t} {rid}.request.json",
+                   "chepta_commit": commit, "chepta_tree_clean": clean, "chepta_cli_version": cli_version,
+                   "note": "finished before a container restart; manifest entry rebuilt from the kept output (wall time and exit code not recorded)",
+                   "outcome": res.get("outcome"), "error": {"code": e.get("code"), "message": e.get("message")} if e else None,
+                   "chepta_run_id": (res.get("run") or {}).get("id"), "chepta_elapsed_ms": (res.get("run") or {}).get("elapsed_ms"),
+                   "request_file_sha256": sha((dst / f"{rid}.request.json").read_bytes()), "output_file_sha256": sha(of.read_bytes()),
+                   "request_same_as_source": (None if new else sha((dst / f"{rid}.request.json").read_bytes()) == src_r.get("request_file_sha256")) if src_r else None,
+                   "source_outcome": src_r.get("outcome"), **summary(res)}
+            save(rec)
+            return rec
+        if a.resume and rid in keep:
+            return keep[rid]
         rf = dst / f"{rid}.request.json"
         rf.write_bytes(body)
         t0 = datetime.datetime.now(datetime.timezone.utc)
@@ -118,23 +154,11 @@ def main():
                "request_same_as_source": (None if new else sha(body) == src_r.get("request_file_sha256")) if src_r else None,
                "source_outcome": src_r.get("outcome"), **summary(res)}
         print(f"{rid}: {rec['outcome']} {(e or {}).get('code') or ''} ({wall:.0f} s)", flush=True)
+        save(rec)
         return rec
 
-    recs = []
     with cf.ThreadPoolExecutor(a.jobs) as ex:
-        for r in ex.map(one, jobs):
-            recs.append(r)
-    mf = dst / "run-manifest.json"
-    old = json.loads(mf.read_text())["runs"] if mf.exists() else []
-    keep = {r["id"]: r for r in old}
-    for r in recs:
-        keep[r["id"]] = r
-    man = {"what": f"The saved request files of {src.name}, sent again unchanged (and new runs marked new) to CHEPTA at commit "
-                   f"{commit}, an unreleased build run from its source (bin/chepta.mjs; package.json still says {cli_version}).",
-           "chepta_commit": commit, "chepta_repository": "https://github.com/FaireDose/CHEPTA", "chepta_tree_clean": clean,
-           "node": node, "source_folder": src.name, "runner": "scripts/rerun_chepta_requests.py",
-           "runs": sorted(keep.values(), key=lambda r: r["id"])}
-    mf.write_text(json.dumps(man, indent=1) + "\n")
+        list(ex.map(one, jobs))
 
 
 if __name__ == "__main__":
