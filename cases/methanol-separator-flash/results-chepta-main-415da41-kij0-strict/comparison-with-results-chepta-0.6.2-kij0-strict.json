@@ -1,0 +1,166 @@
+{
+ "method": "Compare a folder of CHEPTA reruns (scripts/rerun_chepta_requests.py) with the source folder's answers. See the script's docstring for the thresholds.",
+ "source": "results-chepta-0.6.2-kij0-strict",
+ "rerun": "results-chepta-main-415da41-kij0-strict",
+ "chepta_commit": "415da41d531cd5b5701d0d13550f98c9888abced",
+ "counts": {
+  "same": 3,
+  "regressed": 1,
+  "still fails": 2
+ },
+ "runs": [
+  {
+   "id": "pr-kij-kij0",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "verdict": "same"
+  },
+  {
+   "id": "pr-kij-strict",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "invalid_input",
+   "rerun_code": "OUT_OF_RANGE",
+   "rerun_message": "The strict range mode (strictRanges) refuses this answer: it uses a record outside its range. Hydrogen + Carbon monoxide: PR k_ij set at 313 K is 224.8 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: F1, V1. Without the strict mode the flowsheet is solved and these are warnings.",
+   "wall_s": 0.2,
+   "verdict": "regressed"
+  },
+  {
+   "id": "pr-mhv1-kij0",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "verdict": "same"
+  },
+  {
+   "id": "pr-mhv1-strict",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "verdict": "same"
+  },
+  {
+   "id": "srk-mhv1-kij0",
+   "new": false,
+   "source_outcome": "unsupported",
+   "source_code": "NOT_AVAILABLE",
+   "rerun_outcome": "unsupported",
+   "rerun_code": "NOT_AVAILABLE",
+   "rerun_message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+   "wall_s": 0.2,
+   "verdict": "still fails"
+  },
+  {
+   "id": "srk-mhv1-strict",
+   "new": false,
+   "source_outcome": "unsupported",
+   "source_code": "NOT_AVAILABLE",
+   "rerun_outcome": "unsupported",
+   "rerun_code": "NOT_AVAILABLE",
+   "rerun_message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+   "wall_s": 0.2,
+   "verdict": "still fails"
+  }
+ ]
+}
