@@ -1,0 +1,68 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "carbon-monoxide": 0.09412,
+              "carbon-dioxide": 120.9442,
+              "methanol": 4709.85892,
+              "water": 4580.91452,
+              "nitrogen": 0.18824
+            },
+            "T_K": 356.05,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "B",
+          "type": "flash",
+          "spec": {
+            "VF": 0,
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        },
+        {
+          "id": "P1",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-29",
+          "from": "F0.out",
+          "to": "B.in"
+        },
+        {
+          "id": "out-vapour",
+          "from": "B.vapour",
+          "to": "P0.in"
+        },
+        {
+          "id": "out-liquid",
+          "from": "B.liquid",
+          "to": "P1.in"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1306 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "ok",
+  "value": {
+    "components": [
+      "carbon-dioxide",
+      "methanol",
+      "water"
+    ],
+    "extrapolations": [
+      {
+        "component": "Water",
+        "property": "Ideal-gas heat capacity (IAPWS-IF97)",
+        "unit": "K",
+        "range": [
+          273.15,
+          1073.15
+        ],
+        "at": 242.10478754624506,
+        "side": "below",
+        "distance": 31.045212453754914,
+        "how": "the IAPWS-IF97 ideal-gas equation is evaluated beyond its range (it stays finite there)",
+        "kind": "idealGasHeatCapacity",
+        "message": "Water: ideal-gas heat capacity (IAPWS-IF97) at 242.1 K is 31.05 K below its range (273.15-1073.15 K): the IAPWS-IF97 ideal-gas equation is evaluated beyond its range (it stays finite there). This is an extrapolation, not data. Where: COLUMN.",
+        "where": [
+          "COLUMN"
+        ],
+        "short": "Water: ideal-gas heat capacity (IAPWS-IF97) extrapolated 31.05 K below its range"
+      },
+      {
+        "component": "Carbon dioxide + Water",
+        "property": "PR k_ij set",
+        "kind": "pairSet",
+        "range": [
+          273.15,
+          393.15
+        ],
+        "at": 242.10478754624506,
+        "side": "below",
+        "distance": 31.045212453754914,
+        "how": "the set's temperature dependence is used as it is (fitted to data at 273.15-393.15 K)",
+        "message": "Carbon dioxide + Water: PR k_ij set at 242.1 K is 31.05 K below its range (273.15-393.15 K): the set's temperature dependence is used as it is (fitted to data at 273.15-393.15 K). This is an extrapolation, not data. Where: COLUMN.",
+        "where": [
+          "COLUMN"
+        ],
+        "short": "Carbon dioxide + Water: PR k_ij set extrapolated 31.05 K below its range"
+      }
+    ],
+    "streams": {
+      "in0-29": {
+        "id": "in0-29",
+        "name": null,
+        "spec": "TP",
+        "components": [
+          "carbon-dioxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 120.9442,
+          "methanol": 4709.85892,
+          "water": 4580.91452
+        },
+        "flows": [
+          120.9442,
+          4709.85892,
+          4580.91452
+        ],
+        "F_kmol_h": 9411.717639999999,
+        "mass_kg_h": 238761.82792141679,
+        "z": [
+          0.012850385511565348,
+          0.5004250127503825,
+          0.4867246017380522
+        ],
+        "T_K": 356.05,
+        "P_kPa": 100,
+        "VF": 0.8634290602633072,
+        "phases": [
+          {
+            "type": "vapour",
+            "fraction": 0.8634290602633072,
+            "composition": [
+              0.014881644697994008,
+              0.5521094395166943,
+              0.43300891578531175
+            ],
+            "h_J_mol": 2240.403208221484,
+            "F_kmol_h": 8126.350517368791,
+            "flow_kmol_h": {
+              "carbon-dioxide": 120.93346109084213,
+              "methanol": 4486.634829460682,
+              "water": 3518.782226817267
+            }
+          },
+          {
+            "type": "liquid",
+            "fraction": 0.13657093973669276,
+            "composition": [
+              0.000008354740812005922,
+              0.1736656295380941,
+              0.826326015721094
+            ],
+            "h_J_mol": -39528.506952986696,
+            "F_kmol_h": 1285.367122631208,
+            "flow_kmol_h": {
+              "carbon-dioxide": 0.010738909157857574,
+              "methanol": 223.22409053931736,
+              "water": 1062.132293182733
+            }
+          }
+        ],
+        "h_J_mol": -3464.016104272213,
+        "H_kW": -9056.205964950796,
+        "MW": 25.36857107853236,
+        "warnings": [
+          "PR is the method here: Carbon dioxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "fitted-naidoo2008-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.1883, b = -40.62 K) to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 7.1 % in P (max 29.6 %), gas solubility at the measured T and P AAD 13.1 % (max 354.8 %), 0.0269 in y (max 0.0812, 4 points); data: validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2008-05-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2009-12-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2012-02-018.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2015-02-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2017-12-004.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2018-04-014.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2012-10-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2015-01-001.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2016-10-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2019-05-003.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-7b00126.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-9b00676.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je049803i.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je0498614.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je101344v.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je300332b.json; T = 213.15-395 K, P = 79-12068 kPa",
+            "source_ids": [
+              "naidoo2008-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "braga2017-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "fitted-bermejo2005-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.2484, b = -109.44 K) to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 13.8 % in P (max 74.3 %), gas solubility at the measured T and P AAD 10.2 % (max 55.8 %), 0.008 in y (max 0.0329, 25 points); 4 points without a bubble pressure; data: validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2005-10-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-04-017.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-06-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2009-08-010.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2010-02-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-08-032.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-12-043.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2015-02-012.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2017-04-001.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-02-002.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-11-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2007-05-013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2015-01-008.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2016-09-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2018-03-009.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00504.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00505.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00591.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00777.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-8b00451.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-9b00013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je1011168.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je200991x.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je300332b.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400396s.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400736w.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je501172d.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je700473e.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je800966f.json; T = 273.15-393.15 K, P = 13.89-20000 kPa",
+            "source_ids": [
+              "bermejo2005-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water",
+              "ahmadi2018-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "wang2019-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "tong2013-carbon-dioxide-water",
+              "serpa2013-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "qin2008-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      },
+      "out-distillate": {
+        "id": "out-distillate",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "carbon-dioxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 120.94419999999997,
+          "methanol": 4709.773136579823,
+          "water": 0.00030343302196001755
+        },
+        "flows": [
+          120.94419999999997,
+          4709.773136579823,
+          0.00030343302196001755
+        ],
+        "F_kmol_h": 4830.717640012845,
+        "mass_kg_h": 156232.6269936424,
+        "z": [
+          0.025036487125270766,
+          0.9749634500614902,
+          6.281323906135212e-8
+        ],
+        "T_K": 242.10478753781342,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              0.025036487125270766,
+              0.9749634500614902,
+              6.281323906135212e-8
+            ],
+            "h_J_mol": -46209.89387017511,
+            "F_kmol_h": 4830.717640012845,
+            "flow_kmol_h": {
+              "carbon-dioxide": 120.94419999999997,
+              "methanol": 4709.773136579823,
+              "water": 0.00030343302196001755
+            }
+          }
+        ],
+        "h_J_mol": -46209.89387017511,
+        "H_kW": -62007.48596160453,
+        "MW": 32.341494294671094,
+        "warnings": [
+          "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 242.10 K is outside that range.",
+          "Water: ideal-gas heat capacity (IAPWS-IF97) at 242.1 K is 31.05 K below its range (273.15-1073.15 K): the IAPWS-IF97 ideal-gas equation is evaluated beyond its range (it stays finite there). This is an extrapolation, not data.",
+          "PR is the method here: Carbon dioxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "fitted-naidoo2008-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.1883, b = -40.62 K) to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 7.1 % in P (max 29.6 %), gas solubility at the measured T and P AAD 13.1 % (max 354.8 %), 0.0269 in y (max 0.0812, 4 points); data: validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2008-05-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2009-12-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2012-02-018.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2015-02-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2017-12-004.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2018-04-014.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2012-10-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2015-01-001.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2016-10-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2019-05-003.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-7b00126.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-9b00676.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je049803i.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je0498614.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je101344v.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je300332b.json; T = 213.15-395 K, P = 79-12068 kPa",
+            "source_ids": [
+              "naidoo2008-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "braga2017-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "fitted-bermejo2005-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.2484, b = -109.44 K) to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 13.8 % in P (max 74.3 %), gas solubility at the measured T and P AAD 10.2 % (max 55.8 %), 0.008 in y (max 0.0329, 25 points); 4 points without a bubble pressure; data: validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2005-10-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-04-017.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-06-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2009-08-010.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2010-02-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-08-032.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-12-043.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2015-02-012.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2017-04-001.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-02-002.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-11-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2007-05-013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2015-01-008.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2016-09-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2018-03-009.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00504.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00505.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00591.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00777.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-8b00451.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-9b00013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je1011168.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je200991x.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je300332b.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400396s.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400736w.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je501172d.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je700473e.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je800966f.json; T = 273.15-393.15 K, P = 13.89-20000 kPa",
+            "source_ids": [
+              "bermejo2005-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water",
+              "ahmadi2018-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "wang2019-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "tong2013-carbon-dioxide-water",
+              "serpa2013-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "qin2008-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      },
+      "out-bottoms": {
+        "id": "out-bottoms",
+        "name": null,
+        "spec": "PVF",
+        "components": [
+          "carbon-dioxide",
+          "methanol",
+          "water"
+        ],
+        "flow_kmol_h": {
+          "carbon-dioxide": 1.3884765607024087e-17,
+          "methanol": 0.08578342016794893,
+          "water": 4580.914216579832
+        },
+        "flows": [
+          1.3884765607024087e-17,
+          0.08578342016794893,
+          4580.914216579832
+        ],
+        "F_kmol_h": 4581,
+        "mass_kg_h": 82529.20092800567,
+        "z": [
+          3.0309464324435903e-21,
+          0.0000187259157755837,
+          0.9999812740842244
+        ],
+        "T_K": 374.1665837003774,
+        "P_kPa": 100,
+        "VF": 0,
+        "phases": [
+          {
+            "type": "liquid",
+            "fraction": 1,
+            "composition": [
+              3.0309464324435903e-21,
+              0.0000187259157755837,
+              0.9999812740842244
+            ],
+            "h_J_mol": -39518.09998843721,
+            "F_kmol_h": 4581,
+            "flow_kmol_h": {
+              "carbon-dioxide": 1.3884765607024087e-17,
+              "methanol": 0.08578342016794893,
+              "water": 4580.914216579832
+            }
+          }
+        ],
+        "h_J_mol": -39518.09998843721,
+        "H_kW": -50286.782235286344,
+        "MW": 18.0155426605557,
+        "warnings": [
+          "PR is the method here: Carbon dioxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "sources": [
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Methanol"
+            ],
+            "set": "fitted-naidoo2008-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.1883, b = -40.62 K) to the 424 bubble pressures of 16 articles of the NIST TRC ThermoML Archive (each article the same total weight), 213.15-395 K, 79-12068 kPa: AAD 7.1 % in P (max 29.6 %), gas solubility at the measured T and P AAD 13.1 % (max 354.8 %), 0.0269 in y (max 0.0812, 4 points); data: validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2008-05-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2009-12-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2012-02-018.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2015-02-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2017-12-004.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-fluid-2018-04-014.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2012-10-002.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2015-01-001.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2016-10-030.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1016-j-jct-2019-05-003.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-7b00126.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-acs-jced-9b00676.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je049803i.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je0498614.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je101344v.json, validation/data/eos/thermoml_carbon-dioxide_methanol_10-1021-je300332b.json; T = 213.15-395 K, P = 79-12068 kPa",
+            "source_ids": [
+              "naidoo2008-carbon-dioxide-methanol",
+              "sato2010-carbon-dioxide-methanol",
+              "hamada2012-carbon-dioxide-methanol",
+              "dai2015-carbon-dioxide-methanol",
+              "hohler2018-carbon-dioxide-methanol",
+              "lyu2018-carbon-dioxide-methanol",
+              "kariznovi2013-carbon-dioxide-methanol",
+              "jalili2015-carbon-dioxide-methanol",
+              "qureshi2017-carbon-dioxide-methanol",
+              "decultot2019-carbon-dioxide-methanol",
+              "braga2017-carbon-dioxide-methanol",
+              "wu2019-carbon-dioxide-methanol",
+              "xia2004-carbon-dioxide-methanol",
+              "xie2005-carbon-dioxide-methanol",
+              "gui2011-carbon-dioxide-methanol",
+              "schuler2012-carbon-dioxide-methanol"
+            ]
+          },
+          {
+            "pair": [
+              "Carbon dioxide",
+              "Water"
+            ],
+            "set": "fitted-bermejo2005-etal",
+            "tier": "fitted",
+            "source": "Fitted for CHEPTA with validation/fit_kij_high_pressure.mjs (k_ij = a + b / T, a = 0.2484, b = -109.44 K) to the 573 bubble pressures of 29 articles of the NIST TRC ThermoML Archive (each article the same total weight), 273.15-393.15 K, 13.89-20000 kPa: AAD 13.8 % in P (max 74.3 %), gas solubility at the measured T and P AAD 10.2 % (max 55.8 %), 0.008 in y (max 0.0329, 25 points); 4 points without a bubble pressure; data: validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2005-10-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-04-017.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2006-06-006.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2009-08-010.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2010-02-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-08-032.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2014-12-043.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2015-02-012.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2017-04-001.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-02-002.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-fluid-2018-11-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2007-05-013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2015-01-008.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2016-09-035.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1016-j-jct-2018-03-009.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00504.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-6b00505.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00591.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-7b00777.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-8b00451.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-acs-jced-9b00013.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je1011168.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je200991x.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je300332b.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400396s.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je400736w.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je501172d.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je700473e.json, validation/data/eos/thermoml_carbon-dioxide_water_10-1021-je800966f.json; T = 273.15-393.15 K, P = 13.89-20000 kPa",
+            "source_ids": [
+              "bermejo2005-carbon-dioxide-water",
+              "dalmolin2006-carbon-dioxide-water",
+              "koschel2006-carbon-dioxide-water",
+              "martin2009-carbon-dioxide-water",
+              "dellera2010-carbon-dioxide-water",
+              "guo2014-carbon-dioxide-water",
+              "carvalho2015-carbon-dioxide-water",
+              "haghtalab2015-carbon-dioxide-water",
+              "yuan2017-carbon-dioxide-water",
+              "ahmadi2018-carbon-dioxide-water",
+              "jia2019-carbon-dioxide-water",
+              "fonseca2007-carbon-dioxide-water",
+              "muromachi2015-carbon-dioxide-water",
+              "howlader2017-carbon-dioxide-water",
+              "li2018-carbon-dioxide-water",
+              "luo2017-carbon-dioxide-water",
+              "messabeb2016-carbon-dioxide-water",
+              "messabeb2017-carbon-dioxide-water",
+              "kastanidis2018-carbon-dioxide-water",
+              "pokki2018-furfural-gvl",
+              "wang2019-carbon-dioxide-water",
+              "han2011-carbon-dioxide-water",
+              "lucile2012-carbon-dioxide-water",
+              "schuler2012-carbon-dioxide-methanol",
+              "tong2013-carbon-dioxide-water",
+              "serpa2013-carbon-dioxide-water",
+              "mohammadian2015-carbon-dioxide-water",
+              "qin2008-carbon-dioxide-water",
+              "campos2009-carbon-dioxide-water"
+            ]
+          },
+          {
+            "pair": [
+              "Methanol",
+              "Water"
+            ],
+            "set": "chemsep",
+            "tier": "databank",
+            "source": "ChemSep pr.ipd (ChemSep, Artistic License 2.0): Methanol/Water p730",
+            "source_ids": [
+              "chemsep-eos-ipd"
+            ]
+          }
+        ]
+      }
+    },
+    "energy": {
+      "Q-COLUMN": {
+        "id": "Q-COLUMN",
+        "block": "COLUMN",
+        "kind": "heat",
+        "duty_kW": -103238.06223233325
+      }
+    },
+    "blocks": {
+      "F0": {
+        "type": "feed",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "COLUMN": {
+        "type": "column",
+        "duty_kW": -103238.06223233325,
+        "balance": {
+          "material": 1.3657324955784368e-12,
+          "energy_kW": -3.9317819755524397e-7
+        },
+        "notes": [
+          "Rigorous column: 30 stages (1 the total condenser, 30 the reboiler), feed on stage 24, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the continuation in the relative volatilities (4 steps), in 7 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters.",
+          "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 242.10 K is outside that range.",
+          "Water: ideal-gas heat capacity (IAPWS-IF97) at 242.1 K is 31.05 K below its range (273.15-1073.15 K): the IAPWS-IF97 ideal-gas equation is evaluated beyond its range (it stays finite there). This is an extrapolation, not data.",
+          "PR is the method here: Carbon dioxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+        ],
+        "state": {
+          "mode": "rigorous",
+          "P_kPa": 100,
+          "condenser": "total",
+          "phases": "VL",
+          "stages": 30,
+          "feed_stages": [
+            24
+          ],
+          "specifications": {
+            "reflux_ratio": 2,
+            "bottoms_kmol_h": 4581
+          },
+          "reflux_ratio": 2.0000000000002283,
+          "boilup_ratio": 1.6693523167555098,
+          "D_kmol_h": 4830.717640012845,
+          "B_kmol_h": 4581,
+          "condenser_kW": 192496.2046271117,
+          "reboiler_kW": 89258.14239477845,
+          "T_distillate_K": 242.10478753780157,
+          "T_bottoms_K": 374.16658370036834,
+          "converged": true,
+          "iterations": 7,
+          "residuals": {
+            "material": 1.016453550668761e-9,
+            "equilibrium": 1.7829966970836266e-12,
+            "summation": 4.0956127378422025e-13,
+            "energy": 0.00008818507194519043,
+            "specifications": 1.1420652731298767e-13
+          },
+          "tolerances": {
+            "material": 2.6143660111111113e-7,
+            "energy": 0.002614366011111111,
+            "equilibrium": 1e-10,
+            "summation": 1e-10,
+            "specifications": 1e-10,
+            "units": {
+              "material": "mol/s",
+              "energy": "W",
+              "equilibrium": "mole fraction",
+              "summation": "mole fraction",
+              "specifications": "relative"
+            }
+          },
+          "solver": {
+            "method": "Naphtali-Sandholm (Newton on all MESH equations)",
+            "start": "continuation in the relative volatilities (4 steps)",
+            "tried": [
+              "Newton from the bubble-point start, steps of at most 20 K (12 iterations, 1367 ms: the residual fell only from 0.003265 to 0.003017 in 12 iterations)",
+              "continuation in the relative volatilities: solved in 4 steps, 737 ms"
+            ]
+          }
+        },
+        "profile": [
+          {
+            "stage": 1,
+            "name": "condenser",
+            "T_K": 242.10478753780157,
+            "P_kPa": 100,
+            "L_kmol_h": 9661.435280026793,
+            "V_kmol_h": 0,
+            "duty_kW": -192496.2046271117,
+            "x": {
+              "carbon-dioxide": 0.025036487125269073,
+              "methanol": 0.9749634500613448,
+              "water": 6.281338624055588e-8
+            },
+            "y": null
+          },
+          {
+            "stage": 2,
+            "name": "stage",
+            "T_K": 336.95308342186866,
+            "P_kPa": 100,
+            "L_kmol_h": 12189.681960634338,
+            "V_kmol_h": 14492.152920039638,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.00009733892308906608,
+              "methanol": 0.9999024792659699,
+              "water": 1.8181094106819252e-7
+            },
+            "y": {
+              "carbon-dioxide": 0.025036487125269638,
+              "methanol": 0.9749634500613932,
+              "water": 6.281333718043538e-8
+            }
+          },
+          {
+            "stage": 3,
+            "name": "stage",
+            "T_K": 337.4045434602933,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.114437214492,
+            "V_kmol_h": 17020.399600644167,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027783180375744832,
+              "methanol": 0.9999717969470246,
+              "water": 4.198725995717141e-7
+            },
+            "y": {
+              "carbon-dioxide": 0.007175550126932631,
+              "methanol": 0.9928243018361462,
+              "water": 1.4803692114256213e-7
+            }
+          },
+          {
+            "stage": 4,
+            "name": "stage",
+            "T_K": 337.40597310897573,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.165446924966,
+            "V_kmol_h": 17036.832077220664,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027563422482485957,
+              "methanol": 0.9999715329103344,
+              "water": 9.036671832308042e-7
+            },
+            "y": {
+              "carbon-dioxide": 0.007118889481880828,
+              "methanol": 0.9928807918884982,
+              "water": 3.186296208412493e-7
+            }
+          },
+          {
+            "stage": 5,
+            "name": "stage",
+            "T_K": 337.40599345063936,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.163930955892,
+            "V_kmol_h": 17036.88308692822,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027562695694559074,
+              "methanol": 0.9999705505896137,
+              "water": 0.0000018867146916018886
+            },
+            "y": {
+              "carbon-dioxide": 0.007118710803865228,
+              "methanol": 0.9928806239491808,
+              "water": 6.65246954146482e-7
+            }
+          },
+          {
+            "stage": 6,
+            "name": "stage",
+            "T_K": 337.40602567057186,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.160518351719,
+            "V_kmol_h": 17036.881570957346,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027562627343820007,
+              "methanol": 0.9999685531560905,
+              "water": 0.000003884216565719915
+            },
+            "y": {
+              "carbon-dioxide": 0.0071187109141366035,
+              "methanol": 0.9928799195294483,
+              "water": 0.0000013695564151748907
+            }
+          },
+          {
+            "stage": 7,
+            "name": "stage",
+            "T_K": 337.4060911109417,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.15358310257,
+            "V_kmol_h": 17036.87815835227,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.00002756249290873768,
+              "methanol": 0.9999644944794751,
+              "water": 0.000007943027616177579
+            },
+            "y": {
+              "carbon-dioxide": 0.007118712285572623,
+              "methanol": 0.9928784870374975,
+              "water": 0.000002800676929971891
+            }
+          },
+          {
+            "stage": 8,
+            "name": "stage",
+            "T_K": 337.40622408177535,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.139491174923,
+            "V_kmol_h": 17036.871223102746,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027562219759923653,
+              "methanol": 0.999956247515929,
+              "water": 0.000016190264310987965
+            },
+            "y": {
+              "carbon-dioxide": 0.00711871507587117,
+              "methanol": 0.9928755762917119,
+              "water": 0.00000570863241699756
+            }
+          },
+          {
+            "stage": 9,
+            "name": "stage",
+            "T_K": 337.4064942689574,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.110857734184,
+            "V_kmol_h": 17036.857131174973,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027561664746194653,
+              "methanol": 0.999939490384092,
+              "water": 0.00003294795116178154
+            },
+            "y": {
+              "carbon-dioxide": 0.0071187207455740255,
+              "methanol": 0.9928696618508593,
+              "water": 0.000011617403566563706
+            }
+          },
+          {
+            "stage": 10,
+            "name": "stage",
+            "T_K": 337.40704326322026,
+            "P_kPa": 100,
+            "L_kmol_h": 12206.052678752007,
+            "V_kmol_h": 17036.828497734197,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.00002756053703251568,
+              "methanol": 0.999905441947326,
+              "water": 0.0000669975156415563
+            },
+            "y": {
+              "carbon-dioxide": 0.007118732265893584,
+              "methanol": 0.992857644219633,
+              "water": 0.000023623514473462696
+            }
+          },
+          {
+            "stage": 11,
+            "name": "stage",
+            "T_K": 337.4081587389738,
+            "P_kPa": 100,
+            "L_kmol_h": 12205.934473390646,
+            "V_kmol_h": 17036.77031875201,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027558245769010564,
+              "methanol": 0.9998362623262014,
+              "water": 0.00013617942802958028
+            },
+            "y": {
+              "carbon-dioxide": 0.007118755673625686,
+              "methanol": 0.9928332259161866,
+              "water": 0.00004801841018771004
+            }
+          },
+          {
+            "stage": 12,
+            "name": "stage",
+            "T_K": 337.41042510814066,
+            "P_kPa": 100,
+            "L_kmol_h": 12205.694333404015,
+            "V_kmol_h": 17036.652113390646,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027553590843197822,
+              "methanol": 0.9996957139982325,
+              "water": 0.0002767324109242975
+            },
+            "y": {
+              "carbon-dioxide": 0.007118803232868315,
+              "methanol": 0.9927836130057061,
+              "water": 0.00009758376142562333
+            }
+          },
+          {
+            "stage": 13,
+            "name": "stage",
+            "T_K": 337.4150293366088,
+            "P_kPa": 100,
+            "L_kmol_h": 12205.206577055505,
+            "V_kmol_h": 17036.411973404014,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027544135607594702,
+              "methanol": 0.9994102146369551,
+              "water": 0.0005622412274373588
+            },
+            "y": {
+              "carbon-dioxide": 0.007118899853851496,
+              "methanol": 0.992682818099123,
+              "water": 0.00019828204702567403
+            }
+          },
+          {
+            "stage": 14,
+            "name": "stage",
+            "T_K": 337.42438109114636,
+            "P_kPa": 100,
+            "L_kmol_h": 12204.21629025299,
+            "V_kmol_h": 17035.924217055508,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.00002752493684394126,
+              "methanol": 0.9988304570951595,
+              "water": 0.0011420179679965967
+            },
+            "y": {
+              "carbon-dioxide": 0.007119096112417388,
+              "methanol": 0.9924780743340025,
+              "water": 0.0004028295535801363
+            }
+          },
+          {
+            "stage": 15,
+            "name": "stage",
+            "T_K": 337.4433676690701,
+            "P_kPa": 100,
+            "L_kmol_h": 12202.207413902886,
+            "V_kmol_h": 17034.933930252995,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027485982842833688,
+              "methanol": 0.997653915769837,
+              "water": 0.0023185982473202874
+            },
+            "y": {
+              "carbon-dioxide": 0.007119494609088737,
+              "methanol": 0.9920623197867859,
+              "water": 0.0008181856041252037
+            }
+          },
+          {
+            "stage": 16,
+            "name": "stage",
+            "T_K": 337.4818826775546,
+            "P_kPa": 100,
+            "L_kmol_h": 12198.139189577907,
+            "V_kmol_h": 17032.92505390289,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027407064529116575,
+              "methanol": 0.9952694048548781,
+              "water": 0.004703188080592743
+            },
+            "y": {
+              "carbon-dioxide": 0.007120303135240619,
+              "methanol": 0.991218659781936,
+              "water": 0.00166103708282344
+            }
+          },
+          {
+            "stage": 17,
+            "name": "stage",
+            "T_K": 337.55987722017915,
+            "P_kPa": 100,
+            "L_kmol_h": 12189.928804657937,
+            "V_kmol_h": 17028.85682957791,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000027247666765744998,
+              "methanol": 0.990449469166137,
+              "water": 0.009523283167097312
+            },
+            "y": {
+              "carbon-dioxide": 0.007121941091033882,
+              "methanol": 0.9895090455432328,
+              "water": 0.0033690133657332147
+            }
+          },
+          {
+            "stage": 18,
+            "name": "stage",
+            "T_K": 337.7172718650299,
+            "P_kPa": 100,
+            "L_kmol_h": 12173.472380775496,
+            "V_kmol_h": 17020.646444657938,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000026927685046602115,
+              "methanol": 0.9807584934811945,
+              "water": 0.019214578833758877
+            },
+            "y": {
+              "carbon-dioxide": 0.007125249179712031,
+              "methanol": 0.9860543020440831,
+              "water": 0.0068204487762049786
+            }
+          },
+          {
+            "stage": 19,
+            "name": "stage",
+            "T_K": 338.032703651431,
+            "P_kPa": 100,
+            "L_kmol_h": 12140.931794858934,
+            "V_kmol_h": 17004.190020775495,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000026293153157786455,
+              "methanol": 0.961479923074746,
+              "water": 0.03849378377209618
+            },
+            "y": {
+              "carbon-dioxide": 0.007131889450895601,
+              "methanol": 0.9791121805180132,
+              "water": 0.013755930031091292
+            }
+          },
+          {
+            "stage": 20,
+            "name": "stage",
+            "T_K": 338.6563244353413,
+            "P_kPa": 100,
+            "L_kmol_h": 12078.230977230143,
+            "V_kmol_h": 16971.649434858933,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000025064740865705284,
+              "methanol": 0.9239191230777369,
+              "water": 0.07605581218139745
+            },
+            "y": {
+              "carbon-dioxide": 0.00714505822457606,
+              "methanol": 0.9653178005849322,
+              "water": 0.027537141190491672
+            }
+          },
+          {
+            "stage": 21,
+            "name": "stage",
+            "T_K": 339.8579204807111,
+            "P_kPa": 100,
+            "L_kmol_h": 11962.946257739217,
+            "V_kmol_h": 16908.948617230144,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000022793110757829395,
+              "methanol": 0.853569091917389,
+              "water": 0.14640811497185321
+            },
+            "y": {
+              "carbon-dioxide": 0.007170578163920276,
+              "methanol": 0.9385019771851536,
+              "water": 0.05432744465092606
+            }
+          },
+          {
+            "stage": 22,
+            "name": "stage",
+            "T_K": 342.06929346191333,
+            "P_kPa": 100,
+            "L_kmol_h": 11766.864007004959,
+            "V_kmol_h": 16793.66389773922,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.000018928995355784434,
+              "methanol": 0.7307876734480095,
+              "water": 0.2691933975566347
+            },
+            "y": {
+              "carbon-dioxide": 0.0072180123109026224,
+              "methanol": 0.8884883251988566,
+              "water": 0.10429366249024076
+            }
+          },
+          {
+            "stage": 23,
+            "name": "stage",
+            "T_K": 345.8441410671674,
+            "P_kPa": 100,
+            "L_kmol_h": 11471.489750227482,
+            "V_kmol_h": 16597.58164700496,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.00001326053313500204,
+              "methanol": 0.5405948907124248,
+              "water": 0.4593918487544402
+            },
+            "y": {
+              "carbon-dioxide": 0.007300276479495757,
+              "methanol": 0.8018549082082506,
+              "water": 0.19084481531225367
+            }
+          },
+          {
+            "stage": 24,
+            "name": "feed",
+            "T_K": 351.5453100535116,
+            "P_kPa": 100,
+            "L_kmol_h": 12428.309257322386,
+            "V_kmol_h": 16302.207390227482,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 0.0000070720257487657915,
+              "methanol": 0.3055776852585472,
+              "water": 0.694415242715704
+            },
+            "y": {
+              "carbon-dioxide": 0.0074282160183125326,
+              "methanol": 0.6693082490751273,
+              "water": 0.3232635349065602
+            }
+          },
+          {
+            "stage": 25,
+            "name": "stage",
+            "T_K": 359.39753105700714,
+            "P_kPa": 100,
+            "L_kmol_h": 12185.778071688792,
+            "V_kmol_h": 7847.309257322389,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 4.758822157181178e-9,
+              "methanol": 0.11949868022595517,
+              "water": 0.8805013150152227
+            },
+            "y": {
+              "carbon-dioxide": 0.000011200440838927582,
+              "methanol": 0.483952915142995,
+              "water": 0.5160358844161661
+            }
+          },
+          {
+            "stage": 26,
+            "name": "stage",
+            "T_K": 369.04664067617256,
+            "P_kPa": 100,
+            "L_kmol_h": 12177.783667306967,
+            "V_kmol_h": 7604.778071688794,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 1.7734568692758112e-12,
+              "methanol": 0.025573872363829686,
+              "water": 0.9744261276343968
+            },
+            "y": {
+              "carbon-dioxide": 7.625462589885589e-9,
+              "methanol": 0.19147154590793622,
+              "water": 0.808528446466601
+            }
+          },
+          {
+            "stage": 27,
+            "name": "stage",
+            "T_K": 373.1371937638092,
+            "P_kPa": 100,
+            "L_kmol_h": 12216.662870740729,
+            "V_kmol_h": 7596.783667306968,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 5.606037198500803e-16,
+              "methanol": 0.004439707674261633,
+              "water": 0.9955602923257378
+            },
+            "y": {
+              "carbon-dioxide": 2.842883915502633e-12,
+              "methanol": 0.040984094769180336,
+              "water": 0.9590159052279769
+            }
+          },
+          {
+            "stage": 28,
+            "name": "stage",
+            "T_K": 373.994414181023,
+            "P_kPa": 100,
+            "L_kmol_h": 12226.548943117778,
+            "V_kmol_h": 7635.662870740731,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 6.007734931042291e-19,
+              "methanol": 0.0007373352971613606,
+              "water": 0.9992626647028386
+            },
+            "y": {
+              "carbon-dioxide": 8.969367513131504e-16,
+              "methanol": 0.007092066451550068,
+              "water": 0.9929079335484491
+            }
+          },
+          {
+            "stage": 29,
+            "name": "stage",
+            "T_K": 374.1420634459135,
+            "P_kPa": 100,
+            "L_kmol_h": 12228.302963056989,
+            "V_kmol_h": 7645.548943117782,
+            "duty_kW": 0,
+            "x": {
+              "carbon-dioxide": 3.873849526147227e-20,
+              "methanol": 0.00012057690364785186,
+              "water": 0.9998794230963521
+            },
+            "y": {
+              "carbon-dioxide": 9.112388497494026e-19,
+              "methanol": 0.0011679060253876865,
+              "water": 0.9988320939746124
+            }
+          },
+          {
+            "stage": 30,
+            "name": "reboiler",
+            "T_K": 374.16658370036834,
+            "P_kPa": 100,
+            "L_kmol_h": 4581,
+            "V_kmol_h": 7647.30296305699,
+            "duty_kW": 89258.14239477845,
+            "x": {
+              "carbon-dioxide": 3.0309464324435903e-21,
+              "methanol": 0.000018725915775583703,
+              "water": 0.9999812740842244
+            },
+            "y": {
+              "carbon-dioxide": 4.7404075609612225e-20,
+              "methanol": 0.00018158918179308003,
+              "water": 0.9998184108182069
+            }
+          }
+        ]
+      },
+      "P1": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      },
+      "P0": {
+        "type": "product",
+        "duty_kW": 0,
+        "balance": {
+          "material": 0,
+          "energy_kW": 0
+        },
+        "notes": []
+      }
+    },
+    "order": [
+      "F0",
+      "COLUMN",
+      "P1",
+      "P0"
+    ],
+    "loops": [],
+    "balance": {
+      "material_kmol_h": {
+        "carbon-dioxide": 2.842170943040401e-14,
+        "methanol": 9.094947017729282e-12,
+        "water": -1.2853888620156795e-8
+      },
+      "energy_kW": -3.9317819755524397e-7
+    }
+  },
+  "checks": {
+    "material_kmol_h": 1.2853888620156795e-8,
+    "energy_kW": -3.9317819755524397e-7,
+    "blocks": {
+      "F0": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "COLUMN": {
+        "material": 1.3657324955784368e-12,
+        "energy_kW": -3.9317819755524397e-7
+      },
+      "P1": {
+        "material": 0,
+        "energy_kW": 0
+      },
+      "P0": {
+        "material": 0,
+        "energy_kW": 0
+      }
+    },
+    "loops": [],
+    "columns": {
+      "COLUMN": {
+        "residuals": {
+          "material": 1.016453550668761e-9,
+          "equilibrium": 1.7829966970836266e-12,
+          "summation": 4.0956127378422025e-13,
+          "energy": 0.00008818507194519043,
+          "specifications": 1.1420652731298767e-13
+        },
+        "tolerances": {
+          "material": 2.6143660111111113e-7,
+          "energy": 0.002614366011111111,
+          "equilibrium": 1e-10,
+          "summation": 1e-10,
+          "specifications": 1e-10,
+          "units": {
+            "material": "mol/s",
+            "energy": "W",
+            "equilibrium": "mole fraction",
+            "summation": "mole fraction",
+            "specifications": "relative"
+          }
+        },
+        "iterations": 7,
+        "converged": true
+      }
+    }
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "fitted-naidoo2008-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      }
+    ],
+    "missing_pairs": [],
+    "notes": [
+      {
+        "block": "COLUMN",
+        "note": "Rigorous column: 30 stages (1 the total condenser, 30 the reboiler), feed on stage 24, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the continuation in the relative volatilities (4 steps), in 7 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 242.10 K is outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "Water: ideal-gas heat capacity (IAPWS-IF97) at 242.1 K is 31.05 K below its range (273.15-1073.15 K): the IAPWS-IF97 ideal-gas equation is evaluated beyond its range (it stays finite there). This is an extrapolation, not data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "PR is the method here: Carbon dioxide is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+      }
+    ],
+    "warnings": []
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "22ddf935bfff29d0",
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "parameter_sets": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "fitted-naidoo2008-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      }
+    ],
+    "databank_hash": "b4d2aac73780d100",
+    "user_data_hash": null
+  },
+  "run": {
+    "id": "run-mwgat0hj-1",
+    "input_hash": "22ddf935bfff29d0",
+    "limits": {
+      "time_ms": 600000
+    },
+    "status": "done",
+    "elapsed_ms": 2146.764745
+  }
+}
