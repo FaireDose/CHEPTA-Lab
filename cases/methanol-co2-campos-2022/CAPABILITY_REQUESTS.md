@@ -1,5 +1,9 @@
 # Capability requests from the methanol case (chepta 0.6.2), for CHEPTA's sessions
 
+**Status on CHEPTA's unreleased main, commit 415da41d531cd5b5701d0d13550f98c9888abced (to become 0.6.3), checked
+2026-11-19:** see [the section at the end](#status-on-chepta-main-415da41-2026-11-19). In short: M1, M3 and M5 fixed;
+M2 and M4 fixed on the inputs below but not on the plant's own streams; one new request, M6.
+
 Written 2026-11-14 by a CHEPTA-Lab worker session. Each request names one small input file in
 [results-chepta-0.6.2/](results-chepta-0.6.2/) that shows the fault with `chepta request --time-ms 900000 <file>`,
 CHEPTA's exact outcome, and what CHEPTA should have done. The files carry no held-out evaluation material.
@@ -79,3 +83,54 @@ CHEPTA's exact outcome, and what CHEPTA should have done. The files carry no hel
 
 Not requested (noted only): PR + MHV1 refuses the system because methanol + nitrogen has no NRTL parameters inside the
 rule (runs u-flash3-mhv1, u-column-*-mhv1, `NOT_AVAILABLE`); the refusal is correct and documented.
+
+## Status on CHEPTA main 415da41 (2026-11-19)
+
+Checked by a CHEPTA-Lab worker session on a source checkout of commit 415da41d531cd5b5701d0d13550f98c9888abced (its
+package.json still says 0.6.2; Lab's pin is unchanged). Runs in [results-chepta-main-415da41/](results-chepta-main-415da41/),
+made by [run_chepta_main_415da41.py](run_chepta_main_415da41.py); `rerun-<id>` is the 0.6.2 input file of that id, unchanged.
+
+| Request | On 415da41 | Evidence (run, CHEPTA run id) |
+|---|---|---|
+| M1 column start with ppm of CO, N2 | **fixed for the column.** The column converges with H2, CO, N2 in its feed, with either condenser, alone and in the closed plant. The feed's own bubble point at 100 kPa is still refused with the same message (no claim that it exists) | rerun-u-column-partial-pr (run-mwo4qg3j-1, 6 Newton iterations), vl-column-full (run-mwo4pnmn-1), plant-vl-share-warm-nobypass (run-mwo51p8n-1); rerun-diag-feed29-bubble-plus-CO, -plus-N2, rerun-mini-bubble-CO-1000ppm still `NO_CONVERGENCE` |
+| M2 purity / recovery inside the scanned range | **partly.** The refusal is now honest: `NO_CONVERGENCE`, "lies inside the range ... but the stage solver did not converge on the columns where it is met ... This is not a statement that the specification cannot be met" (was `OUT_OF_RANGE`). With the vapour + liquid condenser and the paper's feed the purity 99.985 % is met (2 iterations). On the 0.6.2 input files and on the plant's own column feed it is still not solved | vl-column-CO2-MeOH-H2O-purity (run-mwo4q2dt-1, ok); rerun-u-column-partial-flash53-purity (run-mwo4vppn-1), rerun-diag-column-recovery-0.99987 (run-mwo4x54v-1), plant-vl-share-warm-purity (run-mwo4xkfu-1), plant-vl-recovery: `NO_CONVERGENCE` |
+| M3 Newton capped at 12 | **fixed.** `max_iterations` 5 and 100 are honoured and named in the message ("it stopped at its iteration limit (maxIterations = 100)") | rerun-diag-column-partialside-T53-CO2-MeOH-H2O-maxit100, -maxit5; plant-vl-boilup-maxit100. The side-draw column itself still does not converge; it is no longer needed (M5) |
+| M4 2 K approach searched on 10 zones | **fixed on the paper's streams, not on the plant's.** u-he5-dTmin2 now solves without `zones` (114,535 kW, cold outlet 84.93 C; 0.6.2 with `zones: 10`: 114,966 kW, 84.99 C). With the streams 20 and 28 of Lab's converged plant it is refused as a temperature cross at the duty the search found | rerun-u-he5-dTmin2 (run-mwo4qufd-1, ok); **he5-a6streams-dTmin2** (run-mwo4xhko-1, below) |
+| M5 vapour + liquid condenser | **added** (`condenser: "vapour_liquid"`, proposal 0026). Paper feed 29, 53 C, R 2, bottoms 4581: liquid distillate 4532.7 kmol/h at 99.835 % methanol, vapour 298.3 kmol/h (paper 4542 at 99.667 %, 289), 27 Newton iterations | vl-column-full (run-mwo4pnmn-1) |
+
+### M4, still open: the approach search ends on a temperature cross
+
+- **Input:** `results-chepta-main-415da41/he5-a6streams-dTmin2.request.json`: hx, `dTmin_K: 2`, default zones and
+  arrangement (counterflow); hot = stream 20 and cold = stream 28 of Lab's converged plant (plant-a6, chepta 0.6.2: hot
+  126.45 C, cold 30.0 C at 100 kPa, 9168 kmol/h, VF 0.04 at 72 C).
+- **Outcome:** `invalid_input`, `BAD_INPUT`: "Heat exchanger HE5: Temperature cross: where 82150 kW of 96640 kW has left
+  the hot side, the hot side is at 72.18 °C and the cold side at 72.46 °C. Heat cannot flow there: lower the duty, change
+  an outlet." With `zones: 10` the same request returns 96,643 kW (he5-a6streams-dTmin2-zones10, run-mwo4xjwv-1), the
+  duty the 20 zones call a cross. In the plant (plant-vl-he5-nozones, plant-vl-share-warm-nobypass-nozones) the loop stops
+  on it at iteration 2.
+- **Expected:** the duty at which the zones used for the answer give 2 K (somewhat below 96.6 MW), never a duty that the
+  same exchanger then refuses as a cross; the repeated search with the full zones (heat-exchange.js, "M4, 2026-11-14")
+  does not seem to be reached when the check throws a cross rather than returning an approach below 2 K.
+
+### M6 (new). The vapour + liquid condenser given by its temperature does not converge where the same column exists
+
+- **Input:** `results-chepta-main-415da41/vl-column-a6feed-T53.request.json`: the column alone (30 stages, feed 24,
+  100 kPa, `condenser: "vapour_liquid"`, `condenser_T_K: 326.15`, reflux ratio 2, bottoms 4581 kmol/h, PR), fed with
+  the column feed of Lab's converged plant (stream 29-col of plant-a6: 9167.9 kmol/h, CO2 0.2425 %, methanol 49.737 %,
+  water 50.0205 %, 83.2 C, 100 kPa). The paper's own feed (CO2 1.285 %) converges.
+- **Outcome:** `not_converged`, `NO_CONVERGENCE`: "Newton from the bubble-point start ... (12 iterations ...: the
+  residual fell only from 0.0599 to 0.05859 ...); continuation in the relative volatilities (stopped at 0 % of the way
+  ...); Newton resumed ... (100 iterations in all ...: 88 iterations were not enough) ... With the vapour + liquid condenser
+  the reflux ratio is the reflux over the liquid distillate (L1 / U1): a small liquid distillate (a large vapour share)
+  means a small reflux; give the reflux by another specification ...".
+- **Evidence the column exists:** the same input with `vapour_distillate_kmol_h: 38.56` or `vapour_share: 0.008406`
+  in place of the temperature converges in 4 Newton iterations at **53.005 C** (vl-column-a6feed-V38.56, run-mwo4wbrw-1;
+  vl-column-a6feed-share, run-mwo4wfg6-1). The hint in the message does not apply: the vapour share is 0.8 %, not large.
+- **Effect on the plant:** every closed-plant run with `condenser_T_K` stops in the column (plant-vl, -nobypass,
+  -R2.1273, -he5-nozones, -purity, -boilup, -warm, -warm-direct, -recovery): from the paper's start at loop iteration 3,
+  after a Broyden step; started from Lab's converged plant on the first pass. With `vapour_share` the plant converges
+  (plant-vl-share-warm, 2 loop iterations; plant-vl-share-warm-nobypass, with the traces in the column).
+- **Expected:** with the temperature given, start from the column that the other two specifications reach (for example
+  solve first at a vapour share from a flash of the top vapour at that temperature, then switch the specification, as
+  the form already does when the user switches); and name the low-CO2 case in the message rather than "a large vapour
+  share".

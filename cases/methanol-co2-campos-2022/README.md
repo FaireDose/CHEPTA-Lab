@@ -11,6 +11,7 @@
 | Differs most | FLASH3 liquid (stream 24) holds 3.4 % CO2 in CHEPTA against 18.5 % in the paper, so the CO2 recovered at 1 bar and recycled (39-REC) is 86 % smaller and the CO2 compression train carries 27-31 % less gas |
 | HE7 | CHEPTA cools the paper's stream 22 to 30 C with **25.1 MW**: it supports Table S14 (24.2 MW), not the printed stream enthalpies (19.75 MW) |
 | CHEPTA could not | start a column with a few ppm of CO or N2; meet a purity or recovery inside the range it scanned; go past 12 Newton iterations; approach 2 K in a counterflow exchanger without `zones: 10`; give a vapour and a liquid distillate (5 requests, [CAPABILITY_REQUESTS.md](CAPABILITY_REQUESTS.md)) |
+| On CHEPTA main 415da41 (unreleased, checked 2026-11-19) | the paper's vapour + liquid condenser works on the column alone (4532.7 / 298.3 kmol/h against the paper's 4542 / 289); the **closed plant converges with it only when the condenser is fixed by its vapour share** (0.0084), not by the paper's 53 C (new request M6); then the balance check passes and the streams equal the 0.6.2 result within 0.04 kmol/h. M1, M3 fixed; M2, M4 partly ([section below](#check-of-chepta-main-415da41-2026-11-19)) |
 | Reviewed by a person | no; draft, written by AI sessions on 2026-11-13 (transcription) and 2026-11-14 (runs). No AI review session yet |
 
 The paper's numbers are an Aspen Plus V10 simulation (Peng-Robinson in the reactors, NRTL2 elsewhere), not
@@ -158,6 +159,56 @@ distillates.
 The first successful `sec-purification` run (HE6 by its hot outlet) was overwritten by the next run of the same id
 before the runner was changed to never overwrite; the kept `sec-purification` run is the later one (HE6 by its cold
 outlet). Kinetics rights: Model-6p's seven constants are in model.py and the request files (see the decision below).
+
+## Check of CHEPTA main 415da41 (2026-11-19)
+
+CHEPTA's coordinator asked Lab to check CHEPTA's unreleased main, commit 415da41d531cd5b5701d0d13550f98c9888abced
+(public repository FaireDose/CHEPTA, to become 0.6.3; its package.json still says 0.6.2). Lab's pin stays chepta 0.6.2.
+A source checkout of that commit, outside the repository, was run through its command line by
+[run_chepta_main_415da41.py](run_chepta_main_415da41.py); 39 runs kept in
+[results-chepta-main-415da41/](results-chepta-main-415da41/) (24 refusals or failures, 3 of them Lab's own: an unknown
+request key, `*-lab-note-refused`). The commit is in the run manifest and in the first line of each stderr file
+(CHEPTA refuses unknown keys in a request). Stream by stream: [COMPARISON.md](COMPARISON.md), Part 1. Requests:
+[CAPABILITY_REQUESTS.md](CAPABILITY_REQUESTS.md), last section. Simulated values throughout; the paper's are Aspen's.
+
+**The column alone, paper feed 29** (vl-column-full, run-mwo4pnmn-1): `condenser: "vapour_liquid"`, 53 C, reflux ratio 2
+(CHEPTA: over the liquid distillate), bottoms 4581 kmol/h, H2, CO and N2 in the feed:
+
+| Stream | CHEPTA main | 0.6.2 (partial condenser + 53 C flash, traces bypassed) | Paper |
+|---|---:|---:|---:|
+| 31-MEOH liquid distillate | 4532.7 kmol/h, 99.835 % methanol | 4533, 99.835 % | 4542, 99.667 % |
+| 32 vapour distillate | 298.3 kmol/h, CO2 38.04 % | 298 | 289, CO2 36.91 % |
+| 30-WATER | 4581 (fixed), 99.998 % water | 4581, 99.998 % | 4581, 99.985 % |
+| condenser; reboiler | 147.7; 59.4 MW | 151.0; 62.6 MW | 143.6; 53.7 MW (Table S14) |
+
+The reflux ratio's basis is not printed in the paper (assumed: over the liquid distillate, CHEPTA's definition). With 2
+over the whole distillate (2.1273 over the liquid) the products are the same and the condenser 154.0 MW, the reboiler
+65.7 MW (vl-column-CO2-MeOH-H2O-R2.1273): with the bottoms flow and the condenser temperature fixed, the ratio moves only
+the duties.
+
+**The closed plant, workarounds removed one at a time:**
+
+| Run | What changed against plant-a6 (0.6.2) | Outcome |
+|---|---|---|
+| plant-vl | M5: vapour + liquid condenser at 53 C (traces bypassed, bottoms 4581, HE5 on 10 zones) | `NO_CONVERGENCE` at loop iteration 3: the column, after a Broyden step; the loop names the block (the new safeguard works) |
+| plant-vl-warm, -warm-direct | the same, started from plant-a6's tear streams; Broyden or direct substitution | `NO_CONVERGENCE` on the first pass, in the column: **M6** (53 C on the plant's low-CO2 feed) |
+| plant-vl-nobypass, -R2.1273, -he5-nozones, -purity, -recovery, -boilup, -boilup-maxit100 | each one more change, all with 53 C | all `NO_CONVERGENCE` in the column (he5-nozones in HE5 at iteration 2) |
+| **plant-vl-share** | the condenser fixed by its vapour share 0.008406 (plant-a6's 53 C flash) in place of 53 C; paper start | **ok, 47 loop iterations (Broyden), balance check passed** (largest component imbalance 9e-8 kmol/h, limit 1.93), no warnings; run-mwo4y6hg-1 |
+| plant-vl-share-warm; plant-vl-V38.56-warm | the same from plant-a6's tears; or by the vapour flow 38.56 kmol/h | ok, 2 and 7 iterations, balance passed |
+| **plant-vl-share-warm-nobypass** | M1 removed: H2, CO, N2 go through the column | **ok, 2 iterations, balance passed**; run-mwo51p8n-1 |
+| plant-vl-share-warm-purity | M2 removed: bottoms water 99.985 mol % in place of 4581 kmol/h | `NO_CONVERGENCE`: the column, now an honest refusal (inside the range, the stage solver did not converge there) |
+| plant-vl-share-warm-nobypass-nozones | M4 removed too: HE5 2 K approach without `zones` | `BAD_INPUT`, temperature cross in HE5 (M4 still open on the plant's streams) |
+| plant-vl-boilup-maxit100 | M3: boil-up ratio 1.17155 and `max_iterations: 100` | the limit is honoured (100 iterations); the column still does not converge |
+| rerun-plant-a6 | 0.6.2's plant unchanged | ok, 31 iterations, balance passed; every stream equal to 0.6.2 |
+
+**What changed against 0.6.2 and the paper** (plant-vl-share against plant-a6; COMPARISON.md Part 1 for all streams):
+nothing material. The column ends, the recycle and the loop agree with plant-a6 within 0.04 kmol/h: 31-MEOH 4548.3 kmol/h
+at 99.728 % (paper 4542 at 99.667 %), 32 38.6 kmol/h (paper 289), 30-WATER 99.9995 % water (paper 99.985 %), 39-REC
+394.5 kmol/h (paper 2786), 24 9522 kmol/h at CO2 3.41 % (paper 11,488 at 18.5 %), 36-REC 52,898 (paper 51,504),
+condenser at 53.005 C. Duties: condenser 148.3 MW and reboiler 62.0 MW (0.6.2: column 96.5 + 53 C flash 49.4 = 145.9
+MW, reboiler 59.6; paper 143.6, 53.7). The plant's difference from the paper is still the CO2 dissolved in the 70 bar
+flash (property method), not the column. The new condenser replaces the workaround M5 with the paper's configuration but
+not yet with the paper's specification (53 C).
 
 ## What the maintainer should spot-check (at most 3; chosen by the building session, not by an AI review session)
 

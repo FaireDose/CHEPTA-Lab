@@ -148,6 +148,7 @@ def runs():
     R["plant-vl-V38.56-warm"] = warm(plant_vl(column_extra={"vapour_distillate_kmol_h": round(v32, 2), "condenser_T_K": None}))
     R["plant-vl-share"] = plant_vl(column_extra={"vapour_share": sh, "condenser_T_K": None})   # from the paper's guesses
     R["plant-vl-share-warm"] = warm(plant_vl(column_extra={"vapour_share": sh, "condenser_T_K": None}))
+    R["plant-vl-share-warm-nobypass"] = warm(plant_vl(bypass=False, column_extra={"vapour_share": sh, "condenser_T_K": None}))
     R["plant-vl-share-warm-nobypass-nozones"] = warm(plant_vl(bypass=False, he5={"dTmin_K": 2}, column_extra={"vapour_share": sh, "condenser_T_K": None}))
     R["plant-vl-share-warm-purity"] = warm(plant_vl(second={"reflux_ratio": 2, "specifications": [
         {"kind": "purity", "product": "bottoms", "component": "water", "value": 0.99985, "basis": "mole"}]}, column_extra={"vapour_share": sh, "condenser_T_K": None}))
