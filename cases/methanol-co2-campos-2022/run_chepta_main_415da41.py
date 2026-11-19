@@ -57,7 +57,7 @@ def vl_column(second, T_K=T53, **extra):
     s = {"mode": "rigorous", "stages": 30, "feed_stage": 24, "P_kPa": 100, "condenser": "vapour_liquid", "condenser_T_K": T_K}
     s.update(second)
     s.update(extra)
-    return s
+    return {k: v for k, v in s.items() if v is not None}
 
 
 def plant_vl(bypass=True, second=None, he5=None, solver=None, column_extra=None):
@@ -128,6 +128,38 @@ def runs():
     R["plant-vl-warm"] = warm(R["plant-vl"])
     R["plant-vl-direct"] = plant_vl(solver={"method": "direct", "maxIterations": 300, "tolerance": 1e-7})
     R["plant-vl-warm-direct"] = warm(R["plant-vl-direct"])
+    # --- the column alone fed with the 0.6.2 plant's column feed (29-col of plant-a6: CO2 0.24 %, not the paper's 1.285 %),
+    #     with each of the condenser's three specifications (53 C; the vapour flow and share of plant-a6's 53 C flash)
+    a6 = json.loads((OLD / "plant-a6.output.json").read_text())["value"]["streams"]
+    f29 = a6["29-col"]
+    a6feed = {"flow_kmol_h": {k: round(v, 6) for k, v in f29["flow_kmol_h"].items() if v > 0}, "T_K": round(f29["T_K"], 4), "P_kPa": f29["P_kPa"]}
+    v32, l31 = a6["32"]["F_kmol_h"], a6["31-MEOH"]["F_kmol_h"]
+    for tag, extra in (("T53", {}), ("V38.56", {"vapour_distillate_kmol_h": round(v32, 2)}), ("share", {"vapour_share": round(v32 / (v32 + l31), 6)})):
+        r = column_alone(tri)
+        r["input"]["flowsheet"]["blocks"][0]["spec"] = a6feed
+        cs = r["input"]["flowsheet"]["blocks"][1]["spec"]
+        if extra:
+            cs.pop("condenser_T_K")
+            cs.update(extra)
+        R[f"vl-column-a6feed-{tag}"] = r
+    # --- the plant with the condenser fixed by its vapour flow or vapour share in place of 53 C (workaround for M6; values
+    #     from plant-a6's 53 C flash), started from plant-a6; CHEPTA's design specifications cannot vary a column key
+    sh = round(v32 / (v32 + l31), 6)
+    R["plant-vl-V38.56-warm"] = warm(plant_vl(column_extra={"vapour_distillate_kmol_h": round(v32, 2), "condenser_T_K": None}))
+    R["plant-vl-share"] = plant_vl(column_extra={"vapour_share": sh, "condenser_T_K": None})   # from the paper's guesses
+    R["plant-vl-share-warm"] = warm(plant_vl(column_extra={"vapour_share": sh, "condenser_T_K": None}))
+    R["plant-vl-share-warm-nobypass-nozones"] = warm(plant_vl(bypass=False, he5={"dTmin_K": 2}, column_extra={"vapour_share": sh, "condenser_T_K": None}))
+    R["plant-vl-share-warm-purity"] = warm(plant_vl(second={"reflux_ratio": 2, "specifications": [
+        {"kind": "purity", "product": "bottoms", "component": "water", "value": 0.99985, "basis": "mole"}]}, column_extra={"vapour_share": sh, "condenser_T_K": None}))
+    # --- HE5 alone (2 K approach, default zones) fed with plant-a6's streams 20 and 28 (M4 inside the loop)
+    def a6s(sid):
+        t = a6[sid]
+        return {"flow_kmol_h": {k: round(v, 6) for k, v in t["flow_kmol_h"].items() if v > 0}, "T_K": round(t["T_K"], 4), "P_kPa": t["P_kPa"]}
+    for tag, he in (("dTmin2", {"dTmin_K": 2}), ("dTmin2-zones10", {"dTmin_K": 2, "zones": 10})):
+        r = M.single({"id": "HE5", "type": "hx", "spec": he}, [("20", "hot"), ("28", "cold")], ["hot", "cold"])
+        r["input"]["flowsheet"]["blocks"][0]["spec"] = a6s("20")
+        r["input"]["flowsheet"]["blocks"][1]["spec"] = a6s("28")
+        R[f"he5-a6streams-{tag}"] = r
     # --- the 0.6.2 capability-request inputs, unchanged
     for rid in ("diag-feed29-bubble-plus-CO", "diag-feed29-bubble-plus-N2", "mini-bubble-CO-1000ppm", "u-column-partial-pr",
                 "u-column-partial-flash53-purity", "diag-column-recovery-0.99987",
