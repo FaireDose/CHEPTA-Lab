@@ -1,0 +1,89 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "out_of_time",
+  "error": {
+    "code": "OUT_OF_TIME",
+    "message": "The calculation did not finish within limits.time_ms = 1500000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller. When it was stopped, the loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 (tear streams S27, S7, S21, S15, S24) was at iteration 65 of 200, the tear streams changing by 7.03e-2 per iteration (tolerance 1.00e-8; the last 5: 1.82e-1, 1.74e-1, 4.81e-1, 9.97e-2, 7.03e-2).",
+    "where": [],
+    "details": {
+      "progress": {
+        "kind": "flowsheet",
+        "loops": [
+          {
+            "blocks": [
+              "MIX13",
+              "MIX3",
+              "PUMP14",
+              "KREA4",
+              "SCDS5",
+              "HTXR6",
+              "MIX7",
+              "EXTR8",
+              "SPLIT9",
+              "HTXR19",
+              "HTXR10",
+              "HTXR18",
+              "SCDS15",
+              "SCDS11",
+              "SPLIT16",
+              "HTXR12",
+              "HTXR17"
+            ],
+            "tears": [
+              "S27",
+              "S7",
+              "S21",
+              "S15",
+              "S24"
+            ],
+            "iterations": 65,
+            "residual": 0.07031123087077139,
+            "tolerance": 1e-8,
+            "converged": false,
+            "maxIterations": 200,
+            "method": "broyden",
+            "recent": [
+              0.1818224688459077,
+              0.1742747243845975,
+              0.48117141046593637,
+              0.09974534062379778,
+              0.07031123087077139
+            ],
+            "safeguards": [
+              {
+                "iteration": 9,
+                "action": "rejected",
+                "reason": "the change grew from 1.32e-3 to 1.14e-1",
+                "limit": 0.12924717309886208
+              },
+              {
+                "iteration": 31,
+                "action": "Jacobian (20 passes)",
+                "reason": "the change has not halved in 8 iterations (best 1.82e-3)"
+              },
+              {
+                "iteration": 59,
+                "action": "Jacobian (20 passes)",
+                "reason": "the change has not halved in 8 iterations (best 1.31e-3)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "e09ef1fa92c400e0"
+  },
+  "run": {
+    "id": "run-mwo55rvh-1",
+    "input_hash": "e09ef1fa92c400e0",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "failed",
+    "elapsed_ms": 1500032.029234
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 10, Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 6416 ms: the residual fell only from 0.8473 to 0.58 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 2569 ms); Newton resumed from where the bubble-point start stopped, without the early stop (100 iterations in all, 20724 ms: 88 iterations were not enough); continuation in the relative volatilities, the mean weighted by the liquid (stopped at 0 % of the way, after 1 steps, 2986 ms). Last residuals: material 8.278 mol/s, equilibrium 0.3212, energy 106000 W, specifications 0.001293. By constant molar overflow the boil-up would be -2.219 mol/s (the vapour above the feed, 49.45, is less than the feed's own vapour, 51.67): these specifications may have no column. Take a larger distillate or a larger reflux ratio (or a feed with less vapour). Two liquids are allowed on the stages (phases \"VLL\"); on the last iterate stages 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 held two liquids. Newton converges slowly where a stage's liquid sits at the edge of the two-liquid region. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage. (on an accelerated guess, broyden, 79 % of the tear flows beyond the last pass's result; the last pass changed the tears by 3.69e-3. Check the specifications and the start values of the loop first; direct substitution, which never extrapolates, shows whether the guess was the cause). What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+    "where": [],
+    "details": {
+      "loop": [
+        "PUMP14",
+        "MIX13",
+        "HTXR17",
+        "SPLIT16",
+        "SCDS15",
+        "HTXR19",
+        "HTXR18",
+        "HTXR12",
+        "SCDS11",
+        "HTXR10",
+        "SPLIT9",
+        "EXTR8",
+        "MIX7",
+        "HTXR6",
+        "SCDS5",
+        "KREA4",
+        "MIX3"
+      ],
+      "tears": [
+        "S27",
+        "S7",
+        "S21",
+        "S15",
+        "S24"
+      ],
+      "history": [
+        0.11762147628598445,
+        0.011100594261327867,
+        0.001802772947838833,
+        0.0014831138033870642,
+        0.0016117631281324556,
+        0.000903676199963579,
+        0.0007054553117775105,
+        0.002547621102069611,
+        0.0036873807859018055
+      ],
+      "cause": "Column SCDS11: the rigorous column did not converge. Tried: Newton from the bubble-point start, steps of at most 20 K (12 iterations, 6416 ms: the residual fell only from 0.8473 to 0.58 in 12 iterations); continuation in the relative volatilities (stopped at 0 % of the way, after 1 steps, 2569 ms); Newton resumed from where the bubble-point start stopped, without the early stop (100 iterations in all, 20724 ms: 88 iterations were not enough); continuation in the relative volatilities, the mean weighted by the liquid (stopped at 0 % of the way, after 1 steps, 2986 ms). Last residuals: material 8.278 mol/s, equilibrium 0.3212, energy 106000 W, specifications 0.001293. By constant molar overflow the boil-up would be -2.219 mol/s (the vapour above the feed, 49.45, is less than the feed's own vapour, 51.67): these specifications may have no column. Take a larger distillate or a larger reflux ratio (or a feed with less vapour). Two liquids are allowed on the stages (phases \"VLL\"); on the last iterate stages 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 held two liquids. Newton converges slowly where a stage's liquid sits at the edge of the two-liquid region. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage.",
+      "netChange_kmol_h": {
+        "ethanol": 0.10832109122055439,
+        "water": -0.7269508356686316,
+        "ethyl-acetate": -0.27588778514817314,
+        "acetic-acid": -0.16098562125921245
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "6687a1de74835266"
+  },
+  "run": {
+    "id": "run-mwo5qvxy-1",
+    "input_hash": "6687a1de74835266",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "failed",
+    "elapsed_ms": 257915.24158099998
+  }
+}
