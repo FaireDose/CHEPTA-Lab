@@ -32,6 +32,7 @@ REGISTER = ROOT / "data/ISSUES_AND_ROUTES.md"
 SOURCES = ROOT / "data/sources.json"
 INDEX_MD = ROOT / "dataset/index/problems.md"
 INDEX_JSON = ROOT / "dataset/index/problems.json"
+INDEX_READABLE = ROOT / "dataset/index/rules-readable.md"
 LOCK = ROOT / "dataset/index/outcomes.lock.json"
 STATUSES_SHOWN = ("worked", "failed", "lead", "untested")
 RULE_KINDS = ("design-rule", "simulation-rule")
@@ -412,6 +413,7 @@ def build_index(corpus, origins, register=None):
         return f"{c['worked']}/{c['failed']}/{c['lead']}/{c['untested']}", f"{u['yes']}/{u['partly']}/{u['no']}"
 
     lines = ["# Knowledge-base index (generated; do not edit)", "",
+             "People: the same rows as plain sentences are in [rules-readable.md](rules-readable.md).", "",
              "Made by `python scripts/kb.py index` from dataset/records/ and data/ISSUES_AND_ROUTES.md; held-out "
              "groups left out. Next: `python scripts/kb.py query` with `--problem`, `--behaviour`, `--components`, "
              "`--operation`, `--symptom`, `--kind` or `--status`, then `python scripts/kb.py show <row id>`. "
@@ -444,13 +446,93 @@ def build_index(corpus, origins, register=None):
     return "\n".join(lines) + "\n", json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
 
+# ---------- the page for people ----------
+
+BASIS_WORDS = {"measured": "measured", "paper_simulation": "paper's simulation", "chepta_run": "CHEPTA run",
+               "lab_inference": "Lab's reasoning", "textbook": "book or review"}
+
+
+def plain(term):
+    return term.replace("-", " ")
+
+
+def source_label(source_id, sources):
+    s = sources.get(source_id)
+    if not s:
+        return source_id
+    names = [a.strip() for a in s.get("authors", "").split(";") if a.strip()]
+    surname = lambda n: n.split()[-1] if n.split() else n
+    who = (surname(names[0]) if len(names) == 1 else f"{surname(names[0])} & {surname(names[1])}" if len(names) == 2
+           else f"{surname(names[0])} et al.") if names else source_id
+    return f"{who} {s['year']}" if s.get("year") else who
+
+
+def readable_line(d, ix, sources):
+    k, o = d["keys"], d["keys"]["outcome"]
+    text = (k.get("statement") or f"{d['operation'].rstrip('.')}. Expected: {d['expected_change']}").strip()
+    status = f"{o['status']}, {BASIS_WORDS.get(o['basis'], o['basis'])}" + (f" ({o['engine']})" if o["engine"] else "")
+    refs = []
+    if k.get("source"):
+        refs.append(f"{source_label(k['source']['source_id'], sources)}, {k['source']['locator']}")
+    for e_id in d["evidence_ids"]:
+        e = ix["evidence"].get(e_id)
+        for b in (e["block_ids"] if e else []):
+            block = ix["blocks"].get(b)
+            if block:
+                refs.append(f"{source_label(block['source_id'], sources)}, {block['locator']}")
+    refs = list(dict.fromkeys(refs))
+    when = ", ".join(plain(c) for c in k["conditions"])
+    parts = [f"- **{text}** {status}; {'; '.join(refs) or 'no source'}."]
+    if when:
+        parts.append(f"When: {when}.")
+    if k.get("disputed_with"):
+        parts.append("Disagrees with another row here.")
+    parts.append(f"<sub>{d['id']}</sub>")
+    return " ".join(parts)
+
+
+def build_readable(corpus, register=None, sources=None):
+    register = register if register is not None else register_rows()
+    sources = sources if sources is not None else sources_catalogue()
+    ix = pipeline.indexes(corpus)
+    rows, _ = visible_decisions(corpus)
+    order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
+    ranked = lambda group: sorted(group, key=lambda d: (order.get(d["keys"]["outcome"]["status"], 9), d["id"]))
+    lines = ["# Rules and decisions in plain words (generated; do not edit)", "",
+             "Each line gives a rule or decision first, then its status and source with page, then the conditions "
+             "under which it holds, and the row id in small text for lookup. A lead is a rule or suggestion "
+             "without results of its own; worked and failed rows cite a paper, a measurement or a CHEPTA run. "
+             "This page is for people and grows with every row: agents keep using problems.md and "
+             "`python scripts/kb.py query`, which stay short.", ""]
+    lines += ["## By register problem", ""]
+    for problem, level in register.items():
+        mine = [d for d in rows if d["keys"].get("problem_id") == problem]
+        if mine:
+            lines += [f"### {plain(problem)} ({level})", ""] + [readable_line(d, ix, sources) for d in ranked(mine)] + [""]
+    lines += ["## By operation and simulation symptom", ""]
+    pairs = {}
+    for d in rows:
+        if "symptom" in d["keys"]:
+            pairs.setdefault((d["keys"]["operation_type"], d["keys"]["symptom"]), []).append(d)
+    for (op, sym), group in sorted(pairs.items()):
+        lines += [f"### {plain(op)}: {plain(sym)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
+    lines += ["## General design rules by operation", ""]
+    general = {}
+    for d in rows:
+        if d["keys"]["kind"] == "design-rule" and "problem_id" not in d["keys"]:
+            general.setdefault(d["keys"]["operation_type"], []).append(d)
+    for op, group in sorted(general.items()):
+        lines += [f"### {plain(op)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
+    return "\n".join(lines).rstrip("\n") + "\n"
+
+
 def read_lock():
     return pipeline.read_json(LOCK) if LOCK.is_file() else {"outcomes": {}, "informed_by": {}}
 
 
 def index_errors(corpus, origins):
     md, js = build_index(corpus, origins)
-    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js))
+    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js), (INDEX_READABLE, build_readable(corpus)))
              if not path.is_file() or path.read_text() != text]
     errors = [f"{p.relative_to(ROOT)} is stale: run python scripts/kb.py index" for p in stale]
     lock, now = read_lock(), lock_entries(corpus)
@@ -492,6 +574,7 @@ def write_index(corpus, origins):
     INDEX_MD.parent.mkdir(parents=True, exist_ok=True)
     INDEX_MD.write_text(md)
     INDEX_JSON.write_text(js)
+    INDEX_READABLE.write_text(build_readable(corpus))
     LOCK.write_text(json.dumps(lock, indent=2, ensure_ascii=False) + "\n")
 
 
@@ -588,7 +671,8 @@ def main(argv=None):
             if errors:
                 raise ValueError("\n".join(errors))
             write_index(corpus, origins)
-            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {LOCK.relative_to(ROOT)}")
+            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {INDEX_READABLE.relative_to(ROOT)}, "
+                  f"{LOCK.relative_to(ROOT)}")
             return 0
         if args.command == "disputes":
             found = disputes(rows)

@@ -51,6 +51,27 @@ class KnowledgeBaseTests(unittest.TestCase):
         # Fails whenever records or the register change without `python scripts/kb.py index`.
         self.assertEqual(kb.index_errors(self.corpus, self.origins), [])
 
+    def test_readable_page_for_people(self):
+        page = kb.build_readable(self.corpus)
+        self.assertEqual(kb.INDEX_READABLE.read_text(), page)  # current; index_errors also checks it
+        rule = self.decision(self.SIM)
+        line = next(l for l in page.splitlines() if rule["keys"]["statement"] in l)
+        self.assertTrue(line.startswith(f"- **{rule['keys']['statement']}** lead, book or review; Kooijman & Taylor 2006, "))
+        self.assertTrue(line.endswith(f"<sub>{rule['id']}</sub>"))
+        self.assertIn("When: rigorous column.", line)
+        # Row ids appear only in the small text at the end of a line.
+        ids = {d["id"] for d in self.corpus["decisions"]}
+        for l in page.splitlines():
+            main = l.split("<sub>")[0]
+            self.assertFalse(any(i in main for i in ids if "." in i), l)
+        self.assertIn("rules-readable.md", kb.build_index(self.corpus, self.origins)[0].splitlines()[2])
+        # A stale page is reported, and held-out rows never appear.
+        self.decision(self.SIM)["keys"]["statement"] = "Changed for the test."
+        self.assertTrue(any("rules-readable.md is stale" in e for e in kb.index_errors(self.corpus, self.origins)))
+        self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
+                                      "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
+        self.assertNotIn(self.SIM, kb.build_readable(self.corpus))
+
     def test_index_size_follows_problems_not_rows(self):
         md, _ = kb.build_index(self.corpus, self.origins)
         before = md.splitlines()
