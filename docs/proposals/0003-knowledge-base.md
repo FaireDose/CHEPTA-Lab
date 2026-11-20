@@ -124,6 +124,22 @@ simulation in the same knowledge base, not only what Lab's own cases showed.
   profiles; a lead, as cited in the troubleshooting table, the book not opened by Lab). The two chepta 0.6.2 example
   rows now carry the symptom `no-convergence`. No other book content is added.
 
+## F. Corrections (amendment, 2026-11-20)
+
+PR #28 was merged before its AI review (PR #30) finished, so some wrong outcomes were already in the append-only
+lock. A locked row is never edited; it is corrected by a new row:
+
+- The correcting row carries `keys.corrects: <row id>` and `keys.correction_reason` (why, citing the review note).
+  Several rows may correct one row (a split); two rows cannot correct each other; the target must exist.
+- `kb.py` treats the corrected row as **withdrawn**: left out of the counts, the current rows and the disputes,
+  counted as `withdrawn` in `problems.json`, struck through with "corrected by <id>" in `rules-readable.md`, and
+  marked `WITHDRAWN` in `kb.py query` (`corrected_by` in `show` and `--json`). It stays in the record file and the
+  lock unchanged, so the lock check still refuses any silent edit or deletion.
+- A row whose outcome is not locked (a paper's design, a Lab inference) may still be edited in place; say so in
+  its limits.
+- Tests: a correction passes, an edit of the corrected row still fails, a correction to a missing row or without a
+  reason is refused, and the counts move as expected (`tests/test_kb.py`).
+
 ## To decide
 
 1. **Condition tags free or controlled?** Free tags let two workers describe the same condition differently, which
