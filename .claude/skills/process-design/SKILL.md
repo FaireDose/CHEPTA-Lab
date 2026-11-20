@@ -31,6 +31,28 @@ Each row gives the route each paper used and the other routes. "Seen in" counts 
 usable only when a paper or a CHEPTA run shows it working; an AI's suggestion is only a lead. Every new case adds or
 extends rows.
 
+**The knowledge base: the dataset.** [dataset/records/pilot.json](../../../dataset/records/pilot.json) is one
+file that links each link of the evidence chain to the next. Its structure is checked by
+[dataset/schemas/corpus.schema.json](../../../dataset/schemas/corpus.schema.json).
+
+| Record | One row is | Today (2026-11-20) |
+|---|---|---|
+| `blocks` | a source passage, with its locator | 7 |
+| `evidence` | a claim with its conditions, quantities and limits | 9 |
+| `decisions` | **obstacle → mechanism → operation → expected change**, with alternatives, limits and what must be verified: the design knowledge itself | 3 |
+| `runs` | an actual CHEPTA request and answer | 1 |
+| `tasks` | a question with its checked answer, for testing an assistant | 3 drafts |
+
+All of it is still from October and covers ethyl acetate extraction and the ethanol reactor. The closed ethyl acetate
+and methanol plants have **not** been added yet: their lessons are only in the register and the case READMEs. Every
+new case should add its decisions, evidence and runs here, each linked to its register row.
+
+**Steps to add as the knowledge base grows** (not built yet; do not pretend they exist):
+6. Find analogous cases: decisions whose obstacle and mixture behaviour match the new feed and objective.
+7. Reuse what worked, and what failed, under comparable conditions. Flag where the conditions differ.
+8. Rank the shortlist on a common basis once costs exist (CHEPTA 0.7).
+9. (Room for further steps.)
+
 **Label each rationale:** author-stated, independently supported, simulation-tested, or unresolved. Never invent an
 author's reason.
 
