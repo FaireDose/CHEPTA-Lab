@@ -148,20 +148,43 @@
   ],
   "simulation": [
     {
-      "operation": "distillation",
-      "symptom": "no-convergence",
+      "operation": "absorber-column",
+      "symptom": "purity-short",
       "disputed": 0,
-      "rows": 4,
+      "rows": 1,
       "counts": {
-        "worked": 1,
-        "failed": 1,
-        "lead": 2,
+        "worked": 0,
+        "failed": 0,
+        "lead": 1,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 2,
+      "papers": 1,
+      "files": [
+        "palomar-2024-il-process-simulation"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "distillation",
+      "symptom": "no-convergence",
+      "disputed": 0,
+      "rows": 6,
+      "counts": {
+        "worked": 1,
+        "failed": 1,
+        "lead": 4,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 3,
       "files": [
         "ethyl-acetate-piotrowski-2021",
+        "henrique-2020-dwc-simulation",
         "steffen-2024-rd-modelling-review"
       ],
       "used": {
@@ -185,6 +208,73 @@
       "papers": 1,
       "files": [
         "kooijman-taylor-2006-chemsep-book"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "distillation",
+      "symptom": "wrong-phase",
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 0,
+        "failed": 0,
+        "lead": 2,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "palomar-2024-il-process-simulation",
+        "pasha-2021-biodiesel-process-design"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "extraction",
+      "symptom": "purity-short",
+      "disputed": 0,
+      "rows": 1,
+      "counts": {
+        "worked": 0,
+        "failed": 0,
+        "lead": 1,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 1,
+      "files": [
+        "grisales-2017-abe-extraction"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "extraction",
+      "symptom": "wrong-phase",
+      "disputed": 0,
+      "rows": 1,
+      "counts": {
+        "worked": 0,
+        "failed": 0,
+        "lead": 1,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 1,
+      "files": [
+        "fu-2021-isobutanol-recovery"
       ],
       "used": {
         "yes": 0,
@@ -351,17 +441,18 @@
       "operation": "recycle",
       "symptom": "no-convergence",
       "disputed": 0,
-      "rows": 1,
+      "rows": 2,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 1,
+        "lead": 2,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 1,
+      "papers": 2,
       "files": [
-        "larsson-skogestad-2000-plantwide"
+        "larsson-skogestad-2000-plantwide",
+        "palomar-2024-il-process-simulation"
       ],
       "used": {
         "yes": 0,
@@ -394,11 +485,9 @@
   ],
   "general_design_rules": [
     {
-      "operation": "azeotropic-distillation",
+      "operation": "absorber-column",
       "behaviours": [
-        "azeotrope-heterogeneous",
-        "equilibrium-limited-reaction",
-        "two-liquid-phases"
+        "non-condensable-gas"
       ],
       "rows": 2,
       "counts": {
@@ -410,7 +499,35 @@
       "superseded": 0,
       "papers": 1,
       "files": [
-        "guo-wang-2019-azeotropic-distillation"
+        "palomar-2024-il-process-simulation"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "azeotropic-distillation",
+      "behaviours": [
+        "azeotrope-heterogeneous",
+        "azeotrope-min-boiling",
+        "close-boiling",
+        "equilibrium-limited-reaction",
+        "two-liquid-phases"
+      ],
+      "rows": 6,
+      "counts": {
+        "worked": 0,
+        "failed": 0,
+        "lead": 6,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "guo-wang-2019-azeotropic-distillation",
+        "valentini-2020-azeotropes-waste"
       ],
       "used": {
         "yes": 0,
@@ -423,17 +540,18 @@
       "behaviours": [
         "equilibrium-limited-reaction"
       ],
-      "rows": 1,
+      "rows": 2,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 1,
+        "lead": 2,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 1,
+      "papers": 2,
       "files": [
-        "hoff-eisenacher-2025-esterification-review"
+        "hoff-eisenacher-2025-esterification-review",
+        "pasha-2021-biodiesel-process-design"
       ],
       "used": {
         "yes": 0,
@@ -444,19 +562,23 @@
     {
       "operation": "decanter",
       "behaviours": [
-        "azeotrope-heterogeneous"
+        "azeotrope-heterogeneous",
+        "equilibrium-limited-reaction",
+        "two-liquid-phases"
       ],
-      "rows": 1,
+      "rows": 3,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 1,
+        "lead": 3,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 1,
+      "papers": 3,
       "files": [
-        "guo-wang-2019-azeotropic-distillation"
+        "fu-2021-isobutanol-recovery",
+        "guo-wang-2019-azeotropic-distillation",
+        "pasha-2021-biodiesel-process-design"
       ],
       "used": {
         "yes": 0,
@@ -468,22 +590,59 @@
       "operation": "distillation",
       "behaviours": [
         "close-boiling",
+        "hazardous-component",
         "heat-sensitive",
         "side-products",
+        "trace-impurity-limit",
         "zeotropic-multicomponent"
       ],
-      "rows": 6,
+      "rows": 12,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 6,
+        "lead": 12,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 2,
+      "papers": 6,
       "files": [
+        "blahusiak-2018-separation-selection",
+        "byrne-2016-solvent-selection-guides",
+        "chen-2018-abe-distillation",
+        "henrique-2020-dwc-simulation",
         "li-2023-distillation-sequences",
         "shehata-2024-meg-routes"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "extraction",
+      "behaviours": [
+        "associating-acid-vapour",
+        "azeotrope-heterogeneous",
+        "close-boiling",
+        "dilute-product",
+        "hazardous-component",
+        "two-liquid-phases"
+      ],
+      "rows": 8,
+      "counts": {
+        "worked": 0,
+        "failed": 0,
+        "lead": 8,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 4,
+      "files": [
+        "blahusiak-2018-separation-selection",
+        "byrne-2016-solvent-selection-guides",
+        "fu-2021-isobutanol-recovery",
+        "grisales-2017-abe-extraction"
       ],
       "used": {
         "yes": 0,
@@ -497,16 +656,17 @@
         "azeotrope-min-boiling",
         "close-boiling"
       ],
-      "rows": 2,
+      "rows": 3,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 2,
+        "lead": 3,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 2,
+      "papers": 3,
       "files": [
+        "blahusiak-2018-separation-selection",
         "li-2017-ed-thermo-parameters",
         "mtogo-2021-ed-vs-psd"
       ],
@@ -519,21 +679,26 @@
     {
       "operation": "heat-integration",
       "behaviours": [
+        "close-boiling",
         "exothermic-reaction",
+        "heat-recovery-potential",
         "heat-sensitive",
         "zeotropic-multicomponent"
       ],
-      "rows": 3,
+      "rows": 9,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 3,
+        "lead": 9,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 2,
+      "papers": 5,
       "files": [
+        "ali-2022-eg-plant-pinch",
+        "blahusiak-2018-separation-selection",
         "li-2023-distillation-sequences",
+        "pasha-2021-biodiesel-process-design",
         "shehata-2024-meg-routes"
       ],
       "used": {
@@ -545,19 +710,21 @@
     {
       "operation": "pervaporation",
       "behaviours": [
+        "azeotrope-heterogeneous",
         "equilibrium-limited-reaction"
       ],
-      "rows": 2,
+      "rows": 3,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 2,
+        "lead": 3,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 1,
+      "papers": 2,
       "files": [
-        "hoff-eisenacher-2025-esterification-review"
+        "hoff-eisenacher-2025-esterification-review",
+        "valentini-2020-azeotropes-waste"
       ],
       "used": {
         "yes": 0,
@@ -641,6 +808,7 @@
     {
       "operation": "reactive-distillation",
       "behaviours": [
+        "azeotrope-min-boiling",
         "close-boiling",
         "endothermic-reaction",
         "equilibrium-limited-reaction",
@@ -648,11 +816,11 @@
         "side-products",
         "two-liquid-phases"
       ],
-      "rows": 17,
+      "rows": 21,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 17,
+        "lead": 21,
         "untested": 0
       },
       "superseded": 0,
@@ -673,19 +841,23 @@
     {
       "operation": "recycle",
       "behaviours": [
-        "recycle-loop"
+        "recycle-loop",
+        "side-products",
+        "trace-impurity-limit"
       ],
-      "rows": 4,
+      "rows": 6,
       "counts": {
         "worked": 0,
         "failed": 0,
-        "lead": 4,
+        "lead": 6,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 2,
+      "papers": 4,
       "files": [
+        "chen-2018-abe-distillation",
         "larsson-skogestad-2000-plantwide",
+        "pasha-2021-biodiesel-process-design",
         "shehata-2024-meg-routes"
       ],
       "used": {

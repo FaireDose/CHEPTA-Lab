@@ -17,7 +17,8 @@
           "equilibrium-limited-reaction"
         ],
         "conditions": [
-          "feasibility"
+          "feasibility",
+          "bears-on-butyl-acetate"
         ],
         "statement": "Reactive distillation is feasible only where the temperature and pressure windows of the reaction, the catalyst and the separation overlap. Otherwise keep reactor and column separate, and judge integration on the whole process.",
         "source": {
@@ -59,7 +60,8 @@
         ],
         "conditions": [
           "feasibility",
-          "schoenmakers-diagram"
+          "schoenmakers-diagram",
+          "bears-on-butyl-acetate"
         ],
         "statement": "A slow reaction makes reactive distillation unattractive, and a very high relative volatility needs only a reactor followed by a flash. Between these, reactive distillation is a candidate.",
         "source": {
@@ -102,7 +104,8 @@
         ],
         "conditions": [
           "feasibility",
-          "column-pressure"
+          "column-pressure",
+          "bears-on-butyl-acetate"
         ],
         "statement": "If the reaction is too slow at the column's temperatures, raising the column pressure raises the temperature and thus the rate, as long as separation and catalyst still allow it.",
         "source": {
@@ -143,7 +146,8 @@
           "equilibrium-limited-reaction"
         ],
         "conditions": [
-          "first-sizing"
+          "first-sizing",
+          "bears-on-butyl-acetate"
         ],
         "statement": "Put the reactive zone where reactant concentrations are highest. Estimate the non-reactive stages with Fenske-type shortcuts and the reactive stages from the reactive height over the catalytic packing's HETP.",
         "source": {
@@ -185,7 +189,9 @@
           "endothermic-reaction"
         ],
         "conditions": [
-          "internal-integration"
+          "internal-integration",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
         ],
         "statement": "For reactions with a large heat effect, integrate energy between the reactive and separating sections; for slow, strongly endothermic reactions with small equilibrium constants also integrate mass with the stripping section. For thermally neutral reactions mass integration alone suffices.",
         "source": {
@@ -210,6 +216,177 @@
       ],
       "verification_required": [
         "An AI review session checks the statement against kiss-2024-rd-conceptual-methods, Synthesis procedures, journal p. 1277 (p. 16 of the TU Delft copy; procedure of Huang et al.)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kiss-2024-rd-conceptual-methods.neat-versus-excess-feed",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "feed-ratio",
+          "controllability",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A reactive column can run neat (stoichiometric feeds) or with 10 to 20% excess of one reactant, which then needs a recovery column. Neat operation in one column is cheaper but needs precise balancing of the fresh feeds to stop a reactant building up.",
+        "source": {
+          "source_id": "kiss-2024-rd-conceptual-methods",
+          "locator": "Journal pp. 1270 and 1278 (pp. 9 and 17 of the TU Delft copy; after Luyben and Yu)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing the reactant ratio of a reactive column.",
+      "mechanism": "Any excess reactant must leave somewhere.",
+      "operation": "Choose neat feed with tight ratio control, or excess with a recycle column.",
+      "expected_change": "A feasible and controllable plant.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kiss-2024-rd-conceptual-methods, Journal pp. 1270 and 1278 (pp. 9 and 17 of the TU Delft copy; after Luyben and Yu)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kiss-2024-rd-conceptual-methods.locate-reactive-section",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "reactive-zone-location",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Place the reactive section so distillation carries a reaction product out of the liquid, which lifts the equilibrium limit, and, where azeotropes exist, so the reaction prevents the azeotrope from forming.",
+        "source": {
+          "source_id": "kiss-2024-rd-conceptual-methods",
+          "locator": "Journal p. 1270 (p. 9 of the TU Delft copy)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Equilibrium limit or an azeotrope in a reactive column.",
+      "mechanism": "Removing a product shifts equilibrium; consuming a component avoids its azeotrope.",
+      "operation": "Position the reactive zone accordingly.",
+      "expected_change": "Higher conversion, azeotrope avoided.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kiss-2024-rd-conceptual-methods, Journal p. 1270 (p. 9 of the TU Delft copy)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kiss-2024-rd-conceptual-methods.tray-liquid-height",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "tray-column",
+          "hold-up",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "On reactive trays a liquid height of 10 to 15 cm is typical, since more raises pressure drop; if the needed hold-up implies more, use more reactive trays or a wider column than vapour loading requires.",
+        "source": {
+          "source_id": "kiss-2024-rd-conceptual-methods",
+          "locator": "Journal p. 1274 (p. 13 of the TU Delft copy; after Luyben and Yu)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Hold-up needed for the reaction exceeds what a tray can hold.",
+      "mechanism": "Tray liquid height is limited by hydraulics.",
+      "operation": "Add reactive trays or widen the column.",
+      "expected_change": "Enough hold-up within hydraulic limits.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kiss-2024-rd-conceptual-methods, Journal p. 1274 (p. 13 of the TU Delft copy; after Luyben and Yu)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kiss-2024-rd-conceptual-methods.pre-reactor",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "pre-reactor",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A pre-reactor can take part of the conversion before the reactive column; the best split of conversion between them is found by costing designs over a range of pre-reactor temperatures.",
+        "source": {
+          "source_id": "kiss-2024-rd-conceptual-methods",
+          "locator": "Journal p. 1275 (p. 14 of the TU Delft copy; after Daniel and Jobson)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Too much reaction demanded of the column.",
+      "mechanism": "An upstream reactor reaches equilibrium cheaply.",
+      "operation": "Add a pre-reactor and share the conversion.",
+      "expected_change": "Smaller reactive section.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kiss-2024-rd-conceptual-methods, Journal p. 1275 (p. 14 of the TU Delft copy; after Daniel and Jobson)."
       ],
       "rationale_classification": "author_stated",
       "legacy_origin": null

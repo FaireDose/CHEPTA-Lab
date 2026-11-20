@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "id": "pasha-2021-biodiesel-process-design",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "pasha-2021-biodiesel-process-design.design-from-reactor-outwards",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [],
+        "behaviours": [
+          "recycle-loop",
+          "side-products"
+        ],
+        "conditions": [
+          "conceptual-design-order"
+        ],
+        "statement": "Design from the reactor outwards: choose reactor and catalyst first, then add separations and recycles, because the reaction step sets the purity reached and how hard the purification will be.",
+        "source": {
+          "source_id": "pasha-2021-biodiesel-process-design",
+          "locator": "Section 'Process design and simulation'"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Where to start a flowsheet.",
+      "mechanism": "The reactor effluent defines the separation problem.",
+      "operation": "Fix reactor and catalyst before the separation train.",
+      "expected_change": "A separation train matched to the effluent.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against pasha-2021-biodiesel-process-design, Section 'Process design and simulation'."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "pasha-2021-biodiesel-process-design.continuous-cstrs-in-series",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "cstr",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "large-scale",
+          "continuous"
+        ],
+        "statement": "Large plants run continuously; a single stirred tank does not reach batch productivity, but stirred tanks in series do.",
+        "source": {
+          "source_id": "pasha-2021-biodiesel-process-design",
+          "locator": "Section 'Process design of biodiesel production using chemical catalyst'"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Continuous reactor with lower conversion than batch.",
+      "mechanism": "Back-mixing in one tank; series tanks approach plug flow.",
+      "operation": "Use stirred tanks in series.",
+      "expected_change": "Batch-like conversion at continuous scale.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against pasha-2021-biodiesel-process-design, Section 'Process design of biodiesel production using chemical catalyst'."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "pasha-2021-biodiesel-process-design.nrtl-uniquac-polar",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "wrong-phase",
+        "components": [],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "property-method",
+          "polar-mixture",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "For mixtures with polar components such as glycerol, methanol and water, use NRTL or UNIQUAC, filling missing binary pairs with UNIFAC estimates.",
+        "source": {
+          "source_id": "pasha-2021-biodiesel-process-design",
+          "locator": "Section 'Process design and simulation'"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Polar, non-ideal mixtures and missing parameters.",
+      "mechanism": "Activity models describe non-ideal liquids; UNIFAC fills gaps.",
+      "operation": "Activity-coefficient model with estimated missing pairs.",
+      "expected_change": "Usable phase equilibrium.",
+      "alternatives": [],
+      "limits": [
+        "Estimated pairs are guesses until checked against data (see the Palomar and Li 2017 rows).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against pasha-2021-biodiesel-process-design, Section 'Process design and simulation'."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "pasha-2021-biodiesel-process-design.staged-decanting",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "decanter",
+        "components": [],
+        "behaviours": [
+          "two-liquid-phases",
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "reactors-in-series",
+          "staged-addition"
+        ],
+        "statement": "Reactors in series with decanters between them remove a heavy liquid product (glycerol) as it forms and allow a reactant to be added in stages.",
+        "source": {
+          "source_id": "pasha-2021-biodiesel-process-design",
+          "locator": "Section 'Process design of biodiesel production using biocatalyst'"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A product phase limits conversion; a reactant harms the catalyst at high concentration.",
+      "mechanism": "Removing the product phase and dosing the reactant keep conditions favourable.",
+      "operation": "Interstage decanters with staged feed.",
+      "expected_change": "Higher conversion and catalyst life.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against pasha-2021-biodiesel-process-design, Section 'Process design of biodiesel production using biocatalyst'."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "pasha-2021-biodiesel-process-design.pinch-savings-biodiesel",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [],
+        "behaviours": [
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "pinch-analysis"
+        ],
+        "statement": "Pinch-based heat integration of biodiesel plants cut heating and cooling utilities by roughly 11 to 16% in the cited studies.",
+        "source": {
+          "source_id": "pasha-2021-biodiesel-process-design",
+          "locator": "Section 'Heat integration'"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Utility use of several distillation steps.",
+      "mechanism": "Matching hot and cold streams recovers heat.",
+      "operation": "Apply pinch analysis.",
+      "expected_change": "Lower utilities.",
+      "alternatives": [],
+      "limits": [
+        "Cited results; Lab has not read the cited studies.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against pasha-2021-biodiesel-process-design, Section 'Heat integration'."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

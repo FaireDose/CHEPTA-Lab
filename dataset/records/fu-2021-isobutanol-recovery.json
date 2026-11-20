@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "id": "fu-2021-isobutanol-recovery",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "fu-2021-isobutanol-recovery.decanter-with-two-strippers",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "decanter",
+        "components": [
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "alcohol-water-heteroazeotrope",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Split an alcohol-water heterogeneous azeotrope with a decanter and two strippers: the organic layer gives dry alcohol at the bottom of one, the aqueous layer gives water at the bottom of the other, and both overheads return to the decanter.",
+        "source": {
+          "source_id": "fu-2021-isobutanol-recovery",
+          "locator": "Introduction (Fig. 1)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "An alcohol-water azeotrope.",
+      "mechanism": "The azeotrope splits into two liquids that lie on either side of it.",
+      "operation": "Decanter plus two strippers.",
+      "expected_change": "Both pure components recovered.",
+      "alternatives": [],
+      "limits": [
+        "Shown for isobutanol; 1-butanol + water forms the same kind of azeotrope, a transfer not tested here.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against fu-2021-isobutanol-recovery, Introduction (Fig. 1)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "fu-2021-isobutanol-recovery.salting-out",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extraction",
+        "components": [
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "salting-out"
+        ],
+        "statement": "Adding a strong salting-out salt (potassium carbonate) raised the alcohol's partition and dehydration with the salt staying in the aqueous phase, and salting-out plus distillation used less energy than solvent extraction.",
+        "source": {
+          "source_id": "fu-2021-isobutanol-recovery",
+          "locator": "Concluding remarks"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Recovering an alcohol from water.",
+      "mechanism": "Ions bind water and push the alcohol out.",
+      "operation": "Salting-out before distillation.",
+      "expected_change": "Less energy than solvent extraction.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against fu-2021-isobutanol-recovery, Concluding remarks."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "fu-2021-isobutanol-recovery.electrolyte-model",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "extraction",
+        "symptom": "wrong-phase",
+        "components": [
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "electrolyte",
+          "property-method"
+        ],
+        "statement": "With salts present, correlate the liquid-liquid equilibrium with an electrolyte activity model (here e-NRTL) that has ion-pair parameters.",
+        "source": {
+          "source_id": "fu-2021-isobutanol-recovery",
+          "locator": "Section 'Modeling of the liquid-liquid equilibria'; Concluding remarks"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Salt-containing liquid phases.",
+      "mechanism": "Ions change activities in ways a molecular model misses.",
+      "operation": "Use an electrolyte model.",
+      "expected_change": "Correct phase split.",
+      "alternatives": [],
+      "limits": [
+        "Whether CHEPTA 0.6.2 has an electrolyte model was not checked.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against fu-2021-isobutanol-recovery, Section 'Modeling of the liquid-liquid equilibria'; Concluding remarks."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
