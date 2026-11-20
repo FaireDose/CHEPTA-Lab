@@ -1,0 +1,79 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "The loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 33, Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 141.548 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol. (on an accelerated guess, broyden, 13000 % of the tear flows beyond the last pass's result; the last pass changed the tears by 2.08e-3. Check the specifications and the start values of the loop first; direct substitution, which never extrapolates, shows whether the guess was the cause). What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S27, S7, S21, S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+    "where": [],
+    "details": {
+      "loop": [
+        "PUMP14",
+        "MIX13",
+        "HTXR17",
+        "SPLIT16",
+        "SCDS15",
+        "HTXR19",
+        "HTXR18",
+        "HTXR12",
+        "SCDS11",
+        "HTXR10",
+        "SPLIT9",
+        "EXTR8",
+        "MIX7",
+        "HTXR6",
+        "SCDS5",
+        "KREA4",
+        "MIX3"
+      ],
+      "tears": [
+        "S27",
+        "S7",
+        "S21",
+        "S15",
+        "S24"
+      ],
+      "history": [
+        0.054886534454758024,
+        0.02310762052676486,
+        0.0043743764615159315,
+        0.0006627799848974999,
+        0.0006716690362792888,
+        0.0009125203362639415,
+        0.002117301438399858,
+        0.013597260933147429,
+        0.04109572183618337,
+        0.00968014317768241,
+        0.007154346893000698,
+        0.0020845379984096787
+      ],
+      "safeguards": [
+        {
+          "iteration": 32,
+          "action": "Jacobian (20 passes)",
+          "reason": "the change has not halved in 8 iterations (best 6.63e-4)"
+        }
+      ],
+      "cause": "Conversion reactor KREA4: esterification at a conversion of 0.7703 of Acetic acid needs 141.548 kmol/h of Ethanol, but only 141.333 kmol/h come in. Lower the conversion, or feed more Ethanol.",
+      "netChange_kmol_h": {
+        "ethanol": 0.22797312760346325,
+        "water": 1.1561068805830246,
+        "ethyl-acetate": -0.7640914449520207,
+        "acetic-acid": -0.0011484808606854464
+      }
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "e7cae94d8e2dfaee"
+  },
+  "run": {
+    "id": "run-mwohmh4a-1",
+    "input_hash": "e7cae94d8e2dfaee",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "failed",
+    "elapsed_ms": 1118584.039936
+  }
+}
