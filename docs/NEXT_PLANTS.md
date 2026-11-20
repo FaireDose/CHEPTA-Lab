@@ -4,7 +4,7 @@ Written 2026-11-13 by an AI worker session for the maintainer. Draft; no person 
 
 **Why:** CHEPTA moves to 0.7 once Lab has simulated 4 complete flowsheets from papers, compared stream by stream
 (the maintainer, 2026-11-13). Process 2 (ethyl acetate, Piotrowski & Kubica 2021) is the first. The other three are
-processes 1, 3 and 4 of [reference/CANDIDATE_PROCESSES.md](reference/CANDIDATE_PROCESSES.md), each as a **complete
+processes 1, 3 and 4 of [docs/CANDIDATE_PROCESSES.md](CANDIDATE_PROCESSES.md), each as a **complete
 plant with a stream table**. A process is replaced only if no usable open plant-level paper exists (the maintainer,
 2026-11-13, through the coordinator). **No CHEPTA run before the maintainer's go.**
 

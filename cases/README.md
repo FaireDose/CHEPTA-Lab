@@ -17,4 +17,6 @@ comparison with the source, and a study record (`study-record.json`, the case's 
 
 A complete flowsheet from one paper: the paper's streams and units with page and table, run through the released
 CHEPTA's command line, compared stream by stream, every refusal and warning kept, then a study record. Results are
-never edited by hand, and older runs keep their CHEPTA version.
+never edited by hand, and older runs keep their CHEPTA version. The steps are in the building-cases skill
+([.claude/skills/building-cases/SKILL.md](../.claude/skills/building-cases/SKILL.md)); running CHEPTA follows the
+solving-simulations skill.

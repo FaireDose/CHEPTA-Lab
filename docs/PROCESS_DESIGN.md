@@ -1,4 +1,12 @@
-# How we build the dataset
+# Process design: how operations are chosen, and how the dataset learns it
+
+The method a senior process engineer follows, applied to every case and to every design question in the dataset: from
+the feed, the products and the constraints to a short list of physically justified operations, checked by simulation.
+What Lab has learned so far, problem by problem, is in [data/ISSUES_AND_ROUTES.md](../data/ISSUES_AND_ROUTES.md); a worked example is
+[the ethyl acetate operation reasoning](../dataset/drafts/ethyl-acetate-extraction/OPERATION_REASONING.md).
+(Formerly docs/reference/DATASET_DESIGN.md, "How we build the dataset"; moved and renamed 2026-11-20, content unchanged below.)
+
+## How we build the dataset
 
 Agreed design, 2026-10-29. Physical evidence guides operation selection; simulation checks a small justified shortlist. Published flowsheets are worked examples, not automatically optimal answers.
 
@@ -66,9 +74,9 @@ Capacity is not a memorized restriction. It may still affect technology selectio
 
 ## Repository workflow and acceptance
 
-Use [the canonical corpus and pipeline](../../dataset/PIPELINE.md) for new training tasks. The formal schema links source blocks, evidence, decisions, runs and tasks. Older templates remain research scaffolds; their schema versions are separate from the canonical corpus schema. No record is accepted merely by migration.
+Use [the canonical corpus and pipeline](../dataset/PIPELINE.md) for new training tasks. The formal schema links source blocks, evidence, decisions, runs and tasks. Older templates remain research scaffolds; their schema versions are separate from the canonical corpus schema. No record is accepted merely by migration.
 
-First draft prepared: [extraction and feed conditioning](../../dataset/drafts/ethyl-acetate-extraction/README.md). Next connect operation decisions to CHEPTA calculations and existing validation. Preserve its published balance discrepancies as qualifications; investigate during reproduction without making them the main learning objective. No new physical claims or accepted targets are created by this design document.
+First draft prepared: [extraction and feed conditioning](../dataset/drafts/ethyl-acetate-extraction/README.md). Next connect operation decisions to CHEPTA calculations and existing validation. Preserve its published balance discrepancies as qualifications; investigate during reproduction without making them the main learning objective. No new physical claims or accepted targets are created by this design document.
 
 Review provenance, applicable conditions, reasoning and rights before every task release; require actual runs and appropriate comparisons when the target claims calculated results. Explanations and conditional selections can be reviewed without full-process execution. Full process-performance exports remain blocked until their acceptance contract is implemented. Keep paper/process/capacity variants together when splitting data. Evaluate new compositions and specifications, appropriate abstention, and selection rationale—not just agreement with a published equipment list. No training starts with this documentation update.
 
@@ -98,7 +106,7 @@ The first implementation covers literature explanation, conditional next-operati
 
 ## Research-informed handoff and evaluation
 
-Apply [the four-paper methods review](RELATED_WORK_METHODS.md) using existing evidence and decision records. Each operation handoff states its required stream change, supporting physics, applicable conditions, known specifications, unresolved inputs and acceptance result. Keep this engineering description separate from simulator syntax.
+Apply [the four-paper methods review](reference/RELATED_WORK_METHODS.md) using existing evidence and decision records. Each operation handoff states its required stream change, supporting physics, applicable conditions, known specifications, unresolved inputs and acceptance result. Keep this engineering description separate from simulator syntax.
 
 Preserve source, proposed and executed flowsheets as distinct states. Inferred settings and simplifications remain explicit; convergence of a modified configuration does not verify the original task. Evaluate reproduction, source extraction and new-design selection separately, allowing physically defensible alternatives in the last track. Review consequential conclusions against their evidence even when tool values are correct.
 

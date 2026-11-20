@@ -4,6 +4,8 @@ Every worker that runs a plant or a unit in CHEPTA follows this page. The coordi
 checks the report against it (the maintainer, 2026-11-20: "you will be responsible to guide the workers to use this
 skill of simulation practices").
 
+AI sessions reach this page through the solving-simulations skill (`.claude/skills/solving-simulations/`).
+
 It was drawn from the ethyl acetate plant, which the maintainer worked through with a worker on 2026-11-13 and 14. The
 details and the runs that show each point are in
 [cases/ethyl-acetate-piotrowski-2021/CONVERGENCE_PRACTICES.md](../cases/ethyl-acetate-piotrowski-2021/CONVERGENCE_PRACTICES.md).
