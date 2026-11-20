@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "id": "othman-2024-meg-reactive-distillation",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "othman-2024-meg-reactive-distillation.rd-keeps-oxide-dilute",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "ethylene-oxide",
+          "water",
+          "ethylene-glycol",
+          "diethylene-glycol"
+        ],
+        "behaviours": [
+          "side-products",
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "non-catalytic",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Reactive distillation suits ethylene oxide hydration because the volatile oxide stays dilute in the liquid on the reactive stages, which limits diethylene glycol. The reaction heat also helps boil off the water.",
+        "source": {
+          "source_id": "othman-2024-meg-reactive-distillation",
+          "locator": "Introduction, p. 3; Results, pp. 7-9"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Heavy glycols form when oxide meets glycol; water removal costs steam.",
+      "mechanism": "Volatility keeps liquid oxide low; reaction heat drives vaporisation.",
+      "operation": "Hydrate in a reactive column.",
+      "expected_change": "Less heavy glycol and less external heat.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against othman-2024-meg-reactive-distillation, Introduction, p. 3; Results, pp. 7-9."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "othman-2024-meg-reactive-distillation.rd-water-fed-above-oxide",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "ethylene-oxide",
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "side-products"
+        ],
+        "conditions": [
+          "non-catalytic",
+          "feed-location",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Feed the recycled process water near the top of the reactive column (stage 2) and the aqueous oxide a little lower (stage 4). The water then catches oxide vapour before it reaches the condenser.",
+        "source": {
+          "source_id": "othman-2024-meg-reactive-distillation",
+          "locator": "Results, pp. 7-8 (Table 3, Fig. 10)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Volatile oxide can escape overhead.",
+      "mechanism": "Water above the oxide feed absorbs and reacts with the rising oxide.",
+      "operation": "Place the water feed above the oxide feed.",
+      "expected_change": "Oxide retained in the reactive zone.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against othman-2024-meg-reactive-distillation, Results, pp. 7-8 (Table 3, Fig. 10)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "othman-2024-meg-reactive-distillation.tubular-reactor-no-backmixing",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pfr",
+        "components": [
+          "ethylene-oxide",
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "side-products",
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "direct-hydration",
+          "adiabatic",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "The conventional glycol reactor is an adiabatic tube in turbulent flow without back-mixing, fed with oxide diluted in a large water excess. This limits further reaction of glycol with oxide and avoids oxide vapour breakthrough.",
+        "source": {
+          "source_id": "othman-2024-meg-reactive-distillation",
+          "locator": "Introduction, p. 2 (Fig. 1)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Back-mixing brings product glycol into contact with fresh oxide.",
+      "mechanism": "Plug flow keeps the residence time narrow.",
+      "operation": "Adiabatic tubular reactor.",
+      "expected_change": "Higher selectivity to monoethylene glycol.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against othman-2024-meg-reactive-distillation, Introduction, p. 2 (Fig. 1)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "othman-2024-meg-reactive-distillation.rd-multiple-steady-states-oxide-overhead",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "purity-short",
+        "components": [
+          "ethylene-oxide",
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [],
+        "conditions": [
+          "non-catalytic",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "A reactive column for ethylene glycol can have several steady states, one of which accumulates ethylene oxide at the top. A converged run that misses the glycol target may be on the wrong one.",
+        "source": {
+          "source_id": "othman-2024-meg-reactive-distillation",
+          "locator": "Introduction, p. 2 (citing earlier modelling studies)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A converged reactive column misses its target.",
+      "mechanism": "Several steady states exist for the same inputs.",
+      "operation": "Check for other steady states before changing settings.",
+      "expected_change": "Find the branch that meets the target.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against othman-2024-meg-reactive-distillation, Introduction, p. 2 (citing earlier modelling studies)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "othman-2024-meg-reactive-distillation.cpa-for-glycol-water",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "wrong-phase",
+        "components": [
+          "ethylene-glycol",
+          "water"
+        ],
+        "behaviours": [],
+        "conditions": [
+          "property-method",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "The paper models glycol + water with the cubic-plus-association (CPA) equation of state, chosen for associating glycol and water, and checks for liquid phase splitting on the stages.",
+        "source": {
+          "source_id": "othman-2024-meg-reactive-distillation",
+          "locator": "Model, p. 3"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Glycols and water associate, which simple models describe poorly.",
+      "mechanism": "An association term represents hydrogen bonding.",
+      "operation": "Use an association-capable property method and check stage phase stability.",
+      "expected_change": "Correct phases on the stages.",
+      "alternatives": [],
+      "limits": [
+        "CHEPTA's own property methods and their applicability govern Lab runs (AGENTS.md); this is the paper's choice, not a CHEPTA recommendation.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against othman-2024-meg-reactive-distillation, Model, p. 3."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

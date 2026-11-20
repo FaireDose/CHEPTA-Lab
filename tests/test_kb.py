@@ -35,6 +35,12 @@ class KnowledgeBaseTests(unittest.TestCase):
     def errors(self):
         return kb.check_keys(self.corpus)
 
+    def only_example_rules(self):
+        """Keep the case decisions and the two example rules, so exact index lines do not depend on
+        how many literature rules are committed."""
+        self.corpus["decisions"] = [d for d in self.corpus["decisions"]
+                                    if d["keys"]["kind"] == "case-decision" or d["id"] in (self.RULE, self.SIM)]
+
     # --- the repository as committed ---
 
     def test_committed_records_are_valid(self):
@@ -44,6 +50,27 @@ class KnowledgeBaseTests(unittest.TestCase):
     def test_index_is_current(self):
         # Fails whenever records or the register change without `python scripts/kb.py index`.
         self.assertEqual(kb.index_errors(self.corpus, self.origins), [])
+
+    def test_readable_page_for_people(self):
+        page = kb.build_readable(self.corpus)
+        self.assertEqual(kb.INDEX_READABLE.read_text(), page)  # current; index_errors also checks it
+        rule = self.decision(self.SIM)
+        line = next(l for l in page.splitlines() if rule["keys"]["statement"] in l)
+        self.assertTrue(line.startswith(f"- **{rule['keys']['statement']}** lead, book or review; Kooijman & Taylor 2006, "))
+        self.assertTrue(line.endswith(f"<sub>{rule['id']}</sub>"))
+        self.assertIn("When: rigorous column.", line)
+        # Row ids appear only in the small text at the end of a line.
+        ids = {d["id"] for d in self.corpus["decisions"]}
+        for l in page.splitlines():
+            main = l.split("<sub>")[0]
+            self.assertFalse(any(i in main for i in ids if "." in i), l)
+        self.assertIn("rules-readable.md", kb.build_index(self.corpus, self.origins)[0].splitlines()[2])
+        # A stale page is reported, and held-out rows never appear.
+        self.decision(self.SIM)["keys"]["statement"] = "Changed for the test."
+        self.assertTrue(any("rules-readable.md is stale" in e for e in kb.index_errors(self.corpus, self.origins)))
+        self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
+                                      "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
+        self.assertNotIn(self.SIM, kb.build_readable(self.corpus))
 
     def test_index_size_follows_problems_not_rows(self):
         md, _ = kb.build_index(self.corpus, self.origins)
@@ -108,10 +135,12 @@ class KnowledgeBaseTests(unittest.TestCase):
     # --- conflicts ---
 
     def test_same_problem_operation_different_conditions_is_not_disputed(self):
+        self.only_example_rules()
         # The two example rows: failed at 140-141.5 kmol/h, worked at 139 kmol/h.
         self.assertEqual(kb.disputes(self.corpus["decisions"]), [])
 
     def test_same_conditions_different_outcome_is_disputed_and_listed(self):
+        self.only_example_rules()
         self.clone(EXAMPLE, "other-case.same-column", status="worked")
         found = kb.disputes(self.corpus["decisions"])
         self.assertEqual(len(found), 1)
@@ -121,6 +150,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(sum(1 for d in self.corpus["decisions"] if d["id"] == EXAMPLE), 1)
 
     def test_dispute_acknowledged_by_one_side_passes_and_stays_listed(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "other-case.same-column", status="worked")
         row["keys"]["disputed_with"] = [EXAMPLE]
         self.assertEqual(self.errors(), [])
@@ -130,16 +160,45 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertIn("| 1 |", line)
 
     def test_later_engine_adds_a_row_and_supersedes(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow-0.7.0",
                          status="worked", engine="chepta@0.7.0", run_ids=["ethanol-replay-038"])
         self.assertEqual(kb.disputes(self.corpus["decisions"]), [])
         self.assertEqual(kb.current_rows([self.decision(EXAMPLE), row]), [row])
 
     def test_paper_and_chepta_disagreeing_is_disputed(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "other-case.paper-says-worked", status="worked", basis="paper_simulation",
                          engine=None, run_ids=[])
         self.assertEqual(len(kb.disputes(self.corpus["decisions"])), 1)
         self.assertIn(row["id"], {r["id"] for r in kb.disputes(self.corpus["decisions"])[0]["rows"]})
+
+    def test_acknowledged_pair_between_leads_is_counted(self):
+        self.only_example_rules()
+        a = self.clone(self.RULE, "ethyl-acetate-piotrowski-2021.rule-a")
+        b = self.clone(self.RULE, "ethyl-acetate-piotrowski-2021.rule-b")
+        del a["keys"]["problem_id"], a["keys"]["level"], b["keys"]["problem_id"], b["keys"]["level"]
+        self.assertEqual(kb.disputes(self.corpus["decisions"]), [])  # two leads alone are not a dispute
+        a["keys"]["disputed_with"] = [b["id"]]
+        self.assertEqual(self.errors(), [])
+        found = kb.disputes(self.corpus["decisions"])
+        self.assertEqual([f["acknowledged_pairs"] for f in found], [[(a["id"], b["id"])]])
+        self.assertEqual(found[0]["unacknowledged_pairs"], [])
+        md, js = kb.build_index(self.corpus, self.origins)
+        line = next(l for l in md.splitlines() if l.startswith("| extractive-distillation |"))
+        self.assertIn("| 0/0/2/0 | 1 |", line)
+        # A pair naming each other across different conditions still counts once, under the first row.
+        b["keys"]["conditions"] = b["keys"]["conditions"] + ["other-condition"]
+        found = kb.disputes(self.corpus["decisions"])
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0]["acknowledged_pairs"], [(a["id"], b["id"])])
+
+    def test_committed_lead_disputes_are_listed(self):
+        pairs = {p for f in kb.disputes(self.corpus["decisions"]) for p in f["acknowledged_pairs"]}
+        self.assertIn(("li-2023-distillation-sequences.hardest-split-last",
+                       "li-2023-distillation-sequences.hardest-split-not-always-last"), pairs)
+        self.assertIn(("larsson-skogestad-2000-plantwide.fix-a-recycle-flow",
+                       "larsson-skogestad-2000-plantwide.keep-reactor-full"), pairs)
 
     def test_editing_or_deleting_a_chepta_outcome_fails(self):
         lock = kb.lock_entries(self.corpus)
@@ -193,8 +252,10 @@ class KnowledgeBaseTests(unittest.TestCase):
         code, out = self.run_kb("query", "--operation", "distillation", "--symptom", "purity-short")
         self.assertIn(self.SIM, out)
         self.assertNotIn(EXAMPLE, out)
-        code, out = self.run_kb("query", "--kind", "design-rule", "--json")
-        self.assertEqual([r["id"] for r in json.loads(out)], [self.RULE])
+        code, out = self.run_kb("query", "--kind", "design-rule", "--json", "--limit", "1000")
+        rows = json.loads(out)
+        self.assertIn(self.RULE, [r["id"] for r in rows])
+        self.assertTrue(rows and all(r["keys"]["kind"] == "design-rule" for r in rows))
 
     def test_index_has_one_line_per_operation_and_symptom(self):
         md, js = kb.build_index(self.corpus, self.origins)
@@ -210,6 +271,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(len(kb.build_index(self.corpus, self.origins)[0].splitlines()), len(before) + 1)
 
     def test_general_design_rule_without_problem_goes_to_its_own_section(self):
+        self.only_example_rules()
         k = self.decision(self.RULE)["keys"]
         del k["problem_id"], k["level"]
         self.assertEqual(self.errors(), [])
@@ -280,6 +342,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertTrue(any("has a source" in e for e in self.errors()))
 
     def test_rule_from_a_held_out_source_is_hidden(self):
+        self.only_example_rules()
         self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
                                       "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
         self.assertIn(self.SIM, kb.held_out(self.corpus))
@@ -317,6 +380,7 @@ class KnowledgeBaseTests(unittest.TestCase):
     # --- held-out groups ---
 
     def test_held_out_rows_never_reach_index_or_query(self):
+        self.only_example_rules()
         group = next(g for g in self.corpus["groups"] if g["id"] == "ethyl-acetate")
         group["split"] = "test"
         hidden = kb.held_out(self.corpus)

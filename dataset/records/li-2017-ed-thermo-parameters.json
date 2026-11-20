@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "id": "li-2017-ed-thermo-parameters",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "li-2017-ed-thermo-parameters.check-built-in-parameters",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "extractive-distillation",
+        "symptom": "wrong-phase",
+        "components": [],
+        "behaviours": [
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "property-parameters"
+        ],
+        "statement": "Check the simulator's built-in binary parameters against measured phase equilibrium before designing: built-in NRTL values predicted a toluene + DMF azeotrope that experiments do not show.",
+        "source": {
+          "source_id": "li-2017-ed-thermo-parameters",
+          "locator": "Introduction (Fig. 1)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A simulated azeotrope or phase behaviour the data do not show.",
+      "mechanism": "Stored interaction parameters may be fitted outside the range or to poor data.",
+      "operation": "Compare predicted VLE with measured data for the key binaries.",
+      "expected_change": "Correct phase behaviour.",
+      "alternatives": [],
+      "limits": [
+        "AGENTS.md: Lab relies on CHEPTA's parameter provenance and investigates data only on a concrete disagreement; this rule says what such a disagreement looks like.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against li-2017-ed-thermo-parameters, Introduction (Fig. 1)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "li-2017-ed-thermo-parameters.parameters-change-economics",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "extractive-distillation",
+        "symptom": "purity-short",
+        "components": [],
+        "behaviours": [
+          "close-boiling"
+        ],
+        "conditions": [
+          "property-parameters"
+        ],
+        "statement": "Regressed and built-in parameters can disagree enough to change the design: for benzene + cyclohexane with NMP the relative volatility differed by a factor of 1.84 and the annual cost by about 45%.",
+        "source": {
+          "source_id": "li-2017-ed-thermo-parameters",
+          "locator": "Conclusion"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Simulated purity or cost far from the expected.",
+      "mechanism": "Relative volatility is sensitive to interaction parameters.",
+      "operation": "Use parameters regressed from measured data where built-in ones disagree with it.",
+      "expected_change": "Credible design and cost.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against li-2017-ed-thermo-parameters, Conclusion."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "li-2017-ed-thermo-parameters.extractive-solvent-criteria",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extractive-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "close-boiling"
+        ],
+        "conditions": [
+          "solvent-choice"
+        ],
+        "statement": "Pick an extractive solvent that boils well above the mixture, is thermally stable, easy to recover and of low toxicity. Screen candidates by how much they raise the key relative volatility, and by residue curve maps free of distillation boundaries.",
+        "source": {
+          "source_id": "li-2017-ed-thermo-parameters",
+          "locator": "Introduction"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing a solvent.",
+      "mechanism": "The solvent changes activity coefficients of the key pair.",
+      "operation": "Screen solvents by relative volatility and residue curve maps.",
+      "expected_change": "A workable extractive solvent.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against li-2017-ed-thermo-parameters, Introduction."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

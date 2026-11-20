@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "id": "palomar-2024-il-process-simulation",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "palomar-2024-il-process-simulation.tear-and-make-up",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "recycle",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [
+          "recycle-loop",
+          "purge-and-make-up"
+        ],
+        "conditions": [
+          "solvent-loop"
+        ],
+        "statement": "Choose the tear stream deliberately and add make-up streams for components lost from the loop (for example solvent losses); without them a recycled solvent loop does not close.",
+        "source": {
+          "source_id": "palomar-2024-il-process-simulation",
+          "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A solvent loop does not converge.",
+      "mechanism": "Losses drain the loop unless made up.",
+      "operation": "Pick the tear and calculate make-ups that close the balance.",
+      "expected_change": "A converged loop.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against palomar-2024-il-process-simulation, Section 'Methodology for Applying Process Simulations': process modelling and simulations."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "palomar-2024-il-process-simulation.units-alone-then-design-spec",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "absorber-column",
+        "symptom": "purity-short",
+        "components": [],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "design-spec",
+          "sensitivity-scan"
+        ],
+        "statement": "Simulate and size each separation unit on its own first, then reach the purity or recovery target with a design specification that adjusts one variable, or a sensitivity scan, before connecting the whole process.",
+        "source": {
+          "source_id": "palomar-2024-il-process-simulation",
+          "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A unit misses purity once in the plant.",
+      "mechanism": "Fixing units alone separates unit problems from loop problems.",
+      "operation": "Unit first, then a design specification, then the plant.",
+      "expected_change": "Targets met with a known free variable.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against palomar-2024-il-process-simulation, Section 'Methodology for Applying Process Simulations': process modelling and simulations."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "palomar-2024-il-process-simulation.packed-column-capacity",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "absorber-column",
+        "components": [],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "packed-column",
+          "sizing"
+        ],
+        "statement": "Size the diameter of packed absorbers and strippers for 60 to 80% of their flooding capacity, and the packed height from earlier studies or a height-to-diameter ratio.",
+        "source": {
+          "source_id": "palomar-2024-il-process-simulation",
+          "locator": "Section 'Methodology for Applying Process Simulations': operation unit design"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Sizing a packed column.",
+      "mechanism": "Too close to flooding loses operability; too far wastes column.",
+      "operation": "Diameter at 60-80% fractional capacity.",
+      "expected_change": "A workable first size.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against palomar-2024-il-process-simulation, Section 'Methodology for Applying Process Simulations': operation unit design."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "palomar-2024-il-process-simulation.validate-predictive-methods",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "wrong-phase",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "predictive-property-method"
+        ],
+        "statement": "Check predictive property methods (UNIFAC- or COSMO-type) against measured data over a wide range of the property before a design relies on them.",
+        "source": {
+          "source_id": "palomar-2024-il-process-simulation",
+          "locator": "Section 'Methodology for Applying Process Simulations': definition of thermodynamic model and property validation"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Phase behaviour or properties from a predictive model.",
+      "mechanism": "Group-contribution and COSMO methods can err for unusual molecules.",
+      "operation": "Validate against data first.",
+      "expected_change": "Known accuracy of the property method.",
+      "alternatives": [],
+      "limits": [
+        "AGENTS.md: Lab relies on CHEPTA's property provenance; this rule matters where a method lacks data for the case's components.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against palomar-2024-il-process-simulation, Section 'Methodology for Applying Process Simulations': definition of thermodynamic model and property validation."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "palomar-2024-il-process-simulation.vacuum-energy-counted",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "absorber-column",
+        "components": [],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "vacuum",
+          "regeneration",
+          "utilities"
+        ],
+        "statement": "When a regeneration column runs under vacuum, count the energy to compress its vapour back to atmospheric pressure in the utility demand.",
+        "source": {
+          "source_id": "palomar-2024-il-process-simulation",
+          "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Vacuum operation looks cheaper than it is.",
+      "mechanism": "A vacuum system is a compressor.",
+      "operation": "Model the vacuum system as a compressor.",
+      "expected_change": "Fair energy comparison.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against palomar-2024-il-process-simulation, Section 'Methodology for Applying Process Simulations': process modelling and simulations."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

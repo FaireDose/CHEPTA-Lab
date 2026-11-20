@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "id": "steffen-2024-rd-modelling-review",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "steffen-2024-rd-modelling-review.initial-profiles",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "initialisation",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Start a reactive column from a straight-line temperature profile between the bubble point at the condenser and the dew point at the reboiler for the mixed feed, constant molar flows, and a reaction extent peaking at the feed stage.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Initial estimates, p. 21"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "The column solver does not converge from default estimates.",
+      "mechanism": "Physically shaped profiles start the solver near a solution.",
+      "operation": "Build the initial profiles this way.",
+      "expected_change": "Convergence from a closer start.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Initial estimates, p. 21."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "steffen-2024-rd-modelling-review.simpler-model-first",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "initialisation",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Use the converged result of a simpler model, such as the column without reaction or with ideal K-values, as the starting point for the full reactive model.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Initial estimates, p. 21"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "The full model does not converge.",
+      "mechanism": "A simpler model gives profiles close to the full one.",
+      "operation": "Converge a simpler model, then switch the full model on.",
+      "expected_change": "Convergence of the full model.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Initial estimates, p. 21."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "steffen-2024-rd-modelling-review.newton-needs-good-start",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "newton-solver"
+        ],
+        "statement": "Newton-type column solvers converge fast near the answer but fail from poor starting values or where several solutions exist; damping the Newton step (relaxation) widens the range from which they converge.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Numerical methods, p. 18"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Newton iterations diverge.",
+      "mechanism": "Full Newton steps overshoot far from the solution.",
+      "operation": "Improve the start or damp the step.",
+      "expected_change": "Convergence.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Numerical methods, p. 18."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "steffen-2024-rd-modelling-review.homotopy-robust-but-costly",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "slow",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "homotopy",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Homotopy continuation does not need good starting values but costs much more computation, because the modified system is solved many times; Newton or Broyden from good estimates is the better default.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Numerical methods, p. 18; Initial estimates, pp. 22-23"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A robust method is too slow for scans.",
+      "mechanism": "Continuation solves a sequence of problems.",
+      "operation": "Keep continuation for cases where a good start cannot be found.",
+      "expected_change": "Faster runs.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Numerical methods, p. 18; Initial estimates, pp. 22-23."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "steffen-2024-rd-modelling-review.multiple-steady-states",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "symptom": "purity-short",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "multiple-steady-states",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Reactive columns often have several steady states for the same inputs; find them by scanning a parameter or restarting from different initial estimates before accepting one.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Initial estimates, p. 22"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A converged reactive column misses its target.",
+      "mechanism": "Output multiplicity: the same inputs give several solutions.",
+      "operation": "Scan and restart from different estimates.",
+      "expected_change": "All branches found, the right one chosen.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Initial estimates, p. 22."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "steffen-2024-rd-modelling-review.rate-based-harder",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "rate-based"
+        ],
+        "statement": "Rate-based (non-equilibrium) stage models are harder to converge than equilibrium-stage models and need reliable mass-transfer correlations.",
+        "source": {
+          "source_id": "steffen-2024-rd-modelling-review",
+          "locator": "Equilibrium and non-equilibrium models, p. 15"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A rate-based column fails.",
+      "mechanism": "More equations and stiffer coupling.",
+      "operation": "Check mass-transfer data; compare with the equilibrium-stage result.",
+      "expected_change": "A convergent, credible model.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against steffen-2024-rd-modelling-review, Equilibrium and non-equilibrium models, p. 15."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

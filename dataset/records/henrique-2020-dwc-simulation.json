@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "henrique-2020-dwc-simulation",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "henrique-2020-dwc-simulation.pump-around-representation",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [
+          "zeotropic-multicomponent"
+        ],
+        "conditions": [
+          "dividing-wall-column"
+        ],
+        "statement": "Simulators without a dividing-wall model represent it as coupled columns; the pump-around arrangement converges more easily than the four-column arrangement.",
+        "source": {
+          "source_id": "henrique-2020-dwc-simulation",
+          "locator": "Introduction, p. 150 (Fig. 1)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A dividing-wall column that does not converge.",
+      "mechanism": "Fewer interconnecting recycles in the pump-around form.",
+      "operation": "Use the pump-around representation.",
+      "expected_change": "Easier convergence.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against henrique-2020-dwc-simulation, Introduction, p. 150 (Fig. 1)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "henrique-2020-dwc-simulation.dynamic-run-for-initial-guess",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "equation-oriented",
+          "initialisation"
+        ],
+        "statement": "When an equation-oriented solver needs a good start, run a short dynamic simulation and use its final values as the initial guess for the steady state.",
+        "source": {
+          "source_id": "henrique-2020-dwc-simulation",
+          "locator": "Introduction, p. 151"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A simultaneous solve fails from poor estimates.",
+      "mechanism": "A dynamic run moves all variables towards the steady state.",
+      "operation": "Initialise from a short dynamic run.",
+      "expected_change": "Convergence of the steady state.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against henrique-2020-dwc-simulation, Introduction, p. 151."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "henrique-2020-dwc-simulation.dwc-trays-reflux-splits",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [],
+        "behaviours": [
+          "zeotropic-multicomponent"
+        ],
+        "conditions": [
+          "dividing-wall-column"
+        ],
+        "statement": "A dividing-wall column can match a two-column sequence's sharp ternary split with fewer trays, but with too few trays it needs much more reflux, and its liquid and vapour split ratios strongly affect the result.",
+        "source": {
+          "source_id": "henrique-2020-dwc-simulation",
+          "locator": "Conclusions, p. 165"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Sizing a dividing-wall column.",
+      "mechanism": "Trays and reflux trade off; splits set internal flows.",
+      "operation": "Optimise trays, reflux and both split ratios together.",
+      "expected_change": "Lower total cost.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against henrique-2020-dwc-simulation, Conclusions, p. 165."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "henrique-2020-dwc-simulation.prefractionator-avoids-remixing",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [],
+        "behaviours": [
+          "zeotropic-multicomponent"
+        ],
+        "conditions": [
+          "thermally-coupled",
+          "dividing-wall-column"
+        ],
+        "statement": "Most of the energy saving of a fully coupled (Petlyuk) arrangement comes from the prefractionator doing only a rough split, which avoids remixing; a dividing-wall column is its single-shell equivalent.",
+        "source": {
+          "source_id": "henrique-2020-dwc-simulation",
+          "locator": "Introduction, p. 150"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Energy of separating a ternary mixture.",
+      "mechanism": "Remixing of the middle component wastes separation work.",
+      "operation": "Use a prefractionator or dividing wall.",
+      "expected_change": "Lower energy.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against henrique-2020-dwc-simulation, Introduction, p. 150."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

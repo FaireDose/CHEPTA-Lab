@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "id": "shehata-2024-meg-routes",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "shehata-2024-meg-routes.direct-hydration-water-excess",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pfr",
+        "components": [
+          "ethylene-oxide",
+          "water",
+          "ethylene-glycol",
+          "diethylene-glycol"
+        ],
+        "behaviours": [
+          "side-products"
+        ],
+        "conditions": [
+          "direct-hydration",
+          "non-catalytic",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "In non-catalytic hydration of ethylene oxide, a large water excess (10 to 25 mol per mol oxide cited, 10 simulated) suppresses di- and triethylene glycol. The price is a large amount of water to evaporate downstream.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'Indirect hydration process', p. 6; 'MEG production via direct EO hydration process', p. 8"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Glycol reacts further with ethylene oxide to heavier glycols.",
+      "mechanism": "Dilution keeps oxide meeting water rather than glycol.",
+      "operation": "Feed the hydration reactor with a high water to oxide ratio.",
+      "expected_change": "Higher monoethylene glycol selectivity, larger water load.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'Indirect hydration process', p. 6; 'MEG production via direct EO hydration process', p. 8."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "shehata-2024-meg-routes.evaporator-train-before-vacuum-column",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "heat-sensitive"
+        ],
+        "conditions": [
+          "direct-hydration",
+          "multi-effect-evaporation",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Remove most of the excess water from the hydration effluent in evaporators at falling pressure, each heated by the vapour of the one before, then finish in a vacuum dehydration column. In the simulation the evaporators take about 75% of the water and only the first uses steam.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'MEG production via direct EO hydration process', p. 8 (Fig. 5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A dilute glycol solution needs most of its water boiled off.",
+      "mechanism": "Reusing vapour as heating medium divides the steam demand.",
+      "operation": "Multi-effect evaporation followed by vacuum distillation.",
+      "expected_change": "Lower steam use for water removal.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'MEG production via direct EO hydration process', p. 8 (Fig. 5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "shehata-2024-meg-routes.vacuum-glycol-columns",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "ethylene-glycol",
+          "diethylene-glycol"
+        ],
+        "behaviours": [
+          "heat-sensitive",
+          "side-products"
+        ],
+        "conditions": [
+          "vacuum",
+          "side-draw",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Operate the glycol dehydration and product columns under vacuum so the bottoms stay below the temperature at which the glycol degrades (170 C in the paper). The product glycol is drawn from the side and the heavier glycols leave at the bottom.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'MEG production via direct EO hydration process', p. 8"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Glycol degrades at the temperatures of atmospheric distillation.",
+      "mechanism": "Lower pressure lowers the boiling temperatures.",
+      "operation": "Vacuum columns with a side-draw product.",
+      "expected_change": "Product within its temperature limit; heavy glycols separated.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'MEG production via direct EO hydration process', p. 8."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "shehata-2024-meg-routes.carbonate-route-co2-recycle",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [
+          "ethylene-oxide",
+          "carbon-dioxide",
+          "ethylene-carbonate",
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "ethylene-carbonate-route",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "In the ethylene carbonate route the carbon dioxide taken up in carbonation is set free again in hydrolysis. It is separated, compressed and recycled to carbonation, with only a small make-up for losses.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'Indirect hydration process', p. 7; 'MEG production via indirect EO hydration process', p. 8 (Fig. 6)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Carbon dioxide is a reactant in one step and a product in the next.",
+      "mechanism": "Closing the loop leaves only losses to replace.",
+      "operation": "Separate, compress and recycle carbon dioxide.",
+      "expected_change": "Small carbon dioxide make-up.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'Indirect hydration process', p. 7; 'MEG production via indirect EO hydration process', p. 8 (Fig. 6)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "shehata-2024-meg-routes.carbonate-route-fewer-heavy-glycols",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "ethylene-carbonate",
+          "water",
+          "ethylene-glycol",
+          "diethylene-glycol"
+        ],
+        "behaviours": [
+          "side-products"
+        ],
+        "conditions": [
+          "ethylene-carbonate-route",
+          "route-choice",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Hydrolysing ethylene carbonate needs water close to stoichiometric and gives far fewer heavy glycols than direct hydration (1,532 versus 22,270 t/a in the paper's simulations). Purification then needs less water removal and simpler heavy-glycol handling.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'Indirect hydration process', p. 6; 'MEG production via indirect EO hydration process', p. 9"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Direct hydration forces a large water excess and makes heavy glycols.",
+      "mechanism": "The carbonate intermediate hydrolyses selectively with little water.",
+      "operation": "Route through ethylene carbonate.",
+      "expected_change": "Smaller dehydration and heavy-glycol columns.",
+      "alternatives": [],
+      "limits": [
+        "The numbers are the authors' simulation; Lab has no evidence row for them, so the row stays a lead.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'Indirect hydration process', p. 6; 'MEG production via indirect EO hydration process', p. 9."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "shehata-2024-meg-routes.carbonation-heat-to-steam",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [
+          "ethylene-oxide",
+          "carbon-dioxide",
+          "ethylene-carbonate"
+        ],
+        "behaviours": [
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "ethylene-carbonate-route",
+          "bears-on-ethylene-glycol"
+        ],
+        "statement": "Carbonation of ethylene oxide is strongly exothermic, and the paper uses the heat removed from the carbonate reactors to raise low-pressure steam.",
+        "source": {
+          "source_id": "shehata-2024-meg-routes",
+          "locator": "Section 'MEG production via indirect EO hydration process', pp. 7-8"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Reaction heat must be removed.",
+      "mechanism": "The removed heat is at a useful temperature.",
+      "operation": "Raise low-pressure steam from the reactor cooling.",
+      "expected_change": "Less external steam.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against shehata-2024-meg-routes, Section 'MEG production via indirect EO hydration process', pp. 7-8."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

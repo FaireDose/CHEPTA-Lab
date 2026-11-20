@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "id": "andreasen-2022-dwsim-evaluation",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "andreasen-2022-dwsim-evaluation.recycle-tolerance-per-component",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "recycle",
+        "symptom": "recycle-drift",
+        "components": [],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "tear-tolerance",
+          "bears-on-ethylene-glycol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A recycle tolerance set on total flow only can hide errors in individual components; check closure per component where the simulator allows. The paper accepts recycle balance errors below 1 kg/h.",
+        "source": {
+          "source_id": "andreasen-2022-dwsim-evaluation",
+          "locator": "Section 2, p. 506"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A loop that closes on total flow while compositions drift.",
+      "mechanism": "Total-flow tolerances do not bound component errors.",
+      "operation": "Check component-level closure of each tear.",
+      "expected_change": "Composition errors caught.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against andreasen-2022-dwsim-evaluation, Section 2, p. 506."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "andreasen-2022-dwsim-evaluation.flash-instability-not-solver",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "flash",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [],
+        "conditions": [
+          "parametric-study"
+        ],
+        "statement": "When some cases of a flowsheet fail but all converge after swapping in another flash routine, the fault is likely an unstable phase-split calculation rather than the recycle solver.",
+        "source": {
+          "source_id": "andreasen-2022-dwsim-evaluation",
+          "locator": "Results, p. 508; Discussion, p. 509"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Some flowsheet cases fail.",
+      "mechanism": "Flash results that jump between iterations break the outer loop.",
+      "operation": "Test the flash on the failing streams alone.",
+      "expected_change": "The true cause located.",
+      "alternatives": [],
+      "limits": [
+        "The author says this indicates, not proves, the cause.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against andreasen-2022-dwsim-evaluation, Results, p. 508; Discussion, p. 509."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

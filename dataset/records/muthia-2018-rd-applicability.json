@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "id": "muthia-2018-rd-applicability",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "muthia-2018-rd-applicability.rd-map-needs-three-parameters",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "quaternary-a-b-c-d",
+          "c-lightest-d-heaviest",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A first go/no-go on reactive distillation needs only relative volatilities, the equilibrium constant and the kinetics, read against the authors' applicability maps. The maps are for A + B to C + D with product C the lightest and product D the heaviest.",
+        "source": {
+          "source_id": "muthia-2018-rd-applicability",
+          "locator": "Section 2, pp. 264-266; Conclusions, p. 274"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Deciding early whether reactive distillation is worth a rigorous study.",
+      "mechanism": "Generic maps of reflux ratio against stages.",
+      "operation": "Screen with the maps before rigorous simulation.",
+      "expected_change": "A quick feasibility verdict.",
+      "alternatives": [],
+      "limits": [
+        "About +/-30% for real systems (p. 274).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against muthia-2018-rd-applicability, Section 2, pp. 264-266; Conclusions, p. 274."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "muthia-2018-rd-applicability.low-keq-more-stages-reflux",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "quaternary-a-b-c-d",
+          "c-lightest-d-heaviest",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A smaller equilibrium constant needs more reactive stages and a higher reflux ratio. In the base case at K = 0.01 the minimum is 22 stages and the minimum reflux ratio 11.",
+        "source": {
+          "source_id": "muthia-2018-rd-applicability",
+          "locator": "Section 3.1.2, p. 269 (Fig. 6)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "An unfavourable equilibrium.",
+      "mechanism": "Products must be removed more completely on each stage.",
+      "operation": "Allow more reactive stages and reflux.",
+      "expected_change": "Target conversion reached.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against muthia-2018-rd-applicability, Section 3.1.2, p. 269 (Fig. 6)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "muthia-2018-rd-applicability.product-reactant-volatility",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "close-boiling"
+        ],
+        "conditions": [
+          "quaternary-a-b-c-d",
+          "c-lightest-d-heaviest",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "When the light product is close in volatility to a reactant (relative volatility 1.2 instead of 2), the feasible region shrinks. At K = 0.01 the reactive stages needed rise from 28 to 64.",
+        "source": {
+          "source_id": "muthia-2018-rd-applicability",
+          "locator": "Section 3.1.3, p. 269 (Fig. 6)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A product hard to separate from a reactant.",
+      "mechanism": "Reactant leaves with the product unless separation is sharp.",
+      "operation": "Check product-reactant relative volatilities first.",
+      "expected_change": "Realistic stage count or a no-go.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against muthia-2018-rd-applicability, Section 3.1.3, p. 269 (Fig. 6)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "muthia-2018-rd-applicability.da-over-keq-rule",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "quaternary-a-b-c-d",
+          "kinetically-limited",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "If the Damkohler number divided by the equilibrium constant is at least 5, a kinetically limited column has the same configuration as at equilibrium; at 2 or more it is within 10%. Use this to set catalyst hold-up and residence time.",
+        "source": {
+          "source_id": "muthia-2018-rd-applicability",
+          "locator": "Section 3.2, p. 270 (Fig. 7; Fig. S5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Slow reaction may need more reactive stages.",
+      "mechanism": "Enough hold-up makes the reaction effectively at equilibrium.",
+      "operation": "Size catalyst hold-up so Da/K is at least 2 to 5.",
+      "expected_change": "Equilibrium-like design holds.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against muthia-2018-rd-applicability, Section 3.2, p. 270 (Fig. 7; Fig. S5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "muthia-2018-rd-applicability.avoid-extreme-configurations",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "catalyst-hold-up",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Avoid designs close to minimum stages or minimum reflux: near minimum stages the column is short and wide, near minimum reflux tall and slim, and catalyst use is lowest in between.",
+        "source": {
+          "source_id": "muthia-2018-rd-applicability",
+          "locator": "Section 3.2, p. 270 (Fig. 8)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Catalyst cost depends on column shape.",
+      "mechanism": "Catalyst volume follows diameter and reactive height.",
+      "operation": "Choose a configuration between the two limits.",
+      "expected_change": "Lower catalyst hold-up.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against muthia-2018-rd-applicability, Section 3.2, p. 270 (Fig. 8)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
