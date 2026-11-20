@@ -5,6 +5,7 @@
       "id": "sep-ester-alcohol-water-azeotrope",
       "level": "separation",
       "operations": [
+        "azeotropic-distillation",
         "distillation",
         "extraction",
         "extractive-distillation",
@@ -12,23 +13,25 @@
       ],
       "behaviours": [
         "azeotrope-min-boiling",
+        "component-without-exit",
         "trace-impurity-limit",
         "two-liquid-phases"
       ],
       "components": [
+        "acetic-acid",
         "ethanol",
         "ethyl-acetate",
         "water"
       ],
       "disputed": 0,
-      "rows": 4,
+      "rows": 24,
       "counts": {
-        "worked": 3,
-        "failed": 0,
-        "lead": 1,
-        "untested": 0
+        "worked": 8,
+        "failed": 12,
+        "lead": 2,
+        "untested": 1
       },
-      "superseded": 0,
+      "superseded": 1,
       "papers": 1,
       "files": [
         "ethyl-acetate-piotrowski-2021",
@@ -44,7 +47,9 @@
       "id": "sep-two-liquids-with-acetic-acid",
       "level": "separation",
       "operations": [
-        "distillation"
+        "distillation",
+        "extraction",
+        "heat-exchange"
       ],
       "behaviours": [
         "associating-acid-vapour",
@@ -58,14 +63,14 @@
         "water"
       ],
       "disputed": 0,
-      "rows": 2,
+      "rows": 8,
       "counts": {
-        "worked": 1,
-        "failed": 1,
+        "worked": 4,
+        "failed": 2,
         "lead": 0,
         "untested": 0
       },
-      "superseded": 0,
+      "superseded": 2,
       "papers": 1,
       "files": [
         "ethyl-acetate-piotrowski-2021"
@@ -79,20 +84,36 @@
     {
       "id": "sep-acid-stripping-from-ester-vapour",
       "level": "separation",
-      "operations": [],
-      "behaviours": [],
-      "components": [],
+      "operations": [
+        "absorber-column"
+      ],
+      "behaviours": [
+        "associating-acid-vapour",
+        "azeotrope-min-boiling",
+        "equilibrium-limited-reaction",
+        "recycle-loop",
+        "trace-impurity-limit",
+        "two-liquid-phases"
+      ],
+      "components": [
+        "acetic-acid",
+        "ethanol",
+        "ethyl-acetate",
+        "water"
+      ],
       "disputed": 0,
-      "rows": 0,
+      "rows": 7,
       "counts": {
-        "worked": 0,
-        "failed": 0,
+        "worked": 4,
+        "failed": 1,
         "lead": 0,
         "untested": 0
       },
-      "superseded": 0,
-      "papers": 0,
-      "files": [],
+      "superseded": 2,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
       "used": {
         "yes": 0,
         "partly": 0,
@@ -102,20 +123,33 @@
     {
       "id": "rxn-esterification-equilibrium-limited",
       "level": "reaction",
-      "operations": [],
-      "behaviours": [],
-      "components": [],
+      "operations": [
+        "heat-exchange",
+        "reactor-evaporator"
+      ],
+      "behaviours": [
+        "equilibrium-limited-reaction",
+        "recycle-loop"
+      ],
+      "components": [
+        "acetic-acid",
+        "ethanol",
+        "ethyl-acetate",
+        "water"
+      ],
       "disputed": 0,
-      "rows": 0,
+      "rows": 5,
       "counts": {
-        "worked": 0,
+        "worked": 4,
         "failed": 0,
         "lead": 0,
         "untested": 0
       },
-      "superseded": 0,
-      "papers": 0,
-      "files": [],
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
       "used": {
         "yes": 0,
         "partly": 0,
@@ -125,20 +159,229 @@
     {
       "id": "plant-recycles-makeup-purge",
       "level": "plant",
-      "operations": [],
-      "behaviours": [],
-      "components": [],
+      "operations": [
+        "distillation",
+        "purge",
+        "recycle"
+      ],
+      "behaviours": [
+        "associating-acid-vapour",
+        "component-without-exit",
+        "purge-and-make-up",
+        "recycle-loop",
+        "trace-impurity-limit",
+        "two-liquid-phases"
+      ],
+      "components": [
+        "acetic-acid",
+        "ethanol",
+        "ethyl-acetate",
+        "water"
+      ],
       "disputed": 0,
-      "rows": 0,
+      "rows": 19,
       "counts": {
-        "worked": 0,
+        "worked": 7,
+        "failed": 10,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 2,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "id": "rxn-co2-hydrogenation-methanol",
+      "level": "reaction",
+      "operations": [
+        "pfr"
+      ],
+      "behaviours": [
+        "equilibrium-limited-reaction",
+        "exothermic-reaction"
+      ],
+      "components": [
+        "carbon-dioxide",
+        "carbon-monoxide",
+        "hydrogen",
+        "methanol",
+        "nitrogen",
+        "water"
+      ],
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 2,
         "failed": 0,
         "lead": 0,
         "untested": 0
       },
       "superseded": 0,
-      "papers": 0,
-      "files": [],
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "id": "sep-co2-dissolved-in-methanol-water",
+      "level": "separation",
+      "operations": [
+        "flash"
+      ],
+      "behaviours": [
+        "non-condensable-gas",
+        "purge-and-make-up",
+        "recycle-loop"
+      ],
+      "components": [
+        "carbon-dioxide",
+        "carbon-monoxide",
+        "hydrogen",
+        "methanol",
+        "nitrogen",
+        "water"
+      ],
+      "disputed": 0,
+      "rows": 4,
+      "counts": {
+        "worked": 2,
+        "failed": 1,
+        "lead": 0,
+        "untested": 1
+      },
+      "superseded": 0,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "id": "sep-methanol-water-with-dissolved-gases",
+      "level": "separation",
+      "operations": [
+        "distillation"
+      ],
+      "behaviours": [
+        "non-condensable-gas",
+        "purge-and-make-up",
+        "recycle-loop"
+      ],
+      "components": [
+        "carbon-dioxide",
+        "carbon-monoxide",
+        "hydrogen",
+        "methanol",
+        "nitrogen",
+        "water"
+      ],
+      "disputed": 0,
+      "rows": 14,
+      "counts": {
+        "worked": 5,
+        "failed": 7,
+        "lead": 0,
+        "untested": 1
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "id": "plant-gas-recycle-with-purge",
+      "level": "plant",
+      "operations": [
+        "purge",
+        "recycle"
+      ],
+      "behaviours": [
+        "non-condensable-gas",
+        "purge-and-make-up",
+        "recycle-loop"
+      ],
+      "components": [
+        "carbon-dioxide",
+        "carbon-monoxide",
+        "hydrogen",
+        "methanol",
+        "nitrogen",
+        "water"
+      ],
+      "disputed": 0,
+      "rows": 6,
+      "counts": {
+        "worked": 3,
+        "failed": 2,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "id": "plant-feed-effluent-heat-recovery",
+      "level": "plant",
+      "operations": [
+        "heat-exchange"
+      ],
+      "behaviours": [
+        "heat-recovery-potential",
+        "non-condensable-gas",
+        "purge-and-make-up",
+        "recycle-loop"
+      ],
+      "components": [
+        "carbon-dioxide",
+        "carbon-monoxide",
+        "hydrogen",
+        "methanol",
+        "nitrogen",
+        "water"
+      ],
+      "disputed": 0,
+      "rows": 9,
+      "counts": {
+        "worked": 3,
+        "failed": 4,
+        "lead": 1,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
       "used": {
         "yes": 0,
         "partly": 0,
@@ -147,6 +390,28 @@
     }
   ],
   "simulation": [
+    {
+      "operation": "absorber-column",
+      "symptom": "no-convergence",
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 0,
+        "failed": 1,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
     {
       "operation": "absorber-column",
       "symptom": "purity-short",
@@ -170,21 +435,44 @@
       }
     },
     {
+      "operation": "absorber-column",
+      "symptom": "wrong-phase",
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 1,
+        "failed": 0,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
       "operation": "distillation",
       "symptom": "no-convergence",
       "disputed": 0,
-      "rows": 6,
+      "rows": 16,
       "counts": {
         "worked": 1,
-        "failed": 1,
+        "failed": 9,
         "lead": 4,
         "untested": 0
       },
-      "superseded": 0,
-      "papers": 3,
+      "superseded": 2,
+      "papers": 4,
       "files": [
         "ethyl-acetate-piotrowski-2021",
         "henrique-2020-dwc-simulation",
+        "methanol-co2-campos-2022",
         "steffen-2024-rd-modelling-review"
       ],
       "used": {
@@ -197,17 +485,40 @@
       "operation": "distillation",
       "symptom": "purity-short",
       "disputed": 0,
-      "rows": 1,
+      "rows": 9,
       "counts": {
         "worked": 0,
-        "failed": 0,
+        "failed": 8,
         "lead": 1,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "ethyl-acetate-piotrowski-2021",
+        "kooijman-taylor-2006-chemsep-book"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "distillation",
+      "symptom": "slow",
+      "disputed": 0,
+      "rows": 1,
+      "counts": {
+        "worked": 1,
+        "failed": 0,
+        "lead": 0,
         "untested": 0
       },
       "superseded": 0,
       "papers": 1,
       "files": [
-        "kooijman-taylor-2006-chemsep-book"
+        "ethyl-acetate-piotrowski-2021"
       ],
       "used": {
         "yes": 0,
@@ -240,18 +551,63 @@
     },
     {
       "operation": "extraction",
-      "symptom": "purity-short",
+      "symptom": "feed-refused",
+      "disputed": 0,
+      "rows": 3,
+      "counts": {
+        "worked": 1,
+        "failed": 1,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 1,
+      "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "extraction",
+      "symptom": "no-convergence",
       "disputed": 0,
       "rows": 1,
       "counts": {
         "worked": 0,
-        "failed": 0,
-        "lead": 1,
+        "failed": 1,
+        "lead": 0,
         "untested": 0
       },
       "superseded": 0,
       "papers": 1,
       "files": [
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "extraction",
+      "symptom": "purity-short",
+      "disputed": 0,
+      "rows": 3,
+      "counts": {
+        "worked": 0,
+        "failed": 2,
+        "lead": 1,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "ethyl-acetate-piotrowski-2021",
         "grisales-2017-abe-extraction"
       ],
       "used": {
@@ -328,6 +684,28 @@
     },
     {
       "operation": "flash",
+      "symptom": "feed-refused",
+      "disputed": 0,
+      "rows": 1,
+      "counts": {
+        "worked": 0,
+        "failed": 1,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "flash",
       "symptom": "no-convergence",
       "disputed": 0,
       "rows": 1,
@@ -341,6 +719,51 @@
       "papers": 1,
       "files": [
         "andreasen-2022-dwsim-evaluation"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "heat-exchange",
+      "symptom": "feed-refused",
+      "disputed": 0,
+      "rows": 7,
+      "counts": {
+        "worked": 2,
+        "failed": 2,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 3,
+      "papers": 2,
+      "files": [
+        "ethyl-acetate-piotrowski-2021",
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "heat-exchange",
+      "symptom": "section-fails",
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 0,
+        "failed": 2,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 1,
+      "files": [
+        "methanol-co2-campos-2022"
       ],
       "used": {
         "yes": 0,
@@ -441,16 +864,17 @@
       "operation": "recycle",
       "symptom": "no-convergence",
       "disputed": 0,
-      "rows": 2,
+      "rows": 6,
       "counts": {
         "worked": 0,
-        "failed": 0,
+        "failed": 3,
         "lead": 2,
         "untested": 0
       },
-      "superseded": 0,
-      "papers": 2,
+      "superseded": 1,
+      "papers": 3,
       "files": [
+        "ethyl-acetate-piotrowski-2021",
         "larsson-skogestad-2000-plantwide",
         "palomar-2024-il-process-simulation"
       ],
@@ -462,19 +886,88 @@
     },
     {
       "operation": "recycle",
-      "symptom": "recycle-drift",
+      "symptom": "purity-short",
       "disputed": 0,
       "rows": 1,
       "counts": {
         "worked": 0,
-        "failed": 0,
-        "lead": 1,
+        "failed": 1,
+        "lead": 0,
         "untested": 0
       },
       "superseded": 0,
       "papers": 1,
       "files": [
-        "andreasen-2022-dwsim-evaluation"
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "recycle",
+      "symptom": "recycle-drift",
+      "disputed": 0,
+      "rows": 4,
+      "counts": {
+        "worked": 1,
+        "failed": 1,
+        "lead": 1,
+        "untested": 0
+      },
+      "superseded": 1,
+      "papers": 2,
+      "files": [
+        "andreasen-2022-dwsim-evaluation",
+        "ethyl-acetate-piotrowski-2021"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "recycle",
+      "symptom": "section-fails",
+      "disputed": 0,
+      "rows": 2,
+      "counts": {
+        "worked": 0,
+        "failed": 2,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "ethyl-acetate-piotrowski-2021",
+        "methanol-co2-campos-2022"
+      ],
+      "used": {
+        "yes": 0,
+        "partly": 0,
+        "no": 0
+      }
+    },
+    {
+      "operation": "recycle",
+      "symptom": "slow",
+      "disputed": 0,
+      "rows": 3,
+      "counts": {
+        "worked": 1,
+        "failed": 2,
+        "lead": 0,
+        "untested": 0
+      },
+      "superseded": 0,
+      "papers": 2,
+      "files": [
+        "ethyl-acetate-piotrowski-2021",
+        "methanol-co2-campos-2022"
       ],
       "used": {
         "yes": 0,
