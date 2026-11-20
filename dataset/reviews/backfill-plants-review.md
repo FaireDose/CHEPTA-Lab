@@ -6,7 +6,8 @@ It is not a person's check. The person's spot check (below) is still to do, and 
 Reviewed: branch `claude/lab-backfill-plants` at commit `62237f8`. The rows in
 `dataset/records/ethyl-acetate-piotrowski-2021.json` and `dataset/records/methanol-co2-campos-2022.json`, the 5 new
 register rows in `data/ISSUES_AND_ROUTES.md`, the edits to `tests/test_kb.py`, the line in the process-design skill and
-the regenerated index.
+the regenerated index. PR #28 has since merged. On main at `ca68c70` the two record files, the register and
+`tests/test_kb.py` are byte-identical to `62237f8` (checked with `git diff`), so every finding below applies to main.
 
 ## What was checked
 
@@ -53,9 +54,11 @@ the regenerated index.
 Severity: **major** means a row claims more than its runs show, on a result that matters. **Minor** means a row is
 inaccurate or incomplete but the conclusion stands. **Nit** means wording or bookkeeping.
 
-**Why this matters before merging:** `kb.py index` copies each CHEPTA-run outcome into
-`dataset/index/outcomes.lock.json`, and a later edit of that outcome fails the checks. Correct the statuses before
-the PR merges, or the corrections will need deliberate edits of the lock file.
+**Correcting statuses now needs the lock file:** `kb.py index` copies each CHEPTA-run outcome into
+`dataset/index/outcomes.lock.json`, and a later edit of that outcome fails the checks. #28 has merged, and the lock on
+main already holds the `worked` statuses of problems 2, 3 and 5. Correct them by adding new rows (the convention for a
+later finding), or by a deliberate edit of the lock with the reason in the commit, as the lock's own note allows. The
+maintainer decides which.
 
 ### Major
 
