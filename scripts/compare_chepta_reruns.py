@@ -5,7 +5,7 @@ For each run present in both folders: the outcome and error code before and afte
 the numbers moved. Streams (value.streams): mass flow (relative), temperature (K), vapour fraction and every
 component's mole fraction (absolute); block duties (value.blocks[*].duty_kW, relative to the largest duty of the run);
 and every other number under `value` (relative, 1e-12 floor) as a catch-all. Verdicts:
-  same      outcome unchanged and, when ok, streams within 5e-5 relative in flow, 0.005 K, 5e-6 in mole fraction,
+  same      outcome unchanged and, when ok, streams (for answers with streams or blocks; others: every number) within 5e-5 relative in flow, 0.005 K, 5e-6 in mole fraction,
             duties within 5e-5 of the largest duty (the README tables print 4-5 significant digits)
   changed   outcome unchanged (ok), numbers moved more than that (the largest moves are listed)
   now runs  the source run failed or was refused, the rerun is ok
@@ -126,8 +126,9 @@ def main():
             v1, v2 = o1.get("value") or {}, o2.get("value") or {}
             sm, dm = stream_moves(v1, v2), duty_moves(v1, v2)
             om = other_moves(v1, v2)
-            row.update({"streams": sm, "duties": dm, "all_numbers": om})
-            if sm["flow_rel"]["value"] or sm["T_K"]["value"] or dm["where"]:
+            row.update({"streams": sm, "duties": dm, "all_numbers": om,
+                        "extrapolations_source": len(v1.get("extrapolations") or []), "extrapolations_rerun": len(v2.get("extrapolations") or [])})
+            if v1.get("streams") or v1.get("blocks"):
                 same = (sm["flow_rel"]["value"] <= 5e-5 and sm["T_K"]["value"] <= 5e-3 and sm["z_abs"]["value"] <= 5e-6
                         and sm["VF_abs"]["value"] <= 5e-6 and dm["rel_to_largest"] <= 5e-5)
             else:
