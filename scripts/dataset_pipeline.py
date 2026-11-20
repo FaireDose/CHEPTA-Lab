@@ -13,6 +13,8 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "dataset/schemas/corpus.schema.json"
+RECORDS = ROOT / "dataset/records"
+VOCABULARY = ROOT / "data/vocabulary.json"
 COLLECTIONS = ("groups", "blocks", "evidence", "decisions", "runs", "tasks")
 SCOPES = {"source_accuracy", "engineering", "rights", "context"}
 
@@ -29,6 +31,42 @@ def read_json(path):
     def invalid(value):
         raise ValueError(f"Non-finite JSON value: {value}")
     return json.loads(Path(path).read_text(), parse_constant=invalid)
+
+
+def load_records(directory=RECORDS, vocabulary=VOCABULARY):
+    """Merge every dataset/records/<name>.json into one corpus (proposal 0003).
+
+    Returns (corpus, origins); origins maps each row id to the file stem that holds it.
+    Each file has the corpus layout. Outside the legacy files, its id is its file name and every
+    row id except group ids starts with "<file name>.", so parallel workers never collide.
+    """
+    legacy = set(read_json(vocabulary).get("legacy_record_files", []))
+    files = sorted(Path(directory).glob("*.json"))
+    files.sort(key=lambda f: (f.stem not in legacy, f.stem))  # legacy files first, so their order is kept
+    corpus = {"schema_version": 1, "id": "chepta-lab-records", **{name: [] for name in COLLECTIONS}}
+    origins, errors = {}, []
+    expected = {"schema_version", "id", *COLLECTIONS}
+    for path in files:
+        data = read_json(path)
+        if not isinstance(data, dict) or set(data) != expected or data.get("schema_version") != 1:
+            errors.append(f"{path.name}: needs exactly the keys {sorted(expected)} and schema_version 1")
+            continue
+        if path.stem not in legacy and data["id"] != path.stem:
+            errors.append(f"{path.name}: id must be the file name, {path.stem}")
+        for name in COLLECTIONS:
+            for row in data[name]:
+                key = row.get("id") if isinstance(row, dict) else None
+                if (path.stem not in legacy and name != "groups" and isinstance(key, str)
+                        and not key.startswith(path.stem + ".")):
+                    errors.append(f"{path.name}: {name} id {key} must start with '{path.stem}.'")
+                if isinstance(key, str):
+                    origins.setdefault(key, path.stem)
+                corpus[name].append(row)
+    if not files:
+        errors.append(f"no record files in {directory}")
+    if errors:
+        raise ValueError("\n".join(errors))
+    return corpus, origins
 
 
 def safe_path(root, relative):
@@ -346,12 +384,15 @@ def build(corpus, sources, root=ROOT, preview=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=["validate", "preview", "release"])
-    parser.add_argument("--corpus", type=Path, default=ROOT / "dataset/records/pilot.json")
+    parser.add_argument("--corpus", type=Path, help="one record file; default: every file in dataset/records/")
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
-    corpus = read_json(args.corpus)
     sources = {s["id"]: s for s in read_json(ROOT / "data/sources.json")["sources"]}
     try:
+        if args.corpus:
+            corpus, origins = read_json(args.corpus), None
+        else:
+            corpus, origins = load_records()
         errors = validate(corpus, sources)
         if errors:
             raise ValueError("\n".join(errors))
@@ -366,8 +407,17 @@ def main():
             studies, study_errors = study_record.validate_all()
             if study_errors:
                 raise ValueError("\n".join(study_errors))
+            # Knowledge-base keys, conflicts, the outcome lock and the generated index (proposal 0003).
+            kb_report = None
+            if origins is not None:
+                spec = importlib.util.spec_from_file_location("kb", ROOT / "scripts/kb.py")
+                kb = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(kb)
+                kb_errors, kb_report = kb.check_all(corpus, origins)
+                if kb_errors:
+                    raise ValueError("\n".join(kb_errors))
             print(json.dumps({"valid": True, "counts": {k: len(corpus[k]) for k in COLLECTIONS}, "tasks": report,
-                              "study_records": studies}, indent=2))
+                              "study_records": studies, "knowledge_base": kb_report}, indent=2))
             return
         if args.out is None:
             raise ValueError("--out is required; choose a new output directory")

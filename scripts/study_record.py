@@ -15,7 +15,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "dataset/schemas/study-record.schema.json"
-CORPUS = ROOT / "dataset/records/pilot.json"
+RECORDS = ROOT / "dataset/records"
 OUTCOMES = {"ok", "invalid_input", "missing_data", "unsupported", "not_converged", "cancelled", "out_of_time", "error"}
 REQUIRED_SCOPES = ("engineering", "rights", "source_accuracy")
 COLLECTIONS = ("files", "engines", "variants", "runs", "values", "constraints", "checks",
@@ -30,6 +30,16 @@ def read_json(path):
     def invalid(value):
         raise ValueError(f"Non-finite JSON value: {value}")
     return json.loads(Path(path).read_text(), parse_constant=invalid)
+
+
+def merged_records():
+    """The rows of every dataset/records/*.json file (scripts/dataset_pipeline.py checks the files themselves)."""
+    merged = {}
+    for path in sorted(RECORDS.glob("*.json")):
+        for name, rows in read_json(path).items():
+            if isinstance(rows, list):
+                merged.setdefault(name, []).extend(rows)
+    return merged
 
 
 def study_digest(record):
@@ -133,7 +143,7 @@ def validate(record, sources, root=ROOT, corpus=None):
     for key in record["sources"]["source_ids"]:
         if key not in sources:
             errors.append(f"unknown source {key}")
-    corpus = corpus if corpus is not None else read_json(CORPUS)
+    corpus = corpus if corpus is not None else merged_records()
     corpus_ix = {name: {row["id"]: row for row in corpus[name]} for name in ("evidence", "tasks", "runs")}
     for key in record["sources"]["evidence_ids"]:
         if key not in corpus_ix["evidence"]:

@@ -31,27 +31,24 @@ Each row gives the route each paper used and the other routes. "Seen in" counts 
 usable only when a paper or a CHEPTA run shows it working; an AI's suggestion is only a lead. Every new case adds or
 extends rows.
 
-**The knowledge base: the dataset.** [dataset/records/pilot.json](../../../dataset/records/pilot.json) is one
-file that links each link of the evidence chain to the next. Its structure is checked by
-[dataset/schemas/corpus.schema.json](../../../dataset/schemas/corpus.schema.json).
+**The knowledge base: read the index, then query** ([proposal 0003](../../../docs/proposals/0003-knowledge-base.md)).
+Never read the record files whole. In this order:
+1. `dataset/index/problems.md` (one line per register problem: operations, behaviours, worked/failed/lead/untested,
+   disputes, papers, files), or only the matching lines: `python scripts/kb.py problems --behaviour two-liquid-phases`.
+2. `python scripts/kb.py query --problem <id>` (or `--behaviour`, `--components ethanol,water`, `--operation`,
+   `--status worked`): compact rows with ids, conditions and source locators.
+3. `python scripts/kb.py show <row id>` for one row in full. Open `dataset/records/<case>.json` only to edit your own case.
 
-| Record | One row is | Today (2026-11-20) |
-|---|---|---|
-| `blocks` | a source passage, with its locator | 7 |
-| `evidence` | a claim with its conditions, quantities and limits | 9 |
-| `decisions` | **obstacle → mechanism → operation → expected change**, with alternatives, limits and what must be verified: the design knowledge itself | 3 |
-| `runs` | an actual CHEPTA request and answer | 1 |
-| `tasks` | a question with its checked answer, for testing an assistant | 3 drafts |
+Terms are controlled: `python scripts/kb.py terms`. Reuse what worked and what failed under comparable conditions, and
+say where the conditions differ. A disputed row (`kb.py disputes`) is a disagreement to report, not to settle.
 
-All of it is still from October and covers ethyl acetate extraction and the ethanol reactor. The closed ethyl acetate
-and methanol plants have **not** been added yet: their lessons are only in the register and the case READMEs. Every
-new case should add its decisions, evidence and runs here, each linked to its register row.
+**Adding what a case taught:** in `dataset/records/<case>.json` (ids start with `<case>.`), one decision row per
+operation tried, with `keys`: register `problem_id`, level, operation type, CHEPTA component names, behaviours,
+conditions, optional objective (numbers only from an evidence row) and outcome (status, basis, run ids, engine). A
+later CHEPTA version adds a row, never edits one. Then `python scripts/kb.py index` and the checks.
 
-**Steps to add as the knowledge base grows** (not built yet; do not pretend they exist):
-6. Find analogous cases: decisions whose obstacle and mixture behaviour match the new feed and objective.
-7. Reuse what worked, and what failed, under comparable conditions. Flag where the conditions differ.
-8. Rank the shortlist on a common basis once costs exist (CHEPTA 0.7).
-9. (Room for further steps.)
+**Steps still to build** (do not pretend they exist): rank the shortlist on a common basis once costs exist
+(CHEPTA 0.7); backfill the closed ethyl acetate and methanol plants (today only 3 October decisions and 2 example rows).
 
 **Label each rationale:** author-stated, independently supported, simulation-tested, or unresolved. Never invent an
 author's reason.

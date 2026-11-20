@@ -14,7 +14,7 @@ spec.loader.exec_module(p)
 
 class PipelineTests(unittest.TestCase):
     def setUp(self):
-        self.corpus = p.read_json(ROOT / "dataset/records/pilot.json")
+        self.corpus, _ = p.load_records()
         self.sources = {s["id"]: s for s in p.read_json(ROOT / "data/sources.json")["sources"]}
 
     def approve_for_test(self, index=0, split="train"):

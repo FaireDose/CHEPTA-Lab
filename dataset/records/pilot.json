@@ -387,6 +387,31 @@
         "ea-cooling",
         "ea-wash-tradeoff"
       ],
+      "keys": {
+        "record_status": "draft",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "heat-exchange",
+        "components": [
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "cooling-before-water-extraction",
+          "piotrowski-2021-plant-s2"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "paper_simulation",
+          "run_ids": [],
+          "engine": null
+        }
+      },
       "obstacle": "Extraction behavior and downstream loads vary with feed conditions.",
       "mechanism": "Temperature changes phase partitioning within the applicable mixture regime.",
       "operation": "Consider cooling before extraction within available utility limits.",
@@ -411,6 +436,31 @@
         "ea-wash-tradeoff",
         "ea-wash-ratio"
       ],
+      "keys": {
+        "record_status": "draft",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "extraction",
+        "components": [
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "water-wash-of-azeotrope",
+          "piotrowski-2021-plant-s2"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "paper_simulation",
+          "run_ids": [],
+          "engine": null
+        }
+      },
       "obstacle": "Azeotropy limits the simple-distillation route described in the source.",
       "mechanism": "Partition ethanol into a water-rich phase.",
       "operation": "Shortlist water extraction if two-liquid feasibility and recovery constraints permit.",
@@ -435,6 +485,51 @@
         "ea-reflux-limits",
         "ea-feed-location"
       ],
+      "keys": {
+        "record_status": "draft",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "product-column-after-wash",
+          "piotrowski-2021-plant-s2"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ea-impurity-limits"
+            },
+            {
+              "name": "water content",
+              "value": 0.03,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ea-impurity-limits"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "paper_simulation",
+          "run_ids": [],
+          "engine": null
+        }
+      },
       "obstacle": "An overall purity target may be met while an individual impurity limit is violated.",
       "mechanism": "Reflux and feed location change the column separation and thermal demand.",
       "operation": "Set purification conditions against all product limits together.",

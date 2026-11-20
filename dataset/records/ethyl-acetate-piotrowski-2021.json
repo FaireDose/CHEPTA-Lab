@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "id": "ethyl-acetate-piotrowski-2021",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow",
+      "evidence_ids": [
+        "ea-impurity-limits",
+        "ea-thermo-choice"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "standalone-product-column",
+          "paper-stream-13-feed",
+          "acetic-acid-0.01-mass-pct",
+          "bottoms-flow-140-to-141.5-kmol-h",
+          "uniquac-vll"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ea-impurity-limits"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds11-acid0.01-bottoms140",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds11-acid0.01-bottoms141",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds11-acid0.01-bottoms141.5"
+          ],
+          "engine": "chepta@0.6.2"
+        }
+      },
+      "obstacle": "Trace acetic acid in the washed ester: the product column must handle two liquid phases on its stages with the acid present.",
+      "mechanism": "Distil the ternary azeotrope overhead and take ethyl acetate as the bottoms, with vapour-liquid-liquid equilibrium on the stages (UNIQUAC, phases VLL, as in the run requests).",
+      "operation": "Product column 11 run alone on the paper's stream 13 with 0.01 mass % acetic acid, bottoms flow specified at 140, 141 and 141.5 kmol/h.",
+      "expected_change": "Ethyl acetate as the bottoms, meeting the paper's product purity.",
+      "alternatives": [],
+      "limits": [
+        "CHEPTA 0.6.2 returns NO_CONVERGENCE at all three flows; this says nothing about the paper's own simulator.",
+        "Standalone column on the paper's feed, not the closed plant.",
+        "Example row for the knowledge-base format (proposal 0003); draft, written by an AI session, not reviewed."
+      ],
+      "verification_required": [
+        "Repeat with a later CHEPTA release as a new row; never edit this one."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.product-column-acid-below-paper-flow",
+      "evidence_ids": [
+        "ea-impurity-limits",
+        "ea-thermo-choice"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "standalone-product-column",
+          "paper-stream-13-feed",
+          "acetic-acid-0.01-mass-pct",
+          "bottoms-flow-139-kmol-h",
+          "uniquac-vll"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ea-impurity-limits"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds11-acid0.01-bottoms139"
+          ],
+          "engine": "chepta@0.6.2"
+        }
+      },
+      "obstacle": "Trace acetic acid in the washed ester: the product column must handle two liquid phases on its stages with the acid present.",
+      "mechanism": "Distil the ternary azeotrope overhead and take ethyl acetate as the bottoms, with vapour-liquid-liquid equilibrium on the stages (UNIQUAC, phases VLL, as in the run requests).",
+      "operation": "Product column 11 run alone on the paper's stream 13 with 0.01 mass % acetic acid, bottoms flow specified at 139 kmol/h.",
+      "expected_change": "Ethyl acetate as the bottoms, meeting the paper's product purity.",
+      "alternatives": [],
+      "limits": [
+        "139 kmol/h is a Lab adjustment below the paper's product flow, not the paper's design.",
+        "Standalone column on the paper's feed, not the closed plant; the product purity is in the run output, not restated here.",
+        "Example row for the knowledge-base format (proposal 0003); draft, written by an AI session, not reviewed."
+      ],
+      "verification_required": [
+        "Repeat with a later CHEPTA release as a new row; never edit this one."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
