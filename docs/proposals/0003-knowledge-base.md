@@ -59,7 +59,9 @@ methanol plants are not otherwise added.
 - **Disputes.** Rows with the same problem, operation and conditions are compared. If one says worked and another
   failed, the validator stops and lists both, unless one of them names the other in `disputed_with`. The fix is to
   name the condition that differs, or to record the disagreement; never to merge or delete. Acknowledged disputes stay
-  listed (`python scripts/kb.py disputes`) and counted in the index. A paper that worked and a CHEPTA run that failed
+  listed (`python scripts/kb.py disputes`) and counted in the index. Rows that name each other in
+  `disputed_with` count as a disputed set whatever their status, so a disagreement between two leads (two books'
+  rules) is counted too (amendment, 2026-11-20). A paper that worked and a CHEPTA run that failed
   under the same conditions is a dispute on purpose: it is a disagreement to keep (AGENTS.md).
 - **Engine versions.** Within the same problem, operation and conditions, a CHEPTA row of a later release supersedes
   an earlier one in the counts; it is not a dispute. Outcomes from CHEPTA runs are append-only: `kb.py index` records

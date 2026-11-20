@@ -2,7 +2,7 @@
 
 Made by `python scripts/kb.py index` from dataset/records/ and data/ISSUES_AND_ROUTES.md; held-out groups left out. Next: `python scripts/kb.py query` with `--problem`, `--behaviour`, `--components`, `--operation`, `--symptom`, `--kind` or `--status`, then `python scripts/kb.py show <row id>`. Terms: `python scripts/kb.py terms`.
 
-W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest engine per condition). D: disputed sets. P: sources (papers, books). Used y/p/n: later cases it helped / partly / not. Files: dataset/records/<file>.json.
+W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest engine per condition). D: disputed sets (worked against failed, or rows naming each other in disputed_with). P: sources (papers, books). Used y/p/n: later cases it helped / partly / not. Files: dataset/records/<file>.json.
 
 ## Design: one line per register problem
 
@@ -36,19 +36,19 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 
 ## General design rules: one line per operation
 
-| operation | behaviours | W/F/L/U | P | used y/p/n | files |
-|---|---|---|---|---|---|
-| absorber-column | non-condensable-gas | 0/0/2/0 | 1 | 0/0/0 | palomar-2024-il-process-simulation |
-| azeotropic-distillation | azeotrope-heterogeneous,azeotrope-min-boiling,close-boiling,equilibrium-limited-reaction,two-liquid-phases | 0/0/6/0 | 2 | 0/0/0 | guo-wang-2019-azeotropic-distillation,valentini-2020-azeotropes-waste |
-| cstr | equilibrium-limited-reaction | 0/0/2/0 | 2 | 0/0/0 | hoff-eisenacher-2025-esterification-review,pasha-2021-biodiesel-process-design |
-| decanter | azeotrope-heterogeneous,equilibrium-limited-reaction,two-liquid-phases | 0/0/3/0 | 3 | 0/0/0 | fu-2021-isobutanol-recovery,guo-wang-2019-azeotropic-distillation,pasha-2021-biodiesel-process-design |
-| distillation | close-boiling,hazardous-component,heat-sensitive,side-products,trace-impurity-limit,zeotropic-multicomponent | 0/0/12/0 | 6 | 0/0/0 | blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,chen-2018-abe-distillation,henrique-2020-dwc-simulation,li-2023-distillation-sequences,shehata-2024-meg-routes |
-| extraction | associating-acid-vapour,azeotrope-heterogeneous,close-boiling,dilute-product,hazardous-component,two-liquid-phases | 0/0/8/0 | 4 | 0/0/0 | blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,fu-2021-isobutanol-recovery,grisales-2017-abe-extraction |
-| extractive-distillation | azeotrope-min-boiling,close-boiling | 0/0/3/0 | 3 | 0/0/0 | blahusiak-2018-separation-selection,li-2017-ed-thermo-parameters,mtogo-2021-ed-vs-psd |
-| heat-integration | close-boiling,exothermic-reaction,heat-recovery-potential,heat-sensitive,zeotropic-multicomponent | 0/0/9/0 | 5 | 0/0/0 | ali-2022-eg-plant-pinch,blahusiak-2018-separation-selection,li-2023-distillation-sequences,pasha-2021-biodiesel-process-design,shehata-2024-meg-routes |
-| pervaporation | azeotrope-heterogeneous,equilibrium-limited-reaction | 0/0/3/0 | 2 | 0/0/0 | hoff-eisenacher-2025-esterification-review,valentini-2020-azeotropes-waste |
-| pfr | exothermic-reaction,side-products | 0/0/2/0 | 2 | 0/0/0 | othman-2024-meg-reactive-distillation,shehata-2024-meg-routes |
-| pressure-swing-distillation | azeotrope-min-boiling | 0/0/2/0 | 1 | 0/0/0 | mtogo-2021-ed-vs-psd |
-| purge | non-condensable-gas,purge-and-make-up,recycle-loop | 0/0/1/0 | 1 | 0/0/0 | larsson-skogestad-2000-plantwide |
-| reactive-distillation | azeotrope-min-boiling,close-boiling,endothermic-reaction,equilibrium-limited-reaction,exothermic-reaction,side-products,two-liquid-phases | 0/0/21/0 | 5 | 0/0/0 | hoff-eisenacher-2025-esterification-review,kiss-2024-rd-conceptual-methods,muthia-2018-rd-applicability,orjuela-2006-butyl-acetate-rcm,othman-2024-meg-reactive-distillation |
-| recycle | recycle-loop,side-products,trace-impurity-limit | 0/0/6/0 | 4 | 0/0/0 | chen-2018-abe-distillation,larsson-skogestad-2000-plantwide,pasha-2021-biodiesel-process-design,shehata-2024-meg-routes |
+| operation | behaviours | W/F/L/U | D | P | used y/p/n | files |
+|---|---|---|---|---|---|---|
+| absorber-column | non-condensable-gas | 0/0/2/0 | 0 | 1 | 0/0/0 | palomar-2024-il-process-simulation |
+| azeotropic-distillation | azeotrope-heterogeneous,azeotrope-min-boiling,close-boiling,equilibrium-limited-reaction,two-liquid-phases | 0/0/6/0 | 0 | 2 | 0/0/0 | guo-wang-2019-azeotropic-distillation,valentini-2020-azeotropes-waste |
+| cstr | equilibrium-limited-reaction | 0/0/2/0 | 0 | 2 | 0/0/0 | hoff-eisenacher-2025-esterification-review,pasha-2021-biodiesel-process-design |
+| decanter | azeotrope-heterogeneous,equilibrium-limited-reaction,two-liquid-phases | 0/0/3/0 | 0 | 3 | 0/0/0 | fu-2021-isobutanol-recovery,guo-wang-2019-azeotropic-distillation,pasha-2021-biodiesel-process-design |
+| distillation | close-boiling,hazardous-component,heat-sensitive,side-products,trace-impurity-limit,zeotropic-multicomponent | 0/0/12/0 | 1 | 6 | 0/0/0 | blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,chen-2018-abe-distillation,henrique-2020-dwc-simulation,li-2023-distillation-sequences,shehata-2024-meg-routes |
+| extraction | associating-acid-vapour,azeotrope-heterogeneous,close-boiling,dilute-product,hazardous-component,two-liquid-phases | 0/0/8/0 | 0 | 4 | 0/0/0 | blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,fu-2021-isobutanol-recovery,grisales-2017-abe-extraction |
+| extractive-distillation | azeotrope-min-boiling,close-boiling | 0/0/3/0 | 0 | 3 | 0/0/0 | blahusiak-2018-separation-selection,li-2017-ed-thermo-parameters,mtogo-2021-ed-vs-psd |
+| heat-integration | close-boiling,exothermic-reaction,heat-recovery-potential,heat-sensitive,zeotropic-multicomponent | 0/0/9/0 | 0 | 5 | 0/0/0 | ali-2022-eg-plant-pinch,blahusiak-2018-separation-selection,li-2023-distillation-sequences,pasha-2021-biodiesel-process-design,shehata-2024-meg-routes |
+| pervaporation | azeotrope-heterogeneous,equilibrium-limited-reaction | 0/0/3/0 | 0 | 2 | 0/0/0 | hoff-eisenacher-2025-esterification-review,valentini-2020-azeotropes-waste |
+| pfr | exothermic-reaction,side-products | 0/0/2/0 | 0 | 2 | 0/0/0 | othman-2024-meg-reactive-distillation,shehata-2024-meg-routes |
+| pressure-swing-distillation | azeotrope-min-boiling | 0/0/2/0 | 0 | 1 | 0/0/0 | mtogo-2021-ed-vs-psd |
+| purge | non-condensable-gas,purge-and-make-up,recycle-loop | 0/0/1/0 | 0 | 1 | 0/0/0 | larsson-skogestad-2000-plantwide |
+| reactive-distillation | azeotrope-min-boiling,close-boiling,endothermic-reaction,equilibrium-limited-reaction,exothermic-reaction,side-products,two-liquid-phases | 0/0/21/0 | 0 | 5 | 0/0/0 | hoff-eisenacher-2025-esterification-review,kiss-2024-rd-conceptual-methods,muthia-2018-rd-applicability,orjuela-2006-butyl-acetate-rcm,othman-2024-meg-reactive-distillation |
+| recycle | recycle-loop,side-products,trace-impurity-limit | 0/0/6/0 | 1 | 4 | 0/0/0 | chen-2018-abe-distillation,larsson-skogestad-2000-plantwide,pasha-2021-biodiesel-process-design,shehata-2024-meg-routes |

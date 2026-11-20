@@ -114,10 +114,12 @@ class KnowledgeBaseTests(unittest.TestCase):
     # --- conflicts ---
 
     def test_same_problem_operation_different_conditions_is_not_disputed(self):
+        self.only_example_rules()
         # The two example rows: failed at 140-141.5 kmol/h, worked at 139 kmol/h.
         self.assertEqual(kb.disputes(self.corpus["decisions"]), [])
 
     def test_same_conditions_different_outcome_is_disputed_and_listed(self):
+        self.only_example_rules()
         self.clone(EXAMPLE, "other-case.same-column", status="worked")
         found = kb.disputes(self.corpus["decisions"])
         self.assertEqual(len(found), 1)
@@ -127,6 +129,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(sum(1 for d in self.corpus["decisions"] if d["id"] == EXAMPLE), 1)
 
     def test_dispute_acknowledged_by_one_side_passes_and_stays_listed(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "other-case.same-column", status="worked")
         row["keys"]["disputed_with"] = [EXAMPLE]
         self.assertEqual(self.errors(), [])
@@ -136,16 +139,45 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertIn("| 1 |", line)
 
     def test_later_engine_adds_a_row_and_supersedes(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow-0.7.0",
                          status="worked", engine="chepta@0.7.0", run_ids=["ethanol-replay-038"])
         self.assertEqual(kb.disputes(self.corpus["decisions"]), [])
         self.assertEqual(kb.current_rows([self.decision(EXAMPLE), row]), [row])
 
     def test_paper_and_chepta_disagreeing_is_disputed(self):
+        self.only_example_rules()
         row = self.clone(EXAMPLE, "other-case.paper-says-worked", status="worked", basis="paper_simulation",
                          engine=None, run_ids=[])
         self.assertEqual(len(kb.disputes(self.corpus["decisions"])), 1)
         self.assertIn(row["id"], {r["id"] for r in kb.disputes(self.corpus["decisions"])[0]["rows"]})
+
+    def test_acknowledged_pair_between_leads_is_counted(self):
+        self.only_example_rules()
+        a = self.clone(self.RULE, "ethyl-acetate-piotrowski-2021.rule-a")
+        b = self.clone(self.RULE, "ethyl-acetate-piotrowski-2021.rule-b")
+        del a["keys"]["problem_id"], a["keys"]["level"], b["keys"]["problem_id"], b["keys"]["level"]
+        self.assertEqual(kb.disputes(self.corpus["decisions"]), [])  # two leads alone are not a dispute
+        a["keys"]["disputed_with"] = [b["id"]]
+        self.assertEqual(self.errors(), [])
+        found = kb.disputes(self.corpus["decisions"])
+        self.assertEqual([f["acknowledged_pairs"] for f in found], [[(a["id"], b["id"])]])
+        self.assertEqual(found[0]["unacknowledged_pairs"], [])
+        md, js = kb.build_index(self.corpus, self.origins)
+        line = next(l for l in md.splitlines() if l.startswith("| extractive-distillation |"))
+        self.assertIn("| 0/0/2/0 | 1 |", line)
+        # A pair naming each other across different conditions still counts once, under the first row.
+        b["keys"]["conditions"] = b["keys"]["conditions"] + ["other-condition"]
+        found = kb.disputes(self.corpus["decisions"])
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0]["acknowledged_pairs"], [(a["id"], b["id"])])
+
+    def test_committed_lead_disputes_are_listed(self):
+        pairs = {p for f in kb.disputes(self.corpus["decisions"]) for p in f["acknowledged_pairs"]}
+        self.assertIn(("li-2023-distillation-sequences.hardest-split-last",
+                       "li-2023-distillation-sequences.hardest-split-not-always-last"), pairs)
+        self.assertIn(("larsson-skogestad-2000-plantwide.fix-a-recycle-flow",
+                       "larsson-skogestad-2000-plantwide.keep-reactor-full"), pairs)
 
     def test_editing_or_deleting_a_chepta_outcome_fails(self):
         lock = kb.lock_entries(self.corpus)
