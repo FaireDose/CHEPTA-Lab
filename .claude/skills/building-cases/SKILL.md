@@ -19,7 +19,8 @@ In plain words: [docs/HOW_IT_WORKS.md](../../../docs/HOW_IT_WORKS.md). The rules
 6. **Add the problems the case shows** to [data/ISSUES_AND_ROUTES.md](../../../data/ISSUES_AND_ROUTES.md), and a
    keyed decision row per operation tried to `dataset/records/<case>.json` (your file only; ids `<case>.…`), as the
    process-design skill describes. First read `dataset/index/problems.md` and `python scripts/kb.py query` for the
-   rows that already exist; never read the record files whole. Then `python scripts/kb.py index`.
+   rows that already exist; never read the record files whole. Record in `keys.informed_by` which rows informed your
+choices, and whether they helped. Then `python scripts/kb.py index`.
 7. **Write questions with checked answers**, labelled with their register row: [dataset/PIPELINE.md](../../../dataset/PIPELINE.md).
 8. **Review:** a separate AI session checks everything and picks 2 or 3 items for the maintainer's spot check
    ([AGENTS.md](../../../AGENTS.md)). Apply the pipeline’s task-specific review and release rules, including the independent check for held-out evaluations. Only the person records their spot check. A closed plant can still have failed targets and its questions can still be drafts.

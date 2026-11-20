@@ -1,6 +1,15 @@
 {
   "about": "Controlled terms for the knowledge-base keys (docs/proposals/0003-knowledge-base.md). scripts/kb.py refuses any term not listed here. Adding a term is a deliberate edit: check that no listed term already means the same thing, and say why in the commit. Never rename or delete a term that rows use.",
-  "levels": ["separation", "reaction", "plant"],
+  "levels": [
+    "separation",
+    "reaction",
+    "plant"
+  ],
+  "row_kinds": {
+    "case-decision": "What a Lab case tried for a register problem, with its evidence or runs",
+    "design-rule": "A general rule or worked example from a book or review on choosing operations; keyed by behaviours, operation and conditions, a register problem only when it is about one",
+    "simulation-rule": "How to make a unit or plant converge or meet a target, from a book or review; keyed by operation and symptom, never by a register problem"
+  },
   "outcome_statuses": {
     "worked": "A paper, a measurement or a CHEPTA run shows the operation giving the decision's expected change under the row's conditions",
     "failed": "A paper, a measurement or a CHEPTA run shows the operation not giving it, or the calculation not converging, under the row's conditions",
@@ -11,7 +20,8 @@
     "measured": "Plant or laboratory measurement reported by a source",
     "paper_simulation": "A simulation reported by a paper (its simulator named in the evidence)",
     "chepta_run": "An executed CHEPTA run; names its engine version",
-    "lab_inference": "Reasoning by a Lab session; can only be untested or a lead"
+    "lab_inference": "Reasoning by a Lab session; can only be untested or a lead",
+    "textbook": "A book's or review's rule or worked example, with a chapter, section, page, table or example locator. A rule without results of its own is a lead; a worked example with numbers can be worked or failed"
   },
   "behaviours": [
     "azeotrope-min-boiling",
@@ -53,6 +63,18 @@
     "purge",
     "heat-integration"
   ],
+  "symptoms": {
+    "about": "Simulation symptoms. The first four are the rows of the troubleshooting table in docs/SIMULATION_PRACTICES.md; the others name CHEPTA outcomes seen in the cases (NO_CONVERGENCE, a phase refusal, long run times).",
+    "terms": {
+      "feed-refused": "The first unit refuses the given feed",
+      "section-fails": "Units run separately but a section fails",
+      "recycle-drift": "The loop closes but purity drifts when the tolerance is tightened",
+      "purity-short": "A column converges but misses a target",
+      "no-convergence": "A unit or loop does not converge",
+      "wrong-phase": "The phases found or allowed are not the ones expected (for example a refused two-liquid calculation)",
+      "slow": "A run converges but takes too long to use in scans"
+    }
+  },
   "components": {
     "about": "CHEPTA component names exactly as CHEPTA's requests and results spell them. Seeded from the case results in this repository; add a name only after checking it with CHEPTA's info capability.",
     "names": [
@@ -71,5 +93,13 @@
       "water"
     ]
   },
-  "legacy_record_files": ["pilot"]
+  "legacy_record_files": [
+    "pilot"
+  ],
+  "statement_limits": {
+    "about": "A rule row's statement is Lab's own paraphrase, never copied text (docs/LICENSING.md).",
+    "max_characters": 300,
+    "max_sentences": 2,
+    "max_quoted_words": 6
+  }
 }

@@ -288,7 +288,7 @@
             "type": "string",
             "pattern": "^[a-z0-9][a-z0-9._-]*$"
           },
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true
         },
         "obstacle": {
@@ -370,11 +370,26 @@
       "type": "object",
       "properties": {
         "record_status": {"enum": ["draft"]},
+        "kind": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "symptom": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "statement": {"type": "string", "minLength": 1},
+        "source": {
+          "type": "object",
+          "properties": {"source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "locator": {"type": "string", "minLength": 1}},
+          "required": ["source_id", "locator"],
+          "additionalProperties": false
+        },
+        "informed_by": {"type": "array", "minItems": 1, "items": {
+          "type": "object",
+          "properties": {"row": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "helped": {"enum": ["yes", "no", "partly"]}, "note": {"type": "string", "minLength": 1}},
+          "required": ["row", "helped", "note"],
+          "additionalProperties": false
+        }},
         "problem_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
         "level": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
         "operation_type": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
-        "components": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 1, "uniqueItems": true},
-        "behaviours": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 1, "uniqueItems": true},
+        "components": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true},
+        "behaviours": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true},
         "conditions": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$"}, "minItems": 0, "uniqueItems": true},
         "objective": {
           "type": "object",
@@ -410,7 +425,7 @@
         },
         "disputed_with": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "minItems": 1, "uniqueItems": true}
       },
-      "required": ["record_status", "problem_id", "level", "operation_type", "components", "behaviours", "conditions", "outcome"],
+      "required": ["record_status", "kind", "operation_type", "components", "behaviours", "conditions", "outcome"],
       "additionalProperties": false
     },
     "evidence_keys": {

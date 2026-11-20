@@ -13,9 +13,11 @@
       ],
       "keys": {
         "record_status": "draft",
+        "kind": "case-decision",
         "problem_id": "sep-two-liquids-with-acetic-acid",
         "level": "separation",
         "operation_type": "distillation",
+        "symptom": "no-convergence",
         "components": [
           "acetic-acid",
           "ethanol",
@@ -81,9 +83,11 @@
       ],
       "keys": {
         "record_status": "draft",
+        "kind": "case-decision",
         "problem_id": "sep-two-liquids-with-acetic-acid",
         "level": "separation",
         "operation_type": "distillation",
+        "symptom": "no-convergence",
         "components": [
           "acetic-acid",
           "ethanol",
@@ -137,6 +141,57 @@
         "Repeat with a later CHEPTA release as a new row; never edit this one."
       ],
       "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.review-extractive-distillation-needs-second-step",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "extractive-distillation",
+        "components": [
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "named-in-literature-review"
+        ],
+        "statement": "The paper's literature review names extractive distillation with a heavy solvent, and pervaporation, for this azeotrope, and rejects both because each needs a second method to reach product purity.",
+        "source": {
+          "source_id": "piotrowski-kubica-2021",
+          "locator": "Section 1.2, p. 3 (literature review, refs 23-28)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "The ester-alcohol-water azeotrope blocks ordinary distillation.",
+      "mechanism": "A heavy solvent changes the relative volatility (extractive distillation).",
+      "operation": "Extractive distillation with a heavy solvent, named in the paper's review without results of its own.",
+      "expected_change": "Break the azeotrope; per the review, not to product purity without a second method.",
+      "alternatives": [
+        "Water extraction then distillation (the paper's route)",
+        "Pervaporation (also named in the review)"
+      ],
+      "limits": [
+        "A lead: the paper reports no results for this route.",
+        "Example row for the knowledge-base format (proposal 0003); draft, written by an AI session, not reviewed.",
+        "Taken from data/ISSUES_AND_ROUTES.md, which cites p. 3; this session did not reopen the paper."
+      ],
+      "verification_required": [
+        "Read Section 1.2 and refs 23-25 before relying on it."
+      ],
+      "rationale_classification": "author_stated",
       "legacy_origin": null
     }
   ],

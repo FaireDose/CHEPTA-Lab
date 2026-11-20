@@ -1,6 +1,7 @@
 # Proposal 0003: the knowledge base for process design
 
-Status: draft for the maintainer's decision, 2026-11-20. Implemented as a draft: [vocabulary](../../data/vocabulary.json),
+Status: draft for the maintainer's decision, 2026-11-20; amended the same day so that knowledge from books and
+reviews (rules, heuristics, worked examples) enters on the same keys (section E). Implemented as a draft: [vocabulary](../../data/vocabulary.json),
 keys in the [corpus schema](../../dataset/schemas/corpus.schema.json), [kb.py](../../scripts/kb.py), the loader in
 [dataset_pipeline.py](../../scripts/dataset_pipeline.py), [tests](../../tests/test_kb.py) and a generated
 [index](../../dataset/index/problems.md). Nothing here is reviewed by a person.
@@ -22,14 +23,18 @@ Every decision row now carries `keys`:
 
 | Key | What it holds | Checked against |
 |---|---|---|
-| `problem_id` | A row of the register | The first column of [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md) |
-| `level` | separation, reaction or plant | The vocabulary, and the register row's own level |
+| `kind` | `case-decision`, `design-rule` or `simulation-rule` (section E) | The vocabulary |
+| `problem_id` | A row of the register (required for case decisions, optional for design rules, never for simulation rules) | The first column of [data/ISSUES_AND_ROUTES.md](../../data/ISSUES_AND_ROUTES.md) |
+| `level` | separation, reaction or plant, with `problem_id` | The vocabulary, and the register row's own level |
+| `symptom` | Simulation symptom (required for simulation rules, optional otherwise) | The vocabulary |
 | `operation_type` | distillation, extraction, decanter, ... | The vocabulary |
-| `components` | CHEPTA component names (`ethyl-acetate`, not `ethyl acetate`) | The vocabulary, seeded from the case results |
+| `components` | CHEPTA component names (`ethyl-acetate`, not `ethyl acetate`); may be empty for a rule | The vocabulary, seeded from the case results |
 | `behaviours` | azeotrope-min-boiling, two-liquid-phases, ... | The vocabulary |
 | `conditions` | Short tags for what makes this row's situation specific (feed, flow, standalone or in the plant, acid present) | Lower-case tags; free, not controlled (see "To decide") |
 | `objective` | Optional: product and targets; each number names the evidence row that holds it | The number must be a quantity of that evidence row |
-| `outcome` | `status` (worked, failed, untested, lead), `basis` (measured, paper_simulation, chepta_run, lab_inference), `run_ids`, `engine` | Rules below |
+| `outcome` | `status` (worked, failed, untested, lead), `basis` (measured, paper_simulation, chepta_run, lab_inference, textbook), `run_ids`, `engine` | Rules below |
+| `source`, `statement` | For rules: catalogue source id and locator; Lab's own paraphrase | Section E |
+| `informed_by` | Optional, append-only: rows that informed this one, each with helped yes/no/partly and a note | Must exist; locked |
 | `record_status` | `draft` (the only value today: decisions have no review path yet) | |
 | `disputed_with` | Optional: rows this one disagrees with | Must exist |
 
@@ -74,13 +79,48 @@ own file; rows may cite evidence in other files. `pilot.json` stays as the legac
 | Layer | What | Size today | Size at ~300 problems / 10,000 rows |
 |---|---|---|---|
 | 1 | The skill (process-design ~1,300 tokens, building-cases ~900) | ~900-1,300 tokens | the same |
-| 2 | [dataset/index/problems.md](../../dataset/index/problems.md), or only its matching lines: `kb.py problems --behaviour ...` | ~320 tokens | ~30 tokens a problem, ~9,000 in full, a few hundred filtered |
-| 3 | `kb.py query --problem ... --status ...`: three lines a row with ids, conditions and locators | ~160 tokens a row | at most 20 rows by default, ~3,000 |
+| 2 | [dataset/index/problems.md](../../dataset/index/problems.md): problems, then operation × symptom, then general rules by operation; or only matching problem lines: `kb.py problems --behaviour ...` | ~500 tokens | ~30 tokens a line: ~9,000 for 300 problems, plus at most operations × symptoms (20 × 7) and one line per operation; a few hundred filtered |
+| 3 | `kb.py query --problem ... --status ...` or `--operation ... --symptom ...`: three lines a row with ids, conditions and locators | ~160 tokens a row | at most 20 rows by default, ~3,000 |
 | 4 | `kb.py show <id>`: one row with its evidence and locators | ~1,300 tokens | the same |
 | 5 | The record file itself, only to edit your own case | pilot.json ~7,700 tokens | one case's file |
 
-The index grows with the number of problems, not rows (a test checks this). It is generated, never edited:
+The index grows with the number of problems and operation × symptom pairs, not rows (tests check both). It is generated, never edited:
 `python -m unittest` fails when it is stale, so any change to records or the register forces `kb.py index`.
+
+## E. Knowledge from books and reviews (amendment, 2026-11-20)
+
+The maintainer wants rules, heuristics and worked examples from books and papers on process development and
+simulation in the same knowledge base, not only what Lab's own cases showed.
+
+- **Three row kinds.** `case-decision` is what we had. `design-rule` is a general rule or worked example on choosing
+  operations (for example "relative volatility below about 1.1: consider extractive distillation"); it is keyed by
+  behaviours, operation and condition tags, and by a register problem only when it is about one. Rules with no
+  problem get their own index section, one line per operation. `simulation-rule` is how to make a unit or plant
+  converge or meet a target (for example from the ChemSep book); it never belongs to a register problem.
+- **Basis `textbook`**, for rule rows only: a book's or review's rule or worked example, with a chapter, section,
+  page, table or example locator. A rule without results of its own is a `lead`. A worked example can be `worked` or
+  `failed` only when it cites the evidence row that holds its numbers.
+- **Simulation rules are keyed by operation and symptom.** Symptoms are controlled: `feed-refused`, `section-fails`,
+  `recycle-drift`, `purity-short` (the four rows of the troubleshooting table in
+  [docs/SIMULATION_PRACTICES.md](../SIMULATION_PRACTICES.md)), plus `no-convergence`, `wrong-phase` and `slow`, which
+  name CHEPTA outcomes seen in the cases. A case row may carry a symptom too, so what a case tried for a
+  non-converging column sits next to the book's advice. The index's second section has one line per operation and
+  symptom; `kb.py query --symptom` reads it.
+- **Usefulness.** The coordinator asked for an append-only `used_in` list on the rule. It is stored the other way
+  round: the case row that was informed records `informed_by: [{row, helped: yes/no/partly, note}]` in its own file,
+  and `kb.py show` and the index derive the rule's `used_in` (case, row, helped, note) from those. Why: a worker then
+  edits only its own case file, so two workers using the same rule never edit the same file and never collide. The
+  lists are append-only through the lock: an entry once indexed cannot be edited or removed. The index counts uses
+  (helped yes / partly / no) per problem, per operation and symptom, and per general rule.
+- **Rights.** A rule row holds Lab's own short paraphrase (`statement`, at most 2 sentences and 300 characters, no
+  quotation longer than 6 words) and the locator, never copied text. Its source must be in `data/sources.json` with a
+  rights status; a statement without a source is refused. A source still `needs_review` may be cited in the knowledge
+  base but its rows stay out of releases.
+- **Example rows (draft, one each):** a design rule from the review section of Piotrowski & Kubica 2021 (p. 3:
+  extractive distillation and pervaporation are named for the ester azeotrope but each needs a second method; a lead)
+  and a simulation rule from the ChemSep book (a column that converges but misses a target: check balances and stage
+  profiles; a lead, as cited in the troubleshooting table, the book not opened by Lab). The two chepta 0.6.2 example
+  rows now carry the symptom `no-convergence`. No other book content is added.
 
 ## To decide
 
@@ -94,6 +134,12 @@ The index grows with the number of problems, not rows (a test checks this). It i
    private one) before the first held-out evaluation.
 4. **Review of decision rows.** `record_status` has only `draft`. Recommendation: reuse the task review path (AI full
    check plus a person's spot check) for decision rows when the plants are backfilled.
-5. **Automatic reading.** The skills tell agents to read the index first; the stale-index test makes it current.
+5. **Which books first, and their rights.** The ChemSep book is `needs_review` (public domain per CHEPTA's
+   record, not checked by Lab). Recommendation: before adding book rules, the maintainer picks 2 or 3 books or reviews
+   with clear rights, and Lab adds rules only as they bear on the next two plants, recording `informed_by` so their use
+   can be judged afterwards.
+6. **Symptom list.** Seven terms, four from the troubleshooting table. Recommendation: keep them until a case shows a
+   symptom none of them fits, then add one.
+7. **Automatic reading.** The skills tell agents to read the index first; the stale-index test makes it current.
    Recommendation: if sessions still skip it, add a session-start hook that prints `kb.py problems` filtered by the
    case's components.

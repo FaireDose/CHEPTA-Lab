@@ -39,13 +39,18 @@ Never read the record files whole. In this order:
    `--status worked`): compact rows with ids, conditions and source locators.
 3. `python scripts/kb.py show <row id>` for one row in full. Open `dataset/records/<case>.json` only to edit your own case.
 
-Terms are controlled: `python scripts/kb.py terms`. Reuse what worked and what failed under comparable conditions, and
+Rows come in three kinds: `case-decision` (what a Lab case tried), `design-rule` (a book's or review's rule or worked
+example, basis `textbook`; a lead unless it has its own results) and `simulation-rule` (keyed by operation and
+symptom; see solving-simulations). Terms are controlled: `python scripts/kb.py terms`. Reuse what worked and what failed under comparable conditions, and
 say where the conditions differ. A disputed row (`kb.py disputes`) is a disagreement to report, not to settle.
 
 **Adding what a case taught:** in `dataset/records/<case>.json` (ids start with `<case>.`), one decision row per
 operation tried, with `keys`: register `problem_id`, level, operation type, CHEPTA component names, behaviours,
 conditions, optional objective (numbers only from an evidence row) and outcome (status, basis, run ids, engine). A
-later CHEPTA version adds a row, never edits one. Then `python scripts/kb.py index` and the checks.
+later CHEPTA version adds a row, never edits one. When a row from the knowledge base shaped your choice, record it
+in your own row's `keys.informed_by` (row, helped yes/no/partly, note); the index counts these, and that is how the
+maintainer judges whether book knowledge helps. A rule from a book or review is a short paraphrase (2 sentences at
+most, never copied text) with its catalogued source and locator. Then `python scripts/kb.py index` and the checks.
 
 **Steps still to build** (do not pretend they exist): rank the shortlist on a common basis once costs exist
 (CHEPTA 0.7); backfill the closed ethyl acetate and methanol plants (today only 3 October decisions and 2 example rows).

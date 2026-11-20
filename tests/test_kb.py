@@ -52,7 +52,7 @@ class KnowledgeBaseTests(unittest.TestCase):
             self.clone(EXAMPLE, f"ethyl-acetate-piotrowski-2021.extra-{i}")
         after = kb.build_index(self.corpus, self.origins)[0].splitlines()
         self.assertEqual(len(after), len(before))
-        self.assertLessEqual(sum(map(len, after)) - sum(map(len, before)), 5)  # only the counts grow
+        self.assertLessEqual(sum(map(len, after)) - sum(map(len, before)), 10)  # only the counts grow
 
     # --- vocabulary ---
 
@@ -142,11 +142,149 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertIn(row["id"], {r["id"] for r in kb.disputes(self.corpus["decisions"])[0]["rows"]})
 
     def test_editing_or_deleting_a_chepta_outcome_fails(self):
-        lock = {"rows": kb.lock_entries(self.corpus)}
+        lock = kb.lock_entries(self.corpus)
         self.decision(EXAMPLE)["keys"]["outcome"]["status"] = "worked"
         self.assertTrue(any("edited" in e for e in kb.lock_errors(self.corpus, lock)))
         self.corpus["decisions"] = [d for d in self.corpus["decisions"] if d["id"] != EXAMPLE]
         self.assertTrue(any("deleted" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    # --- row kinds, textbook basis, symptoms (amendment of 2026-11-20) ---
+
+    SIM = "kooijman-taylor-2006-chemsep-book.column-misses-target-check-balances-and-profiles"
+    RULE = "ethyl-acetate-piotrowski-2021.review-extractive-distillation-needs-second-step"
+
+    def test_committed_rule_rows_have_their_kinds(self):
+        self.assertEqual(self.decision(self.SIM)["keys"]["kind"], "simulation-rule")
+        self.assertEqual(self.decision(self.RULE)["keys"]["outcome"]["basis"], "textbook")
+
+    def test_case_decision_needs_problem_and_evidence(self):
+        k = self.decision("ea-choose-extraction")["keys"]
+        del k["problem_id"]
+        self.decision("ea-choose-extraction")["evidence_ids"] = []
+        found = " ".join(self.errors())
+        self.assertIn("names its register problem_id", found)
+        self.assertIn("cites evidence", found)
+
+    def test_simulation_rule_keyed_by_symptom_not_problem(self):
+        k = self.decision(self.SIM)["keys"]
+        k["problem_id"], k["level"] = "sep-ester-alcohol-water-azeotrope", "separation"
+        self.assertTrue(any("does not belong to a register problem" in e for e in self.errors()))
+        del k["problem_id"], k["level"], k["symptom"]
+        self.assertTrue(any("keyed by operation and symptom" in e for e in self.errors()))
+
+    def test_unknown_symptom_and_kind_refused(self):
+        k = self.decision(self.SIM)["keys"]
+        k["symptom"], k["kind"] = "stuck", "tip"
+        found = " ".join(self.errors())
+        self.assertIn("unknown symptom 'stuck'", found)
+        self.assertIn("unknown row kind 'tip'", found)
+
+    def test_rule_without_results_cannot_claim_worked(self):
+        self.decision(self.RULE)["keys"]["outcome"]["status"] = "worked"
+        self.assertTrue(any("without results of its own is a lead" in e for e in self.errors()))
+
+    def test_textbook_basis_only_for_rules(self):
+        self.decision("ea-choose-extraction")["keys"]["outcome"]["basis"] = "textbook"
+        self.assertTrue(any("not a textbook rule" in e for e in self.errors()))
+        self.decision(self.SIM)["keys"]["outcome"]["basis"] = "lab_inference"
+        self.assertTrue(any("rule row has basis textbook" in e for e in self.errors()))
+
+    def test_query_by_symptom_and_kind(self):
+        code, out = self.run_kb("query", "--operation", "distillation", "--symptom", "purity-short")
+        self.assertIn(self.SIM, out)
+        self.assertNotIn(EXAMPLE, out)
+        code, out = self.run_kb("query", "--kind", "design-rule", "--json")
+        self.assertEqual([r["id"] for r in json.loads(out)], [self.RULE])
+
+    def test_index_has_one_line_per_operation_and_symptom(self):
+        md, js = kb.build_index(self.corpus, self.origins)
+        self.assertIn("| distillation | purity-short |", md)
+        before = md.splitlines()
+        for i in range(200):
+            self.clone(self.SIM, f"kooijman-taylor-2006-chemsep-book.extra-{i}")
+        after = kb.build_index(self.corpus, self.origins)[0].splitlines()
+        self.assertEqual(len(after), len(before))
+        row = copy.deepcopy(self.decision(self.SIM))
+        row["id"], row["keys"]["symptom"] = "kooijman-taylor-2006-chemsep-book.slow", "slow"
+        self.corpus["decisions"].append(row)
+        self.assertEqual(len(kb.build_index(self.corpus, self.origins)[0].splitlines()), len(before) + 1)
+
+    def test_general_design_rule_without_problem_goes_to_its_own_section(self):
+        k = self.decision(self.RULE)["keys"]
+        del k["problem_id"], k["level"]
+        self.assertEqual(self.errors(), [])
+        md, _ = kb.build_index(self.corpus, self.origins)
+        self.assertIn("| extractive-distillation | azeotrope-min-boiling | 0/0/1/0 |", md)
+        k["behaviours"] = []
+        self.assertTrue(any("names the behaviours" in e for e in self.errors()))
+
+    # --- usefulness: informed_by on the using row, shown as used_in of the rule ---
+
+    def use(self, helped="yes", note="SYNTHETIC UNIT TEST ONLY"):
+        k = self.decision(EXAMPLE)["keys"]
+        k.setdefault("informed_by", []).append({"row": self.SIM, "helped": helped, "note": note})
+        return k
+
+    def test_used_in_derived_and_counted(self):
+        self.use("yes")
+        self.use("partly")
+        self.assertEqual(self.errors(), [])
+        uses = kb.used_in(self.corpus["decisions"], self.origins)[self.SIM]
+        self.assertEqual([(u["case"], u["row"], u["helped"]) for u in uses],
+                         [("ethyl-acetate-piotrowski-2021", EXAMPLE, "yes"),
+                          ("ethyl-acetate-piotrowski-2021", EXAMPLE, "partly")])
+        md, _ = kb.build_index(self.corpus, self.origins)
+        self.assertIn("| distillation | purity-short | 0/0/1/0 | 0 | 1 | 1/1/0 |", md)
+        code, out = self.run_kb("show", self.SIM)
+        self.assertEqual(json.loads(out)["used_in"], [])  # the committed records have no uses yet
+
+    def test_informed_by_unknown_row_refused(self):
+        self.use()["informed_by"][0]["row"] = "no-such-row"
+        self.assertTrue(any("informed_by names unknown row" in e for e in self.errors()))
+
+    def test_informed_by_is_append_only(self):
+        k = self.use("yes")
+        lock = kb.lock_entries(self.corpus)
+        self.use("no")  # appending is fine
+        self.assertEqual(kb.lock_errors(self.corpus, lock), [])
+        k["informed_by"][0]["helped"] = "partly"
+        self.assertTrue(any("append-only" in e for e in kb.lock_errors(self.corpus, lock)))
+        k["informed_by"] = []
+        del k["informed_by"]
+        self.assertTrue(any("append-only" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    # --- rights: short paraphrase, catalogued source ---
+
+    def test_statement_without_source_refused(self):
+        k = self.decision("ea-choose-extraction")["keys"]
+        k["statement"] = "Wash the azeotrope with water."
+        self.assertTrue(any("statement needs its source" in e for e in self.errors()))
+
+    def test_long_statement_refused(self):
+        k = self.decision(self.SIM)["keys"]
+        k["statement"] = "First sentence. Second sentence. Third sentence."
+        self.assertTrue(any("longer than 2 sentences" in e for e in self.errors()))
+        k["statement"] = "x" * 301
+        self.assertTrue(any("300 characters" in e for e in self.errors()))
+
+    def test_quoted_text_refused(self):
+        k = self.decision(self.SIM)["keys"]
+        k["statement"] = 'The book says "check the balances and then compare every stage profile carefully".'
+        self.assertTrue(any("paraphrase instead of copying" in e for e in self.errors()))
+
+    def test_rule_source_must_be_catalogued(self):
+        k = self.decision(self.SIM)["keys"]
+        k["source"]["source_id"] = "some-uncatalogued-book"
+        self.assertTrue(any("must be in data/sources.json" in e for e in self.errors()))
+        del k["source"]
+        self.assertTrue(any("has a source" in e for e in self.errors()))
+
+    def test_rule_from_a_held_out_source_is_hidden(self):
+        self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
+                                      "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
+        self.assertIn(self.SIM, kb.held_out(self.corpus))
+        md, _ = kb.build_index(self.corpus, self.origins)
+        self.assertNotIn("purity-short", md)
 
     # --- files and namespaces ---
 
@@ -188,7 +326,8 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertNotIn("ethyl-acetate-piotrowski-2021", md + js)
         self.assertNotIn(EXAMPLE, json.dumps(kb.lock_entries(self.corpus)))
         self.assertTrue(all(p["rows"] == 0 for p in json.loads(js)["problems"]))
-        self.assertEqual(kb.visible_decisions(self.corpus)[0], [])
+        # Only the book's simulation rule stays visible: its source is in no test group.
+        self.assertEqual([d["id"] for d in kb.visible_decisions(self.corpus)[0]], [self.SIM])
 
     # --- query ---
 

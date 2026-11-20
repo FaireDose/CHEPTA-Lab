@@ -22,6 +22,13 @@ the first time you run a case.
 5. Tighten the recycle tolerance from the saved state. Compare each tear’s component flows, external balances, duties, purity and recovery. Report solve status, target verdicts and agreement with independent evidence separately.
 6. Pair a design target with a free variable and justified bounds. On 0.6.2, run a series of explicit requests and keep each result. Flowsheet-wide `designSpecs` is documented on [upstream commit 415da41](https://github.com/FaireDose/CHEPTA/blob/415da41d531cd5b5701d0d13550f98c9888abced/docs/models/flowsheet.md). Label any test of that commit separately from the release.
 
+**When a unit fails or misses a target, look up what is known first** (in this order, never the record files whole):
+1. the "Simulation" section of `dataset/index/problems.md`: one line per operation and symptom;
+2. `python scripts/kb.py query --operation distillation --symptom no-convergence` (symptoms: `python scripts/kb.py terms`);
+3. `python scripts/kb.py show <row id>` for one row.
+If a row informed what you tried, add `{"row": <its id>, "helped": "yes|no|partly", "note": ...}` to `keys.informed_by`
+of your own case row, never to the rule's row. Add what your case learned as a keyed row with a `symptom`.
+
 **Capability requests.** If no nearby feasible setting works, reduce the issue to one input and include the version, exact response, expected behaviour and evidence. A balance violation or contradiction with a documented contract can demonstrate an implementation problem. A difference from another simulator calls for checking assumptions and property data. Comparison with measurements addresses physical accuracy. [Oberkampf & Trucano, verification and validation benchmarks](https://doi.org/10.1016/j.nucengdes.2007.02.032)
 
 **Keep:** every run, failures included, with CHEPTA's code and message and the CHEPTA version or commit. Never edit
