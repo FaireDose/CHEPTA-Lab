@@ -53,7 +53,7 @@ maintainer judges whether book knowledge helps. A rule from a book or review is 
 most, never copied text) with its catalogued source and locator. Then `python scripts/kb.py index` and the checks.
 
 **Steps still to build** (do not pretend they exist): rank the shortlist on a common basis once costs exist
-(CHEPTA 0.7); backfill the closed ethyl acetate and methanol plants (today only 3 October decisions and 2 example rows).
+(CHEPTA 0.7). The ethyl acetate and methanol plants are backfilled as draft rows (2026-11-20), not yet reviewed.
 
 **Label each rationale:** author-stated, independently supported, simulation-tested, or unresolved. Never invent an
 author's reason.

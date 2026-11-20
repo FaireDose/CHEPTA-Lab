@@ -35,11 +35,15 @@ class KnowledgeBaseTests(unittest.TestCase):
     def errors(self):
         return kb.check_keys(self.corpus)
 
+    # The case decisions that existed before the plants were backfilled (proposal 0003's examples).
+    EXAMPLE_CASES = {EXAMPLE, "ethyl-acetate-piotrowski-2021.product-column-acid-below-paper-flow",
+                     "ea-choose-extraction", "ea-condition-feed", "ea-purification-constraints"}
+
     def only_example_rules(self):
-        """Keep the case decisions and the two example rules, so exact index lines do not depend on
-        how many literature rules are committed."""
+        """Keep the example case decisions and the two example rules, so exact index lines do not depend on
+        how many literature rules or backfilled plant rows are committed."""
         self.corpus["decisions"] = [d for d in self.corpus["decisions"]
-                                    if d["keys"]["kind"] == "case-decision" or d["id"] in (self.RULE, self.SIM)]
+                                    if d["id"] in self.EXAMPLE_CASES or d["id"] in (self.RULE, self.SIM)]
 
     # --- the repository as committed ---
 
@@ -258,6 +262,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertTrue(rows and all(r["keys"]["kind"] == "design-rule" for r in rows))
 
     def test_index_has_one_line_per_operation_and_symptom(self):
+        self.only_example_rules()
         md, js = kb.build_index(self.corpus, self.origins)
         self.assertIn("| distillation | purity-short |", md)
         before = md.splitlines()
@@ -288,6 +293,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         return k
 
     def test_used_in_derived_and_counted(self):
+        self.only_example_rules()
         self.use("yes")
         self.use("partly")
         self.assertEqual(self.errors(), [])
@@ -411,7 +417,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         ids = {r["id"] for r in json.loads(out)}
         self.assertIn("ea-choose-extraction", ids)
         self.assertNotIn(EXAMPLE, ids)
-        code, out = self.run_kb("query", "--components", "methanol")
+        code, out = self.run_kb("query", "--components", "benzene")
         self.assertIn("No matching rows", out)
 
     def test_problems_prints_only_matching_index_lines(self):
