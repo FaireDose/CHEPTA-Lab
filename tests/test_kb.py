@@ -35,6 +35,12 @@ class KnowledgeBaseTests(unittest.TestCase):
     def errors(self):
         return kb.check_keys(self.corpus)
 
+    def only_example_rules(self):
+        """Keep the case decisions and the two example rules, so exact index lines do not depend on
+        how many literature rules are committed."""
+        self.corpus["decisions"] = [d for d in self.corpus["decisions"]
+                                    if d["keys"]["kind"] == "case-decision" or d["id"] in (self.RULE, self.SIM)]
+
     # --- the repository as committed ---
 
     def test_committed_records_are_valid(self):
@@ -193,8 +199,10 @@ class KnowledgeBaseTests(unittest.TestCase):
         code, out = self.run_kb("query", "--operation", "distillation", "--symptom", "purity-short")
         self.assertIn(self.SIM, out)
         self.assertNotIn(EXAMPLE, out)
-        code, out = self.run_kb("query", "--kind", "design-rule", "--json")
-        self.assertEqual([r["id"] for r in json.loads(out)], [self.RULE])
+        code, out = self.run_kb("query", "--kind", "design-rule", "--json", "--limit", "1000")
+        rows = json.loads(out)
+        self.assertIn(self.RULE, [r["id"] for r in rows])
+        self.assertTrue(rows and all(r["keys"]["kind"] == "design-rule" for r in rows))
 
     def test_index_has_one_line_per_operation_and_symptom(self):
         md, js = kb.build_index(self.corpus, self.origins)
@@ -210,6 +218,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(len(kb.build_index(self.corpus, self.origins)[0].splitlines()), len(before) + 1)
 
     def test_general_design_rule_without_problem_goes_to_its_own_section(self):
+        self.only_example_rules()
         k = self.decision(self.RULE)["keys"]
         del k["problem_id"], k["level"]
         self.assertEqual(self.errors(), [])
@@ -280,6 +289,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertTrue(any("has a source" in e for e in self.errors()))
 
     def test_rule_from_a_held_out_source_is_hidden(self):
+        self.only_example_rules()
         self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
                                       "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
         self.assertIn(self.SIM, kb.held_out(self.corpus))
@@ -317,6 +327,7 @@ class KnowledgeBaseTests(unittest.TestCase):
     # --- held-out groups ---
 
     def test_held_out_rows_never_reach_index_or_query(self):
+        self.only_example_rules()
         group = next(g for g in self.corpus["groups"] if g["id"] == "ethyl-acetate")
         group["split"] = "test"
         hidden = kb.held_out(self.corpus)

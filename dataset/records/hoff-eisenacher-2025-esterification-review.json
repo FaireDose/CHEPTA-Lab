@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "id": "hoff-eisenacher-2025-esterification-review",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "hoff-eisenacher-2025-esterification-review.resin-temperature-limit",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "ion-exchange-resin",
+          "esterification"
+        ],
+        "statement": "Choose an acid resin by its temperature limit: the review gives about 140 C for Amberlyst 15 and up to 190 C for Amberlyst 70. That limit bounds the temperature, and so the pressure, of a reactive zone.",
+        "source": {
+          "source_id": "hoff-eisenacher-2025-esterification-review",
+          "locator": "Section 2.2.1 (Table 2)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Resins lose acid groups when too hot.",
+      "mechanism": "Each resin has a maximum service temperature.",
+      "operation": "Match the resin to the reactive-zone temperature.",
+      "expected_change": "A catalyst that survives the column conditions.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against hoff-eisenacher-2025-esterification-review, Section 2.2.1 (Table 2)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "hoff-eisenacher-2025-esterification-review.water-removal-shifts-equilibrium",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pervaporation",
+        "components": [
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "esterification",
+          "membrane-reactor"
+        ],
+        "statement": "Esterification is equilibrium-limited, so removing water continuously (reactive distillation, or a pervaporation or nanofiltration membrane in the reactor) raises conversion at milder conditions.",
+        "source": {
+          "source_id": "hoff-eisenacher-2025-esterification-review",
+          "locator": "Abstract; Sections 4.1 and 5"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Conversion stops at equilibrium.",
+      "mechanism": "Removing a product shifts the equilibrium.",
+      "operation": "Integrate water removal with the reaction.",
+      "expected_change": "Higher conversion.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against hoff-eisenacher-2025-esterification-review, Abstract; Sections 4.1 and 5."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "hoff-eisenacher-2025-esterification-review.ceramic-vs-polymer-membranes",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pervaporation",
+        "components": [
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "esterification",
+          "membrane-choice"
+        ],
+        "statement": "For water-removal membranes, zeolite-coated ceramics (LTA or MFI type) withstand heat and chemicals better than polymer films. A polyvinyl alcohol membrane is reported to lose up to 35% of its permeability in 1000 h.",
+        "source": {
+          "source_id": "hoff-eisenacher-2025-esterification-review",
+          "locator": "Sections 5.1 and 8.1"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Membranes degrade in hot reactive media.",
+      "mechanism": "Inorganic supports resist swelling and attack.",
+      "operation": "Prefer ceramic zeolite membranes for hot organic acid service.",
+      "expected_change": "Longer membrane life.",
+      "alternatives": [],
+      "limits": [
+        "Ceramic membranes are noted as prone to cracking at large scale (Section 8.1).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against hoff-eisenacher-2025-esterification-review, Sections 5.1 and 8.1."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "hoff-eisenacher-2025-esterification-review.homogeneous-acid-drawbacks",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "cstr",
+        "components": [],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "esterification",
+          "catalyst-choice"
+        ],
+        "statement": "Homogeneous mineral-acid catalysts are active but corrode equipment, cannot be recovered and add purification steps. Solid acid catalysts avoid these drawbacks.",
+        "source": {
+          "source_id": "hoff-eisenacher-2025-esterification-review",
+          "locator": "Sections 2.1 and 2.2"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A dissolved acid catalyst stays in the product.",
+      "mechanism": "A solid catalyst stays in the reactor.",
+      "operation": "Prefer a solid acid catalyst where its temperature limit allows.",
+      "expected_change": "No acid removal step, less corrosion.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against hoff-eisenacher-2025-esterification-review, Sections 2.1 and 2.2."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "hoff-eisenacher-2025-esterification-review.butyl-acetate-yield-with-water-removal",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "esterification",
+          "ionic-liquid-catalyst"
+        ],
+        "statement": "With water removed during the reaction, the review reports n-butyl acetate yields rising from about 70% to up to 95% using acidic ionic-liquid catalysts.",
+        "source": {
+          "source_id": "hoff-eisenacher-2025-esterification-review",
+          "locator": "Section 6.1 (citing ref. 174)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Butyl acetate yield limited by equilibrium.",
+      "mechanism": "Water removal shifts the equilibrium.",
+      "operation": "Remove water during esterification.",
+      "expected_change": "Higher ester yield.",
+      "alternatives": [],
+      "limits": [
+        "A cited result reported in one sentence; Lab has not read the cited study.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against hoff-eisenacher-2025-esterification-review, Section 6.1 (citing ref. 174)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

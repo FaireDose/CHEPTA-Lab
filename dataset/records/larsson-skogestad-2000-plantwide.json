@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "id": "larsson-skogestad-2000-plantwide",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "larsson-skogestad-2000-plantwide.snowball-means-reactor-too-small",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "recycle",
+        "symptom": "no-convergence",
+        "components": [],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "reactor-separator-recycle",
+          "fixed-reactor-holdup"
+        ],
+        "statement": "If the recycle of unreacted feed grows without bound, the reactor is too small for the feed rate (the snowball effect); this is a steady-state design problem, not a solver one.",
+        "source": {
+          "source_id": "larsson-skogestad-2000-plantwide",
+          "locator": "Section 6, p. 230"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Recycle flow grows without limit.",
+      "mechanism": "With fixed reactor hold-up, only more recycle can raise conversion.",
+      "operation": "Check reactor size against feed rate.",
+      "expected_change": "A loop with a finite steady state.",
+      "alternatives": [],
+      "limits": [
+        "Read by Lab as a simulation symptom; the paper discusses it as control and design.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row.",
+        "Source rights status is needs_review: keep out of releases until cleared."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against larsson-skogestad-2000-plantwide, Section 6, p. 230."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "larsson-skogestad-2000-plantwide.fix-a-recycle-flow",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "reactor-separator-recycle",
+          "liquid-phase"
+        ],
+        "statement": "Luyben's recommendation, as reported by the authors: fix one flow in each liquid recycle loop to avoid the snowball effect.",
+        "source": {
+          "source_id": "larsson-skogestad-2000-plantwide",
+          "locator": "Sections 5 and 6, pp. 228 and 230"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        },
+        "disputed_with": [
+          "larsson-skogestad-2000-plantwide.keep-reactor-full"
+        ]
+      },
+      "obstacle": "Recycle flows that run away.",
+      "mechanism": "A fixed flow stops disturbances circulating.",
+      "operation": "Fix a flow in each recycle loop.",
+      "expected_change": "No snowball effect.",
+      "alternatives": [],
+      "limits": [
+        "Disputed by the authors themselves (see the disputed row).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row.",
+        "Source rights status is needs_review: keep out of releases until cleared."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against larsson-skogestad-2000-plantwide, Sections 5 and 6, pp. 228 and 230."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "larsson-skogestad-2000-plantwide.keep-reactor-full",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "reactor-separator-recycle",
+          "liquid-phase"
+        ],
+        "statement": "For liquid-phase reactors the authors keep the reactor hold-up at its maximum, which maximises conversion per pass and minimises recycle; fixing the recycle flow instead carries an economic penalty.",
+        "source": {
+          "source_id": "larsson-skogestad-2000-plantwide",
+          "locator": "Section 6, p. 230"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        },
+        "disputed_with": [
+          "larsson-skogestad-2000-plantwide.fix-a-recycle-flow"
+        ]
+      },
+      "obstacle": "Choosing what to fix in a reactor-recycle loop.",
+      "mechanism": "Larger hold-up gives more conversion per pass.",
+      "operation": "Run the liquid reactor full.",
+      "expected_change": "Smallest recycle, lower operating cost.",
+      "alternatives": [],
+      "limits": [
+        "For gas-phase loops the authors note letting hold-up (pressure) float can be optimal.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row.",
+        "Source rights status is needs_review: keep out of releases until cleared."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against larsson-skogestad-2000-plantwide, Section 6, p. 230."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "larsson-skogestad-2000-plantwide.purge-sets-inert-level",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "purge",
+        "components": [],
+        "behaviours": [
+          "purge-and-make-up",
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "gas-recycle"
+        ],
+        "statement": "In a gas recycle loop carrying an inert, the purge flow is what sets the inert's concentration (a cited study).",
+        "source": {
+          "source_id": "larsson-skogestad-2000-plantwide",
+          "locator": "Section 6, p. 230"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Inert builds up in a gas recycle.",
+      "mechanism": "Only the purge removes the inert.",
+      "operation": "Size or adjust the purge to the inert level wanted.",
+      "expected_change": "Bounded inert concentration.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row.",
+        "Source rights status is needs_review: keep out of releases until cleared."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against larsson-skogestad-2000-plantwide, Section 6, p. 230."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "larsson-skogestad-2000-plantwide.douglas-hierarchy",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [],
+        "behaviours": [
+          "recycle-loop"
+        ],
+        "conditions": [
+          "conceptual-design-order"
+        ],
+        "statement": "Design in Douglas's order: batch or continuous, then the input-output structure, the recycle structure, the separation system and finally energy integration.",
+        "source": {
+          "source_id": "larsson-skogestad-2000-plantwide",
+          "locator": "Section 5, p. 227"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Where to start a flowsheet.",
+      "mechanism": "Each level fixes what the next needs.",
+      "operation": "Follow the hierarchy.",
+      "expected_change": "A flowsheet built in a consistent order.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row.",
+        "Source rights status is needs_review: keep out of releases until cleared."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against larsson-skogestad-2000-plantwide, Section 5, p. 227."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
