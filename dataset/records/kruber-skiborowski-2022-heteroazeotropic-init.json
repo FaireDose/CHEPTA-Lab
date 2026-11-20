@@ -1,0 +1,824 @@
+{
+  "schema_version": 1,
+  "id": "kruber-skiborowski-2022-heteroazeotropic-init",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.topology-first",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "initialisation",
+          "residue-curve-topology"
+        ],
+        "symptom": "no-convergence",
+        "statement": "Before setting up a heteroazeotropic column, compute and classify every azeotrope (nodes and saddles). The singular points show which profiles a column can reach at total reflux and guide the starting profile.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.2, pp. 5-7 (step 1, Figs. 2-3)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A column started far from a feasible profile.",
+      "mechanism": "The mixture topology bounds the column profiles.",
+      "operation": "Characterise the azeotropes first.",
+      "expected_change": "A starting point in the right distillation region.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.2, pp. 5-7 (step 1, Figs. 2-3)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.mass-balance-estimate-of-recycle",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "initialisation",
+          "two-column-decanter"
+        ],
+        "symptom": "no-convergence",
+        "statement": "Estimate the recycle and top products from an overall mass balance first: pure bottom products, a top vapour at the lowest-boiling heteroazeotrope, and a decanter splitting it into its two liquids with the solvent-lean liquid recycled.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.2, p. 7 (steps 2-3, Fig. 3b-c)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Unknown recycle composition and flow.",
+      "mechanism": "The heteroazeotrope and its liquid split fix the overhead and recycle to a first approximation.",
+      "operation": "Solve the balance, then use it as the tear guess.",
+      "expected_change": "A defensible tear-stream guess.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.2, p. 7 (steps 2-3, Fig. 3b-c)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.piecewise-initial-profile",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "initialisation"
+        ],
+        "symptom": "no-convergence",
+        "statement": "Initialise the heteroazeotropic column with a piecewise-linear composition profile joining the lowest-boiling heteroazeotrope, the saddle of its distillation region and the bottom product. Then check phases on each stage before solving the full column.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.2, p. 7 (step 5, Fig. 3e); Section 3.1.1, pp. 10-11 (Fig. 5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Flat or constant starting profiles for a column crossing a two-liquid region.",
+      "mechanism": "The profile at total reflux follows the region's singular points.",
+      "operation": "Start from the topology-based profile.",
+      "expected_change": "Convergence of the column model.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.2, p. 7 (step 5, Fig. 3e); Section 3.1.1, pp. 10-11 (Fig. 5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.simple-column-flash-then-solve",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "initialisation",
+          "simple-column"
+        ],
+        "symptom": "no-convergence",
+        "statement": "Initialise the companion simple column by flashing its mixed feed (fresh feed plus recycle), solving the stage model with a fixed structure, and only then minimising duty; raise model complexity step by step.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.2, p. 7 (step 4, Fig. 3d)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A column model solved all at once from a poor start.",
+      "mechanism": "Successively harder sub-problems keep each start close to the solution.",
+      "operation": "Flash, then fixed-structure column, then optimisation.",
+      "expected_change": "Robust convergence.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.2, p. 7 (step 4, Fig. 3d)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.single-column-already-hard",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [
+          "ethanol",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "multiple-steady-states",
+          "cited-example"
+        ],
+        "symptom": "no-convergence",
+        "statement": "Even one heteroazeotropic column is hard to simulate: it can have multiple steady states and its products are very sensitive to the organic reflux. Luyben's careful manual start of ethanol dehydration still ended unconverged (as cited).",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 1, p. 2 (ref. 11)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Non-convergence in a heteroazeotropic column.",
+      "mechanism": "Multiple steady states and sensitivity to the organic reflux.",
+      "operation": "Fix the organic reflux and recycle estimates before adding the second column.",
+      "expected_change": "Expect difficulty; do not read failure as a property error alone.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 1, p. 2 (ref. 11)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.phase-stability-every-stage",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "phase-stability"
+        ],
+        "symptom": "wrong-phase",
+        "statement": "Test phase stability on every stage: assuming vapour-liquid equilibrium only, with no second liquid, can give substantial errors in a heteroazeotropic column.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 1, p. 2 (refs. 17-18); Section 2.1, p. 4"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A stage that should split into two liquids is computed as one.",
+      "mechanism": "Missing the liquid split changes the equilibrium and the balance.",
+      "operation": "Use a robust stability test and allow VLLE on each stage.",
+      "expected_change": "Correct phases on every stage.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 1, p. 2 (refs. 17-18); Section 2.1, p. 4."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.quasi-vle-for-three-phase-stages",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "equation-oriented",
+          "phase-transition"
+        ],
+        "symptom": "no-convergence",
+        "statement": "For a gradient-based solver, a three-phase stage can be treated as a quasi vapour-liquid stage on the overall liquid, with the two-liquid split done only inside the property call. This avoids discontinuities as stages switch between one and two liquids.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.1, pp. 4-5"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Discontinuities when a stage changes between one and two liquids.",
+      "mechanism": "Keeping the liquid split inside the equilibrium function hides the switch from the solver.",
+      "operation": "Hide the liquid split from the column equations.",
+      "expected_change": "Smooth convergence across the miscibility boundary.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.1, pp. 4-5."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.reinitialise-for-feed-changes",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "feed-composition-scan"
+        ],
+        "symptom": "no-convergence",
+        "statement": "When scanning feed composition widely, do not reuse one initialisation: the required stage numbers vary a lot, so re-initialise for each interval of feed composition.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.2.2, p. 16"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Scans that fail or give outliers away from the first feed.",
+      "mechanism": "A start built for one feed lies far from the solution for another.",
+      "operation": "Re-initialise per feed interval.",
+      "expected_change": "Converged scans.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.2.2, p. 16."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.small-purge-aids-robustness",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "purge-and-make-up"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "purge",
+          "dioxane-benzene-case"
+        ],
+        "symptom": "no-convergence",
+        "statement": "In the 1,4-dioxane and benzene case the optimisation relied on a small purge (0.8% of the feed), which the authors link to a poorer initial profile estimate.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.3, p. 16"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Reduced robustness of the recycle with the decanter.",
+      "mechanism": "A purge removes accumulating material and loosens the recycle.",
+      "operation": "Allow a small optional purge.",
+      "expected_change": "Convergence at a small loss.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.3, p. 16."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.outliers-from-integer-fixing",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "optimisation",
+          "local-optimum"
+        ],
+        "symptom": "purity-short",
+        "statement": "A converged design that sits well off the trend can be a poor local optimum. Small changes of the initial feed stage or total stage number removed such outliers.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.1.2, p. 12; Section 3.3.1, p. 17"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A solution far from the trend of its neighbours.",
+      "mechanism": "The final fixing of stage locations lands in a worse local optimum.",
+      "operation": "Perturb the feed stage or stage count and re-solve.",
+      "expected_change": "Designs on the expected trend.",
+      "alternatives": [],
+      "limits": [
+        "Symptom purity-short is the closest controlled term; the paper's issue is a sub-optimal converged design, not a missed purity.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.1.2, p. 12; Section 3.3.1, p. 17."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.heteroazeotrope-prerequisite",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "two-column-decanter"
+        ],
+        "statement": "A heterogeneous azeotrope is a prerequisite for heteroazeotropic distillation and is always minimum-boiling. The usual process pairs a simple column and a heteroazeotropic column with a decanter, each giving one product as bottoms.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 1, p. 1; Section 2.1, p. 4 (Fig. 1)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "An azeotrope to break.",
+      "mechanism": "A decanter crosses the distillation boundary by liquid splitting.",
+      "operation": "Two columns with a decanter on the heteroazeotropic column's overhead.",
+      "expected_change": "Both pure products as bottoms.",
+      "alternatives": [
+        "Extractive distillation",
+        "Pressure-swing distillation"
+      ],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 1, p. 1; Section 2.1, p. 4 (Fig. 1)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.three-common-topologies",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "solvent-screening",
+          "residue-curve-topology"
+        ],
+        "statement": "Three ternary topologies cover most solvent-based heteroazeotropic separations (four, three or two azeotropes; about 26%, 8% and 21% of 1365 surveyed mixtures, as cited). Their complexity defeats simple solvent-selection indicators.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 1, p. 2; Section 2.2, p. 6 (Fig. 2)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing a solvent for heteroazeotropic distillation.",
+      "mechanism": "Several azeotropes and distillation regions make simple indicators misleading.",
+      "operation": "Screen solvents with a process model, not selectivity alone.",
+      "expected_change": "A solvent chosen on process performance.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 1, p. 2; Section 2.2, p. 6 (Fig. 2)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.ethanol-solvent-screen",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [
+          "ethanol",
+          "water",
+          "cyclohexane",
+          "toluene"
+        ],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "dilute-product"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "solvent-screening",
+          "6-mol-percent-feed",
+          "atmospheric"
+        ],
+        "statement": "For dehydrating a 6 mol% ethanol broth, cyclohexane and hexane gave the same annual cost within estimate accuracy, while isooctane and toluene cost over 15% more. Solvent make-up was below 0.4% of cost.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.1.1, pp. 9-10 (Fig. 4)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing an entrainer.",
+      "mechanism": "Each solvent changes the topology, the decanter split and the duties.",
+      "operation": "Compare individually optimised processes per solvent.",
+      "expected_change": "Cyclohexane or hexane preferred.",
+      "alternatives": [],
+      "limits": [
+        "NRTL with Aspen databank parameters (APV88); the paper's own optimisation, not measured.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.1.1, pp. 9-10 (Fig. 4)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.preconcentrate-dilute-ethanol",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [
+          "ethanol",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "dilute-product"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "feed-composition-scan",
+          "preconcentration"
+        ],
+        "statement": "For ethanol dehydration the specific cost falls steeply up to about 20 mol% ethanol in the feed and then flattens, so pre-concentrating a dilute feed to about 20 mol% may pay. For an ethyl acetate feed already in the flat region it would not.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.1.3, pp. 12-13 (Fig. 7); Section 3.2.2, p. 15 (Fig. 10)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A very dilute feed.",
+      "mechanism": "Most cost goes to handling water at low feed concentration.",
+      "operation": "Consider a pre-concentration step near the knee of the cost curve.",
+      "expected_change": "Lower specific cost.",
+      "alternatives": [],
+      "limits": [
+        "A cited study found the savings too small for an extra column (ref. 27); the authors leave it open.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.1.3, pp. 12-13 (Fig. 7); Section 3.2.2, p. 15 (Fig. 10)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.no-general-preconcentration-heuristic",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "dilute-product"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "feed-composition-scan"
+        ],
+        "statement": "The 1,4-dioxane case's cost falls almost linearly with feed concentration, unlike the other two cases. The authors conclude that pre-concentration must be judged case by case, not by a heuristic.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.3.2, p. 18 (Fig. 13)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Generalising a pre-concentration rule.",
+      "mechanism": "Each mixture's cost curve has its own shape.",
+      "operation": "Run the feed-composition scan for the case at hand.",
+      "expected_change": "A case-specific decision.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.3.2, p. 18 (Fig. 13)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.vapour-distillate-feed",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous",
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "vapour-feed",
+          "dioxane-benzene-case"
+        ],
+        "statement": "Feeding the first column's distillate as vapour, without condensing it, to the heteroazeotropic column cut that column's reboiler duty by about 59% (163 against 402 kW) in the 1,4-dioxane case.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.3, p. 16 (Fig. 11)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Condensing and reboiling the same material twice.",
+      "mechanism": "The vapour's latent heat goes straight into the second column.",
+      "operation": "Send the distillate as vapour.",
+      "expected_change": "Lower reboiler duty.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.3, p. 16 (Fig. 11)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.flat-cost-optimum",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "azeotropic-distillation",
+        "components": [],
+        "behaviours": [
+          "azeotrope-heterogeneous"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "multi-objective",
+          "conceptual-design"
+        ],
+        "statement": "Nearly all Pareto-optimal designs fell within 5% of the minimum annual cost while capital and operating cost could shift by about 20%, leaving freedom between larger columns and lower energy.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 3.1.2, p. 11 (Fig. 6); Section 3.2.1, p. 14 (Fig. 9)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing one design from a flat optimum.",
+      "mechanism": "Stages and reflux trade off against each other.",
+      "operation": "Use the flat optimum to meet other constraints.",
+      "expected_change": "Flexibility at little cost.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 3.1.2, p. 11 (Fig. 6); Section 3.2.1, p. 14 (Fig. 9)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "kruber-skiborowski-2022-heteroazeotropic-init.decanter-uncosted-in-concept",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "decanter",
+        "components": [],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "heteroazeotropic-distillation",
+          "conceptual-design",
+          "costing"
+        ],
+        "statement": "In conceptual design the decanter is often left uncosted because its size depends on a disengagement time that is not yet known.",
+        "source": {
+          "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
+          "locator": "Section 2.1, p. 5"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Costing a decanter early.",
+      "mechanism": "Size needs the liquid-liquid disengagement time.",
+      "operation": "State the decanter as uncosted, or estimate the disengagement time.",
+      "expected_change": "Explicit scope of the cost estimate.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against kruber-skiborowski-2022-heteroazeotropic-init, Section 2.1, p. 5."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
