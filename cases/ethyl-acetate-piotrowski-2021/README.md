@@ -8,7 +8,7 @@
 | Agrees with the paper | (settled closed plant, run plant62-best-init1e-4-tol1e-5) every stream within −1.2 to +6.5 % of Table A2 in flow (no blown-up flow); wastewater 25 19,919 vs 20,000 kg/h (it follows by itself); product 12,542 vs 12,434 kg/h (+0.9 %); acid in the azeotrope 0.0000 % (limit 0.005 %); wastewater organics 0.010 % (limit 0.01 %); HTXR 6 +4.7 %, HTXR 17 0.0 %, column 11 condenser +3.6 %, column 15 reboiler +7.1 %. (0.6.1, once through) azeotrope 9 within 0.01 % |
 | Differs | (settled closed plant) product 99.11 % ester with 0.81 % water (paper 99.90 %, water limit 0.03 %); more ethanol circulates than in the paper (azeotrope 8: 11.6 vs 8.5 %; stream 21: 40.0 vs 31.1 %), which wets the raffinate (5.05 vs 4.70 % water) and overloads column 11 with water; reactor duty +12.9 % (conversion from the paper); column 15 condenser +16 %; column 11 reboiler −21 %. In the paper itself: the acid of column 11's feed must leave in the product (0.022 %, not 0.01 %), and column 15's 0.01 % organics limit cannot hold with the feed's acid |
 | CHEPTA could not | (0.6.2) converge the loop at its default tolerance from a cold start; converge column 11 in the loop at the distillate flows that would remove the water (245-255 kmol/h from a cold start; 260-280 even from the settled start); column 5 converges and fails irregularly on neighbouring inputs; column 11 does not converge with a trace of acetic acid near the paper's product flow; column 11 on a purity answers a contradictory `OUT_OF_RANGE`; `strictRanges` did not refuse the 15 C feed; `missingPairs` not accepted in a flowsheet; an `OUT_OF_TIME` loop reports no progress (requests 8-14) |
-| On CHEPTA main 415da41 (unreleased, 2026-11-20) | 138 requests sent again unchanged, 11 new, a scan: **no regression**; the settled plant identical (99.109 %); the cold start now converges at the default tolerance (99.069 %); requests 8-12 and 14 fixed, 13 partly, 15 built; with the ethanol feed held by a design specification 99.473 %; **99.90 % not reached** (the design specification on purity out of time in 3 h; a column flow cannot be varied). [Section below](#on-chepta-main-415da41-2026-11-1920-unreleased-to-become-063) |
+| On CHEPTA main 415da41 (unreleased, 2026-11-20) | 138 requests sent again unchanged, 11 new, a scan: **no regression**; the settled plant identical (99.109 %); the cold start now converges at the default tolerance (99.069 %); requests 8-12 and 14 fixed, 13 partly, 15 built; with the ethanol feed held by a design specification 99.473 %, with column 11's distillate also raised to 260 kmol/h 99.561 %; **99.90 % not reached** (the design specification on purity out of time in 3 h; a column flow cannot be varied). [Section below](#on-chepta-main-415da41-2026-11-1920-unreleased-to-become-063) |
 | Reviewed by a person | no full review; the maintainer spot-checked 3 items of the 0.6.2 part on 2026-11-13 (below). Draft, written by AI sessions on 2026-11-12 (0.6.1) and 2026-11-13/14 (0.6.2) |
 
 Study record: [study-record.json](study-record.json). Runs and CHEPTA's answers, unchanged:
@@ -48,9 +48,11 @@ same time limit), comparisons [scripts/compare_chepta_reruns.py](../../scripts/c
 reported by its authors. 0.6.2's results are not changed.
 
 **Verdict: no regression. Product purity unchanged at 99.11 % in the settled plant; 99.47 % with the ethanol feed
-held by a design specification; 99.90 % not reached.** 138 of the 141 0.6.2 requests sent again unchanged (three
+held by a design specification; 99.56 % with column 11's distillate raised to 260 kmol/h as well; 99.90 % not reached.** 138 of the 141 0.6.2 requests sent again unchanged (three
 direct-substitution runs of 57-117 min left out; their request 14 point is shown by
-plant62-R-dist-col15purity-direct) and 11 new runs, plus the scan below:
+plant62-R-dist-col15purity-direct) and 11 new runs, plus the scan below. The maintainer's decision of 2026-11-20
+(through the coordinator) stopped further tuning: no other old tuning run was repeated beyond these, and the scan
+ended at 270 kmol/h.
 
 | Verdict (thresholds in the script) | Runs | Which |
 |---|---|---|
@@ -97,7 +99,26 @@ By hand on main the same feeds took: 6,506 kg/h 14 min (99.498 %); 6,503 kg/h fa
 kg/h after 56 min (column 11), so the design specification found in 108 min the value that 0.6.2's three manual runs bracketed. 99.90 %
 is **not reached**, and CHEPTA did not say "unreachable" (it ran out of time). The evidence of the runs: less ethanol
 lowers the product's ethanol but not its water (0.49 % at 6,506 kg/h, limit 0.03 %), and at 6,503 and 6,500 kg/h the
-loop fails (the design specification's lowest solve that converged was 6,503.5 kg/h). The water is set by column 11's distillate (it leaves at the water azeotrope). SCAN_PLACEHOLDER
+loop fails (the design specification's lowest solve that converged was 6,503.5 kg/h). The water is set by column 11's distillate (it leaves at the water azeotrope).
+
+**Scan (practice steps 3, 8, 9; the maintainer's decision 2026-11-20 stopped further tuning after it).** Started from
+the converged answer of new-plant-ds-ethanol0.0004 (its tear streams as guesses, F1 6,506.23 kg/h:
+[init-closed-plant-chepta-main-415da41-ds-ethanol0.0004.json](init-closed-plant-chepta-main-415da41-ds-ethanol0.0004.json)),
+column 11's distillate raised by hand, since a design specification cannot vary it (request 16). Mass fractions
+computed here from CHEPTA's component flows of stream 16 (molar masses 46.069, 18.015, 88.106, 60.052 g/mol):
+
+| Run | Column 11 distillate | Ethanol specification | Outcome | Product 16 | Solves, time |
+|---|---|---|---|---|---|
+| new-plant-dsinit-dist250 | 250 kmol/h | none (F1 fixed at 6,506.23) | **ok** | 12,490 kg/h, **99.520 % ester, 0.440 % water**, 0.040 % ethanol | 1 solve, 40 min |
+| new-plant-dsinit-dist260 | 260 kmol/h | none | **ok** | 12,485 kg/h, **99.561 % ester, 0.399 % water**, 0.040 % ethanol | 1 solve, 46 min |
+| new-plant-dsinit-dist270 | 270 kmol/h | none | `NO_CONVERGENCE` at loop iteration 38: column 15 "cannot be 0.9999 ... it stays between 0.999999 (at 55.27) and 1 - 4.5e-11" (request 19) | — | 28 min |
+| new-plant-ds-ethanol0.0004-dist250 | 250 kmol/h | F1 in [6,498, 6,512] for 0.04 % ethanol | **ok**, met at the start (F1 6,506.23 unchanged) | identical to -dsinit-dist250 | 1 solve, 40 min |
+| new-plant-ds-ethanol0.0004-dist260 | 260 kmol/h | the same | **ok**, met at the start | identical to -dsinit-dist260 | 1 solve, 46 min |
+
+The ethanol in the product does not move with column 11's distillate, so the ethanol feed found at 240 kmol/h holds
+(both together need no second solve). The water falls by about 0.04 points per 10 kmol/h of distillate; 99.90 %
+ester (water ≤ about 0.06 %) would need far more distillate than 270 kmol/h, where the loop already fails in column
+15. **Best closed-plant answer on main: 99.561 % ester (dist 260, F1 6,506.23 kg/h), simulated; 99.90 % not reached.**
 
 ### Column 11 with `feed_second_liquid` (a sensitivity test)
 
