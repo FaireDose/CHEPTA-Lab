@@ -1,0 +1,973 @@
+{
+  "schema_version": 1,
+  "id": "al-rabiah-2022",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "al-rabiah-2022.route-ranking-rd-mr-conventional",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "process-route",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "route-choice",
+          "amberlyst-15",
+          "equal-capacity-and-purity",
+          "aspen-plus",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "At equal capacity (92,500 t/a) and product purity, the paper's Aspen Plus comparison puts reactive distillation first, the membrane-reactor process second and the reactor-plus-three-columns process last on steam use, CO2 and cost.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Sections 7.1, 7.2 and 8, pp. 16-18 (Table 10, Figs. 18-19, Table 12)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Equilibrium-limited esterification followed by a butanol-water azeotrope.",
+      "mechanism": "Integrating reaction with separation (in one column or with a water-selective membrane) cuts conversion loss and the number of columns.",
+      "operation": "Shortlist reactive distillation and a membrane reactor against the conventional route.",
+      "expected_change": "Lower energy, CO2 and capital than the conventional route.",
+      "alternatives": [
+        "Conventional fixed-bed reactor with three columns",
+        "Membrane reactor with one column"
+      ],
+      "limits": [
+        "All three routes are the paper's simulations (Aspen Plus, NRTL), not plant data; costs are the paper's estimates (CEPCI 2021).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Sections 7.1, 7.2 and 8, pp. 16-18 (Table 10, Figs. 18-19, Table 12)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.nrtl-vlle-for-ester-system",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "property-method",
+          "nrtl",
+          "vlle",
+          "bears-on-butyl-acetate"
+        ],
+        "symptom": "wrong-phase",
+        "statement": "The paper models the butanol, acetic acid, butyl acetate and water system with NRTL and vapour-liquid-liquid equilibrium because of its non-ideality. A vapour-liquid-only calculation cannot represent the decanter split its reactive column relies on.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 2, p. 2; Section 6.2, p. 15 (decanter)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Two liquid phases in the overhead of the column.",
+      "mechanism": "A three-phase flash is needed wherever water and the organic phase separate.",
+      "operation": "Use a method and a calculation that allow two liquids (NRTL, VLLE) for this system.",
+      "expected_change": "Phases found match the ones the flowsheet needs.",
+      "alternatives": [],
+      "limits": [
+        "The second sentence is Lab's reading of why the decanter needs VLLE; the paper states only that NRTL was chosen for VLLE.",
+        "The source's NRTL parameter set (Aspen databank) is not printed; CHEPTA 0.6.2 has some of these pairs only predicted (data/sources.json).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 2, p. 2; Section 6.2, p. 15 (decanter)."
+      ],
+      "rationale_classification": "mixed_explicitly_separated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.equilibrium-conversion-falls-with-temperature",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "equilibrium-reactor",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "liquid-phase",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Esterification of n-butanol with acetic acid is mildly exothermic (about -29 kJ/mol), so its equilibrium conversion falls as reaction temperature rises (the paper's Aspen equilibrium-reactor scan).",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 2, pp. 2-3 (Eq. 1, Fig. 1); Section 6.1, p. 12 (Fig. 13)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Conversion limited by equilibrium.",
+      "mechanism": "Le Chatelier: an exothermic reversible reaction shifts back at higher temperature.",
+      "operation": "Do not expect a hotter reactor to raise the equilibrium limit; remove a product instead.",
+      "expected_change": "Realistic conversion targets for a plain reactor.",
+      "alternatives": [],
+      "limits": [
+        "The curve values are in Fig. 1 only (not tabulated).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 2, pp. 2-3 (Eq. 1, Fig. 1); Section 6.1, p. 12 (Fig. 13)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.fixed-bed-conversion-near-70",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pfr",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "fixed-bed",
+          "amberlyst-15",
+          "363-k",
+          "1-to-1-feed",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "In the conventional fixed-bed reactor over Amberlyst-15 at 363 K and a 1:1 feed, n-butanol conversion levels off at about 70% (69.8%) within roughly 2.5 m of bed. The unreacted acid and alcohol (about 43 kmol/h each) must then be separated and recycled.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 6.1, pp. 10-12 (Table 6, Fig. 14); Table 7, p. 14 (streams 3-4)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Equilibrium conversion of about 70% per pass.",
+      "mechanism": "The reactor reaches equilibrium quickly; extra bed adds nothing.",
+      "operation": "Size the bed for near-equilibrium outlet and plan a recycle of both reactants.",
+      "expected_change": "A recycle of about 43 kmol/h of each reactant per 100 kmol/h fresh feed (Table 7).",
+      "alternatives": [],
+      "limits": [
+        "Reactor volume 41 m3 and feed pressure 284 kPa (Table 6); the kinetic law's units are not printed.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 6.1, pp. 10-12 (Table 6, Fig. 14); Table 7, p. 14 (streams 3-4)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.kinetic-laws-imply-different-keq",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "pfr",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "kinetics",
+          "amberlyst-15",
+          "363-k",
+          "derived-by-lab",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The paper's two Amberlyst-15 rate laws disagree at 363 K: the fixed-bed law implies an equilibrium constant of about 5.0 (Lab's ratio kF/kB), the membrane-reactor law uses 3.51. Do not mix them when comparing routes.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 3, p. 3 (Eqs. 2-4); Section 6.1, p. 10 (Eqs. 13-15)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Two kinetic models for the same reaction and catalyst.",
+      "mechanism": "Different literature sources (refs. 1 and 16) with different equilibrium constants.",
+      "operation": "Use one consistent kinetic and equilibrium model across routes, or report the difference.",
+      "expected_change": "A comparison that does not credit a route with a more favourable equilibrium constant.",
+      "alternatives": [],
+      "limits": [
+        "The 5.0 is Lab's calculation from Eqs. 14-15 (exp(11.472 - 6986.3/T) / exp(12.482 - 7937.7/T) at T = 363 K); units of kF and kB are not printed, and concentration bases may differ.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 3, p. 3 (Eqs. 2-4); Section 6.1, p. 10 (Eqs. 13-15)."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.membrane-reactor-removes-water",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "membrane",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "hydroxy-sodalite-membrane",
+          "amberlyst-15",
+          "363-k",
+          "1-to-1-feed",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "A water-selective hydroxy sodalite membrane on an Amberlyst-15 reactor (363 K, 1:1 feed) removes water as it forms and lifts n-butanol conversion from about 70% to 92%. Organic losses through the membrane were taken as negligible.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Sections 3-5, pp. 3-7 (Eqs. 7-12, Tables 1-3, Figs. 5a and 7); Abstract, p. 1"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Equilibrium conversion in a plain reactor.",
+      "mechanism": "Removing a product shifts the equilibrium.",
+      "operation": "Membrane reactor with water permeate.",
+      "expected_change": "Conversion 92% instead of about 70%.",
+      "alternatives": [
+        "Reactive distillation",
+        "Pervaporation-assisted esterification (ref. 15)"
+      ],
+      "limits": [
+        "The membrane model is the paper's MATLAB fit to one laboratory study (ref. 16, R2 0.9973), not an industrial membrane.",
+        "Reactor pressure is printed as 280 kPa (text), 284 kPa (Table 3) and 223 kPa (Table 5).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Sections 3-5, pp. 3-7 (Eqs. 7-12, Tables 1-3, Figs. 5a and 7); Abstract, p. 1."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.membrane-reactor-model-imposed",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "membrane",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "model-boundary",
+          "matlab-ode",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The paper solved the membrane reactor outside Aspen Plus (an ODE model in MATLAB, water flux proportional to its concentration) and used its outlet in the flowsheet. A reproduction should treat that outlet as an imposed input, not as a compared result.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 3, pp. 3-4 (Eqs. 7-12); Section 4, p. 7"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A unit not available in the flowsheet simulator.",
+      "mechanism": "The unit's result is passed in from another program.",
+      "operation": "Declare the membrane-reactor outlet as an imposed boundary in the case.",
+      "expected_change": "Comparisons limited to what the flowsheet actually computed.",
+      "alternatives": [],
+      "limits": [
+        "The second sentence is Lab's rule for the case boundary (building-cases), not the authors'.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 3, pp. 3-4 (Eqs. 7-12); Section 4, p. 7."
+      ],
+      "rationale_classification": "mixed_explicitly_separated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.acid-excess-raises-conversion-hurts-purification",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "membrane",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "feed-ratio",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Raising the acetic acid to n-butanol feed ratio raises butanol conversion in the membrane reactor, but the authors keep 1:1 because the excess acid makes product purification harder.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 4, p. 6 (Fig. 5b); Table 3, p. 8"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing the reactant ratio.",
+      "mechanism": "Excess of one reactant shifts the equilibrium but must be removed downstream.",
+      "operation": "Keep the feed near stoichiometric.",
+      "expected_change": "A simpler product column.",
+      "alternatives": [],
+      "limits": [
+        "The trade-off is stated qualitatively; no cost of the purification is given.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 4, p. 6 (Fig. 5b); Table 3, p. 8."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.butanol-ester-split-at-pressure",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "1-butanol",
+          "n-butyl-acetate",
+          "acetic-acid",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "elevated-pressure",
+          "after-membrane-reactor",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "n-Butanol and butyl acetate form an azeotrope at 101 kPa; the paper separates them at about 300 kPa, where the split is possible but needs many stages (42, feed on stage 21, reboiler 5.2 MW). Unreacted butanol and acid go overhead and are recycled.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 5, pp. 7-10 (Figs. 9-10, Tables 4-5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A butanol-ester azeotrope at atmospheric pressure.",
+      "mechanism": "Raising pressure moves the azeotrope away from the needed split.",
+      "operation": "Single column at elevated pressure, ester as bottoms, reactants recycled.",
+      "expected_change": "Ester 99.0 mol% as bottoms.",
+      "alternatives": [],
+      "limits": [
+        "Lab classifies the azeotrope as minimum-boiling; the paper shows only x-y diagrams (Fig. 9).",
+        "Table 4 prints the bottoms (stream 6) at 3.2 kPa against 284 kPa overhead, which looks like a misprint; check before transcription.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 5, pp. 7-10 (Figs. 9-10, Tables 4-5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.membrane-route-cost-set-by-column",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "process-route",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "route-choice",
+          "economics",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The membrane-reactor route loses to reactive distillation (ROI 23.1% against 31.2%, payback 2.7 against 2.1 years) because of its energy-hungry butanol-ester column. The authors expect it to win once membrane-reactor conversion exceeds about 95%.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 8, pp. 17-18 (Table 12); Section 9, p. 18"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Separation after an incomplete reaction.",
+      "mechanism": "Unconverted butanol must be split from the ester, which is hard.",
+      "operation": "Prefer reactive distillation unless conversion in the membrane reactor can exceed about 95%.",
+      "expected_change": "Choice of route by the conversion achievable.",
+      "alternatives": [],
+      "limits": [
+        "The 95% threshold is the authors' statement, without a calculation shown.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 8, pp. 17-18 (Table 12); Section 9, p. 18."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.conventional-extractive-with-butanediol",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extractive-distillation",
+        "components": [
+          "water",
+          "1-butanol",
+          "acetic-acid",
+          "bdo"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "conventional-route",
+          "solvent-1-4-butanediol",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "In the conventional route the first column's distillate (water with unreacted butanol and acid) goes to extractive distillation with 1,4-butanediol fed at the top. Water leaves overhead to treatment; a recovery column returns the solvent and sends acid and butanol back to the reactor.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 2, p. 3 (Fig. 2); Section 6.1, p. 12 (Figs. 11 and 15); Table 7, p. 14"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Butanol-water azeotrope in the recycle stream.",
+      "mechanism": "A heavy polar solvent holds back butanol and acid so water distils off.",
+      "operation": "Extractive column (29 stages) plus solvent recovery column.",
+      "expected_change": "Water removed; reactants recycled.",
+      "alternatives": [
+        "Reactive distillation with a decanter (no solvent)"
+      ],
+      "limits": [
+        "Stage numbers and reflux of T-101 and T-103 are not printed (data/sources.json).",
+        "The paper's own text names the solvent recycle destination as T-101, which by Fig. 11 should be T-102.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 2, p. 3 (Fig. 2); Section 6.1, p. 12 (Figs. 11 and 15); Table 7, p. 14."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.butanediol-circulation-ratio",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extractive-distillation",
+        "components": [
+          "water",
+          "1-butanol",
+          "acetic-acid",
+          "bdo"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "conventional-route",
+          "solvent-1-4-butanediol",
+          "derived-by-lab",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The conventional route's stream table circulates about 440 kmol/h of 1,4-butanediol against about 186 kmol/h of first-column distillate (100 water, 43 butanol, 42 acid), roughly 2.4 mol solvent per mol (Lab's ratio).",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Table 7, p. 14 (streams 5, 9, 13)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing a solvent flow for the extractive column.",
+      "mechanism": "Enough solvent to break the azeotrope on every stage above the feed.",
+      "operation": "Use the paper's ratio as a starting value when transcribing.",
+      "expected_change": "A starting point near the paper's solvent load.",
+      "alternatives": [],
+      "limits": [
+        "The ratio is Lab's arithmetic on Table 7 (440.3 / 185.7).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Table 7, p. 14 (streams 5, 9, 13)."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.conventional-steam-heavy",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "conventional-route",
+          "utilities",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The conventional route's medium-pressure steam (218,729 MWh/a) is about eight times that of reactive distillation and five times that of the membrane-reactor route, because of its three columns.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 7.1, p. 16 (Table 10)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Low conversion and an azeotrope multiply column duties.",
+      "mechanism": "More columns and more recycled material to boil.",
+      "operation": "Count column duties early when ranking routes.",
+      "expected_change": "Energy ranking of routes.",
+      "alternatives": [],
+      "limits": [
+        "Ratios 8.3 and 5.2 are Lab's arithmetic on Table 10; the attribution to the columns is the authors'.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 7.1, p. 16 (Table 10)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.rd-column-configuration",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "amberlyst-15",
+          "1-to-1-feed",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "The paper's reactive column has 34 stages, catalyst on stages 5-24, acetic acid fed on stage 5 above n-butanol on stage 9 (100 kmol/h each). It reaches over 98% conversion with ester as bottoms (reboiler 3.3 MW).",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 6.2, pp. 13-15 (Table 8, Fig. 16)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Equilibrium-limited reaction with water to remove.",
+      "mechanism": "Water leaves overhead as it forms, ester leaves at the bottom.",
+      "operation": "Two-feed reactive column with a reactive middle section.",
+      "expected_change": "Conversion over 98%.",
+      "alternatives": [],
+      "limits": [
+        "Bottoms in Table 9 (97.2 ester, 1.1 butanol kmol/h) is 98.9 mol% or 99.3 mass % by Lab's arithmetic; the text says more than 99% without a basis.",
+        "Catalyst hold-up per stage and column pressure profile are not printed.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 6.2, pp. 13-15 (Table 8, Fig. 16)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.rd-decanter-returns-organic",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "decanter",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "reactive-distillation-overhead",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Condense the reactive column's overhead into a decanter, draw the water phase off as wastewater (about 102 kmol/h) and return the whole organic phase to the column as reflux.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 6.2, p. 15 (Fig. 16, Table 9 stream 3)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Water must leave without taking reactants and ester.",
+      "mechanism": "Water and the butanol-ester phase split into two liquids.",
+      "operation": "Decanter on the overhead with organic reflux.",
+      "expected_change": "Water removed, organics retained.",
+      "alternatives": [
+        "Extractive distillation with a solvent (conventional route)"
+      ],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 6.2, p. 15 (Fig. 16, Table 9 stream 3)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.rd-loss-in-water-phase",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "decanter",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases",
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "reactive-distillation-overhead",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "In the paper's reactive-distillation balance the wastewater carries about 1.5 kmol/h ester, 1.3 acid and 0.2 butanol per 100 kmol/h of each feed. The decanter's water phase, not the bottoms, is where most ester is lost.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Table 9, p. 15 (streams 3-4)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Product loss and wastewater load.",
+      "mechanism": "Mutual solubility of ester, acid and water in the aqueous phase.",
+      "operation": "Check the aqueous phase composition when matching the paper.",
+      "expected_change": "A loss and wastewater target to compare.",
+      "alternatives": [],
+      "limits": [
+        "Comparison of ester in stream 3 (1.5) with the bottoms losses is Lab's reading of Table 9.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Table 9, p. 15 (streams 3-4)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.acid-slip-sets-purity",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "product-specification",
+          "conventional-route",
+          "membrane-route",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "In both the conventional and the membrane-reactor balances about 1 kmol/h acetic acid (the small acid excess of the fresh feed) leaves with about 100 kmol/h ester in the bottoms, which sets the purity near 99 mol%.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Table 4, p. 9 (streams 1, 2, 6); Table 7, p. 14 (streams 1, 2, 6)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Product purity target.",
+      "mechanism": "The unconsumed acid excess ends in the bottoms with the ester.",
+      "operation": "Match the paper's purity through the acid slip, not by over-purifying.",
+      "expected_change": "Purity matched on the paper's basis.",
+      "alternatives": [],
+      "limits": [
+        "Purities 99.0 and 98.9 mol% are Lab's arithmetic on the tables; the paper states 99.0 mol% for the membrane route.",
+        "Table 4's stream labels disagree with the text: the text calls stream 1 butanol, the table gives it 101 kmol/h acid.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Table 4, p. 9 (streams 1, 2, 6); Table 7, p. 14 (streams 1, 2, 6)."
+      ],
+      "rationale_classification": "mixed_explicitly_separated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.membrane-route-single-column-recycle",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "recycle",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "membrane-route",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "In the membrane-reactor route one column returns its distillate (about 9 kmol/h each of butanol and acid, with about 1 kmol/h each of ester and water) to the feed vessel. The small recycle reflects the 92% conversion.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 5, p. 7; Table 4, p. 9 (streams 3 and 5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Unreacted reactants after the membrane reactor.",
+      "mechanism": "High per-pass conversion leaves little to recycle.",
+      "operation": "Single recycle to the feed vessel.",
+      "expected_change": "About 9 kmol/h of each reactant recycled per 100 kmol/h fresh feed, against about 43 in the conventional route.",
+      "alternatives": [],
+      "limits": [
+        "The comparison with the conventional route is Lab's reading of Tables 4 and 7.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 5, p. 7; Table 4, p. 9 (streams 3 and 5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "al-rabiah-2022.rd-lower-capex-and-energy",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "reactive-distillation",
+        "components": [
+          "acetic-acid",
+          "1-butanol",
+          "n-butyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction"
+        ],
+        "conditions": [
+          "route-choice",
+          "economics",
+          "bears-on-butyl-acetate"
+        ],
+        "statement": "Reactive distillation needed the least steam (26,388 MWh/a) and the lowest capital (6.7 million USD against 7.6 million for the membrane route) with a payback of 2.1 years. The authors note its design and operation are complex.",
+        "source": {
+          "source_id": "al-rabiah-2022",
+          "locator": "Section 1, p. 2; Section 7.1, p. 16 (Table 10); Section 8, p. 18 (Table 12)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing between intensified routes.",
+      "mechanism": "One unit does reaction and separation.",
+      "operation": "Reactive distillation with decanter.",
+      "expected_change": "Lowest cost and energy among the three routes.",
+      "alternatives": [],
+      "limits": [
+        "Total capital cost USD 6,742,000 (RD) and 7,552,000 (MR), Table 12; costs are the paper's Aspen estimates.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against al-rabiah-2022, Section 1, p. 2; Section 7.1, p. 16 (Table 10); Section 8, p. 18 (Table 12)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}

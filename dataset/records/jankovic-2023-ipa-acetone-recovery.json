@@ -1,0 +1,634 @@
+{
+  "schema_version": 1,
+  "id": "jankovic-2023-ipa-acetone-recovery",
+  "groups": [],
+  "blocks": [],
+  "evidence": [],
+  "decisions": [
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.cold-first-separation-for-live-cells",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone",
+          "acetic-acid"
+        ],
+        "behaviours": [
+          "heat-sensitive",
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "vacuum",
+          "30-c-limit",
+          "cell-recycle"
+        ],
+        "statement": "When the broth holds live microorganisms, keep the first separation at the fermentation temperature (30 C) by vacuum distillation (condenser about 0.03 bar). The bottoms with cells and most water can then return to the fermenter.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Methods, p. 715; Results, Vacuum distillation, p. 717"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Heat-sensitive biomass in a very dilute feed.",
+      "mechanism": "Low pressure lowers the boiling temperature to what the cells tolerate.",
+      "operation": "Vacuum distillation as the first step.",
+      "expected_change": "Products recovered, cells and water recycled.",
+      "alternatives": [
+        "Pass-through distillation"
+      ],
+      "limits": [
+        "Microbial survival under vacuum is cited, not tested by the authors.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Methods, p. 715; Results, Vacuum distillation, p. 717."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.mvr-when-temperatures-close",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone"
+        ],
+        "behaviours": [
+          "heat-recovery-potential",
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "mechanical-vapour-recompression"
+        ],
+        "statement": "Apply mechanical vapour recompression to a column whose top and bottom temperatures are close; it pays when its coefficient of performance (8.8 for the vacuum column) clearly exceeds the electricity-to-heat factor (2.5 assumed).",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Vacuum distillation, p. 717; Methods, p. 716"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A large reboiler duty (about 22 MW) at a small temperature lift.",
+      "mechanism": "Compressed overhead vapour can boil the bottoms.",
+      "operation": "Vapour recompression heat pump.",
+      "expected_change": "Much lower energy use.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Vacuum distillation, p. 717; Methods, p. 716."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.no-mvr-wide-temperature-span",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [
+          "water",
+          "2-propanol",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "heat-recovery-potential",
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "extractive-distillation",
+          "solvent-recovery"
+        ],
+        "statement": "Do not use vapour recompression on columns with a wide top-to-bottom temperature span, such as the extractive and solvent-recovery columns. Use the hot recovered solvent to boil part of the extractive column's bottoms instead (16-17% less external heat).",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Recovery of high-purity products, p. 720"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A heat pump with too large a temperature lift.",
+      "mechanism": "The hot solvent must be cooled anyway before reuse.",
+      "operation": "Solvent-to-bottoms heat exchange.",
+      "expected_change": "Less external heating.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Recovery of high-purity products, p. 720."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.vacuum-condenser-needs-chilled-water",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone"
+        ],
+        "behaviours": [
+          "heat-sensitive",
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "vacuum",
+          "pass-through-distillation",
+          "lithium-bromide"
+        ],
+        "statement": "At very low pressure the condenser falls below cooling-water temperature (about 10 C at 0.032 bar) and needs chilled water. Pass-through distillation avoids this by absorbing the vapour into LiBr brine and desorbing it at higher pressure.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Vacuum distillation, p. 717; Pass-through distillation, p. 718"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Expensive refrigeration for a vacuum condenser.",
+      "mechanism": "Decoupling evaporation from condensation through an absorbent loop.",
+      "operation": "Pass-through distillation with a brine loop.",
+      "expected_change": "Condensation at cooling-water temperature (about 41 C at 0.2 bar).",
+      "alternatives": [
+        "Vacuum distillation with chilled water"
+      ],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Vacuum distillation, p. 717; Pass-through distillation, p. 718."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.acetone-first",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "acetone",
+          "2-propanol",
+          "water"
+        ],
+        "behaviours": [
+          "zeotropic-multicomponent",
+          "close-boiling"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "sequence",
+          "atmospheric"
+        ],
+        "statement": "After the first concentration step, take the most volatile product (acetone) first as distillate at 99.8 wt%, leaving isopropanol and water for the azeotrope steps.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Recovery of high-purity products, pp. 719-720"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing the order of product columns.",
+      "mechanism": "Acetone is the lightest and forms no azeotrope with the others (Table 1).",
+      "operation": "Direct sequence: acetone column first.",
+      "expected_change": "Acetone at 100% recovery.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Recovery of high-purity products, pp. 719-720."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.preconcentrate-before-extractive",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extractive-distillation",
+        "components": [
+          "2-propanol",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "preconcentration",
+          "derived-optimum"
+        ],
+        "statement": "Pre-concentrate dilute isopropanol (about 31 wt%) before extractive dehydration. Total energy fell up to about 86 wt% isopropanol in the pre-concentrator distillate, which was chosen.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Recovery of high-purity products, p. 720 (Fig. 5a); Table 1, p. 716"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A dilute feed to an extractive column.",
+      "mechanism": "Approaching the azeotrope costs more in the pre-concentrator but less in dehydration.",
+      "operation": "Scan the pre-concentration target and take the energy minimum.",
+      "expected_change": "Lower total energy.",
+      "alternatives": [],
+      "limits": [
+        "The isopropanol-water azeotrope is homogeneous, 87.17 mass % isopropanol at 80.23 C (Table 1).",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Recovery of high-purity products, p. 720 (Fig. 5a); Table 1, p. 716."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.ethylene-glycol-solvent-ratio",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "extractive-distillation",
+        "components": [
+          "2-propanol",
+          "water",
+          "ethylene-glycol"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "solvent-to-feed",
+          "atmospheric"
+        ],
+        "statement": "Dehydrate isopropanol by extractive distillation with ethylene glycol; a solvent-to-feed mass ratio of 1.1 minimised the energy of the extractive and solvent-recovery columns together.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Recovery of high-purity products, p. 720 (Fig. 5b)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Isopropanol-water azeotrope.",
+      "mechanism": "Ethylene glycol holds water back so isopropanol distils overhead.",
+      "operation": "Extractive column plus solvent recovery, solvent ratio chosen by energy scan.",
+      "expected_change": "Isopropanol at 99.8 wt%.",
+      "alternatives": [
+        "Pervaporation",
+        "Azeotropic distillation"
+      ],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Recovery of high-purity products, p. 720 (Fig. 5b)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.preheat-subcooled-feed",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone"
+        ],
+        "behaviours": [
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "feed-preheat"
+        ],
+        "statement": "The vacuum overhead becomes a subcooled liquid after pumping to atmospheric pressure. Preheating it with hot water bottoms or hot solvent cut the acetone column's reboiler duty by 12-41%.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Recovery of high-purity products, p. 721"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Subcooled feed to a column.",
+      "mechanism": "Process heat that must be removed anyway warms the feed.",
+      "operation": "Feed preheat by process-to-process exchange.",
+      "expected_change": "Lower reboiler and compressor duty.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Recovery of high-purity products, p. 721."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.acid-and-brine-property-methods",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "simulation-rule",
+        "operation_type": "distillation",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone",
+          "acetic-acid"
+        ],
+        "behaviours": [
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "property-method",
+          "lithium-bromide",
+          "nrtl-hoc"
+        ],
+        "symptom": "wrong-phase",
+        "statement": "With acetic acid present the authors use NRTL with Hayden-O'Connell vapour association. With LiBr brine they regress electrolyte NRTL (with Redlich-Kwong) on binary data, since no ready parameter set fits.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Vacuum distillation, p. 717; Pass-through distillation, p. 718"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Wrong phase or volatility of the acid, or no model for the brine.",
+      "mechanism": "Acid dimerises in the vapour; the salt needs an electrolyte model.",
+      "operation": "Choose the vapour model for the acid and an electrolyte model for the brine.",
+      "expected_change": "Credible equilibria.",
+      "alternatives": [],
+      "limits": [
+        "The fitted binary parameters are in the paper's Supporting Information, not read by Lab.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Vacuum distillation, p. 717; Pass-through distillation, p. 718."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.minimise-energy-as-cost-proxy",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [],
+        "behaviours": [
+          "dilute-product",
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "objective-choice"
+        ],
+        "statement": "For dilute recovery the authors minimise external energy as the design objective, because operating cost dominates capital except for very short payback periods.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Methods, p. 715"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Choosing a design objective early.",
+      "mechanism": "Energy is most of the operating cost.",
+      "operation": "Minimise energy, then check costs.",
+      "expected_change": "A design close to minimum cost.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Methods, p. 715."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.price-ratio-decides-configuration",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "heat-integration",
+        "components": [],
+        "behaviours": [
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "utility-prices",
+          "heat-pump-vs-multi-effect"
+        ],
+        "statement": "Which configuration wins depends on the heat-to-electricity price ratio: cheap heat favours multi-effect desorption, cheap electricity the heat-pump designs.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Economic evaluation, p. 722"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "A ranking that depends on site prices.",
+      "mechanism": "Heat pumps use electricity, multi-effect uses steam.",
+      "operation": "Report the ranking with the utility prices it assumes.",
+      "expected_change": "A ranking that transfers to another site.",
+      "alternatives": [],
+      "limits": [
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Economic evaluation, p. 722."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.degas-before-recovery",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "flash",
+        "components": [
+          "carbon-dioxide",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "degassing"
+        ],
+        "statement": "If the broth holds dissolved CO2, add a degassing step under reduced pressure first, and recover any product it strips with water in a small stripping column.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Results, Full recovery processes, p. 721"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Non-condensable gas in a vacuum train.",
+      "mechanism": "Gas would load the vacuum system and condensers.",
+      "operation": "Initial vacuum degassing with product recapture.",
+      "expected_change": "A gas-free feed to the columns.",
+      "alternatives": [],
+      "limits": [
+        "Proposed by the authors, not simulated.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Results, Full recovery processes, p. 721."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    },
+    {
+      "id": "jankovic-2023-ipa-acetone-recovery.dilute-energy-scale",
+      "evidence_ids": [],
+      "keys": {
+        "record_status": "draft",
+        "kind": "design-rule",
+        "operation_type": "distillation",
+        "components": [
+          "water",
+          "2-propanol",
+          "acetone",
+          "acetic-acid"
+        ],
+        "behaviours": [
+          "dilute-product"
+        ],
+        "conditions": [
+          "fermentation-broth",
+          "about-5-wt-percent-products"
+        ],
+        "statement": "Recovering isopropanol and acetone from broth with over 94 wt% water took 1.3-2.0 kWh primary energy per kg product in the paper's designs; for the vacuum design it stays under 2 or 3 kWh/kg at 2.5 or 1.2 wt% products.",
+        "source": {
+          "source_id": "jankovic-2023-ipa-acetone-recovery",
+          "locator": "Abstract, p. 714; Results, Sustainability metrics, p. 723 (Table 5)"
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "textbook",
+          "run_ids": [],
+          "engine": null
+        }
+      },
+      "obstacle": "Judging whether a dilute route is viable.",
+      "mechanism": "Water handling dominates energy.",
+      "operation": "Use as an order-of-magnitude check.",
+      "expected_change": "An energy benchmark.",
+      "alternatives": [],
+      "limits": [
+        "The paper's simulations with heat pumping and integration.",
+        "Lab's paraphrase of the source; checked against the locator by the writing AI session only, not by a person.",
+        "A lead: the source's own numbers, if any, are not yet held in an evidence row."
+      ],
+      "verification_required": [
+        "An AI review session checks the statement against jankovic-2023-ipa-acetone-recovery, Abstract, p. 714; Results, Sustainability metrics, p. 723 (Table 5)."
+      ],
+      "rationale_classification": "author_stated",
+      "legacy_origin": null
+    }
+  ],
+  "runs": [],
+  "tasks": []
+}
