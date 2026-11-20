@@ -112,11 +112,26 @@ def used_in(rows, origins):
     return uses
 
 
+# ---------- corrections ----------
+
+def corrected_by(decisions):
+    """Rows withdrawn by a correction: corrected row id -> the ids of the rows that correct it. A correcting row
+    names the row in keys.corrects with keys.correction_reason; the corrected row stays in the files and the lock
+    unchanged, but leaves the counts, the disputes and the current rows."""
+    out = {}
+    for d in decisions:
+        target = d["keys"].get("corrects")
+        if target:
+            out.setdefault(target, []).append(d["id"])
+    return {k: sorted(v) for k, v in out.items()}
+
+
 # ---------- conflicts ----------
 
-def current_rows(rows):
+def current_rows(rows, withdrawn=()):
     """Within one situation: every non-CHEPTA row, and the CHEPTA rows of the latest released engine
-    (a later version adds a row and supersedes, it never overwrites)."""
+    (a later version adds a row and supersedes, it never overwrites). Rows withdrawn by a correction are left out."""
+    rows = [r for r in rows if r["id"] not in withdrawn]
     chepta = [r for r in rows if r["keys"]["outcome"]["basis"] == "chepta_run"]
     released = [engine_version(r["keys"]["outcome"]["engine"]) for r in chepta]
     latest = max((v for v in released if v), default=None)
@@ -153,8 +168,9 @@ def disputes(decisions):
     worked and another failed, or when two of its rows name each other in disputed_with (whatever their status,
     leads included). Acknowledged pairs whose rows sit in different sets form their own entry, keyed by the first row."""
     found, placed = [], set()
+    withdrawn = corrected_by(decisions)
     for key, rows in sorted(condition_sets(decisions).items()):
-        cur = sorted(current_rows(rows), key=lambda r: r["id"])
+        cur = sorted(current_rows(rows, withdrawn), key=lambda r: r["id"])
         worked = [r for r in cur if r["keys"]["outcome"]["status"] == "worked"]
         failed = [r for r in cur if r["keys"]["outcome"]["status"] == "failed"]
         open_pairs = [(a["id"], b["id"]) for a in worked for b in failed if not acknowledged(a, b)]
@@ -162,7 +178,7 @@ def disputes(decisions):
         placed.update(ack_pairs)
         if (worked and failed) or ack_pairs:
             found.append(dispute_entry(key, cur, open_pairs, ack_pairs))
-    current = {r["id"]: r for rows in condition_sets(decisions).values() for r in current_rows(rows)}
+    current = {r["id"]: r for rows in condition_sets(decisions).values() for r in current_rows(rows, withdrawn)}
     for a in sorted(current.values(), key=lambda r: r["id"]):
         for other in a["keys"].get("disputed_with", []):
             b = current.get(other)
@@ -300,6 +316,15 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
         for entry in k.get("informed_by", []):
             if entry["row"] not in ix["decisions"] or entry["row"] == d["id"]:
                 errors.append(f"{where}: informed_by names unknown row {entry['row']}")
+        if "corrects" in k or "correction_reason" in k:
+            target = k.get("corrects")
+            if not target or not k.get("correction_reason"):
+                errors.append(f"{where}: a correction names the row it corrects (keys.corrects) and why "
+                              "(keys.correction_reason)")
+            elif target == d["id"] or target not in ix["decisions"]:
+                errors.append(f"{where}: corrects names unknown row {target}")
+            elif ix["decisions"][target]["keys"].get("corrects") == d["id"]:
+                errors.append(f"{where}: two rows cannot correct each other")
     for e in corpus["evidence"]:
         k = e.get("keys")
         if not k:
@@ -351,7 +376,7 @@ def lock_errors(corpus, lock):
 
 # ---------- index ----------
 
-def summary(rows, current, uses, ix, origins):
+def summary(rows, current, uses, ix, origins, withdrawn=()):
     papers, files = set(), set()
     for d in rows:
         papers |= row_groups(d, "decisions", ix)[1]
@@ -360,7 +385,8 @@ def summary(rows, current, uses, ix, origins):
     return {"rows": len(rows),
             "counts": {s: sum(1 for d in rows if d["id"] in current and d["keys"]["outcome"]["status"] == s)
                        for s in STATUSES_SHOWN},
-            "superseded": sum(1 for d in rows if d["id"] not in current),
+            "superseded": sum(1 for d in rows if d["id"] not in current and d["id"] not in withdrawn),
+            "withdrawn": sum(1 for d in rows if d["id"] in withdrawn),
             "papers": len(papers), "files": sorted(files),
             "used": {h: sum(1 for u in used if u["helped"] == h) for h in ("yes", "partly", "no")}}
 
@@ -369,7 +395,8 @@ def build_index(corpus, origins, register=None):
     register = register if register is not None else register_rows()
     ix = pipeline.indexes(corpus)
     rows, hidden = visible_decisions(corpus)
-    current = {r["id"] for group in condition_sets(rows).values() for r in current_rows(group)}
+    withdrawn = corrected_by(rows)
+    current = {r["id"] for group in condition_sets(rows).values() for r in current_rows(group, withdrawn)}
     uses = used_in(rows, origins)
     found = disputes(rows)
     problems = []
@@ -377,7 +404,7 @@ def build_index(corpus, origins, register=None):
         mine = [d for d in rows if d["keys"].get("problem_id") == problem]
         keyed_evidence = [e for e in corpus["evidence"] if e["id"] not in hidden
                           and problem in e.get("keys", {}).get("problem_ids", [])]
-        s = summary(mine, current, uses, ix, origins)
+        s = summary(mine, current, uses, ix, origins, withdrawn)
         for e in keyed_evidence:
             s["files"] = sorted(set(s["files"]) | {origins.get(e["id"], "?")})
         s["papers"] = len({src for d in mine for src in row_groups(d, "decisions", ix)[1]}
@@ -395,7 +422,7 @@ def build_index(corpus, origins, register=None):
             pairs.setdefault((d["keys"]["operation_type"], d["keys"]["symptom"]), []).append(d)
     simulation = [{"operation": op, "symptom": sym,
                    "disputed": sum(1 for f in found if f["operation_type"] == op and f["symptom"] == sym),
-                   **summary(group, current, uses, ix, origins)} for (op, sym), group in sorted(pairs.items())]
+                   **summary(group, current, uses, ix, origins, withdrawn)} for (op, sym), group in sorted(pairs.items())]
     general = {}
     for d in rows:
         if d["keys"]["kind"] == "design-rule" and "problem_id" not in d["keys"]:
@@ -403,7 +430,7 @@ def build_index(corpus, origins, register=None):
     design = [{"operation": op, "behaviours": sorted({b for d in group for b in d["keys"]["behaviours"]}),
                "disputed": sum(1 for f in found if f["operation_type"] == op and f["problem_id"] == "-"
                                and f["symptom"] == "-"),
-               **summary(group, current, uses, ix, origins)} for op, group in sorted(general.items())]
+               **summary(group, current, uses, ix, origins, withdrawn)} for op, group in sorted(general.items())]
     data = {"about": "Generated by python scripts/kb.py index from dataset/records/ and data/ISSUES_AND_ROUTES.md. "
                      "Do not edit. Held-out groups are left out.",
             "problems": problems, "simulation": simulation, "general_design_rules": design}
@@ -467,7 +494,8 @@ def source_label(source_id, sources):
     return f"{who} {s['year']}" if s.get("year") else who
 
 
-def readable_line(d, ix, sources):
+def readable_line(d, ix, sources, withdrawn=None):
+    withdrawn = withdrawn or {}
     k, o = d["keys"], d["keys"]["outcome"]
     text = (k.get("statement") or f"{d['operation'].rstrip('.')}. Expected: {d['expected_change']}").strip()
     status = f"{o['status']}, {BASIS_WORDS.get(o['basis'], o['basis'])}" + (f" ({o['engine']})" if o["engine"] else "")
@@ -482,12 +510,22 @@ def readable_line(d, ix, sources):
                 refs.append(f"{source_label(block['source_id'], sources)}, {block['locator']}")
     refs = list(dict.fromkeys(refs))
     when = ", ".join(plain(c) for c in k["conditions"])
-    parts = [f"- **{text}** {status}; {'; '.join(refs) or 'no source'}."]
+    if d["id"] in withdrawn:
+        parts = [f"- ~~**{text}** {status}; {'; '.join(refs) or 'no source'}.~~"]
+    else:
+        parts = [f"- **{text}** {status}; {'; '.join(refs) or 'no source'}."]
     if when:
         parts.append(f"When: {when}.")
     if k.get("disputed_with"):
         parts.append("Disagrees with another row here.")
-    parts.append(f"<sub>{d['id']}</sub>")
+    if k.get("corrects"):
+        parts.append(f"Correction: {k['correction_reason']}")
+    sub = d["id"]
+    if d["id"] in withdrawn:
+        sub += ", corrected by " + ", ".join(withdrawn[d["id"]])
+    if k.get("corrects"):
+        sub += ", corrects " + k["corrects"]
+    parts.append(f"<sub>{sub}</sub>")
     return " ".join(parts)
 
 
@@ -496,6 +534,8 @@ def build_readable(corpus, register=None, sources=None):
     sources = sources if sources is not None else sources_catalogue()
     ix = pipeline.indexes(corpus)
     rows, _ = visible_decisions(corpus)
+    withdrawn = corrected_by(rows)
+    line = lambda d: readable_line(d, ix, sources, withdrawn)
     order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
     ranked = lambda group: sorted(group, key=lambda d: (order.get(d["keys"]["outcome"]["status"], 9), d["id"]))
     lines = ["# Rules and decisions in plain words (generated; do not edit)", "",
@@ -503,26 +543,27 @@ def build_readable(corpus, register=None, sources=None):
              "under which it holds, and the row id in small text for lookup. A lead is a rule or suggestion "
              "without results of its own; worked and failed rows cite a paper, a measurement or a CHEPTA run. "
              "This page is for people and grows with every row: agents keep using problems.md and "
-             "`python scripts/kb.py query`, which stay short.", ""]
+             "`python scripts/kb.py query`, which stay short. A struck-through line was corrected by the row named "
+             "after it and no longer counts.", ""]
     lines += ["## By register problem", ""]
     for problem, level in register.items():
         mine = [d for d in rows if d["keys"].get("problem_id") == problem]
         if mine:
-            lines += [f"### {plain(problem)} ({level})", ""] + [readable_line(d, ix, sources) for d in ranked(mine)] + [""]
+            lines += [f"### {plain(problem)} ({level})", ""] + [line(d) for d in ranked(mine)] + [""]
     lines += ["## By operation and simulation symptom", ""]
     pairs = {}
     for d in rows:
         if "symptom" in d["keys"]:
             pairs.setdefault((d["keys"]["operation_type"], d["keys"]["symptom"]), []).append(d)
     for (op, sym), group in sorted(pairs.items()):
-        lines += [f"### {plain(op)}: {plain(sym)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
+        lines += [f"### {plain(op)}: {plain(sym)}", ""] + [line(d) for d in ranked(group)] + [""]
     lines += ["## General design rules by operation", ""]
     general = {}
     for d in rows:
         if d["keys"]["kind"] == "design-rule" and "problem_id" not in d["keys"]:
             general.setdefault(d["keys"]["operation_type"], []).append(d)
     for op, group in sorted(general.items()):
-        lines += [f"### {plain(op)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
+        lines += [f"### {plain(op)}", ""] + [line(d) for d in ranked(group)] + [""]
     return "\n".join(lines).rstrip("\n") + "\n"
 
 
@@ -606,9 +647,13 @@ def locators(d, ix):
     return sorted(set(out))
 
 
-def compact(d, ix, origins, uses):
+def compact(d, ix, origins, uses, withdrawn=None):
     k, o = d["keys"], d["keys"]["outcome"]
     status = f"{o['status']} ({o['basis']}{', ' + o['engine'] if o['engine'] else ''})"
+    if withdrawn and d["id"] in withdrawn:
+        status = f"WITHDRAWN, corrected by {','.join(withdrawn[d['id']])}; was {status}"
+    elif k.get("corrects"):
+        status += f", corrects {k['corrects']}"
     where = k.get("problem_id") or (f"symptom {k['symptom']}" if "symptom" in k else "general")
     extra = f" | runs: {len(o['run_ids'])}" if o["run_ids"] else ""
     used = uses.get(d["id"], [])
@@ -679,6 +724,7 @@ def main(argv=None):
             print(json.dumps(found, indent=1) if found else "No disputed rows.")
             return 0
         uses = used_in(rows, origins)
+        withdrawn = corrected_by(rows)
         if args.command == "show":
             row = next((d for d in rows if d["id"] == args.id), None)
             if row is None:
@@ -690,16 +736,18 @@ def main(argv=None):
                                       for b in ix["evidence"][e]["block_ids"]]}
                         for e in row["evidence_ids"] if e in ix["evidence"] and e not in hidden]
             print(json.dumps({"file": f"dataset/records/{origins.get(row['id'], '?')}.json", "row": row,
-                              "evidence": evidence, "used_in": uses.get(row["id"], [])}, indent=1, ensure_ascii=False))
+                              "evidence": evidence, "used_in": uses.get(row["id"], []),
+                              "corrected_by": withdrawn.get(row["id"], [])}, indent=1, ensure_ascii=False))
             return 0
         found = sorted((d for d in rows if matches(d, args)), key=lambda d: d["id"])
         if args.json:
             print(json.dumps([{"id": d["id"], "file": origins.get(d["id"]), "keys": d["keys"],
                                "operation": d["operation"], "locators": locators(d, ix),
-                               "used_in": uses.get(d["id"], [])} for d in found[:args.limit]],
+                               "used_in": uses.get(d["id"], []),
+                               "corrected_by": withdrawn.get(d["id"], [])} for d in found[:args.limit]],
                              indent=1, ensure_ascii=False))
         else:
-            print("\n".join(compact(d, ix, origins, uses) for d in found[:args.limit]) or "No matching rows.")
+            print("\n".join(compact(d, ix, origins, uses, withdrawn) for d in found[:args.limit]) or "No matching rows.")
             if len(found) > args.limit:
                 print(f"... {len(found) - args.limit} more; narrow the query or raise --limit.")
         return 0

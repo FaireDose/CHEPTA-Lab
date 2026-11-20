@@ -321,6 +321,57 @@ class KnowledgeBaseTests(unittest.TestCase):
         del k["informed_by"]
         self.assertTrue(any("append-only" in e for e in kb.lock_errors(self.corpus, lock)))
 
+    # --- corrections: a correcting row withdraws a locked row without editing it ---
+
+    def correction(self, target=EXAMPLE, **outcome):
+        row = self.clone(target, target + "-synthetic-correction", **outcome)
+        row["keys"]["corrects"] = target
+        row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY: the corrected row overstated its runs."
+        return row
+
+    def test_correction_passes_and_keeps_the_corrected_row(self):
+        lock = kb.lock_entries(self.corpus)
+        row = self.correction(status="worked")
+        self.assertEqual(self.errors(), [])
+        self.assertEqual(kb.lock_errors(self.corpus, lock), [])  # the corrected row is unchanged, so the lock holds
+        self.assertEqual(kb.corrected_by(self.corpus["decisions"])[EXAMPLE], [row["id"]])
+        page = kb.build_readable(self.corpus)
+        struck = next(l for l in page.splitlines() if f"<sub>{EXAMPLE}," in l)
+        self.assertTrue(struck.startswith("- ~~"))
+        self.assertIn(f"corrected by {row['id']}", struck)
+        self.assertIn(f"corrects {EXAMPLE}", next(l for l in page.splitlines() if f"<sub>{row['id']}," in l))
+        self.assertIn(EXAMPLE, {d["id"] for d in self.corpus["decisions"]})
+
+    def test_edit_without_correction_still_fails(self):
+        lock = kb.lock_entries(self.corpus)
+        self.correction(status="worked")
+        self.decision(EXAMPLE)["keys"]["outcome"]["status"] = "worked"  # editing the corrected row itself
+        self.assertTrue(any("was edited" in e for e in kb.lock_errors(self.corpus, lock)))
+        self.corpus["decisions"] = [d for d in self.corpus["decisions"] if d["id"] != EXAMPLE]
+        self.assertTrue(any("was deleted" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    def test_correction_needs_an_existing_row_and_a_reason(self):
+        row = self.correction()
+        row["keys"]["corrects"] = "no-such-row"
+        self.assertTrue(any("corrects names unknown row" in e for e in self.errors()))
+        row["keys"]["corrects"] = row["id"]
+        self.assertTrue(any("corrects names unknown row" in e for e in self.errors()))
+        row["keys"]["corrects"] = EXAMPLE
+        del row["keys"]["correction_reason"]
+        self.assertTrue(any("keys.correction_reason" in e for e in self.errors()))
+
+    def test_correction_changes_the_counts(self):
+        self.only_example_rules()
+        count = lambda: next(p for p in json.loads(kb.build_index(self.corpus, self.origins)[1])["problems"]
+                             if p["id"] == "sep-two-liquids-with-acetic-acid")
+        before = count()
+        self.correction(status="worked")
+        after = count()
+        self.assertEqual(after["counts"]["failed"], before["counts"]["failed"] - 1)
+        self.assertEqual(after["counts"]["worked"], before["counts"]["worked"] + 1)
+        self.assertEqual((before["withdrawn"], after["withdrawn"]), (0, 1))
+        self.assertEqual(after["rows"], before["rows"] + 1)  # kept, only left out of the counts
+
     # --- rights: short paraphrase, catalogued source ---
 
     def test_statement_without_source_refused(self):
@@ -417,7 +468,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         ids = {r["id"] for r in json.loads(out)}
         self.assertIn("ea-choose-extraction", ids)
         self.assertNotIn(EXAMPLE, ids)
-        code, out = self.run_kb("query", "--components", "benzene")
+        code, out = self.run_kb("query", "--components", "no-such-component")  # outside the vocabulary: stable
         self.assertIn("No matching rows", out)
 
     def test_problems_prints_only_matching_index_lines(self):
