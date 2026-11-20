@@ -117,7 +117,62 @@ add("new-plant-ds-col11dist-F1-ester0.999-ethanol0.0004", "plant62-best-init1e-4
     "the coordinator, 2026-11-20 (2): both inputs together (two specifications, Broyden)", lambda r: ds_col11(r, True))
 
 
+# --- 3e. Scan around the design-specification answer (docs/SIMULATION_PRACTICES.md, steps 3, 8, 13). The ethanol
+# feed alone did not settle at 99.90 % within 3 h (new-plant-ds-ester0.999, OUT_OF_TIME) and a column's distillate cannot
+# be varied by a design specification (BAD_INPUT). So: start from the converged answer of new-plant-ds-ethanol0.0004
+# (its tear streams saved as starting values, its ethanol feed 6,506.23 kg/h) and raise column 11's distillate by hand;
+# once as plain solves, once with the ethanol specification kept. Only runs on main; needs that answer to exist.
+DS_ANSWER = H / "results-chepta-main-415da41" / "new-plant-ds-ethanol0.0004.output.json"
+INIT_DS = H / "init-closed-plant-chepta-main-415da41-ds-ethanol0.0004.json"
+
+
+def init_from_ds():
+    o = json.loads(DS_ANSWER.read_text())
+    v = o["value"]
+    tears = {}
+    for s in base("plant62-best-init1e-4-tol1e-5")["input"]["flowsheet"]["streams"]:
+        if s.get("tear"):
+            t = v["streams"][s["id"]]
+            tears[s["id"]] = {"flow_kmol_h": t["flow_kmol_h"], "T_K": t["T_K"], "P_kPa": t["P_kPa"]}
+    f1 = v["designSpecs"][0]["varied"]["value"]
+    return {"what": "Tear streams of the converged closed plant with the ethanol feed held by a design specification "
+                    "(S16 ethanol 0.04 mass %), CHEPTA main 415da41, run new-plant-ds-ethanol0.0004; simulated values, "
+                    "used only as starting guesses", "chepta_commit": "415da41d531cd5b5701d0d13550f98c9888abced",
+            "source_output": DS_ANSWER.name, "F1_ethanol_kg_h": f1, "tears": tears}
+
+
+def from_ds(r, init, dist, keep_spec):
+    f = r["input"]["flowsheet"]
+    for s in f["streams"]:
+        if s.get("tear"):
+            s["guess"] = init["tears"][s["id"]]
+    block(r, "F1")["spec"]["flow_kg_h"]["ethanol"] = init["F1_ethanol_kg_h"]
+    block(r, "SCDS11")["spec"]["distillate_kmol_h"] = dist
+    if keep_spec:
+        design_spec(r, {"stream": "S16", "quantity": "mass_fraction", "component": ETOH, "value": 0.0004}, 1e-5,
+                    lo=6498.0, hi=6512.0, guess=init["F1_ethanol_kg_h"])
+    return r
+
+
+if DS_ANSWER.exists():
+    _init = init_from_ds()
+    for D in (250, 260, 270):
+        add(f"new-plant-dsinit-dist{D}", "plant62-best-init1e-4-tol1e-5",
+            f"tear guesses from new-plant-ds-ethanol0.0004 ({INIT_DS.name}); F1 ethanol {_init['F1_ethanol_kg_h']:.2f} kg/h; "
+            f"SCDS11 distillate_kmol_h 240 -> {D}",
+            "practice scan: with the ethanol balance held, does more column 11 distillate remove the water (0.49 %)",
+            lambda r, D=D: from_ds(r, _init, D, False))
+    for D in (250, 260):
+        add(f"new-plant-ds-ethanol0.0004-dist{D}", "plant62-best-init1e-4-tol1e-5",
+            f"as new-plant-dsinit-dist{D}, with the design specification F1 ethanol flow_kg_h in [6498, 6512] for S16 "
+            "ethanol 0.0004 (tolerance 1e-5) kept",
+            "the coordinator, 2026-11-20 (2): both inputs, column 11's distillate by hand since a design specification "
+            "cannot vary it", lambda r, D=D: from_ds(r, _init, D, True))
+
+
 def main():
+    if DS_ANSWER.exists():
+        INIT_DS.write_text(json.dumps(init_from_ds(), indent=1) + "\n")
     OUT.mkdir(exist_ok=True)
     for rid, (r, why) in RUNS.items():
         (OUT / f"{rid}.request.json").write_text(json.dumps(r, indent=2) + "\n")
