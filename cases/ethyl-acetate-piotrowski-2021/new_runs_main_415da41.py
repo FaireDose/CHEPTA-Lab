@@ -88,6 +88,35 @@ add("new-plant-ds-ethanol0.0004", "plant62-best-init1e-4-tol1e-5",
     lambda r: design_spec(r, {"stream": "S16", "quantity": "mass_fraction", "component": ETOH, "value": 0.0004}, 1e-5))
 
 
+# --- 3d. The coordinator, 2026-11-20 (2): if the ethanol feed cannot hold 99.90 %, vary column 11's distillate flow,
+# then both. CHEPTA's docs (docs/models/flowsheet.md, "Design specifications") list no column key among the varied
+# ones (feed, splitter, heater, flash drum), so these are expected to be refused before any solve; sent to record
+# CHEPTA's own answer.
+def ds_col11(r, with_f1):
+    f = r["input"]["flowsheet"]
+    specs = [{"id": "DS_COL11", "label": "column 11 distillate varied to hold product S16 at 99.90 mass % ethyl acetate",
+              "vary": {"block": "SCDS11", "key": "distillate_kmol_h", "min": 235.0, "max": 260.0, "guess": 240.0},
+              "target": {"stream": "S16", "quantity": "mass_fraction", "component": ESTER, "value": 0.999},
+              "tolerance": 1e-5}]
+    if with_f1:
+        specs.append({"id": "DS_ETHANOL", "label": "ethanol feed F1 varied to hold product S16's ethanol at 0.04 mass %",
+                      "vary": {"block": "F1", "key": "flow_kg_h", "component": ETOH, "min": 6490.0, "max": 6515.0, "guess": 6511.0},
+                      "target": {"stream": "S16", "quantity": "mass_fraction", "component": ETOH, "value": 0.0004},
+                      "tolerance": 1e-5})
+    f["designSpecs"] = specs
+    f["solver"]["designSpecIterations"] = {"bracket": 8, "solve": 20}
+    return r
+
+
+add("new-plant-ds-col11dist-ester0.999", "plant62-best-init1e-4-tol1e-5",
+    "designSpecs: SCDS11 distillate_kmol_h in [235, 260] (guess 240) to hold S16 ethyl acetate mass fraction 0.999 (tolerance 1e-5)",
+    "the coordinator, 2026-11-20 (2): column 11's distillate as the varied input", lambda r: ds_col11(r, False))
+add("new-plant-ds-col11dist-F1-ester0.999-ethanol0.0004", "plant62-best-init1e-4-tol1e-5",
+    "designSpecs: SCDS11 distillate_kmol_h in [235, 260] for S16 ester 0.999 and F1 ethanol flow_kg_h in [6490, 6515] for S16 "
+    "ethanol 0.0004 (each tolerance 1e-5)",
+    "the coordinator, 2026-11-20 (2): both inputs together (two specifications, Broyden)", lambda r: ds_col11(r, True))
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     for rid, (r, why) in RUNS.items():
