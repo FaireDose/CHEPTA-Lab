@@ -1,0 +1,246 @@
+{
+ "method": "Compare a folder of CHEPTA reruns (scripts/rerun_chepta_requests.py) with the source folder's answers. See the script's docstring for the thresholds.",
+ "source": "results-chepta-0.6.2-kij0-strict",
+ "rerun": "results-chepta-main-415da41-kij0-strict",
+ "chepta_commit": "415da41d531cd5b5701d0d13550f98c9888abced",
+ "counts": {
+  "same": 3,
+  "regressed": 1,
+  "still fails": 2
+ },
+ "runs": [
+  {
+   "id": "pr-kij-kij0",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "source_warnings": {
+    "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this": 3,
+    "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a p": 3,
+    "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a pred": 3,
+    "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are": 3,
+    "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 5000 kPa, a light gas wi": 3,
+    "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases": 3
+   },
+   "rerun_warnings": {
+    "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this": 3,
+    "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a p": 3,
+    "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a pred": 3,
+    "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are": 3,
+    "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 5000 kPa, a light gas wi": 3,
+    "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases": 3
+   },
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "extrapolations_source": 0,
+   "extrapolations_rerun": 0,
+   "verdict": "same"
+  },
+  {
+   "id": "pr-kij-strict",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "invalid_input",
+   "rerun_code": "OUT_OF_RANGE",
+   "rerun_message": "The strict range mode (strictRanges) refuses this answer: it uses a record outside its range. Hydrogen + Carbon monoxide: PR k_ij set at 313 K is 224.8 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: F1, V1. Without the strict mode the flowsheet is solved and these are warnings.",
+   "wall_s": 0.2,
+   "source_warnings": {
+    "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this": 3,
+    "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 313.": 3,
+    "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a p": 3,
+    "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a pred": 3,
+    "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are": 3,
+    "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 5000 kPa, a light gas wi": 3,
+    "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are light gases": 3
+   },
+   "rerun_warnings": {},
+   "verdict": "regressed"
+  },
+  {
+   "id": "pr-mhv1-kij0",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "source_warnings": {
+    "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for ": 3,
+    "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E =": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 2": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.": 3,
+    "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for": 3,
+    "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %)": 3,
+    "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry'": 3,
+    "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used ins": 3,
+    "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are": 3
+   },
+   "rerun_warnings": {
+    "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for ": 3,
+    "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E =": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 2": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.": 3,
+    "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for": 3,
+    "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %)": 3,
+    "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry'": 3,
+    "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used ins": 3,
+    "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are": 3
+   },
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "extrapolations_source": 0,
+   "extrapolations_rerun": 0,
+   "verdict": "same"
+  },
+  {
+   "id": "pr-mhv1-strict",
+   "new": false,
+   "source_outcome": "ok",
+   "source_code": null,
+   "rerun_outcome": "ok",
+   "rerun_code": null,
+   "rerun_message": null,
+   "wall_s": 0.2,
+   "source_warnings": {
+    "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for ": 3,
+    "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E =": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 2": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.": 3,
+    "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for": 3,
+    "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %)": 3,
+    "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry'": 3,
+    "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used ins": 3,
+    "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are": 3
+   },
+   "rerun_warnings": {
+    "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for ": 3,
+    "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E =": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 2": 3,
+    "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.": 3,
+    "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for": 3,
+    "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %)": 3,
+    "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry'": 3,
+    "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used ins": 3,
+    "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide are": 3
+   },
+   "streams": {
+    "flow_rel": {
+     "value": 0.0,
+     "where": null
+    },
+    "T_K": {
+     "value": 0.0,
+     "where": null
+    },
+    "z_abs": {
+     "value": 0.0,
+     "where": null
+    },
+    "VF_abs": {
+     "value": 0.0,
+     "where": null
+    }
+   },
+   "duties": {
+    "rel_to_largest": 0.0,
+    "where": null
+   },
+   "all_numbers": {
+    "numbers_compared": 143,
+    "numbers_moved_1e-9": 0,
+    "only_in_source": 0,
+    "only_in_rerun": 2,
+    "largest": []
+   },
+   "extrapolations_source": 0,
+   "extrapolations_rerun": 0,
+   "verdict": "same"
+  },
+  {
+   "id": "srk-mhv1-kij0",
+   "new": false,
+   "source_outcome": "unsupported",
+   "source_code": "NOT_AVAILABLE",
+   "rerun_outcome": "unsupported",
+   "rerun_code": "NOT_AVAILABLE",
+   "rerun_message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+   "wall_s": 0.2,
+   "source_warnings": {},
+   "rerun_warnings": {},
+   "verdict": "still fails"
+  },
+  {
+   "id": "srk-mhv1-strict",
+   "new": false,
+   "source_outcome": "unsupported",
+   "source_code": "NOT_AVAILABLE",
+   "rerun_outcome": "unsupported",
+   "rerun_code": "NOT_AVAILABLE",
+   "rerun_message": "SRK + gE (MHV1): Carbon dioxide + Water, a light gas with a polar liquid, has no NRTL parameters fitted inside the rule (src/data/mhv1.json) and none in the databank, so its solubility would rest on no data (proposal 0018). Pairs fitted so far: carbon-dioxide + methanol, hydrogen + methanol, carbon-monoxide + methanol, methane + methanol, hydrogen + water, carbon-monoxide + water, methane + water. Give the pair's NRTL parameters in mixing.nrtl, or use SRK with its k_ij.",
+   "wall_s": 0.2,
+   "source_warnings": {},
+   "rerun_warnings": {},
+   "verdict": "still fails"
+  }
+ ]
+}

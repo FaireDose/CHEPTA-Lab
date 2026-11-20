@@ -1,0 +1,57 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "invalid_input",
+  "error": {
+    "code": "OUT_OF_RANGE",
+    "message": "The strict range mode (strictRanges) refuses this answer: it uses a record outside its range. Ethanol + Acetic acid: UNIQUAC set at 293.15 K is 5 K below its range (298.15-389.53 K): the set's temperature dependence is used as it is (fitted to data at 298.15-389.53 K). This is an extrapolation, not data. Where: F19. Without the strict mode the flowsheet is solved and these are warnings.",
+    "where": [
+      {
+        "block": "F19",
+        "message": "Ethanol + Acetic acid: UNIQUAC set extrapolated 5 K below its range"
+      }
+    ],
+    "details": {
+      "strictRanges": true,
+      "extrapolations": [
+        {
+          "component": "Ethanol + Acetic acid",
+          "property": "UNIQUAC set",
+          "kind": "pairSet",
+          "range": [
+            298.15,
+            389.53
+          ],
+          "at": 293.15,
+          "side": "below",
+          "distance": 5,
+          "how": "the set's temperature dependence is used as it is (fitted to data at 298.15-389.53 K)",
+          "message": "Ethanol + Acetic acid: UNIQUAC set at 293.15 K is 5 K below its range (298.15-389.53 K): the set's temperature dependence is used as it is (fitted to data at 298.15-389.53 K). This is an extrapolation, not data. Where: F19.",
+          "where": [
+            "F19"
+          ],
+          "short": "Ethanol + Acetic acid: UNIQUAC set extrapolated 5 K below its range"
+        }
+      ],
+      "where": [
+        {
+          "block": "F19",
+          "message": "Ethanol + Acetic acid: UNIQUAC set extrapolated 5 K below its range"
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "2d83dd707364f1bd"
+  },
+  "run": {
+    "id": "run-mwomtori-1",
+    "input_hash": "2d83dd707364f1bd",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "failed",
+    "elapsed_ms": 87.60865999999999
+  }
+}

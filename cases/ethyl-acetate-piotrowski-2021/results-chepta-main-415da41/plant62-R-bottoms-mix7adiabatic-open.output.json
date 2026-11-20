@@ -1,0 +1,138 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "The loop through MIX13, MIX7, PUMP14, EXTR8, SPLIT9, HTXR19, HTXR10, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 did not converge: at iteration 64, Extraction EXTR8: the feed is partly vapour (16.57 % vapour; vapour fraction 0.1657 at 343.2 K and 100 kPa); the stages hold two liquids and no vapour, and the block takes at most 0.1 (a little vapour, condensed). Cool it, raise its pressure, or flash it first. (on an accelerated guess, broyden, 1400 % of the tear flows beyond the last pass's result; the last pass changed the tears by 1.56e-2. Check the specifications and the start values of the loop first; direct substitution, which never extrapolates, shows whether the guess was the cause). In the last accepted pass the tear streams together gained 39.4 kmol/h of Ethyl acetate (nearly steady for 36 accepted passes in a row): material that keeps accumulating or draining means the products and purges, as specified, do not take what the loop receives (a product given by its flow, a feed in excess of what reacts, a component with no way out); look at the specifications first. What usually helps: a purge or a smaller recycle fraction (a recycle with no way out keeps growing), a guess for the tear streams (S15, S24) close to the answer, another tear stream, another convergence method, or more iterations.",
+    "where": [],
+    "details": {
+      "loop": [
+        "PUMP14",
+        "MIX13",
+        "HTXR17",
+        "SPLIT16",
+        "SCDS15",
+        "HTXR19",
+        "HTXR12",
+        "SCDS11",
+        "HTXR10",
+        "SPLIT9",
+        "EXTR8",
+        "MIX7"
+      ],
+      "tears": [
+        "S15",
+        "S24"
+      ],
+      "history": [
+        0.10967515574475804,
+        0.0964323093751403,
+        0.021492986963589467,
+        0.6435631323230845,
+        0.017295308853212125,
+        0.01204476161895458,
+        0.6436586141997265,
+        0.00979948838608309,
+        0.0173817750883804,
+        0.03018365771228588,
+        0.05112059583679625,
+        0.08321305385772547,
+        0.14112955437855154,
+        0.07989782140009721,
+        0.041371268109933274,
+        0.016262565340432352,
+        0.015854231134392487,
+        0.01581174544578038,
+        0.015530398949509742,
+        0.015268800343970055,
+        0.01526447385998047,
+        0.015001132950932416,
+        0.01475625305272501,
+        0.014751550808314744,
+        0.6435751212671451,
+        0.012018145671408029,
+        0.02117291570184421,
+        0.036425990845061096,
+        0.06061980389644006,
+        0.09757410033444536,
+        0.17883693468129194,
+        0.0884080947659752,
+        0.6431210148715545,
+        0.15562179864513764,
+        0.06340600583714506,
+        0.016041157302336677,
+        0.015993847943207892,
+        0.01591284177186784,
+        0.015592866326584283
+      ],
+      "safeguards": [
+        {
+          "iteration": 4,
+          "action": "rejected",
+          "reason": "the change grew from 2.15e-2 to 6.44e-1",
+          "limit": 0.18568455317134014
+        },
+        {
+          "iteration": 7,
+          "action": "rejected",
+          "reason": "the change grew from 1.20e-2 to 6.44e-1",
+          "limit": 0.1853909059293196
+        },
+        {
+          "iteration": 24,
+          "action": "Jacobian (8 passes)",
+          "reason": "the change has not halved in 8 iterations (best 9.80e-3)"
+        },
+        {
+          "iteration": 40,
+          "action": "Jacobian (8 passes)",
+          "reason": "the change has not halved in 8 iterations (best 1.63e-2)"
+        },
+        {
+          "iteration": 41,
+          "action": "rejected",
+          "reason": "the change grew from 1.48e-2 to 6.44e-1",
+          "limit": 0.18525417212377426
+        },
+        {
+          "iteration": 56,
+          "action": "Jacobian (8 passes)",
+          "reason": "the change has not halved in 8 iterations (best 1.48e-2)"
+        }
+      ],
+      "cause": "Extraction EXTR8: the feed is partly vapour (16.57 % vapour; vapour fraction 0.1657 at 343.2 K and 100 kPa); the stages hold two liquids and no vapour, and the block takes at most 0.1 (a little vapour, condensed). Cool it, raise its pressure, or flash it first.",
+      "netChange_kmol_h": {
+        "ethanol": 3.7287084366230365,
+        "water": 11.98033987949077,
+        "ethyl-acetate": 39.40474702508027,
+        "acetic-acid": 0.0013029774012905553
+      },
+      "warnings": [
+        {
+          "iteration": 57,
+          "components": [
+            "ethyl-acetate"
+          ],
+          "netChange_kmol_h": {
+            "ethyl-acetate": 49.559610818869174
+          },
+          "message": "The loop through MIX13, MIX7, PUMP14, EXTR8, SPLIT9, HTXR19, HTXR10, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 has, for 30 passes in a row (to iteration 57), gained 49.6 kmol/h of Ethyl acetate per pass, nearly steady (the net change summed over the tear streams S15, S24, falling by less than 5.000000000000004 % in 30 passes). A steady gain or loss means the products and purges, as specified, do not take what the loop receives: check the specifications (a product given by its flow, a feed in excess of what reacts, a component with no way out). A loop that only fills very slowly looks the same; the iteration goes on."
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "fb094c5f40b5d76a"
+  },
+  "run": {
+    "id": "run-mwo4wskl-1",
+    "input_hash": "fb094c5f40b5d76a",
+    "limits": {
+      "time_ms": 1500000
+    },
+    "status": "failed",
+    "elapsed_ms": 418947.18817800004
+  }
+}

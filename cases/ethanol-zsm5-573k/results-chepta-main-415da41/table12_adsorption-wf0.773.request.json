@@ -1,0 +1,125 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "ethanol",
+        "ethylene",
+        "water",
+        "diethyl-ether"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "reactions": [
+        {
+          "id": "E1",
+          "stoichiometry": {
+            "ethanol": -1,
+            "ethylene": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "k1*((p['ethanol'] / 101.325)-(p['ethylene'] / 101.325)*(p['water'] / 101.325)/Keq1)/(1+(p['ethanol'] / 101.325)*KA1 + (p['diethyl-ether'] / 101.325)*KE1 + (p['water'] / 101.325)*KW1)",
+            "constants": {
+              "k1": 0.0024111111111111113,
+              "k2": 0.0008555555555555555,
+              "KA1": 1.12604,
+              "KA2": 7.50044,
+              "Keq1": 361.813,
+              "Keq2": 8.54626,
+              "KE1": 42.85514,
+              "KW1": 4.483844,
+              "KI1": 0.384379,
+              "KE2": 19.35379,
+              "KW2": 61.30879,
+              "KO2": 20.90733,
+              "KI2": 1.954347
+            },
+            "per": "catalyst-mass",
+            "basis": "partial-pressure"
+          }
+        },
+        {
+          "id": "E2",
+          "stoichiometry": {
+            "ethanol": -2,
+            "diethyl-ether": 1,
+            "water": 1
+          },
+          "phase": "vapour",
+          "rate": {
+            "form": "expression",
+            "rate": "k2*KA2^2*((p['ethanol'] / 101.325)^2-(p['water'] / 101.325)*(p['diethyl-ether'] / 101.325)/Keq2)/(1+(p['ethanol'] / 101.325)*KA2 + (p['diethyl-ether'] / 101.325)*KE2 + (p['water'] / 101.325)*KW2 + (p['ethylene'] / 101.325)*KO2)^2",
+            "constants": {
+              "k1": 0.0024111111111111113,
+              "k2": 0.0008555555555555555,
+              "KA1": 1.12604,
+              "KA2": 7.50044,
+              "Keq1": 361.813,
+              "Keq2": 8.54626,
+              "KE1": 42.85514,
+              "KW1": 4.483844,
+              "KI1": 0.384379,
+              "KE2": 19.35379,
+              "KW2": 61.30879,
+              "KO2": 20.90733,
+              "KI2": 1.954347
+            },
+            "per": "catalyst-mass",
+            "basis": "partial-pressure"
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "id": "F",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": [
+              0.001,
+              0,
+              0,
+              0
+            ],
+            "T_K": 573.15,
+            "P_kPa": 101.325
+          }
+        },
+        {
+          "id": "R",
+          "type": "pfr",
+          "spec": {
+            "reactions": [
+              "E1",
+              "E2"
+            ],
+            "L_m": 0.014060202401146868,
+            "D_m": 0.01,
+            "bed_kg_m3": 700,
+            "T_K": 573.15
+          }
+        },
+        {
+          "id": "P",
+          "type": "product",
+          "spec": {}
+        }
+      ],
+      "streams": [
+        {
+          "id": "feed",
+          "from": "F.out",
+          "to": "R.in"
+        },
+        {
+          "id": "product",
+          "from": "R.out",
+          "to": "P.in"
+        }
+      ]
+    }
+  }
+}

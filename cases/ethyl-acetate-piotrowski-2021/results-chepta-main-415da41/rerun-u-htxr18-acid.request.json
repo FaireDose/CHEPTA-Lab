@@ -1,0 +1,60 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "ethanol",
+        "water",
+        "ethyl acetate",
+        "acetic acid"
+      ],
+      "thermo": {
+        "model": "UNIQUAC",
+        "vapour": "ideal"
+      },
+      "blocks": [
+        {
+          "id": "HTXR18",
+          "type": "heater",
+          "spec": {
+            "T_K": 343.15,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F26",
+          "type": "feed",
+          "spec": {
+            "flow_kg_h": {
+              "ethanol": 1116.0,
+              "water": 2820.0,
+              "ethyl acetate": 56058.0,
+              "acetic acid": 6.0
+            },
+            "P_kPa": 100.0,
+            "T_K": 300.15
+          }
+        },
+        {
+          "id": "P27",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "S26",
+          "from": "F26.out",
+          "to": "HTXR18.in"
+        },
+        {
+          "id": "S27",
+          "from": "HTXR18.out",
+          "to": "P27.in"
+        }
+      ],
+      "solver": {
+        "maxIterations": 200
+      }
+    }
+  }
+}

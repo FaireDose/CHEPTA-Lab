@@ -124,3 +124,20 @@ Checked: the six runs executed and their outputs compared by script; balances of
 ≤ 1.4e-14 kmol/h, energy 0 kW, from each output's `checks`). Not checked: physical accuracy, no measured data.
 Not a human review. Reproduce: `python3 cases/methanol-separator-flash/run_chepta_0.6.2_kij0_strict.py` (changes the
 new result files and their hashes; keep the committed ones).
+
+## On CHEPTA main 415da41 (2026-11-19/20; unreleased, to become 0.6.3)
+
+The 0.6.2 requests (3 base runs, 6 k_ij = 0 and strict runs) sent again unchanged to CHEPTA's main at commit
+415da41d531cd5b5701d0d13550f98c9888abced (run from its source; Lab's pin stays 0.6.2).
+[results-chepta-main-415da41/](results-chepta-main-415da41/), [results-chepta-main-415da41-kij0-strict/](results-chepta-main-415da41-kij0-strict/)
+(manifests with the sha; `comparison-with-*.json`).
+
+| Run | 0.6.2 | main 415da41 |
+|---|---|---|
+| pr-kij, pr-mhv1, pr-kij-kij0, pr-mhv1-kij0, pr-mhv1-strict | ok | **same** (every number identical) |
+| srk-mhv1, srk-mhv1-kij0, srk-mhv1-strict | `NOT_AVAILABLE` | `NOT_AVAILABLE` (same) |
+| **pr-kij-strict** (`strictRanges: true`) | ok, the H2 + CO k_ij extrapolation only listed | **`invalid_input` `OUT_OF_RANGE`**: "The strict range mode (strictRanges) refuses this answer: it uses a record outside its range. Hydrogen + Carbon monoxide: PR k_ij set at 313 K is 224.8 K above its range (68.2-88.2 K) ..." |
+
+The one change is what this README asked for above (the strict mode now refuses the extrapolation; CHEPTA decision
+2026-11-14-06, Lab's request 10). It is a refusal of a run that worked on 0.6.2, by design, not a fault. Draft; no
+human review.

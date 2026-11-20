@@ -1,0 +1,66 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "invalid_input",
+  "error": {
+    "code": "OUT_OF_RANGE",
+    "message": "The strict range mode (strictRanges) refuses this answer: it uses a record outside its range. Hydrogen + Carbon monoxide: PR k_ij set at 313 K is 224.8 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: F1, V1. Without the strict mode the flowsheet is solved and these are warnings.",
+    "where": [
+      {
+        "block": "F1",
+        "message": "Hydrogen + Carbon monoxide: PR k_ij set extrapolated 224.8 K above its range"
+      },
+      {
+        "block": "V1",
+        "message": "Hydrogen + Carbon monoxide: PR k_ij set extrapolated 224.8 K above its range"
+      }
+    ],
+    "details": {
+      "strictRanges": true,
+      "extrapolations": [
+        {
+          "component": "Hydrogen + Carbon monoxide",
+          "property": "PR k_ij set",
+          "kind": "pairSet",
+          "range": [
+            68.2,
+            88.2
+          ],
+          "at": 313,
+          "side": "above",
+          "distance": 224.8,
+          "how": "the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K)",
+          "message": "Hydrogen + Carbon monoxide: PR k_ij set at 313 K is 224.8 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: F1, V1.",
+          "where": [
+            "F1",
+            "V1"
+          ],
+          "short": "Hydrogen + Carbon monoxide: PR k_ij set extrapolated 224.8 K above its range"
+        }
+      ],
+      "where": [
+        {
+          "block": "F1",
+          "message": "Hydrogen + Carbon monoxide: PR k_ij set extrapolated 224.8 K above its range"
+        },
+        {
+          "block": "V1",
+          "message": "Hydrogen + Carbon monoxide: PR k_ij set extrapolated 224.8 K above its range"
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "ec5ed3d77b32fb53"
+  },
+  "run": {
+    "id": "run-mwo4p4x8-1",
+    "input_hash": "ec5ed3d77b32fb53",
+    "limits": {
+      "time_ms": 600000
+    },
+    "status": "failed",
+    "elapsed_ms": 39.63677999999999
+  }
+}
