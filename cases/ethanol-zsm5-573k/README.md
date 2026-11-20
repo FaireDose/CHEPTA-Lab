@@ -68,3 +68,11 @@ The eventual example should teach: inspect all relevant source tables; distingui
 ## Update 2026-11-12: chepta@0.6.1
 
 The six runs were repeated on 0.6.1: identical numbers and warnings ([COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md), [results-chepta-0.6.1/](results-chepta-0.6.1/)).
+
+## On CHEPTA main 415da41 (2026-11-19/20; unreleased, to become 0.6.3)
+
+The six 0.6.2 requests sent again unchanged to CHEPTA's main at commit 415da41d531cd5b5701d0d13550f98c9888abced
+(run from its source in a separate folder; Lab's `package.json` still pins 0.6.2): **same**, every number and warning
+identical to 0.6.2. [results-chepta-main-415da41/](results-chepta-main-415da41/) (manifest with the sha, and
+`comparison-with-results-chepta-0.6.2.json`; runner `scripts/rerun_chepta_requests.py`, comparison
+`scripts/compare_chepta_reruns.py`). Draft; no human review.

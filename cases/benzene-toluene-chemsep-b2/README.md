@@ -86,3 +86,10 @@ Re-run on 0.6.1 ([COMPATIBILITY_0.6.1.md](COMPATIBILITY_0.6.1.md), [results-chep
 `check_b2_0.6.1.py`). The base column is identical. The record's `sets: "default"` and the old `distillate_purity` request are now
 accepted. New runs with a purity, bottoms purity and a recovery specification meet what they are asked, but are **outside the unchanged
 limits** (distillate purity: 2.82 K, 0.073; the other two: within 1 K, 0.024 to 0.026 against 0.02). Not a reproduction of the book; no limit changed.
+
+## On CHEPTA main 415da41 (2026-11-19/20; unreleased, to become 0.6.3)
+
+The six 0.6.2 requests sent again unchanged to CHEPTA's main at commit 415da41d531cd5b5701d0d13550f98c9888abced
+(run from its source in a separate folder; Lab's pin stays 0.6.2): **same**, every number and warning identical to
+0.6.2, so the purity-specified runs are still outside the unchanged limits. [results-chepta-main-415da41/](results-chepta-main-415da41/)
+(manifest with the sha; `comparison-with-results-chepta-0.6.2.json`). Draft; no human review.
