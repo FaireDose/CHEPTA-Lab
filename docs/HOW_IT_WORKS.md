@@ -35,6 +35,8 @@ flowchart LR
 6. **Write questions with checked answers** from the case.
 7. **You review** them. Only then do they count.
 
+Before the first run, the case writes down what will be compared and how ([cases/README.md](../cases/README.md#before-the-first-run)).
+
 ## 3. What one dataset item looks like
 
 A question with a checked answer. The three drafts so far:
@@ -78,21 +80,16 @@ the substance; you do not need to read the JSON.
 
 A match between CHEPTA and a published simulation means two models agree, not that either matches a plant.
 
-## 6. Why so far only pieces
+## 6. From pieces to complete plants
 
-| Case | What was simulated |
-|---|---|
-| Ethanol to ethylene | the reactor only |
-| Benzene + toluene | one column |
-| Methanol separator | one flash drum |
-| Ethyl acetate plant | nothing yet; the paper's 56 streams and 19 units copied and their balances checked |
+The first cases were pieces: the ethanol reactor, one benzene + toluene column, one methanol flash drum. CHEPTA could
+not run whole plants before release 0.6.1.
 
-Two reasons. CHEPTA could not run these plants until release 0.6.1 (columns with purity targets, acetic acid in a
-column). And the earlier work built a lot of checking structure before having real cases to put in it.
-
-**From now on, a case is a complete flowsheet from one paper**, compared stream by stream, before any question is
-written from it. First: the ethyl acetate plant (Piotrowski & Kubica 2021, conventional design); fallback: CO2 to
-methanol.
+**Since 2026-11-12, a case is a complete flowsheet from one paper**, compared stream by stream, before any question is
+written from it. Two run closed on CHEPTA 0.6.2: ethyl acetate and CO2 to methanol. Two more are chosen; see
+[CANDIDATE_PROCESSES.md](CANDIDATE_PROCESSES.md). How a plant is made to converge is in
+[SIMULATION_PRACTICES.md](SIMULATION_PRACTICES.md). How operations are chosen, and what the cases teach about that, is in
+[PROCESS_DESIGN.md](PROCESS_DESIGN.md) and [the issues and routes register](../data/ISSUES_AND_ROUTES.md).
 
 ## 7. What "accepted" requires
 

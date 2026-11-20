@@ -12,7 +12,7 @@ Start from reactions documented in CHEPTA and papers whose models can actually b
 
 ## Knowledge-guided dataset design
 
-The [dataset architecture and diagrams](DATASET_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. The first canonical evidence-to-task pilot and exporter are implemented; see [the pipeline guide](../../dataset/PIPELINE.md). Next review its source claims and task contexts, then expand independent process coverage. Route comparisons remain downstream verification tasks.
+The [dataset architecture and diagrams](../PROCESS_DESIGN.md) define the updated workflow. Physical knowledge narrows operation choices before simulation. Process sequences are general; recovery and waste treatment are included only when relevant. Preserve original capacities for reproduction, normalize transferable evidence explicitly, and recalculate capacity-dependent equipment behaviour. The first [operation-decision draft](../../dataset/drafts/ethyl-acetate-extraction/README.md) is prepared. The first canonical evidence-to-task pilot and exporter are implemented; see [the pipeline guide](../../dataset/PIPELINE.md). Next review its source claims and task contexts, then expand independent process coverage. Route comparisons remain downstream verification tasks.
 
 ## Refinements
 

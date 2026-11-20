@@ -46,7 +46,7 @@ The ethanol case in `cases/` is an executed draft, not accepted training data. I
 
 ## Dataset architecture
 
-See [the dataset map and diagrams](../docs/reference/DATASET_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
+See [the dataset map and diagrams](../docs/PROCESS_DESIGN.md) for physical evidence, justified operation selection, general process sequences and capacity normalization. Templates are draft scaffolds; existing cases retain their original schema versions.
 
 ## First operation-selection draft
 

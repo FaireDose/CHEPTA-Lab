@@ -1,25 +1,35 @@
 # Documents
 
-| Document | What it answers | Up to date? |
+People start with [HOW_IT_WORKS.md](HOW_IT_WORKS.md). AI sessions start with the three skills in
+[`.claude/skills/`](../.claude/skills/), which point here only when a task needs it.
+
+## Current
+
+| Document | What it answers | Skill that points to it |
 |---|---|---|
-| [HOW_IT_WORKS.md](HOW_IT_WORKS.md) | What we do, what a dataset item and a study record are, in plain words | yes (2026-11-12) |
-| [WHERE_WE_ARE_HEADING.md](WHERE_WE_ARE_HEADING.md) | How CHEPTA and Lab fit together, the steps towards CHEPTA's goal P6, the new concepts weighed | yes (2026-11-11); steps 1 to 4 since done |
-| [HANDOVER.md](HANDOVER.md) | For the coordinating AI session: usage rules, state, queue | yes |
-| [LICENSING.md](LICENSING.md) | What may be reused and released | yes |
-| [proposals/](proposals/) | Design proposals: 0001 the dataset's structure, 0002 the study record | 0002 yes; 0001 partly |
+| [HOW_IT_WORKS.md](HOW_IT_WORKS.md) | What Lab does, what a dataset item and a study record are, in plain words | building-cases |
+| [SIMULATION_PRACTICES.md](SIMULATION_PRACTICES.md) | How to make a unit or plant converge in CHEPTA and match a paper; the adjustment table; when to file a request | solving-simulations |
+| [PROCESS_DESIGN.md](PROCESS_DESIGN.md) | How operations are chosen from the feed, products and constraints, and how the dataset learns it | process-design |
+| [CANDIDATE_PROCESSES.md](CANDIDATE_PROCESSES.md) | The first four complete plants, their state, and the processes screened | building-cases |
+| [NEXT_PLANTS.md](NEXT_PLANTS.md) | Why those plants and papers were chosen (2026-11-13) | building-cases |
+| [LICENSING.md](LICENSING.md) | What may be reused and released | building-cases |
+| [HANDOVER.md](HANDOVER.md) | For the coordinating AI session: usage rules, working with CHEPTA, the queue | — |
+| [proposals/](proposals/) | Design proposals: 0001 the dataset's structure (partly current), 0002 the study record | building-cases |
 
-## Earlier planning documents ([reference/](reference/))
+Also current, outside this folder: [data/ISSUES_AND_ROUTES.md](../data/ISSUES_AND_ROUTES.md) (what the cases taught,
+problem by problem; process-design) and [dataset/PIPELINE.md](../dataset/PIPELINE.md) (how questions are checked and
+exported; building-cases).
 
-Written 2026-10-29 to 10-30, with the earlier assistant (Astra 6). Kept for the record and for their engineering
-rules; their status sentences are out of date. Where they disagree with the documents above, the documents above
-win.
+## History ([reference/](reference/))
+
+Written 2026-10-29 to 11-11. Kept for the record and for the engineering rules the current files cite. Their status
+sentences are out of date. Where they disagree with the current files, the current files win.
 
 | Document | What it holds |
 |---|---|
-| [DELIVERY_PLAN.md](reference/DELIVERY_PLAN.md) | Milestones and acceptance rules for a first release (engineering acceptance, evaluation, when training is worth it) |
-| [PROJECT_PLAN.md](reference/PROJECT_PLAN.md) | The first goal and principles (common basis for comparing routes, keep failures, separate kinds of numbers) |
-| [DATASET_DESIGN.md](reference/DATASET_DESIGN.md) | How a process decision is broken down: state, obstacle, mechanism, operation, check |
-| [CANDIDATE_PROCESSES.md](reference/CANDIDATE_PROCESSES.md) | The six process families screened, and what blocked each in October |
+| [WHERE_WE_ARE_HEADING.md](reference/WHERE_WE_ARE_HEADING.md) | How CHEPTA and Lab fit together, the path to CHEPTA's P6 goal, decisions D1 to D9 (2026-11-11) |
+| [DELIVERY_PLAN.md](reference/DELIVERY_PLAN.md) | Milestones and acceptance rules for a first release |
+| [PROJECT_PLAN.md](reference/PROJECT_PLAN.md) | The first goal and principles; "Refinements" (comparing routes on a common basis) is still used |
 | [INITIAL_PAPERS.md](reference/INITIAL_PAPERS.md) | The first papers screened, with access and rights |
 | [RELATED_WORK_METHODS.md](reference/RELATED_WORK_METHODS.md) | Lessons from four papers on AI and process simulation |
-| [CAPABILITY_AUDIT_2026-10-30.md](reference/CAPABILITY_AUDIT_2026-10-30.md) | What CHEPTA could do on 2026-10-30, read from its code (superseded by actual runs on 0.6.0) |
+| [CAPABILITY_AUDIT_2026-10-30.md](reference/CAPABILITY_AUDIT_2026-10-30.md) | What CHEPTA could do on 2026-10-30 (superseded by actual runs) |

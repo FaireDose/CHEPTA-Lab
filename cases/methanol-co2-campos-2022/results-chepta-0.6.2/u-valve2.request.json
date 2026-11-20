@@ -1,0 +1,59 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 0.00196,
+              "carbon-monoxide": 0.00784,
+              "carbon-dioxide": 33.30236,
+              "methanol": 145.44964,
+              "water": 17.21468,
+              "nitrogen": 0.02352
+            },
+            "T_K": 318.15,
+            "P_kPa": 1698.0
+          }
+        },
+        {
+          "id": "VALVE2",
+          "type": "valve",
+          "spec": {
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-42",
+          "from": "F0.out",
+          "to": "VALVE2.in"
+        },
+        {
+          "id": "out-out",
+          "from": "VALVE2.out",
+          "to": "P0.in"
+        }
+      ]
+    }
+  }
+}

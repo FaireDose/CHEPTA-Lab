@@ -1,0 +1,60 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "Column COLUMN: the mole fraction of Water in the bottoms = 0.99985 with reflux_ratio 2 given lies inside the range the solved columns reach (0.714579 at 764 to 1 - 3.2e-8 at 2521 mol/s, 9 columns solved), but the stage solver did not converge on the columns where it is met (it is crossed between the distillate flow 1270 mol/s (0.99747) and 1290 mol/s (0.999996)). This is not a statement that the specification cannot be met. Tried: Newton's method on the specifications from the distillate flow 1311 mol/s (2 iterations: no step lowered the specifications' residual); a scan of the distillate flow from 25.47 to 2521 (9 columns solved): the specification is crossed between 1270 and 1290, but the columns between could not be solved. The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the previous solution (4 iterations, 149 ms: the residual fell only from 0.0004933 to 0.0004904 in 4 iterations); Newton from the bubble-point start, steps of at most 20 K (12 iterations, 1887 ms: the residual fell only from 0.00645 to 0.006337 in 12 iterations). Last residuals: material 0.6439 mol/s, equilibrium 0.0001832, energy 127000 W, specifications 4.315e-7. With the vapour + liquid condenser the reflux ratio is the reflux over the liquid distillate (L1 / U1): a small liquid distillate (a large vapour share) means a small reflux; give the reflux by another specification (a duty, a boil-up ratio) where most of the distillate leaves as vapour. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage. What may help: a start nearer the answer (give distillate flow near the crossing as a specification first and use that column's result as a start), more iterations (max_iterations), or a specification a little further inside the range.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 1311 mol/s (2 iterations: no step lowered the specifications' residual)",
+        "a scan of the distillate flow from 25.47 to 2521 (9 columns solved): the specification is crossed between 1270 and 1290, but the columns between could not be solved"
+      ],
+      "specifications": [
+        {
+          "label": "the mole fraction of Water in the bottoms",
+          "asked": 0.99985,
+          "reached": 0.999435979415129
+        }
+      ],
+      "at": {
+        "distillate_rate": 1272.077478927674
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.7145786575374427,
+          "at": 763.991068
+        },
+        "highest": {
+          "value": 0.999999968052678,
+          "at": 2521.1705244
+        }
+      },
+      "crossed": [
+        {
+          "from": 1269.5649806166193,
+          "to": 1289.664142103201,
+          "reached": [
+            0.9974697132374096,
+            0.9999959086542722
+          ]
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "0638ba9346a0d29a"
+  },
+  "run": {
+    "id": "run-mwo4xkfu-1",
+    "input_hash": "0638ba9346a0d29a",
+    "limits": {
+      "time_ms": 900000
+    },
+    "status": "failed",
+    "elapsed_ms": 106985.501224
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "Column COLUMN: the recovery of Water in the bottoms = 0.99987 with reflux_ratio 2 given lies inside the range the solved columns reach (0.0205455 at 2588 to 1 - 1e-7 at 1046 mol/s, 9 columns solved), but the stage solver did not converge on the columns where it is met (it is crossed between the distillate flow 1334 mol/s (1 - 1.2e-7) and 1376 mol/s (0.973158)). This is not a statement that the specification cannot be met. Tried: Newton's method on the specifications from the distillate flow 1342 mol/s (6 iterations: the specifications' residual stopped falling); a scan of the distillate flow from 26.14 to 2588 (9 columns solved): the specification is crossed between 1334 and 1376, but the columns between could not be solved. The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the previous solution (4 iterations, 130 ms: the residual fell only from 0.001988 to 0.001573 in 4 iterations); Newton from the bubble-point start, steps of at most 20 K (12 iterations, 1922 ms: the residual fell only from 0.2288 to 0.1386 in 12 iterations). Last residuals: material 43.44 mol/s, equilibrium 0.0224, energy 1610000 W, specifications 0.00008691. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage. What may help: a start nearer the answer (give distillate flow near the crossing as a specification first and use that column's result as a start), more iterations (max_iterations), or a specification a little further inside the range.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 1342 mol/s (6 iterations: the specifications' residual stopped falling)",
+        "a scan of the distillate flow from 26.14 to 2588 (9 columns solved): the specification is crossed between 1334 and 1376, but the columns between could not be solved"
+      ],
+      "specifications": [
+        {
+          "label": "the recovery of Water in the bottoms",
+          "asked": 0.99987,
+          "reached": 0.9998655333034556
+        }
+      ],
+      "at": {
+        "distillate_rate": 1342.0548975426677
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.020545498728859034,
+          "at": 2588.222351
+        },
+        "highest": {
+          "value": 0.9999998957713737,
+          "at": 1045.7464044444446
+        }
+      },
+      "crossed": [
+        {
+          "from": 1334.4123645844654,
+          "to": 1376.041284597697,
+          "reached": [
+            0.9999998786221688,
+            0.9731582265408054
+          ]
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "9d5d218420b980ff"
+  },
+  "run": {
+    "id": "run-mwo4x54v-1",
+    "input_hash": "9d5d218420b980ff",
+    "limits": {
+      "time_ms": 900000
+    },
+    "status": "failed",
+    "elapsed_ms": 156769.08412
+  }
+}

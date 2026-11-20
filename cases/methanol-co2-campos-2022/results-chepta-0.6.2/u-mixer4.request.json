@@ -1,0 +1,98 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "carbon-dioxide",
+        "hydrogen",
+        "carbon-monoxide",
+        "methanol",
+        "water",
+        "nitrogen"
+      ],
+      "thermo": {
+        "model": "PR"
+      },
+      "blocks": [
+        {
+          "id": "F0",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 43.99904,
+              "carbon-monoxide": 19.18496,
+              "carbon-dioxide": 2130.4496,
+              "methanol": 4674.23744,
+              "water": 4562.80384,
+              "nitrogen": 57.21024
+            },
+            "T_K": 291.65,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F1",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "carbon-monoxide": 0.00276,
+              "carbon-dioxide": 16.08528,
+              "methanol": 198.42744,
+              "water": 61.47348,
+              "nitrogen": 0.00828
+            },
+            "T_K": 298.95,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "F2",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 0.00196,
+              "carbon-monoxide": 0.00784,
+              "carbon-dioxide": 33.30236,
+              "methanol": 145.44964,
+              "water": 17.21468,
+              "nitrogen": 0.02352
+            },
+            "T_K": 302.25,
+            "P_kPa": 100.0
+          }
+        },
+        {
+          "id": "MIXER4",
+          "type": "mixer",
+          "spec": {}
+        },
+        {
+          "id": "P0",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "in0-25",
+          "from": "F0.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "in1-41",
+          "from": "F1.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "in2-43",
+          "from": "F2.out",
+          "to": "MIXER4.in"
+        },
+        {
+          "id": "out-out",
+          "from": "MIXER4.out",
+          "to": "P0.in"
+        }
+      ]
+    }
+  }
+}
