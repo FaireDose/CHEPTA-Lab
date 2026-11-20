@@ -1,0 +1,60 @@
+{
+  "chepta_result": 1,
+  "capability": "solve_flowsheet",
+  "outcome": "not_converged",
+  "error": {
+    "code": "NO_CONVERGENCE",
+    "message": "Column SCDS11: the mass fraction of Ethyl acetate in the bottoms = 0.999 with reflux_ratio 3 given lies inside the range the solved columns reach (0.943249 at 24.25 to 1 - 1.5e-9 at 117.6 mol/s, 7 columns solved), but the stage solver did not converge on the columns where it is met (it is crossed between the distillate flow 63.91 mol/s (0.980303) and 84.87 mol/s (1 - 1.3e-8)). This is not a statement that the specification cannot be met. Tried: Newton's method on the specifications from the distillate flow 30.59 mol/s (17 iterations: the specifications' residual stopped falling); a scan of the distillate flow from 1.212 to 120 (7 columns solved): the specification is crossed between 63.91 and 84.87, but the columns between could not be solved. The stage solver said: Column: the rigorous column did not converge. Tried: Newton from the previous solution (4 iterations, 986 ms: the residual fell only from 0.02102 to 0.01595 in 4 iterations); Newton from the bubble-point start, steps of at most 20 K (4 iterations, 13670 ms: the residual stopped falling). Last residuals: material 78.11 mol/s, equilibrium 6.177e-7, energy 2040000 W, specifications 1.223e-16. Two liquids are allowed on the stages (phases \"VLL\"); on the last iterate stages 3, 4, 30, 31, 32, 33, 34 held two liquids. Newton converges slowly where a stage's liquid sits at the edge of the two-liquid region. This does not show that the column has no solution: try other specifications (a larger reflux, another product flow), more stages, or another feed stage. What may help: a start nearer the answer (give distillate flow near the crossing as a specification first and use that column's result as a start), more iterations (max_iterations), or a specification a little further inside the range.",
+    "where": [],
+    "details": {
+      "tried": [
+        "Newton's method on the specifications from the distillate flow 30.59 mol/s (17 iterations: the specifications' residual stopped falling)",
+        "a scan of the distillate flow from 1.212 to 120 (7 columns solved): the specification is crossed between 63.91 and 84.87, but the columns between could not be solved"
+      ],
+      "specifications": [
+        {
+          "label": "the mass fraction of Ethyl acetate in the bottoms",
+          "asked": 0.9990000000000001,
+          "reached": 0.9984814289484989
+        }
+      ],
+      "at": {
+        "distillate_rate": 77.57707533841956
+      },
+      "range": {
+        "variable": "distillate_rate",
+        "lowest": {
+          "value": 0.9432493862377428,
+          "at": 24.248467704599143
+        },
+        "highest": {
+          "value": 0.9999999984649972,
+          "at": 117.60506836730583
+        }
+      },
+      "crossed": [
+        {
+          "from": 63.90719264127961,
+          "to": 84.869636966097,
+          "reached": [
+            0.9803029777037952,
+            0.9999999869401208
+          ]
+        }
+      ]
+    }
+  },
+  "reproduction": {
+    "library": "0.6.2",
+    "input_hash": "f13b4d322af75950"
+  },
+  "run": {
+    "id": "run-mwo6ltue-1",
+    "input_hash": "f13b4d322af75950",
+    "limits": {
+      "time_ms": 3000000
+    },
+    "status": "failed",
+    "elapsed_ms": 996765.482962
+  }
+}

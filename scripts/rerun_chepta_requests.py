@@ -58,6 +58,7 @@ def main():
     ap.add_argument("--time-ms", default="", help="id=ms,... overrides")
     ap.add_argument("--default-time-ms", type=int, default=3000000)
     ap.add_argument("--extra-dir", default="")
+    ap.add_argument("--first", default="", help="ids sent before the others (order only)")
     ap.add_argument("--resume", action="store_true", help="keep runs whose output file is already there (not sent again)")
     a = ap.parse_args()
     src, dst, cdir = Path(a.src).resolve(), Path(a.dst).resolve(), Path(a.chepta_dir).resolve()
@@ -103,6 +104,9 @@ def main():
             tmp = mf.with_suffix(".tmp")
             tmp.write_text(json.dumps(man, indent=1) + "\n")
             tmp.replace(mf)
+
+    first = [x for x in a.first.split(",") if x]
+    jobs.sort(key=lambda j: first.index(j[0]) if j[0] in first else len(first))
 
     def one(job):
         rid, f, new, t = job
