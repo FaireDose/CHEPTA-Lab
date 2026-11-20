@@ -6,7 +6,8 @@ accepted only after a person has reviewed its sources, its engineering and its l
 
 | File or folder | What it is |
 |---|---|
-| [records/pilot.json](records/pilot.json) | All items, with the evidence (paper passages) and decisions they rest on. The one true list |
+| [records/](records/) | All items, with the evidence (paper passages) and decisions they rest on: `pilot.json` (October) and one `<case>.json` per case. The one true list |
+| [index/](index/) | Generated: one line per problem ([problems.md](index/problems.md)), its JSON twin and the append-only lock of CHEPTA outcomes. Read it first, then `python scripts/kb.py query` ([proposal 0003](../docs/proposals/0003-knowledge-base.md)) |
 | [schemas/](schemas/) | The required structure of items and of study records |
 | [PIPELINE.md](PIPELINE.md) | How items are checked and exported, and what each kind needs before acceptance |
 | [drafts/](drafts/) | Working notes for future items (ethyl acetate extraction) |
@@ -18,7 +19,7 @@ accepted only after a person has reviewed its sources, its engineering and its l
 
 There are currently **zero accepted training examples**. The catalogue is research metadata, not a dataset of correct engineering answers.
 
-Use [PIPELINE.md](PIPELINE.md) and the canonical records in [records/pilot.json](records/pilot.json) for new training tasks. The legacy example template still describes full simulation cases, which should record:
+Use [PIPELINE.md](PIPELINE.md) and the canonical records in [records/](records/) for new training tasks. The legacy example template still describes full simulation cases, which should record:
 
 1. The user's engineering request and which information is missing.
 2. Referenced inputs with original units and a page/table/equation locator.

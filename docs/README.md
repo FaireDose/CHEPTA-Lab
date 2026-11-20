@@ -14,7 +14,7 @@ People start with [HOW_IT_WORKS.md](HOW_IT_WORKS.md). AI sessions start with the
 | [NEXT_PLANTS.md](NEXT_PLANTS.md) | Why those plants and papers were chosen (2026-11-13) | building-cases |
 | [LICENSING.md](LICENSING.md) | What may be reused and released | building-cases |
 | [HANDOVER.md](HANDOVER.md) | For the coordinating AI session: usage rules, working with CHEPTA, the queue | — |
-| [proposals/](proposals/) | Design proposals: 0001 the dataset's structure (partly current), 0002 the study record | building-cases |
+| [proposals/](proposals/) | Design proposals: 0001 the dataset's structure (partly current), 0002 the study record, 0003 the knowledge base (keys, index, query) | building-cases |
 
 Also current, outside this folder: [data/ISSUES_AND_ROUTES.md](../data/ISSUES_AND_ROUTES.md) (what the cases taught,
 problem by problem; process-design) and [dataset/PIPELINE.md](../dataset/PIPELINE.md) (how questions are checked and

@@ -30,3 +30,7 @@ by an AI session; not reviewed by a person.
 Add a row only for a problem a case actually shows, with its locators. When a second paper shows the same problem,
 add it to "seen in" (count papers, not runs) and add its route; never merge two problems because their names look
 alike. Keep CHEPTA's answer as it was in the release named, and update it when a later release changes it.
+
+The `id` column is the key the dataset uses: each decision row in `dataset/records/` names one `problem_id` from it and
+the same level, and `dataset/index/problems.md` counts those rows per problem (proposal 0003). Never rename an id; after
+adding a row here, run `python scripts/kb.py index`.

@@ -260,7 +260,8 @@
             "string",
             "null"
           ]
-        }
+        },
+        "keys": {"$ref": "#/$defs/evidence_keys"}
       },
       "required": [
         "id",
@@ -287,7 +288,7 @@
             "type": "string",
             "pattern": "^[a-z0-9][a-z0-9._-]*$"
           },
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true
         },
         "obstacle": {
@@ -345,11 +346,13 @@
             "string",
             "null"
           ]
-        }
+        },
+        "keys": {"$ref": "#/$defs/decision_keys"}
       },
       "required": [
         "id",
         "evidence_ids",
+        "keys",
         "obstacle",
         "mechanism",
         "operation",
@@ -360,6 +363,80 @@
         "rationale_classification",
         "legacy_origin"
       ],
+      "additionalProperties": false
+    },
+    "decision_keys": {
+      "description": "Knowledge-base keys (docs/proposals/0003-knowledge-base.md). Terms are checked against data/vocabulary.json by scripts/kb.py.",
+      "type": "object",
+      "properties": {
+        "record_status": {"enum": ["draft"]},
+        "kind": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "symptom": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "statement": {"type": "string", "minLength": 1},
+        "source": {
+          "type": "object",
+          "properties": {"source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "locator": {"type": "string", "minLength": 1}},
+          "required": ["source_id", "locator"],
+          "additionalProperties": false
+        },
+        "informed_by": {"type": "array", "minItems": 1, "items": {
+          "type": "object",
+          "properties": {"row": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "helped": {"enum": ["yes", "no", "partly"]}, "note": {"type": "string", "minLength": 1}},
+          "required": ["row", "helped", "note"],
+          "additionalProperties": false
+        }},
+        "problem_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "level": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "operation_type": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "components": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true},
+        "behaviours": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true},
+        "conditions": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$"}, "minItems": 0, "uniqueItems": true},
+        "objective": {
+          "type": "object",
+          "properties": {
+            "product": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+            "targets": {"type": "array", "minItems": 1, "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "value": {"type": "number"},
+                "unit": {"type": "string", "minLength": 1},
+                "basis": {"type": "string", "minLength": 1},
+                "evidence_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}
+              },
+              "required": ["name", "value", "unit", "basis", "evidence_id"],
+              "additionalProperties": false
+            }},
+            "scale": {"type": "string", "minLength": 1}
+          },
+          "required": ["product"],
+          "additionalProperties": false
+        },
+        "outcome": {
+          "type": "object",
+          "properties": {
+            "status": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+            "basis": {"type": "string", "pattern": "^[a-z_]+$"},
+            "run_ids": {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"}, "minItems": 0, "uniqueItems": true},
+            "engine": {"type": ["string", "null"], "pattern": "^chepta@([0-9]+[.][0-9]+[.][0-9]+|[0-9a-f]{7,40})$"}
+          },
+          "required": ["status", "basis", "run_ids", "engine"],
+          "additionalProperties": false
+        },
+        "disputed_with": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "minItems": 1, "uniqueItems": true}
+      },
+      "required": ["record_status", "kind", "operation_type", "components", "behaviours", "conditions", "outcome"],
+      "additionalProperties": false
+    },
+    "evidence_keys": {
+      "description": "Optional keys on an evidence row, for the problems it bears on.",
+      "type": "object",
+      "properties": {
+        "problem_ids": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "minItems": 1, "uniqueItems": true},
+        "components": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true},
+        "behaviours": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"}, "minItems": 0, "uniqueItems": true}
+      },
+      "required": ["problem_ids"],
       "additionalProperties": false
     },
     "call": {
