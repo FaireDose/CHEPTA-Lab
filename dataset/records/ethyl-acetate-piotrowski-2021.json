@@ -2249,6 +2249,7 @@
       "alternatives": [],
       "limits": [
         "12,344 kg/h, 99.897 % ester, 0.066 % water (water still above the 0.03 % limit) (case README, feed_second_liquid table).",
+        "Meets 99.90 wt % at the paper's precision (99.897 %), maintainer's judgement 2026-11-20 (relayed by the Lab coordinator); water 0.066 %, above the 0.03 % limit. Note added after review item 2; the outcome is unchanged.",
         "Draft, written by an AI session from the case files (2026-11-20); not reviewed."
       ],
       "verification_required": [],
@@ -3996,73 +3997,6 @@
       "legacy_origin": null
     },
     {
-      "id": "ethyl-acetate-piotrowski-2021.col11-acid-flow-140.5-415da41-c1",
-      "evidence_ids": [
-        "ethyl-acetate-piotrowski-2021.ev-product"
-      ],
-      "keys": {
-        "record_status": "draft",
-        "kind": "case-decision",
-        "problem_id": "sep-two-liquids-with-acetic-acid",
-        "level": "separation",
-        "operation_type": "distillation",
-        "components": [
-          "acetic-acid",
-          "ethanol",
-          "ethyl-acetate",
-          "water"
-        ],
-        "behaviours": [
-          "azeotrope-min-boiling",
-          "two-liquid-phases",
-          "associating-acid-vapour"
-        ],
-        "conditions": [
-          "standalone-product-column",
-          "paper-stream-13-feed",
-          "acetic-acid-0.01-mass-pct",
-          "bottoms-flow-140.5-kmol-h",
-          "uniquac-vll"
-        ],
-        "objective": {
-          "product": "ethyl-acetate",
-          "targets": [
-            {
-              "name": "ester purity",
-              "value": 99.9,
-              "unit": "wt%",
-              "basis": "product mass",
-              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
-            }
-          ]
-        },
-        "outcome": {
-          "status": "failed",
-          "basis": "chepta_run",
-          "run_ids": [
-            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-iso-scds11-acid0.01-bottoms140.5"
-          ],
-          "engine": "chepta@415da41"
-        },
-        "symptom": "purity-short",
-        "corrects": "ethyl-acetate-piotrowski-2021.col11-acid-flow-140.5-415da41",
-        "correction_reason": "Review item 2, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row was marked worked, but the run gives 99.8970 % ester, 0.003 points below the 99.9 wt% objective (it reads 99.90 % only after rounding to two decimals, the convention of the case README's adjustment table), and 0.066 % water against the 0.03 % limit."
-      },
-      "obstacle": "With the feed's acid, the paper's 141.5 kmol/h gives less than 99.9 % in CHEPTA.",
-      "mechanism": "Adjustment: the product flow 0.7 % below the paper's (adjustment table).",
-      "operation": "Column 11 alone, bottoms 140.5 kmol/h (paper 141.5).",
-      "expected_change": "99.90 wt% ester.",
-      "alternatives": [],
-      "limits": [
-        "12,344 kg/h, 99.8970 % ester, 0.066 % water: misses 99.90 % by 0.003 points and the 0.03 % water limit (run outputs). 99.90 % only after rounding to two decimals.",
-        "The 140 kmol/h run meets the purity (99.922 %; row col11-acid-paper-flow-415da41-converges-140).",
-        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
-      ],
-      "verification_required": [],
-      "rationale_classification": "lab_inference",
-      "legacy_origin": null
-    },
-    {
       "id": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140",
       "evidence_ids": [
         "ethyl-acetate-piotrowski-2021.ev-product"
@@ -4191,6 +4125,7 @@
       "limits": [
         "Converge on 415da41 (they did not on 0.6.2), but short: 99.873 % (141) and 99.848 % ester, 0.111 % water (141.5, the paper's flow) (run outputs).",
         "An unreleased commit, labelled separately from the 0.6.2 release.",
+        "At the paper's precision (two decimals, the maintainer's rule of 2026-11-20) 99.873 % and 99.848 % read 99.87 and 99.85: both miss 99.90 wt %.",
         "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
       ],
       "verification_required": [],

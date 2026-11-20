@@ -11,7 +11,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | problem | level | operations | behaviours | W/F/L/U | D | P | used y/p/n | files |
 |---|---|---|---|---|---|---|---|---|
 | sep-ester-alcohol-water-azeotrope | separation | azeotropic-distillation,distillation,extraction,extractive-distillation,heat-exchange | azeotrope-min-boiling,component-without-exit,trace-impurity-limit,two-liquid-phases | 8/14/2/1 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021,pilot |
-| sep-two-liquids-with-acetic-acid | separation | distillation,extraction,heat-exchange | associating-acid-vapour,azeotrope-min-boiling,two-liquid-phases | 4/4/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
+| sep-two-liquids-with-acetic-acid | separation | distillation,extraction,heat-exchange | associating-acid-vapour,azeotrope-min-boiling,two-liquid-phases | 5/3/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | sep-acid-stripping-from-ester-vapour | separation | absorber-column | associating-acid-vapour,azeotrope-min-boiling,equilibrium-limited-reaction,recycle-loop,trace-impurity-limit,two-liquid-phases | 5/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | rxn-esterification-equilibrium-limited | reaction | heat-exchange,reactor-evaporator | equilibrium-limited-reaction,recycle-loop | 4/0/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | plant-recycles-makeup-purge | plant | distillation,purge,recycle | associating-acid-vapour,component-without-exit,purge-and-make-up,recycle-loop,trace-impurity-limit,two-liquid-phases | 6/11/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
@@ -32,7 +32,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | azeotropic-distillation | purity-short | 0/0/1/0 | 0 | 1 | 0/0/0 | kruber-skiborowski-2022-heteroazeotropic-init |
 | azeotropic-distillation | wrong-phase | 0/0/1/0 | 0 | 1 | 0/0/0 | kruber-skiborowski-2022-heteroazeotropic-init |
 | distillation | no-convergence | 2/10/5/0 | 0 | 5 | 0/0/0 | ethyl-acetate-piotrowski-2021,henrique-2020-dwc-simulation,kruber-skiborowski-2022-heteroazeotropic-init,methanol-co2-campos-2022,steffen-2024-rd-modelling-review |
-| distillation | purity-short | 0/10/1/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,kooijman-taylor-2006-chemsep-book |
+| distillation | purity-short | 0/9/1/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,kooijman-taylor-2006-chemsep-book |
 | distillation | slow | 1/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | distillation | wrong-phase | 0/0/3/0 | 0 | 3 | 0/0/0 | jankovic-2023-ipa-acetone-recovery,palomar-2024-il-process-simulation,pasha-2021-biodiesel-process-design |
 | extraction | feed-refused | 1/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
