@@ -35,6 +35,8 @@ flowchart LR
 6. **Write questions with checked answers** from the case.
 7. **You review** them. Only then do they count.
 
+Before the first run, the case writes down what will be compared and how ([cases/README.md](../cases/README.md#before-the-first-run)).
+
 ## 3. What one dataset item looks like
 
 A question with a checked answer. The three drafts so far:

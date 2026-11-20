@@ -43,5 +43,4 @@ author's reason.
 | Lessons from AI process-design papers (handoff, evaluation) | [docs/reference/RELATED_WORK_METHODS.md](../../../docs/reference/RELATED_WORK_METHODS.md) |
 | Which property method for which mixture | CHEPTA's [METHOD_SELECTION.md](https://github.com/FaireDose/CHEPTA/blob/v0.6.2/docs/METHOD_SELECTION.md) at the pinned tag |
 
-Not yet here: a sourced table of separation methods by mixture property, and the classic hierarchical design procedure
-from open literature. Do not fill these gaps from memory; they are queued as a literature task (docs/HANDOVER.md).
+For a new route, work from the overall material balance through reactor/recycle, separation and heat recovery. Use the [separation screening table](../../../docs/PROCESS_DESIGN.md#screen-a-separation) to choose the first calculation that could rule out each route. Hand [solving-simulations](../solving-simulations/SKILL.md) the chosen boundary, a common comparison basis, the adjustable variables and explicit pass criteria. If a missing property could reverse the shortlist, name that property and the evidence needed to resolve it.

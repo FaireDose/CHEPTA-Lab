@@ -20,3 +20,18 @@ CHEPTA's command line, compared stream by stream, every refusal and warning kept
 never edited by hand, and older runs keep their CHEPTA version. The steps are in the building-cases skill
 ([.claude/skills/building-cases/SKILL.md](../.claude/skills/building-cases/SKILL.md)); running CHEPTA follows the
 solving-simulations skill.
+
+## Before the first run
+
+Write down the comparison while the published values and the simulation inputs are still easy to tell apart. Use the existing case notes and study record. [Study record proposal, “Constraints: declared before, compared after”](../docs/proposals/0002-study-record.md#constraints-declared-before-compared-after)
+
+| Record | What the next agent needs |
+|---|---|
+| Boundary and basis | Paper variant, included units, omitted sections, stream IDs, mass or mole basis, wet or dry basis where relevant, flow units and the reference state for duties. |
+| Fixed inputs and adjusted settings | Mark values imposed directly from the source. Preserve the first request and result. For each adjusted setting, record its range, reason and run IDs. |
+| Independent comparisons | Name the output, stream, unit, limit or comparison tolerance, and its source before execution. For trace impurities use an absolute deviation on the stated basis. Explain tolerances from printed precision, measurement uncertainty or the decision being made. Keep the solver’s tolerance separate. |
+| Evidence and verdict | Describe whether the reference is a measurement, another simulation or an independent calculation. Report the observed discrepancy and whether the predeclared criterion was met. If the run failed, record its error and leave the target unevaluated. Mark retrospective criteria as reconstructed. |
+
+For example, the ester case imposes reactor conversion from the paper. Agreement on conversion gives no independent test of the reactor model. Its simulated product purity **is** a comparison and the shortfall is part of the result. The methanol case similarly states the fired heater and steam cycle were outside the simulated boundary. [Ester case](ethyl-acetate-piotrowski-2021/README.md) · [Methanol case](methanol-co2-campos-2022/README.md)
+
+Preserve the evidence chain from source location through conversion, exact input, engine version and output to each reported comparison. When a published duty conflicts with the printed stream enthalpies, preserve both source values and the arithmetic. Record which value each subsequent conclusion uses. A separate reviewer should be able to reconstruct the comparison. [Sandve et al. (2013), rules 1, 3 and 9](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285) · [Oberkampf & Trucano, verification and validation benchmarks](https://doi.org/10.1016/j.nucengdes.2007.02.032) · [Methanol case, HE7](methanol-co2-campos-2022/STREAM_AUDIT.md)

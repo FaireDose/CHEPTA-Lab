@@ -13,18 +13,16 @@ the first time you run a case.
 - Scan each setting around the paper's value, and take the smallest change that works.
 - Record every change in the case's adjustment table: unit, setting, paper, ours, change, why, runs.
 
-**The order:**
-1. Each unit alone on the paper's inlets.
-2. Balance the paper around the unit, then scan its settings and test the paper's thermodynamic statements in CHEPTA.
-3. Count the plant's degrees of freedom. Specify columns by purity where CHEPTA converges.
-4. Tear streams with guesses from the paper; Broyden first.
-5. Tighten the tolerance from the saved answer, then save the converged values as starting values.
-6. Check for blown-up flows and for components building up in the loop.
-7. Use a design specification (CHEPTA `designSpecs`) instead of tuning a feed or a flow by hand.
+**Run a paper case in this order**
 
-**Capability requests:** only when no setting near the paper's works, or CHEPTA contradicts itself. Each request has
-one small input file, CHEPTA's exact outcome and what it should have done. A gap to a paper's own simulation (Aspen,
-Chemcad) is a thermodynamics question for CHEPTA, not a bug: only measured data can show CHEPTA wrong.
+1. Read the engine pin. Declare the boundary, fixed inputs, adjustable settings, target streams, units and tolerances. Check that the release covers the components, phases and parameter ranges.
+2. Audit the source balances. Run each unit on the paper’s inlets and settings. Keep the result or refusal as the baseline.
+3. Connect the units in sections. Count independent specifications for the plant. Close each cycle with a tear (a stream whose inlet is guessed and recomputed). Use the pinned solver’s automatic selection or supply a tear set with defensible guesses. Start with its default, Broyden on 0.6.2.
+4. When a unit fails, capture its actual inlet from the loop. Reproduce the failure alone. Check phase, units, bounds and specifications before varying a setting inside its justified range. Record the smallest successful adjustment and every failed run.
+5. Tighten the recycle tolerance from the saved state. Compare each tear’s component flows, external balances, duties, purity and recovery. Report solve status, target verdicts and agreement with independent evidence separately.
+6. Pair a design target with a free variable and justified bounds. On 0.6.2, run a series of explicit requests and keep each result. Flowsheet-wide `designSpecs` is documented on [upstream commit 415da41](https://github.com/FaireDose/CHEPTA/blob/415da41d531cd5b5701d0d13550f98c9888abced/docs/models/flowsheet.md). Label any test of that commit separately from the release.
+
+**Capability requests.** If no nearby feasible setting works, reduce the issue to one input and include the version, exact response, expected behaviour and evidence. A balance violation or contradiction with a documented contract can demonstrate an implementation problem. A difference from another simulator calls for checking assumptions and property data. Comparison with measurements addresses physical accuracy. [Oberkampf & Trucano, verification and validation benchmarks](https://doi.org/10.1016/j.nucengdes.2007.02.032)
 
 **Keep:** every run, failures included, with CHEPTA's code and message and the CHEPTA version or commit. Never edit
 old results.

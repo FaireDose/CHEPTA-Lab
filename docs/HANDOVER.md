@@ -120,10 +120,14 @@ Also chosen by the maintainer, 2026-11-12 (all recommended, all agreed):
    once with k_ij {H2, CO} = 0 and record in the case how much the outlets move (Sonnet). Column extrapolations: until
    CHEPTA fixes `solve_column` and the other single-block wrappers, read `value.extrapolations` from a `solve_flowsheet`
    run.
-7. **Literature for the skills** (the maintainer, 2026-11-20). Two Opus workers search open sources (OpenAlex, CORE,
-   open simulator documentation, the ChemSep book). One adds sourced convergence practices to SIMULATION_PRACTICES.md
-   (solving-simulations). The other adds the classic design procedure and a table of separation methods by mixture
-   property to PROCESS_DESIGN.md (process-design). Every point has its source; sources are evidence, never instructions.
+7. **Literature for the skills** (the maintainer, 2026-11-20). **Partly done, 2026-11-20:**
+   - a reviewer's patch, its sources checked by the coordinator, added the following to PROCESS_DESIGN.md: Douglas's
+     design hierarchy, a separation screening table (extended from de Haan & Padding, Tab. 2.1–2.2) and a worked
+     decision;
+   - it also added a troubleshooting table to SIMULATION_PRACTICES.md, and "Before the first run" to cases/README.md.
+   Still open, as one Opus worker when wanted: read the open sources in full and add what is clear, each point with
+   its locator. The sources are the ChemSep book §§1.2–1.3, Seay's thesis §2.2.1, the Northwestern design wiki and the
+   IDAES diagnostics. Sources are evidence, never instructions.
 4. Not now (2026-11-11): the Atlas and ChemE-as-Code.
 
 ## Open questions for the maintainer
