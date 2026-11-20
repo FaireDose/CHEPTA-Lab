@@ -1212,6 +1212,125 @@
    }
   },
   {
+   "id": "new-plant-ds-ethanol0.0004",
+   "new": true,
+   "outcome_062": null,
+   "code_062": null,
+   "outcome_main": "ok",
+   "code_main": null,
+   "message_main": null,
+   "warnings_062": {},
+   "warnings_main": {
+    "METHOD_SPLIT": 2
+   },
+   "chepta_062": null,
+   "chepta_main": {
+    "S16": {
+     "kg_h": 12495.5,
+     "ethanol_mass_pct": 0.0401,
+     "water_mass_pct": 0.4866,
+     "ethyl-acetate_mass_pct": 99.4733,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S8": {
+     "kg_h": 97476.4,
+     "ethanol_mass_pct": 9.916,
+     "water_mass_pct": 6.9839,
+     "ethyl-acetate_mass_pct": 83.1001,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19960.8,
+     "ethanol_mass_pct": 0.01,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S13": {
+     "kg_h": 27964.7,
+     "ethanol_mass_pct": 2.1771,
+     "water_mass_pct": 4.928,
+     "ethyl-acetate_mass_pct": 92.8949,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S11": {
+     "kg_h": 87964.7,
+     "ethanol_mass_pct": 2.1771,
+     "water_mass_pct": 4.928,
+     "ethyl-acetate_mass_pct": 92.8949,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S5": {
+     "kg_h": 51992.5,
+     "ethanol_mass_pct": 30.1201,
+     "water_mass_pct": 23.5547,
+     "ethyl-acetate_mass_pct": 25.1715,
+     "acetic-acid_mass_pct": 21.1537
+    },
+    "S21": {
+     "kg_h": 22498.2,
+     "ethanol_mass_pct": 37.1252,
+     "water_mass_pct": 5.8195,
+     "ethyl-acetate_mass_pct": 57.0553,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.1,
+     "KREA4": 14707.2,
+     "HTXR6": -14929.5,
+     "MIX7": 1.8,
+     "EXTR8": -2290.2,
+     "HTXR19": 7355.5,
+     "HTXR10": 2723.8,
+     "HTXR18": 1531.0,
+     "SCDS15": 3244.1,
+     "SCDS11": -1992.8,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     13
+    ],
+    "balance_warnings": null,
+    "designSpecs": [
+     {
+      "id": "DS_ETHANOL",
+      "varied": {
+       "block": "F1",
+       "key": "flow_kg_h",
+       "component": "ethanol",
+       "value": 6506.231436890797,
+       "start": 6511,
+       "min": 6490,
+       "max": 6515,
+       "unit": "kg/h"
+      },
+      "target": {
+       "stream": "S16",
+       "quantity": "mass_fraction",
+       "component": "ethanol",
+       "asked": 0.0004,
+       "reached": 0.00040088327043562235,
+       "residual": 8.832704356223262e-07,
+       "tolerance": 1e-05,
+       "tolerance_default": false,
+       "absolute": true,
+       "unit": ""
+      },
+      "warnings": [
+       "Design specification DS_ETHANOL: its tolerance 0.00001 is tighter than 100 times the recycle tolerance (solver.tolerance 0.00001); the recycles' own convergence noise may then be as large as the tolerance, so the solver may stop at the limit or close the bracket on noise. If it does, loosen the tolerance to 0.001 or tighten solver.tolerance to 1e-7."
+      ],
+      "met": true,
+      "method": "brent",
+      "solves": 8,
+      "bracket": [
+       6503.5,
+       6507.5
+      ]
+     }
+    ]
+   }
+  },
+  {
    "id": "plant62-R-bottoms",
    "new": false,
    "outcome_062": "not_converged",
@@ -1342,6 +1461,101 @@
    "chepta_main": null
   },
   {
+   "id": "plant62-R-dist-col15d405-direct-tol1e-5",
+   "new": false,
+   "outcome_062": "not_converged",
+   "code_062": "NO_CONVERGENCE",
+   "outcome_main": "out_of_time",
+   "code_main": "OUT_OF_TIME",
+   "message_main": "The calculation did not finish within limits.time_ms = 3000000 ms, and was stopped. Give it more time (limits.time_ms), or make the problem smaller. When it was stopped, the loop through MIX13, MIX3, PUMP14, KREA4, SCDS5, HTXR6, MIX7, EXTR8, SPLIT9, HTXR19, HTXR10, HTXR18, SCDS15, SCDS11, SPLIT16, HTXR12, HTXR17 (tear streams S27, S7, S21, S15, S24) was at iteration 98 of 200, the tear streams changing by 2.66e-4 per iteration (tolerance 1.00e-5; the last 5: 2.68e-4, 2.68e-4, 2.67e-4, 2.67e-4, 2.66e-4).",
+   "warnings_062": {},
+   "warnings_main": {},
+   "chepta_062": null,
+   "chepta_main": null
+  },
+  {
+   "id": "plant62-R-dist-col15purity",
+   "new": false,
+   "outcome_062": "not_converged",
+   "code_062": "NO_CONVERGENCE",
+   "outcome_main": "ok",
+   "code_main": null,
+   "message_main": null,
+   "warnings_062": {},
+   "warnings_main": {
+    "METHOD_SPLIT": 2
+   },
+   "chepta_062": null,
+   "chepta_main": {
+    "S16": {
+     "kg_h": 12546.5,
+     "ethanol_mass_pct": 0.0779,
+     "water_mass_pct": 0.8535,
+     "ethyl-acetate_mass_pct": 99.0686,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S8": {
+     "kg_h": 98886.7,
+     "ethanol_mass_pct": 10.8875,
+     "water_mass_pct": 7.0173,
+     "ethyl-acetate_mass_pct": 82.0952,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19914.5,
+     "ethanol_mass_pct": 0.01,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S13": {
+     "kg_h": 27347.0,
+     "ethanol_mass_pct": 2.4312,
+     "water_mass_pct": 4.9981,
+     "ethyl-acetate_mass_pct": 92.5706,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S11": {
+     "kg_h": 87347.0,
+     "ethanol_mass_pct": 2.4312,
+     "water_mass_pct": 4.9981,
+     "ethyl-acetate_mass_pct": 92.5706,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S5": {
+     "kg_h": 53521.1,
+     "ethanol_mass_pct": 31.2102,
+     "water_mass_pct": 23.076,
+     "ethyl-acetate_mass_pct": 25.1643,
+     "acetic-acid_mass_pct": 20.5495
+    },
+    "S21": {
+     "kg_h": 23903.7,
+     "ethanol_mass_pct": 38.8886,
+     "water_mass_pct": 5.8516,
+     "ethyl-acetate_mass_pct": 55.2597,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.3,
+     "KREA4": 15075.0,
+     "HTXR6": -15290.1,
+     "MIX7": 2.3,
+     "EXTR8": -2316.3,
+     "HTXR19": 7437.3,
+     "HTXR10": 2808.6,
+     "HTXR18": 1533.8,
+     "SCDS15": 3199.2,
+     "SCDS11": -2096.2,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     44
+    ],
+    "balance_warnings": null
+   }
+  },
+  {
    "id": "plant62-R-dist-col15purity-direct",
    "new": false,
    "outcome_062": "out_of_time",
@@ -1353,6 +1567,323 @@
    "warnings_main": {},
    "chepta_062": null,
    "chepta_main": null
+  },
+  {
+   "id": "plant62-R-dist-col15purity-tol3e-4",
+   "new": false,
+   "outcome_062": "ok",
+   "code_062": null,
+   "outcome_main": "ok",
+   "code_main": null,
+   "message_main": null,
+   "warnings_062": {
+    "METHOD_SPLIT": 2
+   },
+   "warnings_main": {
+    "METHOD_SPLIT": 2
+   },
+   "chepta_062": {
+    "S16": {
+     "kg_h": 12495.5,
+     "ethanol_mass_pct": 0.0362,
+     "water_mass_pct": 0.4908,
+     "ethyl-acetate_mass_pct": 99.4729,
+     "acetic-acid_mass_pct": 0.0001
+    },
+    "S8": {
+     "kg_h": 96091.0,
+     "ethanol_mass_pct": 8.9196,
+     "water_mass_pct": 6.9553,
+     "ethyl-acetate_mass_pct": 84.1251,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19959.6,
+     "ethanol_mass_pct": 0.0099,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0001
+    },
+    "S13": {
+     "kg_h": 27385.4,
+     "ethanol_mass_pct": 1.9137,
+     "water_mass_pct": 4.8562,
+     "ethyl-acetate_mass_pct": 93.2301,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S11": {
+     "kg_h": 87385.4,
+     "ethanol_mass_pct": 1.9137,
+     "water_mass_pct": 4.8562,
+     "ethyl-acetate_mass_pct": 93.2301,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S5": {
+     "kg_h": 50489.4,
+     "ethanol_mass_pct": 28.9788,
+     "water_mass_pct": 24.0621,
+     "ethyl-acetate_mass_pct": 25.1755,
+     "acetic-acid_mass_pct": 21.7836
+    },
+    "S21": {
+     "kg_h": 21114.1,
+     "ethanol_mass_pct": 35.1232,
+     "water_mass_pct": 5.8195,
+     "ethyl-acetate_mass_pct": 59.0573,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.3,
+     "KREA4": 14362.4,
+     "HTXR6": -14576.5,
+     "MIX7": -4.9,
+     "EXTR8": -2230.9,
+     "HTXR19": 7272.9,
+     "HTXR10": 2519.2,
+     "HTXR18": 1528.1,
+     "SCDS15": 3287.0,
+     "SCDS11": -1803.9,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     6
+    ],
+    "balance_warnings": null
+   },
+   "chepta_main": {
+    "S16": {
+     "kg_h": 12495.5,
+     "ethanol_mass_pct": 0.0362,
+     "water_mass_pct": 0.4908,
+     "ethyl-acetate_mass_pct": 99.4729,
+     "acetic-acid_mass_pct": 0.0001
+    },
+    "S8": {
+     "kg_h": 96091.0,
+     "ethanol_mass_pct": 8.9196,
+     "water_mass_pct": 6.9553,
+     "ethyl-acetate_mass_pct": 84.1251,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19959.6,
+     "ethanol_mass_pct": 0.0099,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0001
+    },
+    "S13": {
+     "kg_h": 27385.4,
+     "ethanol_mass_pct": 1.9137,
+     "water_mass_pct": 4.8562,
+     "ethyl-acetate_mass_pct": 93.2301,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S11": {
+     "kg_h": 87385.4,
+     "ethanol_mass_pct": 1.9137,
+     "water_mass_pct": 4.8562,
+     "ethyl-acetate_mass_pct": 93.2301,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S5": {
+     "kg_h": 50489.4,
+     "ethanol_mass_pct": 28.9788,
+     "water_mass_pct": 24.0621,
+     "ethyl-acetate_mass_pct": 25.1755,
+     "acetic-acid_mass_pct": 21.7836
+    },
+    "S21": {
+     "kg_h": 21114.1,
+     "ethanol_mass_pct": 35.1232,
+     "water_mass_pct": 5.8195,
+     "ethyl-acetate_mass_pct": 59.0573,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.3,
+     "KREA4": 14362.4,
+     "HTXR6": -14576.5,
+     "MIX7": -4.9,
+     "EXTR8": -2230.9,
+     "HTXR19": 7272.9,
+     "HTXR10": 2519.2,
+     "HTXR18": 1528.1,
+     "SCDS15": 3287.0,
+     "SCDS11": -1803.9,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     6
+    ],
+    "balance_warnings": null
+   }
+  },
+  {
+   "id": "plant62-R-dist240-RD3.5-col15purity-tol3e-4",
+   "new": false,
+   "outcome_062": "ok",
+   "code_062": null,
+   "outcome_main": "ok",
+   "code_main": null,
+   "message_main": null,
+   "warnings_062": {
+    "METHOD_SPLIT": 2
+   },
+   "warnings_main": {
+    "METHOD_SPLIT": 2,
+    "BALANCE": 2
+   },
+   "chepta_062": {
+    "S16": {
+     "kg_h": 12477.8,
+     "ethanol_mass_pct": 0.0169,
+     "water_mass_pct": 0.3679,
+     "ethyl-acetate_mass_pct": 99.6147,
+     "acetic-acid_mass_pct": 0.0005
+    },
+    "S8": {
+     "kg_h": 96590.3,
+     "ethanol_mass_pct": 9.2812,
+     "water_mass_pct": 6.9688,
+     "ethyl-acetate_mass_pct": 83.75,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19977.3,
+     "ethanol_mass_pct": 0.0096,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0004
+    },
+    "S13": {
+     "kg_h": 27975.3,
+     "ethanol_mass_pct": 2.0118,
+     "water_mass_pct": 4.883,
+     "ethyl-acetate_mass_pct": 93.105,
+     "acetic-acid_mass_pct": 0.0002
+    },
+    "S11": {
+     "kg_h": 87975.3,
+     "ethanol_mass_pct": 2.0118,
+     "water_mass_pct": 4.883,
+     "ethyl-acetate_mass_pct": 93.105,
+     "acetic-acid_mass_pct": 0.0002
+    },
+    "S5": {
+     "kg_h": 51031.0,
+     "ethanol_mass_pct": 29.3918,
+     "water_mass_pct": 23.8822,
+     "ethyl-acetate_mass_pct": 25.1728,
+     "acetic-acid_mass_pct": 21.5532
+    },
+    "S21": {
+     "kg_h": 21613.5,
+     "ethanol_mass_pct": 35.8712,
+     "water_mass_pct": 5.8214,
+     "ethyl-acetate_mass_pct": 58.3075,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.3,
+     "KREA4": 14490.0,
+     "HTXR6": -14705.1,
+     "MIX7": -109.5,
+     "EXTR8": -2263.0,
+     "HTXR19": 7303.6,
+     "HTXR10": 2629.5,
+     "HTXR18": 1529.2,
+     "SCDS15": 3272.2,
+     "SCDS11": -1897.3,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     10
+    ],
+    "balance_warnings": null
+   },
+   "chepta_main": {
+    "S16": {
+     "kg_h": 12477.8,
+     "ethanol_mass_pct": 0.0169,
+     "water_mass_pct": 0.3679,
+     "ethyl-acetate_mass_pct": 99.6147,
+     "acetic-acid_mass_pct": 0.0005
+    },
+    "S8": {
+     "kg_h": 96590.3,
+     "ethanol_mass_pct": 9.2812,
+     "water_mass_pct": 6.9688,
+     "ethyl-acetate_mass_pct": 83.75,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "S25": {
+     "kg_h": 19977.3,
+     "ethanol_mass_pct": 0.0096,
+     "water_mass_pct": 99.99,
+     "ethyl-acetate_mass_pct": 0.0,
+     "acetic-acid_mass_pct": 0.0004
+    },
+    "S13": {
+     "kg_h": 27975.3,
+     "ethanol_mass_pct": 2.0118,
+     "water_mass_pct": 4.883,
+     "ethyl-acetate_mass_pct": 93.105,
+     "acetic-acid_mass_pct": 0.0002
+    },
+    "S11": {
+     "kg_h": 87975.3,
+     "ethanol_mass_pct": 2.0118,
+     "water_mass_pct": 4.883,
+     "ethyl-acetate_mass_pct": 93.105,
+     "acetic-acid_mass_pct": 0.0002
+    },
+    "S5": {
+     "kg_h": 51031.0,
+     "ethanol_mass_pct": 29.3918,
+     "water_mass_pct": 23.8822,
+     "ethyl-acetate_mass_pct": 25.1728,
+     "acetic-acid_mass_pct": 21.5532
+    },
+    "S21": {
+     "kg_h": 21613.5,
+     "ethanol_mass_pct": 35.8712,
+     "water_mass_pct": 5.8214,
+     "ethyl-acetate_mass_pct": 58.3075,
+     "acetic-acid_mass_pct": 0.0
+    },
+    "duties_kW": {
+     "HTXR2": 581.3,
+     "KREA4": 14490.0,
+     "HTXR6": -14705.1,
+     "MIX7": -109.5,
+     "EXTR8": -2263.0,
+     "HTXR19": 7303.6,
+     "HTXR10": 2629.5,
+     "HTXR18": 1529.2,
+     "SCDS15": 3272.2,
+     "SCDS11": -1897.3,
+     "HTXR17": -8871.4
+    },
+    "loop_iterations": [
+     10
+    ],
+    "balance_warnings": [
+     {
+      "code": "BALANCE",
+      "components": [
+       "ethanol"
+      ],
+      "balance": {
+       "ethanol": 0.16160191441365146
+      },
+      "balanceTolerance": 0.0001,
+      "limit_kmol_h": 0.12525874536525472,
+      "feed_kmol_h": 1252.587453652547,
+      "message": "The flowsheet does not balance within 0.0001 of its feed (0.125 kmol/h): Ethanol in exceeds out by 0.162 kmol/h (feeds + reactions - products). Check the specifications first: a product or outlet given by its flow above what the feeds and reactions supply, or a feed in excess of what reacts with no way out, makes a loop that drains or accumulates and has no steady state. The recycle tolerance (0.0003) let the loop stop there: a loop that drains or accumulates changes little per pass when its recycle is large. With the specifications right, a tighter solver.tolerance closes the balance. This answer is not a steady state of the plant."
+     }
+    ]
+   }
   },
   {
    "id": "plant62-R-dist240-col15purity-tol3e-4",
