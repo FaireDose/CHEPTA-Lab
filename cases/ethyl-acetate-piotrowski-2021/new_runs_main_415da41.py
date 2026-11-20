@@ -48,6 +48,29 @@ for B in (140.5, 140.0):
         "0.6.2 without acid: 99.9 % ester at about 140.5 kmol/h of product (iso-scds11-acid0-*); with acid it did not converge at 140-141.5",
         lambda r, B=B: (block(r, "SCDS11")["spec"].update({"bottoms_kmol_h": B}), r)[1])
 
+# --- 3c. feed_second_liquid. No column feed of the plant holds a second liquid at its own T and P (no
+# state.feed_second_liquid, no FEED_TWO_LIQUIDS in any rerun). The raffinate 11 does at 27 C with the flowsheet's sets
+# (CHEPTA's METHOD_SPLIT warning on EXTR8), so column 11 is fed once with it unheated: a SENSITIVITY test of the option,
+# not the paper's case (the paper heats it to 71 C, HTXR 10). And once at 71 C with "top", where nothing should bypass.
+def _f13(r, T_K=None, mode=None):
+    c = block(r, "SCDS11")["spec"]
+    c["bottoms_kmol_h"] = 140.5
+    if mode:
+        c["feed_second_liquid"] = mode
+    if T_K:
+        block(r, "F13")["spec"]["T_K"] = T_K
+    return r
+
+
+for mode in ("stages", "top", "bottom"):
+    add(f"new-iso-scds11-acid0.01-bottoms140.5-feed27C-{mode}", "iso-scds11-acid0.01-bottoms141.5",
+        f"SCDS11 bottoms 140.5 kmol/h; feed 13 at 300.15 K (27 C, the raffinate unheated) instead of 344.15 K; feed_second_liquid {mode!r}",
+        "sensitivity: a column feed with two liquids, to try feed_second_liquid; not the paper's case",
+        lambda r, mode=mode: _f13(r, 300.15, mode))
+add("new-iso-scds11-acid0.01-bottoms140.5-top", "iso-scds11-acid0.01-bottoms141.5",
+    "SCDS11 bottoms 140.5 kmol/h; feed_second_liquid 'top' (feed 13 at the paper's 71 C)",
+    "the option where the feed holds one liquid: nothing should bypass the stages", lambda r: _f13(r, None, "top"))
+
 # --- 3b. The closed plant with a design specification on the ethanol feed (request 15) ---
 ESTER, ETOH = "ethyl-acetate", "ethanol"
 add("new-plant-ds-ester0.999", "plant62-best-init1e-4-tol1e-5",
