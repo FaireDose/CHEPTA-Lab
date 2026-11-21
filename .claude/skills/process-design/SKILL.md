@@ -47,7 +47,8 @@ say where the conditions differ. A disputed row (`kb.py disputes`) is a disagree
 **Adding what a case taught:** in `dataset/records/<case>.json` (ids start with `<case>.`), one decision row per
 operation tried, with `keys`: register `problem_id`, level, operation type, CHEPTA component names, behaviours,
 conditions, optional objective (numbers only from an evidence row) and outcome (status, basis, run ids, engine). A
-later CHEPTA version adds a row, never edits one. When a row from the knowledge base shaped your choice, record it
+later CHEPTA version adds a row, never edits one; a wrong locked row is corrected by a new row with `keys.corrects`
+and `keys.correction_reason` (proposal 0003, section F). When a row from the knowledge base shaped your choice, record it
 in your own row's `keys.informed_by` (row, helped yes/no/partly, note); the index counts these, and that is how the
 maintainer judges whether book knowledge helps. A rule from a book or review is a short paraphrase (2 sentences at
 most, never copied text) with its catalogued source and locator. Then `python scripts/kb.py index` and the checks.

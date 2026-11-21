@@ -211,6 +211,9 @@ def validate(corpus, sources, root=ROOT):
         for key in row["evidence_ids"]:
             if key not in ix["evidence"]:
                 errors.append(f"{row['id']}: unknown evidence {key}")
+        target = row["keys"].get("corrects")
+        if target is not None and (target == row["id"] or target not in ix["decisions"]):
+            errors.append(f"{row['id']}: corrects names unknown row {target}")
     for task in corpus["tasks"]:
         for field, keys in (("groups", [task["split_group"]]),
                             ("evidence", task["input"]["evidence_ids"] + task["target"]["evidence_ids"]),

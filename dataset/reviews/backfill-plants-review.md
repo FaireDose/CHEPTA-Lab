@@ -191,3 +191,29 @@ spot check.
 - The other EA rows already on main before this PR (the 3 October decisions and the 2 example rows). For example,
   `product-column-acid-at-paper-flow` still cites `ea-impurity-limits`.
 - The index files beyond `kb.py check` reporting them current. Wall times, which I took from the READMEs.
+
+## Person spot check (added on PR #31)
+
+**Person spot check (maintainer, 2026-11-20):** item 2 judged (99.897 % meets 99.90 wt %); item 1 accepted on the AI
+check, not checked by the person; item 3 not checked by the person.
+
+This line was written by the builder session (not by the maintainer) from the maintainer's decisions as relayed by the
+Lab coordinator session on 2026-11-20; the maintainer should confirm it.
+
+## Corrections made (PR #31)
+
+**What was done with the problems (PR #31, 2026-11-20).** Locked rows were corrected by new rows with `keys.corrects`
+(proposal 0003, section F), never edited:
+- Item 1: corrected (`ds-start-distillate-250-260-415da41-c1`); 99.666 % confirmed settled from the run files
+  (tolerance 1e-5, 16 iterations, residual 3.7e-7); the untested `open-reach-99.9-pct` edited in place; the
+  sha256-bound READMEs left unchanged.
+- Item 2: **not a correction**, per the maintainer: `col11-acid-flow-140.5-415da41` stays worked, with a note that
+  it meets 99.90 wt % at the paper's precision and that its water (0.066 %) is above 0.03 %.
+- Item 3: split into `-converges-140` (99.922 %, worked) and `-purity-short-141-141.5` (99.873 and 99.848 %, read as
+  99.87 and 99.85 at the paper's precision: failed).
+- Items 4-8, 11, 12: correcting rows (`-c1`, or a split for item 11). Items 9, 13, 14: plain edits. Item 10: left
+  for now (the coordinator, 2026-11-20).
+
+Later changes on PR #31 after the second review (dataset/reviews/backfill-corrections-review.md): the correction path
+was tightened (proposal 0003, section F), and the 140 and 140.5 kmol/h rows carry a note on the missed water limit
+(the maintainer, 2026-11-21).
