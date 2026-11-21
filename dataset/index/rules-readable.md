@@ -21,6 +21,6 @@ Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; 
 
 | Case | Rows |
 |---|---|
-| [ethyl-acetate-piotrowski-2021](plants/ethyl-acetate-piotrowski-2021.md) | 59 |
+| [ethyl-acetate-piotrowski-2021](plants/ethyl-acetate-piotrowski-2021.md) | 64 |
 | [methanol-co2-campos-2022](plants/methanol-co2-campos-2022.md) | 35 |
 | [pilot](plants/pilot.md) | 3 |

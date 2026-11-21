@@ -18,6 +18,11 @@ p = kb.pipeline
 EXAMPLE = "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow"
 
 
+def on_page(row_id, text):
+    """A row is on a page when its id opens an HTML comment there (followed by its corrections, if any)."""
+    return f"<!-- {row_id} -->" in text or f"<!-- {row_id};" in text
+
+
 class KnowledgeBaseTests(unittest.TestCase):
     def setUp(self):
         self.corpus, self.origins = p.load_records()
@@ -109,7 +114,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         rules = [d for d in kb.visible_decisions(self.corpus)[0] if d["keys"]["kind"] in kb.RULE_KINDS]
         topic_pages = {path: text for path, text in pages.items() if path.parent == kb.RULES_DIR}
         for d in rules:
-            on = [path for path, text in topic_pages.items() if f"<!-- {d['id']} -->" in text]
+            on = [path for path, text in topic_pages.items() if on_page(d["id"], text)]
             self.assertEqual(len(on), 1, d["id"])
             if d["keys"].get("plain"):
                 self.assertEqual(on[0].stem, kb.topic_of(d))
@@ -119,8 +124,8 @@ class KnowledgeBaseTests(unittest.TestCase):
         # Best-supported first.
         order = {s: i for i, s in enumerate(kb.STATUSES_SHOWN)}
         for path, text in topic_pages.items():
-            on = sorted((text.index(f"<!-- {d['id']} -->"), order[d["keys"]["outcome"]["status"]])
-                        for d in rules if f"<!-- {d['id']} -->" in text)
+            on = sorted((re.search(rf"<!-- {re.escape(d['id'])}[ ;]", text).start(), order[d["keys"]["outcome"]["status"]])
+                        for d in rules if on_page(d["id"], text))
             ranks = [r for _, r in on]
             self.assertEqual(ranks, sorted(ranks), path)
 
@@ -128,7 +133,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         pages = self.pages()
         cases = [d for d in kb.visible_decisions(self.corpus)[0] if d["keys"]["kind"] == "case-decision"]
         for d in cases:
-            on = [path for path, text in pages.items() if f"<!-- {d['id']} -->" in text]
+            on = [path for path, text in pages.items() if on_page(d["id"], text)]
             self.assertEqual(on, [kb.PLANTS_DIR / f"{self.origins[d['id']]}.md"], d["id"])
         page = pages[kb.PLANTS_DIR / "ethyl-acetate-piotrowski-2021.md"]
         self.assertIn("Run log of the plant, not yet written as lessons.", page)
@@ -447,6 +452,103 @@ class KnowledgeBaseTests(unittest.TestCase):
         del k["informed_by"]
         self.assertTrue(any("append-only" in e for e in kb.lock_errors(self.corpus, lock)))
 
+    # --- corrections: a correcting row withdraws a locked row without editing it ---
+
+    def correction(self, target=EXAMPLE, **outcome):
+        row = self.clone(target, target + "-synthetic-correction", **outcome)
+        row["keys"]["corrects"] = target
+        row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY: the corrected row overstated its runs."
+        return row
+
+    def test_correction_passes_and_keeps_the_corrected_row(self):
+        lock = kb.lock_entries(self.corpus)
+        row = self.correction(status="worked")
+        self.assertEqual(self.errors(), [])
+        self.assertEqual(kb.lock_errors(self.corpus, lock), [])  # the corrected row is unchanged, so the lock holds
+        self.assertEqual(kb.corrected_by(self.corpus["decisions"])[EXAMPLE], [row["id"]])
+        self.origins[row["id"]] = self.origins[EXAMPLE]
+        page = self.pages()[kb.PLANTS_DIR / f"{self.origins[EXAMPLE]}.md"]
+        struck = next(l for l in page.splitlines() if f"<!-- {EXAMPLE};" in l)
+        self.assertTrue(struck.startswith("- ~~"))
+        self.assertIn("Corrected by a later row", struck)  # visible words; the ids stay in the comment
+        self.assertIn(f"corrected by {row['id']}", struck.split("<!--")[1])
+        correcting = next(l for l in page.splitlines() if f"<!-- {row['id']};" in l)
+        self.assertIn(f"corrects {EXAMPLE}", correcting.split("<!--")[1])
+        self.assertIn(f"Correction: {row['keys']['correction_reason']}", correcting)
+        self.assertNotIn(row["id"], re.sub(r"<!--.*?-->", "", page))
+        self.assertIn(EXAMPLE, {d["id"] for d in self.corpus["decisions"]})
+
+    def test_edit_without_correction_still_fails(self):
+        lock = kb.lock_entries(self.corpus)
+        self.correction(status="worked")
+        self.decision(EXAMPLE)["keys"]["outcome"]["status"] = "worked"  # editing the corrected row itself
+        self.assertTrue(any("was edited" in e for e in kb.lock_errors(self.corpus, lock)))
+        self.corpus["decisions"] = [d for d in self.corpus["decisions"] if d["id"] != EXAMPLE]
+        self.assertTrue(any("was deleted" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    def test_correction_needs_an_existing_row_and_a_reason(self):
+        row = self.correction()
+        row["keys"]["corrects"] = "no-such-row"
+        self.assertTrue(any("corrects names unknown row" in e for e in self.errors()))
+        row["keys"]["corrects"] = row["id"]
+        self.assertTrue(any("corrects names unknown row" in e for e in self.errors()))
+        row["keys"]["corrects"] = EXAMPLE
+        del row["keys"]["correction_reason"]
+        self.assertTrue(any("keys.correction_reason" in e for e in self.errors()))
+
+    # The four misuses found by the review of PR #31 (dataset/reviews/backfill-corrections-review.md, problem 1).
+
+    def test_a_correction_from_another_record_file_refused(self):
+        row = copy.deepcopy(next(d for d in self.corpus["decisions"] if d["id"].startswith("methanol-co2-campos-2022.")))
+        row["id"] = "methanol-co2-campos-2022.synthetic-foreign-correction"
+        row["keys"]["corrects"] = EXAMPLE
+        row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.corpus["decisions"].append(row)
+        self.assertTrue(any("same record file" in e for e in self.errors()))
+
+    def test_b_correction_is_append_only_once_indexed(self):
+        row = self.correction()
+        lock = kb.lock_entries(self.corpus)
+        self.assertEqual(kb.lock_errors(self.corpus, lock), [])
+        row["keys"]["correction_reason"] = "Changed afterwards."
+        self.assertTrue(any("was edited or removed" in e for e in kb.lock_errors(self.corpus, lock)))
+        del row["keys"]["corrects"], row["keys"]["correction_reason"]
+        self.assertTrue(any("was edited or removed" in e for e in kb.lock_errors(self.corpus, lock)))
+        # Adding keys.corrects to a row that was already indexed is refused too.
+        lock = kb.lock_entries(self.corpus)
+        old = self.decision("ethyl-acetate-piotrowski-2021.product-column-acid-below-paper-flow")
+        old["keys"]["corrects"] = EXAMPLE
+        old["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.assertTrue(any("already indexed" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    def test_c_correction_cycle_of_any_length_refused(self):
+        ids = [f"{EXAMPLE}-cycle-{i}" for i in range(3)]
+        for i, key in enumerate(ids):
+            row = self.clone(EXAMPLE, key)
+            row["keys"]["corrects"] = ids[(i + 1) % 3]
+            row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.assertTrue(any("form a cycle" in e for e in self.errors()))
+        self.decision(ids[2])["keys"]["corrects"] = EXAMPLE  # a chain is fine
+        self.assertEqual(self.errors(), [])
+
+    def test_d_pipeline_validate_checks_the_correction_target(self):
+        row = self.correction()
+        self.assertEqual(p.validate(self.corpus, self.sources), [])
+        row["keys"]["corrects"] = "no-such-row"
+        self.assertTrue(any("corrects names unknown row" in e for e in p.validate(self.corpus, self.sources)))
+
+    def test_correction_changes_the_counts(self):
+        self.only_example_rules()
+        count = lambda: next(p for p in json.loads(kb.build_index(self.corpus, self.origins)[1])["problems"]
+                             if p["id"] == "sep-two-liquids-with-acetic-acid")
+        before = count()
+        self.correction(status="worked")
+        after = count()
+        self.assertEqual(after["counts"]["failed"], before["counts"]["failed"] - 1)
+        self.assertEqual(after["counts"]["worked"], before["counts"]["worked"] + 1)
+        self.assertEqual((before["withdrawn"], after["withdrawn"]), (0, 1))
+        self.assertEqual(after["rows"], before["rows"] + 1)  # kept, only left out of the counts
+
     # --- rights: short paraphrase, catalogued source ---
 
     def test_statement_without_source_refused(self):
@@ -543,7 +645,7 @@ class KnowledgeBaseTests(unittest.TestCase):
         ids = {r["id"] for r in json.loads(out)}
         self.assertIn("ea-choose-extraction", ids)
         self.assertNotIn(EXAMPLE, ids)
-        code, out = self.run_kb("query", "--components", "benzene")
+        code, out = self.run_kb("query", "--components", "no-such-component")  # outside the vocabulary: stable
         self.assertIn("No matching rows", out)
 
     def test_problems_prints_only_matching_index_lines(self):

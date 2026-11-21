@@ -1,6 +1,6 @@
 # Run log: pilot (generated; do not edit)
 
-Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped by unit, best-supported first; the row id is in an HTML comment for `kb.py show`. [All topics](../rules-readable.md)
+Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped by unit, best-supported first; the row id is in an HTML comment for `kb.py show`. A struck-through line was corrected by a later row and no longer counts; the correcting row gives its reason. [All topics](../rules-readable.md)
 
 ## distillation (1)
 

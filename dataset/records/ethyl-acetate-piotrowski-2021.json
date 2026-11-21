@@ -2249,6 +2249,8 @@
       "alternatives": [],
       "limits": [
         "12,344 kg/h, 99.897 % ester, 0.066 % water (water still above the 0.03 % limit) (case README, feed_second_liquid table).",
+        "Meets 99.90 wt % at the paper's precision (99.897 %), maintainer's judgement 2026-11-20 (relayed by the Lab coordinator); water 0.066 %, above the 0.03 % limit. Note added after review item 2; the outcome is unchanged.",
+        "Judged on ester purity only. Water 0.066 % exceeds the 0.03 % limit in Piotrowski & Kubica 2021, Section 3.4; whether that matters depends on the product specification of the application (maintainer, 2026-11-21, relayed by the Lab coordinator). Text note; the outcome is unchanged.",
         "Draft, written by an AI session from the case files (2026-11-20); not reviewed."
       ],
       "verification_required": [],
@@ -3865,14 +3867,15 @@
           "engine": null
         }
       },
-      "obstacle": "In the closed CHEPTA plant the product stops at 99.56 % (water 0.40 %).",
-      "mechanism": "Lab's reading: a drier raffinate (colder or more extraction stages) together with the ethanol make-up held by a design specification and more column 11 distillate, each now limited by a convergence failure.",
+      "obstacle": "The settled closed CHEPTA plant reaches at best 99.666 % ester, 0.296 % water (extractor 20 C, ethanol feed 6,506 kg/h; run plant62-settled-extr20C-ethanol6506, tolerance 1e-5); with the ethanol held by a design specification and column 11's distillate at 260 kmol/h it reaches 99.561 %.",
+      "mechanism": "Lab's reading: combine the cold extractor, the ethanol make-up held by a design specification and more column 11 distillate; not tried together, and each is now limited by a convergence failure.",
       "operation": "Not run: needs a column flow as a design-specification variable (request 16) and convergence of column 11/15 at higher loads (requests 13, 19).",
       "expected_change": "99.90 % ester with water below 0.03 %.",
       "alternatives": [],
       "limits": [
         "Lab inference, no run shows it. CHEPTA's organic phase is wetter by 0.15 points and its liquid-liquid split about 1.7 times as temperature-sensitive as the paper's (thermo-* runs, round 4), so the paper's settings may not reach it in CHEPTA's model at all.",
-        "Draft, written by an AI session from the case files (2026-11-20); not reviewed."
+        "Corrected by a plain edit (outcome untested, not locked) after review item 1 of dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): it said the plant stops at 99.56 %.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
       ],
       "verification_required": [
         "Rerun on the release that answers requests 16, 18 and 19."
@@ -3921,6 +3924,988 @@
       "limits": [
         "Lab inference from the paper's numbers; the authors were not asked.",
         "Draft, written by an AI session from the case files (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.ds-start-distillate-250-260-415da41-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "closed-plant-ethanol-feed-6506.23",
+          "column-11-distillate-250-to-260-kmol-h"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-dsinit-dist250",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-dsinit-dist260",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-ds-ethanol0.0004-dist250",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-ds-ethanol0.0004-dist260"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.ds-start-distillate-250-260-415da41",
+        "correction_reason": "Review item 1, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row called 99.561 % the best closed answer; the settled run plant62-settled-extr20C-ethanol6506 gives 99.666 %. The error came from the case README line 121 ('best closed-plant answer on main'), which is sha256-bound in the study record and is left unchanged."
+      },
+      "obstacle": "Both the ethanol inventory and the column 11 water balance limit the purity.",
+      "mechanism": "Start from the design-specification answer (F1 6,506.23 kg/h) and raise the distillate by hand.",
+      "operation": "Distillate 250 and 260 kmol/h, with and without the ethanol design specification.",
+      "expected_change": "Product near 99.9 %.",
+      "alternatives": [],
+      "limits": [
+        "Converge: 99.520 % (250 kmol/h) and 99.561 % (260 kmol/h), 0.399 % water: the best answer with the ethanol feed held by a design specification and column 11's distillate raised. Water falls about 0.04 points per 10 kmol/h of distillate, so 99.90 % would need far more than 270 kmol/h (case README, scan).",
+        "The best settled closed-plant answer is 99.666 % ester, 0.296 % water, 0.038 % ethanol: extractor at 20 C and ethanol feed 6,506 kg/h (run plant62-settled-extr20C-ethanol6506, identical on 0.6.2 and 415da41). It is settled: tear tolerance 1e-5, 16 loop iterations, residual 3.7e-7, component balances within 6.4e-5 kmol/h (the run outputs).",
+        "Not tried: the cold extractor, the ethanol design specification and the raised distillate together.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "standalone-product-column",
+          "paper-stream-13-feed",
+          "acetic-acid-0.01-mass-pct",
+          "bottoms-flow-140-kmol-h",
+          "uniquac-vll"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds11-acid0.01-bottoms140"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41",
+        "correction_reason": "Review item 3, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row was worked with the 99.9 % objective, but only its 140 kmol/h run meets it; 141 and 141.5 kmol/h fall short (99.873 %, 99.848 %). Split into this row and -purity-short-141-141.5."
+      },
+      "obstacle": "Trace acetic acid stopped the product column near the paper's flow on 0.6.2 (row product-column-acid-at-paper-flow).",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Column 11 alone, paper's stream 13 with 0.01 % acid, bottoms 140 kmol/h (the 0.6.2 request sent again unchanged).",
+      "expected_change": "Convergence; ester as bottoms.",
+      "alternatives": [],
+      "limits": [
+        "Converges on 415da41 (request 9 fixed; it did not on 0.6.2): 99.922 % ester, meeting 99.9 wt%; water 0.044 %, still above the 0.03 % limit (run output).",
+        "An unreleased commit, labelled separately from the 0.6.2 release.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-purity-short-141-141.5",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "standalone-product-column",
+          "paper-stream-13-feed",
+          "acetic-acid-0.01-mass-pct",
+          "bottoms-flow-141-to-141.5-kmol-h",
+          "uniquac-vll"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds11-acid0.01-bottoms141",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds11-acid0.01-bottoms141.5"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41",
+        "correction_reason": "Review item 3, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row was worked with the 99.9 % objective, but at 141 and 141.5 kmol/h the purity is 99.873 % and 99.848 %. Split into this row and -converges-140."
+      },
+      "obstacle": "Trace acetic acid stopped the product column near the paper's flow on 0.6.2 (row product-column-acid-at-paper-flow).",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Column 11 alone, paper's stream 13 with 0.01 % acid, bottoms 141 and 141.5 kmol/h (the paper's flow).",
+      "expected_change": "Convergence; ester as bottoms.",
+      "alternatives": [],
+      "limits": [
+        "Converge on 415da41 (they did not on 0.6.2), but short: 99.873 % (141) and 99.848 % ester, 0.111 % water (141.5, the paper's flow) (run outputs).",
+        "An unreleased commit, labelled separately from the 0.6.2 release.",
+        "At the paper's precision (two decimals, the maintainer's rule of 2026-11-20) 99.873 % and 99.848 % read 99.87 and 99.85: both miss 99.90 wt %.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "no-convergence",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "closed-plant",
+          "one-flowsheet-five-tears",
+          "paper-column-specifications"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-W-dist",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-direct",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-wegstein",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-warm",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-W-dist-warm",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-purity-direct",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-col5VL",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-warm-col5iter100"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41",
+        "correction_reason": "Review item 4, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row left out plant62-R-purity-direct and plant62-R-bottoms-col5VL and said column 5 passes; col5VL stops with PHASE_SPLIT in column 5, and 4 of the 9 runs end OUT_OF_TIME, not NO_CONVERGENCE."
+      },
+      "obstacle": "Close the whole plant with the paper's column specifications.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "The same closed variants.",
+      "expected_change": "A closed plant.",
+      "alternatives": [],
+      "limits": [
+        "All 9 still fail. 4 stop with NO_CONVERGENCE (R-bottoms, R-bottoms-wegstein, W-dist-warm, R-bottoms-warm-col5iter100): column 5 passes, and the loop stops in column 11 or with the reactor short of ethanol, since 141.5 kmol/h of product exceeds the 141.07 kmol/h of ester formed (case README).",
+        "4 end OUT_OF_TIME at the 1,500 s limit (W-dist, R-bottoms-direct, R-bottoms-warm, R-purity-direct), with progress reported (README: plateau near 2e-4 to 7e-2).",
+        "R-bottoms-col5VL, column 5 with one liquid asked, stops with PHASE_SPLIT in column 5: correct, two liquids form.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.plant-variant-w-both-round-flows-062-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "purge",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "purge-and-make-up"
+        ],
+        "conditions": [
+          "closed-plant",
+          "wastewater-25-fixed-20000-kg-h",
+          "feeds-fixed",
+          "tear-tolerance-5e-4"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-W-dist-col15purity-tol5e-4"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "symptom": "recycle-drift",
+        "corrects": "ethyl-acetate-piotrowski-2021.plant-variant-w-both-round-flows-062",
+        "correction_reason": "Review item 5, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row was worked at tolerance 5e-4 with a 42 kg/h balance gap, while the sibling at 3e-4 is failed because a loose answer had not settled; the same standard applies here."
+      },
+      "obstacle": "Is the wastewater flow (20,000 kg/h) a specification?",
+      "mechanism": "Fix wastewater 25 with the feeds fixed; the product flow then follows from the balance.",
+      "operation": "Variant W: splitter 16 fixes 25 = 20,000 kg/h, tolerance 5e-4.",
+      "expected_change": "Closed plant with the paper's wastewater.",
+      "alternatives": [],
+      "limits": [
+        "Converged in 4 iterations at tolerance 5e-4, 99.465 % ester, but out 42 kg/h above in (0.13 %): not settled at a tight tolerance, so not a steady state (the lesson of row plant-purity-specs-loose-tolerance-062).",
+        "Degrees of freedom: fixing both round flows with the paper's feeds fixes the product flow by the balance, so column 11 cannot also hold its purity; Lab chose variant R (recycle 23 fixed, wastewater 25 follows: 19,919 kg/h settled).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col5-reflux-scan-415da41-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-acid-limit"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-acid-stripping-from-ester-vapour",
+        "level": "separation",
+        "operation_type": "absorber-column",
+        "symptom": "no-convergence",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "associating-acid-vapour",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "unit-alone",
+          "reflux-scan-45000-to-70000-kg-h",
+          "paper-and-round-2-vapour"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux45000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux50000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux55000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux60000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux65000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-paper-reflux70000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux45000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux50000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux55000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux60000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux65000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds5-r2-reflux70000"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col5-reflux-scan-415da41",
+        "correction_reason": "Review item 6, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row said all 12 iso-scds5 runs converge but listed 4."
+      },
+      "obstacle": "Column 5 converged and failed irregularly on neighbouring inputs on 0.6.2.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "All 12 iso-scds5 requests of 0.6.2 (reflux 45,000-70,000 kg/h, paper's and round-2 vapour) sent again unchanged.",
+      "expected_change": "Convergence across the scan.",
+      "alternatives": [],
+      "limits": [
+        "All 12 converge on 415da41, including the 4 that failed on 0.6.2: request 8 fixed for the column (case README, requests 8-15). An unreleased commit, labelled separately from the 0.6.2 release.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col5-reflux-scan-meets-limit-062-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-acid-limit"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-acid-stripping-from-ester-vapour",
+        "level": "separation",
+        "operation_type": "absorber-column",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "associating-acid-vapour",
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-vapour-6",
+          "reflux-55000-to-65000-kg-h"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux55000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux60000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux65000"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col5-reflux-scan-meets-limit-062",
+        "correction_reason": "Review item 6, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row cited the 50,000 kg/h result (0.055 %, misses the limit) without its run id."
+      },
+      "obstacle": "How much reflux does the 8-stage column need for the 0.005 wt% acid limit?",
+      "mechanism": "Scan the reflux around the paper's 60,000 kg/h.",
+      "operation": "Column 5 alone, paper's vapour 6, reflux 27 at 55,000, 60,000 and 65,000 kg/h, phases VLL.",
+      "expected_change": "Acid in the azeotrope below 0.005 wt%.",
+      "alternatives": [],
+      "limits": [
+        "Acid 0.0036 % at 55,000, 0.0004 % at 60,000 and 65,000 kg/h (case README, round 2). About 55,000 kg/h (R/V 0.58) is the least that meets it with 8 stages.",
+        "At 50,000 kg/h the column converges but misses the limit, 0.055 % acid (run cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux50000).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41-dist260",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "slow",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "closed-plant-settled",
+          "column-11-distillate-260-kmol-h"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-best-init1e-4-tol1e-5-dist260"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41",
+        "correction_reason": "Review item 11, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row's symptom was purity-short, but only 270 kmol/h converged short of the purity; 260 ended OUT_OF_TIME and 280 NO_CONVERGENCE. Split by run."
+      },
+      "obstacle": "Removing CHEPTA's extra water needs more distillate.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Settled closed plant, column 11 distillate 260 kmol/h (the 0.6.2 request sent again unchanged).",
+      "expected_change": "Product near 99.9 %.",
+      "alternatives": [],
+      "limits": [
+        "OUT_OF_TIME at the 3,400 s limit (README: iteration 23, change 7.7e-4).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41-dist270",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "closed-plant-settled",
+          "column-11-distillate-270-kmol-h"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-best-init1e-4-tol1e-5-dist270"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41",
+        "correction_reason": "Review item 11, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row's symptom was purity-short, but only 270 kmol/h converged short of the purity; 260 ended OUT_OF_TIME and 280 NO_CONVERGENCE. Split by run."
+      },
+      "obstacle": "Removing CHEPTA's extra water needs more distillate.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Settled closed plant, column 11 distillate 270 kmol/h (the 0.6.2 request sent again unchanged).",
+      "expected_change": "Product near 99.9 %.",
+      "alternatives": [],
+      "limits": [
+        "Converges: 99.223 % ester, 0.699 % water (run output): short of 99.90 %.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41-dist280",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "closed-plant-settled",
+          "column-11-distillate-280-kmol-h"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-best-init1e-4-tol1e-5-dist280"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41",
+        "correction_reason": "Review item 11, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the row's symptom was purity-short, but only 270 kmol/h converged short of the purity; 260 ended OUT_OF_TIME and 280 NO_CONVERGENCE. Split by run."
+      },
+      "obstacle": "Removing CHEPTA's extra water needs more distillate.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Settled closed plant, column 11 distillate 280 kmol/h (the 0.6.2 request sent again unchanged).",
+      "expected_change": "Product near 99.9 %.",
+      "alternatives": [],
+      "limits": [
+        "NO_CONVERGENCE: the loop stops in column 15, which cannot keep 99.99 % water (case README, request 13).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-more-stages-062-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "closed-plant-saved-start",
+          "column-11-36-to-40-stages"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-col11-36st",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-col11-38st",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-col11-40st"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-more-stages-062",
+        "correction_reason": "Review item 12, dataset/reviews/backfill-plants-review.md (PR #30, AI full check 2026-11-20): the '+0.01 point' is measured from the unsettled 99.672 % answer at tolerance 3e-4, not from the settled 99.109 %."
+      },
+      "obstacle": "Product purity short of 99.9 %.",
+      "mechanism": "More stages in column 11 (paper 35).",
+      "operation": "Closed plant from the saved start, tolerance 3e-4, 36, 38, 40 stages.",
+      "expected_change": "Higher purity.",
+      "alternatives": [],
+      "limits": [
+        "36 and 38 stages: 99.675 and 99.680 % against 99.672 % with 35 stages, all from the saved start at the unsettled tolerance 3e-4 (not the settled 99.109 %); 40 stages: NO_CONVERGENCE. The limit is the water balance, not the stage count (case README, round 3).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.ds-start-distillate-250-260-415da41-c2",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "closed-plant-ethanol-feed-6506.23",
+          "column-11-distillate-250-to-260-kmol-h"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-dsinit-dist250",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-dsinit-dist260",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-ds-ethanol0.0004-dist250",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-ds-ethanol0.0004-dist260",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-settled-extr20C-ethanol6506"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.ds-start-distillate-250-260-415da41-c1",
+        "correction_reason": "Review problem 3, dataset/reviews/backfill-corrections-review.md (PR #32, AI full check 2026-11-20): the c1 row cited 99.666 % without its run id; the run plant62-settled-extr20C-ethanol6506 (415da41 folder; the 0.6.2 copy is identical) is added to run_ids."
+      },
+      "obstacle": "Both the ethanol inventory and the column 11 water balance limit the purity.",
+      "mechanism": "Start from the design-specification answer (F1 6,506.23 kg/h) and raise the distillate by hand.",
+      "operation": "Distillate 250 and 260 kmol/h, with and without the ethanol design specification.",
+      "expected_change": "Product near 99.9 %.",
+      "alternatives": [],
+      "limits": [
+        "Converge: 99.520 % (250 kmol/h) and 99.561 % (260 kmol/h), 0.399 % water: the best answer with the ethanol feed held by a design specification and column 11's distillate raised. Water falls about 0.04 points per 10 kmol/h of distillate, so 99.90 % would need far more than 270 kmol/h (case README, scan).",
+        "The best settled closed-plant answer is 99.666 % ester, 0.296 % water, 0.038 % ethanol: extractor at 20 C and ethanol feed 6,506 kg/h (run plant62-settled-extr20C-ethanol6506, identical on 0.6.2 and 415da41). It is settled: tear tolerance 1e-5, 16 loop iterations, residual 3.7e-7, component balances within 6.4e-5 kmol/h (the run outputs).",
+        "Not tried: the cold extractor, the ethanol design specification and the raised distillate together.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-no-convergence",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "no-convergence",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "closed-plant",
+          "one-flowsheet-five-tears",
+          "paper-column-specifications"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-wegstein",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-W-dist-warm",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-warm-col5iter100"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1",
+        "correction_reason": "Review problem 4, dataset/reviews/backfill-corrections-review.md (PR #32, AI full check 2026-11-20): one row with symptom no-convergence held 9 runs of 3 kinds (4 NO_CONVERGENCE, 4 OUT_OF_TIME, 1 PHASE_SPLIT); split by symptom."
+      },
+      "obstacle": "Close the whole plant with the paper's column specifications.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Closed plant with the paper's column specifications on 415da41: the 4 variants that end NO_CONVERGENCE.",
+      "expected_change": "A closed plant.",
+      "alternatives": [],
+      "limits": [
+        "Column 5 passes. R-bottoms and R-bottoms-wegstein stop in column 11; W-dist-warm and R-bottoms-warm-col5iter100 stop at the reactor, short of ethanol (141.548 kmol/h needed against 141.333 in), since 141.5 kmol/h of product exceeds the 141.07 kmol/h of ester formed (run outputs; review PR #32).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-slow",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "slow",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "closed-plant",
+          "one-flowsheet-five-tears",
+          "paper-column-specifications"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-W-dist",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-direct",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-warm",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-purity-direct"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1",
+        "correction_reason": "Review problem 4, dataset/reviews/backfill-corrections-review.md (PR #32, AI full check 2026-11-20): one row with symptom no-convergence held 9 runs of 3 kinds (4 NO_CONVERGENCE, 4 OUT_OF_TIME, 1 PHASE_SPLIT); split by symptom."
+      },
+      "obstacle": "Close the whole plant with the paper's column specifications.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Closed plant with the paper's column specifications on 415da41: the 4 variants that end OUT_OF_TIME.",
+      "expected_change": "A closed plant.",
+      "alternatives": [],
+      "limits": [
+        "OUT_OF_TIME at the 1,500 s limit, with progress reported (README: plateau near 2e-4 to 7e-2).",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-wrong-phase",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "wrong-phase",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "closed-plant",
+          "one-flowsheet-five-tears",
+          "paper-column-specifications"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-R-bottoms-col5VL"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1",
+        "correction_reason": "Review problem 4, dataset/reviews/backfill-corrections-review.md (PR #32, AI full check 2026-11-20): one row with symptom no-convergence held 9 runs of 3 kinds (4 NO_CONVERGENCE, 4 OUT_OF_TIME, 1 PHASE_SPLIT); split by symptom."
+      },
+      "obstacle": "Close the whole plant with the paper's column specifications.",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Closed plant with the paper's column specifications on 415da41, column 5 with one liquid asked (phases VL).",
+      "expected_change": "A closed plant.",
+      "alternatives": [],
+      "limits": [
+        "PHASE_SPLIT in column 5 at loop iteration 7: correct, two liquids form there.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140-c1",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "standalone-product-column",
+          "paper-stream-13-feed",
+          "acetic-acid-0.01-mass-pct",
+          "bottoms-flow-140-kmol-h",
+          "uniquac-vll"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds11-acid0.01-bottoms140"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "corrects": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140",
+        "correction_reason": "Review problem 5, dataset/reviews/backfill-corrections-review.md (PR #32, AI full check 2026-11-20): a worked row read as a success under the failure symptom no-convergence in kb.py query; the symptom is dropped. Limits unchanged (the water-limit question is with the maintainer)."
+      },
+      "obstacle": "Trace acetic acid stopped the product column near the paper's flow on 0.6.2 (row product-column-acid-at-paper-flow).",
+      "mechanism": "The 0.6.2 requests sent again unchanged on CHEPTA main 415da41.",
+      "operation": "Column 11 alone, paper's stream 13 with 0.01 % acid, bottoms 140 kmol/h (the 0.6.2 request sent again unchanged).",
+      "expected_change": "Convergence; ester as bottoms.",
+      "alternatives": [],
+      "limits": [
+        "Converges on 415da41 (request 9 fixed; it did not on 0.6.2): 99.922 % ester, meeting 99.9 wt%; water 0.044 %, still above the 0.03 % limit (run output).",
+        "An unreleased commit, labelled separately from the 0.6.2 release.",
+        "Judged on ester purity only. Water 0.044 % exceeds the 0.03 % limit in Piotrowski & Kubica 2021, Section 3.4; whether that matters depends on the product specification of the application (maintainer, 2026-11-21, relayed by the Lab coordinator). Text note; the outcome is unchanged.",
+        "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
       ],
       "verification_required": [],
       "rationale_classification": "lab_inference",
