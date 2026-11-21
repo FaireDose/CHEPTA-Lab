@@ -553,6 +553,11 @@ def status_words(o):
             else f"failed — {who} shows it does not work; not yet run by Lab")
 
 
+def row_id_comment(d):
+    """The row id for lookup, hidden from the rendered page (kb.py show <id>)."""
+    return f"<!-- {d['id']} -->"
+
+
 def readable_plain(d, ix, sources):
     """A row with plain fields: title, then When / Do / Why / Check / Result, status and source, one per line."""
     k, plain = d["keys"], d["keys"]["plain"]
@@ -562,7 +567,7 @@ def readable_plain(d, ix, sources):
             lines.append(f"  - {label}: {plain[field]}")
     lines.append(f"  - Status: {status_words(k['outcome'])}.")
     if k.get("disputed_with"):
-        lines.append("  - Another rule under this heading disagrees with this one; both are kept.")
+        lines.append("  - Another rule disagrees with this one; both are kept.")
     refs = []
     if k.get("source"):
         refs.append(f"{source_reference(k['source']['source_id'], sources)}, {k['source']['locator']}")
@@ -575,7 +580,7 @@ def readable_plain(d, ix, sources):
     note = plain.get("note")
     tail = (" Lab has not reread the source for this summary." if note == NOT_REREAD
             else f" {note}" if note else "")
-    lines.append(f"  - Source: {'; '.join(dict.fromkeys(refs)) or 'no source'}.{tail} <sub>{d['id']}</sub>")
+    lines.append(f"  - Source: {'; '.join(dict.fromkeys(refs)) or 'no source'}.{tail} {row_id_comment(d)}")
     return "\n".join(lines)
 
 
@@ -600,47 +605,151 @@ def readable_line(d, ix, sources):
     if when:
         parts.append(f"When: {when}.")
     if k.get("disputed_with"):
-        parts.append("Disagrees with another row here.")
-    parts.append(f"<sub>{d['id']}</sub>")
+        parts.append("Disagrees with another row.")
+    parts.append(row_id_comment(d))
     return " ".join(parts)
 
 
-def build_readable(corpus, register=None, sources=None):
-    register = register if register is not None else register_rows()
+# The topic pages: every rule in plain words lands on exactly one, the first whose test it passes.
+# A topic over TOPIC_MAX rules is split (a test enforces it); the last topic catches what no other takes.
+TOPIC_MAX = 30
+TOPICS = [
+    ("property-methods", "Property methods",
+     "Wrong phases or volatilities: which thermodynamic model and parameters to use and check",
+     lambda k: k["kind"] == "simulation-rule" and k.get("symptom") == "wrong-phase"),
+    ("recycle-convergence", "Recycle convergence",
+     "Recycle loops, tears, make-ups and flashes inside loops that do not close",
+     lambda k: k["kind"] == "simulation-rule" and k["operation_type"] in ("recycle", "flash", "purge")),
+    ("column-convergence", "Column convergence",
+     "Columns that fail, are slow or miss a target: starting profiles, solvers, steady states",
+     lambda k: k["kind"] == "simulation-rule"),
+    ("safety", "Inherent safety",
+     "Safer routes from the first flowsheet: principles, indices and missing hazard data",
+     lambda k: "inherent-safety" in k["conditions"]),
+    ("heat-integration", "Heat integration",
+     "Pinch analysis, heat pumps, vapour recompression, using process heat",
+     lambda k: k["operation_type"] == "heat-integration"),
+    ("reactive-distillation", "Reactive distillation and esterification",
+     "Reaction and separation in one unit: feasibility, column design, catalysts, water-removing membranes",
+     lambda k: k["operation_type"] in ("reactive-distillation", "pervaporation", "membrane")),
+    ("azeotropes", "Azeotropes and two liquid phases",
+     "Breaking azeotropes: entrainers, solvents, decanters, pressure swing",
+     lambda k: k["operation_type"] in ("azeotropic-distillation", "extractive-distillation", "decanter",
+                                       "pressure-swing-distillation")),
+    ("reactors-recycles", "Reactors, routes and recycles",
+     "Reactor type, route choice, reactant recycles and purges",
+     lambda k: k["operation_type"] in ("cstr", "pfr", "equilibrium-reactor", "reactor-evaporator", "recycle",
+                                       "purge", "process-route")),
+    ("separation-choice", "Separation choice and distillation design",
+     "Which separation to use, column pressure, sequences, extraction, absorbers",
+     lambda k: k["operation_type"] in ("distillation", "extraction", "absorber-column", "flash", "heat-exchange")),
+    ("other", "Other rules", "Rules no other topic takes yet", lambda k: True),
+]
+RULES_DIR = INDEX_READABLE.parent / "rules"
+PLANTS_DIR = INDEX_READABLE.parent / "plants"
+NOT_PLAIN = ("not-yet-plain", "Rules not yet in plain words",
+             "Literature rules still in their one-line form, until they are rewritten")
+
+
+def topic_of(d):
+    return next(slug for slug, _, _, test in TOPICS if test(d["keys"]))
+
+
+def ranked_rows(group):
+    """Best-supported first: worked, failed, lead, untested; then by operation and id."""
+    order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
+    return sorted(group, key=lambda d: (order.get(d["keys"]["outcome"]["status"], 9), d["keys"]["operation_type"],
+                                        d["id"]))
+
+
+HOW_TO_READ = ("Each rule starts with what to do in one line, then When (the situation you recognise), Do, Why, "
+               "Check (how to verify it, in CHEPTA where it applies) and Result (what the source got), then its "
+               "status and source with page. A lead is a rule from the literature that Lab has not yet tested.")
+
+
+def build_pages(corpus, origins, sources=None):
+    """Every page for people: {path: text}. The front page, one page per topic, one page per plant's run log."""
     sources = sources if sources is not None else sources_catalogue()
     ix = pipeline.indexes(corpus)
     rows, _ = visible_decisions(corpus)
-    order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
-    ranked = lambda group: sorted(group, key=lambda d: (order.get(d["keys"]["outcome"]["status"], 9), d["id"]))
-    lines = ["# Rules and decisions in plain words (generated; do not edit)", "",
-             "Each rule starts with what to do in one line. Below it: When (the situation you recognise), Do (what "
-             "to do, with the source's numbers), Why (the mechanism), Check (how to verify it, in CHEPTA where it "
-             "applies), Result (what the source got, where it reports one), then its status and source with page. "
-             "A lead is a rule from the literature that Lab has not yet tested; worked and failed rows cite a "
-             "paper, a measurement or a CHEPTA run. Rows not yet rewritten in this shape are one line each: the "
-             "statement, its status and source, then the conditions under which it holds. The row id is in small "
-             "text for lookup. This page is for people and grows with every row: agents keep using problems.md "
-             "and `python scripts/kb.py query`, which stay short.", ""]
-    lines += ["## By register problem", ""]
-    for problem, level in register.items():
-        mine = [d for d in rows if d["keys"].get("problem_id") == problem]
-        if mine:
-            lines += [f"### {plain(problem)} ({level})", ""] + [readable_line(d, ix, sources) for d in ranked(mine)] + [""]
-    lines += ["## By operation and simulation symptom", ""]
-    pairs = {}
+    rules = [d for d in rows if d["keys"]["kind"] in RULE_KINDS]
+    topics = {slug: [] for slug, *_ in TOPICS}
+    for d in rules:
+        if d["keys"].get("plain"):
+            topics[topic_of(d)].append(d)
+    not_plain = [d for d in rules if not d["keys"].get("plain")]
+    plants = {}
     for d in rows:
-        if "symptom" in d["keys"]:
-            pairs.setdefault((d["keys"]["operation_type"], d["keys"]["symptom"]), []).append(d)
-    for (op, sym), group in sorted(pairs.items()):
-        lines += [f"### {plain(op)}: {plain(sym)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
-    lines += ["## General design rules by operation", ""]
-    general = {}
-    for d in rows:
-        if d["keys"]["kind"] == "design-rule" and "problem_id" not in d["keys"]:
-            general.setdefault(d["keys"]["operation_type"], []).append(d)
-    for op, group in sorted(general.items()):
-        lines += [f"### {plain(op)}", ""] + [readable_line(d, ix, sources) for d in ranked(group)] + [""]
-    return "\n".join(lines).rstrip("\n") + "\n"
+        if d["keys"]["kind"] not in RULE_KINDS:
+            plants.setdefault(origins.get(d["id"], "unknown"), []).append(d)
+    pages = {}
+    back = "[All topics](../rules-readable.md)"
+
+    def rule_page(title, covers, group):
+        lines = [f"# {title} (generated; do not edit)", "", f"{covers}. {len(group)} rules. {back}", "",
+                 HOW_TO_READ, ""]
+        for d in ranked_rows(group):
+            lines += [readable_line(d, ix, sources), ""]
+        return "\n".join(lines).rstrip("\n") + "\n"
+
+    toc = []
+    for slug, title, covers, _ in TOPICS:
+        if topics[slug]:
+            pages[RULES_DIR / f"{slug}.md"] = rule_page(title, covers, topics[slug])
+            toc.append(f"| [{title}](rules/{slug}.md) | {covers} | {len(topics[slug])} |")
+    if not_plain:
+        slug, title, covers = NOT_PLAIN
+        pages[RULES_DIR / f"{slug}.md"] = rule_page(title, covers, not_plain)
+        toc.append(f"| [{title}](rules/{slug}.md) | {covers} | {len(not_plain)} |")
+    plant_toc = []
+    for case, group in sorted(plants.items()):
+        lines = [f"# Run log: {case} (generated; do not edit)", "",
+                 "Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped by "
+                 f"unit, best-supported first; the row id is in an HTML comment for `kb.py show`. {back}", ""]
+        units = {}
+        for d in group:
+            units.setdefault(d["keys"]["operation_type"], []).append(d)
+        for unit, mine in sorted(units.items()):
+            lines += [f"## {plain(unit)} ({len(mine)})", ""] + [readable_line(d, ix, sources)
+                                                                 for d in ranked_rows(mine)] + [""]
+        pages[PLANTS_DIR / f"{case}.md"] = "\n".join(lines).rstrip("\n") + "\n"
+        plant_toc.append(f"| [{case}](plants/{case}.md) | {len(group)} |")
+    front = ["# Rules in plain words (generated; do not edit)", "",
+             "Pick a topic below; each page lists its rules, best-supported first.",
+             HOW_TO_READ,
+             "Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; the plants' run logs "
+             "are listed at the end.", "",
+             "| Topic | What it covers | Rules |", "|---|---|---|"] + toc
+    if plant_toc:
+        front += ["", "## Run logs of the plants (not yet written as lessons)", "",
+                  "| Case | Rows |", "|---|---|"] + plant_toc
+    pages[INDEX_READABLE] = "\n".join(front) + "\n"
+    return pages
+
+
+def build_readable(corpus, origins, sources=None):
+    """The front page alone."""
+    return build_pages(corpus, origins, sources)[INDEX_READABLE]
+
+
+def page_errors(corpus, origins):
+    """Generated pages that are missing, stale, or left over from an earlier index."""
+    pages = build_pages(corpus, origins)
+    stale = [path for path, text in pages.items() if not path.is_file() or path.read_text() != text]
+    extra = [path for folder in (RULES_DIR, PLANTS_DIR) if folder.is_dir()
+             for path in sorted(folder.glob("*.md")) if path not in pages]
+    return stale + extra
+
+
+def write_pages(corpus, origins):
+    pages = build_pages(corpus, origins)
+    for folder in (RULES_DIR, PLANTS_DIR):
+        folder.mkdir(parents=True, exist_ok=True)
+        for path in folder.glob("*.md"):
+            if path not in pages:
+                path.unlink()
+    for path, text in pages.items():
+        path.write_text(text)
 
 
 def read_lock():
@@ -649,8 +758,8 @@ def read_lock():
 
 def index_errors(corpus, origins):
     md, js = build_index(corpus, origins)
-    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js), (INDEX_READABLE, build_readable(corpus)))
-             if not path.is_file() or path.read_text() != text]
+    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js)) if not path.is_file() or path.read_text() != text]
+    stale += page_errors(corpus, origins)
     errors = [f"{p.relative_to(ROOT)} is stale: run python scripts/kb.py index" for p in stale]
     lock, now = read_lock(), lock_entries(corpus)
     missing = [k for k in now["outcomes"] if k not in lock.get("outcomes", {})]
@@ -691,7 +800,7 @@ def write_index(corpus, origins):
     INDEX_MD.parent.mkdir(parents=True, exist_ok=True)
     INDEX_MD.write_text(md)
     INDEX_JSON.write_text(js)
-    INDEX_READABLE.write_text(build_readable(corpus))
+    write_pages(corpus, origins)
     LOCK.write_text(json.dumps(lock, indent=2, ensure_ascii=False) + "\n")
 
 
@@ -788,7 +897,8 @@ def main(argv=None):
             if errors:
                 raise ValueError("\n".join(errors))
             write_index(corpus, origins)
-            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {INDEX_READABLE.relative_to(ROOT)}, "
+            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {INDEX_READABLE.relative_to(ROOT)} "
+                  f"with {RULES_DIR.relative_to(ROOT)}/ and {PLANTS_DIR.relative_to(ROOT)}/, "
                   f"{LOCK.relative_to(ROOT)}")
             return 0
         if args.command == "disputes":

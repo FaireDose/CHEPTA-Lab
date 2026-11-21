@@ -132,6 +132,13 @@ simulation in the same knowledge base, not only what Lab's own cases showed.
   `note: "source not reread"` marks a row written from the statement alone. `rules-readable.md` renders these rows
   as title, the five lines, a plain status and "Source: Author Year, *short title* (link), locator"; other rows keep
   the one-line form. problems.md, problems.json and `kb.py query` are unchanged, so agents read as before.
+- **Pages for people by topic (amendment, 2026-11-21).** `rules-readable.md` is a short front page: how to read,
+  then a table of topics with a line on each and its number of rules. `kb.py` puts every plain rule on exactly one
+  page under `dataset/index/rules/`, by the first topic in `TOPICS` its keys match (symptom for simulation rules,
+  then operation; safety by its condition tag), best-supported first, at most `TOPIC_MAX` (30) rules a page (a test
+  enforces it: split a topic when it grows). Rules not yet in plain words get their own page. Case decisions go to
+  `dataset/index/plants/<case>.md`, grouped by unit and marked as a run log, not yet lessons. Row ids are in HTML
+  comments. The stale-index test covers every page, and refuses leftover pages.
 
 ## To decide
 
