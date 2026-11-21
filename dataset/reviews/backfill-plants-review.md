@@ -6,7 +6,8 @@ It is not a person's check. The person's spot check (below) is still to do, and 
 Reviewed: branch `claude/lab-backfill-plants` at commit `62237f8`. The rows in
 `dataset/records/ethyl-acetate-piotrowski-2021.json` and `dataset/records/methanol-co2-campos-2022.json`, the 5 new
 register rows in `data/ISSUES_AND_ROUTES.md`, the edits to `tests/test_kb.py`, the line in the process-design skill and
-the regenerated index.
+the regenerated index. PR #28 has since merged. On main at `ca68c70` the two record files, the register and
+`tests/test_kb.py` are byte-identical to `62237f8` (checked with `git diff`), so every finding below applies to main.
 
 ## What was checked
 
@@ -53,9 +54,11 @@ the regenerated index.
 Severity: **major** means a row claims more than its runs show, on a result that matters. **Minor** means a row is
 inaccurate or incomplete but the conclusion stands. **Nit** means wording or bookkeeping.
 
-**Why this matters before merging:** `kb.py index` copies each CHEPTA-run outcome into
-`dataset/index/outcomes.lock.json`, and a later edit of that outcome fails the checks. Correct the statuses before
-the PR merges, or the corrections will need deliberate edits of the lock file.
+**Correcting statuses now needs the lock file:** `kb.py index` copies each CHEPTA-run outcome into
+`dataset/index/outcomes.lock.json`, and a later edit of that outcome fails the checks. #28 has merged, and the lock on
+main already holds the `worked` statuses of problems 2, 3 and 5. Correct them by adding new rows (the convention for a
+later finding), or by a deliberate edit of the lock with the reason in the commit, as the lock's own note allows. The
+maintainer decides which.
 
 ### Major
 
@@ -175,11 +178,29 @@ the PR merges, or the corrections will need deliberate edits of the lock file.
 | 2 | Least sure: a convention, not a fact | `ethyl-acetate-piotrowski-2021.col11-acid-flow-140.5-415da41` (problem 2) | S16 in `…/results-chepta-main-415da41/new-iso-scds11-acid0.01-bottoms140.5.output.json`: 99.897 % ester, 0.066 % water, against the 99.9 wt% and 0.03 % limits (paper p.9, Section 3.4). Does a target met at two-decimal rounding count as `worked`? The answer decides problems 2 and 3. |
 | 3 | Picked at random (uniform draw over the 92 new decision rows) | `methanol-co2-campos-2022.plant-purity-spec-415da41` | `cases/methanol-co2-campos-2022/results-chepta-main-415da41/plant-vl-share-warm-purity.output.json`: `NO_CONVERGENCE`, "inside the range ... the stage solver did not converge". And `vl-column-CO2-MeOH-H2O-purity.output.json`: 30-WATER 99.9850 mol % water, the paper's 99.985 (Table S10). I found this row correct. |
 
+**Person spot check (items, date):** not yet done; for the maintainer to record.
+
+If a spot-checked item turns out wrong, AGENTS.md requires a full recheck: the rows are corrected, then a new AI
+review session (not this reviewer, not the builder) checks everything again and includes the corrected item in its
+spot check.
+
+## What was not checked
+
+- Whether the CHEPTA results are physically right: no measured data were consulted (for example the CO2 solubility
+  at 70 bar).
+- The other EA rows already on main before this PR (the 3 October decisions and the 2 example rows). For example,
+  `product-column-acid-at-paper-flow` still cites `ea-impurity-limits`.
+- The index files beyond `kb.py check` reporting them current. Wall times, which I took from the READMEs.
+
+## Person spot check (added on PR #31)
+
 **Person spot check (maintainer, 2026-11-20):** item 2 judged (99.897 % meets 99.90 wt %); item 1 accepted on the AI
 check, not checked by the person; item 3 not checked by the person.
 
 This line was written by the builder session (not by the maintainer) from the maintainer's decisions as relayed by the
 Lab coordinator session on 2026-11-20; the maintainer should confirm it.
+
+## Corrections made (PR #31)
 
 **What was done with the problems (PR #31, 2026-11-20).** Locked rows were corrected by new rows with `keys.corrects`
 (proposal 0003, section F), never edited:
@@ -193,14 +214,6 @@ Lab coordinator session on 2026-11-20; the maintainer should confirm it.
 - Items 4-8, 11, 12: correcting rows (`-c1`, or a split for item 11). Items 9, 13, 14: plain edits. Item 10: left
   for now (the coordinator, 2026-11-20).
 
-If a spot-checked item turns out wrong, AGENTS.md requires a full recheck: the rows are corrected, then a new AI
-review session (not this reviewer, not the builder) checks everything again and includes the corrected item in its
-spot check.
-
-## What was not checked
-
-- Whether the CHEPTA results are physically right: no measured data were consulted (for example the CO2 solubility
-  at 70 bar).
-- The other EA rows already on main before this PR (the 3 October decisions and the 2 example rows). For example,
-  `product-column-acid-at-paper-flow` still cites `ea-impurity-limits`.
-- The index files beyond `kb.py check` reporting them current. Wall times, which I took from the READMEs.
+Later changes on PR #31 after the second review (dataset/reviews/backfill-corrections-review.md): the correction path
+was tightened (proposal 0003, section F), and the 140 and 140.5 kmol/h rows carry a note on the missed water limit
+(the maintainer, 2026-11-21).
