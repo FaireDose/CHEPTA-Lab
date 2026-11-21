@@ -130,15 +130,23 @@ PR #28 was merged before its AI review (PR #30) finished, so some wrong outcomes
 lock. A locked row is never edited; it is corrected by a new row:
 
 - The correcting row carries `keys.corrects: <row id>` and `keys.correction_reason` (why, citing the review note).
-  Several rows may correct one row (a split); two rows cannot correct each other; the target must exist.
+  Checks (`kb.py check`; the target's existence also in `dataset_pipeline.py validate`): the target must exist, must
+  not be the row itself and must be in the same record file; a reason is required; corrections must not form a
+  cycle of any length (a chain, where a correction is itself corrected, is fine). Several rows may correct one row
+  (a split).
 - `kb.py` treats the corrected row as **withdrawn**: left out of the counts, the current rows and the disputes,
   counted as `withdrawn` in `problems.json`, struck through with "corrected by <id>" in `rules-readable.md`, and
-  marked `WITHDRAWN` in `kb.py query` (`corrected_by` in `show` and `--json`). It stays in the record file and the
-  lock unchanged, so the lock check still refuses any silent edit or deletion.
-- A row whose outcome is not locked (a paper's design, a Lab inference) may still be edited in place; say so in
-  its limits.
-- Tests: a correction passes, an edit of the corrected row still fails, a correction to a missing row or without a
-  reason is refused, and the counts move as expected (`tests/test_kb.py`).
+  marked `WITHDRAWN` in `kb.py query` (`corrected_by` in `show` and `--json`). It stays in the record file unchanged.
+- **What the lock protects** (`dataset/index/outcomes.lock.json`, written by `kb.py index`): the outcome of every
+  CHEPTA-run row, every `informed_by` list, every correction (`corrects` with `correction_reason`) and the ids of
+  all indexed rows. After indexing, editing or removing a locked outcome, an `informed_by` entry or a correction
+  fails `kb.py check`, and so does adding `keys.corrects` to a row that was already indexed. The lock does not
+  protect a row's text (`limits`, `operation`, ...) or the outcome of a row that is not a CHEPTA run; those may be
+  edited in place, and the row's limits say so.
+- Tests (`tests/test_kb.py`): a correction passes and keeps the corrected row; an edit or deletion of the corrected
+  row still fails; a correction to a missing row, to itself or without a reason is refused; the counts move as
+  expected; a correction from another record file is refused; changing, removing or adding a correction after
+  indexing fails; a cycle of three is refused; `dataset_pipeline.py validate` refuses an unknown target.
 
 ## To decide
 

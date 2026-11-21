@@ -114,6 +114,11 @@ def used_in(rows, origins):
 
 # ---------- corrections ----------
 
+def record_file(row_id):
+    """The record file a row id belongs to: namespaced ids start with '<file>.'; the legacy pilot.json has none."""
+    return row_id.split(".", 1)[0] if "." in row_id else "pilot"
+
+
 def corrected_by(decisions):
     """Rows withdrawn by a correction: corrected row id -> the ids of the rows that correct it. A correcting row
     names the row in keys.corrects with keys.correction_reason; the corrected row stays in the files and the lock
@@ -323,8 +328,17 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
                               "(keys.correction_reason)")
             elif target == d["id"] or target not in ix["decisions"]:
                 errors.append(f"{where}: corrects names unknown row {target}")
-            elif ix["decisions"][target]["keys"].get("corrects") == d["id"]:
-                errors.append(f"{where}: two rows cannot correct each other")
+            elif record_file(target) != record_file(d["id"]):
+                errors.append(f"{where}: a correction belongs to the same record file as the row it corrects "
+                              f"({target} is in {record_file(target)}.json)")
+            else:
+                seen, step = {d["id"]}, target
+                while step in ix["decisions"]:
+                    if step in seen:
+                        errors.append(f"{where}: corrections form a cycle through {step}")
+                        break
+                    seen.add(step)
+                    step = ix["decisions"][step]["keys"].get("corrects")
     for e in corpus["evidence"]:
         k = e.get("keys")
         if not k:
@@ -345,13 +359,19 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
 
 
 def lock_entries(corpus):
-    """Append-only parts (held-out rows left out): outcomes from CHEPTA runs, and every informed_by list."""
+    """Append-only parts (held-out rows left out): outcomes from CHEPTA runs, every informed_by list, every
+    correction (keys.corrects with keys.correction_reason), and the ids of all indexed rows, so that a correction
+    cannot be added to a row afterwards."""
     rows, _ = visible_decisions(corpus)
     rows = sorted(rows, key=lambda d: d["id"])
     return {"outcomes": {d["id"]: copy.deepcopy(d["keys"]["outcome"]) for d in rows
                          if d["keys"]["outcome"]["basis"] == "chepta_run"},
             "informed_by": {d["id"]: copy.deepcopy(d["keys"]["informed_by"]) for d in rows
-                            if d["keys"].get("informed_by")}}
+                            if d["keys"].get("informed_by")},
+            "corrections": {d["id"]: {"corrects": d["keys"]["corrects"],
+                                      "correction_reason": d["keys"].get("correction_reason")}
+                            for d in rows if d["keys"].get("corrects")},
+            "indexed": [d["id"] for d in rows]}
 
 
 def lock_errors(corpus, lock):
@@ -371,6 +391,17 @@ def lock_errors(corpus, lock):
             continue
         if now["informed_by"].get(key, [])[:len(entries)] != entries:
             errors.append(f"{key}: an informed_by entry was edited or deleted; the list is append-only")
+    for key, entry in lock.get("corrections", {}).items():
+        if key in hidden:
+            continue
+        if now["corrections"].get(key) != entry:
+            errors.append(f"{key}: a correction (keys.corrects, keys.correction_reason) was edited or removed; "
+                          "corrections are append-only: add a new correcting row instead")
+    indexed = set(lock.get("indexed", []))
+    for key in now["corrections"]:
+        if key in indexed and key not in lock.get("corrections", {}):
+            errors.append(f"{key}: keys.corrects was added to a row that was already indexed; a correction is a "
+                          "new row")
     return errors
 
 
@@ -579,6 +610,8 @@ def index_errors(corpus, origins):
     lock, now = read_lock(), lock_entries(corpus)
     missing = [k for k in now["outcomes"] if k not in lock.get("outcomes", {})]
     missing += [k for k, v in now["informed_by"].items() if lock.get("informed_by", {}).get(k) != v]
+    missing += [k for k in now["corrections"] if k not in lock.get("corrections", {})]
+    missing += [k for k in now["indexed"] if k not in set(lock.get("indexed", []))]
     if missing:
         errors.append(f"outcome lock misses {', '.join(sorted(set(missing)))}: run python scripts/kb.py index")
     return errors + lock_errors(corpus, lock)
@@ -606,11 +639,16 @@ def write_index(corpus, origins):
     outcomes.update({k: v for k, v in now["outcomes"].items() if k not in outcomes})
     informed = dict(lock.get("informed_by", {}))
     informed.update(now["informed_by"])  # lock_errors has checked that the old entries are a prefix
+    corrections = dict(lock.get("corrections", {}))
+    corrections.update({k: v for k, v in now["corrections"].items() if k not in corrections})
+    indexed = sorted(set(lock.get("indexed", [])) | set(now["indexed"]))
     lock = {"about": "Append-only parts of the records, written by python scripts/kb.py index: outcomes from CHEPTA "
-                     "runs and informed_by lists. Editing or deleting one in dataset/records/ fails the checks: add a "
-                     "new row or entry instead. Changing this file by hand is a deliberate correction; say why in the "
-                     "commit.",
-            "outcomes": dict(sorted(outcomes.items())), "informed_by": dict(sorted(informed.items()))}
+                     "runs, informed_by lists, corrections (keys.corrects with keys.correction_reason) and the ids "
+                     "of the indexed rows. Editing or deleting one in dataset/records/, or adding keys.corrects to an "
+                     "indexed row, fails the checks: add a new row or entry instead. Changing this file by hand is a "
+                     "deliberate correction; say why in the commit.",
+            "outcomes": dict(sorted(outcomes.items())), "informed_by": dict(sorted(informed.items())),
+            "corrections": dict(sorted(corrections.items())), "indexed": indexed}
     md, js = build_index(corpus, origins)
     INDEX_MD.parent.mkdir(parents=True, exist_ok=True)
     INDEX_MD.write_text(md)
