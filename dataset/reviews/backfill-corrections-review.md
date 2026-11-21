@@ -143,6 +143,27 @@ with the items and the date. Not recorded here on the maintainer's behalf.
 If a spot-checked item is wrong, AGENTS.md requires a full recheck: the case is corrected, then a new AI review
 session (not this reviewer, not the builder) checks everything again and includes the corrected item in its spot check.
 
+## Follow-up check (Claude Sonnet 5.5, 2026-11-21)
+
+Checked: `claude/lab-backfill-plants` at `e894f86` merged into this branch. `python scripts/kb.py check` (index
+current) and `python -m unittest discover -s tests` (108 tests) pass. Only whether my findings are fixed was checked;
+the new rows' numbers were compared with the run outputs where they changed.
+
+| Finding | Result |
+|---|---|
+| Major 1, attempts a-d, rerun on a copy of the corpus | **Fixed.** (a) an existing methanol row given `corrects` on an EA row: refused twice (other record file; added to an indexed row). The same with an existing EA row: refused by the lock. (b) removing or editing `corrects`/`correction_reason` of an existing correcting row: lock error. (c) a 3-cycle: refused by `check_keys` and the lock. (d) deleting a correcting or a corrected row, or editing a corrected outcome: lock errors. `dataset_pipeline.py validate` also refuses an unknown target. Section F now says what the lock covers and does not. |
+| Major 2 | **Fixed** by `reactor-lhhw-u-assumed-062-c2`: all six components and 0.40 K listed, H2 0.035 points; the numbers match the runs. |
+| Minor 3 | **Fixed** by `ds-start-distillate-250-260-415da41-c2`: `plant62-settled-extr20C-ethanol6506` is now in `run_ids`. |
+| Minor 4 | **Fixed**: split into `-c1-no-convergence` (4 runs), `-c1-slow` (4 runs, OUT_OF_TIME) and `-c1-wrong-phase` (col5VL, PHASE_SPLIT); the run sets and texts match the outputs. |
+| Minor 5 | **Fixed** by `col11-acid-paper-flow-415da41-converges-140-c1` (symptom dropped). |
+| Minor 6 | Unchanged on purpose (water limit, pending the maintainer). |
+| Nits 7, 8, 10 | **Fixed**: `plant-closed-062-c2` gives 394.47 and 30-WATER 99.9994 % (run: 99.99944). The validator now checks the target. Nit 9 was withdrawn from the note. |
+
+One gap remains, not a regression: a **new** correcting row in the same record file is checked only for existence, a
+reason, no cycle and the same file. Nothing requires the same problem or operation as the target (a test row for a
+different problem, `plant-recycles-makeup-purge`, was accepted at `check`). Once the row is indexed the lock protects it,
+and the change is visible in the PR diff, so the review of the new row is the control. Minor.
+
 ## What was not checked
 
 - Whether the CHEPTA results are physically right (no measured data consulted).
