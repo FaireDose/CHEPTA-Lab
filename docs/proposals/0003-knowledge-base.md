@@ -43,6 +43,8 @@ Outcome rules: a CHEPTA outcome names its engine (`chepta@0.6.2`) and its runs; 
 engine `chepta@X.Y.Z`. A Lab inference can only be untested or a lead (the register's rule: a route counts as usable
 only when a paper or a CHEPTA run shows it). Evidence rows may carry optional keys (`problem_ids`, components,
 behaviours) so a passage can count for a problem without a decision.
+An outcome is judged against the objective the row names; every other limit it misses is stated in the row with its
+source, and is never generalised into a rule without the application's specification (the maintainer, 2026-11-21).
 
 The three October decisions are upgraded, not left as legacy: all three are keyed to
 `sep-ester-alcohol-water-azeotrope` as the paper's own simulated route (worked, paper_simulation). Two example rows,
