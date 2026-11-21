@@ -14,7 +14,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | sep-two-liquids-with-acetic-acid | separation | distillation,extraction,heat-exchange | associating-acid-vapour,azeotrope-min-boiling,two-liquid-phases | 5/3/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | sep-acid-stripping-from-ester-vapour | separation | absorber-column | associating-acid-vapour,azeotrope-min-boiling,equilibrium-limited-reaction,recycle-loop,trace-impurity-limit,two-liquid-phases | 5/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | rxn-esterification-equilibrium-limited | reaction | heat-exchange,reactor-evaporator | equilibrium-limited-reaction,recycle-loop | 4/0/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
-| plant-recycles-makeup-purge | plant | distillation,purge,recycle | associating-acid-vapour,component-without-exit,purge-and-make-up,recycle-loop,trace-impurity-limit,two-liquid-phases | 6/11/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
+| plant-recycles-makeup-purge | plant | distillation,purge,recycle | associating-acid-vapour,component-without-exit,purge-and-make-up,recycle-loop,trace-impurity-limit,two-liquid-phases | 6/13/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | rxn-co2-hydrogenation-methanol | reaction | pfr | equilibrium-limited-reaction,exothermic-reaction | 2/0/0/0 | 0 | 1 | 0/0/0 | methanol-co2-campos-2022 |
 | sep-co2-dissolved-in-methanol-water | separation | flash | non-condensable-gas,purge-and-make-up,recycle-loop | 2/1/0/1 | 0 | 1 | 0/0/0 | methanol-co2-campos-2022 |
 | sep-methanol-water-with-dissolved-gases | separation | distillation | non-condensable-gas,purge-and-make-up,recycle-loop | 5/7/0/1 | 0 | 1 | 0/0/0 | methanol-co2-campos-2022 |
@@ -31,7 +31,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | azeotropic-distillation | no-convergence | 0/0/7/0 | 0 | 1 | 0/0/0 | kruber-skiborowski-2022-heteroazeotropic-init |
 | azeotropic-distillation | purity-short | 0/0/1/0 | 0 | 1 | 0/0/0 | kruber-skiborowski-2022-heteroazeotropic-init |
 | azeotropic-distillation | wrong-phase | 0/0/1/0 | 0 | 1 | 0/0/0 | kruber-skiborowski-2022-heteroazeotropic-init |
-| distillation | no-convergence | 2/10/5/0 | 0 | 5 | 0/0/0 | ethyl-acetate-piotrowski-2021,henrique-2020-dwc-simulation,kruber-skiborowski-2022-heteroazeotropic-init,methanol-co2-campos-2022,steffen-2024-rd-modelling-review |
+| distillation | no-convergence | 1/10/5/0 | 0 | 5 | 0/0/0 | ethyl-acetate-piotrowski-2021,henrique-2020-dwc-simulation,kruber-skiborowski-2022-heteroazeotropic-init,methanol-co2-campos-2022,steffen-2024-rd-modelling-review |
 | distillation | purity-short | 0/9/1/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,kooijman-taylor-2006-chemsep-book |
 | distillation | slow | 1/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | distillation | wrong-phase | 0/0/3/0 | 0 | 3 | 0/0/0 | jankovic-2023-ipa-acetone-recovery,palomar-2024-il-process-simulation,pasha-2021-biodiesel-process-design |
@@ -54,7 +54,8 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | recycle | purity-short | 0/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | recycle | recycle-drift | 1/1/1/0 | 0 | 2 | 0/0/0 | andreasen-2022-dwsim-evaluation,ethyl-acetate-piotrowski-2021 |
 | recycle | section-fails | 0/2/0/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,methanol-co2-campos-2022 |
-| recycle | slow | 1/2/0/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,methanol-co2-campos-2022 |
+| recycle | slow | 1/3/0/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,methanol-co2-campos-2022 |
+| recycle | wrong-phase | 0/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 
 ## General design rules: one line per operation
 

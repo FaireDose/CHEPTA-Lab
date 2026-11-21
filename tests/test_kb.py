@@ -360,6 +360,47 @@ class KnowledgeBaseTests(unittest.TestCase):
         del row["keys"]["correction_reason"]
         self.assertTrue(any("keys.correction_reason" in e for e in self.errors()))
 
+    # The four misuses found by the review of PR #31 (dataset/reviews/backfill-corrections-review.md, problem 1).
+
+    def test_a_correction_from_another_record_file_refused(self):
+        row = copy.deepcopy(next(d for d in self.corpus["decisions"] if d["id"].startswith("methanol-co2-campos-2022.")))
+        row["id"] = "methanol-co2-campos-2022.synthetic-foreign-correction"
+        row["keys"]["corrects"] = EXAMPLE
+        row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.corpus["decisions"].append(row)
+        self.assertTrue(any("same record file" in e for e in self.errors()))
+
+    def test_b_correction_is_append_only_once_indexed(self):
+        row = self.correction()
+        lock = kb.lock_entries(self.corpus)
+        self.assertEqual(kb.lock_errors(self.corpus, lock), [])
+        row["keys"]["correction_reason"] = "Changed afterwards."
+        self.assertTrue(any("was edited or removed" in e for e in kb.lock_errors(self.corpus, lock)))
+        del row["keys"]["corrects"], row["keys"]["correction_reason"]
+        self.assertTrue(any("was edited or removed" in e for e in kb.lock_errors(self.corpus, lock)))
+        # Adding keys.corrects to a row that was already indexed is refused too.
+        lock = kb.lock_entries(self.corpus)
+        old = self.decision("ethyl-acetate-piotrowski-2021.product-column-acid-below-paper-flow")
+        old["keys"]["corrects"] = EXAMPLE
+        old["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.assertTrue(any("already indexed" in e for e in kb.lock_errors(self.corpus, lock)))
+
+    def test_c_correction_cycle_of_any_length_refused(self):
+        ids = [f"{EXAMPLE}-cycle-{i}" for i in range(3)]
+        for i, key in enumerate(ids):
+            row = self.clone(EXAMPLE, key)
+            row["keys"]["corrects"] = ids[(i + 1) % 3]
+            row["keys"]["correction_reason"] = "SYNTHETIC UNIT TEST ONLY"
+        self.assertTrue(any("form a cycle" in e for e in self.errors()))
+        self.decision(ids[2])["keys"]["corrects"] = EXAMPLE  # a chain is fine
+        self.assertEqual(self.errors(), [])
+
+    def test_d_pipeline_validate_checks_the_correction_target(self):
+        row = self.correction()
+        self.assertEqual(p.validate(self.corpus, self.sources), [])
+        row["keys"]["corrects"] = "no-such-row"
+        self.assertTrue(any("corrects names unknown row" in e for e in p.validate(self.corpus, self.sources)))
+
     def test_correction_changes_the_counts(self):
         self.only_example_rules()
         count = lambda: next(p for p in json.loads(kb.build_index(self.corpus, self.origins)[1])["problems"]
