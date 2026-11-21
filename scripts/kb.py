@@ -38,6 +38,15 @@ STATUSES_SHOWN = ("worked", "failed", "lead", "untested")
 RULE_KINDS = ("design-rule", "simulation-rule")
 RESULTS_DIR = re.compile(r"^results-chepta-([0-9]+\.[0-9]+\.[0-9]+)$")
 QUOTED = re.compile(r"[\"“”«»]([^\"“”«»]+)[\"“”«»]")
+PLAIN_FIELDS = ("title", "when", "do", "why", "check", "result", "note")
+PLAIN_MAX = {"title": 140, "note": 300}  # other fields: PLAIN_FIELD_MAX characters
+PLAIN_FIELD_MAX = 450
+NOT_REREAD = "source not reread"
+# "the paper", "the authors", "the review" ... alone: the reader cannot tell which. Name it, e.g.
+# "the paper (Piotrowski & Kubica 2021, https://doi.org/...)", or just "Piotrowski & Kubica 2021".
+BARE_REFERENCE = re.compile(r"\b(?:the|this|that|these|those)\s+(?:paper|papers|authors?|review|book|study|studies|"
+                            r"article|source)(?:'s|’s|s')?(?!\s*\([A-Z])\b", re.IGNORECASE)
+NUMBER = re.compile(r"(?<![A-Za-z])\d+(?:[.,]\d+)*")  # not the 2 of CO2 or the 3 of m3
 
 
 # ---------- reading ----------
@@ -213,6 +222,52 @@ def statement_errors(where, text, limits):
     return errors
 
 
+def row_text(d, ix):
+    """Everything a row already says, where the numbers of its plain fields must come from."""
+    k = d["keys"]
+    parts = [k.get("statement", ""), k.get("source", {}).get("locator", ""), d["obstacle"], d["mechanism"],
+             d["operation"], d["expected_change"], " ".join(d["alternatives"]), " ".join(d["limits"]),
+             " ".join(d["verification_required"]), " ".join(k["conditions"]), k.get("plain", {}).get("note", "")]
+    for e_id in d["evidence_ids"]:
+        e = ix["evidence"].get(e_id)
+        if e:
+            parts.append(e["claim"])
+            parts += [f"{q['value']} {q['unit']}" for q in e["quantities"]]
+    return " ".join(parts)
+
+
+def plain_errors(d, ix):
+    """The plain fields are for a process engineer: short, named sources, no ids, no number without a source."""
+    where, plain = d["id"], d["keys"].get("plain")
+    if plain is None:
+        return []
+    errors = []
+    for field in PLAIN_FIELDS:
+        text = plain.get(field)
+        if text is None:
+            continue
+        if "\n" in text or len(text) > PLAIN_MAX.get(field, PLAIN_FIELD_MAX):
+            errors.append(f"{where}: plain.{field} is one short paragraph of at most "
+                          f"{PLAIN_MAX.get(field, PLAIN_FIELD_MAX)} characters")
+        bare = BARE_REFERENCE.search(text)
+        if bare and field != "note":
+            errors.append(f"{where}: plain.{field} says '{bare.group(0)}' without naming it; write the authors and "
+                          "year, e.g. 'Piotrowski & Kubica 2021'")
+        if any(i in text for i in ix["decisions"] if "." in i):
+            errors.append(f"{where}: plain.{field} names a row id; plain text is for people")
+        for quoted in QUOTED.findall(text):
+            if len(quoted.split()) > 6:
+                errors.append(f"{where}: plain.{field} quotes more than 6 words; paraphrase instead of copying")
+    known = set(NUMBER.findall(row_text(d, ix)))
+    for field in ("title", "when", "do", "why", "check", "result"):
+        for n in NUMBER.findall(plain.get(field, "")):
+            if n not in known:
+                errors.append(f"{where}: plain.{field} gives {n}, which is not in the row's statement, limits, "
+                              "evidence or source locator; never invent a number (name the passage reread in "
+                              "plain.note)")
+    return errors
+
+
 def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
     vocab = vocab or vocabulary()
     register = register if register is not None else register_rows()
@@ -274,6 +329,7 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
             if src is None or not src.get("rights_status"):
                 errors.append(f"{where}: source {k['source']['source_id']} must be in data/sources.json with its "
                               "rights status")
+        errors.extend(plain_errors(d, ix))
         if "statement" in k:
             if "source" not in k:
                 errors.append(f"{where}: a statement needs its source and locator")
@@ -518,6 +574,8 @@ def source_label(source_id, sources):
     s = sources.get(source_id)
     if not s:
         return source_id
+    if s.get("cite_as"):  # for surnames the first-and-last-word rule gets wrong
+        return f"{s['cite_as']} {s['year']}" if s.get("year") else s["cite_as"]
     names = [a.strip() for a in s.get("authors", "").split(";") if a.strip()]
     surname = lambda n: n.split()[-1] if n.split() else n
     who = (surname(names[0]) if len(names) == 1 else f"{surname(names[0])} & {surname(names[1])}" if len(names) == 2
@@ -525,9 +583,83 @@ def source_label(source_id, sources):
     return f"{who} {s['year']}" if s.get("year") else who
 
 
+def source_reference(source_id, sources):
+    """'Author Year, *short title* (link)' for the readable page."""
+    s = sources.get(source_id)
+    if not s:
+        return source_id
+    words = re.split(r"[:(]", s.get("title", ""))[0].split()
+    title = " ".join(words[:7]) + ("…" if len(words) > 7 else "")
+    link = f"https://doi.org/{s['doi']}" if s.get("doi") else s.get("url")
+    return source_label(source_id, sources) + (f", *{title}*" if title else "") + (f" ({link})" if link else "")
+
+
+def status_words(o):
+    """The outcome in plain words: what the status means and who showed it."""
+    basis = o["basis"]
+    if o["status"] == "lead":
+        return ("lead — from the literature, not yet tested by Lab" if basis == "textbook"
+                else "lead — a suggestion, not yet tested")
+    if o["status"] == "untested":
+        return "untested — Lab's idea, not yet tested"
+    if basis == "chepta_run":
+        return (f"worked — Lab ran it in CHEPTA ({o['engine']}) and it converged" if o["status"] == "worked"
+                else f"failed — Lab's CHEPTA run ({o['engine']}) did not converge or missed its target")
+    who = {"textbook": "the source's own worked example", "paper_simulation": "the source's own simulation",
+           "measured": "measurements in the source"}.get(basis, BASIS_WORDS.get(basis, basis))
+    return (f"worked — shown by {who}; not yet run by Lab" if o["status"] == "worked"
+            else f"failed — {who} shows it does not work; not yet run by Lab")
+
+
+def row_id_comment(d, withdrawn=None):
+    """The row id for lookup, hidden from the rendered page (kb.py show <id>), with the ids of its corrections."""
+    text = d["id"]
+    if d["id"] in (withdrawn or {}):
+        text += "; corrected by " + ", ".join(withdrawn[d["id"]])
+    if d["keys"].get("corrects"):
+        text += "; corrects " + d["keys"]["corrects"]
+    return f"<!-- {text} -->"
+
+
+CORRECTED = "Corrected by a later row, listed with the corrected version; this one no longer counts."
+
+
+def readable_plain(d, ix, sources, withdrawn=None):
+    """A row with plain fields: title, then When / Do / Why / Check / Result, status and source, one per line.
+    A row withdrawn by a correction is struck through; a correcting row shows its reason."""
+    k, plain = d["keys"], d["keys"]["plain"]
+    withdrawn = withdrawn or {}
+    title = f"**{plain['title'].rstrip('.')}**"
+    lines = [f"- ~~{title}~~ {CORRECTED}" if d["id"] in withdrawn else f"- {title}"]
+    if k.get("corrects"):
+        lines.append(f"  - Correction: {k['correction_reason']}")
+    for field, label in (("when", "When"), ("do", "Do"), ("why", "Why"), ("check", "Check"), ("result", "Result")):
+        if plain.get(field):
+            lines.append(f"  - {label}: {plain[field]}")
+    lines.append(f"  - Status: {status_words(k['outcome'])}.")
+    if k.get("disputed_with"):
+        lines.append("  - Another rule disagrees with this one; both are kept.")
+    refs = []
+    if k.get("source"):
+        refs.append(f"{source_reference(k['source']['source_id'], sources)}, {k['source']['locator']}")
+    for e_id in d["evidence_ids"]:
+        e = ix["evidence"].get(e_id)
+        for b in (e["block_ids"] if e else []):
+            block = ix["blocks"].get(b)
+            if block:
+                refs.append(f"{source_reference(block['source_id'], sources)}, {block['locator']}")
+    note = plain.get("note")
+    tail = (" Lab has not reread the source for this summary." if note == NOT_REREAD
+            else f" {note}" if note else "")
+    lines.append(f"  - Source: {'; '.join(dict.fromkeys(refs)) or 'no source'}.{tail} {row_id_comment(d, withdrawn)}")
+    return "\n".join(lines)
+
+
 def readable_line(d, ix, sources, withdrawn=None):
     withdrawn = withdrawn or {}
     k, o = d["keys"], d["keys"]["outcome"]
+    if k.get("plain"):
+        return readable_plain(d, ix, sources, withdrawn)
     text = (k.get("statement") or f"{d['operation'].rstrip('.')}. Expected: {d['expected_change']}").strip()
     status = f"{o['status']}, {BASIS_WORDS.get(o['basis'], o['basis'])}" + (f" ({o['engine']})" if o["engine"] else "")
     refs = []
@@ -548,54 +680,160 @@ def readable_line(d, ix, sources, withdrawn=None):
     if when:
         parts.append(f"When: {when}.")
     if k.get("disputed_with"):
-        parts.append("Disagrees with another row here.")
+        parts.append("Disagrees with another row.")
     if k.get("corrects"):
         parts.append(f"Correction: {k['correction_reason']}")
-    sub = d["id"]
     if d["id"] in withdrawn:
-        sub += ", corrected by " + ", ".join(withdrawn[d["id"]])
-    if k.get("corrects"):
-        sub += ", corrects " + k["corrects"]
-    parts.append(f"<sub>{sub}</sub>")
+        parts.append(CORRECTED)
+    parts.append(row_id_comment(d, withdrawn))
     return " ".join(parts)
 
 
-def build_readable(corpus, register=None, sources=None):
-    register = register if register is not None else register_rows()
+# The topic pages: every rule in plain words lands on exactly one, the first whose test it passes.
+# A topic over TOPIC_MAX rules is split (a test enforces it); the last topic catches what no other takes.
+TOPIC_MAX = 30
+TOPICS = [
+    ("property-methods", "Property methods",
+     "Wrong phases or volatilities: which thermodynamic model and parameters to use and check",
+     lambda k: k["kind"] == "simulation-rule" and k.get("symptom") == "wrong-phase"),
+    ("recycle-convergence", "Recycle convergence",
+     "Recycle loops, tears, make-ups and flashes inside loops that do not close",
+     lambda k: k["kind"] == "simulation-rule" and k["operation_type"] in ("recycle", "flash", "purge")),
+    ("column-convergence", "Column convergence",
+     "Columns that fail, are slow or miss a target: starting profiles, solvers, steady states",
+     lambda k: k["kind"] == "simulation-rule"),
+    ("safety", "Inherent safety",
+     "Safer routes from the first flowsheet: principles, indices and missing hazard data",
+     lambda k: "inherent-safety" in k["conditions"]),
+    ("heat-integration", "Heat integration",
+     "Pinch analysis, heat pumps, vapour recompression, using process heat",
+     lambda k: k["operation_type"] == "heat-integration"),
+    ("reactive-distillation", "Reactive distillation and esterification",
+     "Reaction and separation in one unit: feasibility, column design, catalysts, water-removing membranes",
+     lambda k: k["operation_type"] in ("reactive-distillation", "pervaporation", "membrane")),
+    ("azeotropes", "Azeotropes and two liquid phases",
+     "Breaking azeotropes: entrainers, solvents, decanters, pressure swing",
+     lambda k: k["operation_type"] in ("azeotropic-distillation", "extractive-distillation", "decanter",
+                                       "pressure-swing-distillation")),
+    ("reactors-recycles", "Reactors, routes and recycles",
+     "Reactor type, route choice, reactant recycles and purges",
+     lambda k: k["operation_type"] in ("cstr", "pfr", "equilibrium-reactor", "reactor-evaporator", "recycle",
+                                       "purge", "process-route")),
+    ("separation-choice", "Separation choice and distillation design",
+     "Which separation to use, column pressure, sequences, extraction, absorbers",
+     lambda k: k["operation_type"] in ("distillation", "extraction", "absorber-column", "flash", "heat-exchange")),
+    ("other", "Other rules", "Rules no other topic takes yet", lambda k: True),
+]
+RULES_DIR = INDEX_READABLE.parent / "rules"
+PLANTS_DIR = INDEX_READABLE.parent / "plants"
+NOT_PLAIN = ("not-yet-plain", "Rules not yet in plain words",
+             "Literature rules still in their one-line form, until they are rewritten")
+
+
+def topic_of(d):
+    return next(slug for slug, _, _, test in TOPICS if test(d["keys"]))
+
+
+def ranked_rows(group, withdrawn=()):
+    """Best-supported first: worked, failed, lead, untested; then by operation and id. Rows withdrawn by a
+    correction come last."""
+    order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
+    return sorted(group, key=lambda d: (d["id"] in withdrawn, order.get(d["keys"]["outcome"]["status"], 9),
+                                        d["keys"]["operation_type"], d["id"]))
+
+
+HOW_TO_READ = ("Each rule starts with what to do in one line, then When (the situation you recognise), Do, Why, "
+               "Check (how to verify it, in CHEPTA where it applies) and Result (what the source got), then its "
+               "status and source with page. A lead is a rule from the literature that Lab has not yet tested.")
+
+
+def build_pages(corpus, origins, sources=None):
+    """Every page for people: {path: text}. The front page, one page per topic, one page per plant's run log."""
     sources = sources if sources is not None else sources_catalogue()
     ix = pipeline.indexes(corpus)
     rows, _ = visible_decisions(corpus)
+    rules = [d for d in rows if d["keys"]["kind"] in RULE_KINDS]
+    topics = {slug: [] for slug, *_ in TOPICS}
+    for d in rules:
+        if d["keys"].get("plain"):
+            topics[topic_of(d)].append(d)
+    not_plain = [d for d in rules if not d["keys"].get("plain")]
     withdrawn = corrected_by(rows)
+    count = lambda group: sum(1 for d in group if d["id"] not in withdrawn)  # corrected rows no longer count
     line = lambda d: readable_line(d, ix, sources, withdrawn)
-    order = {s: i for i, s in enumerate(STATUSES_SHOWN)}
-    ranked = lambda group: sorted(group, key=lambda d: (order.get(d["keys"]["outcome"]["status"], 9), d["id"]))
-    lines = ["# Rules and decisions in plain words (generated; do not edit)", "",
-             "Each line gives a rule or decision first, then its status and source with page, then the conditions "
-             "under which it holds, and the row id in small text for lookup. A lead is a rule or suggestion "
-             "without results of its own; worked and failed rows cite a paper, a measurement or a CHEPTA run. "
-             "This page is for people and grows with every row: agents keep using problems.md and "
-             "`python scripts/kb.py query`, which stay short. A struck-through line was corrected by the row named "
-             "after it and no longer counts.", ""]
-    lines += ["## By register problem", ""]
-    for problem, level in register.items():
-        mine = [d for d in rows if d["keys"].get("problem_id") == problem]
-        if mine:
-            lines += [f"### {plain(problem)} ({level})", ""] + [line(d) for d in ranked(mine)] + [""]
-    lines += ["## By operation and simulation symptom", ""]
-    pairs = {}
+    plants = {}
     for d in rows:
-        if "symptom" in d["keys"]:
-            pairs.setdefault((d["keys"]["operation_type"], d["keys"]["symptom"]), []).append(d)
-    for (op, sym), group in sorted(pairs.items()):
-        lines += [f"### {plain(op)}: {plain(sym)}", ""] + [line(d) for d in ranked(group)] + [""]
-    lines += ["## General design rules by operation", ""]
-    general = {}
-    for d in rows:
-        if d["keys"]["kind"] == "design-rule" and "problem_id" not in d["keys"]:
-            general.setdefault(d["keys"]["operation_type"], []).append(d)
-    for op, group in sorted(general.items()):
-        lines += [f"### {plain(op)}", ""] + [line(d) for d in ranked(group)] + [""]
-    return "\n".join(lines).rstrip("\n") + "\n"
+        if d["keys"]["kind"] not in RULE_KINDS:
+            plants.setdefault(origins.get(d["id"], "unknown"), []).append(d)
+    pages = {}
+    back = "[All topics](../rules-readable.md)"
+
+    def rule_page(title, covers, group):
+        lines = [f"# {title} (generated; do not edit)", "", f"{covers}. {count(group)} rules. {back}", "",
+                 HOW_TO_READ, ""]
+        for d in ranked_rows(group, withdrawn):
+            lines += [line(d), ""]
+        return "\n".join(lines).rstrip("\n") + "\n"
+
+    toc = []
+    for slug, title, covers, _ in TOPICS:
+        if topics[slug]:
+            pages[RULES_DIR / f"{slug}.md"] = rule_page(title, covers, topics[slug])
+            toc.append(f"| [{title}](rules/{slug}.md) | {covers} | {count(topics[slug])} |")
+    if not_plain:
+        slug, title, covers = NOT_PLAIN
+        pages[RULES_DIR / f"{slug}.md"] = rule_page(title, covers, not_plain)
+        toc.append(f"| [{title}](rules/{slug}.md) | {covers} | {count(not_plain)} |")
+    plant_toc = []
+    for case, group in sorted(plants.items()):
+        lines = [f"# Run log: {case} (generated; do not edit)", "",
+                 "Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped by "
+                 f"unit, best-supported first; the row id is in an HTML comment for `kb.py show`. A struck-through "
+                 f"line was corrected by a later row and no longer counts; the correcting row gives its reason. "
+                 f"{back}", ""]
+        units = {}
+        for d in group:
+            units.setdefault(d["keys"]["operation_type"], []).append(d)
+        for unit, mine in sorted(units.items()):
+            lines += [f"## {plain(unit)} ({count(mine)})", ""] + [line(d) for d in ranked_rows(mine, withdrawn)] + [""]
+        pages[PLANTS_DIR / f"{case}.md"] = "\n".join(lines).rstrip("\n") + "\n"
+        plant_toc.append(f"| [{case}](plants/{case}.md) | {count(group)} |")
+    front = ["# Rules in plain words (generated; do not edit)", "",
+             "Pick a topic below; each page lists its rules, best-supported first.",
+             HOW_TO_READ,
+             "Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; the plants' run logs "
+             "are listed at the end.", "",
+             "| Topic | What it covers | Rules |", "|---|---|---|"] + toc
+    if plant_toc:
+        front += ["", "## Run logs of the plants (not yet written as lessons)", "",
+                  "| Case | Rows |", "|---|---|"] + plant_toc
+    pages[INDEX_READABLE] = "\n".join(front) + "\n"
+    return pages
+
+
+def build_readable(corpus, origins, sources=None):
+    """The front page alone."""
+    return build_pages(corpus, origins, sources)[INDEX_READABLE]
+
+
+def page_errors(corpus, origins):
+    """Generated pages that are missing, stale, or left over from an earlier index."""
+    pages = build_pages(corpus, origins)
+    stale = [path for path, text in pages.items() if not path.is_file() or path.read_text() != text]
+    extra = [path for folder in (RULES_DIR, PLANTS_DIR) if folder.is_dir()
+             for path in sorted(folder.glob("*.md")) if path not in pages]
+    return stale + extra
+
+
+def write_pages(corpus, origins):
+    pages = build_pages(corpus, origins)
+    for folder in (RULES_DIR, PLANTS_DIR):
+        folder.mkdir(parents=True, exist_ok=True)
+        for path in folder.glob("*.md"):
+            if path not in pages:
+                path.unlink()
+    for path, text in pages.items():
+        path.write_text(text)
 
 
 def read_lock():
@@ -604,8 +842,8 @@ def read_lock():
 
 def index_errors(corpus, origins):
     md, js = build_index(corpus, origins)
-    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js), (INDEX_READABLE, build_readable(corpus)))
-             if not path.is_file() or path.read_text() != text]
+    stale = [path for path, text in ((INDEX_MD, md), (INDEX_JSON, js)) if not path.is_file() or path.read_text() != text]
+    stale += page_errors(corpus, origins)
     errors = [f"{p.relative_to(ROOT)} is stale: run python scripts/kb.py index" for p in stale]
     lock, now = read_lock(), lock_entries(corpus)
     missing = [k for k in now["outcomes"] if k not in lock.get("outcomes", {})]
@@ -653,7 +891,7 @@ def write_index(corpus, origins):
     INDEX_MD.parent.mkdir(parents=True, exist_ok=True)
     INDEX_MD.write_text(md)
     INDEX_JSON.write_text(js)
-    INDEX_READABLE.write_text(build_readable(corpus))
+    write_pages(corpus, origins)
     LOCK.write_text(json.dumps(lock, indent=2, ensure_ascii=False) + "\n")
 
 
@@ -754,7 +992,8 @@ def main(argv=None):
             if errors:
                 raise ValueError("\n".join(errors))
             write_index(corpus, origins)
-            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {INDEX_READABLE.relative_to(ROOT)}, "
+            print(f"Wrote {INDEX_MD.relative_to(ROOT)}, {INDEX_JSON.relative_to(ROOT)}, {INDEX_READABLE.relative_to(ROOT)} "
+                  f"with {RULES_DIR.relative_to(ROOT)}/ and {PLANTS_DIR.relative_to(ROOT)}/, "
                   f"{LOCK.relative_to(ROOT)}")
             return 0
         if args.command == "disputes":

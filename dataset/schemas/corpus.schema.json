@@ -373,6 +373,21 @@
         "kind": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
         "symptom": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
         "statement": {"type": "string", "minLength": 1},
+        "plain": {
+          "description": "The row in plain engineering English for people (scripts/kb.py renders it in dataset/index/rules-readable.md). Lab's own words; every number comes from the row or from a passage named in note.",
+          "type": "object",
+          "properties": {
+            "title": {"type": "string", "minLength": 1},
+            "when": {"type": "string", "minLength": 1},
+            "do": {"type": "string", "minLength": 1},
+            "why": {"type": "string", "minLength": 1},
+            "check": {"type": "string", "minLength": 1},
+            "result": {"type": "string", "minLength": 1},
+            "note": {"type": "string", "minLength": 1}
+          },
+          "required": ["title", "when", "do", "why", "check"],
+          "additionalProperties": false
+        },
         "source": {
           "type": "object",
           "properties": {"source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "locator": {"type": "string", "minLength": 1}},

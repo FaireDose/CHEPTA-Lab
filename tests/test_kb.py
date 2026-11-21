@@ -4,6 +4,7 @@ import copy
 import importlib.util
 import io
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -15,6 +16,11 @@ spec.loader.exec_module(kb)
 p = kb.pipeline
 
 EXAMPLE = "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow"
+
+
+def on_page(row_id, text):
+    """A row is on a page when its id opens an HTML comment there (followed by its corrections, if any)."""
+    return f"<!-- {row_id} -->" in text or f"<!-- {row_id};" in text
 
 
 class KnowledgeBaseTests(unittest.TestCase):
@@ -55,26 +61,151 @@ class KnowledgeBaseTests(unittest.TestCase):
         # Fails whenever records or the register change without `python scripts/kb.py index`.
         self.assertEqual(kb.index_errors(self.corpus, self.origins), [])
 
-    def test_readable_page_for_people(self):
-        page = kb.build_readable(self.corpus)
-        self.assertEqual(kb.INDEX_READABLE.read_text(), page)  # current; index_errors also checks it
-        rule = self.decision(self.SIM)
-        line = next(l for l in page.splitlines() if rule["keys"]["statement"] in l)
+    def pages(self):
+        return kb.build_pages(self.corpus, self.origins)
+
+    def test_readable_pages_for_people(self):
+        pages = self.pages()
+        for path, text in pages.items():  # all current; index_errors also checks them
+            self.assertEqual(path.read_text(), text, path)
+        # A row without plain fields keeps the one-line rendering.
+        rule = copy.deepcopy(self.decision(self.SIM))
+        del rule["keys"]["plain"]
+        line = kb.readable_line(rule, p.indexes(self.corpus), self.sources)
         self.assertTrue(line.startswith(f"- **{rule['keys']['statement']}** lead, book or review; Kooijman & Taylor 2006, "))
-        self.assertTrue(line.endswith(f"<sub>{rule['id']}</sub>"))
+        self.assertTrue(line.endswith(f"<!-- {rule['id']} -->"))
         self.assertIn("When: rigorous column.", line)
-        # Row ids appear only in the small text at the end of a line.
+        # Row ids never appear in visible text, only in HTML comments.
         ids = {d["id"] for d in self.corpus["decisions"]}
-        for l in page.splitlines():
-            main = l.split("<sub>")[0]
-            self.assertFalse(any(i in main for i in ids if "." in i), l)
+        for text in pages.values():
+            self.assertNotIn("<sub>", text)
+            for l in text.splitlines():
+                visible = re.sub(r"<!--.*?-->", "", l)
+                self.assertFalse(any(i in visible for i in ids if "." in i), l)
         self.assertIn("rules-readable.md", kb.build_index(self.corpus, self.origins)[0].splitlines()[2])
-        # A stale page is reported, and held-out rows never appear.
-        self.decision(self.SIM)["keys"]["statement"] = "Changed for the test."
-        self.assertTrue(any("rules-readable.md is stale" in e for e in kb.index_errors(self.corpus, self.origins)))
+        # A stale page, a missing page or a leftover page is reported, and held-out rows never appear.
+        self.decision(self.SIM)["keys"]["plain"]["title"] = "Changed for the test"
+        self.assertTrue(any("rules/column-convergence.md is stale" in e for e in kb.index_errors(self.corpus, self.origins)))
+        with tempfile.TemporaryDirectory() as tmp:
+            old = (kb.RULES_DIR, kb.PLANTS_DIR)
+            kb.RULES_DIR, kb.PLANTS_DIR = Path(tmp) / "rules", Path(tmp) / "plants"
+            try:
+                self.assertTrue(all(not p_.is_file() for p_ in kb.page_errors(self.corpus, self.origins)
+                                    if p_ != kb.INDEX_READABLE))
+                kb.RULES_DIR.mkdir()
+                (kb.RULES_DIR / "old-topic.md").write_text("left over")
+                self.assertIn(kb.RULES_DIR / "old-topic.md", kb.page_errors(self.corpus, self.origins))
+            finally:
+                kb.RULES_DIR, kb.PLANTS_DIR = old
         self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
                                       "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
-        self.assertNotIn(self.SIM, kb.build_readable(self.corpus))
+        self.assertFalse(any(self.SIM in t for t in self.pages().values()))
+
+    def test_front_page_is_short_and_lists_every_page(self):
+        pages = self.pages()
+        front = pages[kb.INDEX_READABLE]
+        self.assertLessEqual(len(front.splitlines()), 40)
+        for path in pages:
+            if path != kb.INDEX_READABLE:
+                self.assertIn(f"({path.parent.name}/{path.name})", front)
+
+    def test_every_rule_on_exactly_one_topic_page_and_pages_stay_short(self):
+        pages = self.pages()
+        rules = [d for d in kb.visible_decisions(self.corpus)[0] if d["keys"]["kind"] in kb.RULE_KINDS]
+        topic_pages = {path: text for path, text in pages.items() if path.parent == kb.RULES_DIR}
+        for d in rules:
+            on = [path for path, text in topic_pages.items() if on_page(d["id"], text)]
+            self.assertEqual(len(on), 1, d["id"])
+            if d["keys"].get("plain"):
+                self.assertEqual(on[0].stem, kb.topic_of(d))
+        self.assertNotIn(kb.RULES_DIR / "other.md", pages)  # no rule falls through the topics
+        for path, text in topic_pages.items():
+            self.assertLessEqual(text.count("\n- **"), kb.TOPIC_MAX, path)
+        # Best-supported first.
+        order = {s: i for i, s in enumerate(kb.STATUSES_SHOWN)}
+        for path, text in topic_pages.items():
+            on = sorted((re.search(rf"<!-- {re.escape(d['id'])}[ ;]", text).start(), order[d["keys"]["outcome"]["status"]])
+                        for d in rules if on_page(d["id"], text))
+            ranks = [r for _, r in on]
+            self.assertEqual(ranks, sorted(ranks), path)
+
+    def test_case_decisions_only_on_plant_pages_grouped_by_unit(self):
+        pages = self.pages()
+        cases = [d for d in kb.visible_decisions(self.corpus)[0] if d["keys"]["kind"] == "case-decision"]
+        for d in cases:
+            on = [path for path, text in pages.items() if on_page(d["id"], text)]
+            self.assertEqual(on, [kb.PLANTS_DIR / f"{self.origins[d['id']]}.md"], d["id"])
+        page = pages[kb.PLANTS_DIR / "ethyl-acetate-piotrowski-2021.md"]
+        self.assertIn("Run log of the plant, not yet written as lessons.", page)
+        self.assertIn("## distillation (", page)
+
+    # --- plain fields for people ---
+
+    def test_plain_rule_renders_title_fields_status_and_source(self):
+        rule = self.decision(self.SIM)
+        plain = rule["keys"]["plain"]
+        page = self.pages()[kb.RULES_DIR / "column-convergence.md"].splitlines()
+        i = page.index(f"- **{plain['title']}**")
+        block = page[i:i + 7]
+        self.assertEqual([l.split(":")[0] for l in block[1:]],
+                         ["  - When", "  - Do", "  - Why", "  - Check", "  - Status", "  - Source"])
+        self.assertEqual(block[5], "  - Status: lead — from the literature, not yet tested by Lab.")
+        self.assertTrue(block[6].startswith("  - Source: Kooijman & Taylor 2006, *The ChemSep Book, second edition* "
+                                            "(https://www.chemsep.org/downloads/docs/book2.pdf), Sections 1.2-1.3"))
+        self.assertIn("Lab has not reread the source for this summary.", block[6])
+        self.assertTrue(block[6].endswith(f"<!-- {rule['id']} -->"))
+        # A DOI becomes a link, and a result line is printed where there is one.
+        row = self.decision("al-rabiah-2022.membrane-reactor-removes-water")
+        text = kb.readable_line(row, p.indexes(self.corpus), self.sources)
+        self.assertIn("(https://doi.org/10.3390/pr10091801)", text)
+        self.assertIn(f"  - Result: {row['keys']['plain']['result']}", text)
+
+    def test_every_literature_rule_outside_the_case_files_has_plain_fields(self):
+        cases = {"pilot", "ethyl-acetate-piotrowski-2021", "methanol-co2-campos-2022"}
+        missing = [d["id"] for d in self.corpus["decisions"] if d["keys"]["kind"] in kb.RULE_KINDS
+                   and self.origins.get(d["id"]) not in cases and "plain" not in d["keys"]]
+        self.assertEqual(missing, [])
+
+    def test_rendered_plain_text_names_its_sources(self):
+        page = "\n".join(self.pages().values())
+        for line in page.splitlines():
+            if line.startswith(("  - When", "  - Do", "  - Why", "  - Check", "  - Result")) or \
+                    (line.startswith("- **") and not line.rstrip().endswith("-->")):
+                self.assertIsNone(kb.BARE_REFERENCE.search(line), line)
+
+    def test_plain_bare_reference_refused(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["do"] = "Do what the paper says."
+        self.assertTrue(any("without naming it" in e for e in self.errors()))
+        plain["do"] = "Do what the paper (Kooijman & Taylor 2006, https://www.chemsep.org) says."
+        self.assertFalse(any("without naming it" in e for e in self.errors()))
+        plain["why"] = "The authors' reason."
+        self.assertTrue(any("plain.why says" in e for e in self.errors()))
+
+    def test_plain_number_must_come_from_the_row(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["result"] = "Purity rose to 99.7 mol%."
+        self.assertTrue(any("gives 99.7" in e for e in self.errors()))
+        plain["note"] = "Lab reread p. 12 on 2026-11-20 (99.7 mol%)."  # a passage reread names the number
+        self.assertFalse(any("gives 99.7" in e for e in self.errors()))
+        plain["result"] = "CO2 and m3 are formulas and units, not numbers."
+        self.assertFalse(any("gives" in e for e in self.errors()))
+
+    def test_plain_no_ids_short_one_paragraph(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["check"] = f"See {EXAMPLE}."
+        self.assertTrue(any("names a row id" in e for e in self.errors()))
+        plain["check"] = "Line one.\nLine two."
+        self.assertTrue(any("one short paragraph" in e for e in self.errors()))
+        plain["check"] = "x" * 451
+        self.assertTrue(any("one short paragraph" in e for e in self.errors()))
+
+    def test_plain_schema_requires_the_five_fields(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        del plain["check"]
+        self.assertTrue(p.validate(self.corpus, self.sources))
+        plain["check"], plain["extra"] = "Check it.", "not allowed"
+        self.assertTrue(p.validate(self.corpus, self.sources))
 
     def test_index_size_follows_problems_not_rows(self):
         md, _ = kb.build_index(self.corpus, self.origins)
@@ -335,11 +466,16 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
         self.assertEqual(kb.lock_errors(self.corpus, lock), [])  # the corrected row is unchanged, so the lock holds
         self.assertEqual(kb.corrected_by(self.corpus["decisions"])[EXAMPLE], [row["id"]])
-        page = kb.build_readable(self.corpus)
-        struck = next(l for l in page.splitlines() if f"<sub>{EXAMPLE}," in l)
+        self.origins[row["id"]] = self.origins[EXAMPLE]
+        page = self.pages()[kb.PLANTS_DIR / f"{self.origins[EXAMPLE]}.md"]
+        struck = next(l for l in page.splitlines() if f"<!-- {EXAMPLE};" in l)
         self.assertTrue(struck.startswith("- ~~"))
-        self.assertIn(f"corrected by {row['id']}", struck)
-        self.assertIn(f"corrects {EXAMPLE}", next(l for l in page.splitlines() if f"<sub>{row['id']}," in l))
+        self.assertIn("Corrected by a later row", struck)  # visible words; the ids stay in the comment
+        self.assertIn(f"corrected by {row['id']}", struck.split("<!--")[1])
+        correcting = next(l for l in page.splitlines() if f"<!-- {row['id']};" in l)
+        self.assertIn(f"corrects {EXAMPLE}", correcting.split("<!--")[1])
+        self.assertIn(f"Correction: {row['keys']['correction_reason']}", correcting)
+        self.assertNotIn(row["id"], re.sub(r"<!--.*?-->", "", page))
         self.assertIn(EXAMPLE, {d["id"] for d in self.corpus["decisions"]})
 
     def test_edit_without_correction_still_fails(self):

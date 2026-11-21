@@ -20,6 +20,13 @@
           "technology-choice"
         ],
         "statement": "Between relative volatilities of about 1.3 and 10, distillation is the logical choice, and a solvent to raise volatility is worth considering only up to about 3. Below about 1.3 the minimum reflux rises steeply, so consider heat-pumped distillation or solvent-based separation.",
+        "plain": {
+          "title": "Choosing how to split two components: go by their relative volatility",
+          "when": "You must separate two components and know their relative volatility (alpha, how much more volatile one is than the other) at column conditions.",
+          "do": "Between about 1.3 and 10, use ordinary distillation. Consider a solvent to raise alpha only while alpha is below about 3. Below about 1.3, look at heat-pumped distillation or a solvent-based separation (extractive distillation or extraction) instead.",
+          "why": "Minimum reflux rises steeply as alpha falls towards one, so condenser and reboiler duties grow out of proportion.",
+          "check": "Work out alpha with the property method you will use, at both the top and the bottom of the column, since it changes along the column. In CHEPTA, flash the feed at column pressure and compare vapour and liquid compositions."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 2.1, p. 304 (Figs. 2-3)"
@@ -63,6 +70,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Avoid plain distillation for strongly asymmetric feeds (one component dilute), where its internal efficiency is low; liquid-liquid extraction or extractive distillation are usually preferred.",
+        "plain": {
+          "title": "One component dilute in a large stream: try extraction or extractive distillation before plain distillation",
+          "when": "The feed is strongly asymmetric: the component you want is dilute in a large stream.",
+          "do": "Consider an affinity separation (one using a solvent's preference for a component), liquid-liquid extraction or extractive distillation, before plain distillation.",
+          "why": "Distillation must vaporise the bulk, so its internal efficiency is low on such feeds.",
+          "check": "Compare the reboiler duty per kg of recovered component with the energy of the extraction route."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 2.1, p. 304; Conclusions, p. 317"
@@ -104,6 +118,13 @@
           "heat-pump"
         ],
         "statement": "A heat pump pays when reboiler duty divided by compressor work exceeds about 10 and does not below about 5, which is why heat pumps suit close-boiling columns with a small top-bottom temperature difference.",
+        "plain": {
+          "title": "Heat pump on a column: worth it when reboiler duty is above about 10 times the compressor work",
+          "when": "You consider vapour recompression for a column.",
+          "do": "Divide the reboiler duty by the compressor work. Above about 10 a heat pump pays; below about 5 it does not.",
+          "why": "Compressor work grows with the temperature lift, so heat pumps suit close-boiling columns with a small top-to-bottom temperature difference.",
+          "check": "Estimate the compressor work from the condenser and reboiler temperatures before adding the heat pump."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Heat pumps, p. 313 (Fig. 15)"
@@ -145,6 +166,13 @@
           "purity-target"
         ],
         "statement": "When the required purity is close to the feed composition, accepting a non-sharp split cuts reboiler duty substantially; do not design for sharper splits than needed.",
+        "plain": {
+          "title": "Do not design for a sharper split than the product needs",
+          "when": "The required purity is close to the feed composition.",
+          "do": "Set purities to what the product needs and accept a non-sharp split.",
+          "why": "Minimum reflux depends on the purity required; a sharp split costs much more reboiler duty.",
+          "check": "In CHEPTA, scan the purity specification and record the reboiler duty at each point."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 2.1, p. 304 (Fig. 4)"
@@ -187,6 +215,13 @@
           "solvent-choice"
         ],
         "statement": "Choose a solvent boiling at least 50 C above the mixture so it forms no azeotrope in regeneration, and weigh selectivity above capacity.",
+        "plain": {
+          "title": "Extractive solvent: boiling at least 50 C above the mixture, chosen on selectivity before capacity",
+          "when": "You screen solvents for an extractive separation.",
+          "do": "Choose a solvent that boils at least 50 C above the mixture, and weigh selectivity (how well it tells the two components apart) above capacity (how much it dissolves).",
+          "why": "A large boiling gap keeps the solvent from forming an azeotrope or a pinch during regeneration.",
+          "check": "Check for azeotropes between the solvent and each component with the property method before simulating the column."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 2.4, p. 311; Conclusions, p. 317"
@@ -233,6 +268,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Acetic acid and water have low relative volatility and a tangent pinch at high acid purity, so solvent-based separations are preferred; in extractive or azeotropic distillation water leaves at the top because the acid is the heavy component.",
+        "plain": {
+          "title": "Acetic acid from water: use a solvent-based separation, with water leaving at the top",
+          "when": "You recover acetic acid from water.",
+          "do": "Prefer extraction or a solvent-based distillation (extractive or azeotropic). In either distillation water leaves at the top, because the acid is the heavy component.",
+          "why": "Acetic acid and water have a low relative volatility and a tangent pinch (the equilibrium curve nearly touches the diagonal) at high acid purity, so plain distillation is costly.",
+          "check": "In CHEPTA, tabulate the acid-water equilibrium at high acid purity to see the pinch, using vapour association for the acid where the method offers it."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 3.4, p. 316"
@@ -280,6 +322,13 @@
           "solvent-regeneration"
         ],
         "statement": "Low-boiling solvents such as ethyl acetate co-extract much water when recovering acetic acid, but their heterogeneous azeotrope with water splits on cooling, which cuts the regeneration duty.",
+        "plain": {
+          "title": "Light solvent for acetic acid extraction, such as ethyl acetate: it takes water along, but the water splits out on cooling",
+          "when": "You extract acetic acid from water with a low-boiling solvent such as ethyl acetate.",
+          "do": "Expect much co-extracted water, and use the solvent-water heterogeneous azeotrope (one that separates into two liquids) in a decanter during solvent regeneration.",
+          "why": "The azeotrope splits into a solvent phase and a water phase on cooling, so less has to be boiled.",
+          "check": "In CHEPTA, set phases: \"VLL\" on the regeneration decanter and check that the condensed overhead splits into two liquids."
+        },
         "source": {
           "source_id": "blahusiak-2018-separation-selection",
           "locator": "Section 3.4, p. 316 (Fig. 20)"

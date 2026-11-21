@@ -24,6 +24,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Split an alcohol-water heterogeneous azeotrope with a decanter and two strippers: the organic layer gives dry alcohol at the bottom of one, the aqueous layer gives water at the bottom of the other, and both overheads return to the decanter.",
+        "plain": {
+          "title": "Alcohol-water heteroazeotrope: a decanter with two strippers gives both pure",
+          "when": "An alcohol and water form a heterogeneous azeotrope (one that splits into two liquids), as isobutanol does.",
+          "do": "Condense into a decanter. Strip the organic layer in one column to get dry alcohol at its bottom, and the aqueous layer in another to get water at its bottom. Return both overheads to the decanter.",
+          "why": "The two liquids lie on either side of the azeotrope, so each stripper works inside its own region.",
+          "check": "Shown for isobutanol; 1-butanol and water form the same kind of azeotrope, a transfer not tested here. In CHEPTA, set phases: \"VLL\" on the decanter and check the two liquid compositions."
+        },
         "source": {
           "source_id": "fu-2021-isobutanol-recovery",
           "locator": "Introduction (Fig. 1)"
@@ -69,6 +76,14 @@
           "salting-out"
         ],
         "statement": "Adding a strong salting-out salt (potassium carbonate) raised the alcohol's partition and dehydration with the salt staying in the aqueous phase, and salting-out plus distillation used less energy than solvent extraction.",
+        "plain": {
+          "title": "Alcohol from water: add a salting-out salt such as potassium carbonate before distillation",
+          "when": "You recover an alcohol (isobutanol in Fu et al. 2021) from water.",
+          "do": "Add a strong salting-out salt (one that pushes organics out of water), such as potassium carbonate, then distil.",
+          "why": "The ions bind water and push the alcohol out; the salt stays in the aqueous phase.",
+          "check": "This needs an electrolyte property model: check that one is available before planning the case.",
+          "result": "Higher alcohol partition and dehydration, and less energy than solvent extraction."
+        },
         "source": {
           "source_id": "fu-2021-isobutanol-recovery",
           "locator": "Concluding remarks"
@@ -114,6 +129,13 @@
           "property-method"
         ],
         "statement": "With salts present, correlate the liquid-liquid equilibrium with an electrolyte activity model (here e-NRTL) that has ion-pair parameters.",
+        "plain": {
+          "title": "Salt in the liquid phases: use an electrolyte activity model",
+          "when": "Liquid phases contain dissolved salt and the liquid-liquid split comes out wrong.",
+          "do": "Correlate the liquid-liquid equilibrium with an electrolyte activity model that has ion-pair parameters, as Fu et al. 2021 did with e-NRTL (electrolyte NRTL).",
+          "why": "Ions change the activities in ways a molecular model misses.",
+          "check": "Whether CHEPTA 0.6.2 has an electrolyte model was not checked: check before planning a case with salts."
+        },
         "source": {
           "source_id": "fu-2021-isobutanol-recovery",
           "locator": "Section 'Modeling of the liquid-liquid equilibria'; Concluding remarks"

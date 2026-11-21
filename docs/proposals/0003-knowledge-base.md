@@ -126,6 +126,22 @@ simulation in the same knowledge base, not only what Lab's own cases showed.
   profiles; a lead, as cited in the troubleshooting table, the book not opened by Lab). The two chepta 0.6.2 example
   rows now carry the symptom `no-convergence`. No other book content is added.
 
+- **Plain fields for people (amendment, 2026-11-21).** The maintainer found the rules unreadable. A rule row may
+  carry `keys.plain`: `title` (one action line, the way a senior engineer would say it), `when`, `do`, `why`,
+  `check` (in CHEPTA where it applies), optional `result` and `note`. `kb.py check` refuses "the paper", "the
+  authors" or "the review" without a name, row ids, fields over 450 characters (title 140), and any number that is
+  not in the row's statement, limits, evidence or locator, or in a `note` naming the passage Lab reread;
+  `note: "source not reread"` marks a row written from the statement alone. `rules-readable.md` renders these rows
+  as title, the five lines, a plain status and "Source: Author Year, *short title* (link), locator"; other rows keep
+  the one-line form. problems.md, problems.json and `kb.py query` are unchanged, so agents read as before.
+- **Pages for people by topic (amendment, 2026-11-21).** `rules-readable.md` is a short front page: how to read,
+  then a table of topics with a line on each and its number of rules. `kb.py` puts every plain rule on exactly one
+  page under `dataset/index/rules/`, by the first topic in `TOPICS` its keys match (symptom for simulation rules,
+  then operation; safety by its condition tag), best-supported first, at most `TOPIC_MAX` (30) rules a page (a test
+  enforces it: split a topic when it grows). Rules not yet in plain words get their own page. Case decisions go to
+  `dataset/index/plants/<case>.md`, grouped by unit and marked as a run log, not yet lessons. Row ids are in HTML
+  comments. The stale-index test covers every page, and refuses leftover pages.
+
 ## F. Corrections (amendment, 2026-11-20)
 
 PR #28 was merged before its AI review (PR #30) finished, so some wrong outcomes were already in the append-only
@@ -137,7 +153,7 @@ lock. A locked row is never edited; it is corrected by a new row:
   cycle of any length (a chain, where a correction is itself corrected, is fine). Several rows may correct one row
   (a split).
 - `kb.py` treats the corrected row as **withdrawn**: left out of the counts, the current rows and the disputes,
-  counted as `withdrawn` in `problems.json`, struck through with "corrected by <id>" in `rules-readable.md`, and
+  counted as `withdrawn` in `problems.json`, struck through on the topic and plant pages under `dataset/index/` ("corrected by a later row", with both ids in the row's HTML comment; the correcting row shows its reason), and
   marked `WITHDRAWN` in `kb.py query` (`corrected_by` in `show` and `--json`). It stays in the record file unchanged.
 - **What the lock protects** (`dataset/index/outcomes.lock.json`, written by `kb.py index`): the outcome of every
   CHEPTA-run row, every `informed_by` list, every correction (`corrects` with `correction_reason`) and the ids of

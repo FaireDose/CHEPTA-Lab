@@ -21,6 +21,13 @@
           "conceptual-design-order"
         ],
         "statement": "Design from the reactor outwards: choose reactor and catalyst first, then add separations and recycles, because the reaction step sets the purity reached and how hard the purification will be.",
+        "plain": {
+          "title": "Design from the reactor outwards",
+          "when": "You start a flowsheet.",
+          "do": "Choose the reactor and catalyst first, then add the separations and recycles.",
+          "why": "The reactor effluent defines the separation problem: the reaction step sets the purity reached and how hard purification will be.",
+          "check": "Fix the reactor outlet composition before designing the separation train."
+        },
         "source": {
           "source_id": "pasha-2021-biodiesel-process-design",
           "locator": "Section 'Process design and simulation'"
@@ -63,6 +70,13 @@
           "continuous"
         ],
         "statement": "Large plants run continuously; a single stirred tank does not reach batch productivity, but stirred tanks in series do.",
+        "plain": {
+          "title": "Large continuous plant: stirred tanks in series, not one tank",
+          "when": "A continuous reactor gives lower conversion than the batch process.",
+          "do": "Use stirred tanks in series.",
+          "why": "One tank is fully back-mixed; tanks in series approach plug flow and batch-like conversion.",
+          "check": "In CHEPTA, compare the conversion of one, two and three stirred tanks of the same total volume."
+        },
         "source": {
           "source_id": "pasha-2021-biodiesel-process-design",
           "locator": "Section 'Process design of biodiesel production using chemical catalyst'"
@@ -107,6 +121,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "For mixtures with polar components such as glycerol, methanol and water, use NRTL or UNIQUAC, filling missing binary pairs with UNIFAC estimates.",
+        "plain": {
+          "title": "Polar mixtures such as glycerol, methanol and water: NRTL or UNIQUAC, with UNIFAC for missing pairs",
+          "when": "A mixture contains polar components and some binary parameters are missing.",
+          "do": "Use an activity-coefficient model, NRTL or UNIQUAC, and fill the missing binary pairs with UNIFAC (group-contribution) estimates, as Pasha et al. 2021 describe.",
+          "why": "Activity models describe non-ideal liquids; UNIFAC fills the gaps.",
+          "check": "Estimated pairs are guesses until checked against data: find out which pairs CHEPTA has from data and which are predicted."
+        },
         "source": {
           "source_id": "pasha-2021-biodiesel-process-design",
           "locator": "Section 'Process design and simulation'"
@@ -151,6 +172,13 @@
           "staged-addition"
         ],
         "statement": "Reactors in series with decanters between them remove a heavy liquid product (glycerol) as it forms and allow a reactant to be added in stages.",
+        "plain": {
+          "title": "Heavy liquid product limits conversion: reactors in series with decanters between them",
+          "when": "A heavy product phase (glycerol in biodiesel) limits conversion, and a reactant harms the catalyst at high concentration.",
+          "do": "Put decanters between reactors in series to remove the product phase as it forms, and add the reactant in stages.",
+          "why": "Removing the product phase and dosing the reactant keep conditions favourable for conversion and catalyst life.",
+          "check": "In CHEPTA, set phases: \"VLL\" on the decanters and check that the glycerol phase separates."
+        },
         "source": {
           "source_id": "pasha-2021-biodiesel-process-design",
           "locator": "Section 'Process design of biodiesel production using biocatalyst'"
@@ -192,6 +220,14 @@
           "pinch-analysis"
         ],
         "statement": "Pinch-based heat integration of biodiesel plants cut heating and cooling utilities by roughly 11 to 16% in the cited studies.",
+        "plain": {
+          "title": "Biodiesel plants: pinch analysis cut utilities by about 11-16%",
+          "when": "A biodiesel plant with several distillation steps uses much heating and cooling.",
+          "do": "Apply pinch analysis (heat-recovery targeting) to match hot and cold streams.",
+          "why": "Matching hot and cold streams recovers heat.",
+          "check": "Compare your utility use with the pinch targets.",
+          "result": "Heating and cooling utilities fell by roughly 11 to 16% in studies cited by Pasha et al. 2021, not read by Lab."
+        },
         "source": {
           "source_id": "pasha-2021-biodiesel-process-design",
           "locator": "Section 'Heat integration'"

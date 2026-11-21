@@ -24,6 +24,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "Before setting up a heteroazeotropic column, compute and classify every azeotrope (nodes and saddles). The singular points show which profiles a column can reach at total reflux and guide the starting profile.",
+        "plain": {
+          "title": "Before building a heteroazeotropic column, map every azeotrope",
+          "when": "You set up a heteroazeotropic column (one with a decanter on top where two liquids form), and it starts far from a feasible profile.",
+          "do": "Compute and classify every azeotrope as a node or a saddle (points where residue curves start, end or turn). These singular points show which profiles a column can reach at total reflux and guide the starting profile.",
+          "why": "The mixture's topology bounds what column profiles are possible.",
+          "check": "In CHEPTA, check each azeotrope's temperature and composition against Kruber & Skiborowski 2022 or measured data before the first column run."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.2, pp. 5-7 (step 1, Figs. 2-3)"
@@ -70,6 +77,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "Estimate the recycle and top products from an overall mass balance first: pure bottom products, a top vapour at the lowest-boiling heteroazeotrope, and a decanter splitting it into its two liquids with the solvent-lean liquid recycled.",
+        "plain": {
+          "title": "Guess the heteroazeotropic recycle from a mass balance, not from defaults",
+          "when": "The recycle composition and flow of a two-column process with a decanter are unknown.",
+          "do": "Solve an overall mass balance first: pure bottom products, a top vapour at the lowest-boiling heteroazeotrope, and a decanter splitting it into its two liquids, with the solvent-lean liquid recycled. Use the result as the tear guess (the recycle stream's starting value).",
+          "why": "The heteroazeotrope and its liquid split fix the overhead and the recycle to a first approximation.",
+          "check": "In CHEPTA, give this balance as the tear stream's starting value and compare the first iteration with it."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.2, p. 7 (steps 2-3, Fig. 3b-c)"
@@ -114,6 +128,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "Initialise the heteroazeotropic column with a piecewise-linear composition profile joining the lowest-boiling heteroazeotrope, the saddle of its distillation region and the bottom product. Then check phases on each stage before solving the full column.",
+        "plain": {
+          "title": "Start the heteroazeotropic column from a profile joining azeotrope, saddle and bottom product",
+          "when": "A column crossing a two-liquid region fails from a flat or constant starting profile.",
+          "do": "Initialise with a piecewise-linear composition profile joining the lowest-boiling heteroazeotrope, the saddle of its distillation region and the bottom product. Check the phases on each stage before solving the full column.",
+          "why": "At total reflux the profile follows the region's singular points, so this start lies close to the solution.",
+          "check": "Lab has not checked whether CHEPTA accepts a stage-by-stage starting profile; if not, start from the closest converged column."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.2, p. 7 (step 5, Fig. 3e); Section 3.1.1, pp. 10-11 (Fig. 5)"
@@ -159,6 +180,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "Initialise the companion simple column by flashing its mixed feed (fresh feed plus recycle), solving the stage model with a fixed structure, and only then minimising duty; raise model complexity step by step.",
+        "plain": {
+          "title": "Build up the simple column step by step: flash, fixed column, then optimise",
+          "when": "A column model solved all at once from a poor start fails.",
+          "do": "Flash the mixed feed (fresh feed plus recycle) first, then solve the stage model with a fixed structure, and only then minimise duty. Raise the model's complexity one step at a time.",
+          "why": "Each harder sub-problem starts close to the solution of the easier one before it.",
+          "check": "In CHEPTA, keep each step's converged result and start the next step from it."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.2, p. 7 (step 4, Fig. 3d)"
@@ -207,6 +235,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "Even one heteroazeotropic column is hard to simulate: it can have multiple steady states and its products are very sensitive to the organic reflux. Luyben's careful manual start of ethanol dehydration still ended unconverged (as cited).",
+        "plain": {
+          "title": "Even one heteroazeotropic column is hard: fix the organic reflux before adding the second column",
+          "when": "A heteroazeotropic column does not converge.",
+          "do": "Fix the organic reflux and recycle estimates before adding the second column. Do not read a failure as a property error alone.",
+          "why": "Such a column can have several steady states and its products are very sensitive to the organic reflux. Luyben's careful manual start of ethanol dehydration still ended unconverged (cited by Kruber & Skiborowski 2022).",
+          "check": "In CHEPTA, scan the organic reflux around the published value and record where the column converges."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 1, p. 2 (ref. 11)"
@@ -251,6 +286,14 @@
         ],
         "symptom": "wrong-phase",
         "statement": "Test phase stability on every stage: assuming vapour-liquid equilibrium only, with no second liquid, can give substantial errors in a heteroazeotropic column.",
+        "plain": {
+          "title": "Column with water and an organic phase gives odd profiles: allow two liquids on every stage",
+          "when": "A column whose liquid can split into two phases (for example water with an organic entrainer, in heteroazeotropic distillation) is computed with vapour-liquid equilibrium only, or its stage profiles look wrong.",
+          "do": "Test phase stability (whether a liquid would rather split into two) on every stage, and allow vapour-liquid-liquid equilibrium there. Kruber & Skiborowski 2022 cite earlier work showing that leaving out the second liquid can give substantial errors.",
+          "why": "On a stage that really holds two liquids, a one-liquid calculation gets the wrong equilibrium, and so the wrong compositions, flows and balance.",
+          "check": "In CHEPTA, set phases: \"VLL\" on the column and the decanter, then see which stages report two liquids and compare the decanter's two liquid compositions with those of Kruber & Skiborowski 2022.",
+          "note": "Lab reread Section 1, p. 2 on 2026-11-20."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 1, p. 2 (refs. 17-18); Section 2.1, p. 4"
@@ -296,6 +339,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "For a gradient-based solver, a three-phase stage can be treated as a quasi vapour-liquid stage on the overall liquid, with the two-liquid split done only inside the property call. This avoids discontinuities as stages switch between one and two liquids.",
+        "plain": {
+          "title": "Stages switching between one and two liquids break a gradient solver: hide the split inside the property call",
+          "when": "A gradient-based solver meets discontinuities as stages change between one and two liquids.",
+          "do": "Treat each three-phase stage as a quasi vapour-liquid stage on the overall liquid, and do the two-liquid split only inside the property calculation.",
+          "why": "The column equations then see a smooth function, while the liquid split is still computed.",
+          "check": "This is a solver design choice. In CHEPTA, note which stages switch between one and two liquids when a run fails, and report it with the failure."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.1, pp. 4-5"
@@ -339,6 +389,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "When scanning feed composition widely, do not reuse one initialisation: the required stage numbers vary a lot, so re-initialise for each interval of feed composition.",
+        "plain": {
+          "title": "Scanning feed composition widely: re-initialise for each interval",
+          "when": "A feed-composition scan fails or gives outliers away from the first feed.",
+          "do": "Re-initialise the column for each interval of feed composition instead of reusing one start.",
+          "why": "The required stage numbers vary a lot, so a start built for one feed lies far from the solution for another.",
+          "check": "In CHEPTA, start each scan interval from a run converged near that feed."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.2.2, p. 16"
@@ -384,6 +441,13 @@
         ],
         "symptom": "no-convergence",
         "statement": "In the 1,4-dioxane and benzene case the optimisation relied on a small purge (0.8% of the feed), which the authors link to a poorer initial profile estimate.",
+        "plain": {
+          "title": "Heteroazeotropic recycle hard to close: allow a small purge",
+          "when": "The recycle through the decanter is not robust.",
+          "do": "Allow a small optional purge. In the 1,4-dioxane and benzene case of Kruber & Skiborowski 2022 the optimisation relied on 0.8% of the feed.",
+          "why": "A purge removes accumulating material and loosens the recycle. Kruber & Skiborowski 2022 link the need for it to a poorer initial profile estimate.",
+          "check": "In CHEPTA, record the purge flow and the product lost with it, and try to remove the purge once the loop converges."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.3, p. 16"
@@ -428,6 +492,13 @@
         ],
         "symptom": "purity-short",
         "statement": "A converged design that sits well off the trend can be a poor local optimum. Small changes of the initial feed stage or total stage number removed such outliers.",
+        "plain": {
+          "title": "Converged design far off the trend may be a poor local optimum: nudge the feed stage or stage count",
+          "when": "One optimised design sits well off the trend of its neighbours.",
+          "do": "Change the initial feed stage or the total number of stages slightly and re-solve.",
+          "why": "The final fixing of stage locations can land in a worse local optimum.",
+          "check": "Compare the re-solved design with its neighbours."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.1.2, p. 12; Section 3.3.1, p. 17"
@@ -473,6 +544,13 @@
           "two-column-decanter"
         ],
         "statement": "A heterogeneous azeotrope is a prerequisite for heteroazeotropic distillation and is always minimum-boiling. The usual process pairs a simple column and a heteroazeotropic column with a decanter, each giving one product as bottoms.",
+        "plain": {
+          "title": "Heteroazeotropic distillation needs a heterogeneous azeotrope: two columns and a decanter",
+          "when": "You want to break an azeotrope by heteroazeotropic distillation.",
+          "do": "Check that the mixture forms a heterogeneous azeotrope (one that splits into two liquids); such an azeotrope is always minimum-boiling. Then use the usual process: a simple column and a heteroazeotropic column with a decanter, each giving one product as bottoms.",
+          "why": "The decanter crosses the distillation boundary (a line a column profile cannot cross) by splitting the liquid.",
+          "check": "In CHEPTA, set phases: \"VLL\" and confirm that the azeotrope splits into two liquids. Alternatives: extractive or pressure-swing distillation."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 1, p. 1; Section 2.1, p. 4 (Fig. 1)"
@@ -520,6 +598,13 @@
           "residue-curve-topology"
         ],
         "statement": "Three ternary topologies cover most solvent-based heteroazeotropic separations (four, three or two azeotropes; about 26%, 8% and 21% of 1365 surveyed mixtures, as cited). Their complexity defeats simple solvent-selection indicators.",
+        "plain": {
+          "title": "Heteroazeotropic solvent choice: simple indicators mislead, so screen with a process model",
+          "when": "You choose a solvent for heteroazeotropic distillation.",
+          "do": "Screen solvents with a process model, not on selectivity alone.",
+          "why": "Three ternary topologies, with four, three or two azeotropes, cover most cases (about 26%, 8% and 21% of 1365 surveyed mixtures, cited by Kruber & Skiborowski 2022). Their several azeotropes and distillation regions defeat simple indicators.",
+          "check": "Compare individually optimised processes for each solvent."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 1, p. 2; Section 2.2, p. 6 (Fig. 2)"
@@ -570,6 +655,14 @@
           "atmospheric"
         ],
         "statement": "For dehydrating a 6 mol% ethanol broth, cyclohexane and hexane gave the same annual cost within estimate accuracy, while isooctane and toluene cost over 15% more. Solvent make-up was below 0.4% of cost.",
+        "plain": {
+          "title": "Ethanol dehydration: cyclohexane or hexane as entrainer; isooctane and toluene cost over 15% more",
+          "when": "You choose an entrainer for dehydrating a dilute ethanol broth (6 mol%) at atmospheric pressure.",
+          "do": "Prefer cyclohexane or hexane. Compare individually optimised processes for each solvent, not one fixed design.",
+          "why": "Each solvent changes the topology, the decanter split and the duties.",
+          "check": "Kruber & Skiborowski 2022 used NRTL with Aspen databank parameters (APV88) in their own optimisation: compare CHEPTA's azeotropes with theirs before reusing the ranking.",
+          "result": "Cyclohexane and hexane gave the same annual cost within estimate accuracy; isooctane and toluene cost over 15% more. Solvent make-up was below 0.4% of cost."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.1.1, pp. 9-10 (Fig. 4)"
@@ -618,6 +711,13 @@
           "preconcentration"
         ],
         "statement": "For ethanol dehydration the specific cost falls steeply up to about 20 mol% ethanol in the feed and then flattens, so pre-concentrating a dilute feed to about 20 mol% may pay. For an ethyl acetate feed already in the flat region it would not.",
+        "plain": {
+          "title": "Dilute ethanol: pre-concentrating to about 20 mol% may pay",
+          "when": "The ethanol feed to heteroazeotropic dehydration is very dilute.",
+          "do": "Consider a pre-concentration step near the knee of the cost curve, about 20 mol% ethanol. For a feed already in the flat region, such as the ethyl acetate case of Kruber & Skiborowski 2022, it would not pay.",
+          "why": "At low feed concentration most of the cost goes to handling water: specific cost falls steeply up to about 20 mol% and then flattens.",
+          "check": "A cited study found the saving too small for an extra column, and Kruber & Skiborowski 2022 leave it open: run your own feed-composition scan."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.1.3, pp. 12-13 (Fig. 7); Section 3.2.2, p. 15 (Fig. 10)"
@@ -662,6 +762,13 @@
           "feed-composition-scan"
         ],
         "statement": "The 1,4-dioxane case's cost falls almost linearly with feed concentration, unlike the other two cases. The authors conclude that pre-concentration must be judged case by case, not by a heuristic.",
+        "plain": {
+          "title": "No general rule for pre-concentration: run the feed scan for your case",
+          "when": "You want to reuse a pre-concentration rule from another mixture.",
+          "do": "Run the feed-composition scan for the case at hand.",
+          "why": "Each mixture's cost curve has its own shape: in the 1,4-dioxane case cost falls almost linearly with feed concentration, unlike the other two cases of Kruber & Skiborowski 2022.",
+          "check": "Plot specific cost against feed concentration and look for a knee."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.3.2, p. 18 (Fig. 13)"
@@ -706,6 +813,14 @@
           "dioxane-benzene-case"
         ],
         "statement": "Feeding the first column's distillate as vapour, without condensing it, to the heteroazeotropic column cut that column's reboiler duty by about 59% (163 against 402 kW) in the 1,4-dioxane case.",
+        "plain": {
+          "title": "Feed the first column's distillate to the next column as vapour",
+          "when": "The first column's distillate is condensed, then reboiled again in the heteroazeotropic column.",
+          "do": "Send the distillate as vapour, without condensing it.",
+          "why": "The vapour's latent heat goes straight into the second column.",
+          "check": "Compare the second column's reboiler duty with a liquid and with a vapour feed.",
+          "result": "Reboiler duty about 59% lower (163 against 402 kW) in the 1,4-dioxane case."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.3, p. 16 (Fig. 11)"
@@ -749,6 +864,13 @@
           "conceptual-design"
         ],
         "statement": "Nearly all Pareto-optimal designs fell within 5% of the minimum annual cost while capital and operating cost could shift by about 20%, leaving freedom between larger columns and lower energy.",
+        "plain": {
+          "title": "Flat cost optimum: use the freedom to meet other constraints",
+          "when": "You must pick one design from many near-optimal ones.",
+          "do": "Use the flat optimum to trade larger columns against lower energy, or to meet other constraints.",
+          "why": "Stages and reflux trade off: nearly all Pareto-optimal designs (best trade-offs) fell within 5% of the minimum annual cost, while capital and operating cost shifted by about 20%.",
+          "check": "Cost a few designs along the trade-off before fixing one."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 3.1.2, p. 11 (Fig. 6); Section 3.2.1, p. 14 (Fig. 9)"
@@ -792,6 +914,13 @@
           "costing"
         ],
         "statement": "In conceptual design the decanter is often left uncosted because its size depends on a disengagement time that is not yet known.",
+        "plain": {
+          "title": "Conceptual cost estimate: say whether the decanter is costed",
+          "when": "You cost a heteroazeotropic process at the concept stage.",
+          "do": "State the decanter as uncosted, or estimate its disengagement time (how long the two liquids need to separate) and size it.",
+          "why": "The decanter's size depends on a disengagement time that is usually not yet known.",
+          "check": "List the uncosted units with the cost estimate."
+        },
         "source": {
           "source_id": "kruber-skiborowski-2022-heteroazeotropic-init",
           "locator": "Section 2.1, p. 5"
