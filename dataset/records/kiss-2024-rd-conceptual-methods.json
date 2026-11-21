@@ -21,6 +21,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Reactive distillation is feasible only where the temperature and pressure windows of the reaction, the catalyst and the separation overlap. Otherwise keep reactor and column separate, and judge integration on the whole process.",
+        "plain": {
+          "title": "Reactive distillation only works where the reaction, catalyst and separation windows overlap",
+          "when": "You consider combining a reaction and its separation in one column.",
+          "do": "Check that the temperature and pressure windows of the reaction, the catalyst and the separation overlap. If they do not, keep reactor and column separate, and judge integration on the whole process.",
+          "why": "One column imposes one pressure and a temperature profile on all three.",
+          "check": "Compare the column's stage temperatures at the chosen pressure with the catalyst's limit and the reaction's useful range."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Heuristic approaches, journal p. 1268 (p. 7 of the TU Delft copy)"
@@ -64,6 +71,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A slow reaction makes reactive distillation unattractive, and a very high relative volatility needs only a reactor followed by a flash. Between these, reactive distillation is a candidate.",
+        "plain": {
+          "title": "Slow reaction: no reactive distillation; very easy separation: reactor plus flash",
+          "when": "You choose between a reactor followed by a separator and a reactive column.",
+          "do": "Place the system on a rate-against-volatility chart (the Schoenmakers diagram). A slow reaction makes reactive distillation unattractive; a very high relative volatility needs only a reactor and a flash. In between, reactive distillation is a candidate.",
+          "why": "Reaction rate and volatility decide whether extra stages help.",
+          "check": "The chart's axes are not quantified and Kiss et al. 2024 warn that it needs experience: confirm the choice with a simulation."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Heuristic approaches, journal pp. 1268-1269 (pp. 7-8 of the TU Delft copy, Fig. 2)"
@@ -108,6 +122,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "If the reaction is too slow at the column's temperatures, raising the column pressure raises the temperature and thus the rate, as long as separation and catalyst still allow it.",
+        "plain": {
+          "title": "Reaction too slow on the reactive stages: raise the column pressure",
+          "when": "The reaction is too slow at the reactive column's temperatures.",
+          "do": "Raise the column pressure so the stages run hotter and the reaction faster, as long as the separation and the catalyst still allow it.",
+          "why": "Pressure sets the stage temperatures.",
+          "check": "In CHEPTA, scan the column pressure and check the reactive-zone temperatures against the catalyst limit, and the key relative volatility."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Heuristic approaches, journal p. 1269 (p. 8 of the TU Delft copy)"
@@ -150,6 +171,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Put the reactive zone where reactant concentrations are highest. Estimate the non-reactive stages with Fenske-type shortcuts and the reactive stages from the reactive height over the catalytic packing's HETP.",
+        "plain": {
+          "title": "First design of a reactive column: reactive zone where reactants are richest, shortcut the rest",
+          "when": "You need a starting design for a reactive distillation column.",
+          "do": "Put the reactive zone where reactant concentrations are highest. Estimate the non-reactive stages with Fenske-type shortcuts (minimum-stage equations), and the reactive stages as the reactive height divided by the catalytic packing's HETP (height equivalent to a theoretical plate).",
+          "why": "Conventional shortcuts give the separating sections; the catalytic packing sets the reactive height.",
+          "check": "Simulate the first design rigorously and adjust it."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Heuristic approaches, journal p. 1268 (p. 7 of the TU Delft copy; guidelines of Subawalla and Fair)"
@@ -194,6 +222,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "For reactions with a large heat effect, integrate energy between the reactive and separating sections; for slow, strongly endothermic reactions with small equilibrium constants also integrate mass with the stripping section. For thermally neutral reactions mass integration alone suffices.",
+        "plain": {
+          "title": "Reactive column with a large heat of reaction: plan energy integration between its sections",
+          "when": "The reaction on the reactive stages releases or absorbs much heat.",
+          "do": "Integrate energy between the reactive and separating sections. For slow, strongly endothermic reactions with small equilibrium constants, also integrate mass with the stripping section. For thermally neutral reactions mass integration alone is enough.",
+          "why": "Heat released or absorbed on the reactive stages changes the column's vapour and liquid flows.",
+          "check": "In CHEPTA, compare the vapour and liquid flow profiles with and without reaction."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Synthesis procedures, journal p. 1277 (p. 16 of the TU Delft copy; procedure of Huang et al.)"
@@ -237,6 +272,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A reactive column can run neat (stoichiometric feeds) or with 10 to 20% excess of one reactant, which then needs a recovery column. Neat operation in one column is cheaper but needs precise balancing of the fresh feeds to stop a reactant building up.",
+        "plain": {
+          "title": "Reactive column feeds: run neat with tight ratio control, or with 10-20% excess and a recovery column",
+          "when": "You set the reactant ratio of a reactive column.",
+          "do": "Either run neat (stoichiometric feeds) in one column, which is cheaper but needs precise balancing of the fresh feeds, or use 10 to 20% excess of one reactant with a recovery column for it.",
+          "why": "Any excess reactant must leave somewhere; in neat operation a small imbalance builds up in the column.",
+          "check": "In CHEPTA, offset the feed ratio slightly and watch whether a reactant accumulates in the column or the recycle."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Journal pp. 1270 and 1278 (pp. 9 and 17 of the TU Delft copy; after Luyben and Yu)"
@@ -280,6 +322,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Place the reactive section so distillation carries a reaction product out of the liquid, which lifts the equilibrium limit, and, where azeotropes exist, so the reaction prevents the azeotrope from forming.",
+        "plain": {
+          "title": "Place the reactive section so distillation carries a product away",
+          "when": "A reactive column is limited by equilibrium, or an azeotrope can form.",
+          "do": "Locate the reactive section so distillation removes a reaction product from the liquid and, where azeotropes exist, so the reaction consumes a component before its azeotrope can form.",
+          "why": "Removing a product shifts the equilibrium; consuming a component avoids its azeotrope.",
+          "check": "In CHEPTA, compare conversion and stage compositions for a few positions of the reactive zone."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Journal p. 1270 (p. 9 of the TU Delft copy)"
@@ -323,6 +372,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "On reactive trays a liquid height of 10 to 15 cm is typical, since more raises pressure drop; if the needed hold-up implies more, use more reactive trays or a wider column than vapour loading requires.",
+        "plain": {
+          "title": "Reactive trays hold 10-15 cm of liquid: if you need more hold-up, add trays or widen the column",
+          "when": "The catalyst hold-up the reaction needs exceeds what a tray can hold.",
+          "do": "Keep the tray liquid height near 10 to 15 cm. If the needed hold-up implies more, add reactive trays or make the column wider than vapour loading requires.",
+          "why": "More liquid on a tray raises the pressure drop; tray hydraulics limit the liquid height.",
+          "check": "Divide the required hold-up per stage by the tray area to get the liquid height."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Journal p. 1274 (p. 13 of the TU Delft copy; after Luyben and Yu)"
@@ -365,6 +421,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A pre-reactor can take part of the conversion before the reactive column; the best split of conversion between them is found by costing designs over a range of pre-reactor temperatures.",
+        "plain": {
+          "title": "Too much reaction asked of the column: add a pre-reactor",
+          "when": "The reactive column has to deliver a large share of the conversion.",
+          "do": "Add a pre-reactor upstream to take part of the conversion. Find the best split between them by costing designs over a range of pre-reactor temperatures.",
+          "why": "An upstream reactor reaches equilibrium cheaply and leaves a smaller reactive section.",
+          "check": "Cost several pre-reactor temperatures and keep the cheapest."
+        },
         "source": {
           "source_id": "kiss-2024-rd-conceptual-methods",
           "locator": "Journal p. 1275 (p. 14 of the TU Delft copy; after Daniel and Jobson)"

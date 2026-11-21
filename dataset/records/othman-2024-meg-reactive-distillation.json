@@ -27,6 +27,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Reactive distillation suits ethylene oxide hydration because the volatile oxide stays dilute in the liquid on the reactive stages, which limits diethylene glycol. The reaction heat also helps boil off the water.",
+        "plain": {
+          "title": "Ethylene oxide hydration in a reactive column: less diethylene glycol and less steam",
+          "when": "Ethylene oxide is hydrated to ethylene glycol, heavy glycols form when oxide meets glycol, and removing the water costs steam.",
+          "do": "Hydrate in a reactive distillation column, without catalyst.",
+          "why": "The volatile oxide stays dilute in the liquid on the reactive stages, which limits diethylene glycol, and the reaction heat helps boil off the water.",
+          "check": "In CHEPTA, compare the oxide concentration on the reactive stages and the diethylene glycol made with a tubular-reactor case."
+        },
         "source": {
           "source_id": "othman-2024-meg-reactive-distillation",
           "locator": "Introduction, p. 3; Results, pp. 7-9"
@@ -74,6 +81,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Feed the recycled process water near the top of the reactive column (stage 2) and the aqueous oxide a little lower (stage 4). The water then catches oxide vapour before it reaches the condenser.",
+        "plain": {
+          "title": "Reactive glycol column: feed the recycled water above the oxide",
+          "when": "Volatile ethylene oxide could escape overhead from the reactive column.",
+          "do": "Feed the recycled process water near the top (stage 2) and the aqueous oxide a little lower (stage 4).",
+          "why": "The water above the oxide feed catches and reacts with the rising oxide vapour before it reaches the condenser.",
+          "check": "In CHEPTA, check the oxide in the condenser vapour for a few feed locations."
+        },
         "source": {
           "source_id": "othman-2024-meg-reactive-distillation",
           "locator": "Results, pp. 7-8 (Table 3, Fig. 10)"
@@ -122,6 +136,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "The conventional glycol reactor is an adiabatic tube in turbulent flow without back-mixing, fed with oxide diluted in a large water excess. This limits further reaction of glycol with oxide and avoids oxide vapour breakthrough.",
+        "plain": {
+          "title": "Conventional glycol reactor: an adiabatic tube with a large water excess",
+          "when": "Back-mixing would bring product glycol into contact with fresh oxide.",
+          "do": "Use an adiabatic tubular reactor in turbulent flow without back-mixing, fed with oxide diluted in a large water excess.",
+          "why": "Plug flow keeps the residence time narrow, which limits further reaction of glycol with oxide and avoids oxide vapour breakthrough.",
+          "check": "In CHEPTA, model it as a plug-flow reactor and check the selectivity to monoethylene glycol."
+        },
         "source": {
           "source_id": "othman-2024-meg-reactive-distillation",
           "locator": "Introduction, p. 2 (Fig. 1)"
@@ -167,6 +188,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "A reactive column for ethylene glycol can have several steady states, one of which accumulates ethylene oxide at the top. A converged run that misses the glycol target may be on the wrong one.",
+        "plain": {
+          "title": "Reactive glycol column converged but misses the target: it may be on the wrong steady state",
+          "when": "A converged reactive column for ethylene glycol misses its target.",
+          "do": "Look for other steady states before changing settings: restart from different estimates or scan a setting.",
+          "why": "Several steady states exist for the same inputs, and one of them accumulates ethylene oxide at the top (earlier modelling studies cited by Othman 2024).",
+          "check": "In CHEPTA, check the oxide at the top stage: a high value points to the wrong branch."
+        },
         "source": {
           "source_id": "othman-2024-meg-reactive-distillation",
           "locator": "Introduction, p. 2 (citing earlier modelling studies)"
@@ -211,6 +239,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "The paper models glycol + water with the cubic-plus-association (CPA) equation of state, chosen for associating glycol and water, and checks for liquid phase splitting on the stages.",
+        "plain": {
+          "title": "Glycol and water: use a property method that handles association, and check for two liquids on the stages",
+          "when": "Glycols and water associate (form hydrogen bonds), which simple models describe poorly.",
+          "do": "Use an association-capable property method, as Othman 2024 did with the cubic-plus-association (CPA) equation of state, and check phase stability on the stages.",
+          "why": "An association term represents the hydrogen bonding.",
+          "check": "CHEPTA's own property methods and their applicability govern Lab runs: check that the method chosen covers glycol and water at the column's conditions."
+        },
         "source": {
           "source_id": "othman-2024-meg-reactive-distillation",
           "locator": "Model, p. 3"

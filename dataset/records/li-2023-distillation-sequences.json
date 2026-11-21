@@ -21,6 +21,13 @@
           "sequencing"
         ],
         "statement": "A classic sequencing heuristic, reported by the authors, leaves the most difficult split to last because it needs a high reflux ratio.",
+        "plain": {
+          "title": "Classic sequencing rule: leave the hardest split to last",
+          "when": "You choose the order of splits in a distillation sequence.",
+          "do": "Leave the most difficult split to last.",
+          "why": "A difficult split needs a high reflux ratio, which is cheaper with fewer components present.",
+          "check": "Li et al. 2023 report this classic rule and then qualify it: compare sequences quantitatively."
+        },
         "source": {
           "source_id": "li-2023-distillation-sequences",
           "locator": "Section 2, p. 5"
@@ -67,6 +74,13 @@
           "sequencing"
         ],
         "statement": "The authors find the hardest split can also pay early, and that non-key components present during a difficult split inflate the column flows; the balance depends on the case, so sequences should be compared by optimisation.",
+        "plain": {
+          "title": "The hardest split can also pay early: compare sequences by optimisation",
+          "when": "You choose the order of splits in a distillation sequence.",
+          "do": "Compare sequences quantitatively, by optimisation, rather than by a fixed rule.",
+          "why": "Two effects oppose: the high reflux of a difficult split, and the non-key components present during it, which inflate the column flows. Li et al. 2023 find the balance depends on the case.",
+          "check": "Screen with shortcut models plus heat integration, then simulate the best few rigorously."
+        },
         "source": {
           "source_id": "li-2023-distillation-sequences",
           "locator": "Section 2, p. 5"
@@ -112,6 +126,13 @@
           "utilities"
         ],
         "statement": "Choose column pressure so the condenser can use cooling water rather than refrigeration, and set it together with heat integration.",
+        "plain": {
+          "title": "Choose column pressure so the condenser can use cooling water",
+          "when": "A column's condenser temperature would need refrigeration.",
+          "do": "Raise the column pressure until the condenser can use cooling water, and set it together with the heat integration.",
+          "why": "Higher pressure raises the condensing temperature.",
+          "check": "In CHEPTA, scan the pressure and record condenser and reboiler temperatures against your utilities."
+        },
         "source": {
           "source_id": "li-2023-distillation-sequences",
           "locator": "Section 2, p. 5"
@@ -154,6 +175,13 @@
           "screening"
         ],
         "statement": "Shortcut column models (Fenske-Underwood-Gilliland) combined with heat-exchanger network synthesis screened distillation sequences reliably; only the best few needed rigorous simulation.",
+        "plain": {
+          "title": "Many sequences to compare: screen with shortcut models and heat integration, simulate only the best few",
+          "when": "There are too many distillation sequences to simulate rigorously.",
+          "do": "Screen with shortcut column models (Fenske-Underwood-Gilliland) combined with heat-exchanger network synthesis, and simulate only the best few rigorously.",
+          "why": "For zeotropic mixtures (no azeotropes) shortcuts rank sequences as rigorous models do.",
+          "check": "Li et al. 2023 showed this for zeotropic hydrocarbons only: do not rely on it for azeotropic mixtures without a rigorous check."
+        },
         "source": {
           "source_id": "li-2023-distillation-sequences",
           "locator": "Abstract, p. 1; Conclusions, p. 14"
@@ -196,6 +224,13 @@
           "thermally-coupled"
         ],
         "statement": "Without heat integration, thermally coupled complex columns beat sequences of simple columns by a wide margin; once heat integration is included the difference narrows a lot.",
+        "plain": {
+          "title": "Thermally coupled columns against simple ones: compare with heat integration included",
+          "when": "You choose between thermally coupled complex columns and sequences of simple columns.",
+          "do": "Include heat integration in both options before comparing them.",
+          "why": "Without heat integration coupled columns win by a wide margin; heat integration recovers much of what coupling saves, so the gap narrows a lot.",
+          "check": "Run the pinch targets for both options."
+        },
         "source": {
           "source_id": "li-2023-distillation-sequences",
           "locator": "Abstract, p. 1"

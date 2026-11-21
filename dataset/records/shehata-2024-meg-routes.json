@@ -27,6 +27,14 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "In non-catalytic hydration of ethylene oxide, a large water excess (10 to 25 mol per mol oxide cited, 10 simulated) suppresses di- and triethylene glycol. The price is a large amount of water to evaporate downstream.",
+        "plain": {
+          "title": "Ethylene oxide hydration without catalyst: use a large water excess, and plan to evaporate it",
+          "when": "In non-catalytic hydration of ethylene oxide, glycol reacts further with the oxide to di- and triethylene glycol.",
+          "do": "Feed the hydration reactor with a high water to oxide ratio: 10 to 25 mol per mol oxide in the literature cited by Shehata et al. 2024, 10 in their simulation.",
+          "why": "Dilution makes the oxide meet water rather than glycol.",
+          "check": "Count the water to be evaporated downstream: it is the price of the selectivity.",
+          "result": "Higher monoethylene glycol selectivity, and a much larger water load."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'Indirect hydration process', p. 6; 'MEG production via direct EO hydration process', p. 8"
@@ -73,6 +81,14 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Remove most of the excess water from the hydration effluent in evaporators at falling pressure, each heated by the vapour of the one before, then finish in a vacuum dehydration column. In the simulation the evaporators take about 75% of the water and only the first uses steam.",
+        "plain": {
+          "title": "Dilute glycol: multi-effect evaporators first, vacuum column last",
+          "when": "A dilute glycol solution after hydration needs most of its water boiled off.",
+          "do": "Remove most of the water in evaporators at falling pressure, each heated by the vapour of the one before, then finish in a vacuum dehydration column.",
+          "why": "Reusing each evaporator's vapour to heat the next divides the steam demand.",
+          "check": "In CHEPTA, check that each evaporator still has a positive temperature difference at its pressure.",
+          "result": "In Shehata et al. 2024's simulation the evaporators take about 75% of the water and only the first uses steam."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'MEG production via direct EO hydration process', p. 8 (Fig. 5)"
@@ -120,6 +136,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Operate the glycol dehydration and product columns under vacuum so the bottoms stay below the temperature at which the glycol degrades (170 C in the paper). The product glycol is drawn from the side and the heavier glycols leave at the bottom.",
+        "plain": {
+          "title": "Glycol columns under vacuum, so the bottoms stay below about 170 C",
+          "when": "Glycol would degrade at the temperatures of atmospheric distillation.",
+          "do": "Run the dehydration and product columns under vacuum so the bottoms stay below the degradation temperature (170 C in Shehata et al. 2024). Draw the product glycol from the side; heavier glycols leave at the bottom.",
+          "why": "Lower pressure lowers the boiling temperatures.",
+          "check": "In CHEPTA, check the reboiler temperature at the chosen pressure."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'MEG production via direct EO hydration process', p. 8"
@@ -168,6 +191,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "In the ethylene carbonate route the carbon dioxide taken up in carbonation is set free again in hydrolysis. It is separated, compressed and recycled to carbonation, with only a small make-up for losses.",
+        "plain": {
+          "title": "Ethylene carbonate route: recycle the CO2 released in hydrolysis back to carbonation",
+          "when": "Carbon dioxide is a reactant in carbonation and a product of the hydrolysis that follows.",
+          "do": "Separate the released CO2, compress it and recycle it to carbonation, with a small make-up for losses.",
+          "why": "Closing the loop leaves only the losses to replace.",
+          "check": "In CHEPTA, check the CO2 balance of the loop: make-up equals losses."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'Indirect hydration process', p. 7; 'MEG production via indirect EO hydration process', p. 8 (Fig. 6)"
@@ -216,6 +246,14 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Hydrolysing ethylene carbonate needs water close to stoichiometric and gives far fewer heavy glycols than direct hydration (1,532 versus 22,270 t/a in the paper's simulations). Purification then needs less water removal and simpler heavy-glycol handling.",
+        "plain": {
+          "title": "Ethylene glycol via ethylene carbonate: far fewer heavy glycols and less water than direct hydration",
+          "when": "Direct hydration forces a large water excess and makes heavy glycols.",
+          "do": "Consider routing through ethylene carbonate; its hydrolysis needs water close to stoichiometric.",
+          "why": "The carbonate intermediate hydrolyses selectively with little water, so purification needs less water removal and simpler heavy-glycol handling.",
+          "check": "These are simulation numbers without an evidence row in Lab: check them against the stream tables before reuse.",
+          "result": "Heavy glycols 1,532 against 22,270 t/a in Shehata et al. 2024's simulations."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'Indirect hydration process', p. 6; 'MEG production via indirect EO hydration process', p. 9"
@@ -263,6 +301,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Carbonation of ethylene oxide is strongly exothermic, and the paper uses the heat removed from the carbonate reactors to raise low-pressure steam.",
+        "plain": {
+          "title": "Carbonation of ethylene oxide is strongly exothermic: raise low-pressure steam from it",
+          "when": "Heat must be removed from the carbonate reactors.",
+          "do": "Use the reactor cooling to raise low-pressure steam.",
+          "why": "The heat removed is at a useful temperature.",
+          "check": "Check that the reactor temperature lies far enough above the steam's saturation temperature."
+        },
         "source": {
           "source_id": "shehata-2024-meg-routes",
           "locator": "Section 'MEG production via indirect EO hydration process', pp. 7-8"

@@ -124,6 +124,15 @@ simulation in the same knowledge base, not only what Lab's own cases showed.
   profiles; a lead, as cited in the troubleshooting table, the book not opened by Lab). The two chepta 0.6.2 example
   rows now carry the symptom `no-convergence`. No other book content is added.
 
+- **Plain fields for people (amendment, 2026-11-21).** The maintainer found the rules unreadable. A rule row may
+  carry `keys.plain`: `title` (one action line, the way a senior engineer would say it), `when`, `do`, `why`,
+  `check` (in CHEPTA where it applies), optional `result` and `note`. `kb.py check` refuses "the paper", "the
+  authors" or "the review" without a name, row ids, fields over 450 characters (title 140), and any number that is
+  not in the row's statement, limits, evidence or locator, or in a `note` naming the passage Lab reread;
+  `note: "source not reread"` marks a row written from the statement alone. `rules-readable.md` renders these rows
+  as title, the five lines, a plain status and "Source: Author Year, *short title* (link), locator"; other rows keep
+  the one-line form. problems.md, problems.json and `kb.py query` are unchanged, so agents read as before.
+
 ## To decide
 
 1. **Condition tags free or controlled?** Free tags let two workers describe the same condition differently, which

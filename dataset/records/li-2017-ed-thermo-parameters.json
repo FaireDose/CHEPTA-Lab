@@ -21,6 +21,13 @@
           "property-parameters"
         ],
         "statement": "Check the simulator's built-in binary parameters against measured phase equilibrium before designing: built-in NRTL values predicted a toluene + DMF azeotrope that experiments do not show.",
+        "plain": {
+          "title": "Simulation shows an azeotrope the data do not: check the built-in binary parameters",
+          "when": "A simulated azeotrope or phase behaviour does not appear in measured data.",
+          "do": "Compare the predicted vapour-liquid equilibrium with measured data for the key binaries before designing. Li et al. 2017 found built-in NRTL values predicting a toluene and DMF (dimethylformamide) azeotrope that experiments do not show.",
+          "why": "Stored interaction parameters may be fitted outside the range or to poor data.",
+          "check": "Lab relies on CHEPTA's parameter provenance and looks into data only on such a concrete disagreement (AGENTS.md): record the disagreement when you find one."
+        },
         "source": {
           "source_id": "li-2017-ed-thermo-parameters",
           "locator": "Introduction (Fig. 1)"
@@ -64,6 +71,14 @@
           "property-parameters"
         ],
         "statement": "Regressed and built-in parameters can disagree enough to change the design: for benzene + cyclohexane with NMP the relative volatility differed by a factor of 1.84 and the annual cost by about 45%.",
+        "plain": {
+          "title": "Regressed and built-in parameters can change the design: volatility off by a factor 1.84, cost by about 45%",
+          "when": "Simulated purity or cost is far from what was expected.",
+          "do": "Use parameters regressed from measured data where the built-in ones disagree with the data.",
+          "why": "Relative volatility is sensitive to the interaction parameters.",
+          "check": "Compare the key pair's relative volatility from both parameter sets.",
+          "result": "For benzene and cyclohexane with NMP (a polar extractive solvent), relative volatility differed by a factor of 1.84 and annual cost by about 45%."
+        },
         "source": {
           "source_id": "li-2017-ed-thermo-parameters",
           "locator": "Conclusion"
@@ -106,6 +121,13 @@
           "solvent-choice"
         ],
         "statement": "Pick an extractive solvent that boils well above the mixture, is thermally stable, easy to recover and of low toxicity. Screen candidates by how much they raise the key relative volatility, and by residue curve maps free of distillation boundaries.",
+        "plain": {
+          "title": "Picking an extractive solvent: high boiling, stable, easy to recover, low toxicity; screen by the volatility it adds",
+          "when": "You choose a solvent for extractive distillation.",
+          "do": "Pick one that boils well above the mixture, is thermally stable, easy to recover and of low toxicity. Screen candidates by how much they raise the key relative volatility, and by residue curve maps (how a boiling liquid's composition moves) free of distillation boundaries.",
+          "why": "The solvent works by changing the activity coefficients of the key pair.",
+          "check": "In CHEPTA, compute the key pair's relative volatility with and without the solvent."
+        },
         "source": {
           "source_id": "li-2017-ed-thermo-parameters",
           "locator": "Introduction"

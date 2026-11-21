@@ -21,6 +21,13 @@
           "dividing-wall-column"
         ],
         "statement": "Simulators without a dividing-wall model represent it as coupled columns; the pump-around arrangement converges more easily than the four-column arrangement.",
+        "plain": {
+          "title": "Dividing-wall column does not converge: model it as a pump-around pair of columns",
+          "when": "Your simulator has no dividing-wall column model (one shell with an internal wall), and the coupled-column version does not converge.",
+          "do": "Represent the dividing wall with the pump-around arrangement rather than the four-column arrangement.",
+          "why": "The pump-around form has fewer interconnecting recycles.",
+          "check": "In CHEPTA, build the pump-around version and compare its products with the four-column one where both converge."
+        },
         "source": {
           "source_id": "henrique-2020-dwc-simulation",
           "locator": "Introduction, p. 150 (Fig. 1)"
@@ -62,6 +69,13 @@
           "initialisation"
         ],
         "statement": "When an equation-oriented solver needs a good start, run a short dynamic simulation and use its final values as the initial guess for the steady state.",
+        "plain": {
+          "title": "Equation-oriented solve fails from poor estimates: start it from a short dynamic run",
+          "when": "An equation-oriented solver (one that solves all equations at once) fails from a poor starting point.",
+          "do": "Run a short dynamic simulation and use its final values as the initial guess for the steady state.",
+          "why": "A dynamic run moves all variables towards the steady state.",
+          "check": "Lab has not checked whether CHEPTA can run dynamically; if not, start from the closest converged steady state."
+        },
         "source": {
           "source_id": "henrique-2020-dwc-simulation",
           "locator": "Introduction, p. 151"
@@ -103,6 +117,13 @@
           "dividing-wall-column"
         ],
         "statement": "A dividing-wall column can match a two-column sequence's sharp ternary split with fewer trays, but with too few trays it needs much more reflux, and its liquid and vapour split ratios strongly affect the result.",
+        "plain": {
+          "title": "Sizing a dividing-wall column: optimise trays, reflux and both split ratios together",
+          "when": "You replace a two-column sequence for a sharp three-component split with a dividing-wall column.",
+          "do": "Optimise the number of trays, the reflux and the liquid and vapour split ratios (how flows divide either side of the wall) together.",
+          "why": "Fewer trays can match the split, but with too few the reflux rises steeply, and the split ratios set the internal flows.",
+          "check": "Scan trays and both split ratios and record reflux and duty at each point."
+        },
         "source": {
           "source_id": "henrique-2020-dwc-simulation",
           "locator": "Conclusions, p. 165"
@@ -145,6 +166,13 @@
           "dividing-wall-column"
         ],
         "statement": "Most of the energy saving of a fully coupled (Petlyuk) arrangement comes from the prefractionator doing only a rough split, which avoids remixing; a dividing-wall column is its single-shell equivalent.",
+        "plain": {
+          "title": "Three-component split: a prefractionator or dividing wall saves energy by avoiding remixing",
+          "when": "You separate a three-component mixture by distillation.",
+          "do": "Use a fully coupled (Petlyuk) arrangement, or its single-shell equivalent, a dividing-wall column, where the prefractionator does only a rough split.",
+          "why": "In a plain sequence the middle component is remixed, which wastes separation work; most of the coupled arrangement's saving comes from avoiding that.",
+          "check": "Compare the total duty with the best sequence of simple columns."
+        },
         "source": {
           "source_id": "henrique-2020-dwc-simulation",
           "locator": "Introduction, p. 150"

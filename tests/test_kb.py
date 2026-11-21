@@ -58,8 +58,10 @@ class KnowledgeBaseTests(unittest.TestCase):
     def test_readable_page_for_people(self):
         page = kb.build_readable(self.corpus)
         self.assertEqual(kb.INDEX_READABLE.read_text(), page)  # current; index_errors also checks it
-        rule = self.decision(self.SIM)
-        line = next(l for l in page.splitlines() if rule["keys"]["statement"] in l)
+        # A row without plain fields keeps the one-line rendering.
+        rule = copy.deepcopy(self.decision(self.SIM))
+        del rule["keys"]["plain"]
+        line = kb.readable_line(rule, p.indexes(self.corpus), self.sources)
         self.assertTrue(line.startswith(f"- **{rule['keys']['statement']}** lead, book or review; Kooijman & Taylor 2006, "))
         self.assertTrue(line.endswith(f"<sub>{rule['id']}</sub>"))
         self.assertIn("When: rigorous column.", line)
@@ -70,11 +72,79 @@ class KnowledgeBaseTests(unittest.TestCase):
             self.assertFalse(any(i in main for i in ids if "." in i), l)
         self.assertIn("rules-readable.md", kb.build_index(self.corpus, self.origins)[0].splitlines()[2])
         # A stale page is reported, and held-out rows never appear.
-        self.decision(self.SIM)["keys"]["statement"] = "Changed for the test."
+        self.decision(self.SIM)["keys"]["plain"]["title"] = "Changed for the test"
         self.assertTrue(any("rules-readable.md is stale" in e for e in kb.index_errors(self.corpus, self.origins)))
         self.corpus["groups"].append({"id": "chemsep-book", "family": "chemsep-book",
                                       "source_ids": ["kooijman-taylor-2006-chemsep-book"], "split": "test"})
         self.assertNotIn(self.SIM, kb.build_readable(self.corpus))
+
+    # --- plain fields for people ---
+
+    def test_plain_rule_renders_title_fields_status_and_source(self):
+        rule = self.decision(self.SIM)
+        plain = rule["keys"]["plain"]
+        page = kb.build_readable(self.corpus).splitlines()
+        i = page.index(f"- **{plain['title']}**")
+        block = page[i:i + 7]
+        self.assertEqual([l.split(":")[0] for l in block[1:]],
+                         ["  - When", "  - Do", "  - Why", "  - Check", "  - Status", "  - Source"])
+        self.assertEqual(block[5], "  - Status: lead — from the literature, not yet tested by Lab.")
+        self.assertTrue(block[6].startswith("  - Source: Kooijman & Taylor 2006, *The ChemSep Book, second edition* "
+                                            "(https://www.chemsep.org/downloads/docs/book2.pdf), Sections 1.2-1.3"))
+        self.assertIn("Lab has not reread the source for this summary.", block[6])
+        self.assertTrue(block[6].endswith(f"<sub>{rule['id']}</sub>"))
+        # A DOI becomes a link, and a result line is printed where there is one.
+        row = self.decision("al-rabiah-2022.membrane-reactor-removes-water")
+        text = kb.readable_line(row, p.indexes(self.corpus), self.sources)
+        self.assertIn("(https://doi.org/10.3390/pr10091801)", text)
+        self.assertIn(f"  - Result: {row['keys']['plain']['result']}", text)
+
+    def test_every_literature_rule_outside_the_case_files_has_plain_fields(self):
+        cases = {"pilot", "ethyl-acetate-piotrowski-2021", "methanol-co2-campos-2022"}
+        missing = [d["id"] for d in self.corpus["decisions"] if d["keys"]["kind"] in kb.RULE_KINDS
+                   and self.origins.get(d["id"]) not in cases and "plain" not in d["keys"]]
+        self.assertEqual(missing, [])
+
+    def test_rendered_plain_text_names_its_sources(self):
+        page = kb.build_readable(self.corpus)
+        for line in page.splitlines():
+            if line.startswith(("  - When", "  - Do", "  - Why", "  - Check", "  - Result")) or \
+                    (line.startswith("- **") and not line.rstrip().endswith("</sub>")):
+                self.assertIsNone(kb.BARE_REFERENCE.search(line), line)
+
+    def test_plain_bare_reference_refused(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["do"] = "Do what the paper says."
+        self.assertTrue(any("without naming it" in e for e in self.errors()))
+        plain["do"] = "Do what the paper (Kooijman & Taylor 2006, https://www.chemsep.org) says."
+        self.assertFalse(any("without naming it" in e for e in self.errors()))
+        plain["why"] = "The authors' reason."
+        self.assertTrue(any("plain.why says" in e for e in self.errors()))
+
+    def test_plain_number_must_come_from_the_row(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["result"] = "Purity rose to 99.7 mol%."
+        self.assertTrue(any("gives 99.7" in e for e in self.errors()))
+        plain["note"] = "Lab reread p. 12 on 2026-11-20 (99.7 mol%)."  # a passage reread names the number
+        self.assertFalse(any("gives 99.7" in e for e in self.errors()))
+        plain["result"] = "CO2 and m3 are formulas and units, not numbers."
+        self.assertFalse(any("gives" in e for e in self.errors()))
+
+    def test_plain_no_ids_short_one_paragraph(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        plain["check"] = f"See {EXAMPLE}."
+        self.assertTrue(any("names a row id" in e for e in self.errors()))
+        plain["check"] = "Line one.\nLine two."
+        self.assertTrue(any("one short paragraph" in e for e in self.errors()))
+        plain["check"] = "x" * 451
+        self.assertTrue(any("one short paragraph" in e for e in self.errors()))
+
+    def test_plain_schema_requires_the_five_fields(self):
+        plain = self.decision(self.SIM)["keys"]["plain"]
+        del plain["check"]
+        self.assertTrue(p.validate(self.corpus, self.sources))
+        plain["check"], plain["extra"] = "Check it.", "not allowed"
+        self.assertTrue(p.validate(self.corpus, self.sources))
 
     def test_index_size_follows_problems_not_rows(self):
         md, _ = kb.build_index(self.corpus, self.origins)

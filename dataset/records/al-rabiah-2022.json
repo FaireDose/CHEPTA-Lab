@@ -30,6 +30,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "At equal capacity (92,500 t/a) and product purity, the paper's Aspen Plus comparison puts reactive distillation first, the membrane-reactor process second and the reactor-plus-three-columns process last on steam use, CO2 and cost.",
+        "plain": {
+          "title": "Butyl acetate route: shortlist reactive distillation first, then a membrane reactor; the reactor with three columns came last",
+          "when": "You choose a route to n-butyl acetate from acetic acid and n-butanol. The reaction is limited by equilibrium and butanol forms an azeotrope with water.",
+          "do": "Shortlist reactive distillation (reaction and distillation in one column) and a membrane reactor against the conventional fixed-bed reactor with three columns. Al-Rabiah et al. 2022 compared all three in Aspen Plus at equal capacity (92,500 t/a) and equal product purity.",
+          "why": "Doing reaction and separation together loses less conversion to equilibrium and needs fewer columns.",
+          "check": "Compare routes on the same capacity, purity, property method and cost basis. Al-Rabiah et al. 2022 used NRTL and their own cost estimates (CEPCI 2021); all three routes are their simulations, not plant data.",
+          "result": "Reactive distillation first, the membrane reactor second, the conventional route last, on steam use, CO2 and cost."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Sections 7.1, 7.2 and 8, pp. 16-18 (Table 10, Figs. 18-19, Table 12)"
@@ -84,6 +92,13 @@
         ],
         "symptom": "wrong-phase",
         "statement": "The paper models the butanol, acetic acid, butyl acetate and water system with NRTL and vapour-liquid-liquid equilibrium because of its non-ideality. A vapour-liquid-only calculation cannot represent the decanter split its reactive column relies on.",
+        "plain": {
+          "title": "Butanol, acetic acid, butyl acetate and water: use NRTL and allow two liquids",
+          "when": "You simulate the butyl acetate system, whose column overhead splits into a water phase and an organic phase in a decanter.",
+          "do": "Use an activity model such as NRTL (non-random two-liquid model) with a vapour-liquid-liquid calculation, as Al-Rabiah et al. 2022 did. Lab's reading: a vapour-liquid-only calculation cannot reproduce the decanter split that the reactive column relies on.",
+          "why": "The mixture is strongly non-ideal. Wherever water and the organic phase meet, a three-phase flash is needed.",
+          "check": "In CHEPTA, set phases: \"VLL\" on the decanter and the column and check that two liquids form at the decanter. Al-Rabiah et al. 2022 do not print their NRTL parameters (Aspen databank), and CHEPTA 0.6.2 has some of these pairs only predicted, so compare the decanter compositions before trusting them."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 2, p. 2; Section 6.2, p. 15 (decanter)"
@@ -134,6 +149,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Esterification of n-butanol with acetic acid is mildly exothermic (about -29 kJ/mol), so its equilibrium conversion falls as reaction temperature rises (the paper's Aspen equilibrium-reactor scan).",
+        "plain": {
+          "title": "Butyl acetate equilibrium: a hotter reactor gives lower, not higher, conversion",
+          "when": "You want more conversion from the esterification of n-butanol with acetic acid in a plain reactor.",
+          "do": "Do not raise the temperature to beat the equilibrium limit. Remove a product instead.",
+          "why": "The reaction is mildly exothermic (about -29 kJ/mol), so its equilibrium shifts back as temperature rises (Le Chatelier).",
+          "check": "In CHEPTA, scan an equilibrium reactor's temperature and confirm that conversion falls as temperature rises. Al-Rabiah et al. 2022 show the curve in Fig. 1 only, not as a table."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 2, pp. 2-3 (Eq. 1, Fig. 1); Section 6.1, p. 12 (Fig. 13)"
@@ -186,6 +208,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "In the conventional fixed-bed reactor over Amberlyst-15 at 363 K and a 1:1 feed, n-butanol conversion levels off at about 70% (69.8%) within roughly 2.5 m of bed. The unreacted acid and alcohol (about 43 kmol/h each) must then be separated and recycled.",
+        "plain": {
+          "title": "Butyl acetate in a fixed bed levels off near 70% conversion: plan to recycle both reactants",
+          "when": "A conventional fixed-bed reactor over Amberlyst-15 (an acidic ion-exchange resin) at 363 K with a 1:1 acid to butanol feed.",
+          "do": "Size the bed for a near-equilibrium outlet: more bed adds nothing once conversion levels off (within about 2.5 m in Al-Rabiah et al. 2022). Plan to separate and recycle the unreacted acid and butanol.",
+          "why": "The reactor reaches equilibrium quickly, at about 70% butanol conversion per pass.",
+          "check": "Check that the reactor outlet sits near 69.8% butanol conversion and that the recycle carries about 43 kmol/h of each reactant per 100 kmol/h fresh feed (Table 7 of Al-Rabiah et al. 2022).",
+          "result": "Conversion 69.8% with a 41 m3 reactor and 284 kPa feed pressure (Table 6); about 43 kmol/h each of acid and alcohol left to recycle."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 6.1, pp. 10-12 (Table 6, Fig. 14); Table 7, p. 14 (streams 3-4)"
@@ -237,6 +267,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The paper's two Amberlyst-15 rate laws disagree at 363 K: the fixed-bed law implies an equilibrium constant of about 5.0 (Lab's ratio kF/kB), the membrane-reactor law uses 3.51. Do not mix them when comparing routes.",
+        "plain": {
+          "title": "Two Amberlyst-15 rate laws for butyl acetate disagree on the equilibrium: use one model for all routes",
+          "when": "You compare butyl acetate routes that use different published rate laws for the same resin catalyst at 363 K.",
+          "do": "Use one consistent kinetic and equilibrium model across the routes, or report the difference. In Al-Rabiah et al. 2022 the fixed-bed law implies an equilibrium constant of about 5.0 (Lab's ratio of the forward and backward rate constants), while the membrane-reactor law uses 3.51.",
+          "why": "The two laws come from different literature sources. A larger equilibrium constant alone makes a route look better.",
+          "check": "Recompute the ratio from Eqs. 14-15 at 363 K before using it: the units of the rate constants are not printed and the concentration bases may differ."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 3, p. 3 (Eqs. 2-4); Section 6.1, p. 10 (Eqs. 13-15)"
@@ -288,6 +325,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A water-selective hydroxy sodalite membrane on an Amberlyst-15 reactor (363 K, 1:1 feed) removes water as it forms and lifts n-butanol conversion from about 70% to 92%. Organic losses through the membrane were taken as negligible.",
+        "plain": {
+          "title": "Butyl acetate reactor stuck near 70% conversion: take the water out through a membrane",
+          "when": "n-Butanol and acetic acid react over Amberlyst-15 (an acidic ion-exchange resin) at 363 K with a 1:1 feed, and a plain fixed bed stops at about 70% butanol conversion.",
+          "do": "Fit the reactor with a water-selective hydroxy sodalite membrane (a zeolite membrane that lets water through) so water leaves as it forms. Al-Rabiah et al. 2022 took organic losses through the membrane as negligible.",
+          "why": "Water is a product of the reaction; removing it shifts the equilibrium towards the ester.",
+          "check": "Al-Rabiah et al. 2022 solved the membrane reactor outside Aspen Plus (in MATLAB). In a Lab case take its outlet as an imposed input, not as a reproduced result, and compare the downstream column with their stream table.",
+          "result": "Butanol conversion rose from about 70% to 92% in their model, which is fitted to one laboratory study (R2 0.9973), not to an industrial membrane."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Sections 3-5, pp. 3-7 (Eqs. 7-12, Tables 1-3, Figs. 5a and 7); Abstract, p. 1"
@@ -341,6 +386,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The paper solved the membrane reactor outside Aspen Plus (an ODE model in MATLAB, water flux proportional to its concentration) and used its outlet in the flowsheet. A reproduction should treat that outlet as an imposed input, not as a compared result.",
+        "plain": {
+          "title": "Membrane reactor solved outside the simulator: treat its outlet as an input, not a result",
+          "when": "A source solved one unit in another program and fed its outlet to the flowsheet. Al-Rabiah et al. 2022 did this for the membrane reactor (an ODE model, ordinary differential equations, in MATLAB, with water flux proportional to its concentration).",
+          "do": "Declare that outlet as an imposed boundary of the case. Compare only what the flowsheet itself computed.",
+          "why": "The flowsheet simulator never calculated that unit, so matching its outlet proves nothing about the simulation.",
+          "check": "List the imposed streams in the case and keep them out of the comparison table. This is Lab's rule for case boundaries, not one of Al-Rabiah et al. 2022."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 3, pp. 3-4 (Eqs. 7-12); Section 4, p. 7"
@@ -389,6 +441,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Raising the acetic acid to n-butanol feed ratio raises butanol conversion in the membrane reactor, but the authors keep 1:1 because the excess acid makes product purification harder.",
+        "plain": {
+          "title": "Excess acetic acid raises butanol conversion but makes the ester harder to purify: stay near 1:1",
+          "when": "You choose the acetic acid to n-butanol feed ratio of a butyl acetate reactor.",
+          "do": "Keep the feed near stoichiometric, as Al-Rabiah et al. 2022 did (1:1), unless the extra conversion is worth a harder product column.",
+          "why": "An excess of one reactant pushes the equilibrium further, but the excess must be removed from the product downstream.",
+          "check": "Scan the feed ratio and watch both conversion and the acid left in the ester. Al-Rabiah et al. 2022 state the trade-off in words only, without a purification cost."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 4, p. 6 (Fig. 5b); Table 3, p. 8"
@@ -438,6 +497,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "n-Butanol and butyl acetate form an azeotrope at 101 kPa; the paper separates them at about 300 kPa, where the split is possible but needs many stages (42, feed on stage 21, reboiler 5.2 MW). Unreacted butanol and acid go overhead and are recycled.",
+        "plain": {
+          "title": "Butanol and butyl acetate form an azeotrope at 101 kPa: split them at about 300 kPa",
+          "when": "Unreacted n-butanol must be separated from butyl acetate after the reactor, and the two form an azeotrope at atmospheric pressure.",
+          "do": "Run the column at about 300 kPa, where the split is possible, with ester as bottoms and unreacted butanol and acid overhead for recycle. Expect many stages: Al-Rabiah et al. 2022 used 42 stages, feed on stage 21, reboiler 5.2 MW.",
+          "why": "Raising the pressure moves the azeotrope away from the composition you need to cross.",
+          "check": "In CHEPTA, confirm the azeotrope at 101 kPa and that it has moved at 300 kPa before building the column. Table 4 of Al-Rabiah et al. 2022 prints the bottoms at 3.2 kPa against 284 kPa overhead, probably a misprint: check before transcribing.",
+          "result": "Ester at 99.0 mol% as bottoms."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 5, pp. 7-10 (Figs. 9-10, Tables 4-5)"
@@ -489,6 +556,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The membrane-reactor route loses to reactive distillation (ROI 23.1% against 31.2%, payback 2.7 against 2.1 years) because of its energy-hungry butanol-ester column. The authors expect it to win once membrane-reactor conversion exceeds about 95%.",
+        "plain": {
+          "title": "Membrane-reactor route for butyl acetate loses on cost because of its butanol-ester column; it may win above about 95% conversion",
+          "when": "You compare a membrane-reactor route with reactive distillation for butyl acetate.",
+          "do": "Prefer reactive distillation unless the membrane reactor can exceed about 95% conversion. Al-Rabiah et al. 2022 state this threshold without showing a calculation.",
+          "why": "Unconverted butanol must be split from the ester in an energy-hungry column. Higher conversion shrinks that column.",
+          "check": "Redo the route comparison at the conversion your membrane can really reach.",
+          "result": "Return on investment 23.1% against 31.2%, payback 2.7 against 2.1 years (membrane route against reactive distillation)."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 8, pp. 17-18 (Table 12); Section 9, p. 18"
@@ -539,6 +614,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "In the conventional route the first column's distillate (water with unreacted butanol and acid) goes to extractive distillation with 1,4-butanediol fed at the top. Water leaves overhead to treatment; a recovery column returns the solvent and sends acid and butanol back to the reactor.",
+        "plain": {
+          "title": "Water with butanol and acetic acid in a recycle: extractive distillation with 1,4-butanediol",
+          "when": "In the conventional butyl acetate route the first column's distillate holds water with unreacted butanol and acid, and butanol forms an azeotrope with water.",
+          "do": "Feed 1,4-butanediol (a heavy polar solvent) at the top of an extractive column (29 stages in Al-Rabiah et al. 2022). Water leaves overhead to treatment; a recovery column returns the solvent and sends acid and butanol back to the reactor. Alternative: reactive distillation with a decanter needs no solvent.",
+          "why": "The heavy solvent holds butanol and acid back in the liquid, so water distils off.",
+          "check": "Al-Rabiah et al. 2022 print no stage numbers or reflux for the first and the recovery column, and their text sends the solvent to T-101 where Fig. 11 suggests T-102. Resolve both before transcribing."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 2, p. 3 (Fig. 2); Section 6.1, p. 12 (Figs. 11 and 15); Table 7, p. 14"
@@ -592,6 +674,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The conventional route's stream table circulates about 440 kmol/h of 1,4-butanediol against about 186 kmol/h of first-column distillate (100 water, 43 butanol, 42 acid), roughly 2.4 mol solvent per mol (Lab's ratio).",
+        "plain": {
+          "title": "Start the 1,4-butanediol extractive column at about 2.4 mol solvent per mol feed",
+          "when": "You transcribe or design the extractive column of the conventional butyl acetate route and need a first solvent flow.",
+          "do": "Start from Al-Rabiah et al. 2022's stream table: about 440 kmol/h of 1,4-butanediol against about 186 kmol/h of distillate (100 water, 43 butanol, 42 acid), roughly 2.4 mol per mol.",
+          "why": "The column needs enough solvent on every stage above the feed to break the azeotrope.",
+          "check": "The ratio is Lab's arithmetic (440.3 / 185.7, Table 7). In CHEPTA, scan the solvent flow around it and record where water purity and butanol recovery are met."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Table 7, p. 14 (streams 5, 9, 13)"
@@ -642,6 +731,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The conventional route's medium-pressure steam (218,729 MWh/a) is about eight times that of reactive distillation and five times that of the membrane-reactor route, because of its three columns.",
+        "plain": {
+          "title": "Count column duties early: the three-column butyl acetate route needed about eight times the steam of reactive distillation",
+          "when": "You rank routes where low conversion and an azeotrope multiply the number of columns.",
+          "do": "Estimate each route's column duties early, before detailed design.",
+          "why": "More columns and more recycled material mean more liquid to boil.",
+          "check": "The ratios 8.3 (against reactive distillation) and 5.2 (against the membrane route) are Lab's arithmetic on Table 10 of Al-Rabiah et al. 2022; the attribution to the columns is theirs.",
+          "result": "Medium-pressure steam 218,729 MWh/a for the conventional route."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 7.1, p. 16 (Table 10)"
@@ -692,6 +789,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "The paper's reactive column has 34 stages, catalyst on stages 5-24, acetic acid fed on stage 5 above n-butanol on stage 9 (100 kmol/h each). It reaches over 98% conversion with ester as bottoms (reboiler 3.3 MW).",
+        "plain": {
+          "title": "Reactive distillation for butyl acetate: acid fed above butanol, catalyst in the middle, ester out at the bottom",
+          "when": "You design a reactive column for acetic acid and n-butanol over Amberlyst-15 with a 1:1 feed.",
+          "do": "Use a two-feed column with a reactive middle section. Al-Rabiah et al. 2022: 34 stages, catalyst on stages 5-24, acetic acid on stage 5 above butanol on stage 9, 100 kmol/h of each, reboiler 3.3 MW.",
+          "why": "Water leaves overhead as it forms and ester leaves at the bottom, so the reaction keeps moving past its equilibrium.",
+          "check": "The bottoms in Table 9 (97.2 kmol/h ester, 1.1 butanol) is 98.9 mol% or 99.3 mass % by Lab's arithmetic; the text says more than 99% without a basis. Catalyst hold-up per stage and the pressure profile are not printed, so expect to choose them.",
+          "result": "Conversion over 98%, ester as bottoms."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 6.2, pp. 13-15 (Table 8, Fig. 16)"
@@ -741,6 +846,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Condense the reactive column's overhead into a decanter, draw the water phase off as wastewater (about 102 kmol/h) and return the whole organic phase to the column as reflux.",
+        "plain": {
+          "title": "Reactive column overhead: decant, draw off the water, return all the organic phase as reflux",
+          "when": "The overhead of a butyl acetate reactive column condenses into water and an organic (butanol and ester) phase.",
+          "do": "Condense into a decanter, draw the water phase off as wastewater (about 102 kmol/h in Al-Rabiah et al. 2022) and return the whole organic phase to the column as reflux. The conventional route uses extractive distillation with a solvent instead.",
+          "why": "Water and the butanol-ester phase split into two liquids, so water leaves without taking the reactants and the ester with it.",
+          "check": "In CHEPTA, set phases: \"VLL\" on the decanter and compare the water phase's flow and composition with stream 3 of Table 9."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 6.2, p. 15 (Fig. 16, Table 9 stream 3)"
@@ -791,6 +903,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "In the paper's reactive-distillation balance the wastewater carries about 1.5 kmol/h ester, 1.3 acid and 0.2 butanol per 100 kmol/h of each feed. The decanter's water phase, not the bottoms, is where most ester is lost.",
+        "plain": {
+          "title": "In butyl acetate reactive distillation most ester is lost in the decanter's water phase, not the bottoms",
+          "when": "You check product losses and wastewater load of a reactive column with a decanter.",
+          "do": "Check the aqueous phase composition when matching Al-Rabiah et al. 2022: per 100 kmol/h of each feed, their wastewater carries about 1.5 kmol/h ester, 1.3 acid and 0.2 butanol.",
+          "why": "Ester, acid and water are partly soluble in each other, so the water phase carries some of each.",
+          "check": "In CHEPTA, compare the decanter's water phase with stream 3 of Table 9. That it holds more ester than the bottoms loses is Lab's reading of the table."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Table 9, p. 15 (streams 3-4)"
@@ -841,6 +960,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "In both the conventional and the membrane-reactor balances about 1 kmol/h acetic acid (the small acid excess of the fresh feed) leaves with about 100 kmol/h ester in the bottoms, which sets the purity near 99 mol%.",
+        "plain": {
+          "title": "Butyl acetate purity near 99 mol% is set by the acetic acid excess, not by the column",
+          "when": "You try to match the ester purity of the conventional or the membrane-reactor route.",
+          "do": "Match the purity through the acid slip: about 1 kmol/h acetic acid (the small acid excess of the fresh feed) leaves with about 100 kmol/h ester in the bottoms. Do not over-purify the column to reach it.",
+          "why": "The unconsumed acid excess has no other exit, so it ends in the bottoms with the ester.",
+          "check": "The purities 99.0 and 98.9 mol% are Lab's arithmetic on Tables 4 and 7; Al-Rabiah et al. 2022 state 99.0 mol% for the membrane route. Table 4's stream labels disagree with the text (stream 1 is called butanol but holds 101 kmol/h acid): check before transcribing."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Table 4, p. 9 (streams 1, 2, 6); Table 7, p. 14 (streams 1, 2, 6)"
@@ -891,6 +1017,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "In the membrane-reactor route one column returns its distillate (about 9 kmol/h each of butanol and acid, with about 1 kmol/h each of ester and water) to the feed vessel. The small recycle reflects the 92% conversion.",
+        "plain": {
+          "title": "After a 92% membrane reactor, one column and a small recycle are enough",
+          "when": "Unreacted reactants leave a butyl acetate membrane reactor at high conversion per pass.",
+          "do": "Use a single column that returns its distillate (about 9 kmol/h each of butanol and acid, with about 1 kmol/h each of ester and water) to the feed vessel.",
+          "why": "High conversion per pass leaves little to recycle.",
+          "check": "Compare your recycle with streams 3 and 5 of Table 4. Lab's comparison: about 9 kmol/h of each reactant per 100 kmol/h fresh feed, against about 43 in the conventional route."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 5, p. 7; Table 4, p. 9 (streams 3 and 5)"
@@ -940,6 +1073,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Reactive distillation needed the least steam (26,388 MWh/a) and the lowest capital (6.7 million USD against 7.6 million for the membrane route) with a payback of 2.1 years. The authors note its design and operation are complex.",
+        "plain": {
+          "title": "Reactive distillation was the cheapest butyl acetate route, but it is harder to design and operate",
+          "when": "You choose between intensified butyl acetate routes.",
+          "do": "Prefer reactive distillation with a decanter on cost and energy, and plan for its more complex design and operation, which Al-Rabiah et al. 2022 point out.",
+          "why": "One unit does both the reaction and the separation.",
+          "check": "The costs are Al-Rabiah et al. 2022's Aspen estimates (total capital USD 6,742,000 against 7,552,000, Table 12); compare on your own cost basis.",
+          "result": "Steam 26,388 MWh/a, capital 6.7 million USD against 7.6 million for the membrane route, payback 2.1 years."
+        },
         "source": {
           "source_id": "al-rabiah-2022",
           "locator": "Section 1, p. 2; Section 7.1, p. 16 (Table 10); Section 8, p. 18 (Table 12)"

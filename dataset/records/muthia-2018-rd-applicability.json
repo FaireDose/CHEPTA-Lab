@@ -22,6 +22,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A first go/no-go on reactive distillation needs only relative volatilities, the equilibrium constant and the kinetics, read against the authors' applicability maps. The maps are for A + B to C + D with product C the lightest and product D the heaviest.",
+        "plain": {
+          "title": "Go or no-go on reactive distillation from three inputs: volatilities, equilibrium constant, kinetics",
+          "when": "You decide early whether reactive distillation is worth a rigorous study, for a reaction A + B to C + D with C the lightest and D the heaviest component.",
+          "do": "Read the relative volatilities, the equilibrium constant and the kinetics against the applicability maps of Muthia et al. 2018 (reflux ratio against stages) before any rigorous simulation.",
+          "why": "Generic maps for this reaction class show where a feasible column exists.",
+          "check": "The maps are about +/-30% for real systems: confirm a go with a rigorous simulation."
+        },
         "source": {
           "source_id": "muthia-2018-rd-applicability",
           "locator": "Section 2, pp. 264-266; Conclusions, p. 274"
@@ -66,6 +73,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A smaller equilibrium constant needs more reactive stages and a higher reflux ratio. In the base case at K = 0.01 the minimum is 22 stages and the minimum reflux ratio 11.",
+        "plain": {
+          "title": "Small equilibrium constant: expect more reactive stages and higher reflux",
+          "when": "The reaction's equilibrium constant is small.",
+          "do": "Allow more reactive stages and a higher reflux ratio.",
+          "why": "The products must be removed more completely on each stage.",
+          "check": "Compare your stage count and reflux with the map for your equilibrium constant.",
+          "result": "In the base case of Muthia et al. 2018, at K = 0.01 the minimum is 22 stages and the minimum reflux ratio 11."
+        },
         "source": {
           "source_id": "muthia-2018-rd-applicability",
           "locator": "Section 3.1.2, p. 269 (Fig. 6)"
@@ -110,6 +125,14 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "When the light product is close in volatility to a reactant (relative volatility 1.2 instead of 2), the feasible region shrinks. At K = 0.01 the reactive stages needed rise from 28 to 64.",
+        "plain": {
+          "title": "Light product close in volatility to a reactant: the feasible region shrinks",
+          "when": "The light product is hard to separate from a reactant.",
+          "do": "Check the product-reactant relative volatilities first.",
+          "why": "The reactant leaves with the product unless the separation is sharp.",
+          "check": "Compute the light product's relative volatility against each reactant with your property method.",
+          "result": "At K = 0.01, a relative volatility of 1.2 instead of 2 raised the reactive stages needed from 28 to 64."
+        },
         "source": {
           "source_id": "muthia-2018-rd-applicability",
           "locator": "Section 3.1.3, p. 269 (Fig. 6)"
@@ -153,6 +176,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "If the Damkohler number divided by the equilibrium constant is at least 5, a kinetically limited column has the same configuration as at equilibrium; at 2 or more it is within 10%. Use this to set catalyst hold-up and residence time.",
+        "plain": {
+          "title": "Slow reaction in a reactive column: size the catalyst hold-up so Da/K is at least 2 to 5",
+          "when": "The reaction is kinetically limited and may need more reactive stages.",
+          "do": "Size catalyst hold-up and residence time so the Damkohler number (reaction rate relative to flow rate) divided by the equilibrium constant is at least 2 to 5.",
+          "why": "With enough hold-up the reaction behaves as at equilibrium: at Da/K of 5 or more the configuration equals the equilibrium one, at 2 or more it is within 10%.",
+          "check": "Compute Da/K from your kinetics, hold-up and feed rate."
+        },
         "source": {
           "source_id": "muthia-2018-rd-applicability",
           "locator": "Section 3.2, p. 270 (Fig. 7; Fig. S5)"
@@ -195,6 +225,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Avoid designs close to minimum stages or minimum reflux: near minimum stages the column is short and wide, near minimum reflux tall and slim, and catalyst use is lowest in between.",
+        "plain": {
+          "title": "Reactive column: stay away from both minimum stages and minimum reflux",
+          "when": "You choose the stage count and reflux of a reactive column and catalyst cost matters.",
+          "do": "Choose a configuration between the two limits.",
+          "why": "Near minimum stages the column is short and wide, near minimum reflux tall and slim. Catalyst volume follows diameter and reactive height, and is lowest in between.",
+          "check": "Compute the catalyst volume at a few points along the stages-reflux curve."
+        },
         "source": {
           "source_id": "muthia-2018-rd-applicability",
           "locator": "Section 3.2, p. 270 (Fig. 8)"

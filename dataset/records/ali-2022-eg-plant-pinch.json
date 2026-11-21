@@ -27,6 +27,14 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Integrate the surplus heat of the exothermic ethylene oxidation with the energy-hungry glycol dehydration and separation section; in this plant the retrofit targets cut external heating by about 93% and cooling by about 45%.",
+        "plain": {
+          "title": "Ethylene glycol plant: use the ethylene oxide reactor's surplus heat in the glycol section",
+          "when": "One section exports heat (the exothermic ethylene oxidation) while another imports it (glycol dehydration and separation).",
+          "do": "Heat-integrate the reaction section with the glycol section.",
+          "why": "Matching a heat source with a heat sink replaces external utilities on both sides.",
+          "check": "Run a pinch analysis (heat-recovery targeting) on the whole plant, columns included, to get the targets.",
+          "result": "In Ali et al. 2022's plant the retrofit targets cut external heating by about 93% and cooling by about 45%."
+        },
         "source": {
           "source_id": "ali-2022-eg-plant-pinch",
           "locator": "Conclusion, p. 19"
@@ -71,6 +79,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Include reboilers and condensers in the pinch analysis, and place each column so it sits entirely above or entirely below the pinch.",
+        "plain": {
+          "title": "Include reboilers and condensers in the pinch analysis, and keep each column on one side of the pinch",
+          "when": "You run a pinch analysis (heat-recovery targeting) on a plant with columns.",
+          "do": "Include every reboiler and condenser in the stream data. Place each column entirely above or entirely below the pinch (the temperature where heat recovery is tightest).",
+          "why": "A column that straddles the pinch moves heat across it.",
+          "check": "Plot each column's reboiler and condenser temperatures against the pinch temperature."
+        },
         "source": {
           "source_id": "ali-2022-eg-plant-pinch",
           "locator": "Pinch analysis of the full system, p. 15"
@@ -115,6 +130,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Never transfer heat across the pinch, which costs twice in utilities; at the pinch, match streams so the hot stream's heat-capacity flow is no larger than the cold one's above the pinch and no smaller below it.",
+        "plain": {
+          "title": "Never move heat across the pinch",
+          "when": "You design the heat exchanger network after a pinch analysis.",
+          "do": "Never transfer heat across the pinch. At the pinch, match streams so the hot stream's heat-capacity flow (mass flow times heat capacity) is no larger than the cold stream's above the pinch and no smaller below it.",
+          "why": "Heat moved across the pinch must be supplied again as hot utility and removed again as cold utility, so it costs twice.",
+          "check": "Compare the network's utility use with the pinch targets; any excess points to a match across the pinch."
+        },
         "source": {
           "source_id": "ali-2022-eg-plant-pinch",
           "locator": "Heat exchanger network rules, p. 16"
@@ -159,6 +181,14 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Place heat engines such as steam turbines to reject heat below the pinch; in this plant that reduced external cooling by about another 6%.",
+        "plain": {
+          "title": "Steam turbine or other heat engine: let it reject its heat below the pinch",
+          "when": "You integrate a heat engine such as a steam turbine into the plant's heat network.",
+          "do": "Position it with the grand composite curve (net heat flow against temperature) so that it rejects heat below the pinch.",
+          "why": "Heat rejected below the pinch replaces heat that would otherwise go to cooling.",
+          "check": "Check on the grand composite curve that the engine's exhaust temperature lies below the pinch.",
+          "result": "About another 6% less external cooling in Ali et al. 2022's plant."
+        },
         "source": {
           "source_id": "ali-2022-eg-plant-pinch",
           "locator": "Conclusion, p. 19 (grand composite curve)"

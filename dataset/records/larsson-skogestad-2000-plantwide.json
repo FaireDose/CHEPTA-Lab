@@ -23,6 +23,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "If the recycle of unreacted feed grows without bound, the reactor is too small for the feed rate (the snowball effect); this is a steady-state design problem, not a solver one.",
+        "plain": {
+          "title": "Recycle of unreacted feed grows without bound: the reactor is too small, the solver is not at fault",
+          "when": "In a reactor-separator-recycle loop with fixed reactor hold-up, the recycle flow keeps growing (the snowball effect).",
+          "do": "Check the reactor size against the feed rate before changing solver settings.",
+          "why": "With fixed reactor hold-up only more recycle can raise conversion, so the loop has no finite steady state.",
+          "check": "In CHEPTA, reduce the feed or enlarge the reactor and see whether the loop converges. Larsson & Skogestad 2000 discuss this as a control and design problem; reading it as a simulation symptom is Lab's."
+        },
         "source": {
           "source_id": "larsson-skogestad-2000-plantwide",
           "locator": "Section 6, p. 230"
@@ -68,6 +75,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "Luyben's recommendation, as reported by the authors: fix one flow in each liquid recycle loop to avoid the snowball effect.",
+        "plain": {
+          "title": "Luyben's rule: fix one flow in each liquid recycle loop",
+          "when": "Recycle flows run away in a plant with liquid recycles.",
+          "do": "Fix one flow in each liquid recycle loop, as Luyben recommends (reported by Larsson & Skogestad 2000).",
+          "why": "A fixed flow stops disturbances circulating and avoids the snowball effect.",
+          "check": "Larsson & Skogestad 2000 themselves dispute this: fixing the recycle flow carries an economic penalty (see their rule on keeping the reactor full)."
+        },
         "source": {
           "source_id": "larsson-skogestad-2000-plantwide",
           "locator": "Sections 5 and 6, pp. 228 and 230"
@@ -116,6 +130,13 @@
           "bears-on-ethylene-glycol"
         ],
         "statement": "For liquid-phase reactors the authors keep the reactor hold-up at its maximum, which maximises conversion per pass and minimises recycle; fixing the recycle flow instead carries an economic penalty.",
+        "plain": {
+          "title": "Liquid reactor in a recycle loop: keep it full rather than fixing the recycle flow",
+          "when": "You choose what to fix in a liquid-phase reactor-recycle loop.",
+          "do": "Keep the reactor hold-up at its maximum.",
+          "why": "Larger hold-up gives more conversion per pass and the smallest recycle; fixing the recycle flow instead costs money.",
+          "check": "For gas-phase loops Larsson & Skogestad 2000 note that letting the hold-up (pressure) float can be optimal."
+        },
         "source": {
           "source_id": "larsson-skogestad-2000-plantwide",
           "locator": "Section 6, p. 230"
@@ -164,6 +185,13 @@
           "gas-recycle"
         ],
         "statement": "In a gas recycle loop carrying an inert, the purge flow is what sets the inert's concentration (a cited study).",
+        "plain": {
+          "title": "Inert in a gas recycle: the purge sets its level",
+          "when": "An inert builds up in a gas recycle loop.",
+          "do": "Size or adjust the purge to the inert concentration you want.",
+          "why": "Only the purge removes the inert.",
+          "check": "In CHEPTA, scan the purge fraction and record the inert concentration in the loop and the reactant lost with the purge."
+        },
         "source": {
           "source_id": "larsson-skogestad-2000-plantwide",
           "locator": "Section 6, p. 230"
@@ -206,6 +234,13 @@
           "conceptual-design-order"
         ],
         "statement": "Design in Douglas's order: batch or continuous, then the input-output structure, the recycle structure, the separation system and finally energy integration.",
+        "plain": {
+          "title": "Build a flowsheet in Douglas's order",
+          "when": "You start a new flowsheet.",
+          "do": "Decide batch or continuous first, then the input-output structure, the recycle structure, the separation system and finally energy integration.",
+          "why": "Each level fixes what the next one needs.",
+          "check": "Before simulating, write down the decision taken at each level."
+        },
         "source": {
           "source_id": "larsson-skogestad-2000-plantwide",
           "locator": "Section 5, p. 227"

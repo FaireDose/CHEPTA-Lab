@@ -21,6 +21,14 @@
           "regeneration"
         ],
         "statement": "Choose extractant boiling points so regeneration takes each one overhead or at the bottom without an extra column; a heavier biocompatible extractant cut the regeneration section from three columns to two.",
+        "plain": {
+          "title": "Mixed extractants: choose boiling points so regeneration needs no extra column",
+          "when": "You regenerate a mixture of extractants after liquid-liquid extraction.",
+          "do": "Pick extractants whose boiling points let regeneration take each one overhead or at the bottom without an extra column.",
+          "why": "The boiling order fixes the regeneration sequence.",
+          "check": "List the boiling points of products and extractants and draw the regeneration sequence before simulating.",
+          "result": "A heavier biocompatible extractant cut the regeneration section from three columns to two (Grisales D\u00edaz & Olivar Tost 2017)."
+        },
         "source": {
           "source_id": "grisales-2017-abe-extraction",
           "locator": "Methods: 'Extractant selection'"
@@ -63,6 +71,13 @@
           "extractant-selectivity"
         ],
         "statement": "Do not assume infinite extractant selectivity: real selectivities (about 300 here) carry water into the extract and need extra distillation, so use measured distribution coefficients.",
+        "plain": {
+          "title": "Simulated extraction needs fewer columns than reality: do not assume infinite selectivity",
+          "when": "An extraction model assumes the extractant takes no water, and the downstream columns come out smaller than expected.",
+          "do": "Use measured distribution coefficients (how a component divides between the two liquids). Real selectivities (about 300 in Grisales D\u00edaz & Olivar Tost 2017) carry water into the extract, which then needs extra distillation.",
+          "why": "At finite selectivity some water is always co-extracted.",
+          "check": "Check the water content of the simulated extract against measured partition data."
+        },
         "source": {
           "source_id": "grisales-2017-abe-extraction",
           "locator": "Methods: 'Extractant selection'"
@@ -104,6 +119,13 @@
           "energy-per-product"
         ],
         "statement": "For recovery from a dilute product stream, the product concentration fed to separation (set by the upstream yield) dominates the energy needed per kilogram of product.",
+        "plain": {
+          "title": "Dilute product stream: its concentration sets the energy per kg",
+          "when": "You recover a product from a dilute stream and the energy per kg is high.",
+          "do": "Raise the product concentration fed to separation (the upstream yield) where possible, before optimising the separation.",
+          "why": "Energy scales with the solvent or water handled per unit of product.",
+          "check": "Plot energy per kg product against feed concentration in your simulation."
+        },
         "source": {
           "source_id": "grisales-2017-abe-extraction",
           "locator": "Conclusions"

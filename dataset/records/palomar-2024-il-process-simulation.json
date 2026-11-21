@@ -22,6 +22,13 @@
           "solvent-loop"
         ],
         "statement": "Choose the tear stream deliberately and add make-up streams for components lost from the loop (for example solvent losses); without them a recycled solvent loop does not close.",
+        "plain": {
+          "title": "Solvent loop does not close: choose the tear on purpose and add make-up streams",
+          "when": "A recycled solvent loop does not converge.",
+          "do": "Choose the tear stream (the recycle stream that is guessed and recomputed) deliberately, and add make-up streams for every component lost from the loop, such as solvent losses, calculated to close the balance.",
+          "why": "Losses drain the loop unless they are made up.",
+          "check": "In CHEPTA, check the solvent balance: make-up equals the losses in all outlets."
+        },
         "source": {
           "source_id": "palomar-2024-il-process-simulation",
           "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"
@@ -65,6 +72,13 @@
           "sensitivity-scan"
         ],
         "statement": "Simulate and size each separation unit on its own first, then reach the purity or recovery target with a design specification that adjusts one variable, or a sensitivity scan, before connecting the whole process.",
+        "plain": {
+          "title": "Unit misses purity in the plant: fix it alone first with a design specification, then connect",
+          "when": "A separation unit misses its purity once connected in the plant.",
+          "do": "Simulate and size each separation unit alone first. Reach its purity or recovery with a design specification that adjusts one variable, or a sensitivity scan, before connecting the whole process.",
+          "why": "Fixing units alone separates unit problems from loop problems.",
+          "check": "In CHEPTA, pair each target with one free variable and bounds, and keep each run."
+        },
         "source": {
           "source_id": "palomar-2024-il-process-simulation",
           "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"
@@ -107,6 +121,13 @@
           "sizing"
         ],
         "statement": "Size the diameter of packed absorbers and strippers for 60 to 80% of their flooding capacity, and the packed height from earlier studies or a height-to-diameter ratio.",
+        "plain": {
+          "title": "Packed absorbers and strippers: size the diameter for 60-80% of flooding",
+          "when": "You size a packed absorber or stripper.",
+          "do": "Size the diameter for 60 to 80% of the flooding capacity, and the packed height from earlier studies or a height-to-diameter ratio.",
+          "why": "Too close to flooding loses operability; too far wastes column.",
+          "check": "Check the fractional capacity at your highest vapour and liquid loads."
+        },
         "source": {
           "source_id": "palomar-2024-il-process-simulation",
           "locator": "Section 'Methodology for Applying Process Simulations': operation unit design"
@@ -147,6 +168,13 @@
           "predictive-property-method"
         ],
         "statement": "Check predictive property methods (UNIFAC- or COSMO-type) against measured data over a wide range of the property before a design relies on them.",
+        "plain": {
+          "title": "Predictive property method (UNIFAC- or COSMO-type): check it against data first",
+          "when": "A design relies on phase behaviour or properties from a predictive model, for example for ionic liquids or other unusual molecules.",
+          "do": "Check the method against measured data over a wide range of the property before a design relies on it.",
+          "why": "Group-contribution and COSMO methods can err for unusual molecules.",
+          "check": "Lab relies on CHEPTA's property provenance; this check matters where a method lacks data for the case's components."
+        },
         "source": {
           "source_id": "palomar-2024-il-process-simulation",
           "locator": "Section 'Methodology for Applying Process Simulations': definition of thermodynamic model and property validation"
@@ -191,6 +219,13 @@
           "utilities"
         ],
         "statement": "When a regeneration column runs under vacuum, count the energy to compress its vapour back to atmospheric pressure in the utility demand.",
+        "plain": {
+          "title": "Regeneration under vacuum: count the vacuum compressor's energy",
+          "when": "A regeneration column runs under vacuum.",
+          "do": "Model the vacuum system as a compressor that returns the vapour to atmospheric pressure, and count its energy in the utilities.",
+          "why": "A vacuum system is a compressor; leaving it out makes vacuum operation look cheaper than it is.",
+          "check": "In CHEPTA, add a compressor on the vacuum column's vapour and include its work in the energy comparison."
+        },
         "source": {
           "source_id": "palomar-2024-il-process-simulation",
           "locator": "Section 'Methodology for Applying Process Simulations': process modelling and simulations"

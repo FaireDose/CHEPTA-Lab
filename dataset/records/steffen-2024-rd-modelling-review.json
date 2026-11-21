@@ -21,6 +21,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Start a reactive column from a straight-line temperature profile between the bubble point at the condenser and the dew point at the reboiler for the mixed feed, constant molar flows, and a reaction extent peaking at the feed stage.",
+        "plain": {
+          "title": "Reactive column does not converge from defaults: start from straight-line temperatures and constant flows",
+          "when": "The reactive column solver fails from its default estimates.",
+          "do": "Start from a straight-line temperature profile between the bubble point of the mixed feed at the condenser and its dew point at the reboiler, with constant molar flows and a reaction extent peaking at the feed stage.",
+          "why": "Physically shaped profiles start the solver near a solution.",
+          "check": "Lab has not checked whether CHEPTA accepts such a starting profile; if not, start from a converged simpler case."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Initial estimates, p. 21"
@@ -63,6 +70,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Use the converged result of a simpler model, such as the column without reaction or with ideal K-values, as the starting point for the full reactive model.",
+        "plain": {
+          "title": "Full reactive model fails: converge a simpler model first and start from it",
+          "when": "The full reactive column model does not converge.",
+          "do": "Converge a simpler model first, the column without reaction or with ideal K-values (ideal vapour-liquid ratios), then use its result to start the full model.",
+          "why": "A simpler model gives profiles close to those of the full one.",
+          "check": "In CHEPTA, keep the simpler run and start the full run from it."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Initial estimates, p. 21"
@@ -103,6 +117,13 @@
           "newton-solver"
         ],
         "statement": "Newton-type column solvers converge fast near the answer but fail from poor starting values or where several solutions exist; damping the Newton step (relaxation) widens the range from which they converge.",
+        "plain": {
+          "title": "Newton iterations diverge: improve the start or damp the step",
+          "when": "A Newton-type column solver diverges.",
+          "do": "Improve the starting values, or damp the Newton step (relaxation) so it takes smaller moves.",
+          "why": "Full Newton steps overshoot far from the solution, and the method fails where several solutions exist.",
+          "check": "In CHEPTA, look at the solver's residual history: residuals that grow point to a poor start."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Numerical methods, p. 18"
@@ -145,6 +166,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Homotopy continuation does not need good starting values but costs much more computation, because the modified system is solved many times; Newton or Broyden from good estimates is the better default.",
+        "plain": {
+          "title": "Homotopy continuation is robust but slow: keep it for cases with no good start",
+          "when": "A robust solving method is too slow for scans.",
+          "do": "Use Newton or Broyden from good estimates as the default; keep homotopy continuation (a chain of easier problems ending in the real one) for cases where no good start can be found.",
+          "why": "Continuation solves the modified system many times, so it costs much more computation.",
+          "check": "Time both methods on one case before choosing one for a scan."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Numerical methods, p. 18; Initial estimates, pp. 22-23"
@@ -187,6 +215,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "Reactive columns often have several steady states for the same inputs; find them by scanning a parameter or restarting from different initial estimates before accepting one.",
+        "plain": {
+          "title": "Reactive column converged but misses its target: look for other steady states",
+          "when": "A converged reactive column misses its target.",
+          "do": "Scan a parameter or restart from different initial estimates, and find the steady states before accepting one.",
+          "why": "Reactive columns often have several solutions for the same inputs (output multiplicity).",
+          "check": "In CHEPTA, record each branch found and which one meets the target."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Initial estimates, p. 22"
@@ -227,6 +262,13 @@
           "rate-based"
         ],
         "statement": "Rate-based (non-equilibrium) stage models are harder to converge than equilibrium-stage models and need reliable mass-transfer correlations.",
+        "plain": {
+          "title": "Rate-based column model fails: check the mass-transfer data and compare with the equilibrium-stage result",
+          "when": "A rate-based (non-equilibrium) stage model does not converge.",
+          "do": "Check the mass-transfer correlations, and compare with the equilibrium-stage result.",
+          "why": "Rate-based models have more equations with stiffer coupling than equilibrium-stage models.",
+          "check": "Converge the equilibrium-stage column first and use it as the reference."
+        },
         "source": {
           "source_id": "steffen-2024-rd-modelling-review",
           "locator": "Equilibrium and non-equilibrium models, p. 15"

@@ -23,6 +23,13 @@
           "bears-on-butyl-acetate"
         ],
         "statement": "A recycle tolerance set on total flow only can hide errors in individual components; check closure per component where the simulator allows. The paper accepts recycle balance errors below 1 kg/h.",
+        "plain": {
+          "title": "Recycle loop converged on total flow: check each component as well",
+          "when": "A recycle loop reports convergence, but compositions still drift or the plant balance does not close for one component.",
+          "do": "Check the closure of each tear stream (the recycle stream that is guessed and recomputed) component by component, not only its total flow. Andreasen 2022 accepted recycle balance errors below 1 kg/h.",
+          "why": "A tolerance on total flow can be met while one component is too high and another too low.",
+          "check": "In CHEPTA, compare each tear's component flows between two tolerances, and check the plant's component balance (fresh feed plus production equals products) for every component."
+        },
         "source": {
           "source_id": "andreasen-2022-dwsim-evaluation",
           "locator": "Section 2, p. 506"
@@ -63,6 +70,13 @@
           "parametric-study"
         ],
         "statement": "When some cases of a flowsheet fail but all converge after swapping in another flash routine, the fault is likely an unstable phase-split calculation rather than the recycle solver.",
+        "plain": {
+          "title": "Some flowsheet cases fail but all converge with another flash routine: suspect the flash, not the recycle solver",
+          "when": "In a parametric study some cases of a flowsheet fail, and swapping in another flash routine makes them all converge.",
+          "do": "Test the flash on the failing streams alone before changing the recycle solver.",
+          "why": "A phase-split calculation that jumps between iterations breaks the outer recycle loop.",
+          "check": "In CHEPTA, rerun each failing unit on its captured inlet with the same phases setting; if it fails alone, report it as a flash case. Andreasen 2022 says this indicates, not proves, the cause."
+        },
         "source": {
           "source_id": "andreasen-2022-dwsim-evaluation",
           "locator": "Results, p. 508; Discussion, p. 509"
