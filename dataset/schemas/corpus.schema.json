@@ -422,7 +422,8 @@
               "required": ["name", "value", "unit", "basis", "evidence_id"],
               "additionalProperties": false
             }},
-            "scale": {"type": "string", "minLength": 1}
+            "scale": {"type": "string", "minLength": 1},
+            "judged_on": {"description": "For a lesson: the specification its status was judged against, in plain words (the maintainer, 2026-11-21: other missed limits are stated in the row, never generalised).", "type": "string", "minLength": 1}
           },
           "required": ["product"],
           "additionalProperties": false
@@ -440,7 +441,8 @@
         },
         "disputed_with": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "minItems": 1, "uniqueItems": true},
         "corrects": {"description": "A row this row corrects (proposal 0003, section F): that row is withdrawn from the counts and kept unchanged in the files and the lock.", "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
-        "correction_reason": {"description": "Why the corrected row was wrong, citing the review note.", "type": "string", "minLength": 1}
+        "correction_reason": {"description": "Why the corrected row was wrong, citing the review note.", "type": "string", "minLength": 1},
+        "summarises": {"description": "A lesson (proposal 0003, section G): the rows of the same record file whose runs and decisions it summarises.", "type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"}, "minItems": 2, "uniqueItems": true}
       },
       "required": ["record_status", "kind", "operation_type", "components", "behaviours", "conditions", "outcome"],
       "additionalProperties": false

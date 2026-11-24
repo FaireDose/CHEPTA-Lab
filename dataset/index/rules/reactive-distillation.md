@@ -6,25 +6,25 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Excess acetic acid raises butanol conversion but makes the ester harder to purify: stay near 1:1**
   - When: You choose the acetic acid to n-butanol feed ratio of a butyl acetate reactor.
-  - Do: Keep the feed near stoichiometric, as Al-Rabiah et al. 2022 did (1:1), unless the extra conversion is worth a harder product column.
+  - Do: Keep the feed near stoichiometric, as [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) did (1:1), unless the extra conversion is worth a harder product column.
   - Why: An excess of one reactant pushes the equilibrium further, but the excess must be removed from the product downstream.
-  - Check: Scan the feed ratio and watch both conversion and the acid left in the ester. Al-Rabiah et al. 2022 state the trade-off in words only, without a purification cost.
+  - Check: Scan the feed ratio and watch both conversion and the acid left in the ester. [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) state the trade-off in words only, without a purification cost.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Al-Rabiah et al. 2022, *Novel Process for Butyl Acetate Production via…* (https://doi.org/10.3390/pr10091801), Section 4, p. 6 (Fig. 5b); Table 3, p. 8. <!-- al-rabiah-2022.acid-excess-raises-conversion-hurts-purification -->
 
 - **Membrane reactor solved outside the simulator: treat its outlet as an input, not a result**
-  - When: A source solved one unit in another program and fed its outlet to the flowsheet. Al-Rabiah et al. 2022 did this for the membrane reactor (an ODE model, ordinary differential equations, in MATLAB, with water flux proportional to its concentration).
+  - When: A source solved one unit in another program and fed its outlet to the flowsheet. [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) did this for the membrane reactor (an ODE model, ordinary differential equations, in MATLAB, with water flux proportional to its concentration).
   - Do: Declare that outlet as an imposed boundary of the case. Compare only what the flowsheet itself computed.
   - Why: The flowsheet simulator never calculated that unit, so matching its outlet proves nothing about the simulation.
-  - Check: List the imposed streams in the case and keep them out of the comparison table. This is Lab's rule for case boundaries, not one of Al-Rabiah et al. 2022.
+  - Check: List the imposed streams in the case and keep them out of the comparison table. This is Lab's rule for case boundaries, not one of [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801).
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Al-Rabiah et al. 2022, *Novel Process for Butyl Acetate Production via…* (https://doi.org/10.3390/pr10091801), Section 3, pp. 3-4 (Eqs. 7-12); Section 4, p. 7. <!-- al-rabiah-2022.membrane-reactor-model-imposed -->
 
 - **Butyl acetate reactor stuck near 70% conversion: take the water out through a membrane**
   - When: n-Butanol and acetic acid react over Amberlyst-15 (an acidic ion-exchange resin) at 363 K with a 1:1 feed, and a plain fixed bed stops at about 70% butanol conversion.
-  - Do: Fit the reactor with a water-selective hydroxy sodalite membrane (a zeolite membrane that lets water through) so water leaves as it forms. Al-Rabiah et al. 2022 took organic losses through the membrane as negligible.
+  - Do: Fit the reactor with a water-selective hydroxy sodalite membrane (a zeolite membrane that lets water through) so water leaves as it forms. [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) took organic losses through the membrane as negligible.
   - Why: Water is a product of the reaction; removing it shifts the equilibrium towards the ester.
-  - Check: Al-Rabiah et al. 2022 solved the membrane reactor outside Aspen Plus (in MATLAB). In a Lab case take its outlet as an imposed input, not as a reproduced result, and compare the downstream column with their stream table.
+  - Check: [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) solved the membrane reactor outside Aspen Plus (in MATLAB). In a Lab case take its outlet as an imposed input, not as a reproduced result, and compare the downstream column with their stream table.
   - Result: Butanol conversion rose from about 70% to 92% in their model, which is fitted to one laboratory study (R2 0.9973), not to an industrial membrane.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Al-Rabiah et al. 2022, *Novel Process for Butyl Acetate Production via…* (https://doi.org/10.3390/pr10091801), Sections 3-5, pp. 3-7 (Eqs. 7-12, Tables 1-3, Figs. 5a and 7); Abstract, p. 1. <!-- al-rabiah-2022.membrane-reactor-removes-water -->
@@ -46,7 +46,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Source: Hoff & Eisenacher 2025, *Process Intensification Strategies for Esterification* (https://doi.org/10.3390/ijms26157214), Abstract; Sections 4.1 and 5. <!-- hoff-eisenacher-2025-esterification-review.water-removal-shifts-equilibrium -->
 
 - **The purity target can change the best dehydration technology**
-  - When: You choose a dehydration technology (for isobutanol, in a study cited by Valentini & Vaccaro 2020).
+  - When: You choose a dehydration technology (for isobutanol, in a study cited by [Valentini & Vaccaro 2020](https://doi.org/10.3390/molecules25225264)).
   - Do: Compare the technologies at the actual purity target.
   - Why: Membrane area and distillation duty scale differently with purity.
   - Check: Rerun the comparison at your own purity.
@@ -56,7 +56,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Reactive distillation for butyl acetate: acid fed above butanol, catalyst in the middle, ester out at the bottom**
   - When: You design a reactive column for acetic acid and n-butanol over Amberlyst-15 with a 1:1 feed.
-  - Do: Use a two-feed column with a reactive middle section. Al-Rabiah et al. 2022: 34 stages, catalyst on stages 5-24, acetic acid on stage 5 above butanol on stage 9, 100 kmol/h of each, reboiler 3.3 MW.
+  - Do: Use a two-feed column with a reactive middle section. [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801): 34 stages, catalyst on stages 5-24, acetic acid on stage 5 above butanol on stage 9, 100 kmol/h of each, reboiler 3.3 MW.
   - Why: Water leaves overhead as it forms and ester leaves at the bottom, so the reaction keeps moving past its equilibrium.
   - Check: The bottoms in Table 9 (97.2 kmol/h ester, 1.1 butanol) is 98.9 mol% or 99.3 mass % by Lab's arithmetic; the text says more than 99% without a basis. Catalyst hold-up per stage and the pressure profile are not printed, so expect to choose them.
   - Result: Conversion over 98%, ester as bottoms.
@@ -65,9 +65,9 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Reactive distillation was the cheapest butyl acetate route, but it is harder to design and operate**
   - When: You choose between intensified butyl acetate routes.
-  - Do: Prefer reactive distillation with a decanter on cost and energy, and plan for its more complex design and operation, which Al-Rabiah et al. 2022 point out.
+  - Do: Prefer reactive distillation with a decanter on cost and energy, and plan for its more complex design and operation, which [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) point out.
   - Why: One unit does both the reaction and the separation.
-  - Check: The costs are Al-Rabiah et al. 2022's Aspen estimates (total capital USD 6,742,000 against 7,552,000, Table 12); compare on your own cost basis.
+  - Check: The costs are [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801)'s Aspen estimates (total capital USD 6,742,000 against 7,552,000, Table 12); compare on your own cost basis.
   - Result: Steam 26,388 MWh/a, capital 6.7 million USD against 7.6 million for the membrane route, payback 2.1 years.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Al-Rabiah et al. 2022, *Novel Process for Butyl Acetate Production via…* (https://doi.org/10.3390/pr10091801), Section 1, p. 2; Section 7.1, p. 16 (Table 10); Section 8, p. 18 (Table 12). <!-- al-rabiah-2022.rd-lower-capex-and-energy -->
@@ -76,14 +76,14 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - When: Butyl acetate yield is limited by equilibrium.
   - Do: Remove water during the esterification.
   - Why: Water removal shifts the equilibrium towards the ester.
-  - Check: Hoff & Eisenacher 2025 report this in one sentence from a cited study with acidic ionic-liquid catalysts, not read by Lab: treat it as an indication.
+  - Check: [Hoff & Eisenacher 2025](https://doi.org/10.3390/ijms26157214) report this in one sentence from a cited study with acidic ionic-liquid catalysts, not read by Lab: treat it as an indication.
   - Result: Yields from about 70% up to 95%.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Hoff & Eisenacher 2025, *Process Intensification Strategies for Esterification* (https://doi.org/10.3390/ijms26157214), Section 6.1 (citing ref. 174). <!-- hoff-eisenacher-2025-esterification-review.butyl-acetate-yield-with-water-removal -->
 
 - **Acid resin catalyst: its temperature limit sets the reactive zone's temperature and pressure**
   - When: You choose an ion-exchange resin catalyst for esterification, for example in reactive distillation.
-  - Do: Choose the resin by its maximum service temperature: about 140 C for Amberlyst 15 and up to 190 C for Amberlyst 70, per Hoff & Eisenacher 2025. Set the column pressure so the reactive zone stays below it.
+  - Do: Choose the resin by its maximum service temperature: about 140 C for Amberlyst 15 and up to 190 C for Amberlyst 70, per [Hoff & Eisenacher 2025](https://doi.org/10.3390/ijms26157214). Set the column pressure so the reactive zone stays below it.
   - Why: Resins lose their acid groups when too hot.
   - Check: In CHEPTA, check the reactive stages' temperatures against the resin's limit.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -149,7 +149,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - When: You choose between a reactor followed by a separator and a reactive column.
   - Do: Place the system on a rate-against-volatility chart (the Schoenmakers diagram). A slow reaction makes reactive distillation unattractive; a very high relative volatility needs only a reactor and a flash. In between, reactive distillation is a candidate.
   - Why: Reaction rate and volatility decide whether extra stages help.
-  - Check: The chart's axes are not quantified and Kiss et al. 2024 warn that it needs experience: confirm the choice with a simulation.
+  - Check: The chart's axes are not quantified and [Kiss et al. 2024](https://doi.org/10.1002/jctb.7633) warn that it needs experience: confirm the choice with a simulation.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kiss et al. 2024, *Conceptual methods for synthesis of reactive distillation…* (https://doi.org/10.1002/jctb.7633), Heuristic approaches, journal pp. 1268-1269 (pp. 7-8 of the TU Delft copy, Fig. 2). <!-- kiss-2024-rd-conceptual-methods.rate-versus-volatility -->
 
@@ -182,7 +182,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Allow more reactive stages and a higher reflux ratio.
   - Why: The products must be removed more completely on each stage.
   - Check: Compare your stage count and reflux with the map for your equilibrium constant.
-  - Result: In the base case of Muthia et al. 2018, at K = 0.01 the minimum is 22 stages and the minimum reflux ratio 11.
+  - Result: In the base case of [Muthia et al. 2018](https://doi.org/10.1016/j.cep.2018.04.001), at K = 0.01 the minimum is 22 stages and the minimum reflux ratio 11.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Muthia et al. 2018, *Novel method for mapping the applicability of…* (https://doi.org/10.1016/j.cep.2018.04.001), Section 3.1.2, p. 269 (Fig. 6). <!-- muthia-2018-rd-applicability.low-keq-more-stages-reflux -->
 
@@ -197,7 +197,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Go or no-go on reactive distillation from three inputs: volatilities, equilibrium constant, kinetics**
   - When: You decide early whether reactive distillation is worth a rigorous study, for a reaction A + B to C + D with C the lightest and D the heaviest component.
-  - Do: Read the relative volatilities, the equilibrium constant and the kinetics against the applicability maps of Muthia et al. 2018 (reflux ratio against stages) before any rigorous simulation.
+  - Do: Read the relative volatilities, the equilibrium constant and the kinetics against the applicability maps of [Muthia et al. 2018](https://doi.org/10.1016/j.cep.2018.04.001) (reflux ratio against stages) before any rigorous simulation.
   - Why: Generic maps for this reaction class show where a feasible column exists.
   - Check: The maps are about +/-30% for real systems: confirm a go with a rigorous simulation.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -216,7 +216,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Scan the catalyst load in reactive residue-curve tests and increase it until the curves no longer change.
   - Why: At high catalyst load the reaction keeps pace with vaporisation, which marks the chemical-equilibrium regime.
   - Check: Treat the found load as the lowest at which a design may assume equilibrium.
-  - Result: For this resin about 8 g, near 0.8 wt% sulfuric-acid equivalent (Orjuela et al. 2006).
+  - Result: For this resin about 8 g, near 0.8 wt% sulfuric-acid equivalent ([Orjuela et al. 2006](https://doi.org/10.15446/ing.investig.v26n3.14745)).
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Orjuela et al. 2006, *Constructing residue curve maps for butyl acetate…* (https://doi.org/10.15446/ing.investig.v26n3.14745), Results, p. 33 (Fig. 4, Table 3). <!-- orjuela-2006-butyl-acetate-rcm.catalyst-load-equilibrium-regime -->
 
@@ -224,7 +224,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - When: Esterification of acetic acid with 1-butanol over an acid resin stops at equilibrium in a reactor.
   - Do: Use reactive distillation with butyl acetate as the bottom product.
   - Why: Water and the other light products are removed continuously, which drives the reaction on; the ester is the heaviest component, so the residue curves run towards it.
-  - Check: Orjuela et al. 2006 measured this in a laboratory batch still at 560 mmHg, not a continuous column: confirm it in a column simulation.
+  - Check: [Orjuela et al. 2006](https://doi.org/10.15446/ing.investig.v26n3.14745) measured this in a laboratory batch still at 560 mmHg, not a continuous column: confirm it in a column simulation.
   - Result: Measured reactive residue curves (paths of a boiling, reacting liquid) end at butyl acetate, beyond the equilibrium conversion.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Orjuela et al. 2006, *Constructing residue curve maps for butyl acetate…* (https://doi.org/10.15446/ing.investig.v26n3.14745), Abstract, p. 26; Results, pp. 32-33 (Figs. 4-5). <!-- orjuela-2006-butyl-acetate-rcm.reactive-rcm-ester-in-bottoms -->

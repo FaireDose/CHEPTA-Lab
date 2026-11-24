@@ -55,15 +55,15 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Even one heteroazeotropic column is hard: fix the organic reflux before adding the second column**
   - When: A heteroazeotropic column does not converge.
   - Do: Fix the organic reflux and recycle estimates before adding the second column. Do not read a failure as a property error alone.
-  - Why: Such a column can have several steady states and its products are very sensitive to the organic reflux. Luyben's careful manual start of ethanol dehydration still ended unconverged (cited by Kruber & Skiborowski 2022).
+  - Why: Such a column can have several steady states and its products are very sensitive to the organic reflux. Luyben's careful manual start of ethanol dehydration still ended unconverged (cited by [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482)).
   - Check: In CHEPTA, scan the organic reflux around the published value and record where the column converges.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 1, p. 2 (ref. 11). <!-- kruber-skiborowski-2022-heteroazeotropic-init.single-column-already-hard -->
 
 - **Heteroazeotropic recycle hard to close: allow a small purge**
   - When: The recycle through the decanter is not robust.
-  - Do: Allow a small optional purge. In the 1,4-dioxane and benzene case of Kruber & Skiborowski 2022 the optimisation relied on 0.8% of the feed.
-  - Why: A purge removes accumulating material and loosens the recycle. Kruber & Skiborowski 2022 link the need for it to a poorer initial profile estimate.
+  - Do: Allow a small optional purge. In the 1,4-dioxane and benzene case of [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482) the optimisation relied on 0.8% of the feed.
+  - Why: A purge removes accumulating material and loosens the recycle. [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482) link the need for it to a poorer initial profile estimate.
   - Check: In CHEPTA, record the purge flow and the product lost with it, and try to remove the purge once the loop converges.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 3.3, p. 16. <!-- kruber-skiborowski-2022-heteroazeotropic-init.small-purge-aids-robustness -->
@@ -72,7 +72,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - When: You set up a heteroazeotropic column (one with a decanter on top where two liquids form), and it starts far from a feasible profile.
   - Do: Compute and classify every azeotrope as a node or a saddle (points where residue curves start, end or turn). These singular points show which profiles a column can reach at total reflux and guide the starting profile.
   - Why: The mixture's topology bounds what column profiles are possible.
-  - Check: In CHEPTA, check each azeotrope's temperature and composition against Kruber & Skiborowski 2022 or measured data before the first column run.
+  - Check: In CHEPTA, check each azeotrope's temperature and composition against [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482) or measured data before the first column run.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 2.2, pp. 5-7 (step 1, Figs. 2-3). <!-- kruber-skiborowski-2022-heteroazeotropic-init.topology-first -->
 
@@ -126,7 +126,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Simulated extraction needs fewer columns than reality: do not assume infinite selectivity**
   - When: An extraction model assumes the extractant takes no water, and the downstream columns come out smaller than expected.
-  - Do: Use measured distribution coefficients (how a component divides between the two liquids). Real selectivities (about 300 in Grisales Díaz & Olivar Tost 2017) carry water into the extract, which then needs extra distillation.
+  - Do: Use measured distribution coefficients (how a component divides between the two liquids). Real selectivities (about 300 in [Grisales Díaz & Olivar Tost 2017](https://doi.org/10.1186/s40643-017-0142-z)) carry water into the extract, which then needs extra distillation.
   - Why: At finite selectivity some water is always co-extracted.
   - Check: Check the water content of the simulated extract against measured partition data.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -144,7 +144,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Reactive glycol column converged but misses the target: it may be on the wrong steady state**
   - When: A converged reactive column for ethylene glycol misses its target.
   - Do: Look for other steady states before changing settings: restart from different estimates or scan a setting.
-  - Why: Several steady states exist for the same inputs, and one of them accumulates ethylene oxide at the top (earlier modelling studies cited by Othman 2024).
+  - Why: Several steady states exist for the same inputs, and one of them accumulates ethylene oxide at the top (earlier modelling studies cited by [Othman 2024](https://doi.org/10.31031/pps.2024.06.000637)).
   - Check: In CHEPTA, check the oxide at the top stage: a high value points to the wrong branch.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Othman 2024, *Process Modelling and Simulation of Reactive Distillation…* (https://doi.org/10.31031/pps.2024.06.000637), Introduction, p. 2 (citing earlier modelling studies). <!-- othman-2024-meg-reactive-distillation.rd-multiple-steady-states-oxide-overhead -->
