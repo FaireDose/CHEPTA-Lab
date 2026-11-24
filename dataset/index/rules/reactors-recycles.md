@@ -4,6 +4,8 @@ Reactor type, route choice, reactant recycles and purges. 19 rules. [All topics]
 
 Each rule starts with what to do in one line, then When (the situation you recognise), Do, Why, Check (how to verify it, in CHEPTA where it applies) and Result (what the source got), then its status and source with page. A lead is a rule from the literature that Lab has not yet tested.
 
+Engine names: a number such as 0.6.2 is a CHEPTA release; 415da41 is an unreleased development version of CHEPTA (a commit), later than release 0.6.2 and not yet released. Results on it are labelled separately from the release's.
+
 - **Hold an excess reactant with no exit by a design specification on its feed, aimed at its limit in the product**
   - From Lab's own plant: [ethyl-acetate-piotrowski-2021](../plants/ethyl-acetate-piotrowski-2021.md).
   - When: An excess reactant can leave only with the product, and trimming its feed by hand in steps of a few kg/h fails to converge.
@@ -23,7 +25,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Why: 141.5 kmol/h of product exceeds the 141.07 kmol/h of ester the feeds form, so the reactor starves; with the feeds and both outlets fixed the product flow is set by the balance and the column cannot also hold its purity.
   - Check: Before running, compare each fixed flow with the feeds and the stoichiometry.
   - Result: With 141.5 kmol/h the loop stopped (reactor short of ethanol); with recycle 23 fixed the plant settled and the wastewater found 19,919 kg/h by itself.
-  - Judged on: A closed plant that converges; the product purity is judged in another lesson.
+  - Judged on: A closed plant that converges; the product purity is judged in the lesson on short product purity in the closed plant.
   - Summarises 4 rows of the plant's run log.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 23-25; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 11-16. <!-- ethyl-acetate-piotrowski-2021.lesson-product-flow-within-feed -->

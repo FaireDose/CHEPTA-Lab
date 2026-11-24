@@ -19,11 +19,11 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Feed-effluent exchangers add cycles: choose tears that break every cycle, and give a slow loop more iterations**
   - From Lab's own plant: [methanol-co2-campos-2022](../plants/methanol-co2-campos-2022.md).
   - When: A plant with gas recycles and feed-effluent exchangers is closed as one flowsheet.
-  - Do: Mark tears on the recycles and on the streams the exchangers join (here five), start them from the published values, and raise the iteration limit while the change is still falling.
+  - Do: Choose tears that cut each exchanger's cycle; how many is not the test. Start them from the published values and raise the iteration limit while the change is still falling.
   - Why: Each exchanger joining two parts of the plant makes a cycle the recycles alone do not break; the loop is slow, not stuck.
-  - Check: If the engine says the tears do not break every cycle, add the exchanger streams; compare the tear change between the last iterations.
-  - Result: Recycle tears only: refused; five tears: the plant closed in 31 iterations with both purges, recycle 36-REC +2.7 % against [Campos et al. 2022](https://doi.org/10.3390/pr10081535); the loop alone needed more than 50 iterations (200 allowed).
-  - Judged on: A closed plant with balances closed; the products are judged in the column lessons.
+  - Check: If the engine says the tears do not break every cycle, move a tear onto a stream inside the exchanger's cycle; compare the tear change between the last iterations.
+  - Result: Recycle tears only, and five tears including 36-REC: refused. Moving that tear to the stream on the far side of HE2: closed in 31 iterations with both purges, 36-REC +2.7 % against [Campos et al. 2022](https://doi.org/10.3390/pr10081535); the loop alone needed more than 50 iterations (200 allowed).
+  - Judged on: A closed plant with balances closed; the products are judged in the lessons on the methanol column and the closed plant.
   - Summarises 6 rows of the plant's run log.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement pp. 9-10, Section E (one-step process); Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement pp. 10-11, Section E (one-step process). <!-- methanol-co2-campos-2022.lesson-tears-break-every-cycle -->

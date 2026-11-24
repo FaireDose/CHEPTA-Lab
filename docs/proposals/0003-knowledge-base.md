@@ -181,13 +181,19 @@ row of the plant's own record file that summarises several of its rows:
   number of lessons). Locked rows are neither withdrawn nor edited: they stay in the run log as the evidence.
 - The plant page `dataset/index/plants/<case>.md` lists the lessons first, grouped by unit, then the run log under
   "Runs behind these lessons". A lesson with the condition tag `applies-beyond-plant` also appears on its topic page,
-  marked "From Lab's own plant", placed as a simulation rule if it has a symptom, else as a design rule.
+  marked "From Lab's own plant", placed as a simulation rule if it has a symptom, else as a design rule. Only a
+  lesson that worked carries that tag; a failed, lead or untested lesson stays on its plant page (review of PR #34,
+  2026-11-24). A workaround for one engine is not a general lesson.
+- `judged_on` names its papers like the plain fields ("the paper" alone is refused). A plant or topic page whose
+  rows ran on an engine named by a commit (such as 415da41) says in one line that it is an unreleased development
+  version of CHEPTA.
 - Papers named in any plain field must be catalogued sources, written as the page cites them ("Piotrowski &
   Kubica 2021"); `kb.py check` refuses others, and the pages link each name to its DOI. The paper-design rows of the
   two plants carry plain fields too.
 - Tests: a lesson passes and renders first; unknown, foreign or lesson rows in `summarises` are refused (also by
   `dataset_pipeline.py validate`); a run or a number not in its rows is refused; `judged_on` is required; lessons
-  do not change the counts; an uncatalogued paper name is refused.
+  do not change the counts; an uncatalogued paper name is refused; `judged_on` with "the paper" alone is refused;
+  a lesson that did not work cannot carry `applies-beyond-plant`; the plant page explains a commit engine.
 
 ## To decide
 
