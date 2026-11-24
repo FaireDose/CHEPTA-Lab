@@ -17,7 +17,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Position it with the grand composite curve (net heat flow against temperature) so that it rejects heat below the pinch.
   - Why: Heat rejected below the pinch replaces heat that would otherwise go to cooling.
   - Check: Check on the grand composite curve that the engine's exhaust temperature lies below the pinch.
-  - Result: About another 6% less external cooling in Ali et al. 2022's plant.
+  - Result: About another 6% less external cooling in [Ali et al. 2022](https://doi.org/10.2478/pjct-2022-0009)'s plant.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Ali et al. 2022, *Retrofitting Heat Exchanger Network of Industrial Ethylene…* (https://doi.org/10.2478/pjct-2022-0009), Conclusion, p. 19 (grand composite curve). <!-- ali-2022-eg-plant-pinch.heat-engine-below-pinch -->
 
@@ -26,7 +26,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Heat-integrate the reaction section with the glycol section.
   - Why: Matching a heat source with a heat sink replaces external utilities on both sides.
   - Check: Run a pinch analysis (heat-recovery targeting) on the whole plant, columns included, to get the targets.
-  - Result: In Ali et al. 2022's plant the retrofit targets cut external heating by about 93% and cooling by about 45%.
+  - Result: In [Ali et al. 2022](https://doi.org/10.2478/pjct-2022-0009)'s plant the retrofit targets cut external heating by about 93% and cooling by about 45%.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Ali et al. 2022, *Retrofitting Heat Exchanger Network of Industrial Ethylene…* (https://doi.org/10.2478/pjct-2022-0009), Conclusion, p. 19. <!-- ali-2022-eg-plant-pinch.integrate-eo-reactor-with-glycol-section -->
 
@@ -49,13 +49,13 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Dilute recovery: minimise external energy first, then check the cost**
   - When: You set the design objective early for recovering products from a dilute broth.
   - Do: Minimise external energy as the design objective, then check the costs.
-  - Why: Operating cost, mostly energy, outweighs capital except for very short payback periods (Janković et al. 2023).
+  - Why: Operating cost, mostly energy, outweighs capital except for very short payback periods ([Janković et al. 2023](https://doi.org/10.1002/jctb.7576)).
   - Check: Confirm with a cost estimate that capital stays the smaller share at your payback period.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Janković et al. 2023, *Advanced purification of isopropanol and acetone from…* (https://doi.org/10.1002/jctb.7576), Methods, p. 715. <!-- jankovic-2023-ipa-acetone-recovery.minimise-energy-as-cost-proxy -->
 
 - **Column with a small temperature lift and a big reboiler: use mechanical vapour recompression**
-  - When: A column's top and bottom temperatures are close and its reboiler duty is large (about 22 MW for the vacuum column of Janković et al. 2023).
+  - When: A column's top and bottom temperatures are close and its reboiler duty is large (about 22 MW for the vacuum column of [Janković et al. 2023](https://doi.org/10.1002/jctb.7576)).
   - Do: Compress the overhead vapour and use it to boil the bottoms (mechanical vapour recompression, a heat pump). It pays when its coefficient of performance (heat delivered per unit of work) clearly exceeds the electricity-to-heat price factor.
   - Why: Compressed overhead vapour condenses hot enough to boil the bottoms, and a small temperature lift needs little compressor work.
   - Check: Work out the coefficient of performance from the column's top and bottom temperatures and compare it with your site's factor.
@@ -68,7 +68,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Do not use vapour recompression on them. Use the hot solvent from the recovery column, which must be cooled before reuse anyway, to boil part of the extractive column's bottoms.
   - Why: A heat pump across a large temperature lift needs too much compressor work, while the solvent's heat is free.
   - Check: Check that the solvent is hotter than the extractive column's bottoms by a workable approach.
-  - Result: 16-17% less external heat for the extractive column (Janković et al. 2023).
+  - Result: 16-17% less external heat for the extractive column ([Janković et al. 2023](https://doi.org/10.1002/jctb.7576)).
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Janković et al. 2023, *Advanced purification of isopropanol and acetone from…* (https://doi.org/10.1002/jctb.7576), Results, Recovery of high-purity products, p. 720. <!-- jankovic-2023-ipa-acetone-recovery.no-mvr-wide-temperature-span -->
 
@@ -77,7 +77,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Preheat it with hot water bottoms or hot solvent, heat that must be removed anyway.
   - Why: A subcooled feed must first be heated inside the column, which adds to the reboiler duty.
   - Check: Compare the reboiler duty with and without the preheat in your simulation.
-  - Result: The acetone column's reboiler duty fell by 12-41% (Janković et al. 2023).
+  - Result: The acetone column's reboiler duty fell by 12-41% ([Janković et al. 2023](https://doi.org/10.1002/jctb.7576)).
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Janković et al. 2023, *Advanced purification of isopropanol and acetone from…* (https://doi.org/10.1002/jctb.7576), Results, Recovery of high-purity products, p. 721. <!-- jankovic-2023-ipa-acetone-recovery.preheat-subcooled-feed -->
 
@@ -111,7 +111,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Apply pinch analysis (heat-recovery targeting) to match hot and cold streams.
   - Why: Matching hot and cold streams recovers heat.
   - Check: Compare your utility use with the pinch targets.
-  - Result: Heating and cooling utilities fell by roughly 11 to 16% in studies cited by Pasha et al. 2021, not read by Lab.
+  - Result: Heating and cooling utilities fell by roughly 11 to 16% in studies cited by [Pasha et al. 2021](https://doi.org/10.1186/s13068-021-01977-z), not read by Lab.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Pasha et al. 2021, *An overview to process design, simulation and…* (https://doi.org/10.1186/s13068-021-01977-z), Section 'Heat integration'. <!-- pasha-2021-biodiesel-process-design.pinch-savings-biodiesel -->
 
@@ -128,6 +128,6 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Remove most of the water in evaporators at falling pressure, each heated by the vapour of the one before, then finish in a vacuum dehydration column.
   - Why: Reusing each evaporator's vapour to heat the next divides the steam demand.
   - Check: In CHEPTA, check that each evaporator still has a positive temperature difference at its pressure.
-  - Result: In Shehata et al. 2024's simulation the evaporators take about 75% of the water and only the first uses steam.
+  - Result: In [Shehata et al. 2024](https://doi.org/10.1038/s41598-024-77713-y)'s simulation the evaporators take about 75% of the water and only the first uses steam.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Shehata et al. 2024, *A comparative study of mono ethylene glycol…* (https://doi.org/10.1038/s41598-024-77713-y), Section 'MEG production via direct EO hydration process', p. 8 (Fig. 5). <!-- shehata-2024-meg-routes.evaporator-train-before-vacuum-column -->

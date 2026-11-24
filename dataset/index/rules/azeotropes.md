@@ -9,7 +9,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Couple the reaction with azeotropic water removal.
   - Why: Water leaves as it forms, so the equilibrium shifts towards the ester.
   - Check: Compare conversion with and without water removal in an equilibrium model.
-  - Result: A shorter reaction and higher conversion; a study cited by Guo & Wang 2019, not read by Lab, reports 2.7% higher conversion for isoamyl acetate than ordinary water separation.
+  - Result: A shorter reaction and higher conversion; a study cited by [Guo & Wang 2019](https://doi.org/10.4236/aces.2019.94024), not read by Lab, reports 2.7% higher conversion for isoamyl acetate than ordinary water separation.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Guo & Wang 2019, *Research Progress on Azeotropic Distillation Technology* (https://doi.org/10.4236/aces.2019.94024), Section 2.3, p. 337. <!-- guo-wang-2019-azeotropic-distillation.azeotropic-water-removal-in-esterification -->
 
@@ -25,7 +25,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - When: You choose an entrainer for dehydrating a dilute ethanol broth (6 mol%) at atmospheric pressure.
   - Do: Prefer cyclohexane or hexane. Compare individually optimised processes for each solvent, not one fixed design.
   - Why: Each solvent changes the topology, the decanter split and the duties.
-  - Check: Kruber & Skiborowski 2022 used NRTL with Aspen databank parameters (APV88) in their own optimisation: compare CHEPTA's azeotropes with theirs before reusing the ranking.
+  - Check: [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482) used NRTL with Aspen databank parameters (APV88) in their own optimisation: compare CHEPTA's azeotropes with theirs before reusing the ranking.
   - Result: Cyclohexane and hexane gave the same annual cost within estimate accuracy; isooctane and toluene cost over 15% more. Solvent make-up was below 0.4% of cost.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 3.1.1, pp. 9-10 (Fig. 4). <!-- kruber-skiborowski-2022-heteroazeotropic-init.ethanol-solvent-screen -->
@@ -49,23 +49,23 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **No general rule for pre-concentration: run the feed scan for your case**
   - When: You want to reuse a pre-concentration rule from another mixture.
   - Do: Run the feed-composition scan for the case at hand.
-  - Why: Each mixture's cost curve has its own shape: in the 1,4-dioxane case cost falls almost linearly with feed concentration, unlike the other two cases of Kruber & Skiborowski 2022.
+  - Why: Each mixture's cost curve has its own shape: in the 1,4-dioxane case cost falls almost linearly with feed concentration, unlike the other two cases of [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482).
   - Check: Plot specific cost against feed concentration and look for a knee.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 3.3.2, p. 18 (Fig. 13). <!-- kruber-skiborowski-2022-heteroazeotropic-init.no-general-preconcentration-heuristic -->
 
 - **Dilute ethanol: pre-concentrating to about 20 mol% may pay**
   - When: The ethanol feed to heteroazeotropic dehydration is very dilute.
-  - Do: Consider a pre-concentration step near the knee of the cost curve, about 20 mol% ethanol. For a feed already in the flat region, such as the ethyl acetate case of Kruber & Skiborowski 2022, it would not pay.
+  - Do: Consider a pre-concentration step near the knee of the cost curve, about 20 mol% ethanol. For a feed already in the flat region, such as the ethyl acetate case of [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482), it would not pay.
   - Why: At low feed concentration most of the cost goes to handling water: specific cost falls steeply up to about 20 mol% and then flattens.
-  - Check: A cited study found the saving too small for an extra column, and Kruber & Skiborowski 2022 leave it open: run your own feed-composition scan.
+  - Check: A cited study found the saving too small for an extra column, and [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482) leave it open: run your own feed-composition scan.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 3.1.3, pp. 12-13 (Fig. 7); Section 3.2.2, p. 15 (Fig. 10). <!-- kruber-skiborowski-2022-heteroazeotropic-init.preconcentrate-dilute-ethanol -->
 
 - **Heteroazeotropic solvent choice: simple indicators mislead, so screen with a process model**
   - When: You choose a solvent for heteroazeotropic distillation.
   - Do: Screen solvents with a process model, not on selectivity alone.
-  - Why: Three ternary topologies, with four, three or two azeotropes, cover most cases (about 26%, 8% and 21% of 1365 surveyed mixtures, cited by Kruber & Skiborowski 2022). Their several azeotropes and distillation regions defeat simple indicators.
+  - Why: Three ternary topologies, with four, three or two azeotropes, cover most cases (about 26%, 8% and 21% of 1365 surveyed mixtures, cited by [Kruber & Skiborowski 2022](https://doi.org/10.3390/pr10081482)). Their several azeotropes and distillation regions defeat simple indicators.
   - Check: Compare individually optimised processes for each solvent.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Kruber & Skiborowski 2022, *Topology-Based Initialization for the Optimization-Based Design of…* (https://doi.org/10.3390/pr10081482), Section 1, p. 2; Section 2.2, p. 6 (Fig. 2). <!-- kruber-skiborowski-2022-heteroazeotropic-init.three-common-topologies -->
@@ -75,7 +75,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Use heterogeneous azeotropic distillation with n-butyl acetate as entrainer. For dilute feeds add a preconcentrator column.
   - Why: The entrainer carries water overhead as a heterogeneous azeotrope that splits in a decanter.
   - Check: In CHEPTA, set phases: "VLL" and check the water-ester split in the decanter.
-  - Result: A study cited by Valentini & Vaccaro 2020, not read by Lab, cut annual cost by 55% against plain distillation.
+  - Result: A study cited by [Valentini & Vaccaro 2020](https://doi.org/10.3390/molecules25225264), not read by Lab, cut annual cost by 55% against plain distillation.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Valentini & Vaccaro 2020, *Azeotropes as Powerful Tool for Waste Minimization…* (https://doi.org/10.3390/molecules25225264), Section 2.2. <!-- valentini-2020-azeotropes-waste.butyl-acetate-entrainer-for-acid-water -->
 
@@ -92,7 +92,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Do: Consider a heterogeneous azeotropic dividing-wall column (one shell with an internal wall).
   - Why: Thermal coupling avoids remixing.
   - Check: Compare with the two-column process on the same basis.
-  - Result: About 33% less energy and 20% lower annual cost in a solvent-recovery case cited by Valentini & Vaccaro 2020, not read by Lab.
+  - Result: About 33% less energy and 20% lower annual cost in a solvent-recovery case cited by [Valentini & Vaccaro 2020](https://doi.org/10.3390/molecules25225264), not read by Lab.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Valentini & Vaccaro 2020, *Azeotropes as Powerful Tool for Waste Minimization…* (https://doi.org/10.3390/molecules25225264), Section 2.2. <!-- valentini-2020-azeotropes-waste.heteroazeotropic-dwc -->
 
@@ -106,7 +106,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Reactive column overhead: decant, draw off the water, return all the organic phase as reflux**
   - When: The overhead of a butyl acetate reactive column condenses into water and an organic (butanol and ester) phase.
-  - Do: Condense into a decanter, draw the water phase off as wastewater (about 102 kmol/h in Al-Rabiah et al. 2022) and return the whole organic phase to the column as reflux. The conventional route uses extractive distillation with a solvent instead.
+  - Do: Condense into a decanter, draw the water phase off as wastewater (about 102 kmol/h in [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801)) and return the whole organic phase to the column as reflux. The conventional route uses extractive distillation with a solvent instead.
   - Why: Water and the butanol-ester phase split into two liquids, so water leaves without taking the reactants and the ester with it.
   - Check: In CHEPTA, set phases: "VLL" on the decanter and compare the water phase's flow and composition with stream 3 of Table 9.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -114,7 +114,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **In butyl acetate reactive distillation most ester is lost in the decanter's water phase, not the bottoms**
   - When: You check product losses and wastewater load of a reactive column with a decanter.
-  - Do: Check the aqueous phase composition when matching Al-Rabiah et al. 2022: per 100 kmol/h of each feed, their wastewater carries about 1.5 kmol/h ester, 1.3 acid and 0.2 butanol.
+  - Do: Check the aqueous phase composition when matching [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801): per 100 kmol/h of each feed, their wastewater carries about 1.5 kmol/h ester, 1.3 acid and 0.2 butanol.
   - Why: Ester, acid and water are partly soluble in each other, so the water phase carries some of each.
   - Check: In CHEPTA, compare the decanter's water phase with stream 3 of Table 9. That it holds more ester than the bottoms loses is Lab's reading of the table.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -129,7 +129,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Source: Fu et al. 2021, *Assessment of extraction options for a next-generation…* (https://doi.org/10.1002/elsc.202000090), Introduction (Fig. 1). <!-- fu-2021-isobutanol-recovery.decanter-with-two-strippers -->
 
 - **Azeotrope building up in an azeotropic dehydration column: add a partial condenser before the decanter**
-  - When: In azeotropic dehydration (of acetic acid, in a study cited by Guo & Wang 2019) the azeotrope accumulates in the column.
+  - When: In azeotropic dehydration (of acetic acid, in a study cited by [Guo & Wang 2019](https://doi.org/10.4236/aces.2019.94024)) the azeotrope accumulates in the column.
   - Do: Put a partial condenser between the column top and the decanter.
   - Why: Part of the overhead is condensed and handled before the decanter, so the azeotrope stops building up in the column.
   - Check: A cited result not read by Lab: compare the column profiles with and without the partial condenser in a simulation.
@@ -155,7 +155,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Start the 1,4-butanediol extractive column at about 2.4 mol solvent per mol feed**
   - When: You transcribe or design the extractive column of the conventional butyl acetate route and need a first solvent flow.
-  - Do: Start from Al-Rabiah et al. 2022's stream table: about 440 kmol/h of 1,4-butanediol against about 186 kmol/h of distillate (100 water, 43 butanol, 42 acid), roughly 2.4 mol per mol.
+  - Do: Start from [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801)'s stream table: about 440 kmol/h of 1,4-butanediol against about 186 kmol/h of distillate (100 water, 43 butanol, 42 acid), roughly 2.4 mol per mol.
   - Why: The column needs enough solvent on every stage above the feed to break the azeotrope.
   - Check: The ratio is Lab's arithmetic (440.3 / 185.7, Table 7). In CHEPTA, scan the solvent flow around it and record where water purity and butanol recovery are met.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -163,9 +163,9 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Water with butanol and acetic acid in a recycle: extractive distillation with 1,4-butanediol**
   - When: In the conventional butyl acetate route the first column's distillate holds water with unreacted butanol and acid, and butanol forms an azeotrope with water.
-  - Do: Feed 1,4-butanediol (a heavy polar solvent) at the top of an extractive column (29 stages in Al-Rabiah et al. 2022). Water leaves overhead to treatment; a recovery column returns the solvent and sends acid and butanol back to the reactor. Alternative: reactive distillation with a decanter needs no solvent.
+  - Do: Feed 1,4-butanediol (a heavy polar solvent) at the top of an extractive column (29 stages in [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801)). Water leaves overhead to treatment; a recovery column returns the solvent and sends acid and butanol back to the reactor. Alternative: reactive distillation with a decanter needs no solvent.
   - Why: The heavy solvent holds butanol and acid back in the liquid, so water distils off.
-  - Check: Al-Rabiah et al. 2022 print no stage numbers or reflux for the first and the recovery column, and their text sends the solvent to T-101 where Fig. 11 suggests T-102. Resolve both before transcribing.
+  - Check: [Al-Rabiah et al. 2022](https://doi.org/10.3390/pr10091801) print no stage numbers or reflux for the first and the recovery column, and their text sends the solvent to T-101 where Fig. 11 suggests T-102. Resolve both before transcribing.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Al-Rabiah et al. 2022, *Novel Process for Butyl Acetate Production via…* (https://doi.org/10.3390/pr10091801), Section 2, p. 3 (Fig. 2); Section 6.1, p. 12 (Figs. 11 and 15); Table 7, p. 14. <!-- al-rabiah-2022.conventional-extractive-with-butanediol -->
 
@@ -179,7 +179,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Isopropanol stuck at its azeotrope with water: extractive distillation with ethylene glycol, solvent about 1.1 times the feed by mass**
   - When: You need dry isopropanol from a pre-concentrated isopropanol-water stream, which plain distillation cannot take past the azeotrope.
-  - Do: Feed ethylene glycol near the top of an extractive column. Isopropanol leaves overhead; glycol and water leave at the bottom to a solvent-recovery column that returns the glycol. Scan the solvent-to-feed mass ratio: Janković et al. 2023 found 1.1 gave the lowest energy for the two columns together.
+  - Do: Feed ethylene glycol near the top of an extractive column. Isopropanol leaves overhead; glycol and water leave at the bottom to a solvent-recovery column that returns the glycol. Scan the solvent-to-feed mass ratio: [Janković et al. 2023](https://doi.org/10.1002/jctb.7576) found 1.1 gave the lowest energy for the two columns together.
   - Why: Ethylene glycol holds water back in the liquid, so isopropanol becomes the more volatile component and distils overhead.
   - Check: In CHEPTA, scan the solvent-to-feed ratio around 1.1 and record the summed reboiler duty of both columns and the isopropanol purity. If the minimum lies far from 1.1, compare the property methods before changing the design.
   - Result: Isopropanol at 99.8 wt% overhead, with both columns at atmospheric pressure.
@@ -187,7 +187,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
   - Source: Janković et al. 2023, *Advanced purification of isopropanol and acetone from…* (https://doi.org/10.1002/jctb.7576), Results, Recovery of high-purity products, p. 720 (Fig. 5b). Lab reread Results, p. 721 on 2026-11-20 (ratio on a mass basis, for columns C4 and C5). <!-- jankovic-2023-ipa-acetone-recovery.ethylene-glycol-solvent-ratio -->
 
 - **Dilute isopropanol: pre-concentrate to about 86 wt% before extractive dehydration**
-  - When: The isopropanol stream to be dehydrated is dilute (about 31 wt% in Janković et al. 2023).
+  - When: The isopropanol stream to be dehydrated is dilute (about 31 wt% in [Janković et al. 2023](https://doi.org/10.1002/jctb.7576)).
   - Do: Pre-concentrate in a plain column first. Scan the distillate target and take the minimum of total energy; it fell up to about 86 wt% isopropanol, which was chosen.
   - Why: Getting closer to the azeotrope costs more in the pre-concentrator but less in dehydration, so the sum has a minimum.
   - Check: Stay below the homogeneous azeotrope (87.17 mass % isopropanol at 80.23 C, Table 1). In CHEPTA, scan the distillate purity and add the duties of both steps.
@@ -204,8 +204,8 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Tetrahydrofuran and water: extractive distillation was cheaper at steady state, but weigh control too**
   - When: You compare extractive and pressure-swing distillation for tetrahydrofuran and water on cost.
-  - Do: Compare on annual cost and on controllability; expect a trade-off, not a single winner, as Mtogo et al. 2021 argue.
-  - Why: Extractive distillation used less energy at steady state in a study cited by Mtogo et al. 2021, not read by Lab.
+  - Do: Compare on annual cost and on controllability; expect a trade-off, not a single winner, as [Mtogo et al. 2021](https://doi.org/10.1021/acsomega.1c04606) argue.
+  - Why: Extractive distillation used less energy at steady state in a study cited by [Mtogo et al. 2021](https://doi.org/10.1021/acsomega.1c04606), not read by Lab.
   - Check: Recompute both annual costs on the same basis.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Mtogo et al. 2021, *Comparison of Controllability Features of Extractive and…* (https://doi.org/10.1021/acsomega.1c04606), Introduction. <!-- mtogo-2021-ed-vs-psd.ed-cheaper-steady-state -->

@@ -134,10 +134,16 @@ class KnowledgeBaseTests(unittest.TestCase):
         cases = [d for d in kb.visible_decisions(self.corpus)[0] if d["keys"]["kind"] == "case-decision"]
         for d in cases:
             on = [path for path, text in pages.items() if on_page(d["id"], text)]
-            self.assertEqual(on, [kb.PLANTS_DIR / f"{self.origins[d['id']]}.md"], d["id"])
+            expected = [kb.PLANTS_DIR / f"{self.origins[d['id']]}.md"]
+            if kb.is_general_lesson(d):  # a lesson that holds beyond its plant is also on its topic page
+                expected = sorted(expected + [kb.RULES_DIR / f"{kb.topic_of(d)}.md"])
+            self.assertEqual(sorted(on), expected, d["id"])
         page = pages[kb.PLANTS_DIR / "ethyl-acetate-piotrowski-2021.md"]
-        self.assertIn("Run log of the plant, not yet written as lessons.", page)
-        self.assertIn("## distillation (", page)
+        self.assertTrue(page.startswith("# Lessons: ethyl-acetate-piotrowski-2021"))
+        self.assertIn("## Runs behind these lessons", page)
+        self.assertLess(page.index("## distillation ("), page.index("## Runs behind these lessons"))
+        self.assertIn("### distillation (", page)
+        self.assertIn("Run log of the plant, not yet written as lessons.", pages[kb.PLANTS_DIR / "pilot.md"])
 
     # --- plain fields for people ---
 
@@ -548,6 +554,58 @@ class KnowledgeBaseTests(unittest.TestCase):
         self.assertEqual(after["counts"]["worked"], before["counts"]["worked"] + 1)
         self.assertEqual((before["withdrawn"], after["withdrawn"]), (0, 1))
         self.assertEqual(after["rows"], before["rows"] + 1)  # kept, only left out of the counts
+
+    # --- lessons: rows that summarise several run rows of their own plant (proposal 0003, section G) ---
+
+    LESSON = "ethyl-acetate-piotrowski-2021.lesson-product-column-trace-acid"
+
+    def test_committed_lesson_passes_and_renders_lessons_first(self):
+        self.assertEqual([e for e in self.errors() if self.LESSON in e], [])
+        page = self.pages()[kb.PLANTS_DIR / "ethyl-acetate-piotrowski-2021.md"]
+        title = self.decision(self.LESSON)["keys"]["plain"]["title"]
+        self.assertLess(page.index(title), page.index("## Runs behind these lessons"))
+        block = page[page.index(title):].split("\n\n")[0]
+        self.assertIn("  - Judged on: ", block)
+        self.assertIn("[Piotrowski & Kubica 2021](https://doi.org/", block)  # a named paper is linked
+
+    def test_lesson_summarises_existing_rows_of_its_own_file(self):
+        k = self.decision(self.LESSON)["keys"]
+        k["summarises"] = k["summarises"] + ["no-such-row"]
+        self.assertTrue(any("summarises names unknown row no-such-row" in e for e in self.errors()))
+        self.assertTrue(any("summarises names unknown row" in e for e in p.validate(self.corpus, self.sources)))
+        k["summarises"][-1] = "methanol-co2-campos-2022.plant-closed-062-c2"
+        self.assertTrue(any("rows of its own record file" in e for e in self.errors()))
+        k["summarises"][-1] = "ethyl-acetate-piotrowski-2021.lesson-cold-acid-feed"
+        self.assertTrue(any("not another lesson" in e for e in self.errors()))
+
+    def test_lesson_runs_and_numbers_come_from_its_rows(self):
+        k = self.decision(self.LESSON)["keys"]
+        k["outcome"]["run_ids"] = k["outcome"]["run_ids"] + [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/plant62-best-init1e-4-tol1e-5"]
+        self.assertTrue(any("is not a run of the rows it summarises" in e for e in self.errors()))
+        k["outcome"]["run_ids"] = k["outcome"]["run_ids"][:-1]
+        self.assertEqual([e for e in self.errors() if self.LESSON in e], [])
+        k["plain"]["result"] += " It reached 97.123 %."  # in none of its rows
+        self.assertTrue(any("gives 97.123" in e for e in self.errors()))
+
+    def test_lesson_names_what_it_was_judged_on(self):
+        del self.decision(self.LESSON)["keys"]["objective"]["judged_on"]
+        self.assertTrue(any("objective.judged_on" in e for e in self.errors()))
+
+    def test_lessons_are_not_counted_again(self):
+        count = lambda: next(p for p in json.loads(kb.build_index(self.corpus, self.origins)[1])["problems"]
+                             if p["id"] == "sep-two-liquids-with-acetic-acid")
+        before = count()
+        self.assertGreaterEqual(before["lessons"], 2)
+        self.corpus["decisions"] = [d for d in self.corpus["decisions"] if not kb.is_lesson(d)]
+        after = count()
+        self.assertEqual(after["counts"], before["counts"])  # a lesson's runs are counted in its rows
+        self.assertEqual(after["lessons"], 0)
+
+    def test_paper_named_in_plain_text_must_be_catalogued(self):
+        plain = self.decision(self.LESSON)["keys"]["plain"]
+        plain["why"] += " Smith & Jones 2019 disagree."
+        self.assertTrue(any("names 'Smith & Jones 2019'" in e for e in self.errors()))
 
     # --- rights: short paraphrase, catalogued source ---
 

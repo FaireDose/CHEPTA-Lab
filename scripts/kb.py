@@ -47,6 +47,11 @@ NOT_REREAD = "source not reread"
 BARE_REFERENCE = re.compile(r"\b(?:the|this|that|these|those)\s+(?:paper|papers|authors?|review|book|study|studies|"
                             r"article|source)(?:'s|’s|s')?(?!\s*\([A-Z])\b", re.IGNORECASE)
 NUMBER = re.compile(r"(?<![A-Za-z])\d+(?:[.,]\d+)*")  # not the 2 of CO2 or the 3 of m3
+# A paper named in plain text, "Piotrowski & Kubica 2021" or "Campos et al. 2022": it must be a catalogued source
+# (data/sources.json, as source_label writes it), so the page can link it.
+SOURCE_MENTION = re.compile(r"\b[A-Z][a-z][A-Za-z'\-]*(?:\s(?:&|and)\s[A-Z][A-Za-z'\-]+|\set al\.)?\s(?:19|20)\d\d\b")
+ENGINE_NAME = re.compile(r"\b(?:\d+\.\d+\.\d+|(?=[0-9a-f]*[a-f])(?=[0-9a-f]*\d)[0-9a-f]{7,40})\b")
+GENERAL_LESSON = "applies-beyond-plant"  # condition tag: a plant lesson also shown on its topic page
 
 
 # ---------- reading ----------
@@ -233,10 +238,17 @@ def row_text(d, ix):
         if e:
             parts.append(e["claim"])
             parts += [f"{q['value']} {q['unit']}" for q in e["quantities"]]
+    for row in k.get("summarises", []):  # a lesson's numbers come from the rows it summarises
+        if row in ix["decisions"] and row != d["id"]:
+            parts.append(row_text(ix["decisions"][row], ix))
     return " ".join(parts)
 
 
-def plain_errors(d, ix):
+def source_labels(sources):
+    return {source_label(key, sources): key for key in sources}
+
+
+def plain_errors(d, ix, labels=None):
     """The plain fields are for a process engineer: short, named sources, no ids, no number without a source."""
     where, plain = d["id"], d["keys"].get("plain")
     if plain is None:
@@ -258,13 +270,55 @@ def plain_errors(d, ix):
         for quoted in QUOTED.findall(text):
             if len(quoted.split()) > 6:
                 errors.append(f"{where}: plain.{field} quotes more than 6 words; paraphrase instead of copying")
+        cited = [label for label in (labels or {}) if label in text]
+        for named in SOURCE_MENTION.findall(text):
+            if labels is not None and not any(named in label for label in cited):
+                errors.append(f"{where}: plain.{field} names '{named}', which is not a catalogued source as "
+                              "data/sources.json gives it; name it as the page cites it so it gets its link")
     known = set(NUMBER.findall(row_text(d, ix)))
     for field in ("title", "when", "do", "why", "check", "result"):
-        for n in NUMBER.findall(plain.get(field, "")):
+        text = plain.get(field, "")
+        for label in sorted(labels or {}, key=len, reverse=True):  # the year of a named paper is not a result
+            text = text.replace(label, "")
+        text = ENGINE_NAME.sub("", text)  # chepta 0.6.2, commit 415da41: an engine, not a result
+        for n in NUMBER.findall(text):
             if n not in known:
                 errors.append(f"{where}: plain.{field} gives {n}, which is not in the row's statement, limits, "
                               "evidence or source locator; never invent a number (name the passage reread in "
                               "plain.note)")
+    return errors
+
+
+def lesson_errors(d, ix):
+    """A lesson summarises several rows of its own plant: they exist, its runs are theirs, and it says in plain
+    words what it was judged against."""
+    k, where = d["keys"], d["id"]
+    if "summarises" not in k:
+        return []
+    errors = []
+    if k["kind"] != "case-decision":
+        errors.append(f"{where}: a lesson is a case decision of its plant")
+    rows = []
+    for row in k["summarises"]:
+        if row == where or row not in ix["decisions"]:
+            errors.append(f"{where}: summarises names unknown row {row}")
+        elif record_file(row) != record_file(where):
+            errors.append(f"{where}: a lesson summarises rows of its own record file ({row} is in {record_file(row)}.json)")
+        elif "summarises" in ix["decisions"][row]["keys"]:
+            errors.append(f"{where}: a lesson summarises runs and decisions, not another lesson ({row})")
+        else:
+            rows.append(ix["decisions"][row])
+    if len(k["summarises"]) < 2:
+        errors.append(f"{where}: a lesson summarises at least two rows")
+    runs = {r for row in rows for r in row["keys"]["outcome"]["run_ids"]}
+    for run in k["outcome"]["run_ids"]:
+        if run not in runs:
+            errors.append(f"{where}: run {run} is not a run of the rows it summarises")
+    if "plain" not in k:
+        errors.append(f"{where}: a lesson has plain fields (title, when, do, why, check, result)")
+    if not k.get("objective", {}).get("judged_on"):
+        errors.append(f"{where}: a lesson's objective says what it was judged against (objective.judged_on); "
+                      "other missed limits are stated, never generalised")
     return errors
 
 
@@ -273,6 +327,7 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
     register = register if register is not None else register_rows()
     sources = sources if sources is not None else sources_catalogue()
     ix = pipeline.indexes(corpus)
+    labels = source_labels(sources)
     names = set(vocab["components"]["names"])
     errors = []
     for problem, level in register.items():
@@ -329,7 +384,8 @@ def check_keys(corpus, vocab=None, register=None, sources=None, root=ROOT):
             if src is None or not src.get("rights_status"):
                 errors.append(f"{where}: source {k['source']['source_id']} must be in data/sources.json with its "
                               "rights status")
-        errors.extend(plain_errors(d, ix))
+        errors.extend(plain_errors(d, ix, labels))
+        errors.extend(lesson_errors(d, ix))
         if "statement" in k:
             if "source" not in k:
                 errors.append(f"{where}: a statement needs its source and locator")
@@ -469,9 +525,11 @@ def summary(rows, current, uses, ix, origins, withdrawn=()):
         papers |= row_groups(d, "decisions", ix)[1]
         files.add(origins.get(d["id"], "?"))
     used = [u for d in rows for u in uses.get(d["id"], [])]
+    counted = [d for d in rows if "summarises" not in d["keys"]]  # a lesson's runs are counted in its rows
     return {"rows": len(rows),
-            "counts": {s: sum(1 for d in rows if d["id"] in current and d["keys"]["outcome"]["status"] == s)
+            "counts": {s: sum(1 for d in counted if d["id"] in current and d["keys"]["outcome"]["status"] == s)
                        for s in STATUSES_SHOWN},
+            "lessons": sum(1 for d in rows if "summarises" in d["keys"]),
             "superseded": sum(1 for d in rows if d["id"] not in current and d["id"] not in withdrawn),
             "withdrawn": sum(1 for d in rows if d["id"] in withdrawn),
             "papers": len(papers), "files": sorted(files),
@@ -594,9 +652,12 @@ def source_reference(source_id, sources):
     return source_label(source_id, sources) + (f", *{title}*" if title else "") + (f" ({link})" if link else "")
 
 
-def status_words(o):
+def status_words(o, kind=None):
     """The outcome in plain words: what the status means and who showed it."""
     basis = o["basis"]
+    if kind == "case-decision" and basis == "paper_simulation":
+        return (f"{o['status']} — shown by the paper's own simulation; Lab's runs of it are in the run log "
+                "of this plant")
     if o["status"] == "lead":
         return ("lead — from the literature, not yet tested by Lab" if basis == "textbook"
                 else "lead — a suggestion, not yet tested")
@@ -624,19 +685,37 @@ def row_id_comment(d, withdrawn=None):
 CORRECTED = "Corrected by a later row, listed with the corrected version; this one no longer counts."
 
 
-def readable_plain(d, ix, sources, withdrawn=None):
+def linked(text, sources):
+    """Each catalogued paper named in the text, linked to its DOI or URL (longest names first)."""
+    for key in sorted(sources, key=lambda key: -len(source_label(key, sources))):
+        label, s = source_label(key, sources), sources[key]
+        link = f"https://doi.org/{s['doi']}" if s.get("doi") else s.get("url")
+        if link and label in text and f"[{label}]" not in text:
+            text = re.sub(rf"(?<!\[){re.escape(label)}(?!\])", f"[{label}]({link})", text)
+    return text
+
+
+def readable_plain(d, ix, sources, withdrawn=None, plant=None):
     """A row with plain fields: title, then When / Do / Why / Check / Result, status and source, one per line.
-    A row withdrawn by a correction is struck through; a correcting row shows its reason."""
+    A row withdrawn by a correction is struck through; a correcting row shows its reason. On a topic page a plant
+    lesson names its plant (plant = the case)."""
     k, plain = d["keys"], d["keys"]["plain"]
     withdrawn = withdrawn or {}
     title = f"**{plain['title'].rstrip('.')}**"
     lines = [f"- ~~{title}~~ {CORRECTED}" if d["id"] in withdrawn else f"- {title}"]
+    if plant:
+        lines.append(f"  - From Lab's own plant: [{plant}](../plants/{plant}.md).")
     if k.get("corrects"):
         lines.append(f"  - Correction: {k['correction_reason']}")
     for field, label in (("when", "When"), ("do", "Do"), ("why", "Why"), ("check", "Check"), ("result", "Result")):
         if plain.get(field):
-            lines.append(f"  - {label}: {plain[field]}")
-    lines.append(f"  - Status: {status_words(k['outcome'])}.")
+            lines.append(f"  - {label}: {linked(plain[field], sources)}")
+    if k.get("objective", {}).get("judged_on"):
+        lines.append(f"  - Judged on: {linked(k['objective']['judged_on'], sources)}")
+    if k.get("summarises"):
+        lines.append(f"  - Summarises {len(k['summarises'])} rows of "
+                     + ("the plant's run log." if plant else "the run log below."))
+    lines.append(f"  - Status: {status_words(k['outcome'], k['kind'])}.")
     if k.get("disputed_with"):
         lines.append("  - Another rule disagrees with this one; both are kept.")
     refs = []
@@ -655,11 +734,11 @@ def readable_plain(d, ix, sources, withdrawn=None):
     return "\n".join(lines)
 
 
-def readable_line(d, ix, sources, withdrawn=None):
+def readable_line(d, ix, sources, withdrawn=None, plant=None):
     withdrawn = withdrawn or {}
     k, o = d["keys"], d["keys"]["outcome"]
     if k.get("plain"):
-        return readable_plain(d, ix, sources, withdrawn)
+        return readable_plain(d, ix, sources, withdrawn, plant)
     text = (k.get("statement") or f"{d['operation'].rstrip('.')}. Expected: {d['expected_change']}").strip()
     status = f"{o['status']}, {BASIS_WORDS.get(o['basis'], o['basis'])}" + (f" ({o['engine']})" if o["engine"] else "")
     refs = []
@@ -731,7 +810,20 @@ NOT_PLAIN = ("not-yet-plain", "Rules not yet in plain words",
 
 
 def topic_of(d):
-    return next(slug for slug, _, _, test in TOPICS if test(d["keys"]))
+    """The topic of a rule; a general plant lesson goes where a simulation rule (if it has a symptom) or a design
+    rule of its keys would."""
+    k = d["keys"]
+    if k["kind"] == "case-decision":
+        k = dict(k, kind="simulation-rule" if k.get("symptom") else "design-rule")
+    return next(slug for slug, _, _, test in TOPICS if test(k))
+
+
+def is_lesson(d):
+    return "summarises" in d["keys"]
+
+
+def is_general_lesson(d):
+    return is_lesson(d) and GENERAL_LESSON in d["keys"]["conditions"]
 
 
 def ranked_rows(group, withdrawn=()):
@@ -757,10 +849,15 @@ def build_pages(corpus, origins, sources=None):
     for d in rules:
         if d["keys"].get("plain"):
             topics[topic_of(d)].append(d)
+    for d in rows:
+        if is_general_lesson(d) and d["id"] not in corrected_by(rows):
+            topics[topic_of(d)].append(d)
     not_plain = [d for d in rules if not d["keys"].get("plain")]
     withdrawn = corrected_by(rows)
     count = lambda group: sum(1 for d in group if d["id"] not in withdrawn)  # corrected rows no longer count
-    line = lambda d: readable_line(d, ix, sources, withdrawn)
+    line = lambda d: readable_line(d, ix, sources, withdrawn,
+                                   origins.get(d["id"]) if d["keys"]["kind"] == "case-decision" else None)
+    plant_line = lambda d: readable_line(d, ix, sources, withdrawn)
     plants = {}
     for d in rows:
         if d["keys"]["kind"] not in RULE_KINDS:
@@ -786,18 +883,40 @@ def build_pages(corpus, origins, sources=None):
         toc.append(f"| [{title}](rules/{slug}.md) | {covers} | {count(not_plain)} |")
     plant_toc = []
     for case, group in sorted(plants.items()):
-        lines = [f"# Run log: {case} (generated; do not edit)", "",
-                 "Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped by "
-                 f"unit, best-supported first; the row id is in an HTML comment for `kb.py show`. A struck-through "
-                 f"line was corrected by a later row and no longer counts; the correcting row gives its reason. "
-                 f"{back}", ""]
+        lessons = [d for d in group if is_lesson(d)]
+        log = [d for d in group if not is_lesson(d)]
+        if lessons:
+            lines = [f"# Lessons: {case} (generated; do not edit)", "",
+                     "What the plant taught, for a process engineer: each lesson summarises several runs or decisions "
+                     "below, with When / Do / Why / Check / Result, what it was judged against, its status and "
+                     "source. A lesson that holds beyond this plant is also on its topic page. The run log follows "
+                     f"under \"Runs behind these lessons\"; its rows still count as the evidence. {back}", ""]
+            units = {}
+            for d in lessons:
+                units.setdefault(d["keys"]["operation_type"], []).append(d)
+            for unit, mine in sorted(units.items()):
+                lines += [f"## {plain(unit)} ({count(mine)})", ""]
+                for d in ranked_rows(mine, withdrawn):
+                    lines += [plant_line(d), ""]
+            lines += ["## Runs behind these lessons", "",
+                      "One line per decision or CHEPTA run, grouped by unit, best-supported first; the row id is in an "
+                      "HTML comment for `kb.py show`. A struck-through line was corrected by a later row and no longer "
+                      "counts; the correcting row gives its reason.", ""]
+            head = "###"
+        else:
+            lines = [f"# Run log: {case} (generated; do not edit)", "",
+                     "Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped "
+                     f"by unit, best-supported first; the row id is in an HTML comment for `kb.py show`. A "
+                     f"struck-through line was corrected by a later row and no longer counts; the correcting row gives "
+                     f"its reason. {back}", ""]
+            head = "##"
         units = {}
-        for d in group:
+        for d in log:
             units.setdefault(d["keys"]["operation_type"], []).append(d)
         for unit, mine in sorted(units.items()):
-            lines += [f"## {plain(unit)} ({count(mine)})", ""] + [line(d) for d in ranked_rows(mine, withdrawn)] + [""]
+            lines += [f"{head} {plain(unit)} ({count(mine)})", ""] + [plant_line(d) for d in ranked_rows(mine, withdrawn)] + [""]
         pages[PLANTS_DIR / f"{case}.md"] = "\n".join(lines).rstrip("\n") + "\n"
-        plant_toc.append(f"| [{case}](plants/{case}.md) | {count(group)} |")
+        plant_toc.append(f"| [{case}](plants/{case}.md) | {count(lessons) or '-'} | {count(log)} |")
     front = ["# Rules in plain words (generated; do not edit)", "",
              "Pick a topic below; each page lists its rules, best-supported first.",
              HOW_TO_READ,
@@ -805,8 +924,8 @@ def build_pages(corpus, origins, sources=None):
              "are listed at the end.", "",
              "| Topic | What it covers | Rules |", "|---|---|---|"] + toc
     if plant_toc:
-        front += ["", "## Run logs of the plants (not yet written as lessons)", "",
-                  "| Case | Rows |", "|---|---|"] + plant_toc
+        front += ["", "## The plants: lessons, then their run logs", "",
+                  "| Case | Lessons | Rows in the run log |", "|---|---|---|"] + plant_toc
     pages[INDEX_READABLE] = "\n".join(front) + "\n"
     return pages
 

@@ -166,6 +166,29 @@ lock. A locked row is never edited; it is corrected by a new row:
   expected; a correction from another record file is refused; changing, removing or adding a correction after
   indexing fails; a cycle of three is refused; `dataset_pipeline.py validate` refuses an unknown target.
 
+## G. Lessons from Lab's own plants (amendment, 2026-11-21)
+
+The plants' run logs record every attempt; a senior engineer needs what they taught. A **lesson** is a case-decision
+row of the plant's own record file that summarises several of its rows:
+
+- `keys.summarises` lists the rows (at least two, all in the same record file, none of them a lesson). Its
+  `plain` fields (title, When / Do / Why / Check / Result) are required, and every number in them must appear in
+  the lesson's own text or in the rows it summarises. Its `run_ids` must be runs of those rows, from one engine,
+  so its status is the outcome of the action it recommends on those runs.
+- `keys.objective.judged_on` says in plain words what the status was judged against. Every other limit the runs
+  miss is stated there or in the result, with its source, and never generalised (the maintainer, 2026-11-21).
+- A lesson is not counted again in the index (W/F/L/U count the rows it summarises; `problems.json` gives the
+  number of lessons). Locked rows are neither withdrawn nor edited: they stay in the run log as the evidence.
+- The plant page `dataset/index/plants/<case>.md` lists the lessons first, grouped by unit, then the run log under
+  "Runs behind these lessons". A lesson with the condition tag `applies-beyond-plant` also appears on its topic page,
+  marked "From Lab's own plant", placed as a simulation rule if it has a symptom, else as a design rule.
+- Papers named in any plain field must be catalogued sources, written as the page cites them ("Piotrowski &
+  Kubica 2021"); `kb.py check` refuses others, and the pages link each name to its DOI. The paper-design rows of the
+  two plants carry plain fields too.
+- Tests: a lesson passes and renders first; unknown, foreign or lesson rows in `summarises` are refused (also by
+  `dataset_pipeline.py validate`); a run or a number not in its rows is refused; `judged_on` is required; lessons
+  do not change the counts; an uncatalogued paper name is refused.
+
 ## To decide
 
 1. **Condition tags free or controlled?** Free tags let two workers describe the same condition differently, which

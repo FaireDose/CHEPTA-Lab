@@ -23,7 +23,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Remove or reduce a hazard before adding protection**
   - When: A hazard is to be handled by add-on safety devices.
   - Do: Apply the four principles when choosing operations: intensify (less hazardous inventory), substitute (a safer material), attenuate (milder conditions), simplify.
-  - Why: A hazard that is not there cannot be released; Park et al. 2022 call safety devices much less reliable.
+  - Why: A hazard that is not there cannot be released; [Park et al. 2022](https://doi.org/10.3303/CET2290078) call safety devices much less reliable.
   - Check: For each hazardous stream, write down which principle was tried.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Park et al. 2022, *Progress in Inherently Safer Design for Chemical…* (https://doi.org/10.3303/CET2290078), Section 1, p. 463. <!-- park-2022-inherently-safer-design.four-principles-before-devices -->
@@ -46,7 +46,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 
 - **Rank alternatives early with a safety index built from chemical and process indicators**
   - When: You compare routes, units or streams on safety with little data.
-  - Do: Build an index from chemical indicators (flammability, explosiveness, toxicity) and process indicators (pressure, temperature), all known from a simple flowsheet. Park et al. 2022 count 22 hazard-based, 33 risk-based and 18 cost-based tools.
+  - Do: Build an index from chemical indicators (flammability, explosiveness, toxicity) and process indicators (pressure, temperature), all known from a simple flowsheet. [Park et al. 2022](https://doi.org/10.3303/CET2290078) count 22 hazard-based, 33 risk-based and 18 cost-based tools.
   - Why: These indicators are available at the concept stage.
   - Check: Report the ranking as indicative: the indicators' weights are not yet verified against incident data.
   - Status: lead — from the literature, not yet tested by Lab.
@@ -55,7 +55,7 @@ Each rule starts with what to do in one line, then When (the situation you recog
 - **Consider inherent safety from the first flowsheet**
   - When: You are in conceptual design, before the route and configuration are fixed.
   - Do: Screen the routes for inherent safety now.
-  - Why: Once technology and configuration are fixed, changes are costly; Park et al. 2022 hold inherently safer design to be the most cost-effective risk reduction.
+  - Why: Once technology and configuration are fixed, changes are costly; [Park et al. 2022](https://doi.org/10.3303/CET2290078) hold inherently safer design to be the most cost-effective risk reduction.
   - Check: Record a safety ranking next to the cost ranking of the routes.
   - Status: lead — from the literature, not yet tested by Lab.
   - Source: Park et al. 2022, *Progress in Inherently Safer Design for Chemical…* (https://doi.org/10.3303/CET2290078), Abstract and Section 1, p. 463. <!-- park-2022-inherently-safer-design.safety-from-first-flowsheet -->

@@ -928,6 +928,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Reversible esterification: boil the products off in a reactor-evaporator and recycle the acid",
+          "when": "Ethanol and acetic acid react to an equilibrium-limited ester near 90 C at atmospheric pressure.",
+          "do": "React in a boiling reactor-evaporator (85-90 C, 300 m3 in Piotrowski & Kubica 2021, Table 1) so the products leave as vapour; return the acid-rich bottoms of the next column.",
+          "why": "Taking the products out as they form shifts the equilibrium; the acid is recycled until it is used up.",
+          "check": "Lab modelled it as a conversion reactor with an all-vapour outlet; see the reactor lesson above."
         }
       },
       "obstacle": "Esterification of ethanol with acetic acid is reversible and nearly thermoneutral, so conversion is limited by equilibrium.",
@@ -976,6 +983,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Strip the unreacted acid from the reactor vapour with washed ester as reflux",
+          "when": "Reactor vapour carries acetic acid that must stay out of the ester azeotrope.",
+          "do": "Use a column without condenser or reboiler: reactor vapour at the bottom, the recycled ester-rich organic phase as reflux on stage 1 (Piotrowski & Kubica 2021: 8 stages, R/V 0.61).",
+          "why": "The acid goes down with the liquid back to the reactor; the azeotrope goes up.",
+          "check": "Acid in the azeotrope at most 0.005 wt%; Piotrowski & Kubica 2021 ask for at least 14 stages for that in the text but give 8 in Table 1."
         }
       },
       "obstacle": "Unreacted acetic acid in the reactor vapour must stay out of the ester azeotrope (at most 0.005 wt%).",
@@ -1020,6 +1034,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Recycle the ester-rich organic phase to carry the reaction water overhead",
+          "when": "The reaction releases more water than the ternary azeotrope can carry.",
+          "do": "Return part of the extractor's organic phase to the acid-stripping column as its reflux.",
+          "why": "The organic phase is richer in ester than the azeotrope (>93 %), so it binds the excess water (Piotrowski & Kubica 2021: about 17 % water released against about 7.8 % in the azeotrope).",
+          "check": "Watch the water in the reactor: it must not accumulate."
         }
       },
       "obstacle": "The reaction releases more water than the azeotrope can carry overhead, so water would accumulate in the reactor.",
@@ -1064,6 +1085,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Wash the azeotrope with 1 to 2 kg of water per kg",
+          "when": "Ethanol must be removed from the ester-ethanol-water azeotrope before the product column.",
+          "do": "Wash with a water-to-azeotrope mass ratio between 1 and 2 (Piotrowski & Kubica 2021 use 1 in Table 1), cooled to 20-30 C.",
+          "why": "More water enriches the organic phase in ester but loses ester and makes more wastewater to distil.",
+          "check": "Compare the raffinate's ester and water with the product column's needs."
         }
       },
       "obstacle": "More wash water enriches the organic phase in ester but loses ester to the water and makes more wastewater to distil.",
@@ -1110,6 +1138,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Distil the wash water to recover ethanol and ester and return them to the reactor",
+          "when": "The extractor's water phase holds ethanol and ester.",
+          "do": "Distil it (18 stages, feed 9, R/D 2 in Piotrowski & Kubica 2021, Table 1), return the distillate to the reactor and split the bottoms into wash water and wastewater.",
+          "why": "Recovers the raw materials and keeps organics out of the wastewater.",
+          "check": "Organics in the wastewater below 0.01 wt% (Piotrowski & Kubica 2021); their own table prints 0.03 %."
         }
       },
       "obstacle": "The wash water leaves the extractor with ethanol and ester that must be recovered, and the wastewater must be nearly free of organics.",
@@ -1154,6 +1189,13 @@
           "basis": "paper_simulation",
           "run_ids": [],
           "engine": null
+        },
+        "plain": {
+          "title": "Close the wash-water loop with one wastewater purge and a fresh-water make-up",
+          "when": "Wash water circulates between the extractor and the wastewater column.",
+          "do": "Recycle most of the bottoms (95,797 kg/h in Piotrowski & Kubica 2021), purge 20,000 kg/h as wastewater and add fresh water.",
+          "why": "Water formed by the reaction and the make-up need one exit.",
+          "check": "Lab's reading: the round 20,000 kg/h is a specification and the fresh water closes the balance; Piotrowski & Kubica 2021 do not say so."
         }
       },
       "obstacle": "The wash water circulates; water formed by the reaction and the make-up must leave somewhere.",
@@ -4908,6 +4950,1146 @@
         "Draft, written by an AI session from the case files and the review (2026-11-20); not reviewed."
       ],
       "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-reactor-conversion-imposed",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-reactor",
+        "ethyl-acetate-piotrowski-2021.ev-table1-s2"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "rxn-esterification-equilibrium-limited",
+        "level": "reaction",
+        "operation_type": "reactor-evaporator",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "lesson",
+          "no-usable-rate-law"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "The product purity of the closed plant, unchanged by the conversion per pass; the reactor is not predicted."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-conv0.80",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-conv0.74"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.paper-reactor-evaporator",
+          "ethyl-acetate-piotrowski-2021.reactor-conversion-imposed-061",
+          "ethyl-acetate-piotrowski-2021.reactor-conversion-per-pass-sensitivity-062"
+        ],
+        "plain": {
+          "title": "Reactor-evaporator without a usable rate law: impose the conversion per pass from the streams; it does not set the product",
+          "when": "The kinetics of Piotrowski & Kubica 2021 cannot be reused (catalyst concentration and concentration units are missing) and the reactor boils off its products as they form.",
+          "do": "Model it as a conversion reactor with an all-vapour outlet, taking the acid conversion per pass from the inlet and outlet streams of Piotrowski & Kubica 2021 (Table A2, streams 5 and 6: 0.7703).",
+          "why": "The unreacted acid returns from the next column until it is used up, so the conversion per pass changes only the size of that recycle.",
+          "check": "Compare the outlet temperature and duty with Piotrowski & Kubica 2021 (Lab: 89.0 C against 90 C, duty +6.3 %), then vary the conversion per pass in the closed plant.",
+          "result": "Conversion per pass 0.80 and 0.74 gave 99.112 and 99.113 % ester against 99.109 %: the product does not move."
+        }
+      },
+      "obstacle": "No usable rate law for the reactor-evaporator.",
+      "mechanism": "Imposed conversion with an all-vapour outlet.",
+      "operation": "Lesson over the reactor rows.",
+      "expected_change": "A reactor that carries the plant without predicting conversion.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-cold-acid-feed",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-reactor"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "rxn-esterification-equilibrium-limited",
+        "level": "reaction",
+        "operation_type": "heat-exchange",
+        "symptom": "feed-refused",
+        "components": [
+          "acetic-acid",
+          "ethanol"
+        ],
+        "behaviours": [],
+        "conditions": [
+          "lesson",
+          "pure-acetic-acid-below-triple-point"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Running the printed feed at all; the heater duty of Table 1 (535.6 kW) is a comparison, not a target."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr2-15C",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secA-feeds-17C"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.acid-feed-15c-061",
+          "ethyl-acetate-piotrowski-2021.acid-feed-15c-062"
+        ],
+        "plain": {
+          "title": "Pure acetic acid fed below its triple point: expect extrapolated acid data and a heater duty a few per cent high",
+          "when": "A feed of pure acetic acid is printed at 15 C (Piotrowski & Kubica 2021, Table A2), below the acid's triple point of 289.81 K in CHEPTA's record.",
+          "do": "On chepta 0.6.2 run it as printed and read the extrapolations CHEPTA lists; on 0.6.1, which refuses it, start the feed at 18 C.",
+          "why": "The acid's liquid heat capacity, vapour pressure and heat of vaporization are continued below their measured range.",
+          "check": "Compare the feed heater duty with Table 1 and keep the extrapolation list with the run.",
+          "result": "0.6.2: 573.9 kW against 535.6 kW (+7.2 %); 0.6.1 from 18 C: 543.9 kW (+1.6 %)."
+        }
+      },
+      "obstacle": "A feed below the acid's triple point.",
+      "mechanism": "Extrapolated pure-component data.",
+      "operation": "Lesson over the feed-heater rows.",
+      "expected_change": "The feed heater runs at the printed temperature.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-acid-stripping-reflux",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-acid-limit",
+        "ethyl-acetate-piotrowski-2021.ev-table1-s2"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-acid-stripping-from-ester-vapour",
+        "level": "separation",
+        "operation_type": "absorber-column",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "associating-acid-vapour",
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "lesson",
+          "eight-stages",
+          "reflux-scan"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Acetic acid in the azeotrope at most 0.005 wt% (Piotrowski & Kubica 2021, Section 3.2).",
+          "targets": [
+            {
+              "name": "acetic acid in the azeotrope",
+              "value": 0.005,
+              "unit": "wt%",
+              "basis": "distillate mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-acid-limit"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux55000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux60000",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds5-paper-reflux65000"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.paper-azeotropic-column-acid-stripping",
+          "ethyl-acetate-piotrowski-2021.col5-paper-inlets-061",
+          "ethyl-acetate-piotrowski-2021.col5-reflux-scan-meets-limit-062-c1",
+          "ethyl-acetate-piotrowski-2021.col5-reflux-scan-irregular-062",
+          "ethyl-acetate-piotrowski-2021.col5-reflux-scan-415da41-c1"
+        ],
+        "plain": {
+          "title": "Acid-stripping column of 8 stages: keep the reflux at 55,000 kg/h or more to hold 0.005 % acid overhead",
+          "when": "Reactor vapour is washed by the recycled ester-rich organic phase in a column without condenser or reboiler (Piotrowski & Kubica 2021: 8 stages in Table 1, R/V 0.61).",
+          "do": "Scan the reflux around 60,000 kg/h and take the lowest that meets the acid limit with margin; allow two liquids on the stages.",
+          "why": "Piotrowski & Kubica 2021 ask for at least 14 stages for the limit; with 8 the reflux must do the work.",
+          "check": "Read the acid in the overhead at each reflux; on chepta 0.6.2 a failure between converged neighbours is the solver, not the column.",
+          "result": "Acid 0.0036 % at 55,000, 0.0004 % at 60,000 and 65,000 kg/h; 0.055 % at 50,000 misses. On 0.6.2 four of the 12 scan points failed irregularly; on 415da41 all 12 converge."
+        }
+      },
+      "obstacle": "Acid must stay out of the azeotrope.",
+      "mechanism": "Reflux of washed ester.",
+      "operation": "Lesson over the column 5 rows.",
+      "expected_change": "Acid below its limit with the least reflux.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-acid-stripping-two-liquids",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-acid-limit"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-acid-stripping-from-ester-vapour",
+        "level": "separation",
+        "operation_type": "absorber-column",
+        "symptom": "wrong-phase",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "associating-acid-vapour",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "lesson",
+          "wetter-reflux-from-own-recycles"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Convergence of the column on the plant's own inlets."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-diag-scds5-round2-inlets-VLL"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.col5-round2-inlets-two-liquids-061",
+          "ethyl-acetate-piotrowski-2021.col5-round2-inlets-two-liquids-062"
+        ],
+        "plain": {
+          "title": "Once the recycles return wetter reflux, a second liquid forms in the acid-stripping column: allow two liquids",
+          "when": "The column runs on the plant's own recycles instead of the published inlets, and its reflux carries more water.",
+          "do": "Give the column phases VLL from the start, even if it ran with one liquid on the published inlets.",
+          "why": "The extra water puts stage 7 inside the two-liquid region.",
+          "check": "Look for a phase-split message naming a stage; rerun that stage's column alone with two liquids allowed.",
+          "result": "chepta 0.6.1 refused it (two liquids in an absorber not built); 0.6.2 converges with two liquids on stage 7."
+        }
+      },
+      "obstacle": "A second liquid on one stage.",
+      "mechanism": "Vapour-liquid-liquid stages.",
+      "operation": "Lesson over the column 5 two-liquid rows.",
+      "expected_change": "The column converges in the plant.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-extractor-isothermal-stages",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-wash",
+        "ethyl-acetate-piotrowski-2021.ev-table1-s2"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "extraction",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "lesson",
+          "stage-count-not-printed"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "The raffinate of Table A2 (stream 11); its ethanol is calibrated, its flow and water are compared."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/u62-extr8-2stage-acid"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.paper-wash-ratio-1-to-2",
+          "ethyl-acetate-piotrowski-2021.extractor-two-stages-27c-061",
+          "ethyl-acetate-piotrowski-2021.extractor-paper-70c-061",
+          "ethyl-acetate-piotrowski-2021.extractor-with-acid-062"
+        ],
+        "plain": {
+          "title": "Water wash without a printed stage count: use two isothermal equilibrium stages at the outlet temperature",
+          "when": "Piotrowski & Kubica 2021 give the extractor's temperature (70 C) and water ratio but no stage count, and at 70 C the feed is mostly vapour in CHEPTA.",
+          "do": "Run countercurrent equilibrium stages at the outlet temperature (27 C) and choose the stage count that matches the raffinate's ethanol; say that this number is calibrated.",
+          "why": "At the published 70 C the feed is 78 % vapour and the extractor refuses it; the outlets are cooler.",
+          "check": "Compare the raffinate flow and water with Table A2, not the ethanol you calibrated on.",
+          "result": "Two stages: 1.87 against 1.86 mass % ethanol (calibrated); raffinate +2.6 % (0.6.1, no acid) and +3.3 %, water 4.85 against 4.70 % (0.6.2, with acid)."
+        }
+      },
+      "obstacle": "Stage count not printed.",
+      "mechanism": "Isothermal equilibrium stages.",
+      "operation": "Lesson over the extractor rows.",
+      "expected_change": "The raffinate of Table A2.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-extractor-feed-saturated",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-wash"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "extraction",
+        "symptom": "feed-refused",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "lesson",
+          "mixer-before-extractor"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "The extractor accepting its feed."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-secB-mix7-adiabatic"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.mixer-before-extractor-adiabatic-061",
+          "ethyl-acetate-piotrowski-2021.mixer-before-extractor-adiabatic-062"
+        ],
+        "plain": {
+          "title": "Bring the extractor's mixed feed to saturated liquid; an adiabatic mixer leaves vapour the extractor refuses",
+          "when": "Hot distillate and the cooled azeotrope are mixed just before a liquid-liquid extractor.",
+          "do": "Give the mixer a saturated-liquid outlet (a small duty) and record the added heat.",
+          "why": "Mixing streams of different temperatures leaves a few per cent of vapour, and an extractor holds two liquids and no vapour.",
+          "check": "Read the mixer outlet's vapour fraction; in the loop it can grow.",
+          "result": "0.6.1 refused 0.037 vapour fraction; 0.6.2 accepts up to 10 % vapour, but in the open plant variant the mixer reached 17 % and was refused, so the closed plant keeps the saturated-liquid mixer."
+        }
+      },
+      "obstacle": "Vapour in the extractor feed.",
+      "mechanism": "Saturated-liquid mixer outlet.",
+      "operation": "Lesson over the mixer rows.",
+      "expected_change": "The extractor accepts its feed.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-acid-with-two-liquids",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-thermo"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "heat-exchange",
+        "symptom": "feed-refused",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "lesson",
+          "trace-acid-in-every-washed-stream"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Running each unit with the acid present; duties compared with Table 1."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr10-acid",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr12-acid",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr18-acid",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-htxr19-acid",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/rerun-u-extr8-1stage-27C-acid"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.acid-two-liquids-units-061",
+          "ethyl-acetate-piotrowski-2021.acid-two-liquids-units-062",
+          "ethyl-acetate-piotrowski-2021.extractor-with-acid-062"
+        ],
+        "plain": {
+          "title": "Keep the trace of acetic acid in every two-liquid unit; do not drop it to make the flash converge",
+          "when": "Every washed stream holds about 0.01 % acetic acid and two liquids.",
+          "do": "Run the heaters, extractor and columns with the acid and two liquids together (chepta 0.6.2 or later).",
+          "why": "The acid's vapour dimerizes, and older releases could not combine that with a three-phase flash; dropping the acid hides where it ends up.",
+          "check": "Compare each duty with Table 1 of Piotrowski & Kubica 2021, and follow where the acid leaves.",
+          "result": "0.6.1 refused every such stream; 0.6.2 runs them. One heater still takes 3.3 times its printed duty because the mixture boils below 71 C."
+        }
+      },
+      "obstacle": "Acid association with two liquids.",
+      "mechanism": "Three-phase flash with the acid's chemical theory.",
+      "operation": "Lesson over the acid units.",
+      "expected_change": "Units run with the acid.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-product-column-trace-acid",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product",
+        "ethyl-acetate-piotrowski-2021.ev-col11-balance"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-two-liquids-with-acetic-acid",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "associating-acid-vapour"
+        ],
+        "conditions": [
+          "lesson",
+          "trace-acid-in-feed"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Ester purity 99.90 wt% at the two decimals of Piotrowski & Kubica 2021. Water 0.044 % (140) and 0.066 % (140.5) exceed the 0.03 % limit of Piotrowski & Kubica 2021, Section 3.4; whether that matters depends on the product specification of the application (maintainer, 2026-11-21).",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/iso-scds11-acid0.01-bottoms140",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-iso-scds11-acid0.01-bottoms140.5"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.product-column-acid-at-paper-flow",
+          "ethyl-acetate-piotrowski-2021.product-column-acid-below-paper-flow",
+          "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140-c1",
+          "ethyl-acetate-piotrowski-2021.col11-acid-flow-140.5-415da41",
+          "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-purity-short-141-141.5",
+          "ethyl-acetate-piotrowski-2021.col11-acid-purity-spec-062"
+        ],
+        "plain": {
+          "title": "Product column with a trace of acetic acid: set the bottoms flow about 1 % below the published flow",
+          "when": "The ester product column gets a feed with 0.01 % acetic acid (Piotrowski & Kubica 2021, stream 13), and the acid, the heaviest component, can only leave with the product.",
+          "do": "Give the bottoms flow as the second specification, 140 to 140.5 kmol/h instead of 141.5; do not give the purity, which returns a wrong answer.",
+          "why": "All the acid of the feed ends in the product, so a product as large as the published one is too dilute.",
+          "check": "Read the ester purity and the acid in the bottoms; with the purity given, check the product flow is near the published one.",
+          "result": "140 kmol/h 99.922 %, 140.5 kmol/h 99.897 % (99.90 at the two decimals of Piotrowski & Kubica 2021); 141 and 141.5 kmol/h fall short. On 0.6.2 only 139 kmol/h converged; the purity specification gave a 31.0 kmol/h product."
+        }
+      },
+      "obstacle": "Trace acid in the product column.",
+      "mechanism": "Bottoms flow below the paper's.",
+      "operation": "Lesson over the product column rows with acid.",
+      "expected_change": "99.90 wt% ester.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-product-column-purity-spec-no-acid",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "slow",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases"
+        ],
+        "conditions": [
+          "lesson",
+          "no-acid-in-feed"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Ester purity 99.90 wt%.",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.1/u3-scds11-purity"
+          ],
+          "engine": "chepta@0.6.1"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.col11-no-acid-paper-flow-061",
+          "ethyl-acetate-piotrowski-2021.col11-no-acid-purity-spec-061"
+        ],
+        "plain": {
+          "title": "Without acid, give the product column its purity, not the published flow, and allow time",
+          "when": "The ester product column runs on an acid-free feed and the published flow misses the purity slightly.",
+          "do": "Specify 99.90 mass % ester in the bottoms; expect a slow solve.",
+          "why": "CHEPTA's thermodynamics differ slightly from Chemcad's, so the published flow no longer gives the published purity.",
+          "check": "Compare the product flow with Table A2.",
+          "result": "With the published flow 99.868 %; with the purity given it is met at a flow 0.5 % below it, in 610 s against 12 s."
+        }
+      },
+      "obstacle": "The paper's flow misses the purity.",
+      "mechanism": "Purity specification.",
+      "operation": "Lesson over the acid-free product column rows.",
+      "expected_change": "99.90 wt% ester.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-wastewater-column",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-wastewater",
+        "ethyl-acetate-piotrowski-2021.ev-table1-s2"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "lesson",
+          "wastewater-column"
+        ],
+        "objective": {
+          "product": "water",
+          "judged_on": "Ethanol in the wastewater bottoms. The organics limit of 0.01 wt% (Piotrowski & Kubica 2021, Section 3.5) is missed through the feed's acid; it is not met in that paper's own table either."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds15-distillate400",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/iso-scds15-distillate410"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.paper-wastewater-column",
+          "ethyl-acetate-piotrowski-2021.col15-paper-distillate-062",
+          "ethyl-acetate-piotrowski-2021.col15-distillate-400-410-062",
+          "ethyl-acetate-piotrowski-2021.col15-purity-spec-062"
+        ],
+        "plain": {
+          "title": "Wastewater column: raise the distillate a few per cent to strip the ethanol; the acid stays in the water",
+          "when": "The wash water is distilled to recover ethanol and ester, and the bottoms must be nearly free of organics.",
+          "do": "Raise the distillate from 394.6 to about 400-410 kmol/h; specify the bottoms purity only once the feed is nearly acid-free.",
+          "why": "The acid of the feed leaves in the bottoms whatever the distillate, about 0.012 %.",
+          "check": "Read ethanol and acid in the bottoms separately.",
+          "result": "Ethanol 0.151 % at 394.6, 0.014 % at 400 and 0.003 % at 410 kmol/h; the acid stays 0.012 %, so the 0.01 % organics limit cannot hold with the published feed."
+        }
+      },
+      "obstacle": "Organics in the wastewater.",
+      "mechanism": "More distillate.",
+      "operation": "Lesson over the column 15 rows.",
+      "expected_change": "Ethanol stripped from the wastewater.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-close-plant-purity-specs",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant",
+          "column-specifications"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "A closed, settled plant with balances closed; the product purity is judged in another lesson."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-tol1e-4",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init1e-4-tol1e-5"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.plant-once-through-061",
+          "ethyl-acetate-piotrowski-2021.plant-round2-061",
+          "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-062",
+          "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-no-convergence",
+          "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-slow",
+          "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-wrong-phase",
+          "ethyl-acetate-piotrowski-2021.plant-purity-specs-settled-062",
+          "ethyl-acetate-piotrowski-2021.plant-settled-415da41"
+        ],
+        "plain": {
+          "title": "Close the ester plant on outlet purities, not on the published column settings",
+          "when": "The whole plant with all five recycles does not converge with the column specifications printed in Piotrowski & Kubica 2021.",
+          "do": "Give the wastewater column its bottoms purity (99.99 % water), the product column its distillate flow, and fix one flow inside the water recycle; let the wastewater follow.",
+          "why": "The published settings belong to its own thermodynamics; purities keep each column on its target as the recycles move.",
+          "check": "Count the plant's free variables, then compare every stream with Table A2 and look for blown-up flows.",
+          "result": "With the published specifications every closed variant failed (9 on 0.6.2, 9 on 415da41); with the purity specifications the plant settled, every stream within -1.2 to +6.5 % of Table A2, wastewater 19,919 kg/h by itself."
+        }
+      },
+      "obstacle": "The closed plant does not converge.",
+      "mechanism": "Purity specifications.",
+      "operation": "Lesson over the closed-plant rows.",
+      "expected_change": "A settled closed plant.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-product-flow-within-feed",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop",
+        "ethyl-acetate-piotrowski-2021.ev-col11-balance"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant",
+          "degrees-of-freedom",
+          "applies-beyond-plant"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "A closed plant that converges; the product purity is judged in another lesson."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-tol1e-4",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init1e-4-tol1e-5"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.plant-product-flow-above-ester-formed-062",
+          "ethyl-acetate-piotrowski-2021.plant-paper-column-specs-415da41-c1-no-convergence",
+          "ethyl-acetate-piotrowski-2021.plant-variant-w-both-round-flows-062-c1",
+          "ethyl-acetate-piotrowski-2021.plant-purity-specs-settled-062"
+        ],
+        "plain": {
+          "title": "Never fix a product flow above what the fresh feeds can form, nor every outlet of a closed plant",
+          "when": "A printed product flow or two round outlet flows are taken as specifications of a recycle plant.",
+          "do": "Fix one flow inside the recycle and let one outlet follow; check that a fixed product flow is below the product the feeds can form.",
+          "why": "141.5 kmol/h of product exceeds the 141.07 kmol/h of ester the feeds form, so the reactor starves; with the feeds and both outlets fixed the product flow is set by the balance and the column cannot also hold its purity.",
+          "check": "Before running, compare each fixed flow with the feeds and the stoichiometry.",
+          "result": "With 141.5 kmol/h the loop stopped (reactor short of ethanol); with recycle 23 fixed the plant settled and the wastewater found 19,919 kg/h by itself."
+        }
+      },
+      "obstacle": "Over-specified closed plant.",
+      "mechanism": "One fixed flow inside the recycle.",
+      "operation": "Lesson over the degree-of-freedom rows.",
+      "expected_change": "A converged plant.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-tighten-tolerance-from-saved-answer",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-water-loop"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "recycle-drift",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant",
+          "tear-tolerance",
+          "applies-beyond-plant"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "A settled steady state (tear change and balance at a tight tolerance), not the product purity."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-tol1e-4",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init1e-4-tol1e-5"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.plant-purity-specs-loose-tolerance-062",
+          "ethyl-acetate-piotrowski-2021.plant-purity-specs-settled-062",
+          "ethyl-acetate-piotrowski-2021.plant-settled-415da41",
+          "ethyl-acetate-piotrowski-2021.plant-variant-w-both-round-flows-062-c1"
+        ],
+        "plain": {
+          "title": "Tighten the tolerance from a saved answer; a loose one showed 99.673 % where the settled plant gives 99.109 %",
+          "when": "A recycle plant converges only at a loose tear tolerance such as 3e-4.",
+          "do": "Save the converged tear streams, restart from them at 1e-4 and then 1e-5, and compare each component's inventory in the recycles between the two answers.",
+          "why": "A component with no exit but the products (here the excess ethanol) can still be building up while the plant balance already closes to 0.02 %.",
+          "check": "Compare the recycle flows of the loose and the tight answer; a balance check alone did not show it.",
+          "result": "Product 99.673 % at 3e-4 against 99.109 % settled at 1e-5; the ethanol in the reactor feed rose from 14,629 to 17,455 kg/h. A run at 5e-4 had a 42 kg/h balance gap."
+        }
+      },
+      "obstacle": "A loose tolerance hides drift.",
+      "mechanism": "Restart from saved tears at tighter tolerance.",
+      "operation": "Lesson over the tolerance rows.",
+      "expected_change": "A settled answer.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-purity-set-by-ethanol-and-water",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product",
+        "ethyl-acetate-piotrowski-2021.ev-wash"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "purity-short",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "two-liquid-phases",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant-settled",
+          "purity-short",
+          "applies-beyond-plant"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Ester purity 99.90 wt% (not reached). Water in the product stays above the 0.03 % limit of Piotrowski & Kubica 2021, Section 3.4 in every run.",
+          "targets": [
+            {
+              "name": "ester purity",
+              "value": 99.9,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-col11-36st",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init-col11-38st",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-feed11-5",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-best-init1e-4-tol1e-5-dist246",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-extr20C",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-ethanol6506",
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-0.6.2/plant62-settled-extr20C-ethanol6506"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.col11-more-stages-062-c1",
+          "ethyl-acetate-piotrowski-2021.col11-feed-stage-5-062",
+          "ethyl-acetate-piotrowski-2021.col11-distillate-raised-settled-062",
+          "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-062",
+          "ethyl-acetate-piotrowski-2021.col11-distillate-260-280-settled-415da41-dist270",
+          "ethyl-acetate-piotrowski-2021.wash-water-raised-062",
+          "ethyl-acetate-piotrowski-2021.extractor-20c-062",
+          "ethyl-acetate-piotrowski-2021.extractor-more-stages-062",
+          "ethyl-acetate-piotrowski-2021.ethanol-feed-trimmed-062",
+          "ethyl-acetate-piotrowski-2021.ethanol-feed-trimmed-further-062"
+        ],
+        "plain": {
+          "title": "Short product purity in a recycle plant: look at the excess reactant and the azeotrope's water load before the column's stages",
+          "when": "The closed plant settles but its ester product stays below 99.90 % while the column alone meets it.",
+          "do": "Trim the excess ethanol feed, cool the extraction to the cooling-water limit, and raise the product column's distillate; adding stages or moving the feed stage does not help.",
+          "why": "Excess ethanol can only leave with the product, so it builds up and wets the raffinate; the column's distillate leaves at the water azeotrope, so its flow sets how much water it can carry.",
+          "check": "Balance the excess reactant around the plant and the water around the product column before tuning the column.",
+          "result": "Best settled answer 99.666 % (extractor 20 C, ethanol feed 6,506 kg/h); 36 and 38 stages 99.675 and 99.680 % against 99.672 %; feed stage 5 worse (98.915 %); smaller ethanol feeds or 260-280 kmol/h of distillate did not converge on 0.6.2."
+        }
+      },
+      "obstacle": "Product purity short in the closed plant.",
+      "mechanism": "Excess reactant and water balance.",
+      "operation": "Lesson over the purity attempts.",
+      "expected_change": "99.90 wt% ester.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-hold-excess-reactant-by-design-spec",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-recycles-makeup-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "recycle-loop",
+          "component-without-exit"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant-settled",
+          "design-specification",
+          "applies-beyond-plant"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Ethanol in the product at most 0.04 wt% (Piotrowski & Kubica 2021, Section 3.4): met. The ester purity of 99.90 wt% is not met (99.473 %).",
+          "targets": [
+            {
+              "name": "ethanol in product",
+              "value": 0.04,
+              "unit": "wt%",
+              "basis": "product mass",
+              "evidence_id": "ethyl-acetate-piotrowski-2021.ev-product"
+            }
+          ]
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/ethyl-acetate-piotrowski-2021/results-chepta-main-415da41/new-plant-ds-ethanol0.0004"
+          ],
+          "engine": "chepta@415da41"
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.design-spec-ethanol-feed-415da41",
+          "ethyl-acetate-piotrowski-2021.design-spec-ester-purity-415da41",
+          "ethyl-acetate-piotrowski-2021.design-spec-column-distillate-415da41",
+          "ethyl-acetate-piotrowski-2021.ds-start-distillate-250-260-415da41-c2",
+          "ethyl-acetate-piotrowski-2021.ds-start-distillate-270-415da41"
+        ],
+        "plain": {
+          "title": "Hold an excess reactant with no exit by a design specification on its feed, aimed at its limit in the product",
+          "when": "An excess reactant can leave only with the product, and trimming its feed by hand in steps of a few kg/h fails to converge.",
+          "do": "Let a design specification vary that feed for the reactant's limit in the product (here 0.04 % ethanol), starting from a settled answer.",
+          "why": "The design specification finds the feed that hand steps only bracketed; aiming it at the purity instead ran out of time.",
+          "check": "Read the feed found, the solves and the time; then raise the next limiting setting by hand.",
+          "result": "Ethanol feed 6,506.23 kg/h found in 8 solves and 108 min, 0.040 % ethanol; product 99.473 %, then 99.561 % with the distillate raised to 260 kmol/h; 99.90 % as the target ran out of time after 3 h."
+        }
+      },
+      "obstacle": "Excess reactant builds up.",
+      "mechanism": "Design specification on the feed.",
+      "operation": "Lesson over the design-specification rows.",
+      "expected_change": "The reactant's limit met.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "ethyl-acetate-piotrowski-2021.lesson-audit-paper-column-balance",
+      "evidence_ids": [
+        "ethyl-acetate-piotrowski-2021.ev-col11-balance",
+        "ethyl-acetate-piotrowski-2021.ev-product"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-ester-alcohol-water-azeotrope",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "acetic-acid",
+          "ethanol",
+          "ethyl-acetate",
+          "water"
+        ],
+        "behaviours": [
+          "azeotrope-min-boiling",
+          "trace-impurity-limit"
+        ],
+        "conditions": [
+          "lesson",
+          "paper-audit"
+        ],
+        "objective": {
+          "product": "ethyl-acetate",
+          "judged_on": "Whether the limits of Piotrowski & Kubica 2021 can be met at its own settings; a reading of its tables, not a run."
+        },
+        "outcome": {
+          "status": "lead",
+          "basis": "lab_inference",
+          "run_ids": [],
+          "engine": null
+        },
+        "summarises": [
+          "ethyl-acetate-piotrowski-2021.open-paper-col11-water-balance",
+          "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-purity-short-141-141.5",
+          "ethyl-acetate-piotrowski-2021.col15-purity-spec-062"
+        ],
+        "plain": {
+          "title": "Check that the published stream table meets its own limits before chasing them in the simulation",
+          "when": "A product limit is missed in CHEPTA and Piotrowski & Kubica 2021 claims to meet it.",
+          "do": "Balance the key impurity around the published column from its stream table first.",
+          "why": "In Piotrowski & Kubica 2021 the product column's distillate leaves at the water azeotrope, so the table itself leaves 0.07 % water against a 0.03 % limit, and all the feed's acid must reach the product (0.022 %, not the 0.01 % printed).",
+          "check": "Compare the published stream table with the text's claims and keep any disagreement.",
+          "result": "Two limits of Piotrowski & Kubica 2021 are not met by its own Table A2 (product water; wastewater organics)."
+        }
+      },
+      "obstacle": "The paper's own balance misses its limits.",
+      "mechanism": "Audit of the stream table.",
+      "operation": "Lesson over the paper-audit rows.",
+      "expected_change": "Do not chase a limit the paper itself misses.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
       "rationale_classification": "lab_inference",
       "legacy_origin": null
     }
