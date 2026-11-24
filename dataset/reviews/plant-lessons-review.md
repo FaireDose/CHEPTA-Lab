@@ -302,3 +302,106 @@ Also worth a look if there is time: **M1**, the easiest finding to confirm. Camp
 "Uavg = 155 W·m−2·K−1".
 
 Record when done: **person spot check (items, date)**, by the maintainer.
+
+## Follow-up by the builder session (2026-11-24)
+
+Written by the session that built the lessons, not by the reviewer and not by a person. Lessons are new in PR #34, so
+they were rewritten directly. The one row already on main (M1) was corrected by a new row (proposal 0003, section F).
+The lock only gains entries against main. Each fix still awaits the reviewer's follow-up check.
+
+| Finding | Done | How, or why not |
+|---|---|---|
+| M1 | fixed | The lesson now gives the published U: 160 and 150 W/m2/K, 155 used (Campos et al. 2022, pp. 13-14). It says Lab missed it and bracketed it with 150 to 1000, and that there is no run at 155. New source block `blk-reactor-u` (lines 1018-1028 of the article text, sha256 as recorded) and evidence `ev-reactor-u`. New correcting row `reactor-lhhw-u-assumed-062-c3` withdraws `-c2`: same runs and outcome, corrected obstacle and mechanism. The issues register row `rxn-co2-hydrogenation-methanol` is corrected too. **Not done:** the case README (line 85) is sha256-bound, so it is not edited; the correcting row records that it is wrong. **Not done:** a run at U 155, because CHEPTA is not installed in this session's container; it remains for a session that runs CHEPTA. |
+| M2 | fixed | `applies-beyond-plant` removed, so the lesson is no longer on a topic page. Title and Do now say the purity was not solved. The Why is marked as Lab's reading, a lead. The Result adds W/A 1.13 (99.118 %), distillate 246 (99.137 %), 270 kmol/h on 415da41 (99.223 %) and the 40-stage failure. It says the stage runs were at the unsettled 3e-4. Runs added: 40 stages and W/A 1.2. Status stays `failed`. |
+| M3 | fixed | `judged_on` now states water 0.113 % and 0.084 % against the 0.03 % limit of Section 3.4, with the maintainer's outcome rule. The guess about thermodynamics is replaced by what the rows show: water 0.113 % at the published flow, against 0.07 % in Table A2. It says why CHEPTA leaves more water is not established. The Result adds both water values. |
+| M4 | fixed | The Why now says water is the main impurity (0.111 %; 0.113 % without acid) and that acid adds about 0.02 points (0.022 %). The Do says the purity specification gave a wrong root on 0.6.2 and was not tried on 415da41. Rows added to `summarises`: the no-acid run and the Table A2 audit. |
+| m1 | fixed | The lesson now cites the settled closed plant (`plant62-best-init1e-4-tol1e-5`, saturated-liquid mixer) in place of the adiabatic run. Title, Result and `judged_on` say what each run tested. |
+| m2 | fixed | Title: 55,000 to 65,000 kg/h. Do: 55,000 meets the limit narrowly, 60,000 with a wide margin. Result: the acid at 70,000 kg/h on 415da41 is not reported. |
+| m3 | fixed | Result: recycle tears only, and five tears including 36-REC, refused; moving that tear to the far side of HE2 closed the plant. Do: choose tears that cut each exchanger's cycle; how many is not the test. Stream 35 is not named by number because no summarised row prints it. |
+| m4 | fixed | The Result and `judged_on` give 114,966 kW against 103.3 MW (+11 %) and 84.99 against 82.9 C. I reread supplement Table S14 and Table S9, stream 29, and the note names those passages. |
+| m5 | fixed | `applies-beyond-plant` removed; the title now says "On chepta 415da41 (request M6 open)". The Why calls it a workaround for one engine and says the share comes from Lab's own plant. `judged_on` names Campos et al. 2022. `kb.py check` now refuses "the paper" in `judged_on`, which also caught one in `lesson-wastewater-column`, fixed. This was the reviewer's item 2 for the person; the person may still decide it differently. |
+| m6 | fixed | The Do now calls it a workaround, an imposed split of the ppm traces, not the column of Campos et al. 2022, and says to rerun without it (415da41 converges with them). |
+| m7 | fixed | The Do now separates S1 (20-30 C, Section 3.3) from S2 (70 C, Table 1). A note names the passages reread. |
+| m8 | fixed | The Why gives the over-specification (141.5 against 141.07 kmol/h) and column 5 on 0.6.2. The Result splits the 415da41 failures: two at the reactor, two in column 11, the rest slow or in a wrong phase. |
+| m9 | fixed | The Result adds the third limit: acid in the azeotrope, 0.01 % printed against 0.005 %, not decidable at two decimals. The paper row is added to `summarises`. |
+| m10 | fixed | Each plant page, and each topic page whose rows ran on a commit, now carries one generated line saying 415da41 is an unreleased development version of CHEPTA, later than 0.6.2. A test covers it. |
+| m11 | fixed | The Check says HTXR 18 and 19 are swapped in Table 1 (maintainer, 2026-11-12). The Result says Lab's 0.6.1 results drop the acid after column 5. |
+| n1 | fixed | The Check now reads "Lab on chepta 0.6.1: 89.0 C ...". |
+| n2 | fixed | Every cross-reference names the lesson's subject instead of its position ("the lesson on ..."). |
+| n3 | fixed | The FLASH3 liquid flow, 9468 against 11,488 kmol/h, is added. The -18 % is left out because no row prints it. |
+| n4 | fixed | Both figures are given: about 7.8 % from the literature they cite, and 8.2 % in their Section 3.2. A note names the passages reread. |
+| n5 | fixed | The Check now reads "an irregular failure that a later engine converges"; the Result says two of the failures are at the ends of the scan. |
+
+New checks in `scripts/kb.py`, with tests (127 tests):
+- `judged_on` naming "the paper" alone is refused.
+- A lesson that did not work cannot carry `applies-beyond-plant`.
+- The engine line is on the pages.
+
+Proposal 0003, section G, says the same. General lessons: 4, down from 6.
+
+## Follow-up check by the reviewer (2026-11-24)
+
+**AI follow-up check (Claude Opus 5.5, 2026-11-24)**, by the same AI review session that wrote the findings above. It
+is not the builder and not a person. Checked: `claude/lab-backfill-plants` at `181ad20`. For every lesson and paper
+row I re-read the plain fields, `judged_on`, runs and `summarises` against the rows they summarise. The new numbers
+were checked against the rows, and the U values against Campos et al. 2022, pp. 13-14, in the copy downloaded for
+this review.
+
+**Per finding:**
+
+| Finding | Follow-up |
+|---|---|
+| M1 | **Confirmed.** Lesson and the correcting row `reactor-lhhw-u-assumed-062-c3` give 160, 150 and 155 W/m2/K, pp. 13-14, as the article prints them. The row's correction reason cites this review. Block `blk-reactor-u`: I recomputed its fragment sha256 from lines 1018-1028 of my own `pdftotext -layout` (poppler 24.02.0) extraction of the PDF with sha256 8215079…: `ded95acd…`, matching. Evidence `ev-reactor-u` matches. Still open, and stated in the row: no run at U 155, and the case README line 85 still says "not printed". |
+| M2 | **Confirmed.** `applies-beyond-plant` is removed, and the title says "not solved". The Why is marked a lead. The Result gives W/A 1.13 99.118 %, distillate 246 99.137 %, 270 on 415da41 99.223 %, the 40-stage failure, and the stage runs "only at the unsettled 3e-4". All match the rows. The added runs `-col11-40st` and `-WA1.2` belong to summarised rows. |
+| M3 | **Confirmed.** `judged_on` states 0.113 % and 0.084 % water against 0.03 %, Section 3.4. The Why now says it is not established why CHEPTA leaves more water; 0.07 % matches Table A2, stream 16. |
+| M4 | **Confirmed.** The Why gives water 0.111 % (0.113 % without acid) and acid about 0.02 points (0.022 %). The Do limits the wrong root to 0.6.2 ("not tried on 415da41"). The two added rows exist in this file. |
+| m1 | **Confirmed.** The lesson's run is now `plant62-best-init1e-4-tol1e-5` of the added row `plant-purity-specs-settled-062`, the settled plant with the saturated-liquid mixer. `judged_on` says what each run tested. |
+| m2 | **Confirmed.** Title reads 55,000-65,000 kg/h; the acid at 70,000 kg/h is "not reported". |
+| m3 | **Confirmed.** Matches `plant-a2` (refused with five tears including 36-REC) and `plant-a6`. |
+| m4 | **Confirmed.** 114,966 kW against 103.3 MW (+11 %), and 84.99 against 82.9 C, as in Table S14 and Table S9, stream 29. |
+| m5 | **Confirmed.** The tag is removed, and the title is scoped to chepta 415da41 with request M6 open. `judged_on` names Campos et al. 2022. The new `kb.py` check refuses "the paper" in `judged_on`. |
+| m6 | **Confirmed.** The Do calls it "a workaround, an imposed split of ppm traces, not the column of Campos et al. 2022". |
+| m7 | **Confirmed.** S1 at 20-30 C (Section 3.3) and S2 at 70 C (Table 1) agree with the article. |
+| m8 | **Confirmed.** 141.5 against 141.07 kmol/h. The 415da41 split (2 at the reactor, 2 in column 11, 4 slow, 1 wrong phase) and "9 on 0.6.2, all in column 5" match the rows. |
+| m9 | **Confirmed.** |
+| m10 | **Confirmed.** The engine line is on both plant pages and on `rules/reactors-recycles.md`. |
+| m11 | **Confirmed.** |
+| n1-n5 | **Confirmed.** I found no cross-reference to a position left in the plain fields. |
+
+**Lock:** compared with `origin/main`'s `dataset/index/outcomes.lock.json`, every entry is kept unchanged:
+- `outcomes`: 98 to 124 entries;
+- `corrections`: 20 to 21 (the M1 correction is added);
+- `indexed`: 278 ids to 306, a superset;
+- `informed_by`: 0 entries, unchanged.
+
+The only line removed against PR #34's own earlier lock (`71cbb52`) is the m1 lesson's old run, from a lesson that is
+not on main.
+
+**Commands at `181ad20`:**
+- `validate_catalog.py`: OK, exit 0.
+- `dataset_pipeline.py validate`: valid, exit 0.
+- `unittest`: 127 tests OK, exit 0.
+- `kb.py check`: case-decision 145, design-rule 127, simulation-rule 34; index current; exit 0.
+
+**New, all nits; none blocks the fixes:**
+- **f1** `lesson-reactor-u-assumed`: the Do now says "use the published U", but its runs are at 300, 150 and 1000, so the
+  status `worked` rests on U 150, the nearest run. The lesson says so ("No run at 155 itself"). A run at 155 would
+  close this.
+- **f2** In `data/ISSUES_AND_ROUTES.md`, row `rxn-co2-hydrogenation-methanol`: the sensitivity is now stated twice
+  ("U 150 to 1000 moves the outlet by 0.40 K" and "U 150 and 1000 move the outlet by 0.4 K"), and the source column
+  does not yet list pp. 13-14.
+- **f3** In the register, row `plant-gas-recycle-with-purge` (already on main), "(5 tears: …)" still reads as if the
+  number were the test (m3). This is text only.
+
+**Spot-check items, revised.** M2 and m5 are fixed, and their lessons no longer go to topic pages. The item with the
+largest effect is now the M1 correction: it is the one change to rows already on main (the correction row `-c3`,
+which withdraws `-c2`) and to the register.
+
+1. **Largest effect: M1.** Check the U values in `methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c3` and in
+   `lesson-reactor-u-assumed` against Campos et al. 2022, p. 14, first lines ("Uavg = 155 W·m−2·K−1").
+2. **Least sure: m5, kept.** The facts are fixed, but scoping the lesson to one engine is a judgement the person may
+   make differently.
+3. **Random: m6, kept** (drawn once, not redrawn). Is the rewritten Do of `lesson-column-light-gas-traces` acceptable
+   as a stated imposed split?
+
+Record when done: **person spot check (items, date)**, by the maintainer.

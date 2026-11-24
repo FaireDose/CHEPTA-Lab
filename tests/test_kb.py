@@ -592,6 +592,23 @@ class KnowledgeBaseTests(unittest.TestCase):
         del self.decision(self.LESSON)["keys"]["objective"]["judged_on"]
         self.assertTrue(any("objective.judged_on" in e for e in self.errors()))
 
+    def test_lesson_judged_on_names_its_paper(self):
+        obj = self.decision(self.LESSON)["keys"]["objective"]
+        obj["judged_on"] += " The paper's own table agrees."
+        self.assertTrue(any("objective.judged_on says 'The paper'" in e for e in self.errors()))
+
+    def test_only_a_lesson_that_worked_goes_beyond_its_plant(self):
+        k = self.decision(self.LESSON)["keys"]
+        k["conditions"] = k["conditions"] + [kb.GENERAL_LESSON]
+        self.assertEqual([e for e in self.errors() if self.LESSON in e], [])  # worked: allowed
+        k["outcome"]["status"] = "failed"
+        self.assertTrue(any("only a lesson that worked is offered beyond its plant" in e for e in self.errors()))
+
+    def test_plant_page_explains_a_commit_engine(self):
+        page = self.pages()[kb.PLANTS_DIR / "ethyl-acetate-piotrowski-2021.md"]
+        self.assertIn("415da41 is an unreleased development version of CHEPTA", page)
+        self.assertLess(page.index("unreleased development version"), page.index("## Runs behind these lessons"))
+
     def test_lessons_are_not_counted_again(self):
         count = lambda: next(p for p in json.loads(kb.build_index(self.corpus, self.origins)[1])["problems"]
                              if p["id"] == "sep-two-liquids-with-acetic-acid")

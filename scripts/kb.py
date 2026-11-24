@@ -316,9 +316,18 @@ def lesson_errors(d, ix):
             errors.append(f"{where}: run {run} is not a run of the rows it summarises")
     if "plain" not in k:
         errors.append(f"{where}: a lesson has plain fields (title, when, do, why, check, result)")
-    if not k.get("objective", {}).get("judged_on"):
+    judged = k.get("objective", {}).get("judged_on")
+    if not judged:
         errors.append(f"{where}: a lesson's objective says what it was judged against (objective.judged_on); "
                       "other missed limits are stated, never generalised")
+    else:
+        bare = BARE_REFERENCE.search(judged)
+        if bare:
+            errors.append(f"{where}: objective.judged_on says '{bare.group(0)}' without naming it; write the "
+                          "authors and year, e.g. 'Campos et al. 2022'")
+    if GENERAL_LESSON in k.get("conditions", []) and k["outcome"]["status"] != "worked":
+        errors.append(f"{where}: only a lesson that worked is offered beyond its plant ({GENERAL_LESSON}); a "
+                      f"{k['outcome']['status']} lesson stays on its plant page")
     return errors
 
 
@@ -826,6 +835,21 @@ def is_general_lesson(d):
     return is_lesson(d) and GENERAL_LESSON in d["keys"]["conditions"]
 
 
+COMMIT_ENGINE = re.compile(r"^chepta@([0-9a-f]{7,40})$")
+
+
+def engine_note(group):
+    """One line for readers who do not program: an engine named by a commit is not a release."""
+    commits = sorted({m.group(1) for d in group
+                      for m in [COMMIT_ENGINE.match(d["keys"]["outcome"].get("engine") or "")] if m})
+    if not commits:
+        return []
+    return [f"Engine names: a number such as 0.6.2 is a CHEPTA release; {', '.join(commits)} "
+            f"{'is an unreleased development version' if len(commits) == 1 else 'are unreleased development versions'}"
+            " of CHEPTA (a commit), later than release 0.6.2 and not yet released. Results on it are labelled "
+            "separately from the release's.", ""]
+
+
 def ranked_rows(group, withdrawn=()):
     """Best-supported first: worked, failed, lead, untested; then by operation and id. Rows withdrawn by a
     correction come last."""
@@ -867,7 +891,7 @@ def build_pages(corpus, origins, sources=None):
 
     def rule_page(title, covers, group):
         lines = [f"# {title} (generated; do not edit)", "", f"{covers}. {count(group)} rules. {back}", "",
-                 HOW_TO_READ, ""]
+                 HOW_TO_READ, ""] + engine_note(group)
         for d in ranked_rows(group, withdrawn):
             lines += [line(d), ""]
         return "\n".join(lines).rstrip("\n") + "\n"
@@ -891,6 +915,7 @@ def build_pages(corpus, origins, sources=None):
                      "below, with When / Do / Why / Check / Result, what it was judged against, its status and "
                      "source. A lesson that holds beyond this plant is also on its topic page. The run log follows "
                      f"under \"Runs behind these lessons\"; its rows still count as the evidence. {back}", ""]
+            lines += engine_note(group)
             units = {}
             for d in lessons:
                 units.setdefault(d["keys"]["operation_type"], []).append(d)
@@ -908,7 +933,7 @@ def build_pages(corpus, origins, sources=None):
                      "Run log of the plant, not yet written as lessons. One line per decision or CHEPTA run, grouped "
                      f"by unit, best-supported first; the row id is in an HTML comment for `kb.py show`. A "
                      f"struck-through line was corrected by a later row and no longer counts; the correcting row gives "
-                     f"its reason. {back}", ""]
+                     f"its reason. {back}", ""] + engine_note(group)
             head = "##"
         units = {}
         for d in log:

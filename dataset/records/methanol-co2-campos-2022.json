@@ -167,6 +167,21 @@
       "collected_on": "2026-11-20",
       "summary": "Composition of the FLASH4 liquid (column feed): CO2 1.285 mol %.",
       "target_revealing": true
+    },
+    {
+      "id": "methanol-co2-campos-2022.blk-reactor-u",
+      "source_id": "lacerda-campos-2022",
+      "source_url": "https://mdpi-res.com/d_attachment/processes/processes-10-01535/article_deploy/processes-10-01535.pdf",
+      "source_version": "Publisher PDF of the article, fetched 2026-11-20 (sha256 as in data/sources.json)",
+      "document_sha256": "8215079335f33a55bf972db7e365275e51cdaff4f8cfc685603f1359f4b0447d",
+      "document_hash_kind": "archived_pdf",
+      "locator": "pp. 13-14, Section 3.1.1",
+      "selector": "processes-10-01535.txt lines 1018-1028; UTF-8 lines joined by LF, no terminal LF",
+      "source_fragment_sha256": "ded95acd170d5a9ded3ec709679b2303045cea406c86ae50907b02bed8f6ce04",
+      "extraction_method": "pdftotext -layout (poppler 24.02.0) of the publisher PDF; passage chosen by an AI session",
+      "collected_on": "2026-11-20",
+      "summary": "The global heat-transfer coefficient was updated along the reactor; for the selected condition 160 W/m2/K at the inlet and 150 at 12.5 m, and Aspen Plus was given the average, 155 W/m2/K.",
+      "target_revealing": false
     }
   ],
   "evidence": [
@@ -645,6 +660,56 @@
           "non-condensable-gas"
         ]
       }
+    },
+    {
+      "id": "methanol-co2-campos-2022.ev-reactor-u",
+      "block_ids": [
+        "methanol-co2-campos-2022.blk-reactor-u"
+      ],
+      "claim": "For the selected one-step condition the reactor's global heat-transfer coefficient is 160 W/m2/K at the inlet and 150 W/m2/K at the outlet (12.5 m); the average, 155 W/m2/K, is used in Aspen Plus.",
+      "classification": "author_reported_simulation",
+      "conditions": [],
+      "quantities": [
+        {
+          "name": "heat-transfer coefficient at the inlet",
+          "value": 160,
+          "unit": "W/m2/K",
+          "basis": "reactor tube, z = 0",
+          "qualifier": "equal"
+        },
+        {
+          "name": "heat-transfer coefficient at the outlet",
+          "value": 150,
+          "unit": "W/m2/K",
+          "basis": "reactor tube, z = 12.5 m",
+          "qualifier": "equal"
+        },
+        {
+          "name": "heat-transfer coefficient used",
+          "value": 155,
+          "unit": "W/m2/K",
+          "basis": "reactor, average",
+          "qualifier": "equal"
+        }
+      ],
+      "limits": [
+        "Computed by the authors along the tube (supplement Section B), not measured."
+      ],
+      "legacy_origin": null,
+      "keys": {
+        "problem_ids": [
+          "rxn-co2-hydrogenation-methanol"
+        ],
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "methanol",
+          "water"
+        ],
+        "behaviours": [
+          "exothermic-reaction"
+        ]
+      }
     }
   ],
   "decisions": [
@@ -919,7 +984,7 @@
           "when": "The reactor effluent near 248 C must be cooled to 30 C while three cold streams need heat.",
           "do": "Heat the reactor feed, the column feed and the low-pressure flash feed with the effluent, then cool the rest with water (Campos et al. 2022).",
           "why": "Recovers the reaction heat inside the plant.",
-          "check": "The cooling-water duty of Table S14 (24.2 MW) and the stream enthalpies disagree; see the cooler lesson."
+          "check": "The cooling-water duty of Table S14 (24.2 MW) and the stream enthalpies disagree; see the lesson on a duty that disagrees with its stream enthalpies."
         }
       },
       "obstacle": "The reactor effluent at about 248 C must be cooled to 30 C while three cold streams need heat.",
@@ -2813,6 +2878,67 @@
       "legacy_origin": null
     },
     {
+      "id": "methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c3",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-reactor",
+        "methanol-co2-campos-2022.ev-conversion",
+        "methanol-co2-campos-2022.ev-reactor-u"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "rxn-co2-hydrogenation-methanol",
+        "level": "reaction",
+        "operation_type": "pfr",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-inlet",
+          "lhhw-model-6p-on-fugacities",
+          "coolant-constant-247.5-c",
+          "u-150-to-1000-w-m2-k",
+          "u-155-printed"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U300",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U150",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-U1000",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.2/u-reactor-isothermal"
+          ],
+          "engine": "chepta@0.6.2"
+        },
+        "corrects": "methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c2",
+        "correction_reason": "Review finding M1, dataset/reviews/plant-lessons-review.md (PR #34, AI full check 2026-11-24): Campos et al. 2022 do print U, 160 and 150 W/m2/K along the tube and 155 used (pp. 13-14); the c2 row said it is not printed. The runs and their outcome are unchanged."
+      },
+      "obstacle": "Campos et al. 2022 print the reactor's heat-transfer coefficient (160 W/m2/K at the inlet, 150 at 12.5 m, average 155 used; pp. 13-14); Lab missed it and assumed a value.",
+      "mechanism": "CHEPTA's pfr with the paper's LHHW rates on fugacities (phi_Zn 0.10), coolant at constant temperature, U assumed 300 W/m2/K (about twice the published 155) and varied 150 to 1000.",
+      "operation": "Reactor on the paper's inlet, U 300, 150 and 1000, and isothermal.",
+      "expected_change": "The paper's outlet 16.",
+      "alternatives": [],
+      "limits": [
+        "U 300: 31,958 vs 32,021 kmol/h (-0.2 %), 247.7 vs 247.9 C, methanol 7.53 vs 7.415 mol %; heat to coolant +2.3 %. U 150 against U 1000 (outlet mol %): H2 59.984 / 60.019 (0.035 points), CO2 17.793 / 17.807 (0.014), CO 1.761 / 1.758 (0.003), methanol 7.540 / 7.519 (0.021), water 7.263 / 7.240 (0.023), N2 5.659 / 5.657 (0.002); T 0.40 K (run outputs). Rights of Model-6p's constants are an open maintainer decision.",
+        "No run at the published U 155 itself; the U 150 run is the nearest (5 W/m2/K below it). The case README (cases/methanol-co2-campos-2022/README.md, heat-transfer row) says 'not printed'; it is sha256-bound, so it is corrected here and not edited.",
+        "Draft, written by an AI session from the case files, the article and the review (2026-11-24); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
       "id": "methanol-co2-campos-2022.lesson-reactor-u-assumed",
       "evidence_ids": [
         "methanol-co2-campos-2022.ev-reactor",
@@ -2838,7 +2964,8 @@
         ],
         "conditions": [
           "lesson",
-          "heat-transfer-coefficient-not-printed"
+          "u-155-printed",
+          "u-sensitivity"
         ],
         "objective": {
           "product": "methanol",
@@ -2856,19 +2983,19 @@
         },
         "summarises": [
           "methanol-co2-campos-2022.paper-multitubular-reactor-70-bar",
-          "methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c2"
+          "methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c3"
         ],
         "plain": {
-          "title": "Boiling-water-cooled tubular reactor without a printed U: assume one and show the outlet hardly moves",
-          "when": "The kinetics and tube geometry are given (Campos et al. 2022: 33,000 tubes, 12.5 m, 3.75 cm per module, 70 bar) but not the heat-transfer coefficient to the coolant.",
-          "do": "Assume U (here 300 W/m2/K) with the coolant at its boiling temperature, and rerun at 150 and 1000 to bound it.",
+          "title": "Boiling-water-cooled tubular reactor: the outlet hardly moves with U between 150 and 1000 W/m2/K; the published 155 lies in that range",
+          "when": "Campos et al. 2022 give the kinetics, the tubes (33,000 of 12.5 m and 3.75 cm per module, 70 bar) and U: 160 at the inlet, 150 W/m2/K at the outlet, 155 used (pp. 13-14).",
+          "do": "Use the published U with the coolant at its boiling temperature. Lab missed the printed value, assumed 300 W/m2/K and bounded it with 150 and 1000.",
           "why": "With boiling water on the shell the tubes run near the coolant temperature, so U matters little.",
-          "check": "Compare the outlet flow, temperature and methanol with the published reactor outlet.",
-          "result": "U 300: flow -0.2 %, -0.2 K, methanol 7.53 against 7.415 mol %; U 150 against 1000: 0.40 K and up to 0.035 points (hydrogen)."
+          "check": "Compare the outlet flow, temperature and methanol with the published reactor outlet; rerun at the published U.",
+          "result": "U 300: flow -0.2 %, -0.2 K, methanol 7.53 against 7.415 mol %; U 150 (nearest the published 155) against 1000: 0.40 K and up to 0.035 points (hydrogen). No run at 155 itself."
         }
       },
-      "obstacle": "U not printed.",
-      "mechanism": "Assumed U with a sensitivity.",
+      "obstacle": "The published U (155 W/m2/K) was missed at first.",
+      "mechanism": "Assumed U with a sensitivity that brackets the published value.",
       "operation": "Lesson over the reactor rows.",
       "expected_change": "The paper's reactor outlet.",
       "alternatives": [],
@@ -2932,8 +3059,8 @@
           "when": "Campos et al. 2022 use NRTL2 outside the reactor, but CHEPTA has no NRTL pairs for the gases with methanol and water.",
           "do": "Use Peng-Robinson with CHEPTA's fitted CO2 + methanol and CO2 + water k_ij everywhere; PR + MHV1 is refused because methanol + N2 has no NRTL pair.",
           "why": "An activity model needs pairs for every gas with the solvents; the equation of state rests on its k_ij instead.",
-          "check": "List the extrapolated k_ij sets CHEPTA reports, and compare the dissolved CO2 of the high-pressure flash first (see the open question).",
-          "result": "Every flash runs; FLASH4 vapour +3.6 % and liquid -1.0 %, but the 69.25 bar flash liquid holds 3.37 % CO2 against 18.545 %."
+          "check": "List the extrapolated k_ij sets CHEPTA reports, and compare the dissolved CO2 of the high-pressure flash first (see the lesson on the dissolved CO2 that sets the CO2 recycle).",
+          "result": "Every flash runs; FLASH4 vapour +3.6 % and liquid -1.0 %, but the 69.25 bar flash liquid is 9468 against 11,488 kmol/h and holds 3.37 % CO2 against 18.545 %."
         }
       },
       "obstacle": "No NRTL pairs for the gases.",
@@ -3046,7 +3173,7 @@
         ],
         "objective": {
           "product": "methanol",
-          "judged_on": "A converged column; the products are judged in the condenser lesson."
+          "judged_on": "A converged column; the products are judged in the lesson on the condenser with vapour and liquid distillates."
         },
         "outcome": {
           "status": "worked",
@@ -3066,7 +3193,7 @@
         "plain": {
           "title": "Column feed with ppm of H2, CO or N2: on chepta 0.6.2 send the traces round the column; on 415da41 they can go through",
           "when": "The methanol-water column feed holds a few ppm of permanent gases and the column will not start.",
-          "do": "On 0.6.2 split the traces off before the column and join them to its vapour; check on a later engine whether the column starts with them.",
+          "do": "On 0.6.2 split the traces off before the column and join them to its vapour. This is a workaround, an imposed split of ppm traces, not the column of Campos et al. 2022; rerun without it on a later engine (on 415da41 the column converges with them).",
           "why": "The feed's bubble point at 1 bar cannot be found with the gases present, and the column starts from it.",
           "check": "Remove one gas at a time to find the one that blocks the start; 10 ppm of CO alone was enough.",
           "result": "Without the gases the column converges in 6-7 iterations; on 415da41 it converges with them in 6."
@@ -3189,12 +3316,11 @@
         "conditions": [
           "lesson",
           "closed-plant",
-          "condenser-specification",
-          "applies-beyond-plant"
+          "condenser-specification"
         ],
         "objective": {
           "product": "methanol",
-          "judged_on": "A closed plant with the paper's condenser configuration; the paper's 53 C specification itself is not yet used."
+          "judged_on": "A closed plant with the condenser configuration of Campos et al. 2022; their 53 C specification itself is not yet used (request M6)."
         },
         "outcome": {
           "status": "worked",
@@ -3215,10 +3341,10 @@
           "methanol-co2-campos-2022.open-condenser-temperature-spec"
         ],
         "plain": {
-          "title": "Condenser with little vapour in a recycle plant: fix it by its vapour share from a converged answer, not by its temperature",
+          "title": "On chepta 415da41 (request M6 open): fix a condenser with little vapour in the recycle plant by its vapour share, not its temperature",
           "when": "A vapour-liquid condenser specified by its temperature converges on the published feed but not on the plant's own, lower-CO2 feed.",
           "do": "Take the vapour share (here 0.008406) or vapour flow (38.56 kmol/h) from a converged answer and specify that; check the condenser lands at the published temperature.",
-          "why": "The column exists at that temperature, but the temperature specification does not start there when the vapour is under 1 %.",
+          "why": "A workaround for one engine: the column exists at 53 C on that feed, but the temperature specification does not start there when the vapour is under 1 %. The share comes from Lab's own plant, solved with the flash workaround.",
           "check": "Run the column alone on the plant's feed with each specification.",
           "result": "With 53 C every closed variant failed; with the vapour share the plant converged in 47 iterations (2 from a warm start), condenser at 53.005 C, balance check passed."
         }
@@ -3342,7 +3468,7 @@
         ],
         "objective": {
           "product": "methanol",
-          "judged_on": "An exchanger that converges inside the loop; its duty is compared with Table S14."
+          "judged_on": "An exchanger that converges inside the loop. Its duty, 114,966 kW, is 11 % above the 103.3 MW of HE5 in Table S14 of Campos et al. 2022, and its cold outlet, 84.99 C, is above the 82.9 C of stream 29 (Table S9)."
         },
         "outcome": {
           "status": "worked",
@@ -3368,7 +3494,8 @@
           "do": "Give the exchanger a minimum approach of 2 K (on chepta 0.6.2 with 10 zones); give the small trim exchanger its cold outlet, not its hot outlet.",
           "why": "With CHEPTA's properties the hot stream cannot give the published heat above about 70 C, and the zones decide where the internal pinch is found.",
           "check": "Read the duty and the cold outlet; check that the same duty is accepted with the default zones.",
-          "result": "114,966 kW, cold outlet 84.99 C with 10 zones; on 415da41 the published streams work without zones, but the plant's own streams still meet a cross."
+          "result": "114,966 kW against 103.3 MW in Table S14 (+11 %), cold outlet 84.99 against 82.9 C (Table S9) with 10 zones; on 415da41 the published streams work without zones, but the plant's own streams still meet a cross.",
+          "note": "Passage reread on 2026-11-24: Campos et al. 2022, supplement Table S14 (HE5, 103.3 MW) and Table S9 (stream 29, the column feed after HE5, at 82.9 C)."
         }
       },
       "obstacle": "Temperature cross in the loop.",
@@ -3484,7 +3611,7 @@
         ],
         "objective": {
           "product": "methanol",
-          "judged_on": "A closed plant with balances closed; the products are judged in the column lessons."
+          "judged_on": "A closed plant with balances closed; the products are judged in the lessons on the methanol column and the closed plant."
         },
         "outcome": {
           "status": "worked",
@@ -3505,10 +3632,10 @@
         "plain": {
           "title": "Feed-effluent exchangers add cycles: choose tears that break every cycle, and give a slow loop more iterations",
           "when": "A plant with gas recycles and feed-effluent exchangers is closed as one flowsheet.",
-          "do": "Mark tears on the recycles and on the streams the exchangers join (here five), start them from the published values, and raise the iteration limit while the change is still falling.",
+          "do": "Choose tears that cut each exchanger's cycle; how many is not the test. Start them from the published values and raise the iteration limit while the change is still falling.",
           "why": "Each exchanger joining two parts of the plant makes a cycle the recycles alone do not break; the loop is slow, not stuck.",
-          "check": "If the engine says the tears do not break every cycle, add the exchanger streams; compare the tear change between the last iterations.",
-          "result": "Recycle tears only: refused; five tears: the plant closed in 31 iterations with both purges, recycle 36-REC +2.7 % against Campos et al. 2022; the loop alone needed more than 50 iterations (200 allowed)."
+          "check": "If the engine says the tears do not break every cycle, move a tear onto a stream inside the exchanger's cycle; compare the tear change between the last iterations.",
+          "result": "Recycle tears only, and five tears including 36-REC: refused. Moving that tear to the stream on the far side of HE2: closed in 31 iterations with both purges, 36-REC +2.7 % against Campos et al. 2022; the loop alone needed more than 50 iterations (200 allowed)."
         }
       },
       "obstacle": "Cycles beyond the recycles.",
@@ -3558,7 +3685,7 @@
         ],
         "objective": {
           "product": "methanol",
-          "judged_on": "Methanol purity 99.67 mol% (met); the CO2 recycle differs through the dissolved CO2 (see the flash lesson).",
+          "judged_on": "Methanol purity 99.67 mol% (met); the CO2 recycle differs through the dissolved CO2 (see the lesson on the CO2 dissolved at 70 bar).",
           "targets": [
             {
               "name": "methanol purity",

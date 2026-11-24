@@ -2,14 +2,16 @@
 
 What the plant taught, for a process engineer: each lesson summarises several runs or decisions below, with When / Do / Why / Check / Result, what it was judged against, its status and source. A lesson that holds beyond this plant is also on its topic page. The run log follows under "Runs behind these lessons"; its rows still count as the evidence. [All topics](../rules-readable.md)
 
+Engine names: a number such as 0.6.2 is a CHEPTA release; 415da41 is an unreleased development version of CHEPTA (a commit), later than release 0.6.2 and not yet released. Results on it are labelled separately from the release's.
+
 ## absorber column (2)
 
-- **Acid-stripping column of 8 stages: keep the reflux at 55,000 kg/h or more to hold 0.005 % acid overhead**
+- **Acid-stripping column of 8 stages: a reflux of 55,000 to 65,000 kg/h holds 0.005 % acid overhead**
   - When: Reactor vapour is washed by the recycled ester-rich organic phase in a column without condenser or reboiler ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425): 8 stages in Table 1, R/V 0.61).
-  - Do: Scan the reflux around 60,000 kg/h and take the lowest that meets the acid limit with margin; allow two liquids on the stages.
+  - Do: Scan the reflux around 60,000 kg/h and allow two liquids on the stages; 55,000 kg/h meets the acid limit narrowly, 60,000 with a wide margin.
   - Why: [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) ask for at least 14 stages for the limit; with 8 the reflux must do the work.
-  - Check: Read the acid in the overhead at each reflux; on chepta 0.6.2 a failure between converged neighbours is the solver, not the column.
-  - Result: Acid 0.0036 % at 55,000, 0.0004 % at 60,000 and 65,000 kg/h; 0.055 % at 50,000 misses. On 0.6.2 four of the 12 scan points failed irregularly; on 415da41 all 12 converge.
+  - Check: Read the acid in the overhead at each reflux; on chepta 0.6.2 an irregular failure that a later engine converges is the solver, not the column.
+  - Result: Acid 0.0036 % at 55,000, 0.0004 % at 60,000 and 65,000 kg/h; 0.055 % at 50,000 misses. On 0.6.2 four of the 12 scan points failed, two of them at the ends of the scan (45,000 and 70,000 kg/h); on 415da41 all 12 converge, but the acid at 70,000 kg/h is not reported.
   - Judged on: Acetic acid in the azeotrope at most 0.005 wt% ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.2).
   - Summarises 5 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
@@ -31,22 +33,22 @@ What the plant taught, for a process engineer: each lesson summarises several ru
 - **Without acid, give the product column its purity, not the published flow, and allow time**
   - When: The ester product column runs on an acid-free feed and the published flow misses the purity slightly.
   - Do: Specify 99.90 mass % ester in the bottoms; expect a slow solve.
-  - Why: CHEPTA's thermodynamics differ slightly from Chemcad's, so the published flow no longer gives the published purity.
-  - Check: Compare the product flow with Table A2.
-  - Result: With the published flow 99.868 %; with the purity given it is met at a flow 0.5 % below it, in 610 s against 12 s.
-  - Judged on: Ester purity 99.90 wt%.
-  - Summarises 2 rows of the run log below.
+  - Why: Water is what remains in the product at the published flow (0.113 %, against 0.07 % in Table A2 of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425)); a slightly smaller product sends more of it overhead. Why CHEPTA leaves more water there than Chemcad is not established.
+  - Check: Compare the product flow with Table A2 and read the water in the product.
+  - Result: With the published flow 99.868 % ester and 0.113 % water; with the purity given it is met at a flow 0.5 % below it, water 0.084 %, in 610 s against 12 s.
+  - Judged on: Ester purity 99.90 wt% (met with the purity given, missed at the published flow). Water 0.113 % (published flow) and 0.084 % (purity given) exceed the 0.03 % limit of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.4; whether that matters depends on the product specification of the application (maintainer, 2026-11-21).
+  - Summarises 3 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.1) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 9, Section 3.4, paragraph after Figure 5. <!-- ethyl-acetate-piotrowski-2021.lesson-product-column-purity-spec-no-acid -->
 
 - **Product column with a trace of acetic acid: set the bottoms flow about 1 % below the published flow**
   - When: The ester product column gets a feed with 0.01 % acetic acid ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), stream 13), and the acid, the heaviest component, can only leave with the product.
-  - Do: Give the bottoms flow as the second specification, 140 to 140.5 kmol/h instead of 141.5; do not give the purity, which returns a wrong answer.
-  - Why: All the acid of the feed ends in the product, so a product as large as the published one is too dilute.
+  - Do: Give the bottoms flow as the second specification, 140 to 140.5 kmol/h instead of 141.5. On chepta 0.6.2 a purity specification returned a wrong root (a 31.0 kmol/h product); it was not tried on 415da41.
+  - Why: Water is the main impurity at the published flow (0.111 %), as it is without acid (0.113 %); a smaller product sends more water overhead. The acid, which can only leave with the product, adds about 0.02 points (0.022 %).
   - Check: Read the ester purity and the acid in the bottoms; with the purity given, check the product flow is near the published one.
-  - Result: 140 kmol/h 99.922 %, 140.5 kmol/h 99.897 % (99.90 at the two decimals of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425)); 141 and 141.5 kmol/h fall short. On 0.6.2 only 139 kmol/h converged; the purity specification gave a 31.0 kmol/h product.
+  - Result: 140 kmol/h 99.922 %, 140.5 kmol/h 99.897 % (99.90 at the two decimals of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425)); 141 and 141.5 kmol/h fall short (99.873 and 99.848 %). On 0.6.2 only 139 kmol/h converged.
   - Judged on: Ester purity 99.90 wt% at the two decimals of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425). Water 0.044 % (140) and 0.066 % (140.5) exceed the 0.03 % limit of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.4; whether that matters depends on the product specification of the application (maintainer, 2026-11-21).
-  - Summarises 6 rows of the run log below.
+  - Summarises 8 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@415da41) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 9, Section 3.4, paragraph after Figure 5; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 11-16. <!-- ethyl-acetate-piotrowski-2021.lesson-product-column-trace-acid -->
 
@@ -56,17 +58,17 @@ What the plant taught, for a process engineer: each lesson summarises several ru
   - Why: The acid of the feed leaves in the bottoms whatever the distillate, about 0.012 %.
   - Check: Read ethanol and acid in the bottoms separately.
   - Result: Ethanol 0.151 % at 394.6, 0.014 % at 400 and 0.003 % at 410 kmol/h; the acid stays 0.012 %, so the 0.01 % organics limit cannot hold with the published feed.
-  - Judged on: Ethanol in the wastewater bottoms. The organics limit of 0.01 wt% ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.5) is missed through the feed's acid; it is not met in that paper's own table either.
+  - Judged on: Ethanol in the wastewater bottoms. The organics limit of 0.01 wt% ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.5) is missed through the feed's acid; it is not met in Table A2 of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) either.
   - Summarises 4 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 10, Section 3.5; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 11, Table 1. <!-- ethyl-acetate-piotrowski-2021.lesson-wastewater-column -->
 
-- **Short product purity in a recycle plant: look at the excess reactant and the azeotrope's water load before the column's stages**
+- **Ester purity short in the closed plant: not solved; the excess ethanol and the azeotrope's water load are the leads**
   - When: The closed plant settles but its ester product stays below 99.90 % while the column alone meets it.
-  - Do: Trim the excess ethanol feed, cool the extraction to the cooling-water limit, and raise the product column's distillate; adding stages or moving the feed stage does not help.
-  - Why: Excess ethanol can only leave with the product, so it builds up and wets the raffinate; the column's distillate leaves at the water azeotrope, so its flow sets how much water it can carry.
-  - Check: Balance the excess reactant around the plant and the water around the product column before tuning the column.
-  - Result: Best settled answer 99.666 % (extractor 20 C, ethanol feed 6,506 kg/h); 36 and 38 stages 99.675 and 99.680 % against 99.672 %; feed stage 5 worse (98.915 %); smaller ethanol feeds or 260-280 kmol/h of distillate did not converge on 0.6.2.
+  - Do: Lab tried trimming the excess ethanol feed, cooling the extraction to the cooling-water limit, more wash water and more distillate; none reached 99.90 %. Balance the ethanol and the water first.
+  - Why: Lab's reading, a lead: excess ethanol can only leave with the product, so it builds up and wets the raffinate; the column's distillate leaves at the water azeotrope, so its flow sets how much water it can carry.
+  - Check: Balance the excess reactant around the plant and the water around the product column before tuning the column; compare stage counts only on a settled plant.
+  - Result: Best settled 99.666 % (extractor 20 C, ethanol feed 6,506 kg/h). W/A 1.13 99.118 %, no gain; feed stage 5 98.915 %; distillate 246 kmol/h 99.137 %, 260-280 failed on 0.6.2, 270 on 415da41 99.223 %. Stages only at the unsettled 3e-4: 36 and 38 gave 99.675 and 99.680 % against 99.672 %, 40 failed.
   - Judged on: Ester purity 99.90 wt% (not reached). Water in the product stays above the 0.03 % limit of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.4 in every run.
   - Summarises 10 rows of the run log below.
   - Status: failed — Lab's CHEPTA run (chepta@0.6.2) did not converge or missed its target.
@@ -77,22 +79,22 @@ What the plant taught, for a process engineer: each lesson summarises several ru
   - Do: Balance the key impurity around the published column from its stream table first.
   - Why: In [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) the product column's distillate leaves at the water azeotrope, so the table itself leaves 0.07 % water against a 0.03 % limit, and all the feed's acid must reach the product (0.022 %, not the 0.01 % printed).
   - Check: Compare the published stream table with the text's claims and keep any disagreement.
-  - Result: Two limits of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) are not met by its own Table A2 (product water; wastewater organics).
+  - Result: Two limits of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) are not met by its own Table A2 (product water; wastewater organics); a third is not decidable at two decimals (acid in the azeotrope, 0.01 % printed against 0.005 %).
   - Judged on: Whether the limits of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) can be met at its own settings; a reading of its tables, not a run.
-  - Summarises 3 rows of the run log below.
+  - Summarises 4 rows of the run log below.
   - Status: lead — a suggestion, not yet tested.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 11-16; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 9, Section 3.4, paragraph after Figure 5. <!-- ethyl-acetate-piotrowski-2021.lesson-audit-paper-column-balance -->
 
 ## extraction (2)
 
-- **Bring the extractor's mixed feed to saturated liquid; an adiabatic mixer leaves vapour the extractor refuses**
+- **Extractor's mixed feed: an adiabatic mixer ran alone on chepta 0.6.2 but left too much vapour in the plant; keep it saturated liquid**
   - When: Hot distillate and the cooled azeotrope are mixed just before a liquid-liquid extractor.
   - Do: Give the mixer a saturated-liquid outlet (a small duty) and record the added heat.
   - Why: Mixing streams of different temperatures leaves a few per cent of vapour, and an extractor holds two liquids and no vapour.
   - Check: Read the mixer outlet's vapour fraction; in the loop it can grow.
-  - Result: 0.6.1 refused 0.037 vapour fraction; 0.6.2 accepts up to 10 % vapour, but in the open plant variant the mixer reached 17 % and was refused, so the closed plant keeps the saturated-liquid mixer.
-  - Judged on: The extractor accepting its feed.
-  - Summarises 2 rows of the run log below.
+  - Result: 0.6.1 refused 0.037 vapour fraction, and its saturated-liquid workaround (1 kW) ran; 0.6.2 accepted the adiabatic mixer alone, but in the open plant variant it reached 17 % vapour and was refused; the settled closed plant runs with the saturated-liquid mixer.
+  - Judged on: The extractor accepting its feed. The run of the adiabatic mixer alone did not test the saturated-liquid mixer; the settled closed plant did.
+  - Summarises 3 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 8, Section 3.3, last paragraph. <!-- ethyl-acetate-piotrowski-2021.lesson-extractor-feed-saturated -->
 
@@ -113,8 +115,8 @@ What the plant taught, for a process engineer: each lesson summarises several ru
   - When: Every washed stream holds about 0.01 % acetic acid and two liquids.
   - Do: Run the heaters, extractor and columns with the acid and two liquids together (chepta 0.6.2 or later).
   - Why: The acid's vapour dimerizes, and older releases could not combine that with a three-phase flash; dropping the acid hides where it ends up.
-  - Check: Compare each duty with Table 1 of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), and follow where the acid leaves.
-  - Result: 0.6.1 refused every such stream; 0.6.2 runs them. One heater still takes 3.3 times its printed duty because the mixture boils below 71 C.
+  - Check: Compare each duty with Table 1 of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), whose HTXR 18 and 19 duties are swapped (maintainer, 2026-11-12), and follow where the acid leaves.
+  - Result: 0.6.1 refused every such stream, so Lab's 0.6.1 results drop the acid after column 5; 0.6.2 runs them. One heater still takes 3.3 times its printed duty because the mixture boils below 71 C.
   - Judged on: Running each unit with the acid present; duties compared with Table 1.
   - Summarises 3 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
@@ -137,7 +139,7 @@ What the plant taught, for a process engineer: each lesson summarises several ru
   - When: The kinetics of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) cannot be reused (catalyst concentration and concentration units are missing) and the reactor boils off its products as they form.
   - Do: Model it as a conversion reactor with an all-vapour outlet, taking the acid conversion per pass from the inlet and outlet streams of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) (Table A2, streams 5 and 6: 0.7703).
   - Why: The unreacted acid returns from the next column until it is used up, so the conversion per pass changes only the size of that recycle.
-  - Check: Compare the outlet temperature and duty with [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) (Lab: 89.0 C against 90 C, duty +6.3 %), then vary the conversion per pass in the closed plant.
+  - Check: Compare the outlet temperature and duty with [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) (Lab on chepta 0.6.1: 89.0 C against 90 C, duty +6.3 %), then vary the conversion per pass in the closed plant.
   - Result: Conversion per pass 0.80 and 0.74 gave 99.112 and 99.113 % ester against 99.109 %: the product does not move.
   - Judged on: The product purity of the closed plant, unchanged by the conversion per pass; the reactor is not predicted.
   - Summarises 3 rows of the run log below.
@@ -149,10 +151,10 @@ What the plant taught, for a process engineer: each lesson summarises several ru
 - **Close the ester plant on outlet purities, not on the published column settings**
   - When: The whole plant with all five recycles does not converge with the column specifications printed in [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425).
   - Do: Give the wastewater column its bottoms purity (99.99 % water), the product column its distillate flow, and fix one flow inside the water recycle; let the wastewater follow.
-  - Why: The published settings belong to its own thermodynamics; purities keep each column on its target as the recycles move.
+  - Why: With the published settings the plant is over-specified (141.5 kmol/h of product against 141.07 kmol/h of ester the feeds form), and on chepta 0.6.2 column 5 failed; purities keep each column on its target as the recycles move.
   - Check: Count the plant's free variables, then compare every stream with Table A2 and look for blown-up flows.
-  - Result: With the published specifications every closed variant failed (9 on 0.6.2, 9 on 415da41); with the purity specifications the plant settled, every stream within -1.2 to +6.5 % of Table A2, wastewater 19,919 kg/h by itself.
-  - Judged on: A closed, settled plant with balances closed; the product purity is judged in another lesson.
+  - Result: With the published specifications every closed variant failed: 9 on 0.6.2, all in column 5; 9 on 415da41, two at the reactor short of ethanol, two in column 11, the rest slow or in a wrong phase. With the purity specifications the plant settled, every stream within -1.2 to +6.5 % of Table A2, wastewater 19,919 kg/h by itself.
+  - Judged on: A closed, settled plant with balances closed; the product purity is judged in the lesson on short product purity in the closed plant.
   - Summarises 8 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 23-25. <!-- ethyl-acetate-piotrowski-2021.lesson-close-plant-purity-specs -->
@@ -174,7 +176,7 @@ What the plant taught, for a process engineer: each lesson summarises several ru
   - Why: 141.5 kmol/h of product exceeds the 141.07 kmol/h of ester the feeds form, so the reactor starves; with the feeds and both outlets fixed the product flow is set by the balance and the column cannot also hold its purity.
   - Check: Before running, compare each fixed flow with the feeds and the stoichiometry.
   - Result: With 141.5 kmol/h the loop stopped (reactor short of ethanol); with recycle 23 fixed the plant settled and the wastewater found 19,919 kg/h by itself.
-  - Judged on: A closed plant that converges; the product purity is judged in another lesson.
+  - Judged on: A closed plant that converges; the product purity is judged in the lesson on short product purity in the closed plant.
   - Summarises 4 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 23-25; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 14, Table A2 (continued), streams 11-16. <!-- ethyl-acetate-piotrowski-2021.lesson-product-flow-within-feed -->
@@ -217,10 +219,10 @@ One line per decision or CHEPTA run, grouped by unit, best-supported first; the 
 - **Recycle the ester-rich organic phase to carry the reaction water overhead**
   - When: The reaction releases more water than the ternary azeotrope can carry.
   - Do: Return part of the extractor's organic phase to the acid-stripping column as its reflux.
-  - Why: The organic phase is richer in ester than the azeotrope (>93 %), so it binds the excess water ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425): about 17 % water released against about 7.8 % in the azeotrope).
+  - Why: The organic phase is richer in ester than the azeotrope (>93 %), so it binds the excess water ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425): about 17 % water released against about 7.8 % in the azeotrope by the literature they cite, 8.2 % in their own Section 3.2).
   - Check: Watch the water in the reactor: it must not accumulate.
   - Status: worked — shown by the paper's own simulation; Lab's runs of it are in the run log of this plant.
-  - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 3, Section 1.2, purification stage (1). <!-- ethyl-acetate-piotrowski-2021.paper-organic-phase-as-azeotropic-agent -->
+  - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 3, Section 1.2, purification stage (1). Passage reread on 2026-11-24: Piotrowski & Kubica 2021, p. 3 (about 7.8 % water, citing their refs 8 and 29) and Section 3.2 (the azeotrope with 8.2 % water). <!-- ethyl-acetate-piotrowski-2021.paper-organic-phase-as-azeotropic-agent -->
 
 ### distillation (22)
 
@@ -266,11 +268,11 @@ One line per decision or CHEPTA run, grouped by unit, best-supported first; the 
 - **The 0.6.1 request sent again unchanged. Expected: Extractor accepts its feed.** worked, CHEPTA run (chepta@0.6.2); Piotrowski & Kubica 2021, p. 3, Section 1.2, first paragraph. When: section b, mix 7 adiabatic. <!-- ethyl-acetate-piotrowski-2021.mixer-before-extractor-adiabatic-062 -->
 - **Wash the azeotrope with 1 to 2 kg of water per kg**
   - When: Ethanol must be removed from the ester-ethanol-water azeotrope before the product column.
-  - Do: Wash with a water-to-azeotrope mass ratio between 1 and 2 ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) use 1 in Table 1), cooled to 20-30 C.
+  - Do: Wash with a water-to-azeotrope mass ratio between 1 and 2 ([Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425) use 1 in Table 1). Their improved strategy S1 cools to 20-30 C (Section 3.3); strategy S2, reproduced here, extracts at 70 C (Table 1).
   - Why: More water enriches the organic phase in ester but loses ester and makes more wastewater to distil.
   - Check: Compare the raffinate's ester and water with the product column's needs.
   - Status: worked — shown by the paper's own simulation; Lab's runs of it are in the run log of this plant.
-  - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 8, Section 3.3, last paragraph; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 11, Table 1. <!-- ethyl-acetate-piotrowski-2021.paper-wash-ratio-1-to-2 -->
+  - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 8, Section 3.3, last paragraph; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 11, Table 1. Passage reread on 2026-11-24: Piotrowski & Kubica 2021, Section 3.3 (20-30 C, W/A 1-2) and Table 1 (EXTR 8 at 70 C in strategy S2, at 30 C in S1). <!-- ethyl-acetate-piotrowski-2021.paper-wash-ratio-1-to-2 -->
 - **Settled closed plant, extractor at 20 C (Lab's 27 C). Expected: Drier raffinate.** failed, CHEPTA run (chepta@0.6.2); Piotrowski & Kubica 2021, p. 8, Section 3.3, last paragraph; Piotrowski & Kubica 2021, p. 9, Section 3.4, paragraph after Figure 5. When: closed plant settled, extractor 20 c. <!-- ethyl-acetate-piotrowski-2021.extractor-20c-062 -->
 - **Settled closed plant, 3 and 4 extractor stages. Expected: Drier raffinate.** failed, CHEPTA run (chepta@0.6.2); Piotrowski & Kubica 2021, p. 3, Section 1.2, first paragraph. When: closed plant settled, extractor 3 or 4 stages. <!-- ethyl-acetate-piotrowski-2021.extractor-more-stages-062 -->
 - **EXTR 8 at 70 C with the paper's feed, and with a liquid feed. Expected: Two liquid outlets.** failed, CHEPTA run (chepta@0.6.1); Piotrowski & Kubica 2021, p. 3, Section 1.2, first paragraph. When: unit alone, paper temperature 70 c. <!-- ethyl-acetate-piotrowski-2021.extractor-paper-70c-061 -->
@@ -303,7 +305,7 @@ One line per decision or CHEPTA run, grouped by unit, best-supported first; the 
   - When: Ethanol and acetic acid react to an equilibrium-limited ester near 90 C at atmospheric pressure.
   - Do: React in a boiling reactor-evaporator (85-90 C, 300 m3 in [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Table 1) so the products leave as vapour; return the acid-rich bottoms of the next column.
   - Why: Taking the products out as they form shifts the equilibrium; the acid is recycled until it is used up.
-  - Check: Lab modelled it as a conversion reactor with an all-vapour outlet; see the reactor lesson above.
+  - Check: Lab modelled it as a conversion reactor with an all-vapour outlet; see the lesson on the reactor-evaporator without a usable rate law.
   - Status: worked — shown by the paper's own simulation; Lab's runs of it are in the run log of this plant.
   - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 4, Section 2, first paragraph; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 11, Table 1. <!-- ethyl-acetate-piotrowski-2021.paper-reactor-evaporator -->
 - **Conversion of acetic acid per pass 0.7703 = 1 - 4.74/20.64 (Table A2 streams 5 and 6), saturated-vapour outlet, the paper's inlet stream 5. Expected: The paper's reactor outlet and duty, without predicting the reaction.** worked, CHEPTA run (chepta@0.6.1); Piotrowski & Kubica 2021, p. 4, Section 2, first paragraph; Piotrowski & Kubica 2021, p. 11, Table 1. When: conversion imposed 0.7703, all vapour outlet, paper inlet stream 5. <!-- ethyl-acetate-piotrowski-2021.reactor-conversion-imposed-061 -->

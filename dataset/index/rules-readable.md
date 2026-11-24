@@ -8,7 +8,7 @@ Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; 
 |---|---|---|
 | [Property methods](rules/property-methods.md) | Wrong phases or volatilities: which thermodynamic model and parameters to use and check | 8 |
 | [Recycle convergence](rules/recycle-convergence.md) | Recycle loops, tears, make-ups and flashes inside loops that do not close | 6 |
-| [Column convergence](rules/column-convergence.md) | Columns that fail, are slow or miss a target: starting profiles, solvers, steady states | 24 |
+| [Column convergence](rules/column-convergence.md) | Columns that fail, are slow or miss a target: starting profiles, solvers, steady states | 22 |
 | [Inherent safety](rules/safety.md) | Safer routes from the first flowsheet: principles, indices and missing hazard data | 8 |
 | [Heat integration](rules/heat-integration.md) | Pinch analysis, heat pumps, vapour recompression, using process heat | 15 |
 | [Reactive distillation and esterification](rules/reactive-distillation.md) | Reaction and separation in one unit: feasibility, column design, catalysts, water-removing membranes | 29 |

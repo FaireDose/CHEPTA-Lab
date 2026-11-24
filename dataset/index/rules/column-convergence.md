@@ -1,32 +1,8 @@
 # Column convergence (generated; do not edit)
 
-Columns that fail, are slow or miss a target: starting profiles, solvers, steady states. 24 rules. [All topics](../rules-readable.md)
+Columns that fail, are slow or miss a target: starting profiles, solvers, steady states. 22 rules. [All topics](../rules-readable.md)
 
 Each rule starts with what to do in one line, then When (the situation you recognise), Do, Why, Check (how to verify it, in CHEPTA where it applies) and Result (what the source got), then its status and source with page. A lead is a rule from the literature that Lab has not yet tested.
-
-- **Condenser with little vapour in a recycle plant: fix it by its vapour share from a converged answer, not by its temperature**
-  - From Lab's own plant: [methanol-co2-campos-2022](../plants/methanol-co2-campos-2022.md).
-  - When: A vapour-liquid condenser specified by its temperature converges on the published feed but not on the plant's own, lower-CO2 feed.
-  - Do: Take the vapour share (here 0.008406) or vapour flow (38.56 kmol/h) from a converged answer and specify that; check the condenser lands at the published temperature.
-  - Why: The column exists at that temperature, but the temperature specification does not start there when the vapour is under 1 %.
-  - Check: Run the column alone on the plant's feed with each specification.
-  - Result: With 53 C every closed variant failed; with the vapour share the plant converged in 47 iterations (2 from a warm start), condenser at 53.005 C, balance check passed.
-  - Judged on: A closed plant with the paper's condenser configuration; the paper's 53 C specification itself is not yet used.
-  - Summarises 5 rows of the plant's run log.
-  - Status: worked — Lab ran it in CHEPTA (chepta@415da41) and it converged.
-  - Source: Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), p. 10, Section 2.5; Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement pp. 10-11, Section E (one-step process). <!-- methanol-co2-campos-2022.lesson-condenser-by-vapour-share -->
-
-- **Short product purity in a recycle plant: look at the excess reactant and the azeotrope's water load before the column's stages**
-  - From Lab's own plant: [ethyl-acetate-piotrowski-2021](../plants/ethyl-acetate-piotrowski-2021.md).
-  - When: The closed plant settles but its ester product stays below 99.90 % while the column alone meets it.
-  - Do: Trim the excess ethanol feed, cool the extraction to the cooling-water limit, and raise the product column's distillate; adding stages or moving the feed stage does not help.
-  - Why: Excess ethanol can only leave with the product, so it builds up and wets the raffinate; the column's distillate leaves at the water azeotrope, so its flow sets how much water it can carry.
-  - Check: Balance the excess reactant around the plant and the water around the product column before tuning the column.
-  - Result: Best settled answer 99.666 % (extractor 20 C, ethanol feed 6,506 kg/h); 36 and 38 stages 99.675 and 99.680 % against 99.672 %; feed stage 5 worse (98.915 %); smaller ethanol feeds or 260-280 kmol/h of distillate did not converge on 0.6.2.
-  - Judged on: Ester purity 99.90 wt% (not reached). Water in the product stays above the 0.03 % limit of [Piotrowski & Kubica 2021](https://doi.org/10.3390/pr9081425), Section 3.4 in every run.
-  - Summarises 10 rows of the plant's run log.
-  - Status: failed — Lab's CHEPTA run (chepta@0.6.2) did not converge or missed its target.
-  - Source: Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 9, Section 3.4, paragraph after Figure 5; Piotrowski & Kubica 2021, *Integration of the Process for Production of…* (https://doi.org/10.3390/pr9081425), p. 8, Section 3.3, last paragraph. <!-- ethyl-acetate-piotrowski-2021.lesson-purity-set-by-ethanol-and-water -->
 
 - **Unit misses purity in the plant: fix it alone first with a design specification, then connect**
   - When: A separation unit misses its purity once connected in the plant.
