@@ -189,3 +189,31 @@ Counts: **3 major, 5 minor, 3 nit.**
 
 Record when done: "person spot check (items 1-3, date)". If an item is wrong, the case goes back for a full recheck
 by a new review session (AGENTS.md).
+
+## Person spot check
+
+**Not done (maintainer, 2026-11-27).** The maintainer will not do the spot check for #37; none is recorded.
+
+## Follow-up by the builder (2026-11-27)
+
+The rows were unmerged, so they were rewritten in place and the lock rebuilt from main's lock (the coordinating
+session's instruction), not corrected by `-c1` rows. Every finding was fixed; none is left open.
+
+| Finding | Status | What changed |
+|---|---|---|
+| Major 1, M9 and the column rows | fixed | M9 restated as "a reachable flow ratio, recovery or component ratio runs out of time", with the bracket table (checked by the builder from the outputs); the 0.9608 bound dropped from CAPABILITY_REQUESTS.md, the README and row `column-specs-at-paper-values-063`; the column lesson no longer rests on it |
+| Major 2, the column specification | fixed | judged on flows and purities together (the maintainer, 2026-11-27): the paper's bottoms 4581 kmol/h is the current result, run again from the paper's start (plant-pr-B4581, 28 iterations, balance passed: 4549.4 kmol/h at 99.717 %, water 99.9996 %); the reboiler temperature is a scanned variant in the adjustment table, with one more point at 374.1 K (99.952 % alone). 374.1 to 374.171 K not run; said in the README. Rows `plant-closed-pr-063` (bottoms), `plant-closed-pr-reboiler-374k-063` (new, the variant), `column-reboiler-temperature-063`, `column-vl-bottoms-4581-063`; lesson renamed `lesson-column-spec-by-purities-063`, judged on the paper's flows and purities |
+| Major 3, the engine commit | fixed | README and CAPABILITY_REQUESTS.md: no engine disagreement; a short reporting note for CHEPTA (the result header names the caller's repository commit); dropped from "Not done" |
+| Minor 1, U 300 variant | fixed | "the products within 0.6 kmol/h, the recycle within 0.2 %", with the reviewer's numbers |
+| Minor 2, 3.41 % as 0.6.2's unit result | fixed | row `property-method-pr-mhv1-063`: 3.37 % in the unit run, 3.41 % in the closed plants |
+| Minor 3, the temperature limit | fixed | the builder's own estimate, 0.0215 at 1226 kPa and 0.025 at 1420 kPa at 303.15 K (mean x/P up to 3.6 MPa at 313.75 and 354.35 K, ln(x/P) linear in 1/T), agrees with the reviewer's; in the README's CO2 table and text |
+| Minor 4, summaries regenerated | fixed | manifest `records_note`; the runner now keeps hand-added manifest notes |
+| Minor 5, HE6 and stream 13 | fixed | both in the closed-plant table, with Lab's reading of the differences |
+| Nit 1, the Xie H2 sets | fixed | "the data sets used", and what Xie's H2 sets cover |
+| Nit 2, the removed request file | fixed | said to be identical to the kept one (the time limit is a command-line flag) |
+| Nit 3, HE5 alone duty | fixed | 113.9 MW on the paper's streams, 93.5 MW on the 0.6.2 plant's, in "In one look" |
+
+Also added on the maintainer's decisions of 2026-11-27 (rules D to G, PR #38): PR for the whole plant (rule E), the
+product acceptance check with its sources (rule D: the paper's own 99.5 % m/m target, article p.4; the IMPCA reference
+specification, 2021, p.1; the paper's TOC abatement of the process water, Table 2, p.12), a rule F table for M7, M8, M9
+and the run times (rule G), all in results-chepta-0.6.3/README.md.

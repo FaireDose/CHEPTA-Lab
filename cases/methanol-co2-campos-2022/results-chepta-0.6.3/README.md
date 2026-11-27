@@ -9,7 +9,9 @@ summaries regenerated with `chepta summary` (below) report `commit: null`.
 
 Only what CHEPTA's 0.6.3 advice changes was run (the maintainer, relayed by Lab's coordinating session on 2026-11-27:
 do not re-run the 0.6.2 tests to compare). The case README is sealed and unchanged; it describes the 0.6.2 and 415da41
-work. Draft, written by an AI session; **no review by a person or by a separate AI session**.
+work. Draft, written by an AI session. **AI full check:** a separate Claude review session, 2026-11-27
+([dataset/reviews/methanol-063-review.md](../../../dataset/reviews/methanol-063-review.md)); fixed as listed there under
+"Follow-up by the builder". **Person spot check: not done (maintainer, 2026-11-27).**
 
 Files: every run as `<id>.request.json`, `<id>.output.json` (CHEPTA's full result, unchanged), `<id>.summary.json`
 (`chepta summary`), `<id>.stderr.txt`; [run-manifest.json](run-manifest.json) (command, time limit, exit code, CHEPTA run
@@ -23,7 +25,7 @@ recoveries are **derived** by Lab.
 
 | Item | Outcome on 0.6.3 |
 |---|---|
-| Thermo PR + gE (MHV1) | T-P flashes, compressors, HE2, HE7, the reactor and the column run. **Every unit solved through a P-H flash on these mixtures fails**: MIXER1, MIXER4, VALVE1, HE4, HE5, HE6 alone on the paper's inlets (`NO_CONVERGENCE`, "PR: no physical root at 40-84 K"). Smallest input: H2 + CO2 + water, an adiabatic heater at 33 C, 100 kPa |
+| Thermo PR + gE (MHV1), single-unit comparison only (rule E) | T-P flashes, compressors, HE2, HE7, the reactor and the column run. **Every unit solved through a P-H flash on these mixtures fails**: MIXER1, MIXER4, VALVE1, HE4, HE5, HE6 alone on the paper's inlets (`NO_CONVERGENCE`, "PR: no physical root at 40-84 K"). Smallest input: H2 + CO2 + water, an adiabatic heater at 33 C, 100 kPa |
 | Closed plant on PR + MHV1 | **does not converge**: from the paper's start it stops at MIXER1 (`NO_CONVERGENCE`, "PR: no physical root at 84.2 K, 100 kPa"); from the 415da41 plant's tears at CP3 (`PHASE_SPLIT`, PR flash at 300 K and 7000 kPa). CHEPTA's known limit, its first 0.6.4 item; not worked around |
 | Closed plant on PR (k_ij) with every other 0.6.3 change | **converges** from the paper's start (current result plant-pr-B4581: 28 loop iterations, 750 s, balance passed): vapour + liquid condenser at the paper's 53 C (M6 answered), H2/CO/N2 through the column (no bypass), HE5 at 2 K without `zones`, reactors at U 155, column bottoms at the paper's 4581 kmol/h. Methanol 99.717 % (paper 99.667), water 99.9996 % (99.985) |
 | Separator CO2 | PR + MHV1: **2.35 mol %** in stream 24; PR: 3.41 %; measured basis about 2 %; the paper 18.5 % (section below) |
@@ -38,7 +40,7 @@ Settings that differ from the paper in the 0.6.3 runs. The 0.6.2 rows still appl
 
 | Unit | Setting | Paper | Ours | Change | Why | Runs |
 |---|---|---|---|---|---|---|
-| all | property method | PR in the reactors, NRTL2 elsewhere (article p.9) | PR + MHV1 for units and the plant attempt; PR (k_ij) for the closed plant | method | CHEPTA advice 2; no NRTL pairs for the gases. PR + MHV1 cannot close the plant on 0.6.3 (above), so the closed plant is on PR | u-*-mhv1, plant-mhv1*, plant-pr* |
+| all | property method | PR in the reactors, NRTL2 elsewhere (article p.9) | **PR (k_ij) for the whole plant** (the maintainer's decision, 2026-11-27, rule E: one method for the plant); PR + MHV1 only as the single-unit CO2 comparison (u-flash3-mhv1) | method | no NRTL pairs for the gases with methanol and water; PR runs every unit and closes the plant; PR + MHV1 cannot close it on 0.6.3 (M7, M8). No further PR + MHV1 plant work | plant-pr*, u-flash3-mhv1; plant-mhv1* kept as failed runs |
 | REACTOR1, 2 | overall U | 160 inlet, 150 outlet, 155 average used (article pp.13-14) | 155, constant | none (0.6.2 assumed 300) | the paper's own average; CHEPTA takes one U, as Aspen did | u-reactor-U155-*, plant-pr*; U 300 kept as plant-pr-warm-U300 |
 | HE5 | specification | hot outlet 62 C, cold outlet 82.9 C (Table S9) | `dTmin_K: 2`, no `zones` | approach in place of an outlet (unchanged from 0.6.2); `zones: 10` dropped | the paper's outlets cross in CHEPTA's loop (0.6.2 runs); feature 9 holds 2 K along the exchanger | u-he5-*, plant-pr* |
 | COLUMN | second and third specification (current result) | reflux ratio 2, condenser 53 C, vapour + liquid distillate (supplement p.10); 30-WATER 4581 kmol/h, 99.985 % water, 99.6 C (Table S9/S10) | reflux ratio 2 (over the liquid distillate), condenser 53 C, **bottoms 4581 kmol/h** | none on the flow (the paper's value) | judged on the purities of Campos et al. 2022 (99.667 % methanol, 99.985 % water): in the plant 99.717 / 99.9996 %, closer on both ends than the reboiler variant (99.835 / 99.929 %); alone 99.827 / 99.9925 % | col-mhv1-B4581, plant-pr-B4581, plant-pr-warm-B4581 |
@@ -111,6 +113,24 @@ CO2 flashes in VALVE1. HE7 is 28.7 MW (paper 24.2) because HE5 takes 2.9 MW less
 along the exchanger) and HE6 takes little. Stream 13 enters HE4 at 66.9 C (paper 81.4 C): the recycle 36-REC leaves HE2
 at 47.5 C (paper 56.7 C); Lab's reading, not checked further: HE2's hot side, the CO2 train (5218 against 7610 kmol/h), carries less heat.
 
+## Is the product good enough? (rule D)
+
+The maintainer (2026-11-27): the purities are close; what matters is that the flows are right, and whether the next use
+accepts the product. Mass fractions converted from the mole fractions by Lab (derived).
+
+| Stream | CHEPTA plant-pr-B4581 (current) | Paper (Table S10) | Accepted by | Verdict |
+|---|---|---|---|---|
+| 31-MEOH flow | 4549.4 kmol/h (+0.16 %) | 4542 kmol/h | | flows match |
+| 31-MEOH methanol | 99.707 wt % (99.773 % on a water-free basis) | 99.558 wt % (99.566 % water-free) | the paper's own target, methanol above 99.5 % m/m (article p.4, Section 2.1.1); IMPCA reference specification, purity on dry basis at least 99.85 % W/W (IMPCA Version 9, 2021, p.1, test 2) | meets the paper's 99.5 %; neither CHEPTA's nor the paper's liquid meets IMPCA's 99.85 % as it leaves the condenser, because of the CO2 dissolved at 53 C (0.227 wt % in CHEPTA, 0.434 % in the paper). Whether the GC purity of IMPCA 001 counts dissolved CO2 is not stated (Lab assumes it does). The case does not chase it: CO2 removal before storage is outside the paper's flowsheet |
+| 31-MEOH water | 0.066 wt % | 0.009 wt % | IMPCA: at most 0.100 % W/W (p.1, test 6) | accepted |
+| 30-WATER flow | 4581.0 kmol/h (fixed) | 4581 kmol/h | | flows match |
+| 30-WATER methanol | 7.5 mg/kg | 267 mg/kg | the paper sends the process water to total-organic-carbon abatement, priced at 1938 EUR per t C (article Table 2, p.12, ref. 63) | accepted: the same treatment, with less organic carbon |
+
+The reboiler variant (plant-pr) gives 1269 mg/kg methanol in the water and 99.773 wt % methanol, also accepted on
+these bases; the bottoms flow is kept because it matches both flows and is closer on both purities. Source of IMPCA: the
+PDF from the Methanol Institute (methanol.org), sha256 c0c39f9c...a170, catalogued as
+`impca-2021-methanol-reference-specifications` (rights needs_review).
+
 ## CO2 in the separator liquid: measured basis against the paper's simulation
 
 Do not tune toward the paper's 18.5 % (CHEPTA advice 1). Checked by Lab against the open ThermoML files (sha256:
@@ -154,6 +174,39 @@ section "chepta 0.6.3".
 | M8 | T-P flash on PR + MHV1 refused as a possible liquid-liquid split | mini-tp-cp3-300K-7000kPa-mhv1 (CP3's composition from plant-mhv1-warm's `error.details`, 300 K, 7000 kPa) | `PHASE_SPLIT`: "PR flash at 300.00 K and 7000.00 kPa: the feed is not stable as one phase (tangent-plane distance -0.6174), but no vapour-liquid split was found; it may split into two liquids ..." | on PR: one liquid (mini-tp-cp3-...-pr); 98.2 % CO2 at 70 bar and 300 K is above CO2's vapour pressure (about 67 bar), so one liquid or a VL split is expected, not a refusal |
 | M9 | a reachable flow ratio, recovery or component ratio, bracketed by converged columns, runs out of time | col-mhv1-BF0.48672, col-mhv1-recMeOH0.96115, col-mhv1-ratioB0.00015 | `OUT_OF_TIME` at 300 s (BF0.485 at 1200 s), no `details.best` | the ratio 0.48672 is the bottoms flow 4581 kmol/h, which converges in 21 s; converged columns bracket 0.485, 0.96115, 1.5e-4 and 5e-4 (table in CAPABILITY_REQUESTS.md); an out-of-range reboiler temperature is refused at once with its range (col-mhv1-TB374.5) |
 
+### Will each request be solved? (rule F)
+
+| # | What it looks like | Alternative in CHEPTA 0.6.3 today | Recommendation |
+|---|---|---|---|
+| M7 | **a CHEPTA defect**: the same three-component mixture solves as a T-P flash on PR + MHV1 and as a P-H flash on PR; the P-H temperature search ends at 31 K, where the method has no physical root, for an enthalpy that 306.15 K has. CHEPTA names it its first 0.6.4 item | PR with k_ij for the whole plant (works, plant-pr-B4581). No other gE inside MHV1: CHEPTA's MHV1 uses fitted NRTL sets and refuses a light gas with a polar liquid without one (ai/skills/chepta/SKILL.md at v0.6.3, the `thermo` paragraph); a predictive Modified UNIFAC 2.0 estimate is offered for NRTL, UNIQUAC and Wilson pairs, not inside MHV1 (not tested by Lab). An activity model alone has no gas at 70 bar | take PR now; do not wait. Re-run only the small input (mini-ph-H2-CO2-H2O-mhv1) when CHEPTA reports M7 fixed |
+| M8 | **unclear**: either a flash or stability defect, or the MHV1 mixture term itself predicting a false split for 98 % CO2 liquid (a tangent-plane distance of -0.62 is large for one nearly pure liquid) | PR (one liquid, mini-tp-cp3-300K-7000kPa-pr) | wait for CHEPTA's diagnosis; no Lab work. If it is the method, PR + MHV1 is not usable for this CO2 train |
+| M9 | **a CHEPTA defect** in the column's specification path: the columns exist (converged runs bracket five of the six values; the equivalent flow converges in 21 s); same thermo, so not a method limit | specify by the bottoms flow (21 s alone, the current result) or the reboiler temperature | take the alternative; no need to wait. Not tested on PR |
+
+On whether Lab should continue with PR + MHV1 at all (the maintainer is not sure): Lab's recommendation is no further
+PR + MHV1 plant work. Keep it as the single-flash CO2 comparison, where it follows the measured data (2.35 % against
+about 2 %, PR 3.37 %). The plant's CO2 recycle on PR is then high by about the PR-to-MHV1 difference in the separator,
+not by the paper's 18.5 %.
+
+## Run times (rule G)
+
+From each result's `run.timing` (`total_s`) and the manifest's `elapsed_ms`; slowest block in brackets. **Slow**
+(more than 60 s) and **timed out** runs are marked.
+
+| Runs | Time each | Note |
+|---|---|---|
+| unit runs: flashes, compressors, valves, mixers, heaters, the reactor; the small inputs | 0.02 to 2.1 s (HE2 2.1 s, reactor 0.7 to 1.0 s) | refusals in 0.1 s |
+| HE5 alone, 2 K approach without zones | 6.7 and 6.9 s | |
+| column alone, PR + MHV1 | 21 s (bottoms 4581), 30 to 37 s (reboiler 372.75 to 373.5 K, bottoms/feed 0.488); **69 s** (374.0 K), **72 s** (recovery 0.955), **96 s** (374.1 K), **289 s** (ratio 5e-5) | slow |
+| column alone, PR, bottoms 4581 | 7.5 s | |
+| col-mhv1-TB374.5, refused OUT_OF_RANGE | **550 s** | slow: the refusal came after solving 18 columns |
+| col-mhv1-BF0.485 | **1200 s, timed out** | |
+| col-mhv1-BF0.48672, -recMeOH0.96115, -recMeOH0.965, -ratioB0.00015, -ratioB0.0005 | **300 s each, timed out** | M9 |
+| plant-pr-B4581 (current) | **750 s**, 28 loop iterations (COLUMN 432 s over 28 calls) | slow |
+| plant-pr-warm-B4581 | **319 s**, 16 iterations (COLUMN 170 s) | slow |
+| plant-pr; plant-pr-warm | **315 s** (HE5 187 s over 29 calls); **270 s** (HE5 110 s) | slow: the 2 K approach search dominates |
+| plant-pr-warm-U300 | **471 s**, 42 iterations (HE5 236 s) | slow |
+| plant-mhv1, plant-mhv1-warm, sections on PR + MHV1 | 0.1 to 2.2 s (they stop at the first P-H unit or CP3) | |
+
 ## Not done, or unknown
 
 - The CO2 recycle, the compression train and every duty downstream of FLASH3 on PR + MHV1: the plant does not close.
@@ -161,5 +214,8 @@ section "chepta 0.6.3".
   measured data say only that it is not physical.
 - `compare.py` and COMPARISON.md describe the 0.6.2 and 415da41 runs and were not regenerated.
 - The 0.6.2 and 415da41 runs were not repeated (the maintainer's instruction).
+- CHEPTA's advice 3 names "column 15": that is the ethyl acetate plant's wastewater column. The advice was applied
+  here to the methanol column; the maintainer (2026-11-27) will ask CHEPTA which column it meant, and the ethyl acetate
+  column is left alone.
 - The reboiler temperature between 374.1 and 374.171 K, where the paper's 99.985 % water lies: not run (the bottoms
   flow already meets the purities).

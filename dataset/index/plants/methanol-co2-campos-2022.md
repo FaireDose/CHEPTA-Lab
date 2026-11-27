@@ -28,13 +28,13 @@ Engine names: a number such as 0.6.2 is a CHEPTA release; 415da41 is an unreleas
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.2) and it converged.
   - Source: Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), p. 10, Section 2.5; Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement pp. 10-11, Section E (one-step process). <!-- methanol-co2-campos-2022.lesson-column-light-gas-traces -->
 
-- **Choose the methanol column's specification by the product purities it gives, not by which setting sounds closest to the published one**
+- **Choose the methanol column's specification by the product flows and purities it gives, not by the setting's name**
   - When: Several specifications converge for the methanol column, and the published bottoms temperature (99.6 C) is below the model's boiling point of nearly pure water.
-  - Do: Run each candidate specification and judge it on both product purities; keep the published bottoms flow when it already meets them, and record the others as scanned variants.
+  - Do: Run each candidate specification and judge it on both product flows and purities; keep the published bottoms flow when it already meets them, and record the others as scanned variants.
   - Why: The model's water boils about 1.4 K higher, so the published 99.6 C gives bottoms of only 99.009 % water; a temperature near 374.1 K comes close but still falls short.
-  - Check: Both ends against [Campos et al. 2022](https://doi.org/10.3390/pr10081535) (99.667 % methanol, 99.985 % water), in the column alone and in the closed plant.
-  - Result: Bottoms 4581 kmol/h: 99.717 % methanol and 99.9996 % water in the closed plant; reboiler 374.0 K: 99.835 % and 99.929 %; 374.1 K alone 99.952 %. A flow ratio 0.48672, recovery 0.96115 and ratio 1.5e-4 ran out of time at 300 s.
-  - Judged on: The methanol and water products of [Campos et al. 2022](https://doi.org/10.3390/pr10081535) (Table S10): 99.667 % methanol, 99.985 % water.
+  - Check: Both ends against [Campos et al. 2022](https://doi.org/10.3390/pr10081535) (4542 kmol/h at 99.667 % methanol, 4581 kmol/h at 99.985 % water), in the column alone and in the closed plant.
+  - Result: Bottoms 4581 kmol/h: methanol 4549.4 kmol/h at 99.717 % and water 99.9996 % in the closed plant; reboiler 374.0 K: 4540.8 kmol/h at 99.835 % and 99.929 %; 374.1 K alone 99.952 %. A flow ratio 0.48672, recovery 0.96115 and ratio 1.5e-4 ran out of time at 300 s.
+  - Judged on: The product flows and purities of [Campos et al. 2022](https://doi.org/10.3390/pr10081535) (Table S10): 31-MEOH 4542 kmol/h at 99.667 % methanol, 30-WATER 4581 kmol/h at 99.985 % water.
   - Summarises 6 rows of the run log below.
   - Status: worked — Lab ran it in CHEPTA (chepta@0.6.3) and it converged.
   - Source: Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), p. 10, Section 2.5; Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement pp. 10-11, Section E (one-step process); Campos et al. 2022, *A Detailed Process and Techno-Economic Analysis of…* (https://doi.org/10.3390/pr10081535), supplement p. 14, Table S10, streams 30-WATER, 31-MEOH, 32. <!-- methanol-co2-campos-2022.lesson-column-spec-by-purities-063 -->
