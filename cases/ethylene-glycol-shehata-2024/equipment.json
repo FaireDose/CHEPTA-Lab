@@ -1,0 +1,785 @@
+{
+ "source_id": "shehata-2024",
+ "source_doi": "10.1038/s41598-024-77713-y",
+ "paper_pdf_sha256": "8bf58295c2e1cb0da811e6c1040917f921dbb1260c6b506dd2f772f8eb86e551",
+ "classification": "source_reported_simulation (Aspen HYSYS 11) and author process description",
+ "general_assumptions": [
+  {
+   "name": "fluid package",
+   "value": "glycol package",
+   "unit": null,
+   "as_printed": "Fluid package is glycol package",
+   "locator": "Table 1 (p.3), general assumptions",
+   "class": "published"
+  },
+  {
+   "name": "reactions",
+   "value": "conversion stoichiometric reactions",
+   "unit": null,
+   "as_printed": "Reactions are conversion stoichiometric reactions",
+   "locator": "Table 1 (p.3)",
+   "class": "published"
+  },
+  {
+   "name": "capacity",
+   "value": 600000,
+   "unit": "t/yr MEG",
+   "as_printed": "600,000 tons/year",
+   "locator": "p.2 (Methodology) and abstract p.1",
+   "class": "published"
+  },
+  {
+   "name": "EO used",
+   "value": 1160,
+   "unit": "kgmole/h",
+   "as_printed": "1160 kgmole/h of EO",
+   "locator": "p.14",
+   "class": "published"
+  }
+ ],
+ "connections_note": "Connections read from Fig. 5 by the AI session that built this case (2026-11-27); not checked by a person.",
+ "blocks": [
+  {
+   "id": "MIX-102",
+   "type_as_drawn": "mixer",
+   "in": [
+    "WATER MKUP",
+    "11"
+   ],
+   "out": [
+    "Water FEED"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "MIX-100",
+   "type_as_drawn": "mixer",
+   "in": [
+    "Water FEED",
+    "Ethylene Oxid"
+   ],
+   "out": [
+    "2"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "E-105",
+   "type_as_drawn": "feed/product exchanger (two sides)",
+   "in": [
+    "2 (cold)",
+    "21 (hot)"
+   ],
+   "out": [
+    "22 (cold)",
+    "MEG To Storage (hot)"
+   ],
+   "energy_streams": [],
+   "settings": [
+    {
+     "name": "role",
+     "value": "feed/product exchanger heating the reactor feed",
+     "unit": null,
+     "as_printed": "Feed/Product heat exchanger (E-105)",
+     "locator": "p.8, 'MEG production via direct EO hydration process', 2nd paragraph",
+     "class": "published"
+    },
+    {
+     "name": "product cooling medium",
+     "value": "chilled water",
+     "unit": null,
+     "as_printed": "The MEG is cooled with chilled water53 in heat exchanger E-105",
+     "locator": "p.8, 3rd paragraph after the reactor",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)",
+   "note": "No duty for E-105 in Table 8 (an exchanger between two process streams). The text names chilled water for the MEG cooling in E-105, but Fig. 5 draws E-105 between streams 2/22 and 21/MEG To Storage."
+  },
+  {
+   "id": "E-100",
+   "type_as_drawn": "heater (feed heater)",
+   "in": [
+    "22"
+   ],
+   "out": [
+    "3"
+   ],
+   "energy_streams": [
+    "Feed Heater Duty"
+   ],
+   "settings": [
+    {
+     "name": "duty",
+     "value": 4.446,
+     "unit": "MW",
+     "as_printed": "with a duty of 4.446 MW",
+     "locator": "p.8, 2nd paragraph of 'MEG production via direct EO hydration process'",
+     "class": "published"
+    },
+    {
+     "name": "duty (Table 8)",
+     "value": 44462.57,
+     "unit": "kW",
+     "as_printed": "Feed Heater Duty 44462.57",
+     "locator": "Table 8 (p.14), EO-MEG process",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)",
+   "note": "Text and Table 8 differ by a factor of 10 (see STREAM_AUDIT.md). p.8 names E-105 and E-100 together before 'with a duty of 4.446 MW'."
+  },
+  {
+   "id": "Hydration Reactor",
+   "type_as_drawn": "conversion reactor drawn as a vessel with vapour (10) and liquid (4) outlets ('C' icon)",
+   "in": [
+    "3"
+   ],
+   "out": [
+    "10 (vapour)",
+    "4 (liquid)"
+   ],
+   "energy_streams": [
+    "Q-100"
+   ],
+   "settings": [
+    {
+     "name": "model in HYSYS",
+     "value": "conversion reactor, mapped as fixed tube sheet heat exchanger",
+     "unit": null,
+     "as_printed": "Ethylene oxide reactor is conversion reactor and mapped as Fixed tube sheet heat exchangers",
+     "locator": "Table 1 (p.3), row 'Direct hydration of ethylene oxide to monoethylene glycol process (EO/MEG)'",
+     "class": "published"
+    },
+    {
+     "name": "selectivity MEG / (DEG + TEG)",
+     "value": "85 / 15",
+     "unit": "%",
+     "as_printed": "selectivity of 85% and 15% for MEG and di and tri, ethylene glycol, respectively",
+     "locator": "Table 1 (p.3), same row",
+     "class": "published"
+    },
+    {
+     "name": "reactor type in the text",
+     "value": "plug flow reactor",
+     "unit": null,
+     "as_printed": "carried out in a plug flow reactor",
+     "locator": "p.8, 3rd paragraph",
+     "class": "published"
+    },
+    {
+     "name": "length",
+     "value": 77.8,
+     "unit": "m",
+     "as_printed": "77.8 m long",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "diameter",
+     "value": 0.55,
+     "unit": "m",
+     "as_printed": "0.55 m in diameter",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "temperature",
+     "value": 199,
+     "unit": "C",
+     "as_printed": "sustained at 199 °C",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "pressure",
+     "value": 3480,
+     "unit": "kPa",
+     "as_printed": "pressure of 3480 kPa",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "residence time",
+     "value": 3,
+     "unit": "min",
+     "as_printed": "3 min as residence time",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "heat of reaction (qualitative)",
+     "value": "endothermic",
+     "unit": null,
+     "as_printed": "The ethylene oxide hydration reaction is endothermic",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "outlet distribution",
+     "value": "H2O 88.03, EO 1.55, MEG 10.24, DEG 0.1, TEG 0.08",
+     "unit": "mol %",
+     "as_printed": "88.03 mol% H2O, 1.55 mol% EO, 10.24 mol% MEG, 0.1 mol% DEG, and 0.08% TEG",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "cycle water to EO molar ratio",
+     "value": 10,
+     "unit": "mol/mol",
+     "as_printed": "the cycle water to the EO molar ratio is kept as 10:1",
+     "locator": "p.8; also 'feed with 10:1 mol ratio of water: EO', p.6",
+     "class": "published"
+    },
+    {
+     "name": "feed heater outlet in the block diagram",
+     "value": 270,
+     "unit": "C",
+     "as_printed": "heated from 20 °C to 270 °C",
+     "locator": "p.6, 'Direct hydration of ethylene oxide' (Fig. 3a description)",
+     "class": "published"
+    },
+    {
+     "name": "reactions",
+     "value": "EO + H2O -> MEG (Eq. 5); EO + MEG -> DEG (Eq. 6); EO + DEG -> TEG (Eq. 7, printed as C2H4O + C4H10O4 -> C6H14O5: both the DEG and the TEG formulas misprinted)",
+     "unit": null,
+     "as_printed": "Eqs. 5-7",
+     "locator": "p.6",
+     "class": "published"
+    },
+    {
+     "name": "MEG yield in the text",
+     "value": 96,
+     "unit": "wt %",
+     "as_printed": "hydrated to achieve a 96 wt% yield of MEG",
+     "locator": "p.13",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)",
+   "note": "No kinetics in the paper: only the conversion-reactor model (Table 1) and the outlet distribution (p.8). Text (plug flow, dimensions) and Table 1 (conversion reactor, 85/15 selectivity) describe different models; Table 3's outlet gives about 98 % MEG among the glycols (STREAM_AUDIT.md)."
+  },
+  {
+   "id": "VLV-100",
+   "type_as_drawn": "valve",
+   "in": [
+    "4"
+   ],
+   "out": [
+    "15"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "EVA_1",
+   "type_as_drawn": "evaporator (separator vessel with heat input)",
+   "in": [
+    "15"
+   ],
+   "out": [
+    "7 (vapour)",
+    "5 (liquid)"
+   ],
+   "energy_streams": [
+    "Q1"
+   ],
+   "settings": [
+    {
+     "name": "number of evaporators",
+     "value": 3,
+     "unit": null,
+     "as_printed": "three evaporators",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "total energy of the evaporators",
+     "value": 17.8,
+     "unit": "MW",
+     "as_printed": "total energy consumption of 17.8 MW",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "water removed in the evaporators",
+     "value": "about 75",
+     "unit": "%",
+     "as_printed": "Approximately 75% of water is removed in this section",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "steam use",
+     "value": "only the first evaporator uses external steam; the second and third use the steam of the one before",
+     "unit": null,
+     "as_printed": "Only the first evaporator uses external steam while the second and third evaporator uses the steam generated in the first and second evaporator respectively",
+     "locator": "p.8",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "E-102",
+   "type_as_drawn": "cooler/condenser of EVA_1 vapour ('First Effect')",
+   "in": [
+    "7"
+   ],
+   "out": [
+    "17"
+   ],
+   "energy_streams": [
+    "First Effect"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "VLV-101",
+   "type_as_drawn": "valve",
+   "in": [
+    "5"
+   ],
+   "out": [
+    "16"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "EVA_2",
+   "type_as_drawn": "evaporator",
+   "in": [
+    "16"
+   ],
+   "out": [
+    "8 (vapour)",
+    "6 (liquid)"
+   ],
+   "energy_streams": [
+    "Q2"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "E-104",
+   "type_as_drawn": "cooler/condenser of EVA_2 vapour ('Second Effect')",
+   "in": [
+    "8"
+   ],
+   "out": [
+    "20"
+   ],
+   "energy_streams": [
+    "Second Effect"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "VLV-102",
+   "type_as_drawn": "valve",
+   "in": [
+    "6"
+   ],
+   "out": [
+    "18"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "EVA_3",
+   "type_as_drawn": "evaporator",
+   "in": [
+    "18"
+   ],
+   "out": [
+    "9 (vapour)",
+    "1 (liquid)"
+   ],
+   "energy_streams": [
+    "Q3"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "E-103",
+   "type_as_drawn": "cooler/condenser of EVA_3 vapour ('Third effect')",
+   "in": [
+    "9"
+   ],
+   "out": [
+    "19"
+   ],
+   "energy_streams": [
+    "Third Effect"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "ADJ-1, ADJ-2, ADJ-3",
+   "type_as_drawn": "HYSYS adjust blocks (green signal lines near VLV-101/stream 16, EVA_2/stream 8 and EVA_3/stream 9)",
+   "in": [],
+   "out": [],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)",
+   "note": "Their adjusted variables and targets are not printed; Lab cannot tell what they fix."
+  },
+  {
+   "id": "Dehydration Tower",
+   "type_as_drawn": "distillation column with condenser and reboiler",
+   "in": [
+    "1"
+   ],
+   "out": [
+    "Water Rec 5 (top)",
+    "MEG Column FEED (bottom)"
+   ],
+   "energy_streams": [
+    "DEH CON Q",
+    "DEH REQ Q"
+   ],
+   "settings": [
+    {
+     "name": "trays",
+     "value": 15,
+     "unit": "sieve trays",
+     "as_printed": "MEG hydration tower is distillation tower with 15 sieve trays",
+     "locator": "Table 1 (p.3), EO/MEG row (Lab reads 'MEG hydration tower' as the Dehydration Tower of Fig. 5: same pressures as its products)",
+     "class": "published"
+    },
+    {
+     "name": "condenser pressure",
+     "value": 15,
+     "unit": "kPa",
+     "as_printed": "condenser pressure of 15 kPa",
+     "locator": "Table 1 (p.3)",
+     "class": "published"
+    },
+    {
+     "name": "reboiler pressure",
+     "value": 20,
+     "unit": "kPa",
+     "as_printed": "reboiler pressure of 20 kPa",
+     "locator": "Table 1 (p.3)",
+     "class": "published"
+    },
+    {
+     "name": "vacuum in the text",
+     "value": 85,
+     "unit": "mm Hg",
+     "as_printed": "operated under a vacuum of 85 mm Hg",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "trays type and internals",
+     "value": "sieve trays; reboiler kettle, condenser TEMA",
+     "unit": null,
+     "as_printed": "All reboilers are kettle type and condensers are TEMA type",
+     "locator": "Table 1 (p.3), general assumptions",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)",
+   "note": "Feed tray, reflux ratio and distillate rate not printed."
+  },
+  {
+   "id": "Purification Tower",
+   "type_as_drawn": "distillation column with condenser and reboiler",
+   "in": [
+    "MEG Column FEED"
+   ],
+   "out": [
+    "MEG (top, as drawn)",
+    "DEG+TEG (bottom)"
+   ],
+   "energy_streams": [
+    "MEG CON Q",
+    "MEG Q"
+   ],
+   "settings": [
+    {
+     "name": "trays",
+     "value": 26,
+     "unit": "sieve trays",
+     "as_printed": "MEG purification tower is distillation tower with 26 sieve trays",
+     "locator": "Table 1 (p.3), EO/MEG row",
+     "class": "published"
+    },
+    {
+     "name": "condenser pressure",
+     "value": 12.5,
+     "unit": "kPa",
+     "as_printed": "condenser pressure of 12.5 kPa",
+     "locator": "Table 1 (p.3)",
+     "class": "published"
+    },
+    {
+     "name": "reboiler pressure",
+     "value": 13,
+     "unit": "kPa",
+     "as_printed": "reboiler pressure of 13 kPa",
+     "locator": "Table 1 (p.3)",
+     "class": "published"
+    },
+    {
+     "name": "MEG withdrawal in the text",
+     "value": "side stream",
+     "unit": null,
+     "as_printed": "MEG is separated from high grades and withdrawn as a side stream",
+     "locator": "p.8",
+     "class": "published"
+    },
+    {
+     "name": "maximum allowable temperature",
+     "value": 170,
+     "unit": "C",
+     "as_printed": "maximum allowable temperature of 170 °C",
+     "locator": "p.8",
+     "class": "published"
+    }
+   ],
+   "locator": "Fig. 5 (p.10)",
+   "note": "Fig. 5 draws only two products: MEG leaves at the condenser pressure (12.5 kPa) from the top section, DEG+TEG at the bottom (Lab's reading of the drawing). Feed tray, reflux and draw stage not printed. A small unlabelled stub sits on top of the condenser on Fig. 5, probably a zero-flow vapour outlet (Lab's reading); it does not change the distillate reading."
+  },
+  {
+   "id": "P-101",
+   "type_as_drawn": "pump",
+   "in": [
+    "MEG"
+   ],
+   "out": [
+    "21"
+   ],
+   "energy_streams": [
+    "Q-101"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "MIX-101",
+   "type_as_drawn": "mixer",
+   "in": [
+    "10",
+    "17",
+    "20",
+    "19",
+    "Water Rec 5"
+   ],
+   "out": [
+    "WATER REC"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)",
+   "note": "Inlets at 1495, 895, 395 and 15 kPa; outlet printed at 15 kPa (HYSYS's mixer default of the lowest inlet pressure, Lab's reading). WATER REC is probably partly vapour (STREAM_AUDIT.md)."
+  },
+  {
+   "id": "E-101",
+   "type_as_drawn": "cooler",
+   "in": [
+    "WATER REC"
+   ],
+   "out": [
+    "12"
+   ],
+   "energy_streams": [
+    "Q-104"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "P-100",
+   "type_as_drawn": "pump",
+   "in": [
+    "12"
+   ],
+   "out": [
+    "13"
+   ],
+   "energy_streams": [
+    "Q-105"
+   ],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  },
+  {
+   "id": "RCY-1",
+   "type_as_drawn": "HYSYS recycle (tear)",
+   "in": [
+    "13"
+   ],
+   "out": [
+    "11"
+   ],
+   "energy_streams": [],
+   "settings": [],
+   "locator": "Fig. 5 (p.10)"
+  }
+ ],
+ "energy_streams": {
+  "locator": "Table 8 (p.14), 'EO-MEG process'",
+  "unit": "kW (header 'Heat flow, kW')",
+  "sign_convention": "not stated for the entries; their signed sum (322,961.68 kW) is the text's 323 MW (p.14), so the paper counts Q-100 (printed negative) as heat removed",
+  "block_assignment": "Lab's reading of where each energy stream attaches on Fig. 5",
+  "streams": [
+   {
+    "name": "Feed Heater Duty",
+    "value_kW": 44462.57,
+    "as_printed": "44462.57",
+    "block": "E-100"
+   },
+   {
+    "name": "Q1",
+    "value_kW": 8879.99,
+    "as_printed": "8879.99",
+    "block": "EVA_1"
+   },
+   {
+    "name": "Q3",
+    "value_kW": 5037.75,
+    "as_printed": "5037.75",
+    "block": "EVA_3"
+   },
+   {
+    "name": "DEH CON Q",
+    "value_kW": 107392.75,
+    "as_printed": "107392.75",
+    "block": "Dehydration Tower condenser"
+   },
+   {
+    "name": "DEH REQ Q",
+    "value_kW": 94108.24,
+    "as_printed": "94108.24",
+    "block": "Dehydration Tower reboiler"
+   },
+   {
+    "name": "MEG CON Q",
+    "value_kW": 21513.56,
+    "as_printed": "21513.56",
+    "block": "Purification Tower condenser"
+   },
+   {
+    "name": "MEG Q",
+    "value_kW": 20870.47,
+    "as_printed": "20870.47",
+    "block": "Purification Tower reboiler"
+   },
+   {
+    "name": "Q-104",
+    "value_kW": 16645.27,
+    "as_printed": "16645.27",
+    "block": "E-101"
+   },
+   {
+    "name": "Q-105",
+    "value_kW": 231.27,
+    "as_printed": "231.27",
+    "block": "P-100"
+   },
+   {
+    "name": "First Effect",
+    "value_kW": 8348.11,
+    "as_printed": "8348.11",
+    "block": "E-102"
+   },
+   {
+    "name": "Q2",
+    "value_kW": 3839.25,
+    "as_printed": "3839.25",
+    "block": "EVA_2"
+   },
+   {
+    "name": "Third Effect",
+    "value_kW": 11709.6,
+    "as_printed": "11709.60",
+    "block": "E-103"
+   },
+   {
+    "name": "Second Effect",
+    "value_kW": 12793.01,
+    "as_printed": "12793.01",
+    "block": "E-104"
+   },
+   {
+    "name": "Q-100",
+    "value_kW": -32917.29,
+    "as_printed": "-32917.29",
+    "block": "Hydration Reactor"
+   },
+   {
+    "name": "Q-101",
+    "value_kW": 47.13,
+    "as_printed": "47.13",
+    "block": "P-101"
+   }
+  ]
+ },
+ "text_totals": [
+  {
+   "name": "energy consumption of direct hydration",
+   "value": 323,
+   "unit": "MW",
+   "as_printed": "the energy consumption in the direct hydration (323 MW)",
+   "locator": "p.14",
+   "class": "published"
+  },
+  {
+   "name": "water separation section heating",
+   "value": 219.258,
+   "unit": "MW",
+   "as_printed": "This section consumes 219.258 MW for heating purposes",
+   "locator": "p.14",
+   "class": "published",
+   "note": "Reproduced only by Q1 + Q2 + Q3 + DEH CON Q + DEH REQ Q, which includes the condenser (a cooling duty); without it 111.87 MW (derived)"
+  },
+  {
+   "name": "glycol separation duties (reboiler, condenser)",
+   "value": "20.87 / 21.51",
+   "unit": "MW",
+   "as_printed": "consumes 20.87 MW and 21.51 MW as reboilers and condensers duties",
+   "locator": "p.14",
+   "class": "published"
+  },
+  {
+   "name": "DEG and TEG in the produced glycol mixture",
+   "value": 3.56,
+   "unit": "wt %",
+   "as_printed": "3.56 wt% for the EO-MEG process",
+   "locator": "p.14",
+   "class": "published"
+  },
+  {
+   "name": "DEG + TEG flow",
+   "value": 22270,
+   "unit": "tonne/year",
+   "as_printed": "(22,270 tones/year)",
+   "locator": "p.9",
+   "class": "published"
+  },
+  {
+   "name": "utility energy difference direct minus indirect",
+   "value": 279,
+   "unit": "MW",
+   "as_printed": "higher than for indirect hydration by 279 megawatts",
+   "locator": "abstract, p.1",
+   "class": "published"
+  }
+ ]
+}
