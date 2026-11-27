@@ -137,8 +137,10 @@ made by [run_chepta_main_415da41.py](run_chepta_main_415da41.py); `rerun-<id>` i
 
 ## chepta 0.6.3 (2026-11-27)
 
-Runs in [results-chepta-0.6.3/](results-chepta-0.6.3/README.md), Lab's pin `chepta@0.6.3` (npm; the result header
-reports commit 8b8b64f with local changes, the release notes b6598a5). Only the runs the 0.6.3 advice changes were made.
+Runs in [results-chepta-0.6.3/](results-chepta-0.6.3/README.md), Lab's pin `chepta@0.6.3` (npm, integrity
+sha512-sGOG6fD7...; tag v0.6.3 = b6598a5). Only the runs the 0.6.3 advice changes were made. Reporting note, not a
+request about the engine: installed as a dependency, the command line reports the caller's repository commit in
+`which.engine.commit` (Lab's 8b8b64f here), not CHEPTA's.
 
 ### The earlier requests on 0.6.3
 
@@ -181,18 +183,29 @@ reports commit 8b8b64f with local changes, the release notes b6598a5). Only the 
   why CP3 flashes at 300 K and 7000 kPa (a start of its outlet search?) is not visible in the result.
 - **Expected:** one liquid (or a VL split if it exists) as on PR, or the refusal with the phase found.
 
-### M9 (new). A column specification at or just beyond its reachable value runs out of time
+### M9 (new). A reachable flow ratio, recovery or component ratio runs out of time
 
 - **Input:** `results-chepta-0.6.3/col-mhv1-BF0.48672.request.json` (the column alone on the paper's feed 29, PR + MHV1,
   vapour + liquid condenser at 53 C, R 2, `{ kind: "flow_ratio", numerator: "bottoms", denominator: "feed", value:
   0.48672 }`); also col-mhv1-recMeOH0.96115 (`recovery` of methanol in the liquid distillate) and col-mhv1-ratioB0.00015
   (`component_ratio` methanol/water in the bottoms).
 - **Outcome:** `out_of_time`, `OUT_OF_TIME`: "The calculation did not finish within limits.time_ms = 300000 ms, and
-  was stopped." No `details.best`. col-mhv1-BF0.485 ran out at 1,200,000 ms.
-- **Evidence:** the flow ratio 0.48672 is bottoms 4581 kmol/h, which converges in 21 s as `bottoms_kmol_h`
-  (col-mhv1-B4581, 99.9925 % water); 0.488 converges in 37 s. A recovery of 0.96115 lies above the most the liquid
-  distillate can take at 53 C (about 0.9608, derived from col-mhv1-B4581: the vapour distillate carries 3.91 % of the
-  feed methanol), and the reboiler temperature beyond its range is refused at once with the range (col-mhv1-TB374.5,
-  `OUT_OF_RANGE`).
-- **Expected:** a ratio that is a flow converges as the flow does; an unreachable recovery or ratio is refused with its
-  reachable range, as the stage temperature is; a time-out reports the best point (feature 2).
+  was stopped. Give it more time (limits.time_ms), or make the problem smaller." No `details.best`. col-mhv1-BF0.485
+  ran out at 1,200,000 ms; also col-mhv1-recMeOH0.965 and col-mhv1-ratioB0.0005 at 300,000 ms.
+- **Evidence that these columns exist:** the same column with other specifications converged, and the converged
+  columns bracket five of the six time-outs (derived from each output's stream flows; the reviewer's table, checked by
+  the builder):
+
+  | Converged run | bottoms/feed | methanol recovery to 31-MEOH | bottoms methanol/water |
+  |---|---:|---:|---:|
+  | col-mhv1-ratioB5e-05 | 0.47336 | 0.96274 | 5.00e-5 |
+  | col-mhv1-B4581 (21 s) | 0.48672 | 0.96079 | 7.53e-5 |
+  | col-mhv1-TB374.0 | 0.48727 | 0.95972 | 1.16e-3 |
+  | col-mhv1-BF0.488 (37 s) | 0.48800 | 0.95826 | 2.67e-3 |
+
+  The flow ratio 0.48672 is the bottoms flow 4581 kmol/h of col-mhv1-B4581 itself; 0.485 lies between 0.47336 and
+  0.48672; the recovery 0.96115 between 0.96274 and 0.96079; the ratios 1.5e-4 and 5e-4 between 7.53e-5 and 1.16e-3.
+  Only the recovery 0.965 lies above every converged point (not shown reachable).
+- **Expected:** a specification that a converged column of the same feed already satisfies converges (for a flow ratio,
+  as the equivalent flow does), or the time-out reports the best point (feature 2, `error.details.best`); an
+  unreachable value is refused with its range, as the stage temperature is (col-mhv1-TB374.5, `OUT_OF_RANGE`).

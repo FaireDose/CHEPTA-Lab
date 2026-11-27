@@ -1,9 +1,11 @@
 # The one-step methanol plant on chepta 0.6.3 (2026-11-27)
 
 Lacerda de Oliveira Campos et al. 2022, *Processes* 10, 1535 (doi 10.3390/pr10081535, CC BY 4.0). Engine: Lab's pin
-`chepta@0.6.3` from npm (package.json). The release's notes give tag v0.6.3 = commit b6598a5; the package's own
-result header says `commit 8b8b64fb7c965cf9ba5fafd95f15884e1dc7d44d`, `local_changes: true` (every summary in this
-folder, `which.engine`). Lab did not resolve that difference.
+`chepta@0.6.3` from npm (package.json; package-lock.json integrity sha512-sGOG6fD7...), tag v0.6.3 = commit b6598a5 by
+CHEPTA's notes. Reporting note for CHEPTA: the result header's `which.engine.commit` is not CHEPTA's commit. Installed
+under Lab's `node_modules/`, the command line runs `git rev-parse HEAD` in Lab's own repository, so the runs report
+Lab's commit 8b8b64f (the merge of Lab's PR #35), with `local_changes: true`. There is no engine disagreement. The
+summaries regenerated with `chepta summary` (below) report `commit: null`.
 
 Only what CHEPTA's 0.6.3 advice changes was run (the maintainer, relayed by Lab's coordinating session on 2026-11-27:
 do not re-run the 0.6.2 tests to compare). The case README is sealed and unchanged; it describes the 0.6.2 and 415da41
@@ -25,7 +27,7 @@ recoveries are **derived** by Lab.
 | Closed plant on PR + MHV1 | **does not converge**: from the paper's start it stops at MIXER1 (`NO_CONVERGENCE`, "PR: no physical root at 84.2 K, 100 kPa"); from the 415da41 plant's tears at CP3 (`PHASE_SPLIT`, PR flash at 300 K and 7000 kPa). CHEPTA's known limit, its first 0.6.4 item; not worked around |
 | Closed plant on PR (k_ij) with every other 0.6.3 change | **converges** from the paper's start (29 loop iterations, 315 s, balance passed): vapour + liquid condenser at the paper's 53 C (M6 answered), H2/CO/N2 through the column (no bypass), HE5 at 2 K without `zones`, reactors at U 155, column by its reboiler temperature |
 | Separator CO2 | PR + MHV1: **2.35 mol %** in stream 24; PR: 3.41 %; measured basis about 2 %; the paper 18.5 % (section below) |
-| HE5 at 2 K without `zones: 10` | solves on the paper's streams and on the 0.6.2 plant's streams (415da41 refused the latter as a cross); smallest difference along the exchanger 2.000 K, at the zone boundaries 2.27-2.49 K |
+| HE5 at 2 K without `zones: 10` | solves on the paper's streams (113.9 MW; paper 103.3 MW, Table S14) and on the 0.6.2 plant's streams (93.5 MW; 415da41 refused them as a cross); smallest difference along the exchanger 2.000 K, at the zone boundaries 2.27-2.49 K |
 | Reactor at U 155 | outlet 247.96 C, methanol 7.539 % (PR); 0.6.2 at U 150: 247.97 C, 7.540 %; paper 247.9 C, 7.415 % |
 | Column by "what matters" | the reboiler temperature works (374.0 K chosen); a flow ratio, a methanol recovery and a component ratio at the paper's values run out of time instead of converging or being refused |
 
@@ -67,7 +69,9 @@ Settings that differ from the paper in the 0.6.3 runs. The 0.6.2 rows still appl
 All converged columns: vapour distillate 32 about 298 kmol/h at 38.0 % CO2 (paper 289, 36.9 %). Derived from
 col-mhv1-B4581: the 53 C vapour takes 3.91 % of the feed methanol (paper 3.86 %), so the liquid distillate can hold at
 most about 0.9608 of it; the paper's 0.96115 is just outside CHEPTA's column. The first BF0.48672 attempt (1200 s limit)
-was stopped by Lab before it finished and has no result; it was rerun at 300 s (manifest, `interrupted`).
+was stopped by Lab before it finished and has no result; its request file was removed. It was identical to the kept
+col-mhv1-BF0.48672.request.json: the time limit is a command-line flag (`--time-ms`), not part of the request. It was
+rerun at 300 s (manifest, `interrupted`).
 
 ## The closed plant against the paper
 
@@ -106,6 +110,7 @@ Xia 9d248558...0b0561, Bezanehtak f0637187...bc3f92, Xie 0525ee29...59ec22; down
 | Paper, stream 24 (Aspen NRTL2, simulated; Table S10 p.14) | 30 C, 69.25 bar; gas 33 at y_CO2 0.177 (p_CO2 1226 kPa, derived) | **0.1855** | **0.955** (derived) |
 | CHEPTA 0.6.3, PR + MHV1 (simulated; u-flash3-mhv1) | the paper's stream 23 | **0.0235** | 8.74 |
 | CHEPTA 0.6.2, PR k_ij (simulated; u-flash3) | the same | 0.0337 | 6.05 |
+| Xia et al. 2004, brought to 303.15 K (derived, van 't Hoff form between 313.75 and 354.35 K) | 1:1 solvent, 1226 / 1420 kPa | 0.0215 / 0.025 | |
 | Xia et al. 2004 (measured; doi 10.1021/je049803i), 1:1 methanol + water (paper's stream 24 solvent: 0.506 methanol, derived) | 313.75 K, at p_CO2 1226 kPa (interpolated, derived) | **0.018** | |
 | Xia et al. 2004 | 313.75 K, at CHEPTA's p_CO2 1420 kPa | 0.021 | |
 | Xia et al. 2004 | 313.75 K, **7072 kPa of nearly pure CO2** | 0.108 | |
@@ -116,10 +121,14 @@ Xia 9d248558...0b0561, Bezanehtak f0637187...bc3f92, Xie 0525ee29...59ec22; down
 Reading. The paper's liquid holds more CO2 than its own feed and gas: K below 1, although CO2's partial pressure
 (1.23 MPa) is far below its vapour pressure at 30 C (about 7.2 MPa) and the gas is 73 % H2. Even under 7 MPa of nearly pure CO2, the 1:1 solvent holds 10.8 %; pure methanol under
 H2-rich gas holds at most 11.5 % at 4-7 MPa. At the separator's CO2 partial pressure the measured 1:1 value is about
-2 % (1.8-2.1 % at 313.75 K; somewhat more at 303.15 K, not measured in these sets). PR + MHV1's 2.35 % is consistent
-with that; PR's 3.41 % is high; the paper's 18.5 % is about nine times the measured basis. Limits: the measured gas has
-no H2 or N2 (Xia, Xie); the interpolation is linear in total pressure, which includes about 20 kPa of solvent vapour
-(Raoult estimate, assumed); the temperature is 10.6 K above the separator's. CHEPTA's own fit statistics (its
+2 % (1.8-2.1 % at 313.75 K). Brought to the separator's 303.15 K with Xia's own 354.35 K points (derived by Lab and,
+independently, by the reviewer: mean x/P of the 1:1 points up to 3.6 MPa, 0.01462 per MPa at 313.75 K and 0.00802 at
+354.35 K, ln(x/P) taken as linear in 1/T): about **0.0215 at 1226 kPa and 0.025 at 1420 kPa**. PR + MHV1's 2.35 % at its
+own 1420 kPa is consistent with that; PR's 3.37 % (unit run) is high; the paper's 18.5 % is about nine times the
+measured basis. Limits: the data sets used have no H2 or N2 in the gas (Xia; the Xie binary set; Xie's H2 sets are
+CO2-rich liquids at 8.8-21.8 MPa, far from the separator); the interpolation is linear in total pressure, which includes
+about 20 kPa of solvent vapour (Raoult estimate, assumed; x/P of the 1:1 points is 0.0148-0.0152 per MPa from 831 to
+7072 kPa, so linear is adequate); the 303.15 K values rest on the assumed temperature form. CHEPTA's own fit statistics (its
 lab-notes-0.6.3: PR + MHV1 within 7.9 % on all 221 Xia points) were not re-checked by Lab beyond the 1:1 points above.
 
 ## Capability requests for CHEPTA (0.6.3)
@@ -138,6 +147,5 @@ section "chepta 0.6.3".
 - The CO2 recycle, the compression train and every duty downstream of FLASH3 on PR + MHV1: the plant does not close.
 - Whether the paper's 18.5 % comes from NRTL2 parameters or a transcription error in the paper: not known; the
   measured data say only that it is not physical.
-- The engine commit difference (8b8b64f with local changes against the notes' b6598a5).
 - `compare.py` and COMPARISON.md describe the 0.6.2 and 415da41 runs and were not regenerated.
 - The 0.6.2 and 415da41 runs were not repeated (the maintainer's instruction).

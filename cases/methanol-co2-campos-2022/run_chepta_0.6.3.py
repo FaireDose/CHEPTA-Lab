@@ -120,7 +120,7 @@ def runs():
     R["u-reactor-U155-mhv1"] = reactor(U_PAPER, MHV1)
     # --- 4. the column alone, paper feed 29 with its traces, vapour + liquid condenser at 53 C, R 2, MHV1
     R["col-mhv1-B4581"] = column({"reflux_ratio": 2, "bottoms_kmol_h": B30})
-    for T in (372.75, 373.15, 373.5, 374.0, 374.5):   # 30-WATER at 99.6 C = 372.75 K
+    for T in (372.75, 373.15, 373.5, 374.0, 374.1, 374.5):   # 30-WATER at 99.6 C = 372.75 K; 374.1 added after review
         R[f"col-mhv1-TB{T}"] = column({"reflux_ratio": 2, "reboiler_T_K": T})
     for v in (0.485, FLOW_RATIO_B_F, 0.488):
         R[f"col-mhv1-BF{v}"] = column({"reflux_ratio": 2, "specifications": [{"kind": "flow_ratio", "numerator": "bottoms", "denominator": "feed", "value": v}]})
@@ -180,6 +180,7 @@ def plant_runs(second):
     R["plant-pr"] = plant(M.THERMO_PR, second)
     R["plant-pr-warm"] = plant(M.THERMO_PR, second, warm=True)
     R["plant-pr-warm-B4581"] = plant(M.THERMO_PR, {"reflux_ratio": 2, "bottoms_kmol_h": B30}, warm=True)
+    R["plant-pr-B4581"] = plant(M.THERMO_PR, {"reflux_ratio": 2, "bottoms_kmol_h": B30})   # after review: the current result, from the paper's start
     R["plant-pr-warm-U300"] = plant(M.THERMO_PR, second, U=300.0, warm=True)
     # sections on MHV1 with the paper's streams at the cuts
     for name, keep in (("compression", M.SEC_COMPRESSION), ("loop", M.SEC_LOOP)):
@@ -240,6 +241,9 @@ def run_one(cmd, rid, rq, done):
            "note": "model.py's SETTINGS describe the 0.6.2 runs; the 0.6.3 settings that replace them are the last entries",
            "kinetics_rights": M.KINETICS_RIGHTS,
            "runs": sorted([r for r in old["runs"] if r["id"] not in ids] + done, key=lambda r: r["started_at"])}
+    for key in ("interrupted", "records_note"):   # notes Lab adds by hand are kept
+        if key in old:
+            man[key] = old[key]
     man_f.write_text(json.dumps(man, indent=1) + "\n")
 
 
