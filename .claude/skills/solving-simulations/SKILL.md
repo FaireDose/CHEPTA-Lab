@@ -13,6 +13,16 @@ the first time you run a case.
 - Scan each setting around the paper's value, and take the smallest change that works.
 - Record every change in the case's adjustment table: unit, setting, paper, ours, change, why, runs.
 
+**The maintainer's rules (2026-11-27; full text in SIMULATION_PRACTICES.md, rules A to H):**
+- A. No plant starts until every chemical, property and needed pair parameter is in the pinned CHEPTA. List and report what is missing first. Pairs may be estimated by a CHEPTA predictive method; a missing component may not.
+- B. Build one unit at a time from a chosen start (feed, reactor inlet or pre-treatment). Check each unit's mass balance before the next. Work around a failure, then find out why. Close each recycle when the build reaches it. If a unit sends a stream back and the flowsheet then continues, solve that recycle first, if possible, before adding the next units. Explain any other order.
+- C. Record why each new design choice was made (paper text, literature, or what later units show).
+- D. Near a purity specification, find the product's real use (what the factory is for; grades differ) and what that use accepts (literature, standards, datasheets) before chasing digits. Judge flows too.
+- E. One property method for the whole plant, chosen for CHEPTA, not copied from the paper. A column or unit may have its own where CHEPTA allows it and it clearly helps.
+- F. For each capability request, judge whether it is likely to be solved and name the alternative available today.
+- G. After each closed loop, compare every flow with the paper's: a flow 10 or 100 times larger is probably a mistake.
+- H. Report each run's time.
+
 **Run a paper case in this order**
 
 1. Read the engine pin. Declare the boundary, fixed inputs, adjustable settings, target streams, units and tolerances. Check that the release covers the components, phases and parameter ranges.
