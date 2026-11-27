@@ -1,0 +1,1474 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": "026e95b2efa5f75bf8ef7a1ef6b12954b30c0e10",
+      "local_changes": false
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "4bebd40aa91d642b",
+    "databank_hash": "79438428d2ffa8e6",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "components": [
+      "carbon-dioxide",
+      "hydrogen",
+      "carbon-monoxide",
+      "methanol",
+      "water",
+      "nitrogen"
+    ],
+    "run_id": "run-mwz26n9c-1",
+    "input_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm-U300.request.json",
+    "full_result_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm-U300.result.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 471497.05588500004,
+  "limits": {
+    "time_ms": 1200000
+  },
+  "timing": {
+    "total_s": 471.47,
+    "blocks_calculated": 36,
+    "block_calls": 1225,
+    "slowest_blocks": [
+      {
+        "block": "HE5",
+        "s": 236.056,
+        "calls": 42
+      },
+      {
+        "block": "COLUMN",
+        "s": 110.391,
+        "calls": 42
+      },
+      {
+        "block": "HE2",
+        "s": 31.951,
+        "calls": 42
+      }
+    ],
+    "loops": [
+      {
+        "tears": [
+          "19",
+          "35",
+          "26",
+          "28",
+          "39-REC"
+        ],
+        "passes": 12,
+        "s": 471.399
+      }
+    ],
+    "columnRestart": "previous"
+  },
+  "loops": [
+    {
+      "tears": [
+        "19",
+        "35",
+        "26",
+        "28",
+        "39-REC"
+      ],
+      "iterations": 42,
+      "last_change": 1.8447046784766406e-11,
+      "tolerance": 1e-7,
+      "safeguards": 1
+    }
+  ],
+  "balance": {
+    "material_kmol_h": 9.10662123487782e-9,
+    "energy_kW": -0.0000015569603419862688,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 1.9296,
+    "warnings": null
+  },
+  "columns": {
+    "COLUMN": {
+      "converged": true,
+      "iterations": 1,
+      "specifications": [
+        {
+          "label": "the temperature of stage 30",
+          "asked": 374,
+          "achieved": 374,
+          "unit": "K",
+          "met": true
+        }
+      ]
+    }
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "fitted-naidoo2008-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "fitted-wu2019",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Water",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon dioxide",
+        "Carbon monoxide"
+      ],
+      [
+        "Hydrogen",
+        "Methanol"
+      ],
+      [
+        "Hydrogen",
+        "Water"
+      ],
+      [
+        "Carbon monoxide",
+        "Water"
+      ],
+      [
+        "Water",
+        "Nitrogen"
+      ]
+    ],
+    "notes": [
+      {
+        "block": "CPH2",
+        "note": "Isentropic efficiency 75 % (a typical value; give the machine's own)."
+      },
+      {
+        "block": "CP1",
+        "note": "Isentropic efficiency 75 % (a typical value; give the machine's own)."
+      },
+      {
+        "block": "CP2",
+        "note": "Isentropic efficiency 75 % (a typical value; give the machine's own)."
+      },
+      {
+        "block": "CP3",
+        "note": "Isentropic efficiency 75 % (a typical value; give the machine's own)."
+      },
+      {
+        "block": "VALVE2",
+        "note": "Part of the liquid flashes across the valve: vapour fraction 0 to 0.0256."
+      },
+      {
+        "block": "COLUMN",
+        "note": "Rigorous column: 30 stages (1 the vapour_liquid condenser, 30 the reboiler), feed on stage 24, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the previous solution, in 1 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters."
+      },
+      {
+        "block": "COLUMN",
+        "note": "Design specifications: the temperature of stage 30: asked 374, reached 374 K. Found for them: distillate_kmol_h 4578.87, by an outer loop around the stage solver (1 columns solved); each specification is met within a scaled tolerance of 0.000001 (state.design_specifications)."
+      },
+      {
+        "block": "COLUMN",
+        "note": "The vapour + liquid condenser (proposal 0026) at 326.1 K, fixed by condenser_T_K = 326.15: stage 1 is an equilibrium stage whose vapour leaves as the vapour distillate (outlet \"vapour_distillate\", 38.6374 kmol/h) and whose liquid is split, with one composition, into the reflux and the liquid distillate (outlet \"distillate\", 4540.24 kmol/h). The reflux ratio is the reflux over the liquid distillate, 2 (over the whole distillate 1.98312); distillate_kmol_h is the whole distillate, liquid and vapour."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; the stages' 326.15-374.00 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; the stages' 326.15-374.00 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; the stages' 326.15-374.00 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; the stages' 326.15-374.00 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Water + Nitrogen: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+      },
+      {
+        "block": "VALVE1",
+        "note": "Part of the liquid flashes across the valve: vapour fraction 0 to 0.0366."
+      },
+      {
+        "block": "CPREC",
+        "note": "Isentropic efficiency 75 % (a typical value; give the machine's own)."
+      }
+    ],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [
+      "Hydrogen + Nitrogen: PR k_ij set at 520.89 K is 407.89 K above its range (90-113 K): the set's temperature dependence is used as it is (fitted to data at 90-113 K). This is an extrapolation, not data. Where: F-H2, CPH2, MIXER1, CP1, HE1, FLASH1, CP2, HE2, FLASH2, CP3, VALVE2, HE3, MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, COLUMN, MIXER3, HE7, FLASH4, FLASH3, SPLIT3, SPLIT2, VALVE1, MIXER5, CPREC, MIXER4.",
+      "Carbon dioxide + Nitrogen: PR k_ij set at 520.89 K is 227.74 K above its range (233.15-293.15 K): the set's temperature dependence is used as it is (fitted to data at 233.15-293.15 K). This is an extrapolation, not data. Where: MIXER1, CP1, HE1, FLASH1, CP2, HE2, FLASH2, CP3, VALVE2, HE3, MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, COLUMN, MIXER3, HE7, FLASH4, FLASH3, SPLIT3, SPLIT2, VALVE1, MIXER5, CPREC, MIXER4.",
+      "Hydrogen + Carbon monoxide: PR k_ij set at 520.89 K is 432.69 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: MIXER1, CP1, HE1, FLASH1, CP2, HE2, FLASH2, CP3, VALVE2, HE3, MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, COLUMN, MIXER3, HE7, FLASH4, FLASH3, SPLIT3, SPLIT2, VALVE1, MIXER5, CPREC, MIXER4.",
+      "Carbon monoxide + Nitrogen: PR k_ij set at 520.89 K is 398.89 K above its range (70-122 K): the set's temperature dependence is used as it is (fitted to data at 70-122 K). This is an extrapolation, not data. Where: MIXER1, CP1, HE1, FLASH1, CP2, HE2, FLASH2, CP3, VALVE2, HE3, MIXER2, HE4, SPLIT1, HE5, REACTOR1, REACTOR2, HE6, COLUMN, MIXER3, HE7, FLASH4, FLASH3, SPLIT3, SPLIT2, VALVE1, MIXER5, CPREC, MIXER4.",
+      "Carbon dioxide + Methanol: PR k_ij set at 520.89 K is 125.89 K above its range (213.15-395 K): the set's temperature dependence is used as it is (fitted to data at 213.15-395 K). This is an extrapolation, not data. Where: CP1, CP2, CP3, HE4, SPLIT1, REACTOR1, REACTOR2, MIXER3.",
+      "Carbon dioxide + Water: PR k_ij set at 520.89 K is 127.74 K above its range (273.15-393.15 K): the set's temperature dependence is used as it is (fitted to data at 273.15-393.15 K). This is an extrapolation, not data. Where: CP1, CP2, CP3, HE4, SPLIT1, REACTOR1, REACTOR2, MIXER3.",
+      "Carbon monoxide + Methanol: PR k_ij set at 520.89 K is 147.99 K above its range (298.15-372.9 K): the set's temperature dependence is used as it is (fitted to data at 298.15-372.9 K). This is an extrapolation, not data. Where: CP1, CP2, CP3, HE3, HE4, SPLIT1, REACTOR1, REACTOR2, COLUMN, MIXER3.",
+      "Carbon monoxide: ideal-gas heat capacity at 520.89 K is 20.89 K above its range (68.16-500 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data. Where: HE4, SPLIT1, REACTOR1, REACTOR2, MIXER3."
+    ],
+    "streams": {
+      "count": 479,
+      "distinct": 125,
+      "messages": [
+        {
+          "warning": "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 298.73 K is outside that range.",
+          "streams": [
+            "2"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 298.73 K is outside that range.",
+          "streams": [
+            "2"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 298.73 K is outside that range.",
+          "streams": [
+            "2"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Water + Nitrogen: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "32",
+            "33",
+            "34",
+            "35",
+            "37",
+            "38",
+            "42",
+            "43",
+            "1-CO2",
+            "11-H2",
+            "44-PURGE",
+            "36-REC",
+            "45-PURGE",
+            "39-REC",
+            "30-WATER",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 435.82 K is outside that range.",
+          "streams": [
+            "3"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 303.15 K is outside that range.",
+          "streams": [
+            "4",
+            "5",
+            "23",
+            "24",
+            "27",
+            "28",
+            "33",
+            "34",
+            "37",
+            "38",
+            "44-PURGE",
+            "45-PURGE"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 303.15 K is outside that range.",
+          "streams": [
+            "4",
+            "5",
+            "23",
+            "24",
+            "27",
+            "28",
+            "33",
+            "34",
+            "37",
+            "38",
+            "44-PURGE",
+            "45-PURGE"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 303.15 K is outside that range.",
+          "streams": [
+            "4",
+            "5",
+            "23",
+            "24",
+            "27",
+            "28",
+            "33",
+            "34",
+            "37",
+            "38",
+            "44-PURGE",
+            "45-PURGE"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 442.61 K is outside that range.",
+          "streams": [
+            "6"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 1698 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "6",
+            "7",
+            "8",
+            "42"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 318.15 K is outside that range.",
+          "streams": [
+            "7",
+            "8",
+            "42"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 318.15 K is outside that range.",
+          "streams": [
+            "7",
+            "8",
+            "42"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 318.15 K is outside that range.",
+          "streams": [
+            "7",
+            "8",
+            "42"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 318.15 K is outside that range.",
+          "streams": [
+            "7",
+            "8",
+            "42"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 465.17 K is outside that range.",
+          "streams": [
+            "9"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 7000 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "35",
+            "36-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 384.15 K is outside that range.",
+          "streams": [
+            "10"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 384.15 K is outside that range.",
+          "streams": [
+            "10"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 384.15 K is outside that range.",
+          "streams": [
+            "10"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 384.15 K is outside that range.",
+          "streams": [
+            "10"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 384.15 K is outside that range.",
+          "streams": [
+            "10"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 407.85 K is outside that range.",
+          "streams": [
+            "12"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 340.04 K is outside that range.",
+          "streams": [
+            "13"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 340.04 K is outside that range.",
+          "streams": [
+            "13"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 340.04 K is outside that range.",
+          "streams": [
+            "13"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 340.04 K is outside that range.",
+          "streams": [
+            "13"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 510.65 K is outside that range.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "Carbon monoxide: ideal-gas heat capacity at 510.65 K is 10.65 K above its range (68.16-500 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "streams": [
+            "14",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Methanol (0.1883 - 40.62 K / T) comes from data at 213.15-395 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Water (0.2484 - 109.44 K / T) comes from data at 273.15-393.15 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 520.89 K is outside that range.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "Carbon monoxide: ideal-gas heat capacity at 520.89 K is 20.89 K above its range (68.16-500 K): the record's own equation is evaluated beyond its range (the Aly-Lee form, which follows the molecule's vibrational heat capacity). This is an extrapolation, not data.",
+          "streams": [
+            "16",
+            "18",
+            "19"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 399.60 K is outside that range.",
+          "streams": [
+            "20"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 399.60 K is outside that range.",
+          "streams": [
+            "20"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 399.60 K is outside that range.",
+          "streams": [
+            "20"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Methanol (-0.1802) comes from data at 298.15-372.9 K; 399.60 K is outside that range.",
+          "streams": [
+            "20"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 399.60 K is outside that range.",
+          "streams": [
+            "20"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 334.93 K is outside that range.",
+          "streams": [
+            "21"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 334.93 K is outside that range.",
+          "streams": [
+            "21"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 334.93 K is outside that range.",
+          "streams": [
+            "21"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 334.93 K is outside that range.",
+          "streams": [
+            "21"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 333.78 K is outside that range.",
+          "streams": [
+            "22"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 333.78 K is outside that range.",
+          "streams": [
+            "22"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 333.78 K is outside that range.",
+          "streams": [
+            "22"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 333.78 K is outside that range.",
+          "streams": [
+            "22"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 6925 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "24",
+            "33",
+            "34",
+            "44-PURGE"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 298.98 K is outside that range.",
+          "streams": [
+            "25"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 298.98 K is outside that range.",
+          "streams": [
+            "25"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 298.98 K is outside that range.",
+          "streams": [
+            "25"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 298.99 K is outside that range.",
+          "streams": [
+            "26"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 298.99 K is outside that range.",
+          "streams": [
+            "26"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 298.99 K is outside that range.",
+          "streams": [
+            "26"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 303.15 K is outside that range.",
+          "streams": [
+            "27"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 355.87 K is outside that range.",
+          "streams": [
+            "29"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 355.87 K is outside that range.",
+          "streams": [
+            "29"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 355.87 K is outside that range.",
+          "streams": [
+            "29"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 355.87 K is outside that range.",
+          "streams": [
+            "29"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 304.33 K is outside that range.",
+          "streams": [
+            "35"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 304.33 K is outside that range.",
+          "streams": [
+            "35"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 304.33 K is outside that range.",
+          "streams": [
+            "35"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 304.33 K is outside that range.",
+          "streams": [
+            "35"
+          ]
+        },
+        {
+          "warning": "The stream has no flow.",
+          "streams": [
+            "40",
+            "41"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 313.47 K is outside that range.",
+          "streams": [
+            "43"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 313.47 K is outside that range.",
+          "streams": [
+            "43"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 313.47 K is outside that range.",
+          "streams": [
+            "43"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 313.47 K is outside that range.",
+          "streams": [
+            "43"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 298.15 K is outside that range.",
+          "streams": [
+            "1-CO2",
+            "11-H2"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 298.15 K is outside that range.",
+          "streams": [
+            "1-CO2",
+            "11-H2"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 298.15 K is outside that range.",
+          "streams": [
+            "1-CO2",
+            "11-H2"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 3000 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "11-H2"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 320.66 K is outside that range.",
+          "streams": [
+            "36-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 320.66 K is outside that range.",
+          "streams": [
+            "36-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 320.66 K is outside that range.",
+          "streams": [
+            "36-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 320.66 K is outside that range.",
+          "streams": [
+            "36-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 306.15 K is outside that range.",
+          "streams": [
+            "39-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 306.15 K is outside that range.",
+          "streams": [
+            "39-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 306.15 K is outside that range.",
+          "streams": [
+            "39-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 306.15 K is outside that range.",
+          "streams": [
+            "39-REC"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 374.00 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 374.00 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 374.00 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 374.00 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "8 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "45 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "15 entries",
+    "$.value.blocks": "36 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "8 entries",
+    "$.value.loops": "1 entries",
+    "$.value.balance": "6 entries",
+    "$.checks.blocks": "36 blocks (each block's own material and energy balance)",
+    "$.checks.columns": "1 columns (residuals and tolerances by group; converged and iterations are in columns)",
+    "$.reproduction.parameter_sets": "15 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}
