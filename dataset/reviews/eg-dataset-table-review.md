@@ -273,3 +273,64 @@ kPa at 149.6 C; Raoult bubble pressure of WATER REC 17.4 kPa at 48.17 C. No CHEP
 | nit 5 weak check by difference | Fixed: README and STREAM_AUDIT.md say so, with the component-sum tops |
 | nit 6 othman "partly" | Fixed: helped "no" |
 | nit 7 condenser stub | Fixed: noted in equipment.json as Lab's reading |
+
+## Follow-up check by the reviewer (2026-11-27)
+
+**AI follow-up check (Claude Opus 5.5, 2026-11-27).** This is the same reviewer session; it is not a person's check. I
+reviewed commit `0deb2f2` (the builder's fixes, on top of `3f71dae`). I read the diff of all 16 changed files and
+changed none of them.
+
+**Item by item**, against the builder's table above:
+
+| Finding | Builder says | Confirmed? |
+|---|---|---|
+| M1 fresh EO saturated | fixed | **confirmed**: `record.json` fixes P = 3534 kPa at liquid fraction 1 and keeps T as a comparison, with the reason; run plan step 1 checks the phase of every specified stream |
+| M2 property-method reason | fixed | **confirmed**: the reason now states 10-3534 kPa, vapour at 1600 kPa, and the reactor, streams 3 and 15 and EVA_1 above 468.92 K; the pair list matches chepta 0.6.2 `binaries.json` entry by entry; there is a Wilson variant; step 0 checks EO above its critical temperature |
+| m1 323 MW signed sum | fixed | **confirmed** (322,961.68 kW; disagreement 9 reworded; `missing_inputs` narrowed to the individual entries) |
+| m2 219.258 and 279 MW | fixed | **confirmed** (111,865 kW heating without DEH CON Q; 323 − 54.7 = 268.3 MW) |
+| m3 vacuum-glycol-column at 190 C | fixed | **confirmed**: When, Why, Check and the limit now say 190 C is above the paper's 170 C. Keeping "worked" for the separation itself (MEG 0.9977) is acceptable now that the limit is explicit |
+| m4 chen-2018 | fixed | **confirmed** (helped "no" on both) |
+| m5 li-2017 | fixed | **confirmed**: helped "no"; data are looked at only for the estimated EO pairs, TEG and the water + MEG range question, which follows AGENTS.md |
+| m6 register rows awaiting approval | partly | **confirmed as described**: the rows are kept and marked "proposed, awaiting the maintainer's approval". Whether to keep them in the register before approval is the coordinator's call |
+| m7 WATER REC two-phase | fixed | **confirmed** (run plan step 4, register row, water-loop plan row) |
+| m8 p.5 → p.6 | fixed | **confirmed**: no "p.5" locator for the direct-hydration section remains; the block is now `blk-p6-direct` |
+| nits 1, 2, 4, 5, 6, 7 | fixed | **confirmed** |
+| nit 3 commit message count | not fixed | **accepted**: the pushed commit is not rewritten; the README gives the right count (8) |
+
+**No new errors.** I rechecked every number the fixes add against the paper or against chepta 0.6.2's data: 3537.8 kPa,
+468.92 K, 17.4 kPa, 111,865 kW, 268.3 MW, 3.555 wt % (22,270 / 626,470), 96 wt % on p.13, the six pair entries, and
+"ChemSep v8.3 … Artistic License 2.0" (chepta 0.6.2 `src/data/LICENSES.md`). All are correct.
+- The relabelled "DEG+TEG stream as a share of the two product streams' printed mass" now describes its 3.555 correctly.
+- Locked rows were rewritten in place rather than corrected by new rows. This is acceptable because they were never on
+  main. I compared `dataset/index/outcomes.lock.json` at main (`8b8b64f`) with `0deb2f2`: every main entry is
+  unchanged. The 306 main ids are all still in `indexed`, and the only additions are the 13 ethylene glycol ids and
+  their 8 `informed_by` lists.
+
+**The builder's correction of my review: confirmed.** In chepta 0.6.2 there is no EO + MEG or EO + DEG pair in any model,
+Wilson included; EO + water has Wilson only. My review already said "no pair at all", but my M2 fix ("Wilson … the
+glycol pairs") meant the pairs among water, MEG and DEG. Under Wilson the EO + glycol pairs are still estimated, as
+`record.json` now says.
+
+**Checks** at `0deb2f2`:
+- `validate_catalog.py`: exit 0.
+- `dataset_pipeline.py validate`: exit 0, `"valid": true`.
+- `unittest`: 127 tests, OK.
+- `kb.py check`: exit 0, index current (case-decision 158, design-rule 127, simulation-rule 34, disputed sets 2).
+
+**chepta 0.6.3.** I fetched `npm pack chepta@0.6.3` into my scratchpad (shasum `8dc18177…6e59f3`) and compared its
+`src/data/components.json` and `src/data/binaries.json` with 0.6.2's:
+- **Components:** the records of water, ethylene-oxide, ethylene-glycol and diethylene-glycol are identical in every
+  field. triethylene-glycol is in neither version.
+- **Pairs:** every pair among these components is identical in both versions (NRTL, UNIQUAC and Wilson for water + MEG,
+  DEG + MEG and DEG + water; Wilson only for EO + water). Neither version has EO + MEG or EO + DEG.
+
+So the property-method reason's data hold for 0.6.3 unchanged. Only the version label "0.6.2" in `record.json` and the
+KB row would need "(unchanged in 0.6.3)" when the pin moves. I did not read 0.6.3's code, method guide or UNIFAC data.
+
+**Final items for the person's spot check** (unchanged in substance; check them on the fixed files):
+1. **M2: largest effect on the results.** chepta 0.6.2 (or 0.6.3) `binaries.json`: no NRTL pair for EO + water and
+   no pair at all for EO + glycol; EVA_1 at 1600 kPa on Fig. 5. Then check that `record.json`'s new reason says this.
+2. **M1: the item I was least sure of.** Fig. 5: "149.6 C" without an asterisk, "*3534 kPa" with one; and whether
+   fixing the EO feed by P and liquid fraction 1 is the right reading.
+3. **m5: picked at random.** Whether the revised plan (data looked at only for estimated or out-of-range pairs)
+   now follows AGENTS.md.
