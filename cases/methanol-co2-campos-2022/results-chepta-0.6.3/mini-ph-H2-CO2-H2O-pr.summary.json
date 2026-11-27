@@ -1,0 +1,137 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": "814aa0ad492240e545f1cf71375f1d34833da420",
+      "local_changes": true
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "0681e39772a18412",
+    "databank_hash": "3ad197aacf91c025",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "components": [
+      "hydrogen",
+      "carbon-dioxide",
+      "water"
+    ],
+    "run_id": "run-mwz1moh3-1",
+    "input_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-H2O-pr.request.json",
+    "full_result_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-H2O-pr.result.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 44.10468900000001,
+  "limits": {
+    "time_ms": 300000
+  },
+  "timing": {
+    "total_s": 0.029,
+    "blocks_calculated": 3,
+    "block_calls": 3,
+    "slowest_blocks": [
+      {
+        "block": "H1",
+        "s": 0.015,
+        "calls": 1
+      },
+      {
+        "block": "F1",
+        "s": 0.009,
+        "calls": 1
+      },
+      {
+        "block": "P1",
+        "s": 0,
+        "calls": 1
+      }
+    ],
+    "loops": [],
+    "columnRestart": "previous"
+  },
+  "loops": [],
+  "balance": {
+    "material_kmol_h": 0,
+    "energy_kW": 0,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 0.0079934,
+    "warnings": null
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon dioxide"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Hydrogen",
+        "Water"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [],
+    "streams": {
+      "count": 4,
+      "distinct": 2,
+      "messages": [
+        {
+          "warning": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "warning": "PR is the method here: Hydrogen, Carbon dioxide are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "S1",
+            "S2"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "0 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "2 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "1 entries",
+    "$.value.blocks": "3 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "3 entries",
+    "$.value.loops": "0 entries",
+    "$.value.balance": "4 entries",
+    "$.checks.blocks": "3 blocks (each block's own material and energy balance)",
+    "$.reproduction.parameter_sets": "3 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}

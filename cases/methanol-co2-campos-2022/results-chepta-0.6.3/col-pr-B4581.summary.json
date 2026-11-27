@@ -1,0 +1,430 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": "814aa0ad492240e545f1cf71375f1d34833da420",
+      "local_changes": true
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "7e15aff5810b7beb",
+    "databank_hash": "79438428d2ffa8e6",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "components": [
+      "carbon-dioxide",
+      "hydrogen",
+      "carbon-monoxide",
+      "methanol",
+      "water",
+      "nitrogen"
+    ],
+    "run_id": "run-mwz1miac-1",
+    "input_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-pr-B4581.request.json",
+    "full_result_file": "/home/user/CHEPTA-Lab/cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-pr-B4581.result.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 7523.061239,
+  "limits": {
+    "time_ms": 300000
+  },
+  "timing": {
+    "total_s": 7.496,
+    "blocks_calculated": 5,
+    "block_calls": 5,
+    "slowest_blocks": [
+      {
+        "block": "COLUMN",
+        "s": 7.464,
+        "calls": 1
+      },
+      {
+        "block": "F0",
+        "s": 0.023,
+        "calls": 1
+      },
+      {
+        "block": "P2",
+        "s": 0,
+        "calls": 1
+      }
+    ],
+    "loops": [],
+    "columnRestart": "previous"
+  },
+  "loops": [],
+  "balance": {
+    "material_kmol_h": 1.8189894035458565e-12,
+    "energy_kW": -8.87666828930378e-10,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 0.9412,
+    "warnings": null
+  },
+  "columns": {
+    "COLUMN": {
+      "converged": true,
+      "iterations": 27
+    }
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "fitted-naidoo2008-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "fitted-wu2019",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Water",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon dioxide",
+        "Carbon monoxide"
+      ],
+      [
+        "Hydrogen",
+        "Methanol"
+      ],
+      [
+        "Hydrogen",
+        "Water"
+      ],
+      [
+        "Carbon monoxide",
+        "Water"
+      ],
+      [
+        "Water",
+        "Nitrogen"
+      ]
+    ],
+    "notes": [
+      {
+        "block": "COLUMN",
+        "note": "Rigorous column: 30 stages (1 the vapour_liquid condenser, 30 the reboiler), feed on stage 24, at 100 kPa without pressure drop. The MESH equations of every stage were solved together by Newton's method (Naphtali-Sandholm), started by the bubble-point start, Newton resumed without the early stop, in 27 iterations; every group of residuals is within its tolerance (state.residuals). Converged is not validated against data: the result is as good as the method and its parameters."
+      },
+      {
+        "block": "COLUMN",
+        "note": "The vapour + liquid condenser (proposal 0026) at 326.1 K, fixed by condenser_T_K = 326.15: stage 1 is an equilibrium stage whose vapour leaves as the vapour distillate (outlet \"vapour_distillate\", 298.292 kmol/h) and whose liquid is split, with one composition, into the reflux and the liquid distillate (outlet \"distillate\", 4532.71 kmol/h). The reflux ratio is the reflux over the liquid distillate, 2 (over the whole distillate 1.87651); distillate_kmol_h is the whole distillate, liquid and vapour."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; the stages' 326.15-374.17 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; the stages' 326.15-374.17 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; the stages' 326.15-374.17 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; the stages' 326.15-374.17 K are outside that range."
+      },
+      {
+        "block": "COLUMN",
+        "note": "No PR k_ij for Water + Nitrogen: k_ij = 0 used; results for this pair are a prediction without binary data."
+      },
+      {
+        "block": "COLUMN",
+        "note": "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md)."
+      }
+    ],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [
+      "Carbon dioxide + Nitrogen: PR k_ij set at 374.17 K is 81.02 K above its range (233.15-293.15 K): the set's temperature dependence is used as it is (fitted to data at 233.15-293.15 K). This is an extrapolation, not data. Where: F0, COLUMN.",
+      "Carbon monoxide + Nitrogen: PR k_ij set at 374.17 K is 252.17 K above its range (70-122 K): the set's temperature dependence is used as it is (fitted to data at 70-122 K). This is an extrapolation, not data. Where: F0, COLUMN.",
+      "Hydrogen + Carbon monoxide: PR k_ij set at 374.17 K is 285.97 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: COLUMN.",
+      "Hydrogen + Nitrogen: PR k_ij set at 374.17 K is 261.17 K above its range (90-113 K): the set's temperature dependence is used as it is (fitted to data at 90-113 K). This is an extrapolation, not data. Where: COLUMN.",
+      "Carbon monoxide + Methanol: PR k_ij set at 374.17 K is 1.27 K above its range (298.15-372.9 K): the set's temperature dependence is used as it is (fitted to data at 298.15-372.9 K). This is an extrapolation, not data. Where: COLUMN."
+    ],
+    "streams": {
+      "count": 40,
+      "distinct": 18,
+      "messages": [
+        {
+          "warning": "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 326.15 K is outside that range.",
+          "streams": [
+            "32",
+            "31-MEOH"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Water + Nitrogen: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "32",
+            "in0-29",
+            "31-MEOH",
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 356.05 K is outside that range.",
+          "streams": [
+            "in0-29"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 356.05 K is outside that range.",
+          "streams": [
+            "in0-29"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 356.05 K is outside that range.",
+          "streams": [
+            "in0-29"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 356.05 K is outside that range.",
+          "streams": [
+            "in0-29"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 374.17 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 374.17 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 374.17 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 374.17 K is outside that range.",
+          "streams": [
+            "30-WATER"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "5 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "4 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "1 entries",
+    "$.value.blocks": "5 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "5 entries",
+    "$.value.loops": "0 entries",
+    "$.value.balance": "4 entries",
+    "$.checks.blocks": "5 blocks (each block's own material and energy balance)",
+    "$.checks.columns": "1 columns (residuals and tolerances by group; converged and iterations are in columns)",
+    "$.reproduction.parameter_sets": "15 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}
