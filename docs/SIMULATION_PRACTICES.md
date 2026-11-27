@@ -44,7 +44,9 @@ UNIFAC 2.0), with CHEPTA's warning recorded; a missing component may not.
 2. Add one unit, run it, check its mass balance (and energy balance where comparable), then add the next.
 3. Where a unit fails: find a workaround that gets to the next unit, then find out why it failed. Where a workaround
    works, record what was wrong. Where none works, find out why before going on.
-4. Close the recycles only when the once-through chain runs. Then check the full plant.
+4. Close each recycle when the build reaches it: when a unit sends a stream back to an earlier unit and the
+   flowsheet then continues, solve that recycle first, if it can be solved, before adding the units after it. Then
+   check the full plant.
 5. A different order is allowed when it is faster, but the report explains to the maintainer how and why it was done.
 
 **C. Know why each choice was made.** For every choice that is new to Lab (a compressor's discharge pressure, an
@@ -54,22 +56,29 @@ spoils a later separation, or a higher pressure that costs energy without benefi
 design row.
 
 **D. A purity close to the specification may be enough.** When CHEPTA reaches close to the paper's purity (for
-example 99.97 or 99.86 % against 99.999 %), look up what the next application accepts: literature, standards or
-suppliers' datasheets for that chemical. The same for water and waste streams: can they still be treated downstream?
+example 99.97 or 99.86 % against 99.999 %), find what the product is used for in the real world: the paper should say
+what the factory is for. Grades differ: analytical, a simple application, or the feed of a further reaction each
+accept different purities. Then look up what that use accepts: literature, standards or suppliers' datasheets for
+that chemical and grade. The same for water and waste streams: can they still be treated downstream?
 If the value is accepted, do not chase the last digits; record the source of the acceptance. Judge flow rates as well
 as purities.
 
 **E. Keep the thermodynamics simple.** The authors' method is not binding: choose the method that suits the
 chemicals in CHEPTA, with the reason. Use one method for the whole plant. Different methods in different sections
-cause problems where the sections join; use a second method only for a single-unit comparison, or when it clearly
-improves the result.
+cause problems where the sections join. A separate method is allowed for a distillation column or another unit
+where CHEPTA accepts a unit-level property method, when it clearly improves that unit; record why. A second method is
+also allowed for a single-unit comparison.
 
 **F. For every capability request, judge whether it is likely to be solved.** Say whether the problem is a defect
 CHEPTA can fix, a limit of the method itself, or unclear, and what alternative route exists in CHEPTA today (another
 method, a predictive estimate, a different specification). Recommend whether Lab waits for the fix or takes the
 alternative.
 
-**G. Report how long each run took** (CHEPTA's `run.timing`), and flag runs that are slow or run out of time.
+**G. Look for flows that blow up.** After every run that closes a loop, compare every stream's flow with the
+paper's. A flow 10 or 100 times larger is probably a mistake, and that equipment could not be sized: find the cause
+before going on. Report flows that are much smaller too, with the reason.
+
+**H. Report how long each run took** (CHEPTA's `run.timing`), and flag runs that are slow or run out of time.
 
 ## The steps
 

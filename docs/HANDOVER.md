@@ -147,7 +147,13 @@ read through `dataset/index/rules-readable.md` and `scripts/kb.py`.
 To send CHEPTA's coordinator at the end of Lab's phase 2026-11 (the maintainer, 2026-11-27): requests M7, M8, M9 from the
 methanol case (#37) with Lab's view of whether each is likely to be solved; the result header reports the caller's
 repository commit, not CHEPTA's; which column the 0.6.3 note "column 15" means; and the maintainer's rule that a new
-simulation is not handed to Lab while a chemical it needs is missing from CHEPTA.
+simulation is not handed to Lab while a chemical it needs is missing from CHEPTA; and, for ethylene glycol, the
+missing chemicals and properties with where to find them (triethylene glycol, the ethylene oxide pairs), collected by
+Lab for CHEPTA to add (the maintainer, 2026-11-27).
+
+Decided for the methanol case (the maintainer, 2026-11-27): PR with k_ij is the plant's method; the run with the
+bottoms flow at 4581 kmol/h is the current result; the CO2 left in the product (it fails IMPCA's acidity limit) is
+recorded, and a degassing step is a possible later variant.
 
 Waiting for the maintainer: the spot checks of #34 and #35 (2-3 items each, listed in each review file); topics by
 unit type (recommended) or by process; a separate private repository for held-out cases (recommended, before the first
