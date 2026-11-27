@@ -1,0 +1,340 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": null,
+      "local_changes": null
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "fef9b2429a129132",
+    "databank_hash": "5a15d12ada71b9f3",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null,
+      "mixing": "MHV1",
+      "name": "PR + gE (MHV1)"
+    },
+    "components": [
+      "carbon-dioxide",
+      "hydrogen",
+      "carbon-monoxide",
+      "methanol",
+      "water",
+      "nitrogen"
+    ],
+    "run_id": "run-mwyzb5qh-1",
+    "input_file": "u-he7-mhv1.request.json",
+    "full_result_file": "u-he7-mhv1.output.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 58.87852399999997,
+  "limits": {
+    "time_ms": 1200000
+  },
+  "timing": {
+    "total_s": 0.036,
+    "blocks_calculated": 3,
+    "block_calls": 3,
+    "slowest_blocks": [
+      {
+        "block": "F0",
+        "s": 0.021,
+        "calls": 1
+      },
+      {
+        "block": "HE7",
+        "s": 0.009,
+        "calls": 1
+      },
+      {
+        "block": "P0",
+        "s": 0,
+        "calls": 1
+      }
+    ],
+    "loops": [],
+    "columnRestart": "previous"
+  },
+  "loops": [],
+  "balance": {
+    "material_kmol_h": 0,
+    "energy_kW": 0,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 6.404135958,
+    "warnings": null
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted",
+        "quality_warning": "AAD 5.6 % in P (max 29.7 %), 10.2 % in the gas solubility, 0.6 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted",
+        "quality_warning": "AAD 11.4 % in P (max 60.6 %), 7.9 % in the gas solubility, 4 of 573 points without a bubble pressure, 6.4 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07: alpha fitted, better than k_ij = a + b / T ({\"P_pct\":13.8,\"x_pct\":10.2,\"no_bubble_pressure\":4})"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted",
+        "quality_warning": "AAD 5.7 % in P (max 13.6 %), 5.6 % in the gas solubility, 0.7 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted",
+        "quality_warning": "AAD 7.1 % in the Henry's law constant against IAPWS G7-04 (max 16.4 %), 2.1 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "fitted-zhang2019-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Nitrogen"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Water",
+          "Nitrogen"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted",
+        "quality_warning": "AAD 5.4 % in P (max 23.2 %), 5.1 % in the gas solubility, 0.4 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-26 (docs/decisions/2026-11-25-01-nitrogen-mhv1.md: the ThermoML fit confirmed)"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon dioxide",
+        "Hydrogen"
+      ],
+      [
+        "Carbon dioxide",
+        "Carbon monoxide"
+      ],
+      [
+        "Carbon dioxide",
+        "Nitrogen"
+      ],
+      [
+        "Hydrogen",
+        "Carbon monoxide"
+      ],
+      [
+        "Hydrogen",
+        "Nitrogen"
+      ],
+      [
+        "Carbon monoxide",
+        "Nitrogen"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [],
+    "streams": {
+      "count": 26,
+      "distinct": 13,
+      "messages": [
+        {
+          "warning": "No NRTL parameters for Carbon dioxide + Hydrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "No NRTL parameters for Carbon dioxide + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Fit quality of the MHV1 set for Carbon dioxide + Methanol: AAD 5.6 % in P (max 29.7 %), 10.2 % in the gas solubility, 0.6 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Fit quality of the MHV1 set for Carbon dioxide + Water: AAD 11.4 % in P (max 60.6 %), 7.9 % in the gas solubility, 4 of 573 points without a bubble pressure, 6.4 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07: alpha fitted, better than k_ij = a + b / T ({\"P_pct\":13.8,\"x_pct\":10.2,\"no_bubble_pressure\":4})",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "No NRTL parameters for Carbon dioxide + Nitrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "No NRTL parameters for Hydrogen + Carbon monoxide in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Fit quality of the MHV1 set for Hydrogen + Methanol: AAD 5.7 % in P (max 13.6 %), 5.6 % in the gas solubility, 0.7 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "No NRTL parameters for Hydrogen + Nitrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Fit quality of the MHV1 set for Carbon monoxide + Water: AAD 7.1 % in the Henry's law constant against IAPWS G7-04 (max 16.4 %), 2.1 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-07 (docs/decisions/2026-11-06-02-mhv1.md)",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "No NRTL parameters for Carbon monoxide + Nitrogen in PR + gE (MHV1): g^E = 0 for this pair; results for it are a prediction without binary data.",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Methanol + Water: an NRTL set of the databank (fitted at low pressure), used inside the MHV1 rule",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "Fit quality of the MHV1 set for Water + Nitrogen: AAD 5.4 % in P (max 23.2 %), 5.1 % in the gas solubility, 0.4 points over the gate of 5 %; written by the decision of the maintainer, 2026-11-26 (docs/decisions/2026-11-25-01-nitrogen-mhv1.md: the ThermoML fit confirmed)",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        },
+        {
+          "warning": "PR + gE (MHV1) is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "in0-22",
+            "out-out"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "0 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "2 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "1 entries",
+    "$.value.blocks": "3 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "3 entries",
+    "$.value.loops": "0 entries",
+    "$.value.balance": "4 entries",
+    "$.checks.blocks": "3 blocks (each block's own material and energy balance)",
+    "$.reproduction.parameter_sets": "15 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}

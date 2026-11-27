@@ -41,7 +41,7 @@ add_file("runner", "run_chepta_0.6.2.py", "runner")
 add_file("verifier", "compare.py", "verifier")
 add_file("run-manifest", "results-chepta-0.6.2/run-manifest.json", "execution_manifest")
 add_file("comparison", "results-chepta-0.6.2/comparison.json", "lab_check")
-add_file("engine-lock", "package-lock.json", "engine_lock", base=ROOT)
+add_file("engine-lock", "data/archive/package-lock-chepta-0.6.2.json", "engine_lock", base=ROOT)  # the 0.6.2 runs; the pin moved to 0.6.3 on 2026-11-27
 add_file("case-readme", "README.md", "other")
 
 

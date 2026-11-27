@@ -1,0 +1,166 @@
+{
+ "what": "CO2 in the FLASH3 liquid (stream 24, 30 C, 69.25 bar): the paper's Aspen simulation, CHEPTA, and measured solubility",
+ "paper (simulated, Aspen Plus V10 NRTL2; supplement Table S10 p.14)": {
+  "x_CO2_stream_24": 0.18545,
+  "y_CO2_stream_33": 0.17704,
+  "z_CO2_stream_23": 0.17855000000000001,
+  "K_CO2 = y/x (derived)": 0.955,
+  "p_CO2_gas_kPa (derived)": 1226.0
+ },
+ "chepta (simulated)": {
+  "PR + MHV1 (chepta 0.6.3, run u-flash3-mhv1)": {
+   "x_CO2_liquid": 0.02345,
+   "y_CO2_vapour": 0.20503,
+   "K_CO2 (derived)": 8.74
+  },
+  "PR k_ij (chepta 0.6.2, run u-flash3)": {
+   "x_CO2_liquid": 0.03366,
+   "y_CO2_vapour": 0.20369,
+   "K_CO2 (derived)": 6.05
+  }
+ },
+ "measured": {
+  "xia_2004": {
+   "source": "Xia et al. 2004, doi 10.1021/je049803i, ThermoML data set 1 (measured); mole fractions converted by Lab (derived)",
+   "T_K": 313.75,
+   "solvent_methanol_mole_fraction_CO2_free": 0.4999,
+   "paper_stream_24_solvent_methanol_mole_fraction_CO2_free (derived)": 0.506,
+   "points_P_kPa_xCO2": [
+    [
+     242,
+     0.00332
+    ],
+    [
+     831,
+     0.0123
+    ],
+    [
+     1973,
+     0.02951
+    ],
+    [
+     3488,
+     0.05232
+    ],
+    [
+     4876,
+     0.07372
+    ],
+    [
+     5680,
+     0.0863
+    ],
+    [
+     6942,
+     0.10348
+    ],
+    [
+     7072,
+     0.1078
+    ]
+   ],
+   "x_CO2_at_paper_pCO2 (derived, linear in total P)": {
+    "p_CO2_kPa": 1226.0,
+    "x_CO2": 0.0183
+   },
+   "x_CO2_at_chepta_mhv1_pCO2 (derived)": {
+    "p_CO2_kPa": 1419.8,
+    "x_CO2": 0.0212
+   },
+   "highest_point_pure_CO2_gas": {
+    "P_kPa": 7072,
+    "x_CO2": 0.1078
+   },
+   "pure_methanol_at_paper_pCO2 (derived)": 0.0639,
+   "note": "Gas phase CO2 with the solvent's own vapour (no H2, N2); total pressure is used for the CO2 partial pressure, which overstates it by the solvent vapour (about 20 kPa at 313.75 K, Raoult estimate, assumed), so the interpolated x_CO2 is slightly low. 313.75 K is 10.6 K above the separator's 303.15 K: solubility rises as temperature falls."
+  },
+  "bezanehtak_2004": {
+   "source": "Bezanehtak et al. 2004, doi 10.1021/je0301491, ThermoML data set 2 (measured)",
+   "selection": "vapour H2 0.68-0.76, 4-7 MPa (the separator: H2 0.73 in the gas, 6.9 MPa)",
+   "points_T_K_P_kPa_xCO2_yH2_yCO2": [
+    [
+     278,
+     5000,
+     0.0466,
+     0.7327,
+     0.2673
+    ],
+    [
+     288,
+     4000,
+     0.0795,
+     0.7533,
+     0.2466
+    ],
+    [
+     288,
+     5000,
+     0.0878,
+     0.7231,
+     0.2354
+    ],
+    [
+     298,
+     4000,
+     0.0657,
+     0.7041,
+     0.24
+    ],
+    [
+     298,
+     6000,
+     0.1153,
+     0.7345,
+     0.2655
+    ],
+    [
+     298,
+     7000,
+     0.1093,
+     0.7107,
+     0.26
+    ]
+   ],
+   "K_CO2 range (derived)": [
+    2.3,
+    5.74
+   ],
+   "note": "Pure methanol as solvent: more CO2 dissolves than in 1:1 methanol + water (Xia 2004 at 313.75 K: pure methanol about 3.5 times the 1:1 solvent at the same pressure), so these are upper bounds for stream 24."
+  },
+  "xie_2005": {
+   "source": "Xie et al. 2005, doi 10.1021/je0498614, ThermoML data set 1 (measured): CO2 + methanol bubble pressures, 313.2 K",
+   "points_xCO2_P_kPa": [
+    [
+     0.051,
+     930
+    ],
+    [
+     0.205,
+     3570
+    ],
+    [
+     0.291,
+     4850
+    ],
+    [
+     0.411,
+     6310
+    ],
+    [
+     0.591,
+     7490
+    ],
+    [
+     0.653,
+     7680
+    ],
+    [
+     0.786,
+     7930
+    ]
+   ],
+   "x_CO2_at_paper_pCO2 (derived)": 0.0683,
+   "note": "Pure methanol: an upper bound for the 1:1 solvent."
+  }
+ }
+}
