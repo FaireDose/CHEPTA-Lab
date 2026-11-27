@@ -144,6 +144,11 @@ read through `dataset/index/rules-readable.md` and `scripts/kb.py`.
 | K4 | Split the topic page separation-choice (full at 30 rules), for example into distillation sequencing and other separations | Sonnet |
 | K5 | Sealed case READMEs that are wrong, corrected so far only in the knowledge base: ethyl acetate line 121 (99.56 %; settled 99.666 %), methanol line 85 (U "not printed"). Reword and re-bind in the next task on each case | Sonnet |
 
+To send CHEPTA's coordinator at the end of Lab's phase 2026-11 (the maintainer, 2026-11-27): requests M7, M8, M9 from the
+methanol case (#37) with Lab's view of whether each is likely to be solved; the result header reports the caller's
+repository commit, not CHEPTA's; which column the 0.6.3 note "column 15" means; and the maintainer's rule that a new
+simulation is not handed to Lab while a chemical it needs is missing from CHEPTA.
+
 Waiting for the maintainer: the spot checks of #34 and #35 (2-3 items each, listed in each review file); topics by
 unit type (recommended) or by process; a separate private repository for held-out cases (recommended, before the first
 one is made); the speed target; Park et al. 2022's licence (Chemical Engineering Transactions terms); the 6 register
