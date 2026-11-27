@@ -161,6 +161,18 @@ one is made); the speed target; Park et al. 2022's licence (Chemical Engineering
 problems proposed for ethylene glycol and butyl acetate; optionally a symptom term for "a specification met by a wrong
 root".
 
+## Lessons into the skills (the maintainer, 2026-11-27)
+
+A plant's general lessons move into the skills' pages (docs/SIMULATION_PRACTICES.md for simulation,
+docs/PROCESS_DESIGN.md for design) only when the coordinator has confirmed all three:
+1. the process is understood: the reason for each main choice is recorded (rule C);
+2. simulations around the main equipment have been run to show why its conditions were chosen (for example a
+   pressure, a solvent, a temperature scanned and its effect downstream);
+3. the balance is closed, or the reason it is not is understood in depth.
+Each lesson keeps the plain shape it has in the knowledge base (title, When, Do, Why, Check, Result), with a link to
+the knowledge-base row and its evidence. The skills' own pages stay short and point there. One short task (Sonnet)
+per plant, after its review is merged.
+
 ## Open questions for the maintainer
 
 - Decisions D1 to D9 in [WHERE_WE_ARE_HEADING.md](reference/WHERE_WE_ARE_HEADING.md), section 6.
