@@ -18,7 +18,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | rxn-co2-hydrogenation-methanol | reaction | pfr | equilibrium-limited-reaction,exothermic-reaction | 3/0/0/0 | 0 | 1 | 1/0/0 | methanol-co2-campos-2022 |
 | sep-co2-dissolved-in-methanol-water | separation | flash | non-condensable-gas,purge-and-make-up,recycle-loop | 4/0/0/0 | 0 | 4 | 0/0/0 | methanol-co2-campos-2022 |
 | sep-methanol-water-with-dissolved-gases | separation | distillation | non-condensable-gas,purge-and-make-up,recycle-loop | 8/7/0/1 | 0 | 1 | 1/0/0 | methanol-co2-campos-2022 |
-| plant-gas-recycle-with-purge | plant | purge,recycle | non-condensable-gas,purge-and-make-up,recycle-loop | 4/3/0/0 | 0 | 1 | 1/0/0 | methanol-co2-campos-2022 |
+| plant-gas-recycle-with-purge | plant | purge,recycle | non-condensable-gas,purge-and-make-up,recycle-loop | 5/3/0/0 | 0 | 1 | 1/0/0 | methanol-co2-campos-2022 |
 | plant-feed-effluent-heat-recovery | plant | heat-exchange | heat-recovery-potential,non-condensable-gas,purge-and-make-up,recycle-loop | 6/3/1/0 | 0 | 1 | 0/0/0 | methanol-co2-campos-2022 |
 
 ## Simulation: one line per operation and symptom

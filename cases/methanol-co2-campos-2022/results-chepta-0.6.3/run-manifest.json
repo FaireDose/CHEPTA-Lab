@@ -1207,6 +1207,28 @@
    "stderr_file": "results-chepta-0.6.3/col-mhv1-TB374.1.stderr.txt",
    "request_file_sha256": "f6bd9b0231d97e5c786f14031817ce697e2946f8b1f3b36e4eb97c29dfc10824",
    "output_file_sha256": "3f761e558a29712455f8691c0edb34774f64c93ee92dcd2a31e9c26f34409a73"
+  },
+  {
+   "id": "plant-pr-B4581",
+   "command": "chepta request --time-ms 1200000 --summary --out results-chepta-0.6.3/plant-pr-B4581.output.json results-chepta-0.6.3/plant-pr-B4581.request.json",
+   "started_at": "2026-11-27T14:45:39.446071+00:00",
+   "exit_code": 0,
+   "exit_meaning": "ok",
+   "outcome": "ok",
+   "error_code": null,
+   "error_message": null,
+   "chepta_run_id": "run-mwz3fuun-1",
+   "elapsed_ms": 749594.8903620001,
+   "request_file": "results-chepta-0.6.3/plant-pr-B4581.request.json",
+   "output_file": "results-chepta-0.6.3/plant-pr-B4581.output.json",
+   "summary_file": "results-chepta-0.6.3/plant-pr-B4581.summary.json",
+   "stderr_file": "results-chepta-0.6.3/plant-pr-B4581.stderr.txt",
+   "request_file_sha256": "44f551fe053a42aa0c02491dd8a615b33c183fa317b11968619cf8f463e8908f",
+   "output_file_sha256": "4c1fb18c20174af049d5727d0fd3ac8a6ab98ad4f4010e5125d78f56e7fdd6b8"
   }
- ]
+ ],
+ "interrupted": [
+  "col-mhv1-BF0.48672 (first attempt, 1200 s limit): stopped by Lab before it finished, to shorten the scan; no result; its request file was removed, identical to the kept one (the time limit is the --time-ms flag); rerun with a 300 s limit (MEOH_TIME_MS=300000)"
+ ],
+ "records_note": "Full results renamed from <id>.result.json to <id>.output.json on 2026-11-27 (Lab's convention, scripts/kb.py), bytes unchanged (output_file_sha256). Every <id>.summary.json of the first 52 runs was regenerated on 2026-11-27 (commit 36c855c) with `chepta summary <id>.output.json --input <id>.request.json`: which.engine then reads commit null, local_changes null, and the paths are relative; the runs' own stdout summaries (commit 8b8b64f = Lab's own HEAD, local_changes true) are in git history before 36c855c. The two runs added after the review keep their own summaries."
 }

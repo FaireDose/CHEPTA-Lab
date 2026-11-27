@@ -15,7 +15,7 @@ Files: every run as `<id>.request.json`, `<id>.output.json` (CHEPTA's full resul
 (`chepta summary`), `<id>.stderr.txt`; [run-manifest.json](run-manifest.json) (command, time limit, exit code, CHEPTA run
 id, sha256 of each file). Runner: [../run_chepta_0.6.3.py](../run_chepta_0.6.3.py); CO2 check:
 [../co2_solubility_check.py](../co2_solubility_check.py) and [co2-solubility-check.json](co2-solubility-check.json).
-52 runs, 19 refusals or failures. Kinds: CHEPTA's numbers are **simulated**; the paper's are an Aspen Plus V10
+54 runs (two added after the AI review: col-mhv1-TB374.1, plant-pr-B4581), 19 refusals or failures. Kinds: CHEPTA's numbers are **simulated**; the paper's are an Aspen Plus V10
 **simulation** (PR in the reactors, NRTL2 elsewhere); the ThermoML points are **measured**; interpolations, K values and
 recoveries are **derived** by Lab.
 
@@ -25,11 +25,11 @@ recoveries are **derived** by Lab.
 |---|---|
 | Thermo PR + gE (MHV1) | T-P flashes, compressors, HE2, HE7, the reactor and the column run. **Every unit solved through a P-H flash on these mixtures fails**: MIXER1, MIXER4, VALVE1, HE4, HE5, HE6 alone on the paper's inlets (`NO_CONVERGENCE`, "PR: no physical root at 40-84 K"). Smallest input: H2 + CO2 + water, an adiabatic heater at 33 C, 100 kPa |
 | Closed plant on PR + MHV1 | **does not converge**: from the paper's start it stops at MIXER1 (`NO_CONVERGENCE`, "PR: no physical root at 84.2 K, 100 kPa"); from the 415da41 plant's tears at CP3 (`PHASE_SPLIT`, PR flash at 300 K and 7000 kPa). CHEPTA's known limit, its first 0.6.4 item; not worked around |
-| Closed plant on PR (k_ij) with every other 0.6.3 change | **converges** from the paper's start (29 loop iterations, 315 s, balance passed): vapour + liquid condenser at the paper's 53 C (M6 answered), H2/CO/N2 through the column (no bypass), HE5 at 2 K without `zones`, reactors at U 155, column by its reboiler temperature |
+| Closed plant on PR (k_ij) with every other 0.6.3 change | **converges** from the paper's start (current result plant-pr-B4581: 28 loop iterations, 750 s, balance passed): vapour + liquid condenser at the paper's 53 C (M6 answered), H2/CO/N2 through the column (no bypass), HE5 at 2 K without `zones`, reactors at U 155, column bottoms at the paper's 4581 kmol/h. Methanol 99.717 % (paper 99.667), water 99.9996 % (99.985) |
 | Separator CO2 | PR + MHV1: **2.35 mol %** in stream 24; PR: 3.41 %; measured basis about 2 %; the paper 18.5 % (section below) |
 | HE5 at 2 K without `zones: 10` | solves on the paper's streams (113.9 MW; paper 103.3 MW, Table S14) and on the 0.6.2 plant's streams (93.5 MW; 415da41 refused them as a cross); smallest difference along the exchanger 2.000 K, at the zone boundaries 2.27-2.49 K |
 | Reactor at U 155 | outlet 247.96 C, methanol 7.539 % (PR); 0.6.2 at U 150: 247.97 C, 7.540 %; paper 247.9 C, 7.415 % |
-| Column by "what matters" | the reboiler temperature works (374.0 K chosen); a flow ratio, a methanol recovery and a component ratio at the paper's values run out of time instead of converging or being refused |
+| Column specification | chosen by the purities (SIMULATION_PRACTICES: match purities, not the paper's settings). The paper's bottoms flow 4581 kmol/h meets both product purities best and is the current result. The reboiler temperature (scanned 372.75-374.1 K) converges but falls short on water purity. A flow ratio, a methanol recovery and a component ratio that converged columns already satisfy run out of time (M9) |
 
 ## Adjustment table (docs/SIMULATION_PRACTICES.md)
 
@@ -41,7 +41,8 @@ Settings that differ from the paper in the 0.6.3 runs. The 0.6.2 rows still appl
 | all | property method | PR in the reactors, NRTL2 elsewhere (article p.9) | PR + MHV1 for units and the plant attempt; PR (k_ij) for the closed plant | method | CHEPTA advice 2; no NRTL pairs for the gases. PR + MHV1 cannot close the plant on 0.6.3 (above), so the closed plant is on PR | u-*-mhv1, plant-mhv1*, plant-pr* |
 | REACTOR1, 2 | overall U | 160 inlet, 150 outlet, 155 average used (article pp.13-14) | 155, constant | none (0.6.2 assumed 300) | the paper's own average; CHEPTA takes one U, as Aspen did | u-reactor-U155-*, plant-pr*; U 300 kept as plant-pr-warm-U300 |
 | HE5 | specification | hot outlet 62 C, cold outlet 82.9 C (Table S9) | `dTmin_K: 2`, no `zones` | approach in place of an outlet (unchanged from 0.6.2); `zones: 10` dropped | the paper's outlets cross in CHEPTA's loop (0.6.2 runs); feature 9 holds 2 K along the exchanger | u-he5-*, plant-pr* |
-| COLUMN | second and third specification | reflux ratio 2, condenser 53 C, vapour + liquid distillate (supplement p.10); 30-WATER at 99.6 C, 4581 kmol/h, 99.985 % water (Table S9/S10) | reflux ratio 2 (over the liquid distillate), condenser 53 C, **reboiler 374.0 K (100.85 C)** | +1.25 K on the bottoms temperature | at the paper's 99.6 C the bottoms are 99.0 % water: CHEPTA's bottoms at 99.99 % water sit at 101.0 C (col-mhv1-B4581, col-pr-B4581), i.e. its water boils about 1.4 K above 99.6 C at 100 kPa. Scan below. 374.0 K gives 99.88 % alone, 99.93 % in the plant | col-mhv1-TB*, plant-pr* |
+| COLUMN | second and third specification (current result) | reflux ratio 2, condenser 53 C, vapour + liquid distillate (supplement p.10); 30-WATER 4581 kmol/h, 99.985 % water, 99.6 C (Table S9/S10) | reflux ratio 2 (over the liquid distillate), condenser 53 C, **bottoms 4581 kmol/h** | none on the flow (the paper's value) | judged on the purities of Campos et al. 2022 (99.667 % methanol, 99.985 % water): in the plant 99.717 / 99.9996 %, closer on both ends than the reboiler variant (99.835 / 99.929 %); alone 99.827 / 99.9925 % | col-mhv1-B4581, plant-pr-B4581, plant-pr-warm-B4581 |
+| COLUMN | reboiler temperature (scanned variant, not the current result) | 30-WATER at 99.6 C | 372.75 to 374.1 K scanned; 374.0 K used in plant-pr | +1.25 K at 374.0 K | at the paper's 99.6 C the bottoms are 99.0 % water: CHEPTA's bottoms at 99.99 % water sit at 101.0 C, its water boiling about 1.4 K above 99.6 C at 100 kPa. 374.0 K: 99.884 % alone, 99.929 % in the plant; 374.1 K: 99.952 % alone; 374.5 K refused (range to 374.171 K). 99.985 % lies between 374.1 and 374.171 K, not run | col-mhv1-TB*, plant-pr, plant-pr-warm, plant-pr-warm-U300 |
 | COLUMN | gas traces | in the feed (Table S10, 29) | in the feed | none (0.6.2 bypassed them) | the 0.6.3 column starts with them | col-*, plant-pr* |
 | COLUMN | condenser | 53 C | 53 C | none (415da41 needed the vapour share 0.0084) | 0.6.3 starts the temperature-specified condenser | plant-pr* |
 
@@ -49,11 +50,12 @@ Settings that differ from the paper in the 0.6.3 runs. The 0.6.2 rows still appl
 
 | Run | Third specification | Outcome | 31-MEOH kmol/h, methanol % | 30-WATER kmol/h, water % | Time |
 |---|---|---|---|---|---|
-| col-mhv1-B4581 | bottoms 4581 kmol/h | ok | 4533.0, 99.827 | 4581.0, 99.9925 (101.01 C) | 21 s |
+| **col-mhv1-B4581** | **bottoms 4581 kmol/h (current)** | ok | 4533.0, 99.827 | 4581.0, 99.9925 (101.01 C) | 21 s |
 | col-mhv1-TB372.75 | reboiler 372.75 K (paper's 99.6 C) | ok | 4487.1, 99.831 | 4626.7, 99.009 | 30 s |
 | col-mhv1-TB373.15 | 373.15 K | ok | 4500.4, 99.831 | 4613.4, 99.294 | 33 s |
 | col-mhv1-TB373.5 | 373.5 K | ok | 4511.9, 99.831 | 4602.0, 99.539 | 32 s |
-| **col-mhv1-TB374.0** | **374.0 K** | ok | 4527.8, 99.831 | 4586.2, 99.884 | 69 s |
+| col-mhv1-TB374.0 | 374.0 K | ok | 4527.8, 99.831 | 4586.2, 99.884 | 69 s |
+| col-mhv1-TB374.1 | 374.1 K (after review) | ok | 4531.0, 99.831 | 4583.0, 99.952 | 96 s |
 | col-mhv1-TB374.5 | 374.5 K | `OUT_OF_RANGE`: "stays between 356.672 ... and 374.171" with R 2 | | | |
 | col-mhv1-BF0.485 | flow ratio bottoms/feed 0.485 | `OUT_OF_TIME` at 1200 s | | | |
 | col-mhv1-BF0.48672 | 0.48672 (= 4581/9412, derived) | `OUT_OF_TIME` at 300 s | | | |
@@ -67,37 +69,47 @@ Settings that differ from the paper in the 0.6.3 runs. The 0.6.2 rows still appl
 | col-pr-B4581 | bottoms 4581, PR | ok | 4532.7, 99.835 | 4581.0, 99.9981 | 8 s |
 
 All converged columns: vapour distillate 32 about 298 kmol/h at 38.0 % CO2 (paper 289, 36.9 %). Derived from
-col-mhv1-B4581: the 53 C vapour takes 3.91 % of the feed methanol (paper 3.86 %), so the liquid distillate can hold at
-most about 0.9608 of it; the paper's 0.96115 is just outside CHEPTA's column. The first BF0.48672 attempt (1200 s limit)
+col-mhv1-B4581: the 53 C vapour takes 3.91 % of the feed methanol (paper 3.86 %). The time-outs are not unreachable
+values: converged columns bracket five of the six (methanol recovery 0.95826 to 0.96274, bottoms/feed 0.47336 to
+0.48800, bottoms methanol/water 5.0e-5 to 2.67e-3; table in M9); only the recovery 0.965 lies outside. The first BF0.48672 attempt (1200 s limit)
 was stopped by Lab before it finished and has no result; its request file was removed. It was identical to the kept
 col-mhv1-BF0.48672.request.json: the time limit is a command-line flag (`--time-ms`), not part of the request. It was
 rerun at 300 s (manifest, `interrupted`).
 
 ## The closed plant against the paper
 
-plant-pr (PR, paper's start; CHEPTA run in run-manifest.json). The warm start (plant-pr-warm, 19 iterations) gives the
-same streams. Simulated against simulated.
+Current result: **plant-pr-B4581** (PR, the paper's start, column bottoms 4581 kmol/h; 28 loop iterations, 750 s,
+balance check passed, largest component imbalance 0.0009 kmol/h). The same specification from the 415da41 plant's
+tears (plant-pr-warm-B4581, 16 iterations) gives the same streams. The reboiler variant (plant-pr, 374.0 K; 29
+iterations) is kept for comparison. Simulated against simulated.
 
-| Stream | CHEPTA 0.6.3 (PR) | 0.6.2 plant-a6 | Paper (Table S9/S10) |
-|---|---:|---:|---:|
-| **31-MEOH** | 4540.8 kmol/h, methanol **99.835 %**, CO2 0.165, water 0.000 | 4548.3, 99.728 | 4542, 99.667, CO2 0.316, water 0.016 |
-| **30-WATER** | 4589.6 kmol/h, water **99.929 %**, 100.85 C | 4581.0, 99.999 | 4581, 99.985, 99.6 C |
-| 32 vapour distillate | 38.6 kmol/h, CO2 38.1 % | 38.6 | 289, 36.9 % |
-| 24 FLASH3 liquid | 9523 kmol/h, CO2 3.41 % | 9522, 3.41 | 11,488, 18.545 % |
-| 39-REC CO2 recycle | 394.5 kmol/h | 394.5 | 2786 |
-| 36-REC; 44-PURGE | 52,795; 1077.5 | 52,898; 1080 | 51,504; 1051 |
-| 13 reactor feed; 16 methanol | 72,477 kmol/h; 7.498 % | 72,580; 7.485 % | 73,113; 7.415 % |
-| 2 CO2 compression feed | 5218.5 kmol/h | 5219 | 7610 |
-| condenser; reboiler | 148.0; 64.7 MW | 96.5 + 49.4 (flash); 59.6 | 143.6; 53.7 (Table S14) |
-| HE4; HE5; HE7 | 114.1; 93.7; 28.7 MW | 114.3; 96.6; 25.6 | 105.5; 103.3; 24.2 (Table S14) |
-| HE5 smallest approach | 2.000 K (zones 2.28 K) | 2 K on 10 zones | |
-| CP1, CP2, CP3 | 7.90, 7.87, 7.75 MW | 7.9, 7.9, 7.8 | 10.93, 10.61, 10.81 (from the enthalpies, derived) |
+| Stream | **0.6.3 plant-pr-B4581 (current)** | 0.6.3 plant-pr (reboiler 374.0 K) | 0.6.2 plant-a6 | Paper (Table S9/S10, S14) |
+|---|---:|---:|---:|---:|
+| **31-MEOH** | 4549.4 kmol/h, methanol **99.717 %**, CO2 0.165, water 0.118 | 4540.8, 99.835, 0.165, 0.000 | 4548.3, 99.728 | 4542, 99.667, CO2 0.316, water 0.016 |
+| **30-WATER** | 4581.0 kmol/h, water **99.9996 %**, 101.02 C | 4589.6, 99.929, 100.85 C | 4581.0, 99.999 | 4581, 99.985, 99.6 C |
+| 32 vapour distillate | 38.6 kmol/h, CO2 38.2 % | 38.6, 38.1 % | 38.6 | 289, 36.9 % |
+| 24 FLASH3 liquid | 9523 kmol/h, CO2 3.41 % | 9523, 3.41 % | 9522, 3.41 % | 11,488, 18.545 % |
+| 39-REC CO2 recycle | 394.4 kmol/h | 394.5 | 394.5 | 2786 |
+| 36-REC; 44-PURGE | 52,795; 1077.4 | 52,795; 1077.5 | 52,898; 1080 | 51,504; 1051 |
+| 13 reactor feed: flow; T | 72,476 kmol/h; 66.94 C | 72,477; 66.95 C | 72,580 | 73,113; 81.4 C |
+| 16 reactor outlet methanol | 7.498 % | 7.498 % | 7.485 % | 7.415 % |
+| 2 CO2 compression feed | 5218.4 kmol/h | 5218.5 | 5219 | 7610 |
+| condenser; reboiler | 148.3; 65.0 MW | 148.0; 64.7 | 96.5 + 49.4 (flash); 59.6 | 143.6; 53.7 |
+| HE4; HE5; HE6; HE7 | 114.1; 93.7; 1.20; 28.7 MW | 114.1; 93.7; 1.20; 28.7 | 114.3; 96.6; -; 25.6 | 105.5; 103.3; 5.0; 24.2 |
+| HE5 smallest approach | 2.000 K (zones 2.28 K) | 2.000 K (2.28 K) | 2 K on 10 zones | |
+| CP1, CP2, CP3 | 7.90, 7.87, 7.75 MW | 7.90, 7.87, 7.75 | 7.9, 7.9, 7.8 | 10.93, 10.61, 10.81 (from the enthalpies, derived) |
+| reactors, each | 35.3 MW to the coolant | 35.3 | | 35.0 (55W - 54W, derived) |
 
-Variants: plant-pr-warm-B4581 (bottoms 4581 in place of 374.0 K): 31-MEOH 4549.4 at 99.717 %, water 99.9996 %;
-plant-pr-warm-U300: the same streams within 0.6 kmol/h and 0.013 points, 42 iterations. Reading: the methanol and water
-ends agree with the paper within 0.2 points; the loop still differs where CO2 dissolves at 70 bar, and on the measured
-data that difference is the paper's, not CHEPTA's (next section). HE7 is now 28.7 MW because HE5 takes 2.9 MW less
-(true approach along the exchanger) and HE6 is fixed by its cold outlet.
+Variant plant-pr-warm-U300 (reboiler 374.0 K, U 300 in place of 155; 42 iterations): against plant-pr the products are
+within 0.6 kmol/h (31-MEOH 0.54, 30-WATER 0.51, 39-REC 0.09 kmol/h) and the recycle within 0.2 % (36-REC 103 kmol/h,
+stream 33 105 kmol/h); the largest composition difference is 0.026 points (the reviewer's check).
+
+Reading: the methanol and water ends agree with the paper within 0.05 and 0.015 points; the loop still differs where
+CO2 dissolves at 70 bar, and on the measured data that difference is the paper's, not CHEPTA's (next section). HE6 is
+1.20 MW (paper 5.0): it heats stream 26 to 30 C, and CHEPTA's 26 enters at 25.8 C (paper 18.9 C) because less dissolved
+CO2 flashes in VALVE1. HE7 is 28.7 MW (paper 24.2) because HE5 takes 2.9 MW less than on 0.6.2 (the approach now holds
+along the exchanger) and HE6 takes little. Stream 13 enters HE4 at 66.9 C (paper 81.4 C): the recycle 36-REC leaves HE2
+at 47.5 C (paper 56.7 C); Lab's reading, not checked further: HE2's hot side, the CO2 train (5218 against 7610 kmol/h), carries less heat.
 
 ## CO2 in the separator liquid: measured basis against the paper's simulation
 
@@ -140,7 +152,7 @@ section "chepta 0.6.3".
 |---|---|---|---|---|
 | M7 | P-H flash on PR + MHV1 fails for H2 + CO2 + water | mini-ph-H2-CO2-H2O-mhv1 (adiabatic heater, 33 C, 100 kPa, 39-REC's proportions) | `NO_CONVERGENCE`: "Heater / cooler H1: PR: no physical root at 31.355135405253932 K, 100 kPa." | the same on PR: ok (mini-ph-H2-CO2-H2O-pr); the same with T given on MHV1: ok (mini-tp-...); each pair alone: ok; in the plant it is CHEPTA's known MIXER1 stop, and on the paper's inlets VALVE1, MIXER4, HE4, HE5, HE6 fail the same way |
 | M8 | T-P flash on PR + MHV1 refused as a possible liquid-liquid split | mini-tp-cp3-300K-7000kPa-mhv1 (CP3's composition from plant-mhv1-warm's `error.details`, 300 K, 7000 kPa) | `PHASE_SPLIT`: "PR flash at 300.00 K and 7000.00 kPa: the feed is not stable as one phase (tangent-plane distance -0.6174), but no vapour-liquid split was found; it may split into two liquids ..." | on PR: one liquid (mini-tp-cp3-...-pr); 98.2 % CO2 at 70 bar and 300 K is above CO2's vapour pressure (about 67 bar), so one liquid or a VL split is expected, not a refusal |
-| M9 | a column specification at or beyond its reachable value runs out of time instead of converging or being refused | col-mhv1-BF0.48672, col-mhv1-recMeOH0.96115, col-mhv1-ratioB0.00015 | `OUT_OF_TIME` at 300 s (BF0.485 at 1200 s), no `details.best` | the same column at bottoms 4581 kmol/h (= the ratio 0.48672) converges in 21 s; the reboiler temperature beyond its range is refused with the range (`OUT_OF_RANGE`, col-mhv1-TB374.5); expected the same for a recovery above about 0.9608 |
+| M9 | a reachable flow ratio, recovery or component ratio, bracketed by converged columns, runs out of time | col-mhv1-BF0.48672, col-mhv1-recMeOH0.96115, col-mhv1-ratioB0.00015 | `OUT_OF_TIME` at 300 s (BF0.485 at 1200 s), no `details.best` | the ratio 0.48672 is the bottoms flow 4581 kmol/h, which converges in 21 s; converged columns bracket 0.485, 0.96115, 1.5e-4 and 5e-4 (table in CAPABILITY_REQUESTS.md); an out-of-range reboiler temperature is refused at once with its range (col-mhv1-TB374.5) |
 
 ## Not done, or unknown
 
@@ -149,3 +161,5 @@ section "chepta 0.6.3".
   measured data say only that it is not physical.
 - `compare.py` and COMPARISON.md describe the 0.6.2 and 415da41 runs and were not regenerated.
 - The 0.6.2 and 415da41 runs were not repeated (the maintainer's instruction).
+- The reboiler temperature between 374.1 and 374.171 K, where the paper's 99.985 % water lies: not run (the bottoms
+  flow already meets the purities).
