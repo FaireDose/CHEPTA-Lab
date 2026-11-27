@@ -134,3 +134,78 @@ made by [run_chepta_main_415da41.py](run_chepta_main_415da41.py); `rerun-<id>` i
   solve first at a vapour share from a flash of the top vapour at that temperature, then switch the specification, as
   the form already does when the user switches); and name the low-CO2 case in the message rather than "a large vapour
   share".
+
+## chepta 0.6.3 (2026-11-27)
+
+Runs in [results-chepta-0.6.3/](results-chepta-0.6.3/README.md), Lab's pin `chepta@0.6.3` (npm, integrity
+sha512-sGOG6fD7...; tag v0.6.3 = b6598a5). Only the runs the 0.6.3 advice changes were made. Reporting note, not a
+request about the engine: installed as a dependency, the command line reports the caller's repository commit in
+`which.engine.commit` (Lab's 8b8b64f here), not CHEPTA's.
+
+### The earlier requests on 0.6.3
+
+| Request | On 0.6.3 | Runs |
+|---|---|---|
+| M1 column start with ppm of H2, CO, N2 | **answered**: the column alone and the closed plant run with the traces in the feed | col-*, plant-pr |
+| M2 purity or recovery refused inside the scanned range | **partly**: a recovery of 0.955 and a component ratio of 5e-5 converge; at the paper's values they run out of time (M9) | col-mhv1-recMeOH*, col-mhv1-ratioB* |
+| M3 Newton capped at 12 | not re-run (answered on 415da41) | |
+| M4 2 K approach | **answered**: without `zones`, on the paper's streams and on the 0.6.2 plant's streams (2.000 K along the exchanger) and in the closed plant | u-he5-dTmin2-pr, u-he5-a6streams-dTmin2-pr, plant-pr |
+| M5 vapour + liquid condenser | in use | |
+| M6 condenser by its temperature in the closed plant | **answered**: the closed plant converges with the paper's 53 C from the paper's start (29 iterations) | plant-pr, plant-pr-warm |
+
+### M7 (new). A P-H flash on PR + MHV1 finds no physical root for H2 + CO2 + water
+
+- **Input:** `results-chepta-0.6.3/mini-ph-H2-CO2-H2O-mhv1.request.json`: components hydrogen, carbon dioxide, water;
+  `thermo: { model: "PR", mixing: "MHV1" }`; feed 1.55 / 76.245 / 2.139 kmol/h (the mole % of stream 39-REC, supplement
+  Table S10, p.15), 306.15 K, 100 kPa; a heater with `duty_kW: 0` (adiabatic, a P-H flash).
+- **Outcome:** `not_converged`, `NO_CONVERGENCE`: "Heater / cooler H1: PR: no physical root at 31.355135405253932 K,
+  100 kPa."
+- **Evidence:** the same input on PR (k_ij) returns 306.15 K (mini-ph-H2-CO2-H2O-pr, ok); on PR + MHV1 with `T_K: 306.15`
+  in place of the duty it is ok (mini-tp-H2-CO2-H2O-mhv1); H2 + water, CO2 + water, H2 + CO2 alone on PR + MHV1 are ok
+  (mini-ph-*-mhv1). The inlet's own state is found (the feed solves), so the temperature search of the P-H flash goes
+  to 31 K for an enthalpy that 306.15 K has. On the paper's inlets the same message stops MIXER1 (84.2 K), MIXER4,
+  VALVE1 (67 K), HE4, HE5, HE6 (40.0 K at 6925 kPa); in the plant and the two sections it is the first stop
+  (plant-mhv1, sec-compression-mhv1, sec-loop-mhv1).
+- **Expected:** the P-H flash returns 306.15 K for its own inlet enthalpy (zero duty), as on PR; a temperature search
+  bounded to where the method has physical roots.
+
+### M8 (new). A T-P flash on PR + MHV1 is refused as a possible liquid-liquid split
+
+- **Input:** `results-chepta-0.6.3/mini-tp-cp3-300K-7000kPa-mhv1.request.json`: the six components, PR + MHV1, the
+  composition CHEPTA reported for CP3 in run plant-mhv1-warm (`error.details.z`: CO2 0.98195, H2 0.00162, CO 0.00009,
+  methanol 0.01166, water 0.00439, N2 0.00029), 100 kmol/h, a flash at 300 K and 7000 kPa.
+- **Outcome:** `unsupported`, `PHASE_SPLIT`: "Flash drum FL: PR flash at 300.00 K and 7000.00 kPa: the feed is not
+  stable as one phase (tangent-plane distance -0.6174), but no vapour-liquid split was found; it may split into two
+  liquids, which is not supported yet with an equation of state."
+- **Evidence:** on PR (k_ij) the same flash gives one liquid, 100 kmol/h (mini-tp-cp3-300K-7000kPa-pr). Nearly pure CO2
+  at 300 K and 70 bar is just above its vapour pressure (about 67 bar), a liquid; a tangent-plane distance of -0.62 on
+  one liquid of 98 % CO2 points to the MHV1 mixture term rather than to a second liquid. CP3's inlet is 45 C, 1698 kPa;
+  why CP3 flashes at 300 K and 7000 kPa (a start of its outlet search?) is not visible in the result.
+- **Expected:** one liquid (or a VL split if it exists) as on PR, or the refusal with the phase found.
+
+### M9 (new). A reachable flow ratio, recovery or component ratio runs out of time
+
+- **Input:** `results-chepta-0.6.3/col-mhv1-BF0.48672.request.json` (the column alone on the paper's feed 29, PR + MHV1,
+  vapour + liquid condenser at 53 C, R 2, `{ kind: "flow_ratio", numerator: "bottoms", denominator: "feed", value:
+  0.48672 }`); also col-mhv1-recMeOH0.96115 (`recovery` of methanol in the liquid distillate) and col-mhv1-ratioB0.00015
+  (`component_ratio` methanol/water in the bottoms).
+- **Outcome:** `out_of_time`, `OUT_OF_TIME`: "The calculation did not finish within limits.time_ms = 300000 ms, and
+  was stopped. Give it more time (limits.time_ms), or make the problem smaller." No `details.best`. col-mhv1-BF0.485
+  ran out at 1,200,000 ms; also col-mhv1-recMeOH0.965 and col-mhv1-ratioB0.0005 at 300,000 ms.
+- **Evidence that these columns exist:** the same column with other specifications converged, and the converged
+  columns bracket five of the six time-outs (derived from each output's stream flows; the reviewer's table, checked by
+  the builder):
+
+  | Converged run | bottoms/feed | methanol recovery to 31-MEOH | bottoms methanol/water |
+  |---|---:|---:|---:|
+  | col-mhv1-ratioB5e-05 | 0.47336 | 0.96274 | 5.00e-5 |
+  | col-mhv1-B4581 (21 s) | 0.48672 | 0.96079 | 7.53e-5 |
+  | col-mhv1-TB374.0 | 0.48727 | 0.95972 | 1.16e-3 |
+  | col-mhv1-BF0.488 (37 s) | 0.48800 | 0.95826 | 2.67e-3 |
+
+  The flow ratio 0.48672 is the bottoms flow 4581 kmol/h of col-mhv1-B4581 itself; 0.485 lies between 0.47336 and
+  0.48672; the recovery 0.96115 between 0.96274 and 0.96079; the ratios 1.5e-4 and 5e-4 between 7.53e-5 and 1.16e-3.
+  Only the recovery 0.965 lies above every converged point (not shown reachable).
+- **Expected:** a specification that a converged column of the same feed already satisfies converges (for a flow ratio,
+  as the equivalent flow does), or the time-out reports the best point (feature 2, `error.details.best`); an
+  unreachable value is refused with its range, as the stage temperature is (col-mhv1-TB374.5, `OUT_OF_RANGE`).

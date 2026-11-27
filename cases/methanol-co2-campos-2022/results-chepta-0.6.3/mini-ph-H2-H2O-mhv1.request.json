@@ -1,0 +1,52 @@
+{
+  "capability": "solve_flowsheet",
+  "input": {
+    "flowsheet": {
+      "components": [
+        "hydrogen",
+        "water"
+      ],
+      "thermo": {
+        "model": "PR",
+        "mixing": "MHV1"
+      },
+      "blocks": [
+        {
+          "id": "F1",
+          "type": "feed",
+          "spec": {
+            "flow_kmol_h": {
+              "hydrogen": 1.55,
+              "water": 2.139
+            },
+            "T_K": 306.15,
+            "P_kPa": 100
+          }
+        },
+        {
+          "id": "H1",
+          "type": "heater",
+          "spec": {
+            "duty_kW": 0
+          }
+        },
+        {
+          "id": "P1",
+          "type": "product"
+        }
+      ],
+      "streams": [
+        {
+          "id": "S1",
+          "from": "F1.out",
+          "to": "H1.in"
+        },
+        {
+          "id": "S2",
+          "from": "H1.out",
+          "to": "P1.in"
+        }
+      ]
+    }
+  }
+}

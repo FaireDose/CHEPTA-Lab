@@ -23,5 +23,5 @@ Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; 
 |---|---|---|
 | [ethyl-acetate-piotrowski-2021](plants/ethyl-acetate-piotrowski-2021.md) | 16 | 64 |
 | [ethylene-glycol-shehata-2024](plants/ethylene-glycol-shehata-2024.md) | - | 13 |
-| [methanol-co2-campos-2022](plants/methanol-co2-campos-2022.md) | 11 | 35 |
+| [methanol-co2-campos-2022](plants/methanol-co2-campos-2022.md) | 14 | 49 |
 | [pilot](plants/pilot.md) | - | 3 |

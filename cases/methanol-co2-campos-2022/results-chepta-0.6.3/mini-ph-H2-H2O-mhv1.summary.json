@@ -1,0 +1,110 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": null,
+      "local_changes": null
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "2f6fd729466ad220",
+    "databank_hash": "40ba3e1625833411",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null,
+      "mixing": "MHV1",
+      "name": "PR + gE (MHV1)"
+    },
+    "components": [
+      "hydrogen",
+      "water"
+    ],
+    "run_id": "run-mwz1mov6-1",
+    "input_file": "mini-ph-H2-H2O-mhv1.request.json",
+    "full_result_file": "mini-ph-H2-H2O-mhv1.output.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 43.21278799999999,
+  "limits": {
+    "time_ms": 300000
+  },
+  "timing": {
+    "total_s": 0.032,
+    "blocks_calculated": 3,
+    "block_calls": 3,
+    "slowest_blocks": [
+      {
+        "block": "H1",
+        "s": 0.014,
+        "calls": 1
+      },
+      {
+        "block": "F1",
+        "s": 0.012,
+        "calls": 1
+      },
+      {
+        "block": "P1",
+        "s": 0,
+        "calls": 1
+      }
+    ],
+    "loops": [],
+    "columnRestart": "previous"
+  },
+  "loops": [],
+  "balance": {
+    "material_kmol_h": 0,
+    "energy_kW": 0,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 0.0003689,
+    "warnings": null
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": "mhv1-fitted",
+        "tier": "fitted"
+      }
+    ],
+    "missing_pairs": [],
+    "notes": [],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [],
+    "streams": {
+      "count": 2,
+      "distinct": 1,
+      "messages": [
+        {
+          "warning": "PR + gE (MHV1) is the method here: Hydrogen is a light gas, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "S1",
+            "S2"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "0 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "2 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "1 entries",
+    "$.value.blocks": "3 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "3 entries",
+    "$.value.loops": "0 entries",
+    "$.value.balance": "4 entries",
+    "$.checks.blocks": "3 blocks (each block's own material and energy balance)",
+    "$.reproduction.parameter_sets": "1 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}
