@@ -441,7 +441,9 @@ class KnowledgeBaseTests(unittest.TestCase):
         md, _ = kb.build_index(self.corpus, self.origins)
         self.assertIn("| distillation | purity-short | 0/0/1/0 | 0 | 1 | 1/1/0 |", md)
         code, out = self.run_kb("show", self.SIM)
-        self.assertEqual(json.loads(out)["used_in"], [])  # the committed records have no uses yet
+        # the committed records: only the ethylene glycol case's planning row uses this rule (2026-11-27)
+        self.assertEqual([(u["case"], u["helped"]) for u in json.loads(out)["used_in"]],
+                         [("ethylene-glycol-shehata-2024", "yes")])
 
     def test_informed_by_unknown_row_refused(self):
         self.use()["informed_by"][0]["row"] = "no-such-row"

@@ -1,0 +1,258 @@
+{
+ "id": "ethylene-glycol-shehata-2024",
+ "status": "dataset_table_draft",
+ "training_eligible": false,
+ "source_ids": [
+  "shehata-2024"
+ ],
+ "related_source_ids": [
+  "shehata-2024-meg-routes"
+ ],
+ "variant": "Direct hydration of ethylene oxide (Fig. 5, Table 3); the paper's ethylene carbonate route (Fig. 6, Table 4) and ethylene oxidation section (Table 2) are outside this case",
+ "classification_of_paper_numbers": "published_simulation (Aspen HYSYS 11, glycol package)",
+ "split_group": "ethylene-glycol",
+ "split_note": "Keep this case, the knowledge-base rows of shehata-2024-meg-routes (same paper) and any later ethylene glycol plant in one group.",
+ "why_no_study_record_yet": "A study record (proposal 0002, dataset/schemas/study-record.schema.json) needs at least one run and one engine; this task makes no CHEPTA run (docs/HANDOVER.md queue item 5: the dataset table goes to the maintainer first). This file holds the pre-run part: boundary, components, method, fixed inputs, comparison criteria declared before runs, missing inputs and the run plan. The first run task turns it into study-record.json.",
+ "boundary": {
+  "included": [
+   "MIX-102",
+   "MIX-100",
+   "E-105",
+   "E-100",
+   "Hydration Reactor",
+   "VLV-100",
+   "EVA_1",
+   "E-102",
+   "VLV-101",
+   "EVA_2",
+   "E-104",
+   "VLV-102",
+   "EVA_3",
+   "E-103",
+   "Dehydration Tower",
+   "Purification Tower",
+   "P-101",
+   "MIX-101",
+   "E-101",
+   "P-100",
+   "RCY-1 (as a tear)"
+  ],
+  "omitted": [
+   "ADJ-1, ADJ-2, ADJ-3 (targets not printed)",
+   "ethylene oxidation section (Table 2)",
+   "utilities (steam, chilled water) beyond the duties"
+  ],
+  "feeds": [
+   "WATER MKUP",
+   "Ethylene Oxid"
+  ],
+  "products": [
+   "MEG To Storage",
+   "DEG+TEG"
+  ],
+  "basis": "molar flows in kmol/h; mass in t/yr converted at 8760 h/yr (derived: every stream of Table 3 gives 8755-8768 h/yr, STREAM_AUDIT.md); duties in kW, sign convention of Table 8 not stated"
+ },
+ "components": [
+  {
+   "paper": "H2O",
+   "chepta": "water",
+   "status": "CHEPTA component (data/vocabulary.json)"
+  },
+  {
+   "paper": "EO",
+   "chepta": "ethylene-oxide",
+   "status": "CHEPTA component (checked with component_info for data/vocabulary.json, PR #27)"
+  },
+  {
+   "paper": "MEG",
+   "chepta": "ethylene-glycol",
+   "status": "CHEPTA component (same check)"
+  },
+  {
+   "paper": "DEG",
+   "chepta": "diethylene-glycol",
+   "status": "CHEPTA component (same check)"
+  },
+  {
+   "paper": "TEG",
+   "chepta": null,
+   "status": "not a CHEPTA 0.6.2 component (PR #27 report)",
+   "user_data_needed": [
+    "molar mass (from the formula C6H14O4)",
+    "critical temperature, pressure and acentric factor",
+    "normal boiling point and a vapour-pressure correlation valid at 13-20 kPa and up to about 200 C",
+    "ideal-gas heat capacity",
+    "liquid density",
+    "enthalpy of vaporization (or the vapour-pressure correlation it follows from)",
+    "enthalpy of formation (the reactor's energy balance needs it for Eq. 7)",
+    "NRTL pairs with water, MEG and DEG, or Modified UNIFAC 2.0 groups so CHEPTA can estimate them"
+   ],
+   "open_sources_to_check": [
+    "NIST Chemistry WebBook, triethylene glycol (CAS 112-27-6): phase-change and thermochemistry data; terms of use to check",
+    "ChemSep v8.3 pure-component databank (CHEPTA 0.6.2 already takes other components from it and records its licence as Artistic License 2.0); whether it holds TEG and its pairs is to check",
+    "Open-access vapour-liquid equilibrium measurements of water + TEG and MEG + TEG (to be searched; none read in this task)"
+   ],
+   "no_values_entered": "No property value of TEG is given in this case; none was read from a source in this task.",
+   "fallback": "Lump TEG into DEG, declared as an assumption in every comparison and never called a reproduction of the heavy product."
+  },
+  {
+   "paper": "Oxygen, Ethylene, CO2",
+   "chepta": null,
+   "status": "printed as 0.0 in every stream of Table 3; left out of the component list"
+  }
+ ],
+ "property_method": {
+  "plan": "NRTL (activity model, ideal-gas vapour) in every block; Wilson as a variant",
+  "paper": "HYSYS 'glycol package' (Table 1, p.3); its model and parameters are not printed",
+  "reason": "Water, ethylene oxide (EO), MEG and DEG are polar, associating liquids with no light gas, which CHEPTA's method guide (v0.6.2) puts in an activity model (NRTL or UNIQUAC). The plant spans 10-3534 kPa: the feed train, reactor and pumps (3450-3534 kPa) hold liquid only, but EVA_1 makes vapour at 1600 kPa and 202.8 C with an ideal-gas vapour, and EVA_1, the reactor (199 C) and streams 3 and 15 (200 and 199.2 C) are above EO's critical temperature (468.92 K = 195.77 C in chepta 0.6.2 components.json), where the method guide (rule 1) says an activity model needs every liquid component below its critical temperature. Pairs in chepta 0.6.2 binaries.json: water + MEG NRTL fitted (Kamihama 2012, 101.3 kPa); DEG + MEG NRTL fitted (Yang 2014, 40 kPa bubble temperatures); DEG + water NRTL from the ChemSep databank; EO + water only Wilson (ChemSep databank); EO + MEG and EO + DEG none. Under NRTL every EO pair is therefore estimated from Modified UNIFAC 2.0 (with CHEPTA's warning); under Wilson, EO + water comes from the databank and the EO + glycol pairs are still estimated. NRTL is kept as the main method because it carries the fitted glycol pairs; Wilson is run as a variant (one liquid; no liquid split is expected, Lab's expectation). CPA, used for glycol + water by Othman 2024, is not in CHEPTA 0.6.2 (roadmap M3). What CHEPTA does with EO above its critical temperature is the first step of the run plan.",
+  "to_check_before_the_first_run": [
+   "what CHEPTA does with EO above its critical temperature (468.92 K) in the reactor, streams 3 and 15 and EVA_1, under NRTL and Wilson (run plan step 0)",
+   "each pair's tier in the results: the EO pairs estimated from Modified UNIFAC 2.0",
+   "data looked at only where a pair is estimated (EO pairs; TEG if added) or used outside its fitted range: water + MEG is fitted at 101.3 kPa and used at 15-20 kPa, its temperature range to confirm. Fitted pairs are reused, not revalidated (AGENTS.md)"
+  ],
+  "kb_rows": [
+   "ethylene-glycol-shehata-2024.plan-property-method-nrtl"
+  ],
+  "pairs_chepta_0.6.2": {
+   "water + MEG": "NRTL, UNIQUAC, Wilson fitted to 19 T-x-y points at 101.3 kPa (Kamihama et al. 2012)",
+   "DEG + MEG": "NRTL, UNIQUAC, Wilson fitted to 11 bubble temperatures at 40.0 kPa (Yang et al. 2014)",
+   "DEG + water": "NRTL, UNIQUAC, Wilson from the ChemSep databank",
+   "EO + water": "Wilson only, ChemSep databank",
+   "EO + MEG": "none",
+   "EO + DEG": "none",
+   "source": "chepta 0.6.2 npm package (integrity as in package-lock.json), src/data/binaries.json and components.json, read 2026-11-27 without running CHEPTA"
+  }
+ },
+ "fixed_inputs": [
+  {
+   "what": "fresh EO",
+   "value": "Ethylene Oxid: 1160 kmol/h, pure EO, P = 3534 kPa with liquid fraction 1 (bubble point); T = 149.6 C kept as a comparison only",
+   "locator": "Table 3 and Fig. 5, p.10",
+   "reason": "On Fig. 5 the pressure carries HYSYS's asterisk (specified) and the temperature does not (computed), so HYSYS most likely fixed P and a vapour fraction (Lab's reading). chepta 0.6.2's EO vapour pressure gives 3537.8 kPa at 149.6 C (derived from components.json), within 0.11 % of 3534 kPa: the feed is saturated, and T and P together would not fix its phase."
+  },
+  {
+   "what": "reactor",
+   "value": "199 C, 3480 kPa, extents of Eqs. 5-7 from Table 3 (1131.39, 19.8, 8.8 kmol/h; derived)",
+   "locator": "p.8; STREAM_AUDIT.md"
+  },
+  {
+   "what": "pressures",
+   "value": "evaporators 1600, 804.5, 400 kPa; dehydration column 15/20 kPa; purification column 12.5/13 kPa; pumps 3500 and 1900 kPa",
+   "locator": "Fig. 5, Table 1"
+  },
+  {
+   "what": "stages",
+   "value": "dehydration 15 sieve trays, purification 26",
+   "locator": "Table 1, p.3"
+  }
+ ],
+ "adjustable_settings": [
+  "evaporator duties Q1-Q3 (start 8879.99, 3839.25, 5037.75 kW; Table 8) scanned to match the liquid flows of streams 5, 6, 1",
+  "dehydration column: feed stage, reflux or distillate flow (not printed), bottoms water limit",
+  "purification column: feed stage, reflux, distillate (MEG) flow or purity; side draw only in a variant",
+  "E-105 hot outlet temperature (start 34.65 C), E-101 outlet temperature (start 0.7706 C)",
+  "make-up water (paper fixes 1130 kmol/h) or a recycle flow fixed instead"
+ ],
+ "missing_inputs": [
+  "flow and composition of the 16 streams of Fig. 5 not in Table 3 (vapours of the evaporators and the column distillate are derived by difference in STREAM_AUDIT.md)",
+  "phase or vapour fraction of every stream; stream enthalpies",
+  "kinetics (none in the paper)",
+  "feed stages, reflux ratios, distillate rates, tray efficiencies of both columns",
+  "the variables and targets of ADJ-1..3",
+  "the sign convention of the individual Table 8 entries (their signed sum is the text's 323 MW, p.14, so the paper counts Q-100 as heat removed)",
+  "TEG property data (see components)"
+ ],
+ "constraint_declaration": {
+  "timing": "before_runs",
+  "declared_on": "2026-11-27",
+  "basis": "Lab's proposed comparison criteria, for the maintainer to approve with the dataset table; tolerances chosen from the printed digits and the use of the result, not from measurement uncertainty (the reference is another simulator)."
+ },
+ "comparisons_declared": [
+  {
+   "item": "MEG product purity (stream MEG)",
+   "paper": 0.9977,
+   "unit": "mole fraction MEG",
+   "tolerance": "absolute 0.0010",
+   "origin": "Table 3"
+  },
+  {
+   "item": "MEG product flow",
+   "paper": 1113,
+   "unit": "kmol/h",
+   "tolerance": "1 %",
+   "origin": "Table 3"
+  },
+  {
+   "item": "DEG+TEG flow and composition",
+   "paper": "20.43 kmol/h; MEG 0.0231, DEG 0.5373, TEG 0.4396",
+   "unit": "kmol/h; mole fraction",
+   "tolerance": "flow 5 %, fractions absolute 0.02; not evaluated if TEG is lumped",
+   "origin": "Table 3"
+  },
+  {
+   "item": "liquid flows after each evaporator (5, 6, 1)",
+   "paper": "10190, 8987, 7935",
+   "unit": "kmol/h",
+   "tolerance": "1 %",
+   "origin": "Table 3"
+  },
+  {
+   "item": "MEG Column FEED water",
+   "paper": 0.0,
+   "unit": "mole fraction",
+   "tolerance": "at most 0.003 (the paper's own products carry 0.0023)",
+   "origin": "Table 3"
+  },
+  {
+   "item": "water recycle (11) and make-up",
+   "paper": "9870; 1130",
+   "unit": "kmol/h",
+   "tolerance": "1 %",
+   "origin": "Table 3"
+  },
+  {
+   "item": "column-bottom temperatures against 170 C",
+   "paper": "149 C (dehydration), 190 C (purification)",
+   "unit": "C",
+   "tolerance": "reported, not judged",
+   "origin": "Fig. 5; p.8"
+  },
+  {
+   "item": "duties (Table 8)",
+   "paper": "15 energy streams",
+   "unit": "kW",
+   "tolerance": "reported with the difference; not a pass criterion",
+   "origin": "Table 8"
+  },
+  {
+   "item": "feed heater duty",
+   "paper": "44462.57 kW (Table 8) or 4.446 MW (p.8)",
+   "unit": "kW",
+   "tolerance": "which of the two the unit run supports",
+   "origin": "Table 8; p.8"
+  }
+ ],
+ "imposed_not_compared": [
+  "reactor outlet (stream 4): imposed through the extents, so not an independent test",
+  "pressures and stage counts"
+ ],
+ "run_plan": [
+  "0. Before any unit is compared: read the engine pin and see what CHEPTA does with EO above its critical temperature (468.92 K) in the reactor (199 C, 3480 kPa), streams 3 and 15 and EVA_1 (202.8 C, 1600 kPa), under NRTL and under Wilson; list each pair's tier (EO pairs estimated). A refusal is recorded and, only if no setting near the paper's works, becomes a capability request.",
+  "1. Units alone on the paper's inlets (Table 3 streams, Fig. 5 T and P), checking the phase of every specified stream: the fresh EO at 3534 kPa and liquid fraction 1 (not by T and P); reactor (conversion, three reactions); feed heater E-100 on stream 22 -> 3 (duty check); EVA_1-3 as valve + flash (scan duty); dehydration column; purification column (MEG distillate; side-draw variant only if decided); E-105; E-101; pumps. Keep every result and refusal.",
+  "2. Test the paper's statements in CHEPTA: bottoms temperatures at 13 and 20 kPa against 170 C.",
+  "3. Sections: reactor + evaporators (once through); evaporators + dehydration column; purification column on the computed feed.",
+  "4. Whole plant: MIX-101's outlet pressure set explicitly (15 kPa as printed) and the phase of WATER REC checked (probably partly vapour: Raoult bubble pressure 17.4 kPa at 48.17 C, derived; E-101 then condenses EO-bearing vapour at 10 kPa); tears at 11 and 22; fresh EO fixed; one flow inside the water loop fixed and the make-up left free (or the make-up fixed at 1130 kmol/h as a variant); Broyden first; per-component tear check; tighten from the saved answer.",
+  "5. Compare against comparisons_declared; write every adjustment in the adjustment table (README); capability request only when no setting near the paper's works."
+ ],
+ "adjustment_table": [],
+ "kb_decision_rows": "dataset/records/ethylene-glycol-shehata-2024.json (4 paper rows, 9 plan rows)",
+ "register_rows": [
+  "rxn-ethylene-oxide-hydration-heavy-glycols",
+  "sep-water-from-dilute-glycol",
+  "sep-glycol-homologues-heat-sensitive",
+  "plant-large-water-recycle"
+ ],
+ "human_review": "pending",
+ "rights_review": "pending",
+ "written": "2026-11-27 by a CHEPTA-Lab worker session (Claude); revised the same day after the AI review dataset/reviews/eg-dataset-table-review.md; not reviewed by a person"
+}
