@@ -154,11 +154,26 @@ def mini_runs():
     R["mini-ph-H2-H2O-mhv1"] = heater({"hydrogen": s["H2"], "water": s["H2O"]}, {"duty_kW": 0}, MHV1)
     R["mini-ph-CO2-H2O-mhv1"] = heater({"carbon-dioxide": s["CO2"], "water": s["H2O"]}, {"duty_kW": 0}, MHV1)
     R["mini-ph-H2-CO2-mhv1"] = heater({"hydrogen": s["H2"], "carbon-dioxide": s["CO2"]}, {"duty_kW": 0}, MHV1)
+    # The CP3 refusal of run plant-mhv1-warm: its error.details give the composition, 300 K and 7000 kPa. A T-P flash of
+    # that composition (100 kmol/h), on PR + MHV1 and on PR.
+    z = dict(zip(M.COMPONENTS, [0.9819458298265241, 0.0016241502835352437, 8.945224963864467e-05, 0.011663991081144956,
+                                0.004390135968595245, 0.0002864405905617678]))
+    for tag, th in (("mhv1", MHV1), ("pr", M.THERMO_PR)):
+        d = {"components": M.COMPONENTS, "thermo": copy.deepcopy(th),
+             "blocks": [{"id": "F1", "type": "feed", "spec": {"flow_kmol_h": {k: round(100 * v, 8) for k, v in z.items()}, "T_K": 318.15, "P_kPa": 1698}},
+                        {"id": "FL", "type": "flash", "spec": {"T_K": 300, "P_kPa": 7000}}, M.prod("P1"), M.prod("P2")],
+             "streams": [M.st("S1", "F1.out", "FL.in"), M.st("S2", "FL.vapour", "P1.in"), M.st("S3", "FL.liquid", "P2.in")]}
+        R[f"mini-tp-cp3-300K-7000kPa-{tag}"] = M.req(d)
     return R
 
 
+# The column's second and third specifications in the plant, chosen from the column scan (results-chepta-0.6.3/README.md,
+# adjustment table): reflux ratio 2 (paper) and the reboiler at 374.0 K (paper 99.6 C = 372.75 K; +1.25 K)
+COL2_PLANT = {"reflux_ratio": 2, "reboiler_T_K": 374.0}
+
+
 def plant_runs(second):
-    """Second column specification chosen from the column scan (CHEPTA_COL2 env, JSON) — see the case's ADJUSTMENTS."""
+    """The closed plant and two sections with the column specified by `second`."""
     R = {}
     R["plant-mhv1"] = plant(MHV1, second)
     R["plant-mhv1-warm"] = plant(MHV1, second, warm=True)
@@ -237,8 +252,7 @@ def main():
         sys.exit(f"expected chepta {VERSION} in node_modules, got {v!r}; run npm ci")
     only = os.environ.get("MEOH_ONLY")
     R = runs()
-    if os.environ.get("CHEPTA_COL2"):
-        R.update(plant_runs(json.loads(os.environ["CHEPTA_COL2"])))
+    R.update(plant_runs(COL2_PLANT))
     done = []
     for rid, rq in R.items():
         if only and rid not in only.split(","):
