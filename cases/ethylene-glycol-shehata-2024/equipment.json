@@ -131,7 +131,7 @@
     }
    ],
    "locator": "Fig. 5 (p.10)",
-   "note": "Text and Table 8 differ by a factor of 10 (see STREAM_AUDIT.md)."
+   "note": "Text and Table 8 differ by a factor of 10 (see STREAM_AUDIT.md). p.8 names E-105 and E-100 together before 'with a duty of 4.446 MW'."
   },
   {
    "id": "Hydration Reactor",
@@ -232,7 +232,7 @@
      "value": 10,
      "unit": "mol/mol",
      "as_printed": "the cycle water to the EO molar ratio is kept as 10:1",
-     "locator": "p.8; also 'feed with 10:1 mol ratio of water: EO', p.5",
+     "locator": "p.8; also 'feed with 10:1 mol ratio of water: EO', p.6",
      "class": "published"
     },
     {
@@ -240,15 +240,23 @@
      "value": 270,
      "unit": "C",
      "as_printed": "heated from 20 °C to 270 °C",
-     "locator": "p.5, 'Direct hydration of ethylene oxide' (Fig. 3a description)",
+     "locator": "p.6, 'Direct hydration of ethylene oxide' (Fig. 3a description)",
      "class": "published"
     },
     {
      "name": "reactions",
-     "value": "EO + H2O -> MEG (Eq. 5); EO + MEG -> DEG (Eq. 6); EO + DEG -> TEG (Eq. 7, printed with C4H10O4 for DEG)",
+     "value": "EO + H2O -> MEG (Eq. 5); EO + MEG -> DEG (Eq. 6); EO + DEG -> TEG (Eq. 7, printed as C2H4O + C4H10O4 -> C6H14O5: both the DEG and the TEG formulas misprinted)",
      "unit": null,
      "as_printed": "Eqs. 5-7",
-     "locator": "p.5",
+     "locator": "p.6",
+     "class": "published"
+    },
+    {
+     "name": "MEG yield in the text",
+     "value": 96,
+     "unit": "wt %",
+     "as_printed": "hydrated to achieve a 96 wt% yield of MEG",
+     "locator": "p.13",
      "class": "published"
     }
    ],
@@ -546,7 +554,7 @@
     }
    ],
    "locator": "Fig. 5 (p.10)",
-   "note": "Fig. 5 draws only two products: MEG leaves at the condenser pressure (12.5 kPa) from the top section, DEG+TEG at the bottom (Lab's reading of the drawing). Feed tray, reflux and draw stage not printed."
+   "note": "Fig. 5 draws only two products: MEG leaves at the condenser pressure (12.5 kPa) from the top section, DEG+TEG at the bottom (Lab's reading of the drawing). Feed tray, reflux and draw stage not printed. A small unlabelled stub sits on top of the condenser on Fig. 5, probably a zero-flow vapour outlet (Lab's reading); it does not change the distillate reading."
   },
   {
    "id": "P-101",
@@ -578,7 +586,8 @@
    ],
    "energy_streams": [],
    "settings": [],
-   "locator": "Fig. 5 (p.10)"
+   "locator": "Fig. 5 (p.10)",
+   "note": "Inlets at 1495, 895, 395 and 15 kPa; outlet printed at 15 kPa (HYSYS's mixer default of the lowest inlet pressure, Lab's reading). WATER REC is probably partly vapour (STREAM_AUDIT.md)."
   },
   {
    "id": "E-101",
@@ -627,7 +636,7 @@
  "energy_streams": {
   "locator": "Table 8 (p.14), 'EO-MEG process'",
   "unit": "kW (header 'Heat flow, kW')",
-  "sign_convention": "not stated; Q-100 is printed negative",
+  "sign_convention": "not stated for the entries; their signed sum (322,961.68 kW) is the text's 323 MW (p.14), so the paper counts Q-100 (printed negative) as heat removed",
   "block_assignment": "Lab's reading of where each energy stream attaches on Fig. 5",
   "streams": [
    {
@@ -737,7 +746,8 @@
    "unit": "MW",
    "as_printed": "This section consumes 219.258 MW for heating purposes",
    "locator": "p.14",
-   "class": "published"
+   "class": "published",
+   "note": "Reproduced only by Q1 + Q2 + Q3 + DEH CON Q + DEH REQ Q, which includes the condenser (a cooling duty); without it 111.87 MW (derived)"
   },
   {
    "name": "glycol separation duties (reboiler, condenser)",

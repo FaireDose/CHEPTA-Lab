@@ -44,7 +44,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | extraction | purity-short | 0/2/1/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,grisales-2017-abe-extraction |
 | extraction | wrong-phase | 0/0/1/0 | 0 | 1 | 0/0/0 | fu-2021-isobutanol-recovery |
 | extractive-distillation | purity-short | 0/0/1/0 | 0 | 1 | 0/0/0 | li-2017-ed-thermo-parameters |
-| extractive-distillation | wrong-phase | 0/0/1/0 | 0 | 1 | 1/0/0 | li-2017-ed-thermo-parameters |
+| extractive-distillation | wrong-phase | 0/0/1/0 | 0 | 1 | 0/0/1 | li-2017-ed-thermo-parameters |
 | flash | feed-refused | 0/1/0/0 | 0 | 1 | 0/0/0 | methanol-co2-campos-2022 |
 | flash | no-convergence | 0/0/1/0 | 0 | 1 | 1/0/0 | andreasen-2022-dwsim-evaluation |
 | heat-exchange | feed-refused | 2/2/0/0 | 0 | 2 | 0/0/0 | ethyl-acetate-piotrowski-2021,methanol-co2-campos-2022 |
@@ -53,7 +53,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | reactive-distillation | no-convergence | 0/0/2/0 | 0 | 1 | 0/0/0 | steffen-2024-rd-modelling-review |
 | reactive-distillation | purity-short | 0/0/2/0 | 0 | 2 | 0/0/0 | othman-2024-meg-reactive-distillation,steffen-2024-rd-modelling-review |
 | reactive-distillation | slow | 0/0/1/0 | 0 | 1 | 0/0/0 | steffen-2024-rd-modelling-review |
-| reactive-distillation | wrong-phase | 0/0/2/0 | 0 | 2 | 0/1/0 | al-rabiah-2022,othman-2024-meg-reactive-distillation |
+| reactive-distillation | wrong-phase | 0/0/2/0 | 0 | 2 | 0/0/1 | al-rabiah-2022,othman-2024-meg-reactive-distillation |
 | recycle | no-convergence | 0/3/2/0 | 0 | 3 | 1/0/0 | ethyl-acetate-piotrowski-2021,larsson-skogestad-2000-plantwide,palomar-2024-il-process-simulation |
 | recycle | purity-short | 0/1/0/0 | 0 | 1 | 0/0/0 | ethyl-acetate-piotrowski-2021 |
 | recycle | recycle-drift | 1/1/1/0 | 0 | 2 | 2/0/0 | andreasen-2022-dwsim-evaluation,ethyl-acetate-piotrowski-2021 |
@@ -69,7 +69,7 @@ W/F/L/U: rows worked / failed / lead / untested (for CHEPTA runs, the latest eng
 | azeotropic-distillation | azeotrope-heterogeneous,azeotrope-min-boiling,close-boiling,dilute-product,equilibrium-limited-reaction,two-liquid-phases | 0/0/12/0 | 0 | 3 | 0/0/0 | guo-wang-2019-azeotropic-distillation,kruber-skiborowski-2022-heteroazeotropic-init,valentini-2020-azeotropes-waste |
 | cstr | equilibrium-limited-reaction | 0/0/2/0 | 0 | 2 | 0/0/0 | hoff-eisenacher-2025-esterification-review,pasha-2021-biodiesel-process-design |
 | decanter | azeotrope-heterogeneous,equilibrium-limited-reaction,trace-impurity-limit,two-liquid-phases | 0/0/6/0 | 0 | 5 | 0/0/0 | al-rabiah-2022,fu-2021-isobutanol-recovery,guo-wang-2019-azeotropic-distillation,kruber-skiborowski-2022-heteroazeotropic-init,pasha-2021-biodiesel-process-design |
-| distillation | azeotrope-min-boiling,close-boiling,dilute-product,hazardous-component,heat-sensitive,recycle-loop,side-products,trace-impurity-limit,zeotropic-multicomponent | 0/0/19/0 | 1 | 8 | 3/1/1 | al-rabiah-2022,blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,chen-2018-abe-distillation,henrique-2020-dwc-simulation,jankovic-2023-ipa-acetone-recovery,li-2023-distillation-sequences,shehata-2024-meg-routes |
+| distillation | azeotrope-min-boiling,close-boiling,dilute-product,hazardous-component,heat-sensitive,recycle-loop,side-products,trace-impurity-limit,zeotropic-multicomponent | 0/0/19/0 | 1 | 8 | 1/1/3 | al-rabiah-2022,blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,chen-2018-abe-distillation,henrique-2020-dwc-simulation,jankovic-2023-ipa-acetone-recovery,li-2023-distillation-sequences,shehata-2024-meg-routes |
 | equilibrium-reactor | equilibrium-limited-reaction,exothermic-reaction | 0/0/1/0 | 0 | 1 | 0/0/0 | al-rabiah-2022 |
 | extraction | associating-acid-vapour,azeotrope-heterogeneous,close-boiling,dilute-product,hazardous-component,two-liquid-phases | 0/0/8/0 | 0 | 4 | 0/0/0 | blahusiak-2018-separation-selection,byrne-2016-solvent-selection-guides,fu-2021-isobutanol-recovery,grisales-2017-abe-extraction |
 | extractive-distillation | azeotrope-min-boiling,close-boiling,dilute-product,recycle-loop | 0/0/7/0 | 0 | 5 | 0/0/0 | al-rabiah-2022,blahusiak-2018-separation-selection,jankovic-2023-ipa-acetone-recovery,li-2017-ed-thermo-parameters,mtogo-2021-ed-vs-psd |

@@ -9,7 +9,7 @@ Written by an AI session on 2026-11-27; not checked by a person.
 
 | Stream | What | kmol/h | Main content (mole fraction) | T, P (Fig. 5) |
 |---|---|---:|---|---|
-| Ethylene Oxid | fresh EO | 1160 | EO 1.0 | 149.6 C, 3534 kPa |
+| Ethylene Oxid | fresh EO | 1160 | EO 1.0 | 149.6 C, 3534 kPa: saturated, so specified by 3534 kPa and liquid fraction 1 |
 | WATER MKUP | fresh water | 1130 | water 1.0 | 30 C, 3500 kPa |
 | 11 | recycled water | 9870 | water 0.9812, EO 0.0173, MEG 0.0015 | 1.13 C, 3500 kPa |
 | 4 | reactor outlet | 11,000 | water 0.8803, MEG 0.1024, EO 0.0155, DEG 0.0010, TEG 0.0008 | 199 C, 3480 kPa |
@@ -35,6 +35,11 @@ Written by an AI session on 2026-11-27; not checked by a person.
 
 ## 3. Does the paper balance?
 
+The energy table matches the text's 323 MW as a signed sum (Q-100 counted as heat removed, against the text's
+"endothermic"). Two more text claims do not hold: 219.258 MW "for heating" includes a condenser (heating alone 111.87
+MW, derived), and the abstract's 279 MW against 268.3 MW from the text's own totals.
+
+
 | Check | Result |
 |---|---|
 | Reactor (atoms C, H, O) | **closes** within rounding |
@@ -49,11 +54,11 @@ Written by an AI session on 2026-11-27; not checked by a person.
 | Item | Plan |
 |---|---|
 | Components | water, ethylene-oxide, ethylene-glycol, diethylene-glycol; **TEG is not in CHEPTA** |
-| Property method | NRTL everywhere, after listing each pair's source; HYSYS used its "glycol package" |
-| Reactor | conversion reactor with the three reactions and the extents from Table 3 (derived: 1131.4, 19.8, 8.8 kmol/h); not an independent test |
+| Property method | NRTL everywhere, Wilson as a variant; HYSYS used its "glycol package". CHEPTA 0.6.2 has fitted glycol pairs but no NRTL pair with EO (EO + water only Wilson; EO + glycols none), so the EO pairs are estimated; the plant runs from 10 to 3534 kPa, with vapour at 1600 kPa |
+| Reactor | conversion reactor with the three reactions and the extents from Table 3 (derived: 1131.4, 19.8, 8.8 kmol/h); not an independent test. First check: EO is above its critical temperature (195.77 C in CHEPTA) at 199 C |
 | Evaporators | valve + flash at the printed pressure, duty scanned to match the liquid flows |
 | Columns | rigorous columns at the printed pressures and stages, specified by their outlets |
-| Plant | tears at 11 and 22; fresh EO fixed; one water-loop flow fixed, make-up free |
+| Plant | tears at 11 and 22; fresh EO fixed; one water-loop flow fixed, make-up free; the mixed water (WATER REC) is probably partly vapour, so its pressure and phase are set and checked |
 | Compared | MEG purity (±0.001) and flow (±1 %), heavy product, evaporator liquids (±1 %), recycle, bottoms temperatures, duties (reported) |
 
 ## 5. Open questions for the maintainer (recommendation first)
@@ -63,12 +68,13 @@ Written by an AI session on 2026-11-27; not checked by a person.
    leave the heavy-product comparison unevaluated.
 2. **MEG draw:** distillate as Fig. 5 shows, or side stream as the text says? *Recommended:* distillate first, side
    draw as a variant.
-3. **Feed heater:** compare with Table 8 (44.46 MW) or the text (4.446 MW)? *Recommended:* run the heater on its
+3. **Feed heater:** compare with Table 8 (44.46 MW) or the text (4.446 MW, printed after E-105 and E-100 are named together)? *Recommended:* run the heater on its
    printed inlet and outlet and report which it supports; the sensible heat of about 254 t/h warmed by 159 K points to
    Table 8 (Lab's rough reasoning, to be confirmed by the run).
 4. **Water loop:** fix the make-up at 1130 kmol/h as the paper did, or fix a recycle flow and let the make-up follow?
    *Recommended:* the second, with the paper's choice as a variant.
 5. **Comparison tolerances** (record.json): approve or change.
-6. **EO above its critical temperature in the reactor?** If CHEPTA's activity model refuses EO at 199 C, run the
-   reactor at the paper's outlet only through the conversion block, or ask CHEPTA? *Recommended:* first see what the
-   pinned release does; file a capability request only if no setting near the paper's works.
+6. **EO above its critical temperature** (195.77 C in CHEPTA) in the reactor (199 C) and the first evaporator
+   (202.8 C, 1600 kPa). *Recommended:* make it the first step of the run task: see what the pinned release does under
+   NRTL and Wilson; a capability request only if no setting near the paper's works.
+7. **The four register problems** this plant adds (data/ISSUES_AND_ROUTES.md) are proposed and await your approval.

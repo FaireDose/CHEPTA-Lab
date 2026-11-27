@@ -34,6 +34,8 @@ Plant (WATER MKUP, Ethylene Oxid -> MEG To Storage, DEG+TEG): atom O residual +3
 
 Plant mass: in 626000 t/yr, out 626470 t/yr, residual +470 t/yr (+0.075 %).
 
+The evaporator and column tops by difference are a weak check: stream 4 is printed to three figures (1.10e+004, +/-50 kmol/h), about +/-6 % of EVA_1's 810 kmol/h of vapour. The tops use the printed totals; from the component flows they are 810.0, 1203.9, 1051.9 and 6803.7 kmol/h (the MEG Column FEED fractions sum to 0.9978).
+
 ## Streams: sum of mole fractions
 
 12 of 14 sums are 1 within rounding. Not: MEG Column FEED 0.9978; DEG+TEG 1.0023.
@@ -61,14 +63,14 @@ Plant mass: in 626000 t/yr, out 626470 t/yr, residual +470 t/yr (+0.075 %).
 | Quantity | Derived | Unit | Paper says |
 |---|---:|---|---|
 | water removed in the three evaporators, share of the water in stream 4 | 29.798 | % | about 75 % (p.8) |
-| water to EO at the reactor inlet, all water / all EO (11 + WATER MKUP + Ethylene Oxid) | 8.127 | mol/mol | 10:1 (pp.5, 8) |
+| water to EO at the reactor inlet, all water / all EO (11 + WATER MKUP + Ethylene Oxid) | 8.127 | mol/mol | 10:1 (pp.6, 8); 9.32 is close to a nominal 10:1, the others less so |
 | recycled water (11) / fresh EO | 8.349 | mol/mol | 10:1 cycle water to EO (p.8) |
 | all water / fresh EO | 9.323 | mol/mol | 10:1 (p.8) |
 | EO conversion per pass | 87.168 | % | not printed |
 | MEG share of the glycols formed (molar) | 98.25 | % | 85 % (Table 1, p.3) |
 | share of converted EO that became MEG | 95.828 | % | 85 % MEG, 15 % DEG + TEG (Table 1, p.3) |
 | reactor volume from 77.8 m x 0.55 m | 18.484 | m3 | not printed; residence time 3 min (p.8) needs the liquid density at 199 C, left to the CHEPTA run |
-| DEG + TEG mass share of the glycol products | 3.555 | wt % | 3.56 wt % (p.14) |
+| DEG+TEG stream as a share of the two product streams' printed mass | 3.555 | wt % | 3.56 wt % (p.14) |
 | dehydration column vacuum in the text, converted | 11.332 | kPa | Table 1: 15 kPa condenser, 20 kPa reboiler (p.3) |
 | MEG product | 604200.0 | t/yr | 600,000 t/yr (p.2) |
 
@@ -77,10 +79,12 @@ Plant mass: in 626000 t/yr, out 626470 t/yr, residual +470 t/yr (+0.075 %).
 - Evaporators Q1 + Q2 + Q3 = 17757 kW; text 17.8 MW (p.8).
 - Water separation Q1 + Q2 + Q3 + DEH CON Q + DEH REQ Q = 219258 kW; text 219.258 MW (p.14).
 - Glycol column MEG Q / MEG CON Q = 20870.47 / 21513.56 kW; text 20.87 / 21.51 MW (p.14).
-- Sum of the positive entries 355879 kW; of all absolute values 388796 kW; text total 323 MW (p.14).
+- Signed sum of the 15 entries 322961.68 kW; text total 323 MW (p.14): **matches**, so the paper counts Q-100 (negative) as heat removed.
+- The 219.258 MW 'for heating purposes' (p.14) includes the dehydration condenser (DEH CON Q, a cooling duty); the heating alone (Q1 + Q2 + Q3 + DEH REQ Q) is 111865 kW.
+- The abstract's 279 MW more for direct than indirect hydration (p.1) against the text's totals 323 - 54.7 = 268.3 MW (p.14).
 - Feed heater: Table 8 44462.57 kW; text 4.446 MW (p.8): a factor of 10.
 - Condenser of each effect against the next evaporator's heat input: First Effect 8348.11 kW vs Q2 3839.25 kW; Second Effect 12793.01 kW vs Q3 5037.75 kW. The HYSYS model keeps them as separate energy streams; the text says the vapour of each effect heats the next (p.8).
-- Reactor Q-100 = -32917.29 kW (sign convention not stated); the text calls the reaction endothermic (p.8).
+- Reactor Q-100 = -32917.29 kW; the paper's own total treats it as heat removed, while the text calls the reaction endothermic (p.8).
 
 ## Temperatures against the 170 C limit (p.8)
 

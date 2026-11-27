@@ -244,3 +244,32 @@ No TEG property is entered anywhere: I searched for TEG values and found only Ta
 
 Record them as "person spot check (items, date)" beside "AI full check (Claude Opus 5.5, 2026-11-27)". If any of the
 three is wrong, the case goes back for a full recheck (AGENTS.md).
+
+## Follow-up by the builder (2026-11-27)
+
+Written by the session that built the case, not by the reviewer. The rows of `dataset/records/ethylene-glycol-shehata-2024.json`
+were not on main, so they were rewritten in place and their lock entries rebuilt from main's lock (main's entries
+unchanged); no correcting rows were needed. Before rewriting, the builder read chepta 0.6.2's `components.json` and
+`binaries.json` from the npm package of the pin (integrity as in package-lock.json) and confirmed the review's data: EO's
+critical temperature 468.92 K; EO + water only a Wilson pair; no EO + MEG or EO + DEG pair; EO vapour pressure 3537.8
+kPa at 149.6 C; Raoult bubble pressure of WATER REC 17.4 kPa at 48.17 C. No CHEPTA run.
+
+| Finding | Done |
+|---|---|
+| M1 fresh EO saturated | Fixed: `record.json` fixed input is P = 3534 kPa with liquid fraction 1, T kept as comparison, with the reason; run plan step 1 checks the phase of every specified stream; README, DATASET_TABLE |
+| M2 property-method reason | Fixed: reason rewritten (10-3534 kPa; vapour at 1600 kPa; reactor, streams 3, 15 and EVA_1 above EO's critical temperature; pair list; EO pairs estimated under NRTL); Wilson variant added; run plan step 0 is the check of what CHEPTA does with EO there. KB row `plan-property-method-nrtl` rewritten in place (unmerged) rather than corrected by a new row |
+| m1 323 MW is the signed sum | Fixed: audit reports the signed sum as matching; disagreement 9 reworded; `record.json` keeps "sign convention not stated" for the entries only |
+| m2 219.258 MW and 279 MW | Fixed: added as disagreements 10 and 11 (README, STREAM_AUDIT.md, DATASET_TABLE) |
+| m3 vacuum-glycol-column "worked" at 190 C | Fixed: paper row's When, Why and Check reworded and a limit added (the separation worked, the 170 C limit did not); MEG-column plan note says the rule's 170 C is not met by the paper itself. Status kept "worked" (MEG 0.9977 reached) |
+| m4 chen-2018 twice | Fixed: helped "no" on both, "different trigger; the published pressure is kept" |
+| m5 li-2017 and routine revalidation | Fixed: helped "no" (not triggered); data check limited to the estimated EO pairs, TEG and the water + MEG range question; `record.json` and README say fitted pairs are reused (AGENTS.md) |
+| m6 register rows awaiting approval | Partly: rows kept, as the coordinator asked; marked "proposed, awaiting the maintainer's approval" in the register's preamble, the README and DATASET_TABLE (question 7) |
+| m7 WATER REC two-phase | Fixed: run plan sets MIX-101's outlet pressure and checks WATER REC's phase; register row and the water-loop plan row say E-101 condenses EO-bearing vapour at 10 kPa |
+| m8 p.5 -> p.6 | Fixed: equipment.json, README, audit text, register row; KB block renamed `blk-p6-direct` (unmerged) |
+| nit 1 Eq. 7 | Fixed: both misprints recorded (equipment.json, README); the audit's TEG formula labelled Lab's |
+| nit 2 96 wt % | Fixed: p.13 added as support (equipment.json, README, register row, paper reactor row) |
+| nit 3 commit message count | Not fixed: the pushed commit is not rewritten; the right count is 8 plan rows with `informed_by` (README says so) |
+| nit 4 disagreement 8 soft | Fixed: labelled approximate |
+| nit 5 weak check by difference | Fixed: README and STREAM_AUDIT.md say so, with the component-sum tops |
+| nit 6 othman "partly" | Fixed: helped "no" |
+| nit 7 condenser stub | Fixed: noted in equipment.json as Lab's reading |

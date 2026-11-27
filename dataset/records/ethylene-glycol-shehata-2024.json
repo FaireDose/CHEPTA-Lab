@@ -19,13 +19,13 @@
    "target_revealing": false
   },
   {
-   "id": "ethylene-glycol-shehata-2024.blk-p5-direct",
+   "id": "ethylene-glycol-shehata-2024.blk-p6-direct",
    "source_id": "shehata-2024",
    "source_url": "https://www.nature.com/articles/s41598-024-77713-y.pdf",
    "source_version": "Publisher PDF, fetched 2026-11-27 (sha256 as in data/sources.json)",
    "document_sha256": "8bf58295c2e1cb0da811e6c1040917f921dbb1260c6b506dd2f772f8eb86e551",
    "document_hash_kind": "archived_pdf",
-   "locator": "p. 5, 'Direct hydration of ethylene oxide' (Fig. 3a description, Eqs. 5-7)",
+   "locator": "p. 6, 'Direct hydration of ethylene oxide' (Fig. 3a description, Eqs. 5-7; the section starts after the p. 5 footer)",
    "selector": "paper.txt lines 346-363 (pdftotext -layout of the publisher PDF); UTF-8 lines joined by LF, no terminal LF",
    "source_fragment_sha256": "efb2e5370c13cfcad4e40f8f5dff9fc8d0a8a4a3aae5508c88ab0e09d5e0f15a",
    "extraction_method": "pdftotext -layout (poppler 24.02.0) of the publisher PDF; passage chosen by an AI session",
@@ -176,7 +176,7 @@
   {
    "id": "ethylene-glycol-shehata-2024.ev-water-removal",
    "block_ids": [
-    "ethylene-glycol-shehata-2024.blk-p5-direct",
+    "ethylene-glycol-shehata-2024.blk-p6-direct",
     "ethylene-glycol-shehata-2024.blk-p8-plant",
     "ethylene-glycol-shehata-2024.blk-table3",
     "ethylene-glycol-shehata-2024.blk-table8",
@@ -379,7 +379,8 @@
     "Reactive distillation (Othman 2024; lead)"
    ],
    "limits": [
-    "Table 1 gives 85/15 MEG/(DEG+TEG), Table 3 about 98/2; the text calls the reaction endothermic.",
+    "Table 1 gives 85/15 MEG/(DEG+TEG), Table 3 about 98/2; p. 13 says the hydration reaches a 96 wt % yield of MEG, which agrees with Table 3, not with Table 1.",
+    "The text calls the reaction endothermic (p. 8), but the paper's own energy total (323 MW, p. 14) counts Q-100 (-32,917.29 kW) as heat removed, as for an exothermic reaction.",
     "Draft, written by an AI session from the case files (2026-11-27); not reviewed."
    ],
    "verification_required": [],
@@ -475,10 +476,10 @@
     },
     "plain": {
      "title": "MEG from DEG and TEG: a 26-tray column at 12.5-13 kPa",
-     "when": "MEG must be parted from the heavier glycols without passing 170 C.",
+     "when": "MEG must be parted from the heavier glycols; Shehata et al. 2024 want the column below 170 C, yet their own bottoms leave at 190 C.",
      "do": "Distil at 12.5/13 kPa in 26 sieve trays (Shehata et al. 2024, Table 1).",
-     "why": "Vacuum lowers the boiling temperatures.",
-     "check": "MEG 0.9977 mol fraction (Table 3); DEG+TEG bottoms at 190 C in Fig. 5.",
+     "why": "Vacuum lowers the boiling temperatures, here to 190 C at the bottom.",
+     "check": "MEG 0.9977 mol fraction (Table 3); DEG+TEG bottoms at 190 C in Fig. 5, above the 170 C of p. 8.",
      "note": "Numbers: Table 1 (26 sieve trays, condenser 12.5 kPa, reboiler 13 kPa), Table 3 (MEG 0.9977), Fig. 5 (DEG+TEG 190 C)."
     }
    },
@@ -489,7 +490,7 @@
    "alternatives": [],
    "limits": [
     "Side draw in the text, distillate on Fig. 5.",
-    "Bottoms at 190 C above the stated 170 C.",
+    "Bottoms at 190 C above the stated 170 C: the separation worked in the paper's simulation, its temperature limit did not hold.",
     "Draft, written by an AI session from the case files (2026-11-27); not reviewed."
    ],
    "verification_required": [],
@@ -570,7 +571,8 @@
     ],
     "conditions": [
      "property-method",
-     "chepta-0.6.2-or-later",
+     "chepta-0.6.2",
+     "eo-pairs-estimated",
      "planned"
     ],
     "outcome": {
@@ -580,12 +582,12 @@
      "engine": null
     },
     "plain": {
-     "title": "Plan: NRTL for water and the glycols, after checking which pairs CHEPTA has and which it estimates",
-     "when": "Water, ethylene oxide, MEG, DEG (and TEG) below 10 bar outside the reactor; HYSYS used its glycol package (Table 1).",
-     "do": "Use NRTL (activity model, ideal-gas vapour) for every unit; first list each pair's source in CHEPTA (databank, fitted, or estimated from Modified UNIFAC 2.0) and compare the key ones (water + MEG, MEG + DEG) with measured data.",
-     "why": "Associating polar liquids below 10 bar are an activity-model case in CHEPTA's method guide; CPA, the method one glycol paper used, is not in CHEPTA 0.6.2.",
-     "check": "Every result carries the pairs' tier; estimated pairs are flagged before comparison.",
-     "note": "Numbers: CHEPTA METHOD_SELECTION.md at v0.6.2 (activity model for polar liquids below 10 bar; Modified UNIFAC 2.0 for missing pairs)."
+     "title": "Plan: NRTL for water, ethylene oxide and the glycols, knowing that every oxide pair will be estimated",
+     "when": "Polar, associating liquids from 10 to 3534 kPa; the first evaporator makes vapour at 1600 kPa and 202.8 C, above the oxide's critical temperature (195.77 C in chepta 0.6.2).",
+     "do": "Use NRTL with an ideal-gas vapour; first see what chepta 0.6.2 does with the oxide above its critical temperature in the reactor and the first evaporator; run Wilson as a variant.",
+     "why": "An activity model fits polar liquids; chepta 0.6.2 has fitted NRTL pairs for water + MEG and MEG + DEG, a databank pair for DEG + water, only a Wilson pair for the oxide + water and none for the oxide + glycols.",
+     "check": "Every result names each pair's source; the oxide pairs are flagged as estimated before any comparison.",
+     "note": "Numbers: Fig. 5 (1600 kPa and 202.8 C at the first evaporator; 10-3534 kPa over the plant); 195.77 C is 468.92 K in chepta 0.6.2 components.json; UNIFAC 2.0 from CHEPTA's method guide."
     },
     "informed_by": [
      {
@@ -595,37 +597,40 @@
      },
      {
       "row": "othman-2024-meg-reactive-distillation.cpa-for-glycol-water",
-      "helped": "partly",
-      "note": "Names CPA for glycol + water; CPA is not in CHEPTA 0.6.2, so it only says what to compare with. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "helped": "no",
+      "note": "Names CPA for glycol + water; CPA is not in CHEPTA 0.6.2 and the plan compares with nothing CPA-based. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      },
      {
       "row": "li-2017-ed-thermo-parameters.check-built-in-parameters",
-      "helped": "yes",
-      "note": "Led to the planned check of databank pairs against measured data before comparing. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "helped": "no",
+      "note": "Not triggered: it needs a simulated behaviour the data do not show; the fitted glycol pairs are reused, not revalidated (AGENTS.md). Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      },
      {
       "row": "palomar-2024-il-process-simulation.validate-predictive-methods",
       "helped": "yes",
-      "note": "Estimated (UNIFAC) pairs, likely for DEG and TEG, to be checked against data. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "note": "The oxide pairs (and triethylene glycol, if added) are UNIFAC-estimated; they are the ones to look at against data. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      }
     ]
    },
-   "obstacle": "Glycol + water mixtures are strongly non-ideal; HYSYS's glycol package is not CHEPTA's.",
-   "mechanism": "An activity model with checked pairs.",
-   "operation": "NRTL in every block; the reactor and E-100 at 34.8 bar hold only liquid.",
-   "expected_change": "Phase splits and volatilities close to the paper's within the property difference.",
+   "obstacle": "Glycol + water mixtures are non-ideal; the HYSYS glycol package is not available; the oxide is above its critical temperature at 199-202.8 C.",
+   "mechanism": "An activity model with the pairs the engine has; the oxide pairs estimated from Modified UNIFAC 2.0.",
+   "operation": "NRTL in every block; Wilson variant with the databank oxide + water pair; ideal-gas vapour up to 1600 kPa.",
+   "expected_change": "Phase splits and volatilities that differ from the published ones only by the property model; any refusal of the oxide recorded.",
    "alternatives": [
+    "Wilson (one liquid; chepta 0.6.2 has its oxide + water pair from the ChemSep databank and the three glycol pairs)",
     "UNIQUAC",
     "CPA (CHEPTA roadmap M3, not available)"
    ],
    "limits": [
     "Planned for the first CHEPTA task; not run (dataset-table stage, no CHEPTA run in this task).",
-    "EO's critical temperature may lie near or below the reactor's 199 C; an activity model refuses a liquid component above its critical temperature (CHEPTA METHOD_SELECTION.md at v0.6.2, rule 1). To check before the first run.",
+    "chepta 0.6.2 src/data/binaries.json (read 2026-11-27): water + MEG NRTL fitted to 101.3 kPa data (Kamihama 2012); DEG + MEG NRTL fitted to 40 kPa bubble temperatures (Yang 2014); DEG + water NRTL from the ChemSep databank; oxide + water Wilson only (ChemSep databank); oxide + MEG and oxide + DEG none.",
+    "chepta 0.6.2 src/data/components.json: the oxide's critical temperature 468.92 K (195.77 C); the reactor (199 C), streams 3 and 15 (200 and 199.2 C) and the first evaporator (202.8 C, 1600 kPa) are above it. CHEPTA's method guide (rule 1) says an activity model with a cubic vapour needs every liquid component below its critical temperature.",
+    "Lab does not revalidate fitted pairs (AGENTS.md); data are looked at only for estimated pairs (the oxide pairs, triethylene glycol) or a pair used outside its fitted range (water + MEG fitted at 101.3 kPa, used at 15-20 kPa: its temperature range to confirm).",
     "Draft, written by an AI session from the case files (2026-11-27); not reviewed."
    ],
    "verification_required": [
-    "List each pair's source and range in the pinned CHEPTA (no run in this task).",
-    "Compare water + MEG and MEG + DEG with measured vapour-liquid data."
+    "What chepta 0.6.2 does with the oxide above its critical temperature (reactor, first evaporator): the first step of the run plan.",
+    "Whether water + MEG is used inside its fitted temperature range."
    ],
    "rationale_classification": "lab_inference",
    "legacy_origin": null
@@ -876,8 +881,8 @@
      },
      {
       "row": "chen-2018-abe-distillation.lower-pressure-of-sensitive-columns",
-      "helped": "yes",
-      "note": "Lower pressure for a heat-sensitive bottoms; condenser stays above ambient (Water Rec 5 at 50.74 C). Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "helped": "no",
+      "note": "Different trigger (a split that improves at lower pressure); the plan keeps the published pressure. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      },
      {
       "row": "jankovic-2023-ipa-acetone-recovery.vacuum-condenser-needs-chilled-water",
@@ -953,12 +958,12 @@
      {
       "row": "shehata-2024-meg-routes.vacuum-glycol-columns",
       "helped": "partly",
-      "note": "Supports the vacuum; its side-draw statement (from the text) conflicts with Fig. 5, so the plan starts from the drawing. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "note": "Supports the vacuum; its side-draw statement (from the text) conflicts with Fig. 5, so the plan starts from the drawing, and its 170 C is not met by the paper itself (bottoms 190 C). Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      },
      {
       "row": "chen-2018-abe-distillation.lower-pressure-of-sensitive-columns",
-      "helped": "yes",
-      "note": "Pressure kept low for the 170 C limit. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      "helped": "no",
+      "note": "Different trigger (a split that improves at lower pressure); the plan keeps the published pressure. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
      }
     ]
    },
@@ -1060,10 +1065,12 @@
    "limits": [
     "Planned for the first CHEPTA task; not run (dataset-table stage, no CHEPTA run in this task).",
     "Fixing a recycle flow and letting the make-up follow needs a design specification; on chepta 0.6.2 that is a series of runs (no flowsheet designSpecs in the release).",
+    "WATER REC is probably partly vapour: MIX-101 joins liquids at 1495, 895 and 395 kPa with the 15 kPa distillate and is printed at 15 kPa; Raoult's law with chepta 0.6.2 vapour pressures gives 17.4 kPa at 48.17 C for its composition (derived). E-101 then condenses oxide-bearing vapour at 10 kPa.",
     "Draft, written by an AI session from the case files (2026-11-27); not reviewed."
    ],
    "verification_required": [
-    "Count the plant's degrees of freedom before the first closed run."
+    "Count the plant's degrees of freedom before the first closed run.",
+    "Set MIX-101's outlet pressure explicitly and check the phase of WATER REC."
    ],
    "rationale_classification": "lab_inference",
    "legacy_origin": null
@@ -1121,6 +1128,7 @@
    "alternatives": [],
    "limits": [
     "Planned for the first CHEPTA task; not run (dataset-table stage, no CHEPTA run in this task).",
+    "p. 8 names E-105 and E-100 together before the 4.446 MW.",
     "Draft, written by an AI session from the case files (2026-11-27); not reviewed."
    ],
    "verification_required": [],

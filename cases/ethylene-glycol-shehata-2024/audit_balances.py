@@ -17,6 +17,7 @@ ST = {s["stream"]: s for s in S["streams"]}
 C = ["oxygen", "ethylene", "water", "ethylene_oxide", "carbon_dioxide", "MEG", "DEG", "TEG"]
 
 # Molar masses from IUPAC conventional atomic weights (C 12.011, H 1.008, O 15.999; IUPAC 2021 table, abridged).
+# Formulas are Lab's: the paper's Eq. 7 (p.6) misprints DEG as C4H10O4 and TEG as C6H14O5; TEG is C6H14O4.
 AW = {"C": 12.011, "H": 1.008, "O": 15.999}
 FORMULA = {"oxygen": {"O": 2}, "ethylene": {"C": 2, "H": 4}, "water": {"H": 2, "O": 1},
            "ethylene_oxide": {"C": 2, "H": 4, "O": 1}, "carbon_dioxide": {"C": 1, "O": 2},
@@ -187,14 +188,14 @@ L, D = 77.8, 0.55
 meg_t = ST["MEG To Storage"]["mass_t_yr"]; heavy_t = ST["DEG+TEG"]["mass_t_yr"]
 derived = [
     ("water removed in the three evaporators, share of the water in stream 4", (w4 - w1) / w4 * 100, "%", "about 75 % (p.8)"),
-    ("water to EO at the reactor inlet, all water / all EO (11 + WATER MKUP + Ethylene Oxid)", w_feed / eo_feed, "mol/mol", "10:1 (pp.5, 8)"),
+    ("water to EO at the reactor inlet, all water / all EO (11 + WATER MKUP + Ethylene Oxid)", w_feed / eo_feed, "mol/mol", "10:1 (pp.6, 8); 9.32 is close to a nominal 10:1, the others less so"),
     ("recycled water (11) / fresh EO", flows("11")["water"][0] / flows("Ethylene Oxid")["ethylene_oxide"][0], "mol/mol", "10:1 cycle water to EO (p.8)"),
     ("all water / fresh EO", w_feed / flows("Ethylene Oxid")["ethylene_oxide"][0], "mol/mol", "10:1 (p.8)"),
     ("EO conversion per pass", eo_conv / eo_in * 100, "%", "not printed"),
     ("MEG share of the glycols formed (molar)", (ext_meg - ext_deg) / glycols * 100, "%", "85 % (Table 1, p.3)"),
     ("share of converted EO that became MEG", (ext_meg - ext_deg) / eo_conv * 100, "%", "85 % MEG, 15 % DEG + TEG (Table 1, p.3)"),
     ("reactor volume from 77.8 m x 0.55 m", math.pi / 4 * D ** 2 * L, "m3", "not printed; residence time 3 min (p.8) needs the liquid density at 199 C, left to the CHEPTA run"),
-    ("DEG + TEG mass share of the glycol products", heavy_t / (meg_t + heavy_t) * 100, "wt %", "3.56 wt % (p.14)"),
+    ("DEG+TEG stream as a share of the two product streams' printed mass", heavy_t / (meg_t + heavy_t) * 100, "wt %", "3.56 wt % (p.14)"),
     ("dehydration column vacuum in the text, converted", 85 * 0.133322, "kPa", "Table 1: 15 kPa condenser, 20 kPa reboiler (p.3)"),
     ("MEG product", meg_t, "t/yr", "600,000 t/yr (p.2)"),
 ]
@@ -205,13 +206,15 @@ for name, v, unit, text in derived:
 en = {e["name"]: e["value_kW"] for e in E["energy_streams"]["streams"]}
 evap = en["Q1"] + en["Q2"] + en["Q3"]
 watsep = evap + en["DEH CON Q"] + en["DEH REQ Q"]
-pos = sum(v for v in en.values() if v > 0)
-absum = sum(abs(v) for v in en.values())
+signed = sum(en.values())
+heat_only = evap + en["DEH REQ Q"]
 results["energy"] = {
     "evaporators_Q1_Q2_Q3_kW": r(evap, 2), "text_evaporators_MW": 17.8,
     "water_separation_Q1_Q2_Q3_DEHCON_DEHREQ_kW": r(watsep, 2), "text_water_separation_MW": 219.258,
     "glycol_column_reboiler_condenser_kW": [en["MEG Q"], en["MEG CON Q"]], "text_MW": [20.87, 21.51],
-    "sum_of_positive_entries_kW": r(pos, 2), "sum_of_absolute_entries_kW": r(absum, 2), "text_total_MW": 323,
+    "signed_sum_kW": r(signed, 2), "text_total_MW": 323,
+    "water_separation_heating_only_Q1_Q2_Q3_DEHREQ_kW": r(heat_only, 2),
+    "direct_minus_indirect_text_totals_MW": r(323 - 54.7, 1), "abstract_difference_MW": 279,
     "feed_heater_table_8_kW": en["Feed Heater Duty"], "feed_heater_text_MW": 4.446,
     "effect_condensers_vs_next_evaporator_kW": {"First Effect vs Q2": [en["First Effect"], en["Q2"]], "Second Effect vs Q3": [en["Second Effect"], en["Q3"]]},
     "reactor_Q-100_kW": en["Q-100"],
@@ -250,7 +253,7 @@ for b in results["blocks"]:
     if "mass_t_yr" in b:
         m = b["mass_t_yr"]
         L.append(f"\nPlant mass: in {m['in']:.0f} t/yr, out {m['out']:.0f} t/yr, residual {m['residual']:+.0f} t/yr ({m['residual_pct']:+.3f} %).")
-L += ["", "## Streams: sum of mole fractions", ""]
+L += ["", "The evaporator and column tops by difference are a weak check: stream 4 is printed to three figures (1.10e+004, +/-50 kmol/h), about +/-6 % of EVA_1's 810 kmol/h of vapour. The tops use the printed totals; from the component flows they are 810.0, 1203.9, 1051.9 and 6803.7 kmol/h (the MEG Column FEED fractions sum to 0.9978).", "", "## Streams: sum of mole fractions", ""]
 bad = [x for x in results["stream_sums"] if not x["within_rounding"]]
 L.append(f"{len(results['stream_sums']) - len(bad)} of {len(results['stream_sums'])} sums are 1 within rounding." +
          ("" if not bad else " Not: " + "; ".join(f"{x['stream']} {x['sum']}" for x in bad) + "."))
@@ -265,10 +268,12 @@ L += ["", "## Energy (Table 8, p.14) against the text", "",
       f"- Evaporators Q1 + Q2 + Q3 = {e['evaporators_Q1_Q2_Q3_kW']:.0f} kW; text 17.8 MW (p.8).",
       f"- Water separation Q1 + Q2 + Q3 + DEH CON Q + DEH REQ Q = {e['water_separation_Q1_Q2_Q3_DEHCON_DEHREQ_kW']:.0f} kW; text 219.258 MW (p.14).",
       f"- Glycol column MEG Q / MEG CON Q = {e['glycol_column_reboiler_condenser_kW'][0]} / {e['glycol_column_reboiler_condenser_kW'][1]} kW; text 20.87 / 21.51 MW (p.14).",
-      f"- Sum of the positive entries {e['sum_of_positive_entries_kW']:.0f} kW; of all absolute values {e['sum_of_absolute_entries_kW']:.0f} kW; text total 323 MW (p.14).",
+      f"- Signed sum of the 15 entries {e['signed_sum_kW']:.2f} kW; text total 323 MW (p.14): **matches**, so the paper counts Q-100 (negative) as heat removed.",
+      f"- The 219.258 MW 'for heating purposes' (p.14) includes the dehydration condenser (DEH CON Q, a cooling duty); the heating alone (Q1 + Q2 + Q3 + DEH REQ Q) is {e['water_separation_heating_only_Q1_Q2_Q3_DEHREQ_kW']:.0f} kW.",
+      f"- The abstract's 279 MW more for direct than indirect hydration (p.1) against the text's totals 323 - 54.7 = {e['direct_minus_indirect_text_totals_MW']} MW (p.14).",
       f"- Feed heater: Table 8 {e['feed_heater_table_8_kW']} kW; text 4.446 MW (p.8): a factor of 10.",
       f"- Condenser of each effect against the next evaporator's heat input: First Effect {e['effect_condensers_vs_next_evaporator_kW']['First Effect vs Q2'][0]} kW vs Q2 {e['effect_condensers_vs_next_evaporator_kW']['First Effect vs Q2'][1]} kW; Second Effect {e['effect_condensers_vs_next_evaporator_kW']['Second Effect vs Q3'][0]} kW vs Q3 {e['effect_condensers_vs_next_evaporator_kW']['Second Effect vs Q3'][1]} kW. The HYSYS model keeps them as separate energy streams; the text says the vapour of each effect heats the next (p.8).",
-      f"- Reactor Q-100 = {e['reactor_Q-100_kW']} kW (sign convention not stated); the text calls the reaction endothermic (p.8).", "",
+      f"- Reactor Q-100 = {e['reactor_Q-100_kW']} kW; the paper's own total treats it as heat removed, while the text calls the reaction endothermic (p.8).", "",
       "## Temperatures against the 170 C limit (p.8)", ""]
 for t in results["temperature_limit"]:
     L.append(f"- {t['stream']}: {t['T_C']} C{' (above 170 C)' if t['above_170_C'] else ''}")
