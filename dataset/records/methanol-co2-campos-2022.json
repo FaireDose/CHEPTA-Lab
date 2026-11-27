@@ -182,6 +182,51 @@
       "collected_on": "2026-11-20",
       "summary": "The global heat-transfer coefficient was updated along the reactor; for the selected condition 160 W/m2/K at the inlet and 150 at 12.5 m, and Aspen Plus was given the average, 155 W/m2/K.",
       "target_revealing": false
+    },
+    {
+      "id": "methanol-co2-campos-2022.blk-xia-2004-co2-11-solvent",
+      "source_id": "xia-2004-co2-methanol-water",
+      "source_url": "https://trc.nist.gov/ThermoML/10.1021/je049803i.json",
+      "source_version": "NIST TRC ThermoML archive file (JSON) of J. Chem. Eng. Data 49, 1756-1759, fetched 2026-11-27",
+      "document_sha256": "9d248558a87100a63ffd89c18c76f7b9c8dceff31dc2fcc2254cd7f3b80b0561",
+      "document_hash_kind": "archived_text",
+      "locator": "ThermoML data set 1: T 313.75 K, solvent methanol mole fraction 0.4999 (CO2-free), 8 points",
+      "selector": "rows selected as stated, serialised as JSON (sort_keys, separators ',' ':') of {column label: value}; labels as co2_solubility_check.datasets() writes them",
+      "source_fragment_sha256": "95bdd9167dca754b782545b5809782728e64644156ccd4bc28cd2eeedcd18594",
+      "extraction_method": "json parse by cases/methanol-co2-campos-2022/co2_solubility_check.py (python -I, file passed as argument)",
+      "collected_on": "2026-11-27",
+      "summary": "Measured CO2 molality in 1:1 methanol + water at 313.75 K against total pressure, 242 to 7072 kPa: 0.4975 mol/kg at 831 kPa, 1.215 at 1973 kPa, 4.828 at 7072 kPa.",
+      "target_revealing": false
+    },
+    {
+      "id": "methanol-co2-campos-2022.blk-bezanehtak-2004-co2-h2-methanol",
+      "source_id": "bezanehtak-2004-co2-h2-methanol",
+      "source_url": "https://trc.nist.gov/ThermoML/10.1021/je0301491.json",
+      "source_version": "NIST TRC ThermoML archive file (JSON) of J. Chem. Eng. Data 49, 430-434, fetched 2026-11-27",
+      "document_sha256": "f0637187d3a88bdb3f3590ffc8fe8dc2cbaefc4171e9371bdd489f9acbbc3f92",
+      "document_hash_kind": "archived_text",
+      "locator": "ThermoML data set 2 (142 points): the 6 points with vapour H2 0.68-0.76 and 4-7 MPa",
+      "selector": "rows selected as stated, serialised as JSON (sort_keys, separators ',' ':') of {column label: value}; labels as co2_solubility_check.datasets() writes them",
+      "source_fragment_sha256": "1d2c16cdb5997cbe5cfd699784cd3f07db869dd389a5043edf8261fe51bfba94",
+      "extraction_method": "json parse by cases/methanol-co2-campos-2022/co2_solubility_check.py (python -I, file passed as argument)",
+      "collected_on": "2026-11-27",
+      "summary": "Measured CO2 + H2 + methanol VLE at 278-298 K: under gas of 70-75 % H2 at 4-7 MPa the liquid holds 0.047 to 0.115 CO2 (mole fraction).",
+      "target_revealing": false
+    },
+    {
+      "id": "methanol-co2-campos-2022.blk-xie-2005-co2-methanol",
+      "source_id": "xie-2005-co2-methanol-h2",
+      "source_url": "https://trc.nist.gov/ThermoML/10.1021/je0498614.json",
+      "source_version": "NIST TRC ThermoML archive file (JSON) of J. Chem. Eng. Data 50, 780-783, fetched 2026-11-27",
+      "document_sha256": "0525ee295879ba7c9ba9dc95bbbb2699b78344ace59304c03c9504638c59ec22",
+      "document_hash_kind": "archived_text",
+      "locator": "ThermoML data set 1: CO2 + methanol bubble pressures at 313.2 K, 7 points",
+      "selector": "rows selected as stated, serialised as JSON (sort_keys, separators ',' ':') of {column label: value}; labels as co2_solubility_check.datasets() writes them",
+      "source_fragment_sha256": "2ec1688eb3411a6ef05bd9a7d8936426a492780c789a30f582fc9d8d46e381c4",
+      "extraction_method": "json parse by cases/methanol-co2-campos-2022/co2_solubility_check.py (python -I, file passed as argument)",
+      "collected_on": "2026-11-27",
+      "summary": "Measured CO2 + methanol bubble pressures at 313.2 K: x_CO2 0.051 at 930 kPa, 0.205 at 3570 kPa.",
+      "target_revealing": false
     }
   ],
   "evidence": [
@@ -708,6 +753,140 @@
         ],
         "behaviours": [
           "exothermic-reaction"
+        ]
+      }
+    },
+    {
+      "id": "methanol-co2-campos-2022.ev-co2-measured",
+      "block_ids": [
+        "methanol-co2-campos-2022.blk-xia-2004-co2-11-solvent",
+        "methanol-co2-campos-2022.blk-bezanehtak-2004-co2-h2-methanol",
+        "methanol-co2-campos-2022.blk-xie-2005-co2-methanol"
+      ],
+      "claim": "Measured CO2 solubility: in 1:1 methanol + water at 313.75 K the liquid holds 4.828 mol/kg CO2 under 7072 kPa of CO2 and 1.215 mol/kg at 1973 kPa (Xia et al. 2004); in methanol under H2-rich gas at 298 K and 7 MPa x_CO2 is 0.1093 (Bezanehtak et al. 2004); CO2 + methanol at 313.2 K bubbles at 930 kPa with x_CO2 0.051 (Xie et al. 2005).",
+      "classification": "measurement",
+      "conditions": [],
+      "quantities": [
+        {
+          "name": "CO2 molality in 1:1 methanol + water, 313.75 K, 7072 kPa",
+          "value": 4.828,
+          "unit": "mol/kg",
+          "basis": "solvent mass",
+          "qualifier": "equal"
+        },
+        {
+          "name": "CO2 molality in 1:1 methanol + water, 313.75 K, 1973 kPa",
+          "value": 1.215,
+          "unit": "mol/kg",
+          "basis": "solvent mass",
+          "qualifier": "equal"
+        },
+        {
+          "name": "CO2 molality in 1:1 methanol + water, 313.75 K, 831 kPa",
+          "value": 0.4975,
+          "unit": "mol/kg",
+          "basis": "solvent mass",
+          "qualifier": "equal"
+        },
+        {
+          "name": "CO2 in methanol under H2-rich gas, 298 K, 7000 kPa",
+          "value": 0.1093,
+          "unit": "mole fraction",
+          "basis": "liquid; vapour H2 0.7107",
+          "qualifier": "equal"
+        },
+        {
+          "name": "CO2 + methanol bubble point, 313.2 K",
+          "value": 0.051,
+          "unit": "mole fraction",
+          "basis": "liquid at 930 kPa",
+          "qualifier": "equal"
+        }
+      ],
+      "limits": [
+        "Measured, from NIST TRC's ThermoML archive files; the articles themselves were not opened (rights: needs_review in data/sources.json).",
+        "The Xia and Xie gases hold no H2 or N2; 313.75 K and 313.2 K are about 10 K above the separator's 303.15 K."
+      ],
+      "legacy_origin": null,
+      "keys": {
+        "problem_ids": [
+          "sep-co2-dissolved-in-methanol-water"
+        ],
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "methanol",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
+        ]
+      }
+    },
+    {
+      "id": "methanol-co2-campos-2022.ev-co2-derived",
+      "block_ids": [
+        "methanol-co2-campos-2022.blk-xia-2004-co2-11-solvent",
+        "methanol-co2-campos-2022.blk-bezanehtak-2004-co2-h2-methanol",
+        "methanol-co2-campos-2022.blk-xie-2005-co2-methanol",
+        "methanol-co2-campos-2022.blk-s10-24"
+      ],
+      "claim": "Derived by Lab: at the separator's CO2 partial pressure the measured 1:1 solvent holds about 0.018 (paper's gas, 1226 kPa) to 0.021 (CHEPTA's gas, 1420 kPa) mole fraction CO2 at 313.75 K, 0.108 under 7072 kPa of CO2; pure methanol about 0.064 (Xia) and 0.068 (Xie) at 1226 kPa; Bezanehtak's K_CO2 is 2.3 to 5.7, the paper's stream 24 against 33 gives 0.955.",
+      "classification": "lab_inference",
+      "conditions": [],
+      "quantities": [
+        {
+          "name": "x_CO2, 1:1 methanol + water, 313.75 K, at 1226 kPa",
+          "value": 0.018,
+          "unit": "mole fraction",
+          "basis": "interpolated, linear in total pressure",
+          "qualifier": "approximate"
+        },
+        {
+          "name": "x_CO2, 1:1 methanol + water, 313.75 K, at 1420 kPa",
+          "value": 0.021,
+          "unit": "mole fraction",
+          "basis": "interpolated",
+          "qualifier": "approximate"
+        },
+        {
+          "name": "x_CO2, 1:1 methanol + water, 313.75 K, 7072 kPa",
+          "value": 0.108,
+          "unit": "mole fraction",
+          "basis": "from molality",
+          "qualifier": "equal"
+        },
+        {
+          "name": "K_CO2 lowest measured, methanol under H2-rich gas",
+          "value": 2.3,
+          "unit": "-",
+          "basis": "y/x, Bezanehtak 4-7 MPa",
+          "qualifier": "equal"
+        },
+        {
+          "name": "K_CO2 of the paper's FLASH3",
+          "value": 0.955,
+          "unit": "-",
+          "basis": "Table S10 streams 33 and 24",
+          "qualifier": "equal"
+        }
+      ],
+      "limits": [
+        "Lab's conversion and interpolation (co2_solubility_check.py); the solvent's own vapour (about 20 kPa, assumed) is counted in the CO2 pressure, so the interpolated values are slightly low; not at 303.15 K."
+      ],
+      "legacy_origin": null,
+      "keys": {
+        "problem_ids": [
+          "sep-co2-dissolved-in-methanol-water"
+        ],
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "methanol",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
         ]
       }
     }
@@ -3726,6 +3905,1072 @@
       "alternatives": [],
       "limits": [
         "Draft lesson, written by an AI session on 2026-11-21 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.property-method-pr-mhv1-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-hp-flash",
+        "methanol-co2-campos-2022.ev-methods",
+        "methanol-co2-campos-2022.ev-co2-measured",
+        "methanol-co2-campos-2022.ev-co2-derived"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-co2-dissolved-in-methanol-water",
+        "level": "separation",
+        "operation_type": "flash",
+        "symptom": "feed-refused",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-inlet",
+          "peng-robinson-mhv1"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-flash3-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-flash1-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-flash2-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-flash4-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "On 0.6.2 PR + MHV1 was refused for methanol + N2; CHEPTA 0.6.3 adds N2 sets and advises PR + MHV1 for the methanol cases.",
+      "mechanism": "PR + gE (MHV1), thermo {model: PR, mixing: MHV1}.",
+      "operation": "FLASH1 to FLASH4 alone on the paper's inlets.",
+      "expected_change": "The dissolved CO2 from a method that follows measured solubility.",
+      "alternatives": [],
+      "limits": [
+        "ok. FLASH3 (30 C, 69.25 bar, paper stream 23): liquid 9337.6 kmol/h with 2.35 mol % CO2 (PR k_ij on 0.6.2: 3.41 %; Campos et al. 2022: 18.545 %); vapour 20.5 % CO2, so K_CO2 8.74. CHEPTA's notes give 2.38 %.",
+        "Measured basis about 2 % at the separator's CO2 partial pressure (Xia et al. 2004, derived), so PR + MHV1 agrees with the data and the paper does not.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.ph-flash-mhv1-gases-water-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-methods"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-feed-effluent-heat-recovery",
+        "level": "plant",
+        "operation_type": "heat-exchange",
+        "symptom": "feed-refused",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-inlet",
+          "peng-robinson-mhv1",
+          "ph-flash"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he4-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he5-dTmin2-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he6-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-mixer1-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-mixer4-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-valve1-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-H2O-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "Every unit solved through a P-H flash refuses the paper's inlets on PR + MHV1.",
+      "mechanism": "The paper's inlets one unit at a time; then the smallest input found by leaving components out.",
+      "operation": "HE4, HE5, HE6, MIXER1, MIXER4, VALVE1 alone; an adiabatic heater on H2 + CO2 + water.",
+      "expected_change": "Units that run as on PR.",
+      "alternatives": [],
+      "limits": [
+        "NO_CONVERGENCE, 'PR: no physical root' at 40.0 K and 6925 kPa (HE4, HE5, HE6), 84.2 K and 100 kPa (MIXER1), 67 K (VALVE1, MIXER4); the smallest input, H2 + CO2 + water in the proportions of stream 39-REC (1.55, 76.245, 2.139) at 33 C and 100 kPa with zero duty, at 31.4 K. Capability request M7.",
+        "Not worked around (CHEPTA's known limit, its first 0.6.4 item). T-P flashes, compressors, HE2 and HE7 run on PR + MHV1.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.ph-flash-controls-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-methods"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-feed-effluent-heat-recovery",
+        "level": "plant",
+        "operation_type": "heat-exchange",
+        "components": [
+          "carbon-dioxide",
+          "hydrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "minimal-input",
+          "h2-co2-water-controls"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-H2O-pr",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-tp-H2-CO2-H2O-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-H2O-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-CO2-H2O-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "The P-H failure on PR + MHV1 needs a control to be a fault of the method's implementation.",
+      "mechanism": "The same small input on PR; with a temperature in place of the duty; each pair alone.",
+      "operation": "Five small flowsheets of one heater.",
+      "expected_change": "Isolate the condition that fails.",
+      "alternatives": [],
+      "limits": [
+        "All ok: on PR the P-H flash returns 306.15 K; on PR + MHV1 the T-P flash and the three binary P-H flashes run. Only the ternary P-H flash on PR + MHV1 fails.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.plant-mhv1-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-methods"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-gas-recycle-with-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "section-fails",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "closed-plant",
+          "peng-robinson-mhv1"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-mhv1-warm",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/sec-compression-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/sec-loop-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-tp-cp3-300K-7000kPa-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "The closed plant on PR + MHV1, CHEPTA's advised method.",
+      "mechanism": "The plant with every 0.6.3 change, from the paper's start and from the converged 415da41 plant's tears; the compression and loop sections.",
+      "operation": "Whole plant and two sections, PR + MHV1.",
+      "expected_change": "A closed plant on PR + MHV1.",
+      "alternatives": [],
+      "limits": [
+        "NO_CONVERGENCE at MIXER1 ('PR: no physical root at 84.2 K, 100 kPa') from the paper's start and in the compression section; HE4 at 40.0 K in the loop section; PHASE_SPLIT at CP3 (PR flash at 300 K and 7000 kPa, tangent-plane distance -0.6174) from the warm start. A single flash of CP3's composition at 300 K and 7000 kPa is refused the same way on PR + MHV1 and is one liquid on PR (capability request M8).",
+        "CHEPTA's known limit, reported and not worked around.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.he5-min-approach-default-zones-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-route"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-feed-effluent-heat-recovery",
+        "level": "plant",
+        "operation_type": "heat-exchange",
+        "symptom": "feed-refused",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "he5-min-approach-2-k",
+          "default-zones"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he5-dTmin2-pr"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "0.6.2 needed zones: 10 for the 2 K approach.",
+      "mechanism": "dTmin_K 2 without zones (0.6.3 holds it along the exchanger).",
+      "operation": "HE5 alone on the paper's streams 20 and 28, PR.",
+      "expected_change": "A 2 K approach without the workaround.",
+      "alternatives": [],
+      "limits": [
+        "ok: 113,942 kW; smallest difference along the exchanger 2.000 K, 2.49 K at the zone boundaries; pinch inside, at 69.9 C on the hot side.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.he5-plant-streams-default-zones-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-route"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-feed-effluent-heat-recovery",
+        "level": "plant",
+        "operation_type": "heat-exchange",
+        "symptom": "feed-refused",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "heat-recovery-potential"
+        ],
+        "conditions": [
+          "he5-min-approach-2-k",
+          "default-zones",
+          "plant-a6-streams"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he5-a6streams-dTmin2-pr"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "On 415da41 the plant's streams 20 and 28 met a temperature cross at 2 K.",
+      "mechanism": "dTmin_K 2 without zones on 0.6.3.",
+      "operation": "HE5 alone on plant-a6's streams, PR.",
+      "expected_change": "A 2 K approach on the plant's streams.",
+      "alternatives": [],
+      "limits": [
+        "ok: 93,483 kW; 2.000 K along the exchanger (2.27 K at the zone boundaries); pinch at 73.4 C hot, 71.4 C cold. In the closed plant (plant-pr) HE5 is 93.7 MW at 2.000 K.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.reactor-u155-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-reactor",
+        "methanol-co2-campos-2022.ev-reactor-u"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "rxn-co2-hydrogenation-methanol",
+        "level": "reaction",
+        "operation_type": "pfr",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "equilibrium-limited-reaction",
+          "exothermic-reaction"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-inlet",
+          "lhhw-model-6p-on-fugacities",
+          "coolant-constant-247.5-c",
+          "u-155-printed"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-reactor-U155-pr",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-reactor-U155-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "informed_by": [
+          {
+            "row": "methanol-co2-campos-2022.reactor-lhhw-u-assumed-062-c3",
+            "helped": "yes",
+            "note": "the corrected row named the printed U 155 used here"
+          }
+        ]
+      },
+      "obstacle": "0.6.2 assumed U 300; Campos et al. 2022 give 160 and 150, and use 155.",
+      "mechanism": "U 155 W/m2/K constant, as Aspen.",
+      "operation": "Reactor alone on the paper's stream 15, PR and PR + MHV1.",
+      "expected_change": "The reactor at the published U.",
+      "alternatives": [],
+      "limits": [
+        "PR: outlet 247.96 C, methanol 7.539 %, 35.8 MW to the coolant; 0.6.2 at U 150: 247.97 C, 7.540 %; at U 300: 247.74 C, 7.529 %; Campos et al. 2022: 247.9 C, 7.415 %.",
+        "PR + MHV1 in the reactor: 247.95 C, methanol 7.637 %, 37.0 MW: further from the paper, whose reactors use PR.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.column-vl-bottoms-4581-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-feed-29-with-ppm-gases",
+          "vapour-liquid-condenser-53-c",
+          "bottoms-4581-kmol-h"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-B4581",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-pr-B4581"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "The column alone with the 415da41 specifications, now on PR + MHV1.",
+      "mechanism": "Reflux 2, 53 C, bottoms 4581 kmol/h.",
+      "operation": "Column alone on the paper's feed 29 with its traces.",
+      "expected_change": "A baseline for the respecification.",
+      "alternatives": [],
+      "limits": [
+        "PR + MHV1: 31-MEOH 4533.0 kmol/h at 99.827 %, 30-WATER 99.9925 % water at 101.01 C, 21 s; PR: 4532.7 at 99.835 %, 99.9981 %, 101.02 C, 8 s. Campos et al. 2022: 4542 at 99.667 %, 99.985 % at 99.6 C.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.column-reboiler-temperature-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-feed-29-with-ppm-gases",
+          "vapour-liquid-condenser-53-c",
+          "reboiler-temperature-specified"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB372.75",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB373.15",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB373.5",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB374.0",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB374.5"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "A bottoms flow is not what matters; the bottoms quality is.",
+      "mechanism": "Reboiler temperature (reboiler_T_K) with reflux 2 and 53 C, scanned from the paper's 99.6 C.",
+      "operation": "Column alone on feed 29, PR + MHV1.",
+      "expected_change": "A specification by what matters.",
+      "alternatives": [],
+      "limits": [
+        "At the paper's 99.6 C (372.75 K) the bottoms are 99.009 % water; 373.15 K 99.294 %; 373.5 K 99.539 %; 374.0 K 99.884 % (methanol 4527.8 kmol/h at 99.831 %); 374.5 K refused with OUT_OF_RANGE, the range being 356.672 to 374.171 K at reflux 2.",
+        "Adjustment: 374.0 K (100.85 C), +1.25 K (99.929 % water in the closed plant), because CHEPTA's bottoms at 99.99 % water sit at 101.01 C, about 1.4 K above 99.6 C.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.column-specs-off-paper-values-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-feed-29-with-ppm-gases",
+          "vapour-liquid-condenser-53-c",
+          "ratio-or-recovery-off-paper-value"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-BF0.488",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-recMeOH0.955",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-ratioB5e-05"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "Other specifications that matter.",
+      "mechanism": "A flow ratio bottoms/feed, a methanol recovery to the liquid distillate, a methanol/water ratio in the bottoms, near the paper's values.",
+      "operation": "Column alone on feed 29, PR + MHV1.",
+      "expected_change": "Know which specifications converge.",
+      "alternatives": [],
+      "limits": [
+        "ok: bottoms/feed 0.488 (99.734 % water, 37 s); recovery 0.955 (99.403 % water, 72 s); ratio 5e-5 (99.995 % water, 289 s, but the methanol product falls to 97.182 %).",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.column-specs-at-paper-values-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "slow",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "unit-alone",
+          "paper-feed-29-with-ppm-gases",
+          "vapour-liquid-condenser-53-c",
+          "ratio-or-recovery-at-paper-value"
+        ],
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-BF0.485",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-BF0.48672",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-recMeOH0.96115",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-recMeOH0.965",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-ratioB0.00015",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-ratioB0.0005"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "The same specifications at the paper's values (derived from Table S9/S10).",
+      "mechanism": "bottoms/feed 0.48672 (4581 / 9412), recovery 0.96115, ratio 1.5e-4; and 0.485, 0.965, 5e-4 around them.",
+      "operation": "Column alone on feed 29, PR + MHV1.",
+      "expected_change": "Converge or be refused with the range.",
+      "alternatives": [],
+      "limits": [
+        "OUT_OF_TIME at 300 s (0.485 at 1200 s), no best point reported. The ratio 0.48672 is bottoms 4581 kmol/h, which converges in 21 s as a flow. The recovery 0.96115 lies above the most the liquid distillate can take at 53 C, about 0.9608 (derived: the vapour carries 3.91 % of the feed methanol). Capability request M9.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.plant-closed-pr-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products",
+        "methanol-co2-campos-2022.ev-purge"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-gas-recycle-with-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "purge-and-make-up",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "closed-plant",
+          "peng-robinson-fitted-kij",
+          "five-tears-19-35-26-28-39-rec",
+          "vapour-liquid-condenser-53-c",
+          "traces-through-column",
+          "he5-min-approach-2-k-default-zones",
+          "u-155-printed",
+          "reboiler-374-k"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm-B4581",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm-U300"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "informed_by": [
+          {
+            "row": "methanol-co2-campos-2022.open-condenser-temperature-spec",
+            "helped": "yes",
+            "note": "rerun on the release that answers M6: the paper's 53 C closes the plant"
+          },
+          {
+            "row": "methanol-co2-campos-2022.plant-closed-062-c2",
+            "helped": "yes",
+            "note": "the same five tears and the paper's tear guesses"
+          }
+        ]
+      },
+      "obstacle": "The closed plant with every 0.6.3 change except the method, which cannot close (PR + MHV1).",
+      "mechanism": "PR with k_ij; condenser at the paper's 53 C; traces through the column; HE5 at 2 K without zones; U 155; reboiler 374.0 K.",
+      "operation": "Whole plant, Broyden, from the paper's start and from the 415da41 plant's tears; also bottoms 4581 and U 300.",
+      "expected_change": "A closed plant with the paper's specifications.",
+      "alternatives": [],
+      "limits": [
+        "ok: 29 loop iterations from the paper's start (315 s), 19 warm; balance check passed. 31-MEOH 4540.8 kmol/h at 99.835 % methanol (Campos et al. 2022: 4542 at 99.667 %); 30-WATER 4589.6 kmol/h at 99.929 % water (4581 at 99.985 %); 39-REC 394.5 kmol/h (2786); 24 at 3.41 % CO2 (18.545 %); condenser 148.0 MW, reboiler 64.7 MW (143.6, 53.7).",
+        "Bottoms 4581 in place of 374.0 K: 4549.4 kmol/h at 99.717 %; U 300 in place of 155: the same streams within 0.6 kmol/h.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.plant-condenser-at-53c-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "symptom": "no-convergence",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "closed-plant",
+          "vapour-liquid-condenser-53-c"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm"
+          ],
+          "engine": "chepta@0.6.3"
+        }
+      },
+      "obstacle": "On 415da41 every closed plant with the condenser at 53 C failed (request M6).",
+      "mechanism": "The condenser by the paper's temperature on 0.6.3.",
+      "operation": "Whole plant on PR.",
+      "expected_change": "The paper's condenser specification.",
+      "alternatives": [],
+      "limits": [
+        "ok: 29 and 19 loop iterations; condenser at 53.00 C, vapour distillate 38.6 kmol/h. The vapour share 0.008406 of the 415da41 workaround is no longer needed.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.open-co2-solubility-hp-flash-c1",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-hp-flash",
+        "methanol-co2-campos-2022.ev-co2-measured",
+        "methanol-co2-campos-2022.ev-co2-derived"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-co2-dissolved-in-methanol-water",
+        "level": "separation",
+        "operation_type": "flash",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas"
+        ],
+        "conditions": [
+          "flash-30-c-69.25-bar",
+          "co2-in-liquid-3.4-vs-18.5-mol-pct"
+        ],
+        "outcome": {
+          "status": "worked",
+          "basis": "measured",
+          "run_ids": [],
+          "engine": null
+        },
+        "corrects": "methanol-co2-campos-2022.open-co2-solubility-hp-flash",
+        "correction_reason": "The row called the 3.4 against 18.5 mol % difference a property-method difference that Lab does not judge without data. Measured data (Xia et al. 2004, Bezanehtak et al. 2004, Xie et al. 2005; results-chepta-0.6.3/README.md, 2026-11-27) now judge it: the paper's 18.5 % is about nine times the measured basis and its K below 1 is not physical; the comparison of the CO2 recycle is made against the measured basis, not the paper."
+      },
+      "obstacle": "CHEPTA's 70 bar flash liquid holds 3.4 mol % CO2 on PR (2.35 % on PR + MHV1), the paper's 18.5 %; the CO2 recycle (-86 %) follows from it.",
+      "mechanism": "Measured CO2 solubility in methanol + water (Xia et al. 2004) and in methanol under H2 (Bezanehtak et al. 2004, Xie et al. 2005), read from the ThermoML archive and interpolated by Lab.",
+      "operation": "Compared both models with measured data (co2_solubility_check.py).",
+      "expected_change": "Know which split is physical.",
+      "alternatives": [],
+      "limits": [
+        "At the separator's CO2 partial pressure the measured 1:1 solvent holds about 0.018 to 0.021 CO2 at 313.75 K; under 7072 kPa of nearly pure CO2 it holds 0.108; pure methanol under 70 % H2 at 4-7 MPa holds at most 0.115, with K_CO2 at least 2.3. The paper's 0.1855 with K 0.955 is not physical; PR + MHV1's 0.0235 agrees with the data, PR's 0.0337 is high.",
+        "Measured at 313.75 K, without H2 or N2 in the Xia gas; derived interpolation.",
+        "Draft, written by an AI session on 2026-11-27 from the 0.6.3 runs (results-chepta-0.6.3/README.md); not reviewed."
+      ],
+      "verification_required": [],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.lesson-dissolved-co2-sets-co2-recycle-c1",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-hp-flash",
+        "methanol-co2-campos-2022.ev-co2-measured",
+        "methanol-co2-campos-2022.ev-co2-derived"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-co2-dissolved-in-methanol-water",
+        "level": "separation",
+        "operation_type": "flash",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "lesson",
+          "co2-solubility-difference"
+        ],
+        "objective": {
+          "product": "methanol",
+          "judged_on": "Measured CO2 solubility in methanol + water (Xia et al. 2004) and in methanol under H2 (Bezanehtak et al. 2004, Xie et al. 2005), against the 70 bar flash of Campos et al. 2022."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-flash3-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "summarises": [
+          "methanol-co2-campos-2022.property-method-pr-mhv1-063",
+          "methanol-co2-campos-2022.open-co2-solubility-hp-flash-c1",
+          "methanol-co2-campos-2022.plant-closed-pr-063"
+        ],
+        "corrects": "methanol-co2-campos-2022.lesson-dissolved-co2-sets-co2-recycle",
+        "correction_reason": "The lesson left the 70 bar CO2 split open as a difference between two models. Measured data (Xia et al. 2004, Bezanehtak et al. 2004, Xie et al. 2005; results-chepta-0.6.3/README.md, 2026-11-27) show the paper's 18.5 % is not physical, so the lesson's advice changes from 'settle it first' to 'compare with the measured basis, not the paper'.",
+        "plain": {
+          "title": "In a methanol loop, check the CO2 dissolved at 70 bar against measured solubility: the published 18.5 mol % is not physical",
+          "when": "The 70 bar flash liquid of Campos et al. 2022 holds 0.1855 CO2 with K 0.955, far more than any model CHEPTA offers.",
+          "do": "Compare the flash liquid with measured CO2 solubility in methanol + water near the flash conditions before tuning anything toward the recycle of Campos et al. 2022; use the method that follows the data (PR + MHV1 here).",
+          "why": "The CO2 released at 1 bar returns to the CO2 compressor, so the recycle and the compression follow from the high-pressure solubility; a wrong published solubility makes the published recycle wrong too.",
+          "check": "Xia et al. 2004 at 313.75 K: about 0.018 to 0.021 at the flash's CO2 partial pressure, 0.108 under 7072 kPa of CO2; pure methanol under H2 at most 0.115, K at least 2.3 (Bezanehtak et al. 2004).",
+          "result": "PR + MHV1 gives 2.35 % and PR 3.41 %, against 18.545 % in Campos et al. 2022; the CO2 recycle is 394.5 against 2786 kmol/h."
+        }
+      },
+      "obstacle": "A published solubility far from measured data.",
+      "mechanism": "Comparison with measured data.",
+      "operation": "Lesson over the flash, measured-data and plant rows.",
+      "expected_change": "A CO2 split judged on data.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-27 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.lesson-mhv1-ph-flash-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-methods"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-gas-recycle-with-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "symptom": "section-fails",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "lesson",
+          "peng-robinson-mhv1"
+        ],
+        "objective": {
+          "product": "methanol",
+          "judged_on": "A closed one-step plant of Campos et al. 2022 on PR + MHV1, the method CHEPTA advises for it."
+        },
+        "outcome": {
+          "status": "failed",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-mhv1",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-mhv1-warm",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/mini-ph-H2-CO2-H2O-mhv1"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "summarises": [
+          "methanol-co2-campos-2022.ph-flash-mhv1-gases-water-063",
+          "methanol-co2-campos-2022.ph-flash-controls-063",
+          "methanol-co2-campos-2022.plant-mhv1-063",
+          "methanol-co2-campos-2022.property-method-pr-mhv1-063"
+        ],
+        "plain": {
+          "title": "On chepta 0.6.3, PR + MHV1 runs this plant's flashes but not its enthalpy-specified units: report, do not work around",
+          "when": "A methanol plant with H2, CO2 and water moves to PR + MHV1 after the flashes look right on it.",
+          "do": "Run each unit alone on the published inlets on the new method before the plant; reduce a refusal to the smallest input with a control on the old method.",
+          "why": "The plant stops at its first mixer, so only the unit runs show that every mixer, valve and exchanger fails the same way, and the small input makes the request testable.",
+          "check": "The adiabatic heater on H2 + CO2 + water at 33 C and 100 kPa: refused on PR + MHV1, ok on PR and with the temperature given.",
+          "result": "Flashes, compressors, HE2, HE7 and the reactor run; HE4, HE5, HE6, MIXER1, MIXER4, VALVE1 stop with no physical root (31.4 to 84.2 K); the plant stops at MIXER1 or at CP3 (300 K, 7000 kPa)."
+        }
+      },
+      "obstacle": "The advised method cannot close the plant.",
+      "mechanism": "Unit runs, then the smallest input.",
+      "operation": "Lesson over the PR + MHV1 rows.",
+      "expected_change": "A precise capability request.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-27 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.lesson-column-reboiler-temperature-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "sep-methanol-water-with-dissolved-gases",
+        "level": "separation",
+        "operation_type": "distillation",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "lesson",
+          "column-second-specification"
+        ],
+        "objective": {
+          "product": "methanol",
+          "judged_on": "The methanol and water products of Campos et al. 2022 (Table S10): 99.667 % methanol, 99.985 % water."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB374.0",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-TB372.75",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-BF0.48672",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/col-mhv1-B4581"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "summarises": [
+          "methanol-co2-campos-2022.column-reboiler-temperature-063",
+          "methanol-co2-campos-2022.column-specs-at-paper-values-063",
+          "methanol-co2-campos-2022.column-specs-off-paper-values-063",
+          "methanol-co2-campos-2022.column-vl-bottoms-4581-063"
+        ],
+        "plain": {
+          "title": "Specify the methanol column by its reboiler temperature, moved by the model's own water boiling point",
+          "when": "A methanol column whose published bottoms temperature (99.6 C) is below the model's boiling point of nearly pure water at the column pressure.",
+          "do": "Find the model's bottoms temperature at the published purity (a bottoms-flow run), and scan the reboiler temperature just below it; record the shift as an adjustment.",
+          "why": "A stage temperature fixes the bottoms quality directly; at the published 99.6 C the model's bottoms are only 99.009 % water, and the flow, ratio and recovery specifications at the published values run out of time on chepta 0.6.3.",
+          "check": "The bottoms purity at the chosen temperature, and that the temperature lies inside the range the engine reports (356.672 to 374.171 K here).",
+          "result": "374.0 K (+1.25 K): 99.884 % water alone and 99.929 % in the closed plant, methanol 99.831 %; the bottoms/feed ratio 0.48672, the recovery 0.96115 and the ratio 1.5e-4 stopped at 300 s."
+        }
+      },
+      "obstacle": "A purity every column exceeds is not a useful specification.",
+      "mechanism": "Reboiler temperature.",
+      "operation": "Lesson over the column specification rows.",
+      "expected_change": "A column specified by what matters.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-27 from the rows it summarises; not reviewed."
+      ],
+      "verification_required": [
+        "An AI review session checks each number against the summarised rows and their runs."
+      ],
+      "rationale_classification": "lab_inference",
+      "legacy_origin": null
+    },
+    {
+      "id": "methanol-co2-campos-2022.lesson-closed-plant-paper-specs-063",
+      "evidence_ids": [
+        "methanol-co2-campos-2022.ev-column",
+        "methanol-co2-campos-2022.ev-products"
+      ],
+      "keys": {
+        "record_status": "draft",
+        "kind": "case-decision",
+        "problem_id": "plant-gas-recycle-with-purge",
+        "level": "plant",
+        "operation_type": "recycle",
+        "components": [
+          "carbon-dioxide",
+          "carbon-monoxide",
+          "hydrogen",
+          "methanol",
+          "nitrogen",
+          "water"
+        ],
+        "behaviours": [
+          "non-condensable-gas",
+          "purge-and-make-up",
+          "recycle-loop"
+        ],
+        "conditions": [
+          "lesson",
+          "closed-plant",
+          "comparison"
+        ],
+        "objective": {
+          "product": "methanol",
+          "judged_on": "The methanol product of Campos et al. 2022 (4542 kmol/h at 99.667 %), with its condenser at 53 C, the gas traces in the column feed and a 2 K approach in HE5."
+        },
+        "outcome": {
+          "status": "worked",
+          "basis": "chepta_run",
+          "run_ids": [
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/plant-pr-warm",
+            "cases/methanol-co2-campos-2022/results-chepta-0.6.3/u-he5-a6streams-dTmin2-pr"
+          ],
+          "engine": "chepta@0.6.3"
+        },
+        "summarises": [
+          "methanol-co2-campos-2022.plant-closed-pr-063",
+          "methanol-co2-campos-2022.plant-condenser-at-53c-063",
+          "methanol-co2-campos-2022.he5-plant-streams-default-zones-063",
+          "methanol-co2-campos-2022.reactor-u155-063"
+        ],
+        "plain": {
+          "title": "On chepta 0.6.3 the methanol plant closes with the published condenser, column feed and HE5 approach",
+          "when": "The workarounds of earlier engines (a vapour share, gases bypassed, extra exchanger zones, an assumed U) are no longer needed.",
+          "do": "Remove each workaround, keep the published U of 155, and close the plant from the published tear guesses; compare the product ends first.",
+          "why": "The engine now starts a condenser fixed by its temperature, starts a column with ppm gases and holds the approach along the whole exchanger.",
+          "check": "Balance check passed; HE5 at 2.000 K along the exchanger; condenser at 53 C.",
+          "result": "29 loop iterations; methanol 4540.8 kmol/h at 99.835 % (published 4542 at 99.667 %), water 99.929 % (99.985 %); the CO2 recycle stays 394.5 kmol/h, on PR, not on PR + MHV1."
+        }
+      },
+      "obstacle": "Workarounds of earlier engines.",
+      "mechanism": "Remove them one release later.",
+      "operation": "Lesson over the closed-plant rows on 0.6.3.",
+      "expected_change": "The paper's specifications in a closed plant.",
+      "alternatives": [],
+      "limits": [
+        "Draft lesson, written by an AI session on 2026-11-27 from the rows it summarises; not reviewed."
       ],
       "verification_required": [
         "An AI review session checks each number against the summarised rows and their runs."
