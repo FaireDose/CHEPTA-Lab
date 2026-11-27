@@ -217,3 +217,49 @@ Also added on the maintainer's decisions of 2026-11-27 (rules D to G, PR #38): P
 product acceptance check with its sources (rule D: the paper's own 99.5 % m/m target, article p.4; the IMPCA reference
 specification, 2021, p.1; the paper's TOC abatement of the process water, Table 2, p.12), a rule F table for M7, M8, M9
 and the run times (rule G), all in results-chepta-0.6.3/README.md.
+
+## Follow-up check by the reviewer (2026-11-27)
+
+**AI follow-up check (Claude, Anthropic; the same review session as above, not the builder; 2026-11-27)** of commit
+4ad0e93 against b968848 and `origin/main` (8b8b64f). No person's spot check is selected: the maintainer will not do one
+for #37 (recorded above).
+
+How: the same reading of the full results with the reviewer's own scripts; the paper and the three ThermoML files from
+the first check; the IMPCA PDF downloaded again from the catalogued URL into `raw_papers/review-063-impca/` (sha256
+c0c39f9c...a170, equal to the catalogue); CHEPTA's `ai/skills/chepta/SKILL.md` at tag v0.6.3 from GitHub (not in the
+npm package) into `raw_papers/review-063-chepta-skill/`; rules D to G read on `origin/claude/lab-next-steps`
+(docs/SIMULATION_PRACTICES.md). Commands on 4ad0e93: `validate_catalog.py` exit 0 (45 sources), `dataset_pipeline.py
+validate` valid, `kb.py check` index current, unittest 127 OK; run manifest 54 runs, every sha256 matches.
+
+| Item | Verdict | Evidence |
+|---|---|---|
+| Major 1, M9 and the column rows | **confirmed** | CAPABILITY_REQUESTS.md M9 restated with the bracket table (values equal to the first check); "0.9608" removed from M9, the README and `column-specs-at-paper-values-063` |
+| Major 2, the column specification | **confirmed** | bottoms 4581 kmol/h is the current result; reboiler temperature a labelled variant; 374.1 K run (col-mhv1-TB374.1: 4531.0 at 99.831 %, water 99.952 %, 95.7 s); 374.1-374.171 K stated as not run; lesson `lesson-column-spec-by-purities-063` judged on both flows and purities, and its result meets that objective |
+| Major 3, the engine commit | **confirmed** | README and CAPABILITY_REQUESTS.md say there is no engine disagreement and give the reporting note |
+| Minor 1, U 300 | **confirmed** | products within 0.6 kmol/h, recycle 103-105 kmol/h, 0.026 points |
+| Minor 2, 3.41 % | **confirmed** | 3.37 % for the unit run, 3.41 % for the closed plants |
+| Minor 3, CO2 at 303 K | **confirmed**, with nit A below | 0.0215 / 0.025, consistent with the reviewer's 0.021 / 0.024 |
+| Minor 4, summaries regenerated | **confirmed** | manifest `records_note` |
+| Minor 5, HE6 and stream 13 | **confirmed** | HE6 1.20 MW (5.0), stream 26 at 25.84 C, 13 at 66.94 C, 36-REC at 47.54 C in the output |
+| Nits 1-3 | **confirmed** | Xie's H2 sets described; the removed request explained; HE5 alone 113.9 / 93.5 MW |
+| New current result plant-pr-B4581 | **confirmed** | output: 28 iterations, 749.6 s, largest component imbalance 0.00086 kmol/h; 31-MEOH 4549.4 kmol/h, 99.717 % methanol, 0.165 % CO2, 0.118 % water; 30-WATER 4581.0, 99.9996 %, 101.02 C; 32 38.6 kmol/h at 38.17 % CO2; 24 9523.3 at 3.413 %; 39-REC 394.4; 36-REC 52,794.6; purge 1077.4; 13 72,476.2 at 66.94 C; 16 7.498 %; 2 5218.4; condenser 148.32, reboiler 64.98 MW; HE4 114.09, HE5 93.68 (2.000 K, zones 2.277 K), HE6 1.20, HE7 28.72 MW; CP1-3 7.90, 7.87, 7.75 MW; each reactor 35.28 MW. plant-pr-warm-B4581 gives the same streams (16 iterations, 319 s). Paper's 35.0 MW per reactor: 4060 kmol/h × (−234.21 + 265.27) MJ/kmol (54W, 55W, Table S9) = 35.0 MW; 54W and 56W are the two reactors' coolants (supplement p.11) |
+| Rule D, acceptance figures | **confirmed**, with minor B and nit C below | mass fractions recomputed: CHEPTA 99.707 wt % methanol, 0.227 CO2, 0.066 water, 99.773 % water-free; paper 99.557 (README 99.558, rounding), 0.434, 0.009; water stream 7.5 and 266.8 mg/kg; plant-pr 1269 mg/kg. Paper: "methanol in high purity (>99.5% m/m)", article p.4; Table 2, p.12: TOC abatement 1938 € per t C, ref. 63. IMPCA Version 9 (10 Jun 2021): purity on dry basis min 99.85 % W/W (IMPCA 001), water max 0.100 % W/W (ASTM E 1064) |
+| Rule F judgements | **confirmed, fair** | M7 a defect (T-P on MHV1 and P-H on PR both work); M8 unclear; M9 a defect with a working alternative. The cited CHEPTA text exists at v0.6.3 (SKILL.md: MHV1 "refuses a light gas with a polar liquid that has no fitted NRTL set"; Modified UNIFAC 2.0 estimates for NRTL, UNIQUAC, Wilson pairs) |
+| Rule G run times | **confirmed** | spot-checked against `run.timing` and the manifest: col-mhv1-TB374.5 549.6 s, plant-pr-B4581 749.6 s (COLUMN 432 s), plant-pr-warm 269.5 s (HE5 110 s), plant-pr-warm-U300 471.5 s (HE5 236 s), col-pr-B4581 7.5 s, HE5 alone 6.7 and 6.9 s |
+| Lock and records only gain against main | **confirmed** | lock: outcomes 124 to 142, informed_by 0 to 2, corrections 21 to 23, indexed 306 to 325, none removed or changed; records: 3 blocks, 2 evidence, 19 decisions added, none removed or changed. The PR's own rows were rewritten before merge, not corrected by `-c1` rows (the coordinating session's instruction); against main this keeps the lock append-only |
+
+New, small, not blocking:
+
+- **B (minor). The IMPCA verdict rests on a test that probably does not see CO2.** IMPCA 001-21 (p.4-5) measures
+  impurities by GC/FID and takes purity on dry basis as 100 % minus their sum; an FID does not respond to CO2, so 0.227
+  wt % dissolved CO2 would probably not lower the IMPCA purity. The README says the assumption openly ("Lab assumes it
+  does"), so nothing is hidden, but the stated reason is doubtful. Dissolved CO2 would more likely show in the acidity
+  test (test 14, max 30 mg/kg as acetic acid, ASTM D 1613): the reviewer's reading, not tested. The conclusion that the
+  product needs CO2 removal before sale is probably still right, for another test. Suggest: "not determined: IMPCA 001
+  (GC/FID) does not count CO2; the acidity limit (test 14) is the likely constraint, not checked".
+- **C (nit). IMPCA locators off by one.** The specification table is on p.2 (p.1 is the cover) and section 7 of
+  IMPCA 001-21 is on p.5; the README says p.1, `data/sources.json` p.1 and p.4.
+- **A (nit). Attribution of the 303 K estimate.** The README credits the builder's method (mean x/P up to 3.6 MPa;
+  0.01462 and 0.00802 per MPa) to the reviewer as well. The reviewer's own estimate used other points (up to 2.5 MPa at
+  313.75 K, 0.01481; up to 4 MPa at 354.35 K, 0.00953) and gave 0.021 and 0.024; the results agree, the numbers are
+  the builder's.
