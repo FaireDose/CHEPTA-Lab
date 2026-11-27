@@ -1191,7 +1191,144 @@
       "engine": "chepta@0.6.2"
     }
   },
-  "informed_by": {},
+  "informed_by": {
+    "ethylene-glycol-shehata-2024.plan-dehydration-column-specs": [
+      {
+        "row": "shehata-2024-meg-routes.vacuum-glycol-columns",
+        "helped": "yes",
+        "note": "Keeps the column at the paper's vacuum. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "chen-2018-abe-distillation.lower-pressure-of-sensitive-columns",
+        "helped": "yes",
+        "note": "Lower pressure for a heat-sensitive bottoms; condenser stays above ambient (Water Rec 5 at 50.74 C). Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "jankovic-2023-ipa-acetone-recovery.vacuum-condenser-needs-chilled-water",
+        "helped": "no",
+        "note": "Checked: the condenser is near 51 C in Fig. 5, so cooling water suffices; the rule does not apply here. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "ethyl-acetate-piotrowski-2021.lesson-close-plant-purity-specs",
+        "helped": "yes",
+        "note": "Specify by outlet purity or a flow tuned to it, not by the paper's settings. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "kooijman-taylor-2006-chemsep-book.column-misses-target-check-balances-and-profiles",
+        "helped": "yes",
+        "note": "If the purity is missed, check the key balance and the profiles first. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-e105-by-hot-outlet": [
+      {
+        "row": "methanol-co2-campos-2022.lesson-feed-effluent-exchanger-approach",
+        "helped": "partly",
+        "note": "The methanol exchanger needed an approach spec because of condensing and boiling sides; here both sides are liquid, so an outlet temperature is kept and the approach only checked. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-evaporators-as-flashes": [
+      {
+        "row": "shehata-2024-meg-routes.evaporator-train-before-vacuum-column",
+        "helped": "partly",
+        "note": "Shaped the train of three flashes before the column; its 75 % water figure disagrees with Table 3 (about 30 %), so it is not a target. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "andreasen-2022-dwsim-evaluation.flash-instability-not-solver",
+        "helped": "yes",
+        "note": "If a flash fails in the duty scan, check the phase split before changing the solver. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-feed-heater-duty-check": [
+      {
+        "row": "methanol-co2-campos-2022.lesson-duty-against-stream-enthalpies",
+        "helped": "yes",
+        "note": "Same check as for HE7 in the methanol case. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-meg-column-distillate-first": [
+      {
+        "row": "shehata-2024-meg-routes.vacuum-glycol-columns",
+        "helped": "partly",
+        "note": "Supports the vacuum; its side-draw statement (from the text) conflicts with Fig. 5, so the plan starts from the drawing. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "chen-2018-abe-distillation.lower-pressure-of-sensitive-columns",
+        "helped": "yes",
+        "note": "Pressure kept low for the 170 C limit. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-property-method-nrtl": [
+      {
+        "row": "pasha-2021-biodiesel-process-design.nrtl-uniquac-polar",
+        "helped": "yes",
+        "note": "Chose NRTL for polar glycol + water liquids, missing pairs from UNIFAC. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "othman-2024-meg-reactive-distillation.cpa-for-glycol-water",
+        "helped": "partly",
+        "note": "Names CPA for glycol + water; CPA is not in CHEPTA 0.6.2, so it only says what to compare with. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "li-2017-ed-thermo-parameters.check-built-in-parameters",
+        "helped": "yes",
+        "note": "Led to the planned check of databank pairs against measured data before comparing. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "palomar-2024-il-process-simulation.validate-predictive-methods",
+        "helped": "yes",
+        "note": "Estimated (UNIFAC) pairs, likely for DEG and TEG, to be checked against data. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-reactor-conversion-from-table3": [
+      {
+        "row": "ethyl-acetate-piotrowski-2021.lesson-reactor-conversion-imposed",
+        "helped": "yes",
+        "note": "Same situation (no usable rate law): impose the conversion per pass from the streams and say the reactor is not tested. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "shehata-2024-meg-routes.direct-hydration-water-excess",
+        "helped": "partly",
+        "note": "Confirms the water excess sets the selectivity; a conversion reactor cannot test that, so it informs only a later kinetic variant. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "othman-2024-meg-reactive-distillation.tubular-reactor-no-backmixing",
+        "helped": "partly",
+        "note": "Supports a plug flow tube as the physical reactor; without kinetics CHEPTA's pfr cannot be used. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ],
+    "ethylene-glycol-shehata-2024.plan-water-loop-tear-and-make-up": [
+      {
+        "row": "larsson-skogestad-2000-plantwide.fix-a-recycle-flow",
+        "helped": "yes",
+        "note": "Fix one flow in the liquid recycle loop. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "palomar-2024-il-process-simulation.tear-and-make-up",
+        "helped": "yes",
+        "note": "Choose the tear on purpose and let a make-up close the loop. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "andreasen-2022-dwsim-evaluation.recycle-tolerance-per-component",
+        "helped": "yes",
+        "note": "Check the tear per component (EO and MEG traces in the recycle). Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "ethyl-acetate-piotrowski-2021.lesson-product-flow-within-feed",
+        "helped": "yes",
+        "note": "Do not fix the MEG product and every outlet; MEG cannot exceed what 1160 kmol/h EO forms. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "ethyl-acetate-piotrowski-2021.lesson-tighten-tolerance-from-saved-answer",
+        "helped": "yes",
+        "note": "Restart from the saved answer at a tighter tolerance. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      },
+      {
+        "row": "methanol-co2-campos-2022.lesson-tears-break-every-cycle",
+        "helped": "yes",
+        "note": "E-105 adds a cycle from the product back to the feed; the tear set must break it. Judged at planning only: the rule shaped the plan; whether it helps in CHEPTA is for the run rows."
+      }
+    ]
+  },
   "corrections": {
     "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41-converges-140": {
       "corrects": "ethyl-acetate-piotrowski-2021.col11-acid-paper-flow-415da41",
@@ -1411,6 +1548,19 @@
     "ethyl-acetate-piotrowski-2021.reactor-conversion-per-pass-sensitivity-062",
     "ethyl-acetate-piotrowski-2021.review-extractive-distillation-needs-second-step",
     "ethyl-acetate-piotrowski-2021.wash-water-raised-062",
+    "ethylene-glycol-shehata-2024.paper-evaporators-and-vacuum-dehydration",
+    "ethylene-glycol-shehata-2024.paper-reactor-water-excess",
+    "ethylene-glycol-shehata-2024.paper-vacuum-glycol-column",
+    "ethylene-glycol-shehata-2024.paper-water-recycle",
+    "ethylene-glycol-shehata-2024.plan-dehydration-column-specs",
+    "ethylene-glycol-shehata-2024.plan-e105-by-hot-outlet",
+    "ethylene-glycol-shehata-2024.plan-evaporators-as-flashes",
+    "ethylene-glycol-shehata-2024.plan-feed-heater-duty-check",
+    "ethylene-glycol-shehata-2024.plan-meg-column-distillate-first",
+    "ethylene-glycol-shehata-2024.plan-property-method-nrtl",
+    "ethylene-glycol-shehata-2024.plan-reactor-conversion-from-table3",
+    "ethylene-glycol-shehata-2024.plan-teg-user-component",
+    "ethylene-glycol-shehata-2024.plan-water-loop-tear-and-make-up",
     "fu-2021-isobutanol-recovery.decanter-with-two-strippers",
     "fu-2021-isobutanol-recovery.electrolyte-model",
     "fu-2021-isobutanol-recovery.salting-out",
