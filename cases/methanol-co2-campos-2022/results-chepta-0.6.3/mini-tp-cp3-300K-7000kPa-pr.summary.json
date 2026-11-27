@@ -1,0 +1,345 @@
+{
+  "chepta_summary": 1,
+  "note": "A summary of the full result: open the full result file (full_result_file) to accept a result or to diagnose a failure. Every warning and qualification is kept verbatim; left_out lists what is only in the full file.",
+  "which": {
+    "engine": {
+      "library": "0.6.3",
+      "commit": null,
+      "local_changes": null
+    },
+    "capability": "solve_flowsheet",
+    "input_hash": "06f5ffcb97199c1c",
+    "databank_hash": "79438428d2ffa8e6",
+    "user_data_hash": null,
+    "method": {
+      "model": "PR",
+      "vapour": null
+    },
+    "components": [
+      "carbon-dioxide",
+      "hydrogen",
+      "carbon-monoxide",
+      "methanol",
+      "water",
+      "nitrogen"
+    ],
+    "run_id": "run-mwz2h78q-1",
+    "input_file": "mini-tp-cp3-300K-7000kPa-pr.request.json",
+    "full_result_file": "mini-tp-cp3-300K-7000kPa-pr.output.json"
+  },
+  "outcome": "ok",
+  "status": "done",
+  "elapsed_ms": 44.663854000000015,
+  "limits": {
+    "time_ms": 1200000
+  },
+  "timing": {
+    "total_s": 0.024,
+    "blocks_calculated": 4,
+    "block_calls": 4,
+    "slowest_blocks": [
+      {
+        "block": "F1",
+        "s": 0.016,
+        "calls": 1
+      },
+      {
+        "block": "FL",
+        "s": 0.002,
+        "calls": 1
+      },
+      {
+        "block": "P2",
+        "s": 0,
+        "calls": 1
+      }
+    ],
+    "loops": [],
+    "columnRestart": "previous"
+  },
+  "loops": [],
+  "balance": {
+    "material_kmol_h": 0,
+    "energy_kW": 0,
+    "balance_tolerance": 0.0001,
+    "balance_limit_kmol_h": 0.010000000000000002,
+    "warnings": null
+  },
+  "qualifications": {
+    "pairs": [
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Carbon monoxide"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Methanol"
+        ],
+        "set": "fitted-naidoo2008-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Water"
+        ],
+        "set": "fitted-bermejo2005-etal",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon dioxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Carbon monoxide"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Methanol"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Hydrogen",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Methanol"
+        ],
+        "set": "fitted-wu2019",
+        "tier": "fitted"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Water"
+        ],
+        "set": null,
+        "tier": "none"
+      },
+      {
+        "pair": [
+          "Carbon monoxide",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Water"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Methanol",
+          "Nitrogen"
+        ],
+        "set": "chemsep",
+        "tier": "databank"
+      },
+      {
+        "pair": [
+          "Water",
+          "Nitrogen"
+        ],
+        "set": null,
+        "tier": "none"
+      }
+    ],
+    "missing_pairs": [
+      [
+        "Carbon dioxide",
+        "Carbon monoxide"
+      ],
+      [
+        "Hydrogen",
+        "Methanol"
+      ],
+      [
+        "Hydrogen",
+        "Water"
+      ],
+      [
+        "Carbon monoxide",
+        "Water"
+      ],
+      [
+        "Water",
+        "Nitrogen"
+      ]
+    ],
+    "notes": [],
+    "warnings": []
+  },
+  "range_warnings": {
+    "rangeMode": "lenient",
+    "flowsheet": [
+      "Carbon dioxide + Nitrogen: PR k_ij set at 318.15 K is 25 K above its range (233.15-293.15 K): the set's temperature dependence is used as it is (fitted to data at 233.15-293.15 K). This is an extrapolation, not data. Where: F1, FL.",
+      "Hydrogen + Carbon monoxide: PR k_ij set at 318.15 K is 229.95 K above its range (68.2-88.2 K): the set's temperature dependence is used as it is (fitted to data at 68.2-88.2 K). This is an extrapolation, not data. Where: F1, FL.",
+      "Hydrogen + Nitrogen: PR k_ij set at 318.15 K is 205.15 K above its range (90-113 K): the set's temperature dependence is used as it is (fitted to data at 90-113 K). This is an extrapolation, not data. Where: F1, FL.",
+      "Carbon monoxide + Nitrogen: PR k_ij set at 318.15 K is 196.15 K above its range (70-122 K): the set's temperature dependence is used as it is (fitted to data at 70-122 K). This is an extrapolation, not data. Where: F1, FL."
+    ],
+    "streams": {
+      "count": 22,
+      "distinct": 16,
+      "messages": [
+        {
+          "warning": "No PR k_ij for Carbon dioxide + Carbon monoxide: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon dioxide + Nitrogen (-0.0122) comes from data at 233.15-293.15 K; 318.15 K is outside that range.",
+          "streams": [
+            "S1"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 318.15 K is outside that range.",
+          "streams": [
+            "S1"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Methanol: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Hydrogen + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 318.15 K is outside that range.",
+          "streams": [
+            "S1"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Carbon monoxide + Water: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 318.15 K is outside that range.",
+          "streams": [
+            "S1"
+          ]
+        },
+        {
+          "warning": "No PR k_ij for Water + Nitrogen: k_ij = 0 used; results for this pair are a prediction without binary data.",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 1698 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "S1"
+          ]
+        },
+        {
+          "warning": "PR is the method here: Carbon dioxide, Hydrogen, Carbon monoxide, Nitrogen are light gases, which only an equation of state describes (gas-phase reactors and high-pressure loops are simulated so). For a liquid of the polar components alone (Methanol, Water) below about 10 bar, such as their distillation, an activity model (NRTL or UNIQUAC) would be more accurate (docs/METHOD_SELECTION.md).",
+          "streams": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "warning": "The stream has no flow.",
+          "streams": [
+            "S2"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Carbon monoxide (0.0919) comes from data at 68.2-88.2 K; 300.00 K is outside that range.",
+          "streams": [
+            "S3"
+          ]
+        },
+        {
+          "warning": "k_ij of Hydrogen + Nitrogen (0.0711) comes from data at 90-113 K; 300.00 K is outside that range.",
+          "streams": [
+            "S3"
+          ]
+        },
+        {
+          "warning": "k_ij of Carbon monoxide + Nitrogen (0.03) comes from data at 70-122 K; 300.00 K is outside that range.",
+          "streams": [
+            "S3"
+          ]
+        },
+        {
+          "warning": "Above 10 bar, PR + gE (MHV1) is recommended here. PR at 7000 kPa, a light gas with a polar liquid (Carbon dioxide + Methanol, Carbon dioxide + Water, Hydrogen + Methanol, Hydrogen + Water, Carbon monoxide + Methanol, Carbon monoxide + Water, Nitrogen + Methanol, Nitrogen + Water): above about 10 bar the method guide recommends a cubic equation with a gE mixing rule (rule 4 of docs/METHOD_SELECTION.md). In CHEPTA that is \"PR + gE (MHV1)\" (model \"PR\", mixing: \"MHV1\"), which has NRTL parameters for these pairs: Carbon dioxide + Methanol: fitted inside the rule, with a fit-quality warning; Carbon dioxide + Water: fitted inside the rule, with a fit-quality warning; Hydrogen + Methanol: fitted inside the rule, with a fit-quality warning; Hydrogen + Water: fitted inside the rule; Carbon monoxide + Methanol: fitted inside the rule; Carbon monoxide + Water: fitted inside the rule, with a fit-quality warning; Nitrogen + Methanol: fitted inside the rule; Nitrogen + Water: fitted inside the rule, with a fit-quality warning. This calculation uses PR with k_ij.",
+          "streams": [
+            "S3"
+          ]
+        }
+      ]
+    }
+  },
+  "left_out": {
+    "$.value.extrapolations": "4 records used outside their range (their messages are in range_warnings.flowsheet)",
+    "$.value.streams": "3 streams (flows, compositions, states, sources; their warnings are in range_warnings.streams)",
+    "$.value.energy": "1 entries",
+    "$.value.blocks": "4 blocks (duties, states, profiles, specs, notes)",
+    "$.value.order": "4 entries",
+    "$.value.loops": "0 entries",
+    "$.value.balance": "4 entries",
+    "$.checks.blocks": "4 blocks (each block's own material and energy balance)",
+    "$.reproduction.parameter_sets": "15 sets (also in qualifications.pairs)",
+    "$.run.timing": "the time per block, recycle pass and design-specification evaluation"
+  }
+}

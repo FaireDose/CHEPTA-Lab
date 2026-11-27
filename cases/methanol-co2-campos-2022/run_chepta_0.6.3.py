@@ -11,8 +11,8 @@ not re-run the 0.6.2 tests to compare):
   average given to Aspen), in place of the assumed 300;
 - the closed plant with all of these, on PR + MHV1 (CHEPTA's known limit: MIXER1 and CP3) and on PR.
 
-Every run is called with `chepta request FILE --summary --out FILE.result.json`: the full result is kept unchanged in
-`<id>.result.json`, the summary (stdout) in `<id>.summary.json`, stderr in `<id>.stderr.txt`. A rerun never overwrites
+Every run is called with `chepta request FILE --summary --out FILE.output.json`: the full result is kept unchanged in
+`<id>.output.json`, the summary (stdout) in `<id>.summary.json`, stderr in `<id>.stderr.txt`. A rerun never overwrites
 a kept run. Run from the repository root after `npm ci`:
 
   python3 cases/methanol-co2-campos-2022/run_chepta_0.6.3.py            # all
@@ -195,14 +195,14 @@ def plant_runs(second):
 
 def run_one(cmd, rid, rq, done):
     run_id = rid
-    if (OUT / f"{run_id}.result.json").exists():
+    if (OUT / f"{run_id}.output.json").exists():
         k = 2
-        while (OUT / f"{rid}-r{k}.result.json").exists():
+        while (OUT / f"{rid}-r{k}.output.json").exists():
             k += 1
         run_id = f"{rid}-r{k}"
     f = OUT / f"{run_id}.request.json"
     f.write_text(json.dumps(rq, indent=2) + "\n")
-    res_f = OUT / f"{run_id}.result.json"
+    res_f = OUT / f"{run_id}.output.json"
     t0 = datetime.datetime.now(datetime.timezone.utc)
     try:
         p = subprocess.run(cmd + ["request", "--time-ms", TIME_MS, "--summary", "--out", str(res_f), str(f)],
@@ -223,9 +223,9 @@ def run_one(cmd, rid, rq, done):
            "started_at": t0.isoformat(), "exit_code": p.returncode, "exit_meaning": EXIT.get(p.returncode, "unknown"),
            "outcome": res.get("outcome"), "error_code": err.get("code"), "error_message": err.get("message"),
            "chepta_run_id": (res.get("run") or {}).get("id"), "elapsed_ms": (res.get("run") or {}).get("elapsed_ms"),
-           "request_file": f"{OUT.name}/{run_id}.request.json", "result_file": f"{OUT.name}/{run_id}.result.json",
+           "request_file": f"{OUT.name}/{run_id}.request.json", "output_file": f"{OUT.name}/{run_id}.output.json",
            "summary_file": f"{OUT.name}/{run_id}.summary.json", "stderr_file": f"{OUT.name}/{run_id}.stderr.txt",
-           "request_file_sha256": sha(f.read_bytes()), "result_file_sha256": sha(res_f.read_bytes())}
+           "request_file_sha256": sha(f.read_bytes()), "output_file_sha256": sha(res_f.read_bytes())}
     done.append(rec)
     print(run_id, "exit", p.returncode, res.get("outcome"), err.get("code", ""), (err.get("message") or "")[:300], flush=True)
     man_f = OUT / "run-manifest.json"

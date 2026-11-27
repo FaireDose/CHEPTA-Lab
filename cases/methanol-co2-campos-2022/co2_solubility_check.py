@@ -73,7 +73,7 @@ def main(xia, bez, xie):
     paper = {k: S[k]["mol_pct"]["CO2"] / 100 for k in ("23", "24", "33")}
     P_sep = S["33"]["P_bar"] * 100   # kPa
     p_co2_paper = paper["33"] * P_sep
-    mh = json.loads((H / "results-chepta-0.6.3/u-flash3-mhv1.result.json").read_text())["value"]["streams"]
+    mh = json.loads((H / "results-chepta-0.6.3/u-flash3-mhv1.output.json").read_text())["value"]["streams"]
     pr = json.loads((H / "results-chepta-0.6.2/u-flash3.output.json").read_text())["value"]["streams"]
 
     def x(streams, sid, c="carbon-dioxide"):
