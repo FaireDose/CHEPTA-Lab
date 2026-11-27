@@ -215,7 +215,7 @@ session's instruction), not corrected by `-c1` rows. Every finding was fixed; no
 
 Also added on the maintainer's decisions of 2026-11-27 (rules D to G, PR #38): PR for the whole plant (rule E), the
 product acceptance check with its sources (rule D: the paper's own 99.5 % m/m target, article p.4; the IMPCA reference
-specification, 2021, p.1; the paper's TOC abatement of the process water, Table 2, p.12), a rule F table for M7, M8, M9
+specification, 2021, PDF p.2; the paper's TOC abatement of the process water, Table 2, p.12), a rule F table for M7, M8, M9
 and the run times (rule G), all in results-chepta-0.6.3/README.md.
 
 ## Follow-up check by the reviewer (2026-11-27)

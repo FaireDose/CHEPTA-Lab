@@ -121,8 +121,9 @@ accepts the product. Mass fractions converted from the mole fractions by Lab (de
 | Stream | CHEPTA plant-pr-B4581 (current) | Paper (Table S10) | Accepted by | Verdict |
 |---|---|---|---|---|
 | 31-MEOH flow | 4549.4 kmol/h (+0.16 %) | 4542 kmol/h | | flows match |
-| 31-MEOH methanol | 99.707 wt % (99.773 % on a water-free basis) | 99.558 wt % (99.566 % water-free) | the paper's own target, methanol above 99.5 % m/m (article p.4, Section 2.1.1); IMPCA reference specification, purity on dry basis at least 99.85 % W/W (IMPCA Version 9, 2021, p.1, test 2) | meets the paper's 99.5 %; neither CHEPTA's nor the paper's liquid meets IMPCA's 99.85 % as it leaves the condenser, because of the CO2 dissolved at 53 C (0.227 wt % in CHEPTA, 0.434 % in the paper). Whether the GC purity of IMPCA 001 counts dissolved CO2 is not stated (Lab assumes it does). The case does not chase it: CO2 removal before storage is outside the paper's flowsheet |
-| 31-MEOH water | 0.066 wt % | 0.009 wt % | IMPCA: at most 0.100 % W/W (p.1, test 6) | accepted |
+| 31-MEOH methanol | 99.707 wt %; on IMPCA's basis **100.00 %** (computed: no organic impurity in the model) | 99.558 wt %; on IMPCA's basis 100.00 % | the paper's own target, methanol above 99.5 % m/m (article p.4, Section 2.1.1); IMPCA: purity on dry basis at least 99.85 % W/W (IMPCA Version 9, 2021, PDF p.2, test 2), measured by method IMPCA 001 as 100 % minus the organic impurities found by GC/FID, water not subtracted (PDF pp.4-5, sections 1-7) | **meets both**. Computed: CHEPTA's and the paper's products hold no organic impurity (the models carry no ethanol, acetone or other side products), so IMPCA's purity is 100.00 %; dissolved CO2 and water are not organic impurities and an FID does not detect CO2. Lab's reading: the 100 % says only that the model has no side products, not that a real product would pass |
+| 31-MEOH acidity (dissolved CO2) | CO2 0.227 wt % = 2269 mg/kg, **about 3096 mg/kg as acetic acid** | CO2 0.434 wt % = 4336 mg/kg, about 5917 mg/kg as acetic acid | IMPCA: acidity as acetic acid at most 30 mg/kg, ASTM D 1613 (PDF p.2, test 14) | **fails on both**, about 100 times the limit. Computed: the CO2 mass fractions and their conversion, mg/kg × 60.05 / 44.01. Lab's reading, not checked in the ASTM text: that ASTM D 1613's titration with alkali counts dissolved CO2 as one acid equivalent per mole. Either way, the liquid off the 53 C condenser must lose its dissolved CO2 (degassing or stripping, outside the paper's flowsheet) before it could meet IMPCA; the case does not model that |
+| 31-MEOH water | 0.066 wt % | 0.009 wt % | IMPCA: at most 0.100 % W/W (PDF p.2, test 6) | accepted |
 | 30-WATER flow | 4581.0 kmol/h (fixed) | 4581 kmol/h | | flows match |
 | 30-WATER methanol | 7.5 mg/kg | 267 mg/kg | the paper sends the process water to total-organic-carbon abatement, priced at 1938 EUR per t C (article Table 2, p.12, ref. 63) | accepted: the same treatment, with less organic carbon |
 
@@ -153,9 +154,10 @@ Xia 9d248558...0b0561, Bezanehtak f0637187...bc3f92, Xie 0525ee29...59ec22; down
 Reading. The paper's liquid holds more CO2 than its own feed and gas: K below 1, although CO2's partial pressure
 (1.23 MPa) is far below its vapour pressure at 30 C (about 7.2 MPa) and the gas is 73 % H2. Even under 7 MPa of nearly pure CO2, the 1:1 solvent holds 10.8 %; pure methanol under
 H2-rich gas holds at most 11.5 % at 4-7 MPa. At the separator's CO2 partial pressure the measured 1:1 value is about
-2 % (1.8-2.1 % at 313.75 K). Brought to the separator's 303.15 K with Xia's own 354.35 K points (derived by Lab and,
-independently, by the reviewer: mean x/P of the 1:1 points up to 3.6 MPa, 0.01462 per MPa at 313.75 K and 0.00802 at
-354.35 K, ln(x/P) taken as linear in 1/T): about **0.0215 at 1226 kPa and 0.025 at 1420 kPa**. PR + MHV1's 2.35 % at its
+2 % (1.8-2.1 % at 313.75 K). Brought to the separator's 303.15 K with Xia's own 354.35 K points (derived by Lab:
+mean x/P of the 1:1 points up to 3.6 MPa, 0.01462 per MPa at 313.75 K and 0.00802 at 354.35 K, ln(x/P) taken as linear
+in 1/T): about **0.0215 at 1226 kPa and 0.025 at 1420 kPa**. The AI reviewer's own estimate, from other points, gives
+about 0.021 and 0.024. PR + MHV1's 2.35 % at its
 own 1420 kPa is consistent with that; PR's 3.37 % (unit run) is high; the paper's 18.5 % is about nine times the
 measured basis. Limits: the data sets used have no H2 or N2 in the gas (Xia; the Xie binary set; Xie's H2 sets are
 CO2-rich liquids at 8.8-21.8 MPa, far from the separator); the interpolation is linear in total pressure, which includes
