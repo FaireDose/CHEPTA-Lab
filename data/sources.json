@@ -302,7 +302,7 @@
         "Section 6.2, pp. 13-15 (Table 8, Fig. 16, Table 9): reactive-distillation process with decanter",
         "Sections 7-9, pp. 16-18 (Tables 10-12): utilities, CO2, economics, conclusions"
       ],
-      "use": "Replacement for process 4 (cumene hydroperoxide) as a complete plant: n-butyl acetate, conventional process (docs/NEXT_PLANTS.md). Not transcribed yet. Design and simulation rules in dataset/records/al-rabiah-2022.json (2026-11-20).",
+      "use": "Replacement for process 4 (cumene hydroperoxide) as a complete plant: n-butyl acetate, conventional process (docs/NEXT_PLANTS.md). Case cases/butyl-acetate-al-rabiah-2022: Table 7 and Figure 11 transcribed and the balances audited, rule A checked against chepta 0.6.3, 2026-11-27; no CHEPTA plant run yet. Design and simulation rules in dataset/records/al-rabiah-2022.json (2026-11-20).",
       "limitations": [
         "Columns T-101 and T-103 of the conventional process have no stages or reflux printed (only T-102: 29 stages).",
         "Three binary pairs are only predicted in CHEPTA 0.6.2 (butanol + acetic acid, acetic acid + 1,4-butanediol, butyl acetate + 1,4-butanediol).",
@@ -310,10 +310,12 @@
         "Table 4 stream labels disagree with the text (stream 1 called butanol in the text, 101 kmol/h acid in the table); stream 6 printed at 3.2 kPa.",
         "Membrane-reactor pressure printed as 280 kPa (text), 284 kPa (Table 3) and 223 kPa (Table 5).",
         "Read by an AI session for rules of thumb only; rows are Lab's paraphrases, not reviewed by a person.",
-        "Supplied by the maintainer on 2026-11-20 in the ignored raw_papers/maintainer-upload-2026-11-20/ folder; read with pdftotext; not redistributed."
+        "Supplied by the maintainer on 2026-11-20 in the ignored raw_papers/maintainer-upload-2026-11-20/ folder; read with pdftotext; not redistributed.",
+        "Audit (2026-11-27): every material balance of Table 7 closes within rounding; energy does not: stream 3's enthalpy and temperature are those of the fresh feeds alone, stream 9's those of the uncooled solvent (13), and the enthalpies of streams 1 and 2 differ from CHEPTA's formation-based reference by -192 and -142 kJ/mol (cases/butyl-acetate-al-rabiah-2022/STREAM_AUDIT.md).",
+        "Second copy fetched 2026-11-27 from open_copy_url (raw_papers/al-rabiah-2022-dl/, ignored): sha256 9e9ccb94d58868a8165e95e1004ab82c63eccf2dafbf2c53c9cd7fb110167e33, differs from pdf_sha256 (the maintainer's copy); same 20 pages and table text as read."
       ],
-      "next_action": "Third plant: transcribe Table 7 and the Figure of the conventional process, audit the balances.",
-      "checked_on": "2026-11-20",
+      "next_action": "Maintainer reads cases/butyl-acetate-al-rabiah-2022/DATASET_TABLE.md; then the first CHEPTA run task (units, sections, plant) under docs/SIMULATION_PRACTICES.md.",
+      "checked_on": "2026-11-27",
       "pdf_sha256": "19fc1c76a14b865217b3a5c6a2e99a93539e5f0c47205d863c649ed576b4fe5e"
     },
     {
@@ -1177,6 +1179,28 @@
       "next_action": "Rights review before any number enters a release.",
       "checked_on": "2026-11-27",
       "pdf_sha256": "c0c39f9cde475c0b536e03053b0c9f2b4e0964b41a162a661807edb09718a170"
+    },
+    {
+      "id": "eastman-butyl-acetate-salespec-56-12",
+      "kind": "standard",
+      "title": "Eastman Butyl Acetate, Sales Specification No. 56-12 (effective 05/07/2008)",
+      "authors": "Eastman Chemical Company",
+      "year": 2008,
+      "url": "https://www.eastman.com/supplemental/salespecs/71001046.pdf",
+      "open_copy_url": "https://salespec.eastman.com/supplemental/salespecs/71001046.pdf",
+      "access_verified": "full_text",
+      "license": "not stated in the document; supplier sales specification, freely downloadable; carries a disclaimer of responsibility and warranty",
+      "rights_status": "needs_review",
+      "locators": [
+        "p.1, single table: n-Butyl Acetate, % 99.50 MIN; Acid as Acetic, % 0.0100 MAX; Water, % 0.0500 MAX; iBuOH + BuOH, % 0.25 MAX; Visual Color 5 MAX; Non-volatile Matter 0.005 g/100mL MAX; Specific Gravity @ 20/20 C 0.882-0.884"
+      ],
+      "use": "Rule D acceptance check of the butyl acetate product of cases/butyl-acetate-al-rabiah-2022 (DATASET_TABLE.md). The percentages are taken as mass % (Lab's reading; the basis is not printed).",
+      "limitations": [
+        "One supplier's specification of 2008, not a standard; the coatings-solvent standard ASTM D4615 (all grades) was not read (paywalled). The test methods are Eastman's own codes.",
+        "Fetched 2026-11-27 (sha256 c10ec3564c1c7bfa0c45085ea0fa6e4d87796441c71968aeaa10c33e5f4ea9a8) into raw_papers/eastman-butyl-acetate-spec-dl/ (ignored); not redistributed."
+      ],
+      "next_action": "Rights review before any number is released; the maintainer may prefer ASTM D4615 or a food-grade (JECFA no. 127) specification.",
+      "checked_on": "2026-11-27"
     }
   ]
 }

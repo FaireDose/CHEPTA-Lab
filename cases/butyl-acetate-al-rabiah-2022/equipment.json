@@ -1,0 +1,374 @@
+{
+ "source_id": "al-rabiah-2022",
+ "source_doi": "10.3390/pr10091801",
+ "paper_pdf_sha256": "9e9ccb94d58868a8165e95e1004ab82c63eccf2dafbf2c53c9cd7fb110167e33",
+ "classification": "source_reported_simulation (Aspen Plus) and author process description",
+ "general_assumptions": [
+  {
+   "name": "property method",
+   "value": "NRTL",
+   "unit": null,
+   "as_printed": "the non-random two-liquid (NRTL) equation of state has been selected to determine the vapor-liquid-liquid equilibrium (VLLE) [23]. The NRTL model included in Aspen Plus was used",
+   "locator": "Section 2, p.2",
+   "class": "published"
+  },
+  {
+   "name": "simulator",
+   "value": "Aspen Plus, RPlug kinetic reactor",
+   "unit": null,
+   "as_printed": "The fixed-bed reactor process was simulated using the kinetic reactor (RPlug) of Aspen Plus",
+   "locator": "p.11",
+   "class": "published"
+  },
+  {
+   "name": "capacity",
+   "value": 92500,
+   "unit": "t/yr butyl acetate",
+   "as_printed": "92,500 metric tons of butyl acetate annually",
+   "locator": "p.11; abstract p.1",
+   "class": "published"
+  },
+  {
+   "name": "input data sets",
+   "value": "from Shen et al. [20] and ref. [23]",
+   "unit": null,
+   "as_printed": "The input data sets for each process were obtained from the literature [20,23]",
+   "locator": "Section 6, p.10",
+   "class": "published"
+  },
+  {
+   "name": "same purity for all routes",
+   "value": "equal annual plant capacity and the same product purity",
+   "unit": null,
+   "as_printed": "All alternative processes were developed for equal annual plant capacity and the same product purity",
+   "locator": "Section 6, p.10",
+   "class": "published"
+  },
+  {
+   "name": "reaction enthalpy",
+   "value": -29.312,
+   "unit": "kJ/mol",
+   "as_printed": "∆H = −29.312 kJ/mol",
+   "locator": "Eq. 1, p.2",
+   "class": "published"
+  },
+  {
+   "name": "azeotrope water + n-butanol (Aspen, 101.3 kPa)",
+   "value": "23.5 % butanol, 76.5 % water, 91.6 C (364.7 K)",
+   "unit": null,
+   "as_printed": "An azeotrope point is formed at 23.5% butanol and 76.5% water at a temperature of 91.6 °C (364.7 K)",
+   "locator": "Section 2, p.3 (Figure 2); basis (mole or mass) not stated",
+   "class": "published"
+  },
+  {
+   "name": "utilities",
+   "value": "cooling water 293 K, LP steam 398 K, MP steam 448 K",
+   "unit": null,
+   "as_printed": "cooling water at 293 K, low-pressure steam at 398 K, and medium-pressure steam at 448 K",
+   "locator": "Section 7.1, p.16",
+   "class": "published"
+  },
+  {
+   "name": "conventional utilities",
+   "value": "steam (mps) 218,729; cooling water 215,504",
+   "unit": "MWh/yr",
+   "as_printed": "Table 10",
+   "locator": "Table 10, p.16",
+   "class": "published"
+  },
+  {
+   "name": "MR heat duty (for the operating-hours check)",
+   "value": 5208,
+   "unit": "kW",
+   "as_printed": "The heat duty for the MR and RD processes is 5208 kW and 3298 kW",
+   "locator": "p.16",
+   "class": "published"
+  },
+  {
+   "name": "MR steam (for the operating-hours check)",
+   "value": 41668,
+   "unit": "MWh/yr",
+   "as_printed": "Table 10",
+   "locator": "Table 10, p.16",
+   "class": "published"
+  }
+ ],
+ "kinetics": {
+  "equation": "r = kF*C_AA*C_BuOH - kB*C_BuAc*C_H2O (Eq. 13)",
+  "kF": "exp(11.472 - 6986.3/T) (Eq. 14)",
+  "kB": "exp(12.482 - 7937.7/T) (Eq. 15)",
+  "T_unit": "K",
+  "catalyst": "Amberlyst-15",
+  "cited": "ref. [1] of the paper",
+  "locator": "Section 6.1, Eqs. 13-15, p.10",
+  "units_not_printed": "units of r, kF, kB and the concentration basis are not printed; the catalyst mass or bed density is not printed",
+  "text_slip": "p.11 refers to 'Equations (17)-(19)', which do not exist (the paper has 15 numbered equations)"
+ },
+ "connections_note": "Connections read from Figure 11 by the AI session that built this case (2026-11-27); not checked by a person.",
+ "blocks": [
+  {
+   "id": "V-101",
+   "type_as_drawn": "mixing vessel",
+   "in": [
+    "1",
+    "2",
+    "12"
+   ],
+   "out": [
+    "3"
+   ],
+   "settings": [],
+   "locator": "Figure 11; text p.11"
+  },
+  {
+   "id": "P-101",
+   "type_as_drawn": "pump",
+   "in": [
+    "3"
+   ],
+   "out": [
+    "(reactor feed, not in Table 7)"
+   ],
+   "settings": [],
+   "locator": "Figure 11; text p.11"
+  },
+  {
+   "id": "R-101",
+   "type_as_drawn": "fixed-bed reactor (RPlug)",
+   "in": [
+    "(P-101 outlet)"
+   ],
+   "out": [
+    "(reactor outlet, not in Table 7)"
+   ],
+   "settings": [
+    {
+     "name": "BuOH-to-AA feed ratio",
+     "value": "1:1",
+     "unit": null,
+     "as_printed": "1:1",
+     "locator": "Table 6, p.12",
+     "class": "published"
+    },
+    {
+     "name": "temperature",
+     "value": 363,
+     "unit": "K",
+     "as_printed": "363 K",
+     "locator": "Table 6, p.12",
+     "class": "published"
+    },
+    {
+     "name": "feed pressure",
+     "value": 284,
+     "unit": "kPa",
+     "as_printed": "284 kPa",
+     "locator": "Table 6, p.12",
+     "class": "published"
+    },
+    {
+     "name": "volume",
+     "value": 41,
+     "unit": "m3",
+     "as_printed": "41 m3",
+     "locator": "Table 6, p.12",
+     "class": "published"
+    },
+    {
+     "name": "catalyst",
+     "value": "Amberlyst-15",
+     "unit": null,
+     "as_printed": "Amberlyst-15",
+     "locator": "Table 6, p.12",
+     "class": "published"
+    },
+    {
+     "name": "conversion of n-butanol",
+     "value": 69.8,
+     "unit": "%",
+     "as_printed": "up to 69.8% for a length of ~2.5 m",
+     "locator": "p.11 (Figure 14)",
+     "class": "published"
+    },
+    {
+     "name": "maximum conversion",
+     "value": "~70",
+     "unit": "%",
+     "as_printed": "the maximum n-butanol conversion that could be achieved is ~70%",
+     "locator": "p.11",
+     "class": "published"
+    }
+   ],
+   "locator": "Figure 11; Table 6; text p.11",
+   "note": "Isothermal (Section 6, p.10). Length ~2.5 m for 69.8 % (p.11) but Figures 12 and 14 run to 14 m; diameter not printed (41 m3 and 2.5 m would need about 4.6 m diameter, derived)."
+  },
+  {
+   "id": "P-102 (reactor outlet)",
+   "type_as_drawn": "pump",
+   "in": [
+    "(reactor outlet)"
+   ],
+   "out": [
+    "4"
+   ],
+   "settings": [
+    {
+     "name": "outlet pressure",
+     "value": 304,
+     "unit": "kPa",
+     "as_printed": "pumped with a pressure of 304 kPa using P-102",
+     "locator": "p.11",
+     "class": "published"
+    }
+   ],
+   "locator": "Figure 11; text p.11"
+  },
+  {
+   "id": "T-101",
+   "type_as_drawn": "distillation column",
+   "in": [
+    "4"
+   ],
+   "out": [
+    "5",
+    "6"
+   ],
+   "settings": [],
+   "locator": "Figure 11; text pp.11-12",
+   "note": "Stages, feed stage, reflux and condenser type not printed. Table 7 prints the distillate 5 as vapour (vapour fraction 1) at 284 kPa although Figure 11 draws a reflux drum and pump; top 284 kPa and bottoms 324 kPa read from streams 5 and 6."
+  },
+  {
+   "id": "valve (5)",
+   "type_as_drawn": "valve",
+   "in": [
+    "5"
+   ],
+   "out": [
+    "(T-102 feed)"
+   ],
+   "settings": [],
+   "locator": "Figure 11 (p.11)"
+  },
+  {
+   "id": "valve (6)",
+   "type_as_drawn": "valve",
+   "in": [
+    "6"
+   ],
+   "out": [
+    "(E-101 inlet)"
+   ],
+   "settings": [],
+   "locator": "Figure 11 (p.11)"
+  },
+  {
+   "id": "E-101",
+   "type_as_drawn": "cooler",
+   "in": [
+    "(valve outlet)"
+   ],
+   "out": [
+    "7"
+   ],
+   "settings": [],
+   "locator": "Figure 11; text p.12"
+  },
+  {
+   "id": "M-101",
+   "type_as_drawn": "mixer",
+   "in": [
+    "8",
+    "14"
+   ],
+   "out": [
+    "9"
+   ],
+   "settings": [],
+   "locator": "Figure 11 (p.11)"
+  },
+  {
+   "id": "T-102",
+   "type_as_drawn": "extractive distillation column",
+   "in": [
+    "9",
+    "(stream 5 after the valve)"
+   ],
+   "out": [
+    "10",
+    "11"
+   ],
+   "settings": [
+    {
+     "name": "stages",
+     "value": 29,
+     "unit": null,
+     "as_printed": "which consists of 29 stages",
+     "locator": "p.12 (Figure 15)",
+     "class": "published"
+    }
+   ],
+   "locator": "Figure 11; text p.12; Figure 15",
+   "note": "Solvent 9 enters at the top (Figure 11, text p.12). Feed stage of stream 5 not printed; Figure 15 shows butanol and acid appear from about stage 13-14 (read from the figure, approximate). Reflux and condenser type not printed."
+  },
+  {
+   "id": "valve (11)",
+   "type_as_drawn": "valve",
+   "in": [
+    "11"
+   ],
+   "out": [
+    "(T-103 feed)"
+   ],
+   "settings": [],
+   "locator": "Figure 11 (p.11)"
+  },
+  {
+   "id": "T-103",
+   "type_as_drawn": "solvent recovery column",
+   "in": [
+    "(stream 11 after the valve)"
+   ],
+   "out": [
+    "12",
+    "13"
+   ],
+   "settings": [],
+   "locator": "Figure 11; text p.12",
+   "note": "Stages, feed stage, reflux not printed."
+  },
+  {
+   "id": "E-102",
+   "type_as_drawn": "cooler",
+   "in": [
+    "13"
+   ],
+   "out": [
+    "14"
+   ],
+   "settings": [],
+   "locator": "Figure 11"
+  },
+  {
+   "id": "P-102 (recycle)",
+   "type_as_drawn": "pump",
+   "in": [
+    "(T-103 distillate)"
+   ],
+   "out": [
+    "12"
+   ],
+   "settings": [],
+   "locator": "Figure 11",
+   "note": "Same label as the reactor-outlet pump (two pumps named P-102 on Figure 11)."
+  }
+ ],
+ "products": [
+  "7 (butyl acetate)",
+  "10 (wastewater to treatment, text p.12)"
+ ],
+ "feeds": [
+  "1",
+  "2",
+  "8"
+ ]
+}
