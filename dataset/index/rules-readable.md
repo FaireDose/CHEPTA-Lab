@@ -21,6 +21,7 @@ Agents use [problems.md](problems.md) and `python scripts/kb.py query` instead; 
 
 | Case | Lessons | Rows in the run log |
 |---|---|---|
+| [butyl-acetate-al-rabiah-2022](plants/butyl-acetate-al-rabiah-2022.md) | - | 10 |
 | [ethyl-acetate-piotrowski-2021](plants/ethyl-acetate-piotrowski-2021.md) | 16 | 64 |
 | [ethylene-glycol-shehata-2024](plants/ethylene-glycol-shehata-2024.md) | - | 13 |
 | [methanol-co2-campos-2022](plants/methanol-co2-campos-2022.md) | 14 | 49 |

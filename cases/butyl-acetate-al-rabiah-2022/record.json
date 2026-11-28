@@ -1,0 +1,256 @@
+{
+ "id": "butyl-acetate-al-rabiah-2022",
+ "status": "dataset_table_draft",
+ "training_eligible": false,
+ "source_ids": [
+  "al-rabiah-2022"
+ ],
+ "related_source_ids": [
+  "eastman-butyl-acetate-salespec-56-12"
+ ],
+ "variant": "Conventional process only (Figure 11, Tables 6-7): fixed-bed reactor, ester column, extractive distillation with 1,4-butanediol, solvent recovery. The paper's membrane-reactor (Figure 8, Tables 3-5) and reactive-distillation (Figure 16, Tables 8-9) routes are outside this case.",
+ "classification_of_paper_numbers": "published_simulation (Aspen Plus, NRTL; RPlug kinetic reactor)",
+ "split_group": "butyl-acetate",
+ "split_note": "Keep this case, the knowledge-base rows of al-rabiah-2022 (same paper) and of orjuela-2006-butyl-acetate-rcm, and any later butyl acetate plant in one group.",
+ "why_no_study_record_yet": "This task makes no CHEPTA plant run (dataset table stage, rule A). This file holds the pre-run part: boundary, components, method, fixed inputs, comparisons declared before runs, missing inputs and the run plan. The first run task turns it into study-record.json.",
+ "boundary": {
+  "included": [
+   "V-101",
+   "P-101",
+   "R-101",
+   "P-102 (reactor outlet)",
+   "T-101",
+   "valve (5)",
+   "valve (6)",
+   "E-101",
+   "M-101",
+   "T-102",
+   "valve (11)",
+   "T-103",
+   "E-102",
+   "P-102 (recycle)"
+  ],
+  "omitted": [
+   "utilities (steam, cooling water) beyond the duties",
+   "wastewater treatment",
+   "storage"
+  ],
+  "feeds": [
+   "1 (acetic acid)",
+   "2 (n-butanol)",
+   "8 (solvent make-up)"
+  ],
+  "products": [
+   "7 (butyl acetate)",
+   "10 (wastewater)"
+  ],
+  "basis": "molar flows in kmol/h, T in K, P in kPa, enthalpy in kW as printed (Table 7); 8000 h/yr is derived (STREAM_AUDIT.md), not printed"
+ },
+ "components": [
+  {
+   "paper": "n-Butanol",
+   "chepta": "1-butanol",
+   "status": "present",
+   "range_notes": "vapour pressure fitted 278.15-563.05 K (ThermoML); liquid heat capacity 184.51-390.81 K (used to 462.6 K in streams 11 and the T-102/T-103 stages: above it CHEPTA follows the ideal-gas path minus the heat of vaporization, with a warning); heat of vaporization 184.51-563 K"
+  },
+  {
+   "paper": "Acetic acid",
+   "chepta": "acetic-acid",
+   "status": "present, with vapour dimerization (chemical theory, Marek & Standart)",
+   "range_notes": "vapour pressure 290-523.15 K; liquid heat capacity 289.69-400 K (used to 462.6 K: warning); heat of vaporization 289.81-591.95 K"
+  },
+  {
+   "paper": "Butyl-acetate",
+   "chepta": "n-butyl-acetate",
+   "status": "present",
+   "range_notes": "vapour pressure 199.65-550.04 K; liquid heat capacity 202.7-461.7 K (stream 6 at 444.9 K inside)"
+  },
+  {
+   "paper": "Water",
+   "chepta": "water",
+   "status": "present (IAPWS-95 based fits)",
+   "range_notes": "all records cover 273-523 K or wider"
+  },
+  {
+   "paper": "Solvent (1,4-butanediol)",
+   "chepta": "bdo",
+   "status": "present (ChemSep constants; liquid heat capacity fitted to measured data)",
+   "range_notes": "vapour pressure 293.05-667 K; liquid heat capacity 283.15-353.15 K only (used to 512.2 K in streams 9, 11, 13: the largest extrapolation of the plant; warning, ideal-gas path above 353 K); heat of vaporization 293.05-666.33 K"
+  }
+ ],
+ "rule_A": {
+  "verdict": "complete: every component is a chepta 0.6.3 component with every record the plant needs; 3 of 10 NRTL pairs are missing and will be estimated (Modified UNIFAC 2.0), which rule A allows with CHEPTA's warning recorded; one databank pair (NRTL bdo + water) is flagged by CHEPTA itself as a probably wrong split below 323.15 K, to check at the column temperatures (run plan step 0). The plant can start once the maintainer accepts this list.",
+  "plant_range": "298.2-512.2 K, 111-324 kPa (Table 7)",
+  "evidence": "results-chepta-0.6.3/component-info/ (component_info of the 5 components, chepta 0.6.3, 2026-11-27) and the package's data files",
+  "handover": "CHEPTA_COMPONENT_REQUEST.md"
+ },
+ "property_method": {
+  "plan": "NRTL, vapour 'ideal' (acetic acid dimer by CHEPTA's chemical theory, automatic) for the whole plant; set 'fitted-lladosa2008' for 1-butanol + water; other pairs CHEPTA's defaults; the 3 missing pairs estimated. Variant: UNIQUAC for the whole plant. A column-level method (CHEPTA's column 'method') for T-102 and T-103 only if step 0 shows the NRTL bdo + water set splitting at their temperatures; recorded with its reason.",
+  "paper": "NRTL of Aspen Plus, for vapour-liquid-liquid equilibrium (Section 2, p.2); its parameters and vapour model are not printed",
+  "reason": "Five polar, partly associating components; butanol + water and ester + water form two liquids, so Wilson is out; NRTL and UNIQUAC have the same pair coverage in chepta 0.6.3 (4 fitted, 3 databank, 3 missing). NRTL is kept because it is the authors' method and because only NRTL has a set fitted to butanol-water two-liquid data (fitted-lladosa2008). Rule E: one method across the plant, since the T-101 overhead, the T-102 and the reactor recycle share the same pairs.",
+  "pairs_chepta_0.6.3": {
+   "acetic-acid + water": "NRTL fitted (Chang et al. 2005, 18 T-x-y points at 101.33 kPa; default set fitted-chang2005); UNIQUAC and Wilson fitted too",
+   "acetic-acid + n-butyl-acetate": "NRTL, UNIQUAC, Wilson fitted (Lladosa et al. 2008, 19 T-x-y points at 101.3 kPa)",
+   "1-butanol + n-butyl-acetate": "NRTL, UNIQUAC, Wilson fitted (Lladosa et al. 2008, 19 T-x-y points at 101.3 kPa)",
+   "1-butanol + bdo": "NRTL, UNIQUAC, Wilson fitted (Yang et al. 2016, 12 bubble temperatures at 70.0 kPa)",
+   "1-butanol + water": "NRTL default set 'chemsep' (databank; predicts two liquids, butanol-rich side 0.379-0.41 mole fraction at 273-373 K) and set 'fitted-lladosa2008' (fitted to bubble temperatures, the binary VLL point and the azeotrope; CHEPTA known-issues: AAD 1.64 K, 'use with care'); UNIQUAC and Wilson databank",
+   "n-butyl-acetate + water": "NRTL, UNIQUAC, Wilson databank (ChemSep); CHEPTA known-issues: the split is not fitted to the 8 measured articles, 'may be misplaced'",
+   "bdo + water": "NRTL, UNIQUAC, Wilson databank (ChemSep); CHEPTA known-issues: the NRTL set predicts two liquids at 273.15-323.15 K where the pair is measured as one liquid ('the split is probably wrong; choose another set or another model'); two-liquids.json classes the pair 'miscible'",
+   "acetic-acid + 1-butanol": "none: estimated from Modified UNIFAC 2.0 (CHEPTA warning)",
+   "acetic-acid + bdo": "none: estimated from Modified UNIFAC 2.0",
+   "n-butyl-acetate + bdo": "none: estimated from Modified UNIFAC 2.0",
+   "source": "chepta 0.6.3 npm package (integrity as in package-lock.json), src/data/binaries.json, two-liquids.json, known-issues.json, read 2026-11-27 without running a flowsheet"
+  }
+ },
+ "fixed_inputs": [
+  {
+   "what": "fresh feeds",
+   "value": "1: acetic acid 100.9 kmol/h; 2: n-butanol 100.1 kmol/h; both 298.2 K, 111 kPa, liquid",
+   "locator": "Table 7"
+  },
+  {
+   "what": "reactor",
+   "value": "isothermal 363 K; feed 284 kPa (Table 6) or 304 kPa (pump P-102 outlet, p.11) to be decided; extent 99.9 kmol/h (derived, Table 7 streams 3-4) in the base case",
+   "locator": "Table 6; p.11; Table 7"
+  },
+  {
+   "what": "pressures",
+   "value": "T-101 284 (top) / 324 kPa (bottoms); T-102 111 / 142 kPa; T-103 132 / 142 kPa (from the outlet streams); E-101 to 132 kPa, 308.2 K; E-102 to 132 kPa, 303.2 K",
+   "locator": "Table 7"
+  },
+  {
+   "what": "T-102 stages",
+   "value": "29, solvent at the top",
+   "locator": "p.12; Figure 11; Figure 15"
+  }
+ ],
+ "adjustable_settings": [
+  "T-101: stages (start 42, feed 21: the membrane route's T-101, Table 5, an assumption), reflux, condenser (vapour distillate as printed)",
+  "T-102: feed stage (start 13-14, Figure 15), reflux, solvent flow (scan around 440 kmol/h), solvent temperature (E-102 outlet 303.2 K as drawn)",
+  "T-103: stages, feed stage, reflux (none printed); pressure (lower as a variant, for the 512 K bottoms)",
+  "reactor pressure 284 or 304 kPa (must stay liquid)"
+ ],
+ "missing_inputs": [
+  "stages, feed stage, reflux and condenser type of T-101 and T-103; reflux of T-102",
+  "units and concentration basis of the rate law (Eqs. 13-15); catalyst loading; bed diameter",
+  "duties of every unit (none printed except Table 10's yearly totals)",
+  "consistent enthalpies of streams 1, 2, 3 and 9 (STREAM_AUDIT.md)",
+  "operating hours (8000 h/yr derived)"
+ ],
+ "constraint_declaration": {
+  "timing": "before_runs",
+  "declared_on": "2026-11-27",
+  "basis": "Lab's proposed comparison criteria, for the maintainer to approve with the dataset table; tolerances chosen from the printed digits (0.1 kmol/h) and the use of each result, not from measurement uncertainty (the reference is another simulator)."
+ },
+ "comparisons_declared": [
+  {
+   "item": "product purity (stream 7)",
+   "paper": 0.9891,
+   "unit": "mole fraction butyl acetate (derived from Table 7)",
+   "tolerance": "absolute 0.002",
+   "origin": "Table 7"
+  },
+  {
+   "item": "product ester flow (stream 7)",
+   "paper": 99.9,
+   "unit": "kmol/h",
+   "tolerance": "1 %",
+   "origin": "Table 7"
+  },
+  {
+   "item": "acid in product",
+   "paper": "1.0 kmol/h (0.52 wt %, derived)",
+   "unit": "kmol/h",
+   "tolerance": "reported; it follows the fresh acid excess; also reported against 0.0100 % max (Eastman 56-12), not a pass criterion for the reproduction",
+   "origin": "Table 7; Eastman 56-12"
+  },
+  {
+   "item": "T-101 distillate (stream 5) component flows",
+   "paper": "butanol 43.1, acid 41.8, ester 0.9, water 99.9",
+   "unit": "kmol/h",
+   "tolerance": "2 % or 0.5 kmol/h, whichever is larger",
+   "origin": "Table 7"
+  },
+  {
+   "item": "wastewater (stream 10)",
+   "paper": "water 99.9, butanol 0.1, solvent 0.4",
+   "unit": "kmol/h",
+   "tolerance": "water purity absolute 0.003 mole fraction; butanol and solvent at most 0.5 kmol/h each",
+   "origin": "Table 7"
+  },
+  {
+   "item": "reactant recycle (stream 12)",
+   "paper": 85.7,
+   "unit": "kmol/h",
+   "tolerance": "5 %; solvent in it at most 0.5 kmol/h (printed 0.0)",
+   "origin": "Table 7; Figure 11"
+  },
+  {
+   "item": "solvent recycle (stream 14) and make-up (stream 8)",
+   "paper": "439.9; 0.4 (0.375 on Figure 11)",
+   "unit": "kmol/h",
+   "tolerance": "circulation imposed if fixed (then not compared); make-up within 0.2 kmol/h",
+   "origin": "Table 7"
+  },
+  {
+   "item": "column bottoms temperatures (6, 11, 13)",
+   "paper": "444.9, 462.6, 512.2",
+   "unit": "K",
+   "tolerance": "5 K; also reported against MP steam 448 K",
+   "origin": "Table 7; p.16"
+  },
+  {
+   "item": "T-101 distillate phase",
+   "paper": "vapour fraction 1 at 411.1 K, 284 kPa",
+   "unit": "-",
+   "tolerance": "reported",
+   "origin": "Table 7"
+  },
+  {
+   "item": "E-101 and E-102 duties",
+   "paper": "-998 and -6143 (derived from Table 7 enthalpies)",
+   "unit": "kW",
+   "tolerance": "10 %",
+   "origin": "STREAM_AUDIT.md"
+  },
+  {
+   "item": "column net duties (T-101, T-102, T-103)",
+   "paper": "+2692, -3246, +1245 (derived)",
+   "unit": "kW",
+   "tolerance": "reported only (individual reboiler and condenser duties not printed)",
+   "origin": "STREAM_AUDIT.md"
+  },
+  {
+   "item": "plant mass balance and rule G",
+   "paper": "13510 kg/h in and out",
+   "unit": "kg/h",
+   "tolerance": "closure within 0.1 kg/h; every stream within a factor 2 of Table 7 or explained",
+   "origin": "Table 7"
+  }
+ ],
+ "imposed_not_compared": [
+  "reactor outlet (stream 4) in the base case: imposed through the extent",
+  "pressures, T-102 stages",
+  "solvent circulation if fixed"
+ ],
+ "run_plan": [
+  "0. Property checks, no plant (rule A follow-up): list each pair's tier under NRTL with the chosen sets; does the NRTL bdo + water set split between 300 and 470 K (T-102 and T-103 range)? the butanol-water azeotrope at 101.3 kPa against 91.6 C / 23.5 % (p.3); the butanol-ester azeotrope at 101.3 and 304 kPa (p.7); does the T-101 distillate (stream 5), condensed, split into two liquids with 41.8 kmol/h acid present (decides whether a decanter is a real alternative); bubble pressure of stream 3 at 363 K below 284 kPa; record the heat-capacity extrapolation warnings (bdo above 353.15 K).",
+  "1. Start point: the reactor inlet, with stream 3 built from the fresh feeds plus the paper's recycle 12 as a fixed feed (rule B.1). Reason: the reactor is imposed in the base case, so starting there gives every downstream unit the paper's flows; the alternative start (stream 4 as a feed to T-101) is tested only if the reactor step fails.",
+  "2. Units in order, each run and balanced before the next: V-101 + P-101 + R-101 (conversion reactor, isothermal 363 K; duty reported) + P-102; T-101 (purity-specified bottoms, vapour distillate); valve + E-101; valve on 5; M-101 with the solvent from the paper's stream 14; T-102; valve; T-103; E-102.",
+  "3. Recycle closures (rule B.4): the solvent loop first, when the build reaches E-102 (tear 14; T-102 + T-103 + E-102 + M-101; circulation fixed, make-up equal to the loss); then the reactant loop (tear 12 to V-101), fresh feeds fixed. Broyden first; per-component tear check; tighten from the saved answer.",
+  "4. Whole plant: compare against comparisons_declared; rule G on every stream; rule H timing (run.timing) per run, slow runs flagged.",
+  "5. Variants: kinetic plug flow reactor with Eqs. 13-15 (basis stated); UNIQUAC for the whole plant; T-103 at lower pressure (bottoms temperature against 448 K steam); hot solvent (E-102 bypassed, as stream 9 was printed).",
+  "6. Every adjustment in the adjustment table (README); a capability request only when no setting near the paper's works (rule F judgement included)."
+ ],
+ "adjustment_table": [],
+ "kb_decision_rows": "dataset/records/butyl-acetate-al-rabiah-2022.json (4 paper rows, 6 plan rows)",
+ "register_rows": [
+  "rxn-butanol-esterification-fixed-bed",
+  "sep-ester-from-close-boiling-acid-alcohol",
+  "sep-alcohol-water-azeotrope-heavy-solvent",
+  "plant-solvent-recycle-hot-bottoms"
+ ],
+ "human_review": "pending",
+ "rights_review": "pending",
+ "written": "2026-11-27 by a CHEPTA-Lab worker session (Claude); not reviewed by a person; no AI review session yet"
+}
